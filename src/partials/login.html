@@ -1,0 +1,27 @@
+<ee-navbar></ee-navbar>
+
+<div class="office-background">
+  <span class="inline-block full-width vert-50"></span>
+
+  <div class="well max-width-600 margin-0-auto">
+    <h1 class="margin-0">
+      Sign in
+    </h1>
+    <form ng-submit="authWithPassword()" class="vert-20">
+      <input type="email"
+             ng-model="email"
+             name="email"
+             placeholder="Email address"
+             class="form-control vert-5"
+             required
+             autofocus>
+      <input type="password"
+             ng-model="password"
+             placeholder="Password"
+             class="form-control vert-5"
+             required>
+      <button class="btn btn-lg btn-primary btn-block"
+              type="submit">Sign in</button>
+    </form>
+  </div>
+</div>

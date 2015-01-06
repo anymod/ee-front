@@ -1,0 +1,39 @@
+<h5 class="vert-2">Main images</h5>
+<ul class="pagination pagination-sm margin-0">
+  <li class="disabled"><a href>1</a></li>
+  <li><a href><i class="fa fa-plus"></i></a></li>
+</ul>
+<a href class="btn btn-default btn-sm pull-right"><i class="fa fa-minus"></i></a>
+<img src="http://cdn.shopify.com/s/files/1/0269/1895/t/2/assets/slideshow_1.jpg?5046" class="img-responsive">
+<input type="text" class="form-control input-sm" placeholder="Headline" ng-model="eeUser.storefront.home.carousel.1.headline">
+<input type="text" class="form-control input-sm" placeholder="Byline" ng-model="eeUser.storefront.home.carousel.1.byline">
+<input type="text" class="form-control input-sm" placeholder="Button Text" ng-model="eeUser.storefront.home.carousel.1.btnText">
+<div class="btn-group btn-group-justified">
+  <div class="btn btn-default btn-sm" ng-model="eeUser.storefront.home.carousel.1.btnPosition" btn-radio="'left'">Left</div>
+  <div class="btn btn-default btn-sm" ng-model="eeUser.storefront.home.carousel.1.btnPosition" btn-radio="'middle'">Middle</div>
+  <div class="btn btn-default btn-sm" ng-model="eeUser.storefront.home.carousel.1.btnPosition" btn-radio="'right'">Right</div>
+</div>
+<select class="form-control input-sm" ng-model="eeUser.storefront.home.carousel.1.linkCategory">
+  <option ng-repeat="category in eeUser.storefront.categories">{{ category }}</option>
+</select>
+
+<br>
+
+<h5 class="vert-2">Top bar colors</h5>
+<div class="position-relative">
+  <div class="input-group" colorpicker colorpicker-parent="true" ng-model="eeUser.storefront.home.topBarBackgroundColor">
+    <span class="input-group-addon"><i class="fa fa-fw fa-paint-brush"></i></span>
+    <input ng-model="eeUser.storefront.home.topBarBackgroundColor" class="form-control" ng-style="{ 'background-color': eeUser.storefront.home.topBarBackgroundColor }">
+  </div>
+</div>
+<div class="position-relative vert-2">
+  <div class="input-group" colorpicker colorpicker-parent="true" ng-model="eeUser.storefront.home.topBarColor">
+    <span class="input-group-addon"><i class="fa fa-fw fa-font"></i></span>
+    <input ng-model="eeUser.storefront.home.topBarColor" class="form-control" ng-style="{ 'background-color': eeUser.storefront.home.topBarColor }">
+  </div>
+</div>
+
+<br>
+
+<h5 class="vert-2">Store Name</h5>
+<input type="text" class="form-control" placeholder="Enter store name" ng-model="eeUser.storefront.home.name">

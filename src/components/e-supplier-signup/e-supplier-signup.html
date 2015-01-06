@@ -1,0 +1,31 @@
+<a ng-click="viewSignup = true" class="hover-pointer">
+  be a supplier
+</a>
+
+<div class="full-screen {{ viewSignup }}">
+  <div class="container vert-10">
+    <!--close button-->
+    <div>
+      <button class="btn btn-default btn-block vert-10"
+              ng-click="viewSignup = false">
+        <i class="glyphicon glyphicon-remove"></i> Close
+      </button>
+    </div>
+
+    <!--email form-->
+    <div class="well" ng-hide="emailSent">
+      <h3>We're opening eeosk to suppliers soon.</h3>
+      <p>Enter your email address and we'll let you know when it's available.</p>
+      <form class="inline-form margin-0" ng-submit="supplierSignup(supplierEmail)">
+        <input type="email" ng-model="supplierEmail" class="form-control vert-5" placeholder="Enter your email address"/>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+    <!--sent message-->
+    <div class="well" ng-show="emailSent">
+      <h3>Thank you.  We'll let you know when the catalog is open to suppliers.</h3>
+      <div class="btn btn-success" ng-click="viewSignup = false">Close</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div style="min-height: 80px; margin-bottom: 10px;">
+  <div class="media">
+    <a href class="media-left">
+      <div class="thumb margin-2 gray-border"
+           style="background-image: url('{{ product.images[0] | eeImg }}')">
+      </div>
+    </a>
+    <div class="media-body">
+      <a href>
+        <h4 class="media-heading margin-0">{{ product.title }}</h4>
+      </a>
+      <i class="fa fa-star gold-color"></i>
+      <i class="fa fa-star gold-color"></i>
+      <i class="fa fa-star gold-color"></i>
+      <i class="fa fa-star gold-color"></i>
+      <i class="fa fa-star-half-o gold-color"></i>
+      <small>(28)</small>
+      <small><span class="hidden-xs">Loc: </span>United States</small>
+      <br>
+      <div class="btn-group btn-group-xs vert-5 hidden-xs">
+        <button class="btn btn-default" ng-class="{ active: currentMargin == 0.05 }" ng-click="setCurrentPrice(0.05)">5%</button>
+        <button class="btn btn-default" ng-class="{ active: currentMargin == 0.10 }" ng-click="setCurrentPrice(0.10)">10%</button>
+        <button class="btn btn-default" ng-class="{ active: currentMargin == 0.15 }" ng-click="setCurrentPrice(0.15)">15%</button>
+        <button class="btn btn-default" ng-class="{ active: currentMargin == 0.20 }" ng-click="setCurrentPrice(0.20)">20%</button>
+        <button class="btn btn-default" ng-class="{ active: currentMargin == 0.25 }" ng-click="setCurrentPrice(0.25)">25%</button>
+        <button class="btn btn-default" ng-class="{ active: currentMargin == 0.30 }" ng-click="setCurrentPrice(0.30)">30%</button>
+        <button class="btn btn-default" ng-class="{ active: currentMargin == 0.35 }" ng-click="setCurrentPrice(0.35)">35%</button>
+        <button class="btn btn-default" ng-class="{ active: currentMargin == 0.40 }" ng-click="setCurrentPrice(0.40)">40%</button>
+      </div>
+      <small class="hidden-xs">margin</small>
+      <div>
+        <h4 class="margin-0 inline-block">Sell for {{ currentPrice | currency }}</h4>
+        <small><span class="hidden-xs">You </span>earn {{ currentPrice - product.baselinePrice | currency }}<span class="hidden-xs"> each sale</span></small>
+      </div>
+      <div class="hidden-xs">
+        <div class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add to store</div>
+        <div class="btn btn-sm btn-link">preview</div>
+      </div>
+    </div>
+  </div>
+</div>

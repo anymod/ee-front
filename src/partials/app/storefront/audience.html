@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <br>
+  <div class="jumbotron pad-20 text-center">
+    <h1 class="vert-5">Audience</h1>
+    <p class="lead">Your links are active for</p>
+    <div class="width-250 margin-0-auto">
+      <a ng-if='eeUser.storefront.audience.social.facebook'  class="btn btn-info btn-lg btn-block" href="http://facebook.com/{{ eeUser.storefront.audience.social.facebook }}" target="_blank"><i class="fa fa-fw fa-facebook"></i> Facebook<br><small><small>facebook.com/{{ eeUser.storefront.audience.social.facebook }}</small></small></a>
+      <a ng-if='eeUser.storefront.audience.social.pinterest'   class="btn btn-danger btn-lg btn-block" href="http://pinterest.com/{{ eeUser.storefront.audience.social.pinterest }}" target="_blank"><i class="fa fa-fw fa-pinterest"></i> Pinterest<br><small><small>pinterest.com/{{ eeUser.storefront.audience.social.pinterest }}</small></small></a>
+      <a ng-if='eeUser.storefront.audience.social.twitter' class="btn btn-primary btn-lg btn-block" href="http://twitter.com/{{ eeUser.storefront.audience.social.twitter }}" target="_blank"><i class="fa fa-fw fa-twitter"></i> Twitter<br><small><small>twitter.com/{{ eeUser.storefront.audience.social.twitter }}</small></small></a>
+      <a ng-if='eeUser.storefront.audience.social.instagram' class="btn btn-warning btn-lg btn-block" href="http://instagram.com/{{ eeUser.storefront.audience.social.instagram }}" target="_blank"><i class="fa fa-fw fa-instagram"></i> Instagram<br><small><small>instagram.com/{{ eeUser.storefront.audience.social.instagram }}</small></small></a>
+    </div>
+    <br>
+    <div ng-if="eeUser.storefront.audience.contact.email">
+      <p class="lead">Customers can email you at</p>
+      <div class="full-width text-center">
+        <a class="btn btn-primary btn-lg hidden-xs" href="mailto:{{ eeUser.storefront.audience.contact.email }}" target="_blank">{{ eeUser.storefront.audience.contact.email }}</a>
+        <a class="btn btn-primary btn-block visible-xs" href="mailto:{{ eeUser.storefront.audience.contact.email }}" target="_blank">{{ eeUser.storefront.audience.contact.email }}</a>
+      </div>
+    </div>
+    <br>
+  </div>
+  <br>
+</div>

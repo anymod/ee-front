@@ -1,0 +1,72 @@
+<!--thumbnail-->
+<div class="e-product-listing col-xs-3 text-center">
+  <a href=""
+     ng-click="setFullScreenProduct(product)"
+     analytics-on
+     analytics-category="{{ route }}"
+     analytics-event="preview"
+     analytics-label="{{ product.title }}"
+     ng-show="route !== 'success'">
+    <img ng-src="https://s3.amazonaws.com/eeosk/products/{{ product.images[0] }}"
+         class="full-width margin-0">
+  </a>
+  <img ng-src="https://s3.amazonaws.com/eeosk/products/{{ product.images[0] }}"
+       class="full-width margin-0"
+       ng-show="route === 'success'">
+</div>
+
+<!--desc-->
+<div class="e-product-listing col-xs-9">
+  <h4>
+    <a href=""
+       ng-click="setFullScreenProduct(product)"
+       analytics-on
+       analytics-category="{{ route }}"
+       analytics-event="preview"
+       analytics-label="{{ product.title }}"
+       ng-show="route !== 'success'">
+      {{ product.title }}
+    </a>
+    <small ng-show="product.brand">{{ product.brand }}</small>
+    <span ng-show="route === 'success'">
+      {{ product.title }}
+      <small ng-show="product.brand">{{ product.brand }}</small>
+    </span>
+  </h4>
+  by {{ product.lister }}
+  <br/>
+  Baseline price: {{ product.baselinePrice | currency }}
+  <strong ng-show="route === 'success' && link" class="text-success">
+    <br>
+    Your price: {{ link.sellerPrice | currency }}
+  </strong>
+  <br/>
+
+  <button class="btn btn-default vert-2"
+          ng-click="setFullScreenProduct(product)"
+          analytics-on
+          analytics-category="{{ route }}"
+          analytics-event="preview"
+          analytics-label="{{ product.title }}"
+          ng-show="route === 'catalog' || route === 'generate'">
+    <i class="glyphicon glyphicon-eye-open"></i> Preview
+  </button>
+
+  <a class="btn btn-success vert-2"
+          ui-sref="generate({id: product.id})"
+          ng-show="route === 'catalog'">
+    Sell <i class="glyphicon glyphicon-arrow-right"></i>
+  </a>
+
+  <a ui-sref="generate({id: product.id})"
+          class="btn btn-default vert-2"
+          ng-show="route === 'success'">
+    Set another price
+  </a>
+  <a ui-sref="catalog"
+          class="btn btn-default vert-2"
+          ng-show="route === 'success'">
+    Back to Catalog
+  </a>
+
+</div>

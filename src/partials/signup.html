@@ -1,0 +1,76 @@
+<ee-navbar></ee-navbar>
+
+<div class="office-background">
+
+  <div class="container">
+    <span class="inline-block full-width vert-50"></span>
+
+    <div class="well max-width-600 margin-0-auto">
+
+      <form class="form-signin" ng-submit="submitForm()" ng-hide="signupCreated">
+        <h1 class="text-center margin-0">
+          eeosk starts with an invitation.
+          <hr class="vert-10">
+        </h1>
+        <h3 class="margin-0">Join us</h3>
+        <p>Simply enter your email address to request an invite below.</p>
+        <div class="form-group">
+          <input type="email" ng-model="signup.email" class="form-control input-lg" placeholder="Email address" required>
+        </div>
+        <button class="btn btn-primary btn-lg"
+                type="submit"
+                ng-disabled="buttonDisabled"
+                analytics-on
+                analytics-category="invite"
+                analytics-event="request">
+        Request your invite
+        </button>
+      </form>
+
+      <div ng-show="signupCreated">
+        <h2>Success!</h2>
+        <p>Invite requests are fulfilled in order, so please be on the lookout for yours.</p>
+        <a href="mailto:?subject=Eeosk invitation
+&body=I just requested an invitation to sell on eeosk and I think you should too!%0A%0Ahttps://eeosk.com"
+           target="_blank"
+           class="btn btn-success"
+           analytics-on
+           analytics-category="invite"
+           analytics-event="share"
+           analytics-label="email">
+        Tell a friend
+        </a>
+        <div class="pull-right">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://eeosk.com"
+             target="_blank"
+             class="btn btn-info"
+             analytics-on
+             analytics-category="invite"
+             analytics-event="share"
+             analytics-label="facebook">
+          <i class="fa fa-fw fa-facebook"></i>
+          </a>
+          <a href="https://twitter.com/home?status=I%20just%20requested%20an%20invitation%20to%20sell%20on%20eeosk%20and%20I%20think%20you%20should%20too!%20https://eeosk.com"
+             target="_blank"
+             class="btn btn-primary"
+             analytics-on
+             analytics-category="invite"
+             analytics-event="share"
+             analytics-label="twitter">
+          <i class="fa fa-fw fa-twitter"></i>
+          </a>
+          <a href="https://plus.google.com/share?url=https://eeosk.com"
+             target="_blank"
+             class="btn btn-danger"
+             analytics-on
+             analytics-category="invite"
+             analytics-event="share"
+             analytics-label="gplus">
+          <i class="fa fa-fw fa-google-plus"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

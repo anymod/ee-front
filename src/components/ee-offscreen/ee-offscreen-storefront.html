@@ -1,0 +1,16 @@
+<div class="pad-10">
+  <h5 class="vert-2">Store Sections</h5>
+  <a ui-sref-active="active" ui-sref="app.storefront.home" class="btn btn-default btn-sm btn-block">Home</a>
+  <a ng-class="{ active: $state.current.name == 'app.storefront.shop' }" ui-sref="app.storefront.shop({shopCategory: 'All'})" class="btn btn-default btn-sm btn-block">Shop</a>
+  <a ui-sref-active="active" ui-sref="app.storefront.blog" class="btn btn-default btn-sm btn-block">Blog</a>
+  <a ui-sref-active="active" ui-sref="app.storefront.about" class="btn btn-default btn-sm btn-block">About</a>
+  <a ui-sref-active="active" ui-sref="app.storefront.audience" class="btn btn-default btn-sm btn-block">Audience</a>
+
+  <hr>
+
+  <ee-offscreen-storefront-home ng-if="$state.current.name == 'app.storefront.home'"></ee-offscreen-storefront-home>
+  <ee-offscreen-storefront-shop ng-if="$state.current.name == 'app.storefront.shop'"></ee-offscreen-storefront-shop>
+  <ee-offscreen-storefront-blog ng-if="$state.current.name == 'app.storefront.blog'"></ee-offscreen-storefront-blog>
+  <ee-offscreen-storefront-about ng-if="$state.current.name == 'app.storefront.about'"></ee-offscreen-storefront-about>
+  <ee-offscreen-storefront-audience ng-if="$state.current.name == 'app.storefront.audience'"></ee-offscreen-storefront-audience>
+</div>

@@ -1,0 +1,138 @@
+<h4>Helpers</h4>
+
+<form class="form-horizontal">
+  <div class="form-group">
+    <label for="image_gen"
+           class="col-sm-3 control-label">
+      image_gen
+    </label>
+    <div class="col-sm-9">
+      <input type="text"
+             id="image_gen"
+             class="form-control"
+             ng-model="image_gen_text"
+             placeholder="{{ inputFieldsAdditional[0].placeholder }}"
+             ng-list ng-change="imageGen(image_gen_text)" />
+    </div>
+  </div>
+</form>
+
+<h4>Product obj that goes into firebase</h4>
+
+<form name="editProductForm"
+      ng-submit="type === 'new' ? createProduct({product: product}) : updateProduct()"
+      class="form-horizontal"
+      role="form">
+  <div ng-repeat="inputField in inputFields" class="form-group" ng-switch on="inputField.name">
+    <!--don't show label for checkbox-->
+    <label for="{{ inputField.name }}"
+           class="col-sm-3 control-label"
+           ng-if="['freeShipping', 'trade'].indexOf(inputField.name) === -1">
+      {{ inputField.name }} <span ng-if="inputField.required">*</span>
+    </label>
+
+    <div class="col-sm-9" ng-switch-when="images">
+      <input type="{{ inputField.type }}"
+             id="{{ inputField.name }}"
+             class="form-control"
+             ng-model="product[inputField.name]"
+             placeholder="{{ inputField.placeholder }}"
+             ng-list ng-required="inputField.required" />
+      <div><em>https://s3.amazonaws.com/eeosk/products/[image]</em></div>
+      <div ng-repeat="img in product[inputField.name]" class="inline-block vert-5">
+        <img ng-src="https://s3.amazonaws.com/eeosk/products/{{ img }}" class="margin-2 max-width-80">
+      </div>
+    </div>
+    <div class="col-sm-9" ng-switch-when="tags">
+      <input type="{{ inputField.type }}"
+             id="{{ inputField.name }}"
+             class="form-control"
+             placeholder="{{ inputField.placeholder }}"
+             ng-model="product[inputField.name]"
+             ng-list />
+    </div>
+    <div class="col-sm-9" ng-switch-when="condition">
+      <select ng-model="product[inputField.name]"
+              class="form-control"
+              id="{{ inputField.name }}"
+              ng-options="condition for condition in conditions"
+              ng-required="inputField.required">
+      </select>
+    </div>
+    <div class="col-sm-9" ng-switch-when="category">
+      <select ng-model="product[inputField.name]"
+              class="form-control"
+              id="{{ inputField.name }}"
+              ng-options="cateogry for cateogry in categories"
+              ng-required="inputField.required">
+      </select>
+    </div>
+    <div class="col-sm-offset-3 col-sm-9" ng-switch-when="trade">
+      <div class="checkbox">
+        <label for="{{ inputField.name }}">
+          <input type="{{ inputField.type }}"
+                 id="{{ inputField.name }}"
+                 ng-model="product[inputField.name]"
+                 ng-required="inputField.required" />
+          {{inputField.name + '(visible in trade catalog)'}}
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-offset-3 col-sm-9" ng-switch-when="freeShipping">
+      <div class="checkbox">
+        <label for="{{ inputField.name }}">
+          <input type="{{ inputField.type }}"
+                 id="{{ inputField.name }}"
+                 ng-model="product[inputField.name]" /> {{inputField.name}}
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-9" ng-switch-when="description">
+      <textarea id="{{ inputField.name }}"
+                class="form-control"
+                placeholder="{{ inputField.placeholder }}"
+                ng-model="product[inputField.name]"
+                ng-required="inputField.required"
+                rows="10">
+      </textarea>
+    </div>
+    <div class="col-sm-9" ng-switch-default>
+      <input type="{{ inputField.type }}"
+             id="{{ inputField.name }}"
+             class="form-control"
+             placeholder="{{ inputField.placeholder }}"
+             ng-model="product[inputField.name]"
+             ng-required="inputField.required"
+             step="{{ inputField.step }}"
+             min="{{ inputField.min }}" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9" ng-if="type === 'edit'">
+      <button class="btn btn-primary"
+              type="submit"
+              ng-disabled="editProductForm.$invalid">
+        Update product
+      </button>
+      <!--must be a tag, another button interferes w/ form submission-->
+      <a class="btn btn-danger" ng-click="deleteProduct()">
+        Delete
+      </a>
+      <!--&nbsp;in {{ env }} DB-->
+    </div>
+
+    <div class="col-sm-offset-3 col-sm-9" ng-if="type === 'new'">
+      <button class="btn btn-primary"
+              type="submit"
+              ng-disabled="editProductForm.$invalid">
+        Add product
+      </button>
+      <!--&nbsp;to {{ env }} DB-->
+      <!--&nbsp;in {{ env }} DB-->
+    </div>
+  </div>
+
+  <h3>Product json preview</h3>
+  <pre>{{ product | json }}</pre>
+</form>

@@ -1,0 +1,59 @@
+<nav class="navbar navbar-default navbar-fixed-top" ng-class="{ 'navbar-inverse': env == 'development' }">
+  <div class="container">
+    <form class="navbar-form pad-0">
+      <a ui-sref="catalog" class="btn btn-default">
+        <i class="glyphicon glyphicon-home"></i> Home
+      </a>
+      <a ui-sref="products({id: 'all'})" class="btn btn-default" ng-class="{ active: id == 'all' }">
+        <i class="glyphicon glyphicon-th-list"></i> Products
+      </a>
+      <a ui-sref="products({id: 'new'})" class="btn btn-default" ng-class="{ active: id == 'new' }">
+        <i class="glyphicon glyphicon-plus"></i> Add product
+      </a>
+      <button ui-sref="logout" class="btn btn-default pull-right">
+        <i class="glyphicon glyphicon-log-out"></i> Log out
+      </button>
+      <div class="btn-group">
+        <button class="btn btn-default" ng-click="env = 'development'" ng-class="{ active: env == 'development' }">Dev</button>
+        <button class="btn btn-default" ng-click="env = 'production'" ng-class="{ active: env == 'production' }">Prod</button>
+      </div>
+    </form>
+  </div>
+</nav>
+
+<div class="container pad-top-navbar">
+  <br/>
+
+  <!-- show existing products -->
+  <section ng-show="products" class="media vert-2">
+    <div class="list-group">
+      <a ui-sref="products({id: product.id})" class="list-group-item" ng-repeat="product in products">
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <img class="small-thumb" ng-src="https://s3.amazonaws.com/eeosk/products/{{ product.images[0] }}">
+        </div>
+        <div>
+          <h5 class="list-group-item-heading">{{ product.title }}</h5>
+          <small>by {{ product.lister }}</small>
+          {{ product.listerPrice | currency }}
+          <i class="glyphicon glyphicon-arrow-right"></i>
+          {{ product.baselinePrice | currency }}
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!--edit existing products-->
+  <section ng-if="product">
+    <e-product-editor product="product"
+                      type="edit"
+                      update-product="updateProduct()"
+                      delete-product="deleteProduct()"></e-product-editor>
+  </section>
+
+  <!--add new products-->
+  <section ng-if="id === 'new'">
+    <e-product-editor product="product"
+                      type="new"
+                      create-product="createProduct(product)"></e-product-editor>
+  </section>
+</div>
