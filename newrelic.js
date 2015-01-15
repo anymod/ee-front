@@ -8,11 +8,11 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name : ['Web MVP'],
+  app_name : ['ee-front'],
   /**
    * Your New Relic license key.
    */
-  license_key : 'a66efdb4eee7bbe00b739a02be4b607bd47a2507',
+  license_key : '6815f9f253c61b7f53fdc76928711275319f648e',
   logging : {
     /**
      * Level at which to log. 'trace' is most useful to New Relic when diagnosing
