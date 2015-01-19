@@ -1,12 +1,12 @@
 {
-  "name": "web-mvp",
+  "name": "ee-front",
   "version": "1.0.0",
   "engines": {
     "node": "0.10.x"
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/eeosk/web-mvp.git"
+    "url": "http://github.com/eeosk/ee-front.git"
   },
   "private": true,
   "main": "server.coffee",
