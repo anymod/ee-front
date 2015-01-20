@@ -190,7 +190,7 @@ angular.module('eeApp').run ($rootScope, $state, $cookies, $location) ->
         topBarBackgroundColor: '#222222'
         carousel:
           1:
-            imgUrl: 'http://cdn.shopify.com/s/files/1/0269/1895/t/2/assets/slideshow_1.jpg?5046'
+            imgUrl: 'http://cdn.shopify.com/s/files/1/0269/1895/t/2/assets/slideshow_6.jpg?5116'
             headline: 'TOPO DESIGNS'
             byline: 'OUR FAVORITE PACKS'
             btnText: 'SHOP NOW'
