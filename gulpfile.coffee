@@ -28,7 +28,7 @@ htmlminOptions =
 # dev tasks
 
 gulp.task 'css-dev', ->
-  gulp.src './src/stylesheets**/e-app.less' # ** force to same dir
+  gulp.src './src/stylesheets**/ee-app.less' # ** force to same dir
     .pipe gp.sourcemaps.init()
     .pipe gp.less paths: './src/stylesheets/' # @import path
     # write sourcemap to separate file w/o source content to path relative to dest below
@@ -47,7 +47,7 @@ gulp.task 'js-dev', ->
 # prod tasks
 
 gulp.task 'css-prod', ->
-  gulp.src './src/stylesheets/e-app.less'
+  gulp.src './src/stylesheets/ee-app.less'
     # TODO: wait for minifyCss to support sourcemaps
     .pipe gp.replace "../bower_components/bootstrap/fonts/", "./fonts/"
     .pipe gp.replace "../bower_components/font-awesome/fonts/", "./fonts/"
@@ -60,14 +60,14 @@ gulp.task 'js-prod', ->
   ngTemplates = gulp.src './src/components/**/ee-*.html'
     .pipe gp.htmlmin htmlminOptions
     .pipe gp.angularTemplatecache
-      module: 'E.Templates'
+      module: 'EE.Templates'
       standalone: true
       root: 'components'
 
   # compile cs & annotate for min
   ngModules = gulp.src './src/**/*.coffee'
     .pipe gp.plumber()
-    .pipe gp.replace "# 'E.Templates'", "'E.Templates'" # for e-app.coffee $templateCache
+    .pipe gp.replace "# 'EE.Templates'", "'EE.Templates'" # for ee-app.coffee $templateCache
     .pipe gp.replace "'env', 'development'", "'env', 'production'" # TODO use gulp-ng-constant
     .pipe gp.coffee()
     .pipe gp.ngAnnotate()
@@ -101,15 +101,15 @@ gulp.task 'js-prod', ->
   # concat
   # otherMin before min b/c otherMin has angular
   streamqueue objectMode: true, otherMin, min
-    .pipe gp.concat 'e-app.js'
+    .pipe gp.concat 'ee-app.js'
     .pipe gulp.dest distPath
 
 gulp.task 'html-prod', ->
   gulp.src ['./src/index.html']
     .pipe gp.plumber()
     .pipe gp.htmlReplace
-      css: 'e-app.css'
-      js: 'e-app.js'
+      css: 'ee-app.css'
+      js: 'ee-app.js'
     .pipe gp.htmlmin htmlminOptions
     .pipe gulp.dest distPath
 
@@ -161,7 +161,7 @@ gulp.task 'server-prod', -> spawn 'foreman', ['start'], stdio: 'inherit'
 # ==========================
 
 gulp.task 'watch', ->
-  gulp.src './src/stylesheets**/e-*.less'
+  gulp.src './src/stylesheets**/ee-*.less'
     .pipe gp.watch {emit: 'one', name: 'css'}, ['css-dev']
 
   jsSrc = './src/**/*.coffee'

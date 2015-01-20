@@ -1,7 +1,7 @@
-angular.module 'E.ProductEditor', []
+angular.module 'EE.ProductEditor', []
 
-angular.module('E.ProductEditor').directive "eProductEditor", ->
-  templateUrl: 'components/e-product-editor/e-product-editor.html'
+angular.module('EE.ProductEditor').directive "eeProductEditor", ->
+  templateUrl: 'components/ee-product-editor/ee-product-editor.html'
   restrict: 'E'
   scope:
     product: '='

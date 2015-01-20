@@ -8,23 +8,30 @@ angular.module 'eeApp', [
   'colorpicker.module'
 
   # custom
-  'E.Products'
-  'E.Previewer'
-  'E.ProductEditor'
-  'E.SupplierSignup'
+  # 'EE.Products'
+  # 'EE.Previewer'
+  # 'EE.ProductEditor'
+  # 'EE.SupplierSignup'
   'ee.navbar'
   'ee.offscreen'
   'ee.catalogProduct'
   'ee.storefrontProduct'
   'ee.order'
-  # 'E.Templates' # commented out during build step for inline templates
+  # 'EE.Templates' # commented out during build step for inline templates
 ]
 
-angular.module('eeApp').config ($locationProvider, $stateProvider, $urlRouterProvider) ->
+angular.module('eeApp').config ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider) ->
   $locationProvider.html5Mode true
 
+  ## Configure CORS
+  $httpProvider.defaults.useXDomain = true
+  $httpProvider.defaults.withCredentials = true
+  delete $httpProvider.defaults.headers.common["X-Requested-With"]
+  $httpProvider.defaults.headers.common["Accept"] = "application/json"
+  $httpProvider.defaults.headers.common["Content-Type"] = "application/json"
+
   $stateProvider
-    # don't need data prior to render
+    ## don't need data prior to render
     .state 'landing',
       url: '/'
       templateUrl: 'partials/landing.html'
@@ -53,19 +60,24 @@ angular.module('eeApp').config ($locationProvider, $stateProvider, $urlRouterPro
       template: ''
       controller: 'logoutCtrl'
       data: pageTitle: 'Logout | eeosk'
+    .state 'loginTemp',
+      url: '/user/loginTemp'
+      templateUrl: 'partials/loginTemp.html'
+      controller: 'loginTempCtrl'
+      data: pageTitle: 'Login | eeosk'
 
     ## need data prior to render
     # .state 'about',
     #   url: '/about'
     #   templateUrl: 'partials/about.html'
     #   controller: 'aboutCtrl'
-    #   resolve: eProductData: (eFirebaseSvc) -> eFirebaseSvc.getProducts()
+    #   resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts()
     #   data: pageTitle: 'About | eeosk'
     # .state 'beta',
     #   url: '/beta'
     #   templateUrl: 'partials/catalog.html'
     #   controller: 'catalogCtrl'
-    #   resolve: eProductData: (eFirebaseSvc) -> eFirebaseSvc.getProducts()
+    #   resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts()
     #   data:
     #     pageTitle: 'Sell for suppliers | eeosk'
     #     offscreenContent: 'menu'
@@ -73,29 +85,29 @@ angular.module('eeApp').config ($locationProvider, $stateProvider, $urlRouterPro
     #   url: '/generate/:id'
     #   templateUrl: 'partials/generate.html'
     #   controller: 'generateCtrl'
-    #   resolve: eProductData: (eFirebaseSvc) -> eFirebaseSvc.getProducts()
+    #   resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts()
     #   data: pageTitle: ''
     ## TODO: rename to /admin
     # .state 'products',
     #   url: '/products/:id'
     #   templateUrl: 'partials/products/products.html'
     #   controller: 'productsCtrl'
-    #   resolve: eProductData: (eFirebaseSvc) -> eFirebaseSvc.getProducts('admin')
+    #   resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts('admin')
     #   data: pageTitle: 'Products | eeosk'
 
-    # App
+    ## App ##
     .state 'app',
       url: '/app'
       template: '<div ui-view class="white-background"></div>'
       data:
         narrowToggle: true
 
-    # Storefront
+    ## Storefront ##
     .state 'app.storefront',
       url: '/storefront'
       templateUrl: 'partials/app/storefront/view-container.html'
       controller: 'app.storefrontCtrl'
-      resolve: eProductData: (eFirebaseSvc) -> eFirebaseSvc.getProducts('admin')
+      resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts('admin')
       data:
         pageTitle: 'Build your store | eeosk'
         offscreenCategory: 'Storefront'
@@ -116,34 +128,34 @@ angular.module('eeApp').config ($locationProvider, $stateProvider, $urlRouterPro
       url: '/audience'
       templateUrl: 'partials/app/storefront/audience.html'
 
-    # Catalog
+    ## Catalog ##
     .state 'app.catalog',
       url: '/catalog'
       templateUrl: 'partials/app/catalog.html'
       controller: 'app.catalogCtrl'
-      resolve: eProductData: (eFirebaseSvc) -> eFirebaseSvc.getProducts('admin')
+      resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts('admin')
       data:
         pageTitle: 'Add products | eeosk'
         offscreenCategory: 'Catalog'
         offscreenColor: 'gold'
 
-    # Orders
+    ## Orders ##
     .state 'app.orders',
       url: '/orders'
       templateUrl: 'partials/app/orders.html'
       controller: 'app.ordersCtrl'
-      resolve: eOrderData: (eFirebaseSvc) -> eFirebaseSvc.getOrders()
+      resolve: eeOrderData: (eeFirebaseSvc) -> eeFirebaseSvc.getOrders()
       data:
         pageTitle: 'My orders | eeosk'
         offscreenCategory: 'Orders'
         offscreenColor: 'green'
 
-    # Account
+    ## Account ##
     .state 'app.account',
       url: '/account'
       templateUrl: 'partials/app/account.html'
       controller: 'app.catalogCtrl'
-      resolve: eProductData: (eFirebaseSvc) -> eFirebaseSvc.getProducts('admin')
+      resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts('admin')
       data:
         pageTitle: 'Account | eeosk'
         offscreenCategory: 'Account'
@@ -152,7 +164,7 @@ angular.module('eeApp').config ($locationProvider, $stateProvider, $urlRouterPro
   $urlRouterProvider.otherwise '/'
   return
 
-angular.module('eeApp').constant 'eFirebaseUrl', "https://fiery-inferno-1584.firebaseIO.com/"
+angular.module('eeApp').constant 'eeFirebaseUrl', "https://fiery-inferno-1584.firebaseIO.com/"
 
 angular.module('eeApp').run ($rootScope, $state, $cookies, $location) ->
 
@@ -210,17 +222,17 @@ angular.module('eeApp').run ($rootScope, $state, $cookies, $location) ->
 
 # ========================
 
-angular.module('eeApp').factory 'eEnvSvc', ($location) ->
+angular.module('eeApp').factory 'eeEnvSvc', ($location) ->
   envFromHost: ->
     if _.contains($location.host(), 'eeosk') then 'production' else 'development'
 
-angular.module('eeApp').factory 'eGlobalSvc', ($state, $document) ->
+angular.module('eeApp').factory 'eeGlobalSvc', ($state, $document) ->
   getTitle: -> $state.current.data.pageTitle
   setTitle: (newTitle) -> $state.current.data.pageTitle = newTitle; return
   addBodyClass: (newClass) -> $document.find('body').addClass newClass; return
   removeBodyClass: (oldClass) -> $document.find('body').removeClass oldClass; return
 
-angular.module('eeApp').factory 'ePathMaker', ->
+angular.module('eeApp').factory 'eePathMaker', ->
   vals = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_"
   createPath: ->
     dateStr = Date.now() + ''
@@ -233,12 +245,12 @@ angular.module('eeApp').factory 'ePathMaker', ->
       if residual == 0 then break
     result
 
-angular.module('eeApp').factory 'eFirebaseSvc', ($http, $q, $location, eFirebaseUrl, eEnvSvc) ->
-  _ref = (new Firebase eFirebaseUrl).child eEnvSvc.envFromHost()
-  _firebaseEnv = eEnvSvc.envFromHost()
+angular.module('eeApp').factory 'eeFirebaseSvc', ($http, $q, $location, eeFirebaseUrl, eeEnvSvc) ->
+  _ref = (new Firebase eeFirebaseUrl).child eeEnvSvc.envFromHost()
+  _firebaseEnv = eeEnvSvc.envFromHost()
   setRef = (newEnv) ->
     _firebaseEnv = newEnv
-    _ref = (new Firebase eFirebaseUrl).child newEnv
+    _ref = (new Firebase eeFirebaseUrl).child newEnv
     return
 
   getFirebaseEnv: -> _firebaseEnv
@@ -328,7 +340,7 @@ angular.module('eeApp').factory 'eFirebaseSvc', ($http, $q, $location, eFirebase
       .error (data) -> deferred.resolve data;
     deferred.promise
 
-angular.module('eeApp').factory 'eFullScreenSvc', ($rootScope) ->
+angular.module('eeApp').factory 'eeFullScreenSvc', ($rootScope) ->
   fullScreen = false
   get: -> fullScreen
   set: (newState) ->
@@ -345,35 +357,35 @@ angular.module('eeApp').controller 'landingCtrl', ($scope, $location, $anchorScr
     $anchorScroll()
   return
 
-angular.module('eeApp').controller 'catalogCtrl', ($scope, $stateParams, eProductData, eFullScreenSvc) ->
+angular.module('eeApp').controller 'catalogCtrl', ($scope, $stateParams, eeProductData, eeFullScreenSvc) ->
   $scope.path = $stateParams.id
-  $scope.fullScreen = eFullScreenSvc.get()
+  $scope.fullScreen = eeFullScreenSvc.get()
   $scope.$on 'setFullScreen', (e, val) -> $scope.fullScreen = val; return
-  $scope.products = eProductData
+  $scope.products = eeProductData
   return
 
-angular.module('eeApp').controller 'app.storefrontCtrl', ($scope, $rootScope, eProductData) ->
+angular.module('eeApp').controller 'app.storefrontCtrl', ($scope, $rootScope, eeProductData) ->
   $rootScope.toggle = true
-  $scope.products = eProductData
+  $scope.products = eeProductData
   return
 
-angular.module('eeApp').controller 'app.catalogCtrl', ($scope, $rootScope, eProductData) ->
+angular.module('eeApp').controller 'app.catalogCtrl', ($scope, $rootScope, eeProductData) ->
   $rootScope.toggle = true
-  $scope.products = eProductData
+  $scope.products = eeProductData
   return
 
-angular.module('eeApp').controller 'app.ordersCtrl', ($scope, $rootScope, eOrderData) ->
+angular.module('eeApp').controller 'app.ordersCtrl', ($scope, $rootScope, eeOrderData) ->
   $rootScope.toggle = true
-  $scope.orders = eOrderData
+  $scope.orders = eeOrderData
   return
 
-angular.module('eeApp').controller 'generateCtrl', ($scope, $location, $stateParams, eFirebaseSvc, ePathMaker, eGlobalSvc, eProductData, eFullScreenSvc) ->
-  $scope.fullScreen = eFullScreenSvc.get()
+angular.module('eeApp').controller 'generateCtrl', ($scope, $location, $stateParams, eeFirebaseSvc, eePathMaker, eeGlobalSvc, eeProductData, eeFullScreenSvc) ->
+  $scope.fullScreen = eeFullScreenSvc.get()
   $scope.$on 'setFullScreen', (e, val) -> $scope.fullScreen = val; return
 
-  $scope.product = _.find eProductData, (product) -> product.id is $stateParams.id
+  $scope.product = _.find eeProductData, (product) -> product.id is $stateParams.id
 
-  eGlobalSvc.setTitle 'Sell ' + $scope.product.title
+  eeGlobalSvc.setTitle 'Sell ' + $scope.product.title
 
   $scope.sellerPrice = $scope.product.baselinePrice * 1.1
   $scope.minPrice = $scope.product.baselinePrice + 1
@@ -389,33 +401,33 @@ angular.module('eeApp').controller 'generateCtrl', ($scope, $location, $statePar
       $scope.validationError = "You won't make a profit. Please set a higher selling price."
       return
 
-    path = ePathMaker.createPath()
-    linkRef = eFirebaseSvc.createLink $stateParams.id, $scope.email, $scope.sellerPrice, path
+    path = eePathMaker.createPath()
+    linkRef = eeFirebaseSvc.createLink $stateParams.id, $scope.email, $scope.sellerPrice, path
     linkRef.once 'child_added', ->
       $location.path '/success/' + path
       $scope.$apply()
     return
   return
 
-angular.module('eeApp').controller 'successCtrl', ($scope, $stateParams, eFirebaseSvc) ->
+angular.module('eeApp').controller 'successCtrl', ($scope, $stateParams, eeFirebaseSvc) ->
   $scope.path = $stateParams.path
-  eFirebaseSvc.getLink($stateParams.path).then (data) ->
+  eeFirebaseSvc.getLink($stateParams.path).then (data) ->
     $scope.link = data
-    eFirebaseSvc.getProduct(data.productId).then (data) ->
+    eeFirebaseSvc.getProduct(data.productId).then (data) ->
       $scope.product = data
   return
 
-angular.module('eeApp').controller 'aboutCtrl', ($scope, eProductData) ->
-  $scope.products = _.sample eProductData, 10
+angular.module('eeApp').controller 'aboutCtrl', ($scope, eeProductData) ->
+  $scope.products = _.sample eeProductData, 10
   $scope.sellerPrice = 3
   $scope.examplePrice = 50
   $scope.slidePos = 'slide-1'
   return
 
-angular.module('eeApp').controller 'loginCtrl', ($scope, $location, $state, $cookies, eFirebaseSvc) ->
+angular.module('eeApp').controller 'loginCtrl', ($scope, $location, $state, $cookies, eeFirebaseSvc) ->
   # $scope.authWithPassword = ->
-  #   eFirebaseSvc.authWithPassword($scope.email, $scope.password).then ->
-  #     if eFirebaseSvc.getAuth()?.token then $location.path '/products/all'
+  #   eeFirebaseSvc.authWithPassword($scope.email, $scope.password).then ->
+  #     if eeFirebaseSvc.getAuth()?.token then $location.path '/products/all'
   #   return
   # $location.path '/app/storefront/home' if $cookies.superSecret = "ABCD"
   $state.go 'app.storefront.home' if $cookies.superSecret == "ABCD"
@@ -426,20 +438,35 @@ angular.module('eeApp').controller 'loginCtrl', ($scope, $location, $state, $coo
     return
   return
 
-angular.module('eeApp').controller 'logoutCtrl', ($location, eFirebaseSvc) ->
-  eFirebaseSvc.unauth()
+angular.module('eeApp').controller 'loginTempCtrl', ($scope, $location, $state, $cookies, $http, eeFirebaseSvc) ->
+  $state.go 'app.storefront.home' if $cookies.superSecret == "ABCDE"
+  $scope.res = ''
+  $scope.authWithPassword = ->
+    $http
+      method: 'POST',
+      url: 'http://localhost:3000/v0/auth',
+      data: {},
+      headers:
+        authorization: 'Basic ' + $scope.email + ':' + $scope.password
+    .success (data, status, headers, config) ->
+      $scope.res = data
+    .error (err) -> $scope.res = err
+
+  return
+
+angular.module('eeApp').controller 'logoutCtrl', ($location, eeFirebaseSvc) ->
+  eeFirebaseSvc.unauth()
   $location.path '/'
   return
 
-angular.module('eeApp').controller 'contactCtrl', ($scope, $location, eFirebaseSvc) ->
+angular.module('eeApp').controller 'contactCtrl', ($scope, $location, eeFirebaseSvc) ->
   $scope.signup = {}
   $scope.signup.location = $location.path()
   $scope.submitForm = ->
     $scope.buttonDisabled = true
-    eFirebaseSvc.createSignup $scope.signup
-      .then -> $scope.signupCreated = true; return
-      .catch (err) -> alert "Failed to process signup"; $scope.buttonDisabled = false; return
-      return
+    eeFirebaseSvc.createSignup $scope.signup
+    .then () -> $scope.signupCreated = true; return
+    .catch (err) -> alert "Failed to process signup"; $scope.buttonDisabled = false; return
     return
   return
 

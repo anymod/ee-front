@@ -44,7 +44,7 @@
 
   <!--edit existing products-->
   <section ng-if="product">
-    <e-product-editor product="product"
+    <ee-product-editor product="product"
                       type="edit"
                       update-product="updateProduct()"
                       delete-product="deleteProduct()"></e-product-editor>
@@ -52,7 +52,7 @@
 
   <!--add new products-->
   <section ng-if="id === 'new'">
-    <e-product-editor product="product"
+    <ee-product-editor product="product"
                       type="new"
                       create-product="createProduct(product)"></e-product-editor>
   </section>

@@ -1,6 +1,6 @@
 module = angular.module 'ee.productListing', []
 
-module.directive "eeProductListing", (eFullScreenSvc, $rootScope) ->
+module.directive "eeProductListing", (eeFullScreenSvc, $rootScope) ->
   templateUrl: 'components/ee-product-listing/ee-product-listing.html'
   restrict: 'E'
   scope:
@@ -11,7 +11,7 @@ module.directive "eeProductListing", (eFullScreenSvc, $rootScope) ->
 
     scope.setFullScreenProduct = (product) ->
       $rootScope.$broadcast 'setProduct', product
-      eFullScreenSvc.set true
+      eeFullScreenSvc.set true
       return
 
     return

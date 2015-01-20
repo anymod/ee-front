@@ -1,20 +1,20 @@
-angular.module 'E.Previewer', ['hc.marked']
+angular.module 'EE.Previewer', ['hc.marked']
 
-angular.module('E.Previewer').directive "ePreviewer", (eFullScreenSvc, eGlobalSvc) ->
-  templateUrl: 'components/e-previewer/e-previewer.html'
+angular.module('EE.Previewer').directive "eePreviewer", (eeFullScreenSvc, eeGlobalSvc) ->
+  templateUrl: 'components/ee-previewer/ee-previewer.html'
   restrict: 'E'
   scope: {} # isolate scope otherwise has same scope as the ui-router state it's in
   link: (scope) ->
     scope.currentImgI = 0
     scope.setCurrentImgI = (i) -> scope.currentImgI = i; return
 
-    scope.setFullScreen = eFullScreenSvc.set
+    scope.setFullScreen = eeFullScreenSvc.set
     scope.$on 'setFullScreen', (e, val) ->
       if val is false
         scope.setCurrentImgI 0
-        eGlobalSvc.removeBodyClass 'no-scroll'
+        eeGlobalSvc.removeBodyClass 'no-scroll'
       else
-        eGlobalSvc.addBodyClass 'no-scroll'
+        eeGlobalSvc.addBodyClass 'no-scroll'
       return
 
     scope.product = {}
