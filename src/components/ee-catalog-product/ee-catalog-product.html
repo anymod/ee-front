@@ -15,7 +15,7 @@
       <i class="fa fa-star gold-color"></i>
       <i class="fa fa-star-half-o gold-color"></i>
       <small>(28)</small>
-      <small><span class="hidden-xs">Loc: </span>United States</small>
+      <small><span class="hidden-xs">Loc:&nbsp;</span>United States</small>
       <br>
       <div class="btn-group btn-group-xs vert-5 hidden-xs">
         <button class="btn btn-default" ng-class="{ active: currentMargin == 0.05 }" ng-click="setCurrentPrice(0.05)">5%</button>
@@ -27,10 +27,10 @@
         <button class="btn btn-default" ng-class="{ active: currentMargin == 0.35 }" ng-click="setCurrentPrice(0.35)">35%</button>
         <button class="btn btn-default" ng-class="{ active: currentMargin == 0.40 }" ng-click="setCurrentPrice(0.40)">40%</button>
       </div>
-      <small class="hidden-xs">margin</small>
+      <small class="hidden-xs">&nbsp;margin</small>
       <div>
-        <h4 class="margin-0 inline-block">Sell for {{ currentPrice | currency }}</h4>
-        <small><span class="hidden-xs">You </span>earn {{ currentPrice - product.baselinePrice | currency }}<span class="hidden-xs"> each sale</span></small>
+        <h4 class="margin-0 inline-block">Sell for {{ currentPrice | currency }}&nbsp;</h4>
+        <small><span class="hidden-xs">You&nbsp;</span>earn {{ currentPrice - product.baselinePrice | currency }}<span class="hidden-xs">&nbsp;each sale</span></small>
       </div>
       <div class="hidden-xs">
         <div class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add to store</div>
