@@ -2,7 +2,7 @@
   <div class="media">
     <a href class="media-left">
       <div class="thumb margin-2 gray-border"
-           style="background-image: url('{{ product.images[0] | eeImg }}')">
+           style="background-image: url('{{ product.image_meta.main_image.url }}')">
       </div>
     </a>
     <div class="media-body">
@@ -29,8 +29,8 @@
       </div>
       <small class="hidden-xs">&nbsp;margin</small>
       <div>
-        <h4 class="margin-0 inline-block">Sell for {{ currentPrice | currency }}&nbsp;</h4>
-        <small><span class="hidden-xs">You&nbsp;</span>earn {{ currentPrice - product.baselinePrice | currency }}<span class="hidden-xs">&nbsp;each sale</span></small>
+        <h4 class="margin-0 inline-block">Sell for {{ currentPrice | centToDollar }}&nbsp;</h4>
+        <small><span class="hidden-xs">You&nbsp;</span>earn {{ currentPrice - product.baseline_price | centToDollar }}<span class="hidden-xs">&nbsp;each sale</span></small>
       </div>
       <div class="hidden-xs">
         <div class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add to store</div>

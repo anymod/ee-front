@@ -6,7 +6,7 @@ angular.module('ee.catalogProduct').directive "eeCatalogProduct", ($rootScope) -
   scope:
     product: '='
   link: (scope, ele, attr) ->
-    basePrice   = scope.product.baselinePrice
+    basePrice   = scope.product.baseline_price
     minMargin   = 0.05
     maxMargin   = 0.40
     startMargin = 0.15

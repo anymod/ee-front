@@ -45,26 +45,21 @@ angular.module('eeApp').config ($locationProvider, $stateProvider, $urlRouterPro
       controller: 'contactCtrl'
       data:
         pageTitle: 'Create your store | eeosk'
-    # .state 'success',
-    #   url: '/success/:path'
-    #   templateUrl: 'partials/success.html'
-    #   controller: 'successCtrl'
-    #   data: pageTitle: 'Success! | eeosk'
     .state 'login',
       url: '/user/login'
       templateUrl: 'partials/login.html'
       controller: 'loginCtrl'
+      data: pageTitle: 'Login | eeosk'
+    .state 'loginTemp',
+      url: '/login'
+      templateUrl: 'partials/loginTemp.html'
+      controller: 'loginTempCtrl'
       data: pageTitle: 'Login | eeosk'
     .state 'logout',
       url: '/user/logout'
       template: ''
       controller: 'logoutCtrl'
       data: pageTitle: 'Logout | eeosk'
-    .state 'loginTemp',
-      url: '/user/loginTemp'
-      templateUrl: 'partials/loginTemp.html'
-      controller: 'loginTempCtrl'
-      data: pageTitle: 'Login | eeosk'
 
     ## need data prior to render
     # .state 'about',
@@ -107,7 +102,7 @@ angular.module('eeApp').config ($locationProvider, $stateProvider, $urlRouterPro
       url: '/storefront'
       templateUrl: 'partials/app/storefront/view-container.html'
       controller: 'app.storefrontCtrl'
-      resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts('admin')
+      resolve: eeProductData: (eeBack) -> eeBack.getProducts()
       data:
         pageTitle: 'Build your store | eeosk'
         offscreenCategory: 'Storefront'
@@ -133,7 +128,7 @@ angular.module('eeApp').config ($locationProvider, $stateProvider, $urlRouterPro
       url: '/catalog'
       templateUrl: 'partials/app/catalog.html'
       controller: 'app.catalogCtrl'
-      resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts('admin')
+      resolve: eeProductData: (eeBack) -> eeBack.getProducts()
       data:
         pageTitle: 'Add products | eeosk'
         offscreenCategory: 'Catalog'
@@ -165,10 +160,9 @@ angular.module('eeApp').config ($locationProvider, $stateProvider, $urlRouterPro
   return
 
 angular.module('eeApp').constant 'eeFirebaseUrl', "https://fiery-inferno-1584.firebaseIO.com/"
+angular.module('eeApp').constant 'eeBackUrl', "http://localhost:3000/v0/"
 
 angular.module('eeApp').run ($rootScope, $state, $cookies, $location) ->
-
-  $location.path '/' unless $location.path() == '/user/login' || $cookies.superSecret == 'ABCD'
 
   # binding this so $state.current.data.pageTitle & other $state data can be accessed
   $rootScope.$state = $state
@@ -244,6 +238,47 @@ angular.module('eeApp').factory 'eePathMaker', ->
       residual = Math.floor(residual / 64)
       if residual == 0 then break
     result
+
+angular.module('eeApp').factory 'eeBack', ($http, $q, eeBackUrl) ->
+
+  authWithPassword: (email, password) ->
+    req =
+      method: 'POST'
+      url: eeBackUrl + 'auth'
+      headers:
+        authorization: 'Basic ' + email + ':' + password
+    deferred = $q.defer()
+    $http(req)
+      .success (data, status, headers, config) -> deferred.resolve data
+      .error (data) -> deferred.resolve data
+    deferred.promise
+
+  loginWithToken: (token) ->
+    req =
+      method: 'POST'
+      url: eeBackUrl + 'token'
+      headers:
+        authorization: token
+    deferred = $q.defer()
+    $http(req)
+      .success (data, status, headers, config) -> deferred.resolve data
+      .error (data) -> deferred.reject data
+    deferred.promise
+
+  getProducts: () ->
+    token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidG9rZW4iOiIwZDhkZDdkNC03ZDU1LTRiYTYtYmMwYi1jOTkxNTU0MGY4MWIiLCJpYXQiOjE0MjE5NDQyNjV9.yasDq4xY2EWKb_cNsU6PZV4moVN16buMi1czh0JAfVQ'
+    req =
+      method: 'GET'
+      url: eeBackUrl + 'products'
+      headers:
+        authorization: token
+
+    deferred = $q.defer()
+    $http req
+      .success (data) -> deferred.resolve data
+      .error (data) -> deferred.resolve data
+    deferred.promise
+
 
 angular.module('eeApp').factory 'eeFirebaseSvc', ($http, $q, $location, eeFirebaseUrl, eeEnvSvc) ->
   _ref = (new Firebase eeFirebaseUrl).child eeEnvSvc.envFromHost()
@@ -357,10 +392,10 @@ angular.module('eeApp').controller 'landingCtrl', ($scope, $location, $anchorScr
     $anchorScroll()
   return
 
-angular.module('eeApp').controller 'catalogCtrl', ($scope, $stateParams, eeProductData, eeFullScreenSvc) ->
+angular.module('eeApp').controller 'catalogCtrl', ($scope, $stateParams, eeProductData) ->
   $scope.path = $stateParams.id
-  $scope.fullScreen = eeFullScreenSvc.get()
-  $scope.$on 'setFullScreen', (e, val) -> $scope.fullScreen = val; return
+  # $scope.fullScreen = eeFullScreenSvc.get()
+  # $scope.$on 'setFullScreen', (e, val) -> $scope.fullScreen = val; return
   $scope.products = eeProductData
   return
 
@@ -438,19 +473,17 @@ angular.module('eeApp').controller 'loginCtrl', ($scope, $location, $state, $coo
     return
   return
 
-angular.module('eeApp').controller 'loginTempCtrl', ($scope, $location, $state, $cookies, $http, eeFirebaseSvc) ->
-  $state.go 'app.storefront.home' if $cookies.superSecret == "ABCDE"
+angular.module('eeApp').controller 'loginTempCtrl', ($scope, $location, $state, $cookies, $http, eeBack) ->
   $scope.res = ''
-  $scope.authWithPassword = ->
-    $http
-      method: 'POST',
-      url: 'http://localhost:3000/v0/auth',
-      data: {},
-      headers:
-        authorization: 'Basic ' + $scope.email + ':' + $scope.password
-    .success (data, status, headers, config) ->
-      $scope.res = data
-    .error (err) -> $scope.res = err
+  if !!$cookies.loginToken
+    eeBack.loginWithToken($cookies.loginToken).then (res) -> console.log 'auto result:', res
+
+  $scope.authWithPassword = () ->
+    eeBack.authWithPassword($scope.email, $scope.password)
+    .then (data) ->
+      $scope.res = data.message
+      $cookies.loginToken = data.token
+    return
 
   return
 
@@ -479,16 +512,16 @@ angular.module('eeApp').directive 'clickAnywhere', ($document) ->
     $document.bind 'click', () -> scope.$apply attr.clickAnywhere
     return
 
-angular.module('eeApp').directive 'eSelectOnFocus', ->
+angular.module('eeApp').directive 'eeSelectOnFocus', ->
   restrict: 'A',
   link: (scope, ele) ->
     ele.on 'focus', -> this.select()
     return
 
-angular.module('eeApp').filter 'eeImg', () ->
-  (input) ->
-    if input.indexOf("http") < 0 then return "https://s3.amazonaws.com/eeosk/products/" + input
-    return input
+# angular.module('eeApp').filter 'eeImg', () ->
+#   (input) ->
+#     if input.indexOf("http") < 0 then return "https://s3.amazonaws.com/eeosk/products/" + input
+#     return input
 
 angular.module('eeApp').filter 'eeShopCategories', () ->
   (products, category) ->
@@ -497,3 +530,8 @@ angular.module('eeApp').filter 'eeShopCategories', () ->
     for product in products
       if product.categories.indexOf(category) >= 0 then filtered.push product
     return filtered
+
+angular.module('eeApp').filter 'centToDollar', ($filter) ->
+  (cents) ->
+    currencyFilter = $filter('currency')
+    currencyFilter Math.floor(cents)/100
