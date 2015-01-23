@@ -12,7 +12,6 @@
   "dependencies": {
     "angular": "~1.2",
     "bootstrap": "~3.3",
-    "lodash": "~2.4.1",
     "angular-ui-router": "~0.2.11",
     "firebase": "~2.0",
     "angulartics": "~0.17.0",

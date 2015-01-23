@@ -28,12 +28,12 @@ htmlminOptions =
 # dev tasks
 
 gulp.task 'css-dev', ->
-  gulp.src './src/stylesheets**/ee-app.less' # ** force to same dir
+  gulp.src './src/stylesheets/ee.app.less' # ** force to same dir
     .pipe gp.sourcemaps.init()
     .pipe gp.less paths: './src/stylesheets/' # @import path
     # write sourcemap to separate file w/o source content to path relative to dest below
     .pipe gp.sourcemaps.write './', {includeContent: false, sourceRoot: '../'}
-    .pipe gulp.dest './src'
+    .pipe gulp.dest './src/stylesheets'
 
 gulp.task 'js-dev', ->
   gulp.src './src/**/*.coffee' # ** glob forces dest to same subdir
@@ -47,7 +47,7 @@ gulp.task 'js-dev', ->
 # prod tasks
 
 gulp.task 'css-prod', ->
-  gulp.src './src/stylesheets/ee-app.less'
+  gulp.src './src/stylesheets/ee.app.less'
     # TODO: wait for minifyCss to support sourcemaps
     .pipe gp.replace "../bower_components/bootstrap/fonts/", "./fonts/"
     .pipe gp.replace "../bower_components/font-awesome/fonts/", "./fonts/"
@@ -57,7 +57,7 @@ gulp.task 'css-prod', ->
 
 gulp.task 'js-prod', ->
   # inline templates; no need for ngAnnotate
-  ngTemplates = gulp.src './src/components/**/ee-*.html'
+  ngTemplates = gulp.src './src/components/ee*.html'
     .pipe gp.htmlmin htmlminOptions
     .pipe gp.angularTemplatecache
       module: 'EE.Templates'
@@ -67,7 +67,7 @@ gulp.task 'js-prod', ->
   # compile cs & annotate for min
   ngModules = gulp.src './src/**/*.coffee'
     .pipe gp.plumber()
-    .pipe gp.replace "# 'EE.Templates'", "'EE.Templates'" # for ee-app.coffee $templateCache
+    .pipe gp.replace "# 'EE.Templates'", "'EE.Templates'" # for ee.app.coffee $templateCache
     .pipe gp.replace "'env', 'development'", "'env', 'production'" # TODO use gulp-ng-constant
     .pipe gp.coffee()
     .pipe gp.ngAnnotate()
@@ -89,8 +89,6 @@ gulp.task 'js-prod', ->
     './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
     './src/bower_components/angular-ui-router/release/angular-ui-router.min.js'
     './src/bower_components/firebase/firebase.js'
-    # TODO: remove this dependency, ~45k
-    './src/bower_components/lodash/dist/lodash.min.js'
     './src/bower_components/angulartics/dist/angulartics.min.js'
     './src/bower_components/angulartics/dist/angulartics-ga.min.js'
     './src/bower_components/angular-marked/angular-marked.js'
@@ -101,15 +99,15 @@ gulp.task 'js-prod', ->
   # concat
   # otherMin before min b/c otherMin has angular
   streamqueue objectMode: true, otherMin, min
-    .pipe gp.concat 'ee-app.js'
+    .pipe gp.concat 'ee.app.js'
     .pipe gulp.dest distPath
 
 gulp.task 'html-prod', ->
   gulp.src ['./src/index.html']
     .pipe gp.plumber()
     .pipe gp.htmlReplace
-      css: 'ee-app.css'
-      js: 'ee-app.js'
+      css: 'ee.app.css'
+      js: 'ee.app.js'
     .pipe gp.htmlmin htmlminOptions
     .pipe gulp.dest distPath
 
@@ -132,11 +130,6 @@ gulp.task "copy-prod", ->
     .pipe gp.plumber()
     .pipe gp.changed distPath
     .pipe gulp.dest distPath + '/fonts'
-
-  gulp.src './views/*.*'
-    .pipe gp.plumber()
-    .pipe gp.changed distPath
-    .pipe gulp.dest distPath + '/product'
 
   gulp.src './src/products.json'
     .pipe gp.plumber()
@@ -161,7 +154,7 @@ gulp.task 'server-prod', -> spawn 'foreman', ['start'], stdio: 'inherit'
 # ==========================
 
 gulp.task 'watch', ->
-  gulp.src './src/stylesheets**/ee-*.less'
+  gulp.src './src/stylesheets/ee*.less'
     .pipe gp.watch {emit: 'one', name: 'css'}, ['css-dev']
 
   jsSrc = './src/**/*.coffee'

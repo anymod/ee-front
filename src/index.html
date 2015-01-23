@@ -16,7 +16,7 @@
 
   <link rel="shortcut icon" href="img/eeosk_e_128x128.png" type="image/x-icon">
   <!-- build:css -->
-    <link rel="stylesheet" href="stylesheets/ee-app.css">
+    <link rel="stylesheet" href="stylesheets/ee.app.css">
   <!-- endbuild -->
 </head>
 
@@ -40,9 +40,6 @@
 
     <script src="bower_components/firebase/firebase-debug.js"></script>
 
-    <!--TODO: remove this dependency, ~45k-->
-    <script src="bower_components/lodash/dist/lodash.js"></script>
-
     <script src="bower_components/angulartics/src/angulartics.js"></script>
     <script src="bower_components/angulartics/src/angulartics-ga.js"></script>
 
@@ -52,28 +49,32 @@
     <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
 
     <!--Custom-->
-    <script src="ee-app.js"></script>
-    <script src="components/ee-previewer/ee-previewer.js"></script>
-    <script src="components/ee-product-editor/ee-product-editor.js"></script>
-    <script src="components/ee-navbar/ee-navbar.js"></script>
-    <script src="components/ee-offscreen/ee-offscreen.js"></script>
-    <script src="components/ee-catalog-product/ee-catalog-product.js"></script>
-    <script src="components/ee-storefront-product/ee-storefront-product.js"></script>
-    <script src="components/ee-order/ee-order.js"></script>
-    <script src="components/ee-supplier-signup/ee-supplier-signup.js"></script>
-    <script src="partials/products/products.js"></script>
+    <script src="ee.app.index.js"></script>
+
+    <script src="app/landing/landing.module.js"></script>
+    <script src="app/landing/landing.route.js"></script>
+    <script src="app/landing/landing.controller.js"></script>
+
+    <script src="ee.app.js"></script>
+    <script src="components/ee-previewer.js"></script>
+    <script src="components/ee-product-editor.js"></script>
+    <script src="components/ee-navbar.js"></script>
+    <script src="components/ee-offscreen.js"></script>
+    <script src="components/ee-catalog-product.js"></script>
+    <script src="components/ee-storefront-product.js"></script>
+    <script src="components/ee-order.js"></script>
   <!-- endbuild -->
 
   <!--GA-->
   <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    //   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    //     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    // })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-55625421-1', 'auto');
-    ga('require', 'displayfeatures');
-    ga('require', 'linkid', 'linkid.js');
+    // ga('create', 'UA-55625421-1', 'auto');
+    // ga('require', 'displayfeatures');
+    // ga('require', 'linkid', 'linkid.js');
   </script>
 
 </body>
