@@ -1,1 +1,3 @@
-angular.module('app.landing', [])
+'use strict'
+
+angular.module 'app.landing', []

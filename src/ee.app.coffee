@@ -1,149 +1,10 @@
-angular.module('eeApp').config ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider) ->
-  $locationProvider.html5Mode true
+'use strict'
 
-  ## Configure CORS
-  $httpProvider.defaults.useXDomain = true
-  $httpProvider.defaults.withCredentials = true
-  delete $httpProvider.defaults.headers.common["X-Requested-With"]
-  $httpProvider.defaults.headers.common["Accept"] = "application/json"
-  $httpProvider.defaults.headers.common["Content-Type"] = "application/json"
-
-  $stateProvider
-    ## don't need data prior to render
-    # .state 'landing',
-    #   url: '/'
-    #   templateUrl: 'partials/pre/landing.html'
-    #   controller: 'landingCtrl'
-    #   data:
-    #     pageTitle: 'Online store builder, ecommerce storefront, dropship product catalog | eeosk'
-    #     pageDescription: 'Create an online store from a catalog of products.'
-    .state 'signupSell',
-      url: '/create-online-store'
-      templateUrl: 'partials/pre/info.signup.html'
-      controller: 'contactCtrl'
-      data:
-        pageTitle: 'Create your store | eeosk'
-    .state 'login',
-      url: '/user/login'
-      templateUrl: 'partials/pre/auth.login.html'
-      controller: 'loginCtrl'
-      data: pageTitle: 'Login | eeosk'
-    .state 'loginTemp',
-      url: '/login'
-      templateUrl: 'partials/pre/auth.loginTemp.html'
-      controller: 'loginTempCtrl'
-      data: pageTitle: 'Login | eeosk'
-    .state 'logout',
-      url: '/user/logout'
-      template: ''
-      controller: 'logoutCtrl'
-      data: pageTitle: 'Logout | eeosk'
-
-    ## need data prior to render
-    # .state 'about',
-    #   url: '/about'
-    #   templateUrl: 'partials/pre/info.about.html'
-    #   controller: 'aboutCtrl'
-    #   resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts()
-    #   data: pageTitle: 'About | eeosk'
-    # .state 'beta',
-    #   url: '/beta'
-    #   templateUrl: 'partials/catalog.html'
-    #   controller: 'catalogCtrl'
-    #   resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts()
-    #   data:
-    #     pageTitle: 'Sell for suppliers | eeosk'
-    #     offscreenContent: 'menu'
-    # .state 'generate',
-    #   url: '/generate/:id'
-    #   templateUrl: 'partials/generate.html'
-    #   controller: 'generateCtrl'
-    #   resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts()
-    #   data: pageTitle: ''
-    ## TODO: rename to /admin
-    # .state 'products',
-    #   url: '/products/:id'
-    #   templateUrl: 'partials/products/products.html'
-    #   controller: 'productsCtrl'
-    #   resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts('admin')
-    #   data: pageTitle: 'Products | eeosk'
-
-    ## App ##
-    .state 'app',
-      url: '/app'
-      template: '<div ui-view class="white-background"></div>'
-      data:
-        narrowToggle: true
-
-    ## Storefront ##
-    .state 'app.storefront',
-      url: '/storefront'
-      templateUrl: 'partials/app/store.view.container.html'
-      controller: 'app.storefrontCtrl'
-      resolve: eeProductData: (eeBack) -> eeBack.getProducts()
-      data:
-        pageTitle: 'Build your store | eeosk'
-        offscreenCategory: 'Storefront'
-        offscreenColor: 'blue'
-    .state 'app.storefront.home',
-      url: '/home'
-      templateUrl: 'partials/app/store.home.html'
-    .state 'app.storefront.shop',
-      url: '/shop/:shopCategory'
-      templateUrl: 'partials/app/store.shop.html'
-    .state 'app.storefront.blog',
-      url: '/blog'
-      templateUrl: 'partials/app/storefront/blog.html'
-    .state 'app.storefront.about',
-      url: '/about'
-      templateUrl: 'partials/app/store.about.html'
-    .state 'app.storefront.audience',
-      url: '/audience'
-      templateUrl: 'partials/app/store.audience.html'
-
-    ## Catalog ##
-    .state 'app.catalog',
-      url: '/catalog'
-      templateUrl: 'partials/app/catalog.html'
-      controller: 'app.catalogCtrl'
-      resolve: eeProductData: (eeBack) -> eeBack.getProducts()
-      data:
-        pageTitle: 'Add products | eeosk'
-        offscreenCategory: 'Catalog'
-        offscreenColor: 'gold'
-
-    ## Orders ##
-    .state 'app.orders',
-      url: '/orders'
-      templateUrl: 'partials/app/orders.html'
-      controller: 'app.ordersCtrl'
-      resolve: eeOrderData: (eeFirebaseSvc) -> eeFirebaseSvc.getOrders()
-      data:
-        pageTitle: 'My orders | eeosk'
-        offscreenCategory: 'Orders'
-        offscreenColor: 'green'
-
-    ## Account ##
-    .state 'app.account',
-      url: '/account'
-      templateUrl: 'partials/app/account.html'
-      controller: 'app.catalogCtrl'
-      resolve: eeProductData: (eeFirebaseSvc) -> eeFirebaseSvc.getProducts('admin')
-      data:
-        pageTitle: 'Account | eeosk'
-        offscreenCategory: 'Account'
-        offscreenColor: 'dark'
-
-  $urlRouterProvider.otherwise '/'
-  return
-
-angular.module('eeApp').constant 'eeFirebaseUrl', "https://fiery-inferno-1584.firebaseIO.com/"
-angular.module('eeApp').constant 'eeBackUrl', "http://localhost:3000/v0/"
-
-angular.module('eeApp').run ($rootScope, $state, $cookies, $location) ->
+angular.module('app.core').run ($rootScope, $state, $cookies, $location) ->
 
   # binding this so $state.current.data.pageTitle & other $state data can be accessed
   $rootScope.$state = $state
+
   $rootScope.eeUser =
     storefront:
       categories: {
@@ -188,194 +49,16 @@ angular.module('eeApp').run ($rootScope, $state, $cookies, $location) ->
             zip: '05482'
         newsletterSignup: true
 
-  # window.eeUser = $rootScope.eeUser
-  # window.rootScope = $rootScope
   return
 
-# ========================
-
-angular.module('eeApp').factory 'eeEnvSvc', ($location) ->
-  envFromHost: ->
-    if !!$location.host() and $location.host().indexOf('eeosk') > -1 then 'production' else 'development'
-
-angular.module('eeApp').factory 'eeGlobalSvc', ($state, $document) ->
-  getTitle: -> $state.current.data.pageTitle
-  setTitle: (newTitle) -> $state.current.data.pageTitle = newTitle; return
-  addBodyClass: (newClass) -> $document.find('body').addClass newClass; return
-  removeBodyClass: (oldClass) -> $document.find('body').removeClass oldClass; return
-
-angular.module('eeApp').factory 'eePathMaker', ->
-  vals = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_"
-  createPath: ->
-    dateStr = Date.now() + ''
-    residual = parseInt(dateStr.substr(8,5) + dateStr.substr(1,7)) # chop off first number of Date.now() and rearrange
-    result = ''
-    while true
-      val = residual % 64
-      result = vals.charAt(val) + result
-      residual = Math.floor(residual / 64)
-      if residual == 0 then break
-    result
-
-angular.module('eeApp').factory 'eeBack', ($http, $q, eeBackUrl) ->
-
-  authWithPassword: (email, password) ->
-    req =
-      method: 'POST'
-      url: eeBackUrl + 'auth'
-      headers:
-        authorization: 'Basic ' + email + ':' + password
-    deferred = $q.defer()
-    $http(req)
-      .success (data, status, headers, config) -> deferred.resolve data
-      .error (data) -> deferred.resolve data
-    deferred.promise
-
-  loginWithToken: (token) ->
-    req =
-      method: 'POST'
-      url: eeBackUrl + 'token'
-      headers:
-        authorization: token
-    deferred = $q.defer()
-    $http(req)
-      .success (data, status, headers, config) -> deferred.resolve data
-      .error (data) -> deferred.reject data
-    deferred.promise
-
-  getProducts: () ->
-    token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidG9rZW4iOiIwZDhkZDdkNC03ZDU1LTRiYTYtYmMwYi1jOTkxNTU0MGY4MWIiLCJpYXQiOjE0MjE5NDQyNjV9.yasDq4xY2EWKb_cNsU6PZV4moVN16buMi1czh0JAfVQ'
-    req =
-      method: 'GET'
-      url: eeBackUrl + 'products'
-      headers:
-        authorization: token
-
-    deferred = $q.defer()
-    $http req
-      .success (data) -> deferred.resolve data
-      .error (data) -> deferred.resolve data
-    deferred.promise
-
-
-angular.module('eeApp').factory 'eeFirebaseSvc', ($http, $q, $location, eeFirebaseUrl, eeEnvSvc) ->
-  _ref = (new Firebase eeFirebaseUrl).child eeEnvSvc.envFromHost()
-  _firebaseEnv = eeEnvSvc.envFromHost()
-  setRef = (newEnv) ->
-    _firebaseEnv = newEnv
-    _ref = (new Firebase eeFirebaseUrl).child newEnv
-    return
-
-  getFirebaseEnv: -> _firebaseEnv
-  setRef: setRef
-
-  # product, client-facing
-  getProducts: (state) ->
-    deferred = $q.defer()
-    # TODO: don't get products w/ trade: false (may not be possible if firebase data isn't ordered)
-    # _ref.child('products').once 'value', (data) ->
-    #   results = []
-    #   for key, value of data.val()
-    #     value.id = key
-    #     results.push value
-    #   if state isnt 'admin'
-    #     # remove products that shouldn't be visible in trade catalog
-    #     results = results.filter (product) -> product.trade
-    #   deferred.resolve results
-    $http.get '/products.json'
-      .success (data) -> deferred.resolve data;
-      .error (data) -> deferred.resolve data;
-    deferred.promise
-
-  getProduct: (id) ->
-    deferred = $q.defer()
-    _ref.child('products').child(id).once 'value', (data) ->
-      deferred.resolve data.val()
-    deferred.promise
-
-  # product admin
-  createProduct: (product) ->
-    deferred = $q.defer()
-    _ref.child('products').push product, (err) ->
-      if err then deferred.reject err else deferred.resolve()
-    deferred.promise
-  updateProduct: (id, product) ->
-    deferred = $q.defer()
-    _ref.child('products').child(id).set product, (err) ->
-      if err then deferred.reject err else deferred.resolve()
-    deferred.promise
-  deleteProduct: (id) ->
-    deferred = $q.defer()
-    _ref.child('products').child(id).remove (err) ->
-      if err then deferred.reject err else deferred.resolve()
-    deferred.promise
-
-  # link
-  getLink: (id) ->
-    deferred = $q.defer()
-    _ref.child('links').child(id).once 'value', (data) ->
-      deferred.resolve data.val()
-    deferred.promise
-  createLink: (productId, email, sellerPrice, path) ->
-    _ref.child('links').child(path).setWithPriority(
-      productId: productId
-      email: email
-      sellerPrice: sellerPrice
-    , path)
-    _ref.child 'links'
-
-  # auth
-  getAuth: () -> _ref.getAuth()
-  authWithPassword: (email, password) ->
-    deferred = $q.defer()
-    _ref.authWithPassword
-      email: email
-      password: password
-    , (error, authData) ->
-      deferred.resolve authData
-    deferred.promise
-  unauth: () -> _ref.unauth()
-  redirectUnlessAuth: ->
-    $location.path('user/login') unless _ref.getAuth()
-
-  #signup
-  createSignup: (signup) ->
-    deferred = $q.defer()
-    _ref.child('signups').push signup, (err) ->
-      if err then deferred.reject err else deferred.resolve()
-    deferred.promise
-
-  #orders
-  getOrders: () ->
-    deferred = $q.defer()
-    $http.get '/orders.json'
-      .success (data) -> deferred.resolve data;
-      .error (data) -> deferred.resolve data;
-    deferred.promise
-
-angular.module('eeApp').factory 'eeFullScreenSvc', ($rootScope) ->
-  fullScreen = false
-  get: -> fullScreen
-  set: (newState) ->
-    fullScreen = newState
-    $rootScope.$broadcast 'setFullScreen', fullScreen
-    return
-
-# ========================
-
-angular.module('eeApp').controller 'catalogCtrl', ($scope, $stateParams, eeProductData) ->
-  $scope.path = $stateParams.id
-  # $scope.fullScreen = eeFullScreenSvc.get()
-  # $scope.$on 'setFullScreen', (e, val) -> $scope.fullScreen = val; return
-  $scope.products = eeProductData
-  return
+# angular.module('eeApp').controller 'catalogCtrl', ($scope, $stateParams, eeProductData) ->
+#   $scope.path = $stateParams.id
+#   # $scope.fullScreen = eeFullScreenSvc.get()
+#   # $scope.$on 'setFullScreen', (e, val) -> $scope.fullScreen = val; return
+#   $scope.products = eeProductData
+#   return
 
 angular.module('eeApp').controller 'app.storefrontCtrl', ($scope, $rootScope, eeProductData) ->
-  $rootScope.toggle = true
-  $scope.products = eeProductData
-  return
-
-angular.module('eeApp').controller 'app.catalogCtrl', ($scope, $rootScope, eeProductData) ->
   $rootScope.toggle = true
   $scope.products = eeProductData
   return
@@ -476,30 +159,12 @@ angular.module('eeApp').controller 'contactCtrl', ($scope, $location, eeFirebase
 
 # ========================
 
-angular.module('eeApp').directive 'clickAnywhere', ($document) ->
-  restrict: 'A'
-  link: (scope, ele, attr) ->
-    ele.bind 'click', (e) -> e.stopPropagation()
-    $document.bind 'click', () -> scope.$apply attr.clickAnywhere
-    return
-
-angular.module('eeApp').directive 'eeSelectOnFocus', ->
-  restrict: 'A',
-  link: (scope, ele) ->
-    ele.on 'focus', -> this.select()
-    return
-
-# angular.module('eeApp').filter 'eeImg', () ->
-#   (input) ->
-#     if input.indexOf("http") < 0 then return "https://s3.amazonaws.com/eeosk/products/" + input
-#     return input
-
 angular.module('eeApp').filter 'eeShopCategories', () ->
   (products, category) ->
     if !category || category == 'All' then return products
     filtered = []
     for product in products
-      if product.categories.indexOf(category) >= 0 then filtered.push product
+      if product.categories?.indexOf(category) >= 0 then filtered.push product
     return filtered
 
 angular.module('eeApp').filter 'centToDollar', ($filter) ->

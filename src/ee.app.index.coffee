@@ -1,3 +1,5 @@
+'use strict'
+
 angular.module 'eeApp', [
   # vendor
   'ui.router'
@@ -6,6 +8,11 @@ angular.module 'eeApp', [
   'angulartics'
   'angulartics.google.analytics'
   'colorpicker.module'
+
+  # controllers
+  'app.core'
+  'app.landing'
+  'app.catalog'
 
   # custom
   # 'EE.Products'
@@ -18,7 +25,4 @@ angular.module 'eeApp', [
   'ee-storefrontProduct'
   'ee-order'
   # 'EE.Templates' # commented out during build step for inline templates
-
-  # controllers
-  'app.landing'
 ]

@@ -1,3 +1,5 @@
+'use strict'
+
 angular.module 'ee-offscreen', []
 
 angular.module('ee-offscreen').directive "eeOffscreen", ($rootScope) ->
