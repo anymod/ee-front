@@ -12,7 +12,7 @@ angular.module('app.landing').config ($stateProvider, $locationProvider) ->
 
   $stateProvider.state 'landing',
     url: '/'
-    templateUrl: 'partials/pre/landing.html'
+    templateUrl: 'app/landing/landing.html'
     controller: 'landingCtrl'
     data:
       pageTitle: 'Online store builder, ecommerce storefront, dropship product catalog | eeosk'

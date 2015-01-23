@@ -43,35 +43,35 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state, $root
 
 # Home
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", () ->
-  templateUrl: 'partials/app/store.home.offscreen.html'
+  templateUrl: 'app/storefront/storefront.home.offscreen.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     return
 
 # Shop
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontShop", () ->
-  templateUrl: 'partials/app/store.shop.offscreen.html'
+  templateUrl: 'app/storefront/storefront.shop.offscreen.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     return
 
 # Blog
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontBlog", () ->
-  templateUrl: 'partials/app/store.blog.offscreen.html'
+  templateUrl: 'app/storefront/storefront.blog.offscreen.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     return
 
 # About
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontAbout", () ->
-  templateUrl: 'partials/app/store.about.offscreen.html'
+  templateUrl: 'app/storefront/storefront.about.offscreen.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     return
 
 # Audience
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontAudience", () ->
-  templateUrl: 'partials/app/store.audience.offscreen.html'
+  templateUrl: 'app/storefront/storefront.audience.offscreen.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     return

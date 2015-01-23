@@ -5,7 +5,7 @@ angular.module('app.storefront').config ($stateProvider) ->
   $stateProvider
     .state 'app.storefront',
       url: '/storefront'
-      templateUrl: 'partials/app/store.view.container.html'
+      templateUrl: 'app/storefront/storefront.view.container.html'
       controller: 'app.storefrontCtrl'
       # resolve: eeProductData: (eeBack) -> eeBack.getProducts()
       data:
@@ -14,16 +14,16 @@ angular.module('app.storefront').config ($stateProvider) ->
         offscreenColor: 'blue'
     .state 'app.storefront.home',
       url: '/home'
-      templateUrl: 'partials/app/store.home.html'
+      templateUrl: 'app/storefront/storefront.home.html'
     .state 'app.storefront.shop',
       url: '/shop/:shopCategory'
-      templateUrl: 'partials/app/store.shop.html'
+      templateUrl: 'app/storefront/storefront.shop.html'
     .state 'app.storefront.blog',
       url: '/blog'
-      templateUrl: 'partials/app/store.blog.html'
+      templateUrl: 'app/storefront/storefront.blog.html'
     .state 'app.storefront.about',
       url: '/about'
-      templateUrl: 'partials/app/store.about.html'
+      templateUrl: 'app/storefront/storefront.about.html'
     .state 'app.storefront.audience',
       url: '/audience'
-      templateUrl: 'partials/app/store.audience.html'
+      templateUrl: 'app/storefront/storefront.audience.html'

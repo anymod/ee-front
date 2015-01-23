@@ -116,7 +116,7 @@ gulp.task 'html-prod', ->
 
 # copy non-compiled files
 gulp.task "copy-prod", ->
-  gulp.src ['./src/img/**/*.*', './src/partials/**/*.html'], base: './src'
+  gulp.src ['./src/img/**/*.*', './src/app/**/*.html'], base: './src'
     .pipe gp.plumber()
     .pipe gp.changed distPath
     .pipe gulp.dest distPath
