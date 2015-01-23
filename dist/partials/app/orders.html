@@ -20,7 +20,7 @@
           <div ng-if="order.shipmentStatus == 'out of stock'" class="btn btn-sm btn-warning">out of stock</div>
         </td>
         <td>{{ order.number }}</td>
-        <td><img ng-src="{{ order.images[0] | eeImg }}" class="thumb-small"></td>
+        <td><img ng-src="{{ order.images[0] }}" class="thumb-small"></td>
         <td>{{ order.title }}</td>
         <td>{{ order.sellerPrice | currency }}</td>
         <td>&times;</td>

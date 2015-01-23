@@ -1,7 +1,6 @@
 'use strict'
 
-angular.module('app.catalog').config ($stateProvider, $locationProvider) ->
-  $locationProvider.html5Mode true
+angular.module('app.catalog').config ($stateProvider) ->
 
   $stateProvider.state 'app.catalog',
     url: '/catalog'

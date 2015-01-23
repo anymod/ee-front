@@ -4,15 +4,11 @@ morgan          = require "morgan"
 path            = require "path"
 Firebase        = require "firebase"
 eFirebaseRef    = new Firebase "https://fiery-inferno-1584.firebaseIO.com/"
-mandrill        = require 'mandrill-api/mandrill'
-mandrill_client = new mandrill.Mandrill '4vaQlh_sNOSqwqLSPK7LCg'
 bodyParser      = require 'body-parser'
 app             = express()
 
 stripeSecretKey = if process.env.NODE_ENV is "production" then "sk_live_UNVB2zgYAXxv90X9vuQckxc6" else "sk_test_1luLv9PtbgsqWX5irh1KLgdu"
 stripe          = require("stripe")(stripeSecretKey)
-
-app.engine "html", require("ejs").renderFile
 
 forceSsl = (req, res, next) ->
   if req.headers["x-forwarded-proto"] isnt "https"

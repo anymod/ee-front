@@ -41,7 +41,7 @@ gulp.task 'js-dev', ->
     .pipe gp.sourcemaps.init()
     .pipe gp.coffee()
     .pipe gp.sourcemaps.write './'
-    .pipe gulp.dest './src'
+    .pipe gulp.dest './src/js'
 
 # ==========================
 # prod tasks

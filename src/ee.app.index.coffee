@@ -11,8 +11,14 @@ angular.module 'eeApp', [
 
   # controllers
   'app.core'
+  'app.auth'
   'app.landing'
+  'app.about'
+  'app.contact'
+  'app.storefront'
   'app.catalog'
+  'app.orders'
+  'app.account'
 
   # custom
   # 'EE.Products'

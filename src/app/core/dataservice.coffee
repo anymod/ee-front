@@ -1,9 +1,6 @@
 'use strict'
 
-core = angular.module 'app.core'
-
-core.factory 'eeBack', ($http, $q, eeBackUrl) ->
-
+angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
   authWithPassword: (email, password) ->
     req =
       method: 'POST'
@@ -42,17 +39,17 @@ core.factory 'eeBack', ($http, $q, eeBackUrl) ->
       .error (data) -> deferred.resolve data
     deferred.promise
 
-core.factory 'eeEnvSvc', ($location) ->
+angular.module('app.core').factory 'eeEnvSvc', ($location) ->
   envFromHost: ->
     if !!$location.host() and $location.host().indexOf('eeosk') > -1 then 'production' else 'development'
 
-core.factory 'eeGlobalSvc', ($state, $document) ->
+angular.module('app.core').factory 'eeGlobalSvc', ($state, $document) ->
   getTitle: -> $state.current.data.pageTitle
   setTitle: (newTitle) -> $state.current.data.pageTitle = newTitle; return
   addBodyClass: (newClass) -> $document.find('body').addClass newClass; return
   removeBodyClass: (oldClass) -> $document.find('body').removeClass oldClass; return
 
-core.factory 'eePathMaker', ->
+angular.module('app.core').factory 'eePathMaker', ->
   vals = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_"
   createPath: ->
     dateStr = Date.now() + ''
@@ -65,7 +62,7 @@ core.factory 'eePathMaker', ->
       if residual == 0 then break
     result
 
-core.factory 'eeFirebaseSvc', ($http, $q, $location, eeFirebaseUrl, eeEnvSvc) ->
+angular.module('app.core').factory 'eeFirebaseSvc', ($http, $q, $location, eeFirebaseUrl, eeEnvSvc) ->
   _ref = (new Firebase eeFirebaseUrl).child eeEnvSvc.envFromHost()
   _firebaseEnv = eeEnvSvc.envFromHost()
   setRef = (newEnv) ->
@@ -160,7 +157,7 @@ core.factory 'eeFirebaseSvc', ($http, $q, $location, eeFirebaseUrl, eeEnvSvc) ->
       .error (data) -> deferred.resolve data;
     deferred.promise
 
-core.factory 'eeFullScreenSvc', ($rootScope) ->
+angular.module('app.core').factory 'eeFullScreenSvc', ($rootScope) ->
   fullScreen = false
   get: -> fullScreen
   set: (newState) ->
