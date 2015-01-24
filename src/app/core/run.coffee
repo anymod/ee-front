@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').run ($rootScope, $state, $cookies, $location) ->
+angular.module('app.core').run ['$rootScope', '$state', '$cookies', '$location', ($rootScope, $state, $cookies, $location) ->
 
   # binding this so $state.current.data.pageTitle & other $state data can be accessed
   $rootScope.$state = $state
@@ -50,3 +50,4 @@ angular.module('app.core').run ($rootScope, $state, $cookies, $location) ->
         newsletterSignup: true
 
   return
+]

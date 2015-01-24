@@ -64,8 +64,30 @@ gulp.task 'js-prod', ->
       standalone: true
       root: 'components'
 
+    # <script src="js/app/core/core.module.js"></script>
+    # <script src="js/app/core/run.js"></script>
+    # <script src="js/app/core/constants.js"></script>
+    # <script src="js/app/core/filters.js"></script>
+    # <script src="js/app/core/config.js"></script>
+    # <script src="js/app/core/dataservice.js"></script>
+
   # compile cs & annotate for min
-  ngModules = gulp.src './src/**/*.coffee'
+  ngModulesSrc = [
+    './src/ee.app.index.coffee'
+    './src/app/core/core.module.coffee'
+    './src/app/core/run.coffee'
+    './src/app/core/constants.coffee'
+    './src/app/core/filters.coffee'
+    './src/app/core/config.coffee'
+    './src/app/core/dataservice.coffee'
+    './src/app/**/*.module.coffee'
+    './src/app/**/*.route.coffee'
+    './src/app/**/*.controller.coffee'
+    './src/app/**/*.coffee'
+    './src/components/**/*.coffee'
+  ]
+  
+  ngModules = gulp.src ngModulesSrc
     .pipe gp.plumber()
     .pipe gp.replace "# 'EE.Templates'", "'EE.Templates'" # for ee.app.coffee $templateCache
     .pipe gp.replace "'env', 'development'", "'env', 'production'" # TODO use gulp-ng-constant
