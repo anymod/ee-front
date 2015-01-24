@@ -73,7 +73,7 @@ gulp.task 'js-prod', ->
 
   # compile cs & annotate for min
   ngModulesSrc = [
-    './src/ee.app.index.coffee'
+    './src/app/app.index.coffee'
     './src/app/core/core.module.coffee'
     './src/app/core/run.coffee'
     './src/app/core/constants.coffee'

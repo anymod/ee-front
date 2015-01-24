@@ -1,8 +1,6 @@
 'use strict'
 
-core = angular.module 'app.core'
-
-core.config ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider) ->
+angular.module('app.core').config ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider) ->
   $locationProvider.html5Mode true
 
   ## Configure CORS

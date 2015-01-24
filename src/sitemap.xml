@@ -4,21 +4,21 @@
 
   <url>
     <loc>https://eeosk.com</loc>
-    <lastmod>2014-11-10</lastmod>
+    <lastmod>2015-23-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://eeosk.com/about</loc>
-    <lastmod>2014-11-10</lastmod>
+    <lastmod>2015-23-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://eeosk.com/connect</loc>
-    <lastmod>2014-11-10</lastmod>
+    <loc>https://eeosk.com/login</loc>
+    <lastmod>2015-23-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

@@ -33,7 +33,7 @@ angular.module('ee-offscreen').directive "eeOffscreenDefault", () ->
 
 #  Parent
 angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state, $rootScope) ->
-  templateUrl: 'components/ee-offscreen-storefront.html'
+  templateUrl: 'app/storefront/storefront.offscreen.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) ->
@@ -79,7 +79,7 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefrontAudience", () ->
 ## Catalog
 # Parent
 angular.module('ee-offscreen').directive "eeOffscreenCatalog", () ->
-  templateUrl: 'components/ee-offscreen-catalog.html'
+  templateUrl: 'app/catalog/catalog.offscreen.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) -> return
@@ -87,7 +87,7 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", () ->
 ## Orders
 # Parent
 angular.module('ee-offscreen').directive "eeOffscreenOrders", () ->
-  templateUrl: 'components/ee-offscreen-orders.html'
+  templateUrl: 'app/orders/orders.offscreen.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) -> return
@@ -95,7 +95,7 @@ angular.module('ee-offscreen').directive "eeOffscreenOrders", () ->
 ## Account
 # Parent
 angular.module('ee-offscreen').directive "eeOffscreenAccount", () ->
-  templateUrl: 'components/ee-offscreen-account.html'
+  templateUrl: 'app/account/account.offscreen.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) -> return
