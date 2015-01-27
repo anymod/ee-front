@@ -35,6 +35,7 @@ angular.module('app.core').factory 'eeBack', ($rootScope, $cookies, $http, $q, e
 
   getUser: () -> eeUser
   setUser: () -> $rootScope.eeUser = eeUser
+  hasToken: () -> !!eeToken
 
   getProducts: () ->
     req =

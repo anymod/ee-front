@@ -45,10 +45,10 @@ gulp.task 'js-dev', ->
     .pipe gulp.dest './src/js'
 
 gulp.task 'test-dev', ->
-  gulp.src './src/e2e/*.coffee'
+  gulp.src ['./src/e2e/config.coffee', './src/e2e/*.coffee']
     .pipe protractor
       configFile: './protractor.conf.js'
-      args: ['--baseUrl', 'http://127.0.0.4444']
+      args: ['--baseUrl', 'http://localhost:5000']
     .on 'error', (e) -> return
 
 # ==========================
@@ -163,6 +163,13 @@ gulp.task "copy-prod", ->
     .pipe gp.plumber()
     .pipe gp.changed distPath
     .pipe gulp.dest distPath
+
+gulp.task 'test-prod', ->
+  gulp.src ['./src/e2e/config.coffee', './src/e2e/*.coffee']
+    .pipe protractor
+      configFile: './protractor.conf.js'
+      args: ['--baseUrl', 'https://eeosk.com']
+    .on 'error', (e) -> return
 
 # ==========================
 

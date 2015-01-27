@@ -1,9 +1,22 @@
 'use strict'
 
-angular.module('app.core').run ['$rootScope', '$state', '$cookies', '$location', ($rootScope, $state, $cookies, $location) ->
+angular.module('app.core').run ($rootScope, $state, $cookies, $location, eeBack) ->
 
   # binding this so $state.current.data.pageTitle & other $state data can be accessed
   $rootScope.$state = $state
+
+
+  $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
+    openStates = [
+      'landing',
+      'login',
+      'logout',
+      'about',
+      'signup'
+    ]
+    unless openStates.indexOf(toState.name) > -1 or eeBack.hasToken()
+      event.preventDefault()
+      $state.go 'login'
 
   $rootScope.eeUser =
     storefront:
@@ -50,4 +63,3 @@ angular.module('app.core').run ['$rootScope', '$state', '$cookies', '$location',
         newsletterSignup: true
 
   return
-]

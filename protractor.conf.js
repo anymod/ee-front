@@ -14,12 +14,16 @@ exports.config = {
   //   }
   // }
   mochaOpts: {
-    ui: 'tdd',
+    ui: 'bdd',
     reporter: "nyan",
     slow: 2000
   },
+  restartBrowserBetweenTests: false,
   onPrepare: function() {
     global.byAttr = global.by;
-    browser.driver.manage().window().setPosition(12000,100);
-  }
+    browser.driver.manage().window().setPosition(12000,0);
+  },
+  // onComplete: function() {
+  //   browser.pause()
+  // }
 }

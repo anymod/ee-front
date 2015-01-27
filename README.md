@@ -7,11 +7,15 @@ Hello world.
 
 `bower install`
 
-`gulp dev` for local dev, dev files are served from `/src`
+`gulp dev` for local dev & test runner
 
 Visit `http://localhost:5000`
 
-Firebase `.development` data will be used
+### Testing
+
+`gulp dev` will run e2e tests continuously with protractor
+
+`gulp test-prod` will run e2e tests on live site
 
 ### Prod
 
@@ -19,15 +23,11 @@ Firebase `.development` data will be used
 
 Visit `http://localhost:5000` to ensure server, `/` and `/product` work
 
-Firebase `.production` data will be used
-
 Push to deployment target
 
 ### Other
 
-`http://eeosk.us` redirects to `https://eeosk.com/product`
-
-Login at `/#/user/login` with username `team@eeosk.com` and password pattern starting with `e`
+Login at `/login` with username `team@eeosk.com` and password pattern starting with `e`
 
 ## Workflow & pricing definition
 
