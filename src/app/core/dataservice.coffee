@@ -1,6 +1,9 @@
 'use strict'
 
-angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
+angular.module('app.core').factory 'eeBack', ($rootScope, $cookies, $http, $q, eeBackUrl) ->
+  eeUser = ''
+  eeToken = $cookies.loginToken
+
   authWithPassword: (email, password) ->
     req =
       method: 'POST'
@@ -9,7 +12,10 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
         authorization: 'Basic ' + email + ':' + password
     deferred = $q.defer()
     $http(req)
-      .success (data, status, headers, config) -> deferred.resolve data
+      .success (data, status, headers, config) ->
+        eeUser = data.user
+        eeToken = data.token
+        deferred.resolve data
       .error (data) -> deferred.resolve data
     deferred.promise
 
@@ -21,18 +27,21 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
         authorization: token
     deferred = $q.defer()
     $http(req)
-      .success (data, status, headers, config) -> deferred.resolve data
+      .success (data, status, headers, config) ->
+        if !!data.username then eeUser = data
+        deferred.resolve data
       .error (data) -> deferred.reject data
     deferred.promise
 
+  getUser: () -> eeUser
+  setUser: () -> $rootScope.eeUser = eeUser
+
   getProducts: () ->
-    token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidG9rZW4iOiIwZDhkZDdkNC03ZDU1LTRiYTYtYmMwYi1jOTkxNTU0MGY4MWIiLCJpYXQiOjE0MjE5NDQyNjV9.yasDq4xY2EWKb_cNsU6PZV4moVN16buMi1czh0JAfVQ'
     req =
       method: 'GET'
       url: eeBackUrl + 'products'
       headers:
-        authorization: token
-
+        authorization: eeToken
     deferred = $q.defer()
     $http req
       .success (data) -> deferred.resolve data

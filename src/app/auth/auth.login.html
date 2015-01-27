@@ -17,11 +17,13 @@
              autofocus>
       <input type="password"
              ng-model="password"
+             name="password"
              placeholder="Password"
              class="form-control vert-5"
              required>
       <button class="btn btn-lg btn-primary btn-block"
-      type="submit">Sign in</button>
+              name="submit"
+              type="submit">Sign in</button>
     </form>
 
     <div class="alert alert-info" ng-show='res'>{{ res }}</div>

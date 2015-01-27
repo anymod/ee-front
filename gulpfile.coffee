@@ -6,6 +6,7 @@ gp = do require "gulp-load-plugins"
 
 streamqueue = require 'streamqueue'
 combine = require 'stream-combiner'
+protractor = require("gulp-protractor").protractor
 
 # ==========================
 # task options
@@ -43,6 +44,13 @@ gulp.task 'js-dev', ->
     .pipe gp.sourcemaps.write './'
     .pipe gulp.dest './src/js'
 
+gulp.task 'test-dev', ->
+  gulp.src './src/e2e/*.coffee'
+    .pipe protractor
+      configFile: './protractor.conf.js'
+      args: ['--baseUrl', 'http://127.0.0.4444']
+    .on 'error', (e) -> return
+
 # ==========================
 # prod tasks
 
@@ -64,13 +72,6 @@ gulp.task 'js-prod', ->
       standalone: true
       root: 'components'
 
-    # <script src="js/app/core/core.module.js"></script>
-    # <script src="js/app/core/run.js"></script>
-    # <script src="js/app/core/constants.js"></script>
-    # <script src="js/app/core/filters.js"></script>
-    # <script src="js/app/core/config.js"></script>
-    # <script src="js/app/core/dataservice.js"></script>
-
   # compile cs & annotate for min
   ngModulesSrc = [
     './src/app/app.index.coffee'
@@ -86,7 +87,7 @@ gulp.task 'js-prod', ->
     './src/app/**/*.coffee'
     './src/components/**/*.coffee'
   ]
-  
+
   ngModules = gulp.src ngModulesSrc
     .pipe gp.plumber()
     .pipe gp.replace "# 'EE.Templates'", "'EE.Templates'" # for ee.app.coffee $templateCache
@@ -182,6 +183,7 @@ gulp.task 'watch', ->
   jsSrc = './src/**/*.coffee'
   gulp.src jsSrc
     .pipe gp.watch {emit: 'one', name: 'js'}, ['js-dev']
+    .pipe gp.watch {emit: 'one', name: 'test'}, ['test-dev']
 
 gulp.task 'dev', ['watch', 'server-dev'], -> return
 gulp.task 'prod', ['css-prod', 'js-prod', 'html-prod', "copy-prod", 'server-prod'], -> return
