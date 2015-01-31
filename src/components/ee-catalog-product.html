@@ -2,7 +2,7 @@
   <div class="media">
     <a href class="media-left">
       <div class="thumb margin-2 gray-border"
-           style="background-image: url('{{ product.image_meta.main_image.url }}')">
+           style="background-image: url('{{ product.image_meta.cloudinary.main_image.url | thumbnail }}')">
       </div>
     </a>
     <div class="media-body">

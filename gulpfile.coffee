@@ -86,6 +86,7 @@ gulp.task 'js-prod', ->
     './src/app/**/*.controller.coffee'
     './src/app/**/*.coffee'
     './src/components/**/*.coffee'
+    '!./src/**/*.spec.coffee'
   ]
 
   ngModules = gulp.src ngModulesSrc
@@ -97,7 +98,7 @@ gulp.task 'js-prod', ->
 
   # src that need min
   otherSrc = [
-    './src/bower_components/marked/lib/marked.js'
+    './src/bower_components/firebase/firebase.js'
   ]
   other = gulp.src otherSrc
 
@@ -107,15 +108,23 @@ gulp.task 'js-prod', ->
 
   # src already min; order is respected
   otherMinSrc = [
+    ## TODO remove jQuery if not using cloudinary infra for file upload
+    './src/bower_components/jquery/dist/jquery.js'
+    './src/bower_components/cloudinary/js/jquery.ui.widget.js'
+    './src/bower_components/cloudinary/js/jquery.iframe-transport.js'
+    './src/bower_components/cloudinary/js/jquery.fileupload.js'
+    './src/bower_components/jquery.cloudinary.1.0.21.js'
+
     './src/bower_components/angular/angular.min.js'
     './src/bower_components/angular-cookies/angular-cookies.min.js'
     './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
     './src/bower_components/angular-ui-router/release/angular-ui-router.min.js'
-    './src/bower_components/firebase/firebase.js'
     './src/bower_components/angulartics/dist/angulartics.min.js'
     './src/bower_components/angulartics/dist/angulartics-ga.min.js'
-    './src/bower_components/angular-marked/angular-marked.js'
-    './src/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js'
+    './src/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js'
+
+    ## TODO remove if using cloudinary infra for file upload
+    './src/bower_components/ng-file-upload/angular-file-upload.min.js'
   ]
   otherMin = gulp.src otherMinSrc
 
@@ -168,6 +177,15 @@ gulp.task 'test-prod', ->
   gulp.src ['./src/e2e/config.coffee', './src/e2e/*.coffee']
     .pipe protractor
       configFile: './protractor.conf.js'
+      args: ['--baseUrl', 'http://localhost:5000']
+    .on 'error', (e) -> return
+
+# ==========================
+
+gulp.task 'test-live', ->
+  gulp.src ['./src/e2e/config.coffee', './src/e2e/*.coffee']
+    .pipe protractor
+      configFile: './protractor.conf.js'
       args: ['--baseUrl', 'https://eeosk.com']
     .on 'error', (e) -> return
 
@@ -190,7 +208,7 @@ gulp.task 'watch', ->
   jsSrc = './src/**/*.coffee'
   gulp.src jsSrc
     .pipe gp.watch {emit: 'one', name: 'js'}, ['js-dev']
-    .pipe gp.watch {emit: 'one', name: 'test'}, ['test-dev']
+    # .pipe gp.watch {emit: 'one', name: 'test'}, ['test-dev']
 
 gulp.task 'dev', ['watch', 'server-dev'], -> return
-gulp.task 'prod', ['css-prod', 'js-prod', 'html-prod', "copy-prod", 'server-prod'], -> return
+gulp.task 'prod', ['css-prod', 'js-prod', 'html-prod', "copy-prod", 'server-prod', 'test-prod'], -> return

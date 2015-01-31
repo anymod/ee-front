@@ -8,6 +8,7 @@ angular.module 'eeApp', [
   'angulartics'
   'angulartics.google.analytics'
   'colorpicker.module'
+  'angularFileUpload'
 
   # controllers
   'app.core'

@@ -8,6 +8,6 @@ src/**/*.map
 
 *.log
 
-server.key
-server.crt
-bundle.pem
+*.key
+*.crt
+*.pem
