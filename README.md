@@ -38,7 +38,7 @@ ee-back   | development | `gulp dev` runs api server in development environment
 ### Production
 
 prod     | task    | runner
-:--------|:--------:------------
+:--------|:--------|:------------
 ee-front | compile | `gulp prod` compiles app into `/dist` and runs e2e tests on it with test api server
 ee-back  | -       | push directly to target if tests pass
 
