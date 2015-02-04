@@ -9,13 +9,13 @@ ee-front
 
 ### Ports
 
-**ee-front**  |
+**ee-front**  | port
 --------------|-----------------------
 *test*        | `http://localhost:3333`
 *development* | `http://localhost:3000`
 *production*  | `Heroku`
 
-**ee-back**   |
+**ee-back**   | port
 --------------|-----------------------
 *test*        | `http://localhost:5555`
 *development* | `http://localhost:5000`
