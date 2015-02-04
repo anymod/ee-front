@@ -1,7 +1,7 @@
 ee-front
 ===
 
-### Dev
+### Installation
 
 `npm install`
 
@@ -10,26 +10,37 @@ ee-front
 ### Ports
 
 **ee-front**
+
 *test*        `http://localhost:3333`
+
 *development* `http://localhost:3000`
+
 *production*  `Heroku`
 
+
 **ee-back**
+
 *test*        `http://localhost:5555`
+
 *development* `http://localhost:5000`
+
 *production*  `Heroku`
 
 ### Testing
 
 **Test e2e with NODE_ENV=test**
+
 *ee-front*    `gulp test` runs e2e tests continuously with protractor
+
 *ee-back*     `gulp test` runs api in test environment
 
 **Test api with NODE_ENV=test**
+
 *ee-back*     `gulp watch-mocha` runs api tests continuously with mocha
 
 
 **Test live site**
+
 *live*        `gulp test-prod` will run e2e tests on live site
 
 ### Prod
