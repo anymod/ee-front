@@ -9,17 +9,11 @@ ee-front
 
 ### Ports
 
-ee-front    | location
-:-----------|:-----------------------
-test        | `http://localhost:3333`
-development | `http://localhost:3000`
-production  | `Heroku`
-
-ee-back     | location
-:-----------|:-----------------------
-test        | `http://localhost:5555`
-development | `http://localhost:5000`
-production  | `Heroku`
+env | ee-front | ee-back
+:-----------|:------------------------|:-----------------------
+test        | `http://localhost:3333` | `http://localhost:5555`
+development | `http://localhost:3000` | `http://localhost:5000`
+production  | `Heroku` | `Heroku`
 
 ### Testing
 
