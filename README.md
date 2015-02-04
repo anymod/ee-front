@@ -7,40 +7,43 @@ ee-front
 
 `bower install`
 
-### Ports
+### Locations
 
 env | ee-front | ee-back
 :-----------|:------------------------|:-----------------------
-test        | `http://localhost:3333` | `http://localhost:5555`
+test (e2e)  | `http://localhost:3333` | `http://localhost:5555`
+test (api)  | -                       | `http://localhost:5444`
 development | `http://localhost:3000` | `http://localhost:5000`
-production  | `Heroku` | `Heroku`
+production  | `https://eeosk.com`     | `https://api.eeosk.com`
 
 ### Testing
 
-Test e2e | NODE_ENV=test
-:--------|:-------------
-ee-front | `gulp test` runs e2e tests continuously with protractor
-ee-back  | `gulp test` runs api in test environment
+e2e       | env  | runner
+:---------|:-----|:-------------
+ee-front  | test | `gulp test (--grep=<filter>)` runs web server and e2e tests continuously with protractor
+ee-back   | test | `gulp test` runs api server (not tests) in test environment
+eeosk.com | production | `gulp test-live` will run e2e tests on live site
 
-Test api | NODE_ENV=test
-:--------|:-------------
-ee-back  | `gulp watch-mocha` runs api tests continuously with mocha
+api       | env  | runner
+:---------|:-----|:-------------
+ee-back   | test | `gulp watch-mocha` runs api server and tests continuously with mocha
 
-Test live | eeosk.com
-:---------|:---------
-live      | `gulp test-prod` will run e2e tests on live site
+### Development
 
-### Prod
+dev       | env         | runner
+:---------|:------------|:-------------
+ee-front  | development | `gulp dev` runs web server in development environment
+ee-back   | development | `gulp dev` runs api server in development environment
 
-`gulp prod` to compile app into `/dist`
+### Production
 
-Visit `http://localhost:5000` to ensure server, `/` and `/product` work
+prod     | task    | runner
+:--------|:--------:------------
+ee-front | compile | `gulp prod` compiles app into `/dist` and runs e2e tests on it with test api server
+ee-back  | -       | push directly to target if tests pass
 
-Push to deployment target
 
 ### Other
-
-Login at `/login` with username `team@eeosk.com` and password pattern starting with `e`
 
 ## Workflow & pricing definition
 
