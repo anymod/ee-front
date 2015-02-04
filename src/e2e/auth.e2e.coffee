@@ -1,4 +1,4 @@
-# spec.coffee
+# auth.e2e.coffee
 chai            = require 'chai'
 should          = chai.should()
 chaiAsPromised  = require 'chai-as-promised'

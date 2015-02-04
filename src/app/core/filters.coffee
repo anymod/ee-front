@@ -15,3 +15,6 @@ angular.module('app.core').filter 'centToDollar', ($filter) ->
 
 angular.module('app.core').filter 'thumbnail', () ->
   (url) -> url.split("image/upload").join('image/upload/c_pad,w_150,h_150')
+
+angular.module('app.core').filter 'urlText', () ->
+  (text) -> text.replace(/[^a-zA-z_]/gi, '').toLowerCase()

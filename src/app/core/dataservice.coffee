@@ -14,7 +14,7 @@ angular.module('app.core').factory 'eeBack', ($rootScope, $cookies, $http, $q, e
     $http(req)
       .success (data, status, headers, config) ->
         eeUser = data.user
-        eeToken = data.token
+        $cookies.loginToken = eeToken = data.token
         deferred.resolve data
       .error (data) -> deferred.resolve data
     deferred.promise
@@ -29,6 +29,23 @@ angular.module('app.core').factory 'eeBack', ($rootScope, $cookies, $http, $q, e
     $http(req)
       .success (data, status, headers, config) ->
         if !!data.username then eeUser = data
+        $cookies.loginToken = eeToken = data.token
+        deferred.resolve data
+      .error (data) -> deferred.reject data
+    deferred.promise
+
+  createUser: (email, password, username) ->
+    req =
+      method: 'POST'
+      url: eeBackUrl + 'users'
+      headers: {}
+      data: { email: email, password: password, username: username }
+    console.log 'req', req
+    deferred = $q.defer()
+    $http(req)
+      .success (data, status, headers, config) ->
+        if !!data.username then eeUser = data
+        $cookies.loginToken = eeToken = data.token
         deferred.resolve data
       .error (data) -> deferred.reject data
     deferred.promise

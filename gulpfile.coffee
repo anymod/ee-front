@@ -1,6 +1,7 @@
 # vendor
 spawn = require("child_process").spawn
 
+argv = require('yargs').argv
 gulp = require 'gulp'
 gp = do require "gulp-load-plugins"
 
@@ -48,7 +49,7 @@ gulp.task 'test-dev', ->
   gulp.src ['./src/e2e/config.coffee', './src/e2e/*.coffee']
     .pipe protractor
       configFile: './protractor.conf.js'
-      args: ['--baseUrl', 'http://localhost:5000']
+      args: ['--grep', (argv.grep || ''), '--baseUrl', 'http://localhost:5000']
     .on 'error', (e) -> return
 
 # ==========================
@@ -210,5 +211,17 @@ gulp.task 'watch', ->
     .pipe gp.watch {emit: 'one', name: 'js'}, ['js-dev']
     # .pipe gp.watch {emit: 'one', name: 'test'}, ['test-dev']
 
+gulp.task 'watch-test', ->
+  gulp.src './src/stylesheets/ee*.less'
+    .pipe gp.watch {emit: 'one', name: 'css'}, ['css-dev']
+
+  jsSrc = './src/**/*.coffee'
+  gulp.src jsSrc
+    .pipe gp.watch {emit: 'one', name: 'js'}, ['js-dev']
+
+  gulp.src './src/e2e/*e2e.coffee'
+    .pipe gp.watch {emit: 'one', name: 'test'}, ['test-dev']
+
 gulp.task 'dev', ['watch', 'server-dev'], -> return
+gulp.task 'dev-test', ['watch-test', 'server-dev'], -> return
 gulp.task 'prod', ['css-prod', 'js-prod', 'html-prod', "copy-prod", 'server-prod', 'test-prod'], -> return
