@@ -1,4 +1,4 @@
-# signup.e2e.coffee
+process.env.NODE_ENV = 'test'
 chai            = require 'chai'
 expect          = require('chai').expect
 should          = chai.should()
@@ -12,32 +12,42 @@ describe 'eeosk signup', () ->
     browser.getTitle().should.eventually.equal 'Create your store | eeosk'
 
   it 'should notify if validations fail', () ->
-    email = 'foo@bar.co'
-    pass  = 'foobar'
-    store = 'foob'
+    random_str  = 'nkbwf' # Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0,5)
+    email_entry = random_str + '@foo.bar'
+    pass_entry  = 'foobar'
+    store_entry = random_str
     browser.get '/create-online-store'
-    alert = byAttr.css('.alert')
+    alert       = byAttr.css('.alert')
+    email       = byAttr.name('email')
+    email_check = byAttr.name('email_check')
+    password    = byAttr.name('password')
+    username    = byAttr.name('username')
+    submit      = byAttr.name('submit')
     element(alert).isDisplayed().should.eventually.equal false
     # Test for matching emails
-    element(byAttr.name('email')).sendKeys email
-    element(byAttr.name('email_check')).sendKeys email + 'z'
-    element(byAttr.name('password')).sendKeys pass
-    element(byAttr.name('username')).sendKeys store
-    element(byAttr.name('submit')).click()
+    element(email).sendKeys email_entry
+    element(email_check).sendKeys email_entry + 'z'
+    element(password).sendKeys pass_entry
+    element(username).sendKeys store_entry
+    element(submit).click()
     element(alert).isDisplayed().should.eventually.equal true
     element(alert).getText().should.eventually.equal 'Emails don\'t match'
     # Test for short password
-    element(byAttr.name('email_check')).clear().sendKeys email
-    element(byAttr.name('submit')).click()
+    element(email_check).clear().sendKeys email_entry
+    element(submit).click()
     element(alert).isDisplayed().should.eventually.equal true
     element(alert).getText().should.eventually.equal 'Password is too short'
     # Test for short store name
-    element(byAttr.name('password')).sendKeys 'baz'
-    element(byAttr.name('submit')).click()
+    element(password).sendKeys 'baz'
+    element(submit).click()
     element(alert).isDisplayed().should.eventually.equal true
     element(alert).getText().should.eventually.equal 'Store name must be between 5 and 25 characters'
     # Test for valid store name
-    element(byAttr.name('username')).sendKeys('\'s store 123').getAttribute('value').should.eventually.equal store + 'sstore'
-    element(byAttr.name('submit')).click()
+    element(username).sendKeys('\'s store 123').getAttribute('value').should.eventually.equal store_entry + 'sstore'
+    # Test for duplicate user
+    element(submit).click()
+    element(alert).isDisplayed().should.eventually.equal true
+    element(alert).getText().should.eventually.equal 'Password is too short'
+
     # Test for redirect to welcome screen
     browser.getTitle().should.eventually.equal 'Build your store | eeosk'

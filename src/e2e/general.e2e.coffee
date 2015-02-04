@@ -1,4 +1,4 @@
-# spec.coffee
+process.env.NODE_ENV = 'test'
 chai            = require 'chai'
 should          = chai.should()
 chaiAsPromised  = require 'chai-as-promised'

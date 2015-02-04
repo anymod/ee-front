@@ -1,4 +1,4 @@
-# auth.e2e.coffee
+process.env.NODE_ENV = 'test'
 chai            = require 'chai'
 should          = chai.should()
 chaiAsPromised  = require 'chai-as-promised'

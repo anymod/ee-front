@@ -27,6 +27,16 @@ htmlminOptions =
   minifyCSS: true
 
 # ==========================
+# test tasks
+
+gulp.task 'protractor', ->
+  gulp.src ['./src/e2e/config.coffee', './src/e2e/*.coffee']
+    .pipe protractor
+      configFile: './protractor.conf.js'
+      args: ['--grep', (argv.grep || ''), '--baseUrl', 'http://localhost:5555']
+    .on 'error', (e) -> return
+
+# ==========================
 # dev tasks
 
 gulp.task 'css-dev', ->
@@ -44,13 +54,6 @@ gulp.task 'js-dev', ->
     .pipe gp.coffee()
     .pipe gp.sourcemaps.write './'
     .pipe gulp.dest './src/js'
-
-gulp.task 'test-dev', ->
-  gulp.src ['./src/e2e/config.coffee', './src/e2e/*.coffee']
-    .pipe protractor
-      configFile: './protractor.conf.js'
-      args: ['--grep', (argv.grep || ''), '--baseUrl', 'http://localhost:5000']
-    .on 'error', (e) -> return
 
 # ==========================
 # prod tasks
@@ -178,7 +181,7 @@ gulp.task 'test-prod', ->
   gulp.src ['./src/e2e/config.coffee', './src/e2e/*.coffee']
     .pipe protractor
       configFile: './protractor.conf.js'
-      args: ['--baseUrl', 'http://localhost:5000']
+      args: ['--baseUrl', 'http://localhost:5555']
     .on 'error', (e) -> return
 
 # ==========================
@@ -192,10 +195,16 @@ gulp.task 'test-live', ->
 
 # ==========================
 
+gulp.task 'server-test', ->
+  gulp.src('./src').pipe gp.webserver(
+    fallback: 'index.html' # for angular html5mode
+    port: 3333
+  )
+
 gulp.task 'server-dev', ->
   gulp.src('./src').pipe gp.webserver(
     fallback: 'index.html' # for angular html5mode
-    port: 5000
+    port: 3000
   )
 
 gulp.task 'server-prod', -> spawn 'foreman', ['start'], stdio: 'inherit'
@@ -209,7 +218,7 @@ gulp.task 'watch', ->
   jsSrc = './src/**/*.coffee'
   gulp.src jsSrc
     .pipe gp.watch {emit: 'one', name: 'js'}, ['js-dev']
-    # .pipe gp.watch {emit: 'one', name: 'test'}, ['test-dev']
+    # .pipe gp.watch {emit: 'one', name: 'test'}, ['protractor']
 
 gulp.task 'watch-test', ->
   gulp.src './src/stylesheets/ee*.less'
@@ -220,8 +229,8 @@ gulp.task 'watch-test', ->
     .pipe gp.watch {emit: 'one', name: 'js'}, ['js-dev']
 
   gulp.src './src/e2e/*e2e.coffee'
-    .pipe gp.watch {emit: 'one', name: 'test'}, ['test-dev']
+    .pipe gp.watch {emit: 'one', name: 'test'}, ['protractor']
 
 gulp.task 'dev', ['watch', 'server-dev'], -> return
-gulp.task 'dev-test', ['watch-test', 'server-dev'], -> return
+gulp.task 'test', ['watch-test', 'server-test'], -> return
 gulp.task 'prod', ['css-prod', 'js-prod', 'html-prod', "copy-prod", 'server-prod', 'test-prod'], -> return
