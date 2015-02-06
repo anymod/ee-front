@@ -4,6 +4,23 @@ angular.module('app.core').factory 'eeBack', ($rootScope, $cookies, $http, $q, e
   eeUser = ''
   eeToken = $cookies.loginToken
 
+  save: () ->
+    req =
+      method: 'PUT'
+      url: eeBackUrl + 'users'
+      headers:
+        authorization: eeToken
+      body: $rootScope.eeUser
+    deferred = $q.defer()
+    $http(req)
+      .success (data, status, headers, config) ->
+        $rootScope.eeUser = data
+        deferred.resolve data
+      .error (data, status, headers, config) ->
+        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
+    deferred.promise
+
+
   authWithPassword: (email, password) ->
     req =
       method: 'POST'
@@ -16,7 +33,8 @@ angular.module('app.core').factory 'eeBack', ($rootScope, $cookies, $http, $q, e
         eeUser = data.user
         $cookies.loginToken = eeToken = data.token
         deferred.resolve data
-      .error (data) -> deferred.resolve data
+      .error (data, status, headers, config) ->
+        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
     deferred.promise
 
   loginWithToken: (token) ->
@@ -31,7 +49,8 @@ angular.module('app.core').factory 'eeBack', ($rootScope, $cookies, $http, $q, e
         if !!data.username then eeUser = data
         $cookies.loginToken = eeToken = data.token
         deferred.resolve data
-      .error (data) -> deferred.reject data
+      .error (data, status, headers, config) ->
+        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
     deferred.promise
 
   createUser: (email, password, username) ->
@@ -40,17 +59,17 @@ angular.module('app.core').factory 'eeBack', ($rootScope, $cookies, $http, $q, e
       url: eeBackUrl + 'users'
       headers: {}
       data: { email: email, password: password, username: username }
-    console.log 'req', req
     deferred = $q.defer()
     $http(req)
       .success (data, status, headers, config) ->
         if !!data.username then eeUser = data
         $cookies.loginToken = eeToken = data.token
         deferred.resolve data
-      .error (data) -> deferred.reject data
+      .error (data, status, headers, config) ->
+        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
     deferred.promise
 
-  getUser: () -> eeUser
+  getUser: () -> $rootScope.eeUser
   setUser: () -> $rootScope.eeUser = eeUser
   hasToken: () -> !!eeToken
 
@@ -62,8 +81,10 @@ angular.module('app.core').factory 'eeBack', ($rootScope, $cookies, $http, $q, e
         authorization: eeToken
     deferred = $q.defer()
     $http req
-      .success (data) -> deferred.resolve data
-      .error (data) -> deferred.resolve data
+      .success (data, status, headers, config) ->
+        deferred.resolve data
+      .error (data, status, headers, config) ->
+        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
     deferred.promise
 
 angular.module('app.core').factory 'eeEnvSvc', ($location) ->

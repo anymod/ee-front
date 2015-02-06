@@ -6,7 +6,7 @@
         <h4 class="margin-0">Products</h4>
         <hr>
         <ul class="nav nav-pills nav-stacked nav-compact">
-          <li ui-sref-active="active" ng-repeat="category in eeUser.storefront.categories">
+          <li ui-sref-active="active" ng-repeat="category in eeUser.storefront_meta.categories">
             <a ui-sref="app.storefront.shop({shopCategory: '{{ category }}'})">{{ category }}</a>
           </li>
         </ul>

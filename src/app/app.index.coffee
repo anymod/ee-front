@@ -27,6 +27,7 @@ angular.module 'eeApp', [
   # 'EE.ProductEditor'
   # 'EE.SupplierSignup'
   'ee-navbar'
+  'ee-save'
   'ee-offscreen'
   'ee-catalogProduct'
   'ee-storefrontProduct'

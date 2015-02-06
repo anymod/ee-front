@@ -1,53 +1,80 @@
 process.env.NODE_ENV = 'test'
+utils           = require './utils.e2e.db'
 chai            = require 'chai'
 expect          = require('chai').expect
 should          = chai.should()
 chaiAsPromised  = require 'chai-as-promised'
 chai.use chaiAsPromised
 
+elem   = {}
+
 describe 'eeosk signup', () ->
 
-  xit 'should show signup page', () ->
+  before (done) ->
+    elem =
+      alert:        element byAttr.css '.alert'
+      email:        element byAttr.model 'email'
+      email_check:  element byAttr.model 'email_check'
+      password:     element byAttr.model 'password'
+      username:     element byAttr.model 'username'
+      submit:       element byAttr.css 'button[type="submit"]'
+
+    utils.delete_all_tables()
+    utils.create_user(utils.test_user)
     browser.get '/create-online-store'
+
+  it 'should show signup page', () ->
     browser.getTitle().should.eventually.equal 'Create your store | eeosk'
 
   it 'should notify if validations fail', () ->
-    random_str  = 'nkbwf' # Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0,5)
-    email_entry = random_str + '@foo.bar'
-    pass_entry  = 'foobar'
-    store_entry = random_str
-    browser.get '/create-online-store'
-    alert       = byAttr.css('.alert')
-    email       = byAttr.name('email')
-    email_check = byAttr.name('email_check')
-    password    = byAttr.name('password')
-    username    = byAttr.name('username')
-    submit      = byAttr.name('submit')
-    element(alert).isDisplayed().should.eventually.equal false
+    # Alert should not initially be displayed
+    elem.alert        .isDisplayed().should.eventually.equal false
     # Test for matching emails
-    element(email).sendKeys email_entry
-    element(email_check).sendKeys email_entry + 'z'
-    element(password).sendKeys pass_entry
-    element(username).sendKeys store_entry
-    element(submit).click()
-    element(alert).isDisplayed().should.eventually.equal true
-    element(alert).getText().should.eventually.equal 'Emails don\'t match'
+    elem.email        .sendKeys utils.random_user.email
+    elem.email_check  .sendKeys utils.random_user.email + 'z'
+    elem.password     .sendKeys utils.random_user.password.substr(0,6)
+    elem.username     .sendKeys utils.random_user.username
+    elem.submit       .click()
+    elem.alert        .isDisplayed().should.eventually.equal true
+    elem.alert        .getText().should.eventually.equal 'Emails don\'t match'
     # Test for short password
-    element(email_check).clear().sendKeys email_entry
-    element(submit).click()
-    element(alert).isDisplayed().should.eventually.equal true
-    element(alert).getText().should.eventually.equal 'Password is too short'
+    elem.email_check  .clear().sendKeys utils.random_user.email
+    elem.submit       .click()
+    elem.alert        .isDisplayed().should.eventually.equal true
+    elem.alert        .getText().should.eventually.equal 'Password must be at least 8 characters'
     # Test for short store name
-    element(password).sendKeys 'baz'
-    element(submit).click()
-    element(alert).isDisplayed().should.eventually.equal true
-    element(alert).getText().should.eventually.equal 'Store name must be between 5 and 25 characters'
+    elem.password     .sendKeys 'baz'
+    elem.username     .clear().sendKeys 'shrt'
+    elem.submit       .click()
+    elem.alert        .isDisplayed().should.eventually.equal true
+    elem.alert        .getText().should.eventually.equal 'Store name must be between 5 and 25 characters'
     # Test for valid store name
-    element(username).sendKeys('\'s store 123').getAttribute('value').should.eventually.equal store_entry + 'sstore'
-    # Test for duplicate user
-    element(submit).click()
-    element(alert).isDisplayed().should.eventually.equal true
-    element(alert).getText().should.eventually.equal 'Password is too short'
+    elem.username     .clear().sendKeys('àëį@#$%^&*()-=+`"<>.?,/\\|{}[]~\' store 123').getAttribute('value').should.eventually.equal 'store123'
+    # Test for redirect to welcome screen upon success
+    elem.username     .clear().sendKeys utils.random_user.username
+    elem.submit       .click()
+    browser           .manage().getCookie('loginToken')
+    .then (cookie) ->
+    # Logged in
+      cookie          .value.should.have.string('Bearer%20')
+      browser         .getTitle().should.eventually.equal 'Build your store | eeosk'
 
-    # Test for redirect to welcome screen
-    browser.getTitle().should.eventually.equal 'Build your store | eeosk'
+  it 'should not allow duplicate signups', () ->
+    browser.get '/create-online-store'
+    # Test for duplicate email
+    elem.alert        .isDisplayed().should.eventually.equal false
+    elem.email        .sendKeys utils.random_user.email
+    elem.email_check  .sendKeys utils.random_user.email
+    elem.password     .sendKeys utils.random_user.password
+    elem.username     .sendKeys 'another_username'
+    elem.submit       .click()
+    elem.alert        .isDisplayed().should.eventually.equal true
+    elem.alert        .getText().should.eventually.equal 'email already in use'
+    # Test for duplicate username
+    elem.email        .sendKeys '.uk'
+    elem.email_check  .sendKeys '.uk'
+    elem.username     .clear().sendKeys utils.random_user.username
+    elem.submit       .click()
+    elem.alert        .isDisplayed().should.eventually.equal true
+    elem.alert        .getText().should.eventually.equal 'username already in use'
+    browser           .getTitle().should.eventually.equal 'Create your store | eeosk'

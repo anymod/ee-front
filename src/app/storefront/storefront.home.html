@@ -1,15 +1,15 @@
 <div class="carousel storefront-carousel">
-  <img ng-src="{{ eeUser.storefront.home.carousel.1.imgUrl }}" class="img-responsive full-width">
-  <div class="position-absolute full-width {{ eeUser.storefront.home.carousel.1.btnPosition }}">
+  <img ng-src="{{ eeUser.storefront_meta.home.carousel.1.imgUrl }}" class="img-responsive full-width">
+  <div class="position-absolute full-width {{ eeUser.storefront_meta.home.carousel.1.btnPosition }}">
     <div class="well inline-block">
       <h3 class="margin-0">
-        {{ eeUser.storefront.home.carousel.1.headline }}
+        {{ eeUser.storefront_meta.home.carousel.1.headline }}
       </h3>
       <p class="vert-2">
-        {{ eeUser.storefront.home.carousel.1.byline }}
+        {{ eeUser.storefront_meta.home.carousel.1.byline }}
       </p>
-      <a ui-sref="app.storefront.shop({ shopCategory: eeUser.storefront.home.carousel.1.linkCategory })" class="btn btn-default">
-        {{ eeUser.storefront.home.carousel.1.btnText }}
+      <a ui-sref="app.storefront.shop({ shopCategory: eeUser.storefront_meta.home.carousel.1.linkCategory })" class="btn btn-default">
+        {{ eeUser.storefront_meta.home.carousel.1.btnText }}
       </a>
     </div>
   </div>
@@ -23,7 +23,7 @@
         <h4 class="margin-0">Products</h4>
         <hr>
         <ul class="nav nav-pills nav-stacked nav-compact">
-          <li ng-repeat="category in eeUser.storefront.categories">
+          <li ng-repeat="category in eeUser.storefront_meta.categories">
             <a ui-sref="app.storefront.shop({shopCategory: '{{ category }}'})">{{ category }}</a>
           </li>
         </ul>

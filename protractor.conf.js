@@ -17,7 +17,7 @@ var protractor_hash = {
   mochaOpts: {
     ui: 'bdd',
     reporter: "nyan",
-    timeout: 30000,
+    timeout: 300000, // 5 minutes
     grep: argv.grep,
     bail: true
   },
@@ -27,6 +27,7 @@ var protractor_hash = {
   onPrepare: function() {
     global.byAttr = global.by;
     browser.driver.manage().window().setPosition(400,8000);
+    browser.apiUrl = argv.apiUrl
   }
 }
 

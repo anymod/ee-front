@@ -20,7 +20,7 @@ production  | `https://eeosk.com`     | `https://api.eeosk.com`
 
 e2e       | env  | runner
 :---------|:-----|:-------------
-ee-front  | test | `gulp test (--grep=<filter>)` runs web server and e2e tests continuously with protractor
+ee-front  | test | `gulp test (--grep=<filter>)` runs web server and e2e tests continuously with protractor; `webdriver-manager start` to initialize selenium
 ee-back   | test | `gulp test` runs api server (not tests) in test environment
 eeosk.com | production | `gulp test-live` will run e2e tests on live site
 
@@ -39,7 +39,8 @@ ee-back   | development | `gulp dev` runs api server in development environment
 
 prod     | task    | runner
 :--------|:--------|:------------
-ee-front | compile | `gulp prod` compiles app into `/dist` & runs e2e tests w test api server
+ee-front | compile & test | `gulp prod-test` compiles app into `/dist` & runs e2e tests w test api server
+ee-front | compile | `gulp prod` compiles app into `/dist`, ready for deployment
 ee-back  | -       | push directly to target if tests pass
 
 

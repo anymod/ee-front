@@ -18,7 +18,7 @@ angular.module('app.core').run ($rootScope, $state, $cookies, $location, eeBack)
       $state.go 'login'
 
   $rootScope.eeUser =
-    storefront:
+    storefront_meta:
       categories: {
         'New Arrivals'
         'Home Decor'

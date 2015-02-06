@@ -39,6 +39,11 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state, $root
   link: (scope, ele, attrs) ->
     scope.$state = $state
     scope.eeUser = $rootScope.eeUser
+
+    scope.$watch 'eeUser', (newVal, oldVal) ->
+      console.log 'firing'
+      $rootScope.eeUser = scope.eeUser
+
     return
 
 # Home

@@ -1,49 +1,76 @@
 process.env.NODE_ENV = 'test'
+utils           = require './utils.e2e.db'
 chai            = require 'chai'
+expect          = require('chai').expect
 should          = chai.should()
 chaiAsPromised  = require 'chai-as-promised'
 chai.use chaiAsPromised
 
+entry = {}
+elem  = {}
+
 describe 'eeosk auth', () ->
 
+  before (done) ->
+    elem =
+      alert:        element byAttr.css '.alert'
+      email:        element byAttr.model 'email'
+      email_check:  element byAttr.model 'email_check'
+      password:     element byAttr.model 'password'
+      username:     element byAttr.model 'username'
+      submit:       element byAttr.css 'button[type="submit"]'
+    utils.delete_all_tables()
+    utils.create_user(utils.random_user)
+
   it 'should show message on invalid login', () ->
-    browser.manage().deleteAllCookies()
+    browser         .manage().deleteAllCookies()
     browser.get '/login'
-    alert = byAttr.css('.alert')
-    element(alert).isDisplayed().should.eventually.equal false
-    element(byAttr.name('email')).sendKeys 'tyler@eeosk.com'
-    element(byAttr.name('password')).sendKeys 'foobar'
-    element(byAttr.name('submit')).click()
-    element(alert).isDisplayed().should.eventually.equal true
-    element(alert).getText().should.eventually.equal 'invalid email or password'
+    elem.alert      .isDisplayed().should.eventually.equal false
+    elem.email      .sendKeys utils.random_user.email
+    elem.password   .sendKeys 'foobar'
+    elem.submit     .click()
+    elem.alert      .isDisplayed().should.eventually.equal true
+    elem.alert      .getText().should.eventually.equal 'Invalid email or password'
+    elem.email      .clear().sendKeys 'foo@bar.co.uk'
+    elem.password   .clear().sendKeys utils.random_user.password
+    elem.submit     .click()
+    elem.alert      .isDisplayed().should.eventually.equal true
+    elem.alert      .getText().should.eventually.equal 'Invalid email or password'
 
-  it 'should allow login', () ->
-    browser.manage().deleteAllCookies()
+  it 'should allow login, navigation, and logout', () ->
+    browser         .manage().deleteAllCookies()
     browser.get '/login'
-    browser.getTitle().should.eventually.equal 'Login | eeosk'
-    element(byAttr.name('email')).sendKeys 'tyler@eeosk.com'
-    element(byAttr.name('password')).sendKeys 'foobarbaz'
-    element(byAttr.name('submit')).click()
-    browser.getTitle().should.eventually.equal 'Build your store | eeosk'
-    browser.manage().getCookie('loginToken')
-    .then (cookie) -> cookie.value.should.have.string('Bearer%20')
-
-  it 'should allow logout', () ->
-    browser.manage().addCookie('loginToken','Bearer%20foo.bar.baz')
-    browser.get '/account'
-    browser.getTitle().should.eventually.equal 'Account | eeosk'
-    browser.get '/logout'
-    browser.getTitle().should.eventually.have.string 'Online store builder'
-    browser.manage().getCookie('loginToken')
-    .then (cookie) -> should.not.exist(cookie)
+    browser         .getTitle().should.eventually.equal 'Login | eeosk'
+    elem.email      .sendKeys utils.random_user.email
+    elem.password   .sendKeys utils.random_user.password
+    elem.submit     .click()
+    browser         .getTitle().should.eventually.equal 'Build your store | eeosk'
+    browser         .manage().getCookie('loginToken')
+    .then (cookie) ->
+    # Logged in
+      cookie        .value.should.have.string('Bearer%20')
+      browser       .get '/storefront/blog'
+      browser       .getTitle().should.eventually.have.string 'Build your store'
+      browser       .get '/catalog'
+      browser       .getTitle().should.eventually.have.string 'Add products'
+      browser       .get '/orders'
+      browser       .getTitle().should.eventually.have.string 'orders'
+      browser       .get '/account'
+      browser       .getTitle().should.eventually.have.string 'Account'
+      browser       .get '/logout'
+      browser       .manage().getCookie('loginToken')
+    .then (cookie) ->
+    # Logged out
+      should.not.exist(cookie)
+      browser       .getTitle().should.eventually.have.string 'Online store builder'
 
   it 'should not allow app visits when logged out', () ->
-    browser.manage().deleteAllCookies()
-    browser.get '/storefront/home'
-    browser.getTitle().should.eventually.equal 'Login | eeosk'
-    browser.get '/catalog'
-    browser.getTitle().should.eventually.equal 'Login | eeosk'
-    browser.get '/orders'
-    browser.getTitle().should.eventually.equal 'Login | eeosk'
-    browser.get '/account'
-    browser.getTitle().should.eventually.equal 'Login | eeosk'
+    browser         .manage().deleteAllCookies()
+    browser         .get '/storefront/home'
+    browser         .getTitle().should.eventually.equal 'Login | eeosk'
+    browser         .get '/catalog'
+    browser         .getTitle().should.eventually.equal 'Login | eeosk'
+    browser         .get '/orders'
+    browser         .getTitle().should.eventually.equal 'Login | eeosk'
+    browser         .get '/account'
+    browser         .getTitle().should.eventually.equal 'Login | eeosk'

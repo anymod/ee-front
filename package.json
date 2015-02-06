@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0-beta.3",
+    "bluebird": "^2.9.6",
     "chai": "^1.10",
     "chai-as-promised": "^4.1",
     "gulp": "^3.8.10",
@@ -42,6 +43,7 @@
     "gulp-uglify": "^1.1.0",
     "gulp-watch": "^0.7.1",
     "gulp-webserver": "^0.9.0",
+    "jsonwebtoken": "^3.2.2",
     "karma": "^0.12",
     "karma-chai": "^0.1",
     "karma-chrome-launcher": "^0.1",
@@ -57,6 +59,7 @@
     "pg": "~4.1",
     "pg-hstore": "^2.3.1",
     "protractor": "^1.6",
+    "request": "^2.53",
     "sequelize": "~2.0",
     "stream-combiner": "^0.x",
     "streamqueue": "^0.1.2",

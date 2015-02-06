@@ -1,4 +1,8 @@
-if process.env.NODE_ENV == 'production' then require 'newrelic'
+switch process.env.NODE_ENV
+  when 'production' then require 'newrelic'
+  when 'test' then process.env.PORT = 3333
+  else process.env.NODE_ENV = 'development'; process.env.PORT = 3000
+
 express         = require "express"
 morgan          = require "morgan"
 path            = require "path"
@@ -152,7 +156,6 @@ app.all '/*', (req, res, next) ->
   res.sendfile 'index.html', root: path.join __dirname, "dist/"
   return
 
-_port = process.env.PORT or 5000
-app.listen _port, ->
-  console.log "Frontend listening on port " + _port
+app.listen process.env.PORT, ->
+  console.log "Frontend listening on port " + process.env.PORT
   return
