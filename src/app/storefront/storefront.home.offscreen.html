@@ -11,38 +11,38 @@
   <li><a href><i class="fa fa-plus"></i></a></li>
 </ul>
 <a href class="btn btn-default btn-sm pull-right"><i class="fa fa-minus"></i></a>
-<img ng-src="{{ eeUser.storefront_meta.home.carousel.1.imgUrl }}" class="img-responsive">
-<input type="text" class="form-control input-sm" placeholder="Headline" ng-model="eeUser.storefront_meta.home.carousel.1.headline">
-<input type="text" class="form-control input-sm" placeholder="Byline" ng-model="eeUser.storefront_meta.home.carousel.1.byline">
-<input type="text" class="form-control input-sm" placeholder="Button Text" ng-model="eeUser.storefront_meta.home.carousel.1.btnText">
+<img ng-src="{{ user.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive">
+<input type="text" class="form-control input-sm" placeholder="Headline" ng-model="user.storefront_meta.home.carousel[0].headline">
+<input type="text" class="form-control input-sm" placeholder="Byline" ng-model="user.storefront_meta.home.carousel[0].byline">
+<input type="text" class="form-control input-sm" placeholder="Button Text" ng-model="user.storefront_meta.home.carousel[0].btnText">
 <div class="btn-group btn-group-justified">
-  <div class="btn btn-default btn-sm" ng-model="eeUser.storefront_meta.home.carousel.1.btnPosition" btn-radio="'left'">Left</div>
-  <div class="btn btn-default btn-sm" ng-model="eeUser.storefront_meta.home.carousel.1.btnPosition" btn-radio="'middle'">Middle</div>
-  <div class="btn btn-default btn-sm" ng-model="eeUser.storefront_meta.home.carousel.1.btnPosition" btn-radio="'right'">Right</div>
+  <div class="btn btn-default btn-sm" ng-model="user.storefront_meta.home.carousel[0].btnPosition" btn-radio="'left'">Left</div>
+  <div class="btn btn-default btn-sm" ng-model="user.storefront_meta.home.carousel[0].btnPosition" btn-radio="'middle'">Middle</div>
+  <div class="btn btn-default btn-sm" ng-model="user.storefront_meta.home.carousel[0].btnPosition" btn-radio="'right'">Right</div>
 </div>
-<select class="form-control input-sm" ng-model="eeUser.storefront_meta.home.carousel.1.linkCategory">
-  <option ng-repeat="category in eeUser.storefront_meta.categories">{{ category }}</option>
+<select class="form-control input-sm" ng-model="user.storefront_meta.home.carousel[0].linkCategory">
+  <option ng-repeat="category in user.storefront_meta.categories">{{ category }}</option>
 </select>
 
 <br>
 
 <h5 class="vert-2">Top bar colors</h5>
 <div class="position-relative">
-  <div class="input-group" colorpicker colorpicker-parent="true" ng-model="eeUser.storefront_meta.home.topBarBackgroundColor">
+  <div class="input-group" colorpicker colorpicker-parent="true" ng-model="user.storefront_meta.home.topBarBackgroundColor">
     <span class="input-group-addon"><i class="fa fa-fw fa-paint-brush"></i></span>
     <input name="storefront_meta.home.topBarColor"
-           ng-model="eeUser.storefront_meta.home.topBarBackgroundColor"
+           ng-model="user.storefront_meta.home.topBarBackgroundColor"
            class="form-control"
-           ng-style="{ 'background-color': eeUser.storefront_meta.home.topBarBackgroundColor }">
+           ng-style="{ 'background-color': user.storefront_meta.home.topBarBackgroundColor }">
   </div>
 </div>
 <div class="position-relative vert-2">
-  <div class="input-group" colorpicker colorpicker-parent="true" ng-model="eeUser.storefront_meta.home.topBarColor">
+  <div class="input-group" colorpicker colorpicker-parent="true" ng-model="user.storefront_meta.home.topBarColor">
     <span class="input-group-addon"><i class="fa fa-fw fa-font"></i></span>
     <input name="storefront_meta.home.topBarBackgroundColor"
-           ng-model="eeUser.storefront_meta.home.topBarColor"
+           ng-model="user.storefront_meta.home.topBarColor"
            class="form-control"
-           ng-style="{ 'background-color': eeUser.storefront_meta.home.topBarColor }">
+           ng-style="{ 'background-color': user.storefront_meta.home.topBarColor }">
   </div>
 </div>
 
@@ -52,4 +52,4 @@
 <input type="text"
        class="form-control"
        placeholder="Enter store name"
-       ng-model="eeUser.storefront_meta.home.name">
+       ng-model="user.storefront_meta.home.name">

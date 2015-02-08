@@ -6,7 +6,7 @@ angular.module('app.catalog').config ($stateProvider) ->
     url: '/catalog'
     templateUrl: 'app/catalog/catalog.html'
     controller: 'app.catalogCtrl'
-    # resolve: eeProductData: (eeBack) -> eeBack.getProducts()
+    # resolve: eeProductData: (eeBack) -> eeBack.productsGET()
     data:
       pageTitle: 'Add products | eeosk'
       offscreenCategory: 'Catalog'

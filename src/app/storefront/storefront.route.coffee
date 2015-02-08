@@ -6,8 +6,9 @@ angular.module('app.storefront').config ($stateProvider) ->
     .state 'app.storefront',
       url: '/storefront'
       templateUrl: 'app/storefront/storefront.view.container.html'
-      controller: 'app.storefrontCtrl'
-      # resolve: eeProductData: (eeBack) -> eeBack.getProducts()
+      controller: 'app.storefrontRootCtrl'
+      resolve:
+        user: (eeAuth) -> eeAuth.setUserFromToken()
       data:
         pageTitle: 'Build your store | eeosk'
         offscreenCategory: 'Storefront'
@@ -15,15 +16,20 @@ angular.module('app.storefront').config ($stateProvider) ->
     .state 'app.storefront.home',
       url: '/home'
       templateUrl: 'app/storefront/storefront.home.html'
+      controller: 'app.storefrontChildCtrl'
     .state 'app.storefront.shop',
       url: '/shop/:shopCategory'
       templateUrl: 'app/storefront/storefront.shop.html'
+      controller: 'app.storefrontChildCtrl'
     .state 'app.storefront.blog',
       url: '/blog'
       templateUrl: 'app/storefront/storefront.blog.html'
+      controller: 'app.storefrontChildCtrl'
     .state 'app.storefront.about',
       url: '/about'
       templateUrl: 'app/storefront/storefront.about.html'
+      controller: 'app.storefrontChildCtrl'
     .state 'app.storefront.audience',
       url: '/audience'
       templateUrl: 'app/storefront/storefront.audience.html'
+      controller: 'app.storefrontChildCtrl'

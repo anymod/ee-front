@@ -27,23 +27,19 @@ angular.module('ee-offscreen').directive "eeOffscreenDefault", () ->
   templateUrl: 'components/ee-offscreen-default.html'
   restrict: 'E'
   scope: {}
-  link: (scope, ele, attrs) -> return
+  link: (scope, ele, attrs) ->
+    return
 
 ## Storefront offscreens
 
 #  Parent
-angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state, $rootScope) ->
+angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state, eeAuth) ->
   templateUrl: 'app/storefront/storefront.offscreen.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) ->
     scope.$state = $state
-    scope.eeUser = $rootScope.eeUser
-
-    scope.$watch 'eeUser', (newVal, oldVal) ->
-      console.log 'firing'
-      $rootScope.eeUser = scope.eeUser
-
+    scope.user = eeAuth.getUser()
     return
 
 # Home

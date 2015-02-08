@@ -1,15 +1,15 @@
 <div class="carousel storefront-carousel">
-  <img ng-src="{{ eeUser.storefront_meta.home.carousel.1.imgUrl }}" class="img-responsive full-width">
-  <div class="position-absolute full-width {{ eeUser.storefront_meta.home.carousel.1.btnPosition }}">
+  <img ng-src="{{ user.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive full-width">
+  <div class="position-absolute full-width {{ user.storefront_meta.home.carousel[0].btnPosition }}">
     <div class="well inline-block">
       <h3 class="margin-0">
-        {{ eeUser.storefront_meta.home.carousel.1.headline }}
+        {{ user.storefront_meta.home.carousel[0].headline }}
       </h3>
       <p class="vert-2">
-        {{ eeUser.storefront_meta.home.carousel.1.byline }}
+        {{ user.storefront_meta.home.carousel[0].byline }}
       </p>
-      <a ui-sref="app.storefront.shop({ shopCategory: eeUser.storefront_meta.home.carousel.1.linkCategory })" class="btn btn-default">
-        {{ eeUser.storefront_meta.home.carousel.1.btnText }}
+      <a ui-sref="app.storefront.shop({ shopCategory: user.storefront_meta.home.carousel[0].linkCategory })" class="btn btn-default">
+        {{ user.storefront_meta.home.carousel[0].btnText }}
       </a>
     </div>
   </div>
@@ -23,13 +23,18 @@
         <h4 class="margin-0">Products</h4>
         <hr>
         <ul class="nav nav-pills nav-stacked nav-compact">
-          <li ng-repeat="category in eeUser.storefront_meta.categories">
+          <li ng-repeat="category in user.storefront_meta.categories">
             <a ui-sref="app.storefront.shop({shopCategory: '{{ category }}'})">{{ category }}</a>
           </li>
         </ul>
       </div>
       <div class="col col-xs-8">
         <h4 class="margin-0">Featured</h4>
+
+        <input type="text" ng-model="user" />
+        <div>{{ user }}</div>
+        <div class="btn btn-default" ng-click="fn()">fn</div>
+
         <div class="full-width vert-20 overflow-hidden">
           <div ng-repeat="product in products | eeShopCategories:'Featured'" class="product-container inline-block width-160 vertical-align-top">
             <ee-storefront-product product="product"></ee-storefront-product>

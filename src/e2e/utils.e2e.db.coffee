@@ -69,8 +69,11 @@ if process.env.NODE_ENV is 'test'
         if !!err then reject err else resolve body
 
 
-  utils.log_in = (user, browser) ->
-    token = 'Bearer ' + jwt.sign({ token: this.ee_uuid }, 'foobar', {})
+  utils.log_in = (token, browser) ->
+    token = token.replace 'Bearer ', 'Bearer%20'
     browser.manage().addCookie('loginToken', token)
+
+  utils.log_out = (browser) ->
+    browser.manage().deleteAllCookies()
 
 module.exports = utils

@@ -9,16 +9,16 @@
   <li><a href><i class="fa fa-plus"></i></a></li>
 </ul>
 <a href class="btn btn-default btn-sm pull-right"><i class="fa fa-minus"></i></a>
-<img ng-src="{{ eeUser.storefront_meta.home.carousel.1.imgUrl }}" class="img-responsive">
-<input type="text" class="form-control input-sm" placeholder="Headline" ng-model="eeUser.storefront_meta.home.carousel.1.headline">
-<input type="text" class="form-control input-sm" placeholder="Byline" ng-model="eeUser.storefront_meta.home.carousel.1.byline">
-<input type="text" class="form-control input-sm" placeholder="Button Text" ng-model="eeUser.storefront_meta.home.carousel.1.btnText">
+<img ng-src="{{ eeUser.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive">
+<input type="text" class="form-control input-sm" placeholder="Headline" ng-model="eeUser.storefront_meta.home.carousel[0].headline">
+<input type="text" class="form-control input-sm" placeholder="Byline" ng-model="eeUser.storefront_meta.home.carousel[0].byline">
+<input type="text" class="form-control input-sm" placeholder="Button Text" ng-model="eeUser.storefront_meta.home.carousel[0].btnText">
 <div class="btn-group btn-group-justified">
-  <div class="btn btn-default btn-sm" ng-model="eeUser.storefront_meta.home.carousel.1.btnPosition" btn-radio="'left'">Left</div>
-  <div class="btn btn-default btn-sm" ng-model="eeUser.storefront_meta.home.carousel.1.btnPosition" btn-radio="'middle'">Middle</div>
-  <div class="btn btn-default btn-sm" ng-model="eeUser.storefront_meta.home.carousel.1.btnPosition" btn-radio="'right'">Right</div>
+  <div class="btn btn-default btn-sm" ng-model="eeUser.storefront_meta.home.carousel[0].btnPosition" btn-radio="'left'">Left</div>
+  <div class="btn btn-default btn-sm" ng-model="eeUser.storefront_meta.home.carousel[0].btnPosition" btn-radio="'middle'">Middle</div>
+  <div class="btn btn-default btn-sm" ng-model="eeUser.storefront_meta.home.carousel[0].btnPosition" btn-radio="'right'">Right</div>
 </div>
-<select class="form-control input-sm" ng-model="eeUser.storefront_meta.home.carousel.1.linkCategory">
+<select class="form-control input-sm" ng-model="eeUser.storefront_meta.home.carousel[0].linkCategory">
   <option ng-repeat="category in eeUser.storefront_meta.categories">{{ category }}</option>
 </select>
 

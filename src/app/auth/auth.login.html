@@ -9,7 +9,7 @@
       Sign in
     </h1>
     <small>Want to create a store? <a ui-sref="signup">Sign up</a></small>
-    <form ng-submit="authWithPassword()" class="vert-20">
+    <form ng-submit="login()" class="vert-20">
       <div class="alert alert-info" ng-show='alert'>{{ alert }}</div>
       <input type="email"
              ng-model="email"
