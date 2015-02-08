@@ -1,26 +1,26 @@
-<ee-save></ee-save>
+<h5 class="vert-2">Main image <small>1200x400px</small></h5>
+<div class="upload_form"></div>
 
-<h5 class="vert-2">Main image</h5>
-<div class="upload_form">
-  <small>1200x400px</small>
-  <!-- TODO <div ng-file-select class="btn bnt-sm btn-success" ng-model="foo">Add image</div><br/>
-  <div>{{ foo }}</div> -->
-</div>
-<ul class="pagination pagination-sm margin-0">
+<br>
+
+<!-- <ul class="pagination pagination-sm margin-0">
   <li class="disabled"><a href>1</a></li>
   <li><a href><i class="fa fa-plus"></i></a></li>
 </ul>
-<a href class="btn btn-default btn-sm pull-right"><i class="fa fa-minus"></i></a>
+<a href class="btn btn-default btn-sm pull-right"><i class="fa fa-minus"></i></a> -->
+
 <img ng-src="{{ user.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive">
 <input type="text" class="form-control input-sm" placeholder="Headline" ng-model="user.storefront_meta.home.carousel[0].headline">
 <input type="text" class="form-control input-sm" placeholder="Byline" ng-model="user.storefront_meta.home.carousel[0].byline">
 <input type="text" class="form-control input-sm" placeholder="Button Text" ng-model="user.storefront_meta.home.carousel[0].btnText">
-<div class="btn-group btn-group-justified">
+<div class="btn-group btn-group-justified"
+     ng-show="user.storefront_meta.home.carousel[0].btnText">
   <div class="btn btn-default btn-sm" ng-model="user.storefront_meta.home.carousel[0].btnPosition" btn-radio="'left'">Left</div>
   <div class="btn btn-default btn-sm" ng-model="user.storefront_meta.home.carousel[0].btnPosition" btn-radio="'middle'">Middle</div>
   <div class="btn btn-default btn-sm" ng-model="user.storefront_meta.home.carousel[0].btnPosition" btn-radio="'right'">Right</div>
 </div>
-<select class="form-control input-sm" ng-model="user.storefront_meta.home.carousel[0].linkCategory">
+<select class="form-control input-sm" ng-model="user.storefront_meta.home.carousel[0].linkCategory"
+        ng-show="user.storefront_meta.home.carousel[0].btnText">
   <option ng-repeat="category in user.storefront_meta.categories">{{ category }}</option>
 </select>
 

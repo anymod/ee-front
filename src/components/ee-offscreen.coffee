@@ -43,28 +43,32 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state, eeAut
     return
 
 # Home
-angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", ($upload, $http) ->
+angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", (eeAuth) ->
   templateUrl: 'app/storefront/storefront.home.offscreen.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
-    $('.upload_form').append($.cloudinary.unsigned_upload_tag("storefront_home", { cloud_name: 'eeosk' }))
-    # $.cloudinary.url
-    # scope.foo = []
-    # scope.$watch 'foo', (newVal, oldVal) ->
-    #   console.log 'foo is ', newVal, oldVal
-    #   if !!newVal and newVal.length > 0
-    #     req =
-    #       method: 'POST'
-    #       url: 'https://api.cloudinary.com/v1_1/eeosk/upload'
-    #       file: scope.foo
-    #       data:
-    #         upload_preset: 'seller'
-    #         cloud_name: 'eeosk'
-    #     $http(req)
-    #       .success (data, status, headers, config) ->
-    #         console.log 'file is uploaded successfully. Response: ' + data
-    #       .error (err) ->
-    #         console.log 'file error', err
+
+    scope.user = eeAuth.getUser()
+
+    $('.upload_form')
+      .append($.cloudinary.unsigned_upload_tag("storefront_home", { cloud_name: 'eeosk' }))
+      .bind 'cloudinarydone', (e, data) ->
+        console.log 'done', data.result
+        scope.user.storefront_meta.home.carousel[0].imgUrl = data.result.secure_url
+        scope.$apply()
+        # $('.carousel img').append($.cloudinary.image(data.result.public_id,
+        #   {
+        #     format: 'jpg',
+        #     width: 150,
+        #     height: 100,
+        #     crop: 'thumb',
+        #     gravity: 'face',
+        #     effect: 'saturation:50'
+        #   }
+        # ))
+      .bind 'cloudinaryprogress', (e, data) ->
+        console.log 'progressing', Math.round((data.loaded * 100.0) / data.total)
+        # $('.progress_bar').css('width', Math.round((data.loaded * 100.0) / data.total) + '%');
     return
 
 # Shop

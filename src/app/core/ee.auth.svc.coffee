@@ -1,11 +1,8 @@
 'use strict'
 
-angular.module('app.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore, $q, eeBack) ->
+angular.module('app.core').factory 'eeAuth', ($cookies, $cookieStore, $q, eeBack) ->
   _user = {}
-
-  $rootScope.user = _user
-  $rootScope.$watch 'user', (newVal, oldVal) ->
-    console.log 'watching', newVal, oldVal
+  _userIsSaved = true
 
   _resetUser = () ->
     _user = {}
@@ -23,8 +20,12 @@ angular.module('app.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore
   #   _userLastSet = Date.now()
   #   $rootScope.$broadcast 'eeAuth.setUser', 'foobar'
   # getUserLastSet: () -> _userLastSet
-  saveUser: ()  -> eeBack.usersPUT(_user, $cookies.loginToken)
   resetUser: () -> _resetUser()
+  saveUser: ()  -> eeBack.usersPUT(_user, $cookies.loginToken)
+
+  setUserIsSaved: (bool) -> _userIsSaved = bool
+  userIsSaved: () -> _userIsSaved
+  userIsntSaved: () -> !_userIsSaved
 
   setUserFromToken: () ->
     deferred = $q.defer()
