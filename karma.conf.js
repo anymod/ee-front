@@ -34,6 +34,7 @@ module.exports = function(config) {
       'src/js/app/core/config.js',
       'src/js/app/core/ee.back.svc.js',
       'src/js/app/core/ee.auth.svc.js',
+      'src/js/app/core/ee.products.svc.js',
       'src/js/app/core/ee.other.svc.js',
       'src/js/app/**/*.module.js',
       'src/js/app/**/*.route.js',

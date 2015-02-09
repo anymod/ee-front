@@ -60,7 +60,7 @@ describe 'eeosk signup', () ->
       browser         .getTitle().should.eventually.equal 'Build your store | eeosk'
 
   it 'should not allow duplicate signups', () ->
-    utils.log_out browser
+    utils.log_out()
     browser.get '/create-online-store'
     # Test for duplicate email
     elem.alert        .isDisplayed().should.eventually.equal false

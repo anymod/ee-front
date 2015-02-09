@@ -1,8 +1,8 @@
 'use strict'
 
-angular.module('app.storefront').controller 'app.storefrontRootCtrl', ($scope, $rootScope, eeAuth) ->
+angular.module('app.storefront').controller 'app.storefrontRootCtrl', ($scope, $rootScope, user) ->
   $rootScope.toggle = true
-  $scope.user = eeAuth.getUser()
+  $scope.user = user
   return
 
 angular.module('app.storefront').controller 'app.storefrontChildCtrl', ($scope, eeAuth) ->

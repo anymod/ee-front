@@ -27,11 +27,13 @@ angular.module('app.core').factory 'eeAuth', ($cookies, $cookieStore, $q, eeBack
   userIsSaved: () -> _userIsSaved
   userIsntSaved: () -> !_userIsSaved
 
-  setUserFromToken: () ->
+  userFromToken: (opts) ->
     deferred = $q.defer()
     if !$cookies.loginToken
       _resetUser()
       deferred.reject 'Missing login credentials'
+    else if !!_user and _user isnt {} and opts?.force isnt true
+      deferred.resolve _user
     else
       eeBack.tokenPOST $cookies.loginToken
       .then (data) ->

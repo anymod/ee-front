@@ -51,7 +51,10 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", (eeAuth) -
     scope.user = eeAuth.getUser()
 
     $('.upload_form')
-      .append($.cloudinary.unsigned_upload_tag("storefront_home", { cloud_name: 'eeosk' }))
+      .append $.cloudinary.unsigned_upload_tag "storefront_home", {
+          cloud_name: 'eeosk',
+          tags: 'browser_uploads' # user.name
+        }
       .bind 'cloudinarydone', (e, data) ->
         console.log 'done', data.result
         scope.user.storefront_meta.home.carousel[0].imgUrl = data.result.secure_url

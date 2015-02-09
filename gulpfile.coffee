@@ -22,6 +22,7 @@ eeModulesSrc = [
   './src/app/core/config.coffee'
   './src/app/core/ee.auth.svc.coffee'
   './src/app/core/ee.back.svc.coffee'
+  './src/app/core/ee.products.svc.coffee'
   './src/app/core/ee.other.svc.coffee'
   './src/app/**/*.module.coffee'
   './src/app/**/*.route.coffee'

@@ -4,7 +4,7 @@ angular.module('app.auth').controller 'loginCtrl', ($scope, $rootScope, $state, 
   $rootScope.toggle = false
   $scope.alert = ''
 
-  eeAuth.setUserFromToken()
+  eeAuth.userFromToken()
   .then () -> $state.go 'app.storefront.home'
 
   $scope.login = () ->

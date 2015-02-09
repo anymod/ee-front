@@ -8,7 +8,7 @@ angular.module('app.storefront').config ($stateProvider) ->
       templateUrl: 'app/storefront/storefront.view.container.html'
       controller: 'app.storefrontRootCtrl'
       resolve:
-        user: (eeAuth) -> eeAuth.setUserFromToken()
+        user: (eeAuth) -> eeAuth.userFromToken()
       data:
         pageTitle: 'Build your store | eeosk'
         offscreenCategory: 'Storefront'

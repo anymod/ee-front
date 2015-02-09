@@ -44,14 +44,18 @@ describe 'eeosk storefront home', () ->
     utils.delete_all_tables()
     browser.get '/login'
     browser.manage().deleteAllCookies()
-    utils.create_user(utils.test_user)
+    utils.create_admin()
+    .then () ->
+      utils.create_products(10)
+    .then () ->
+      utils.create_user(utils.test_user)
     .then (data) ->
-      utils.log_in(data.token, browser)
+      utils.log_in data.token
       browser.get '/storefront/home'
       browser.getTitle().should.eventually.equal 'Build your store | eeosk'
 
   describe 'changing and updating store', () ->
-    
+
     it 'should reflect changes to the store name', () ->
       elem.name                   .getAttribute('value').should.eventually.equal 'Common Deer VT'
       elem.navbarBrand            .getText().should.eventually.equal 'Common Deer VT'

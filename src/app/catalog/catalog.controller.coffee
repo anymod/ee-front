@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('app.catalog')
-  .controller 'app.catalogCtrl', ($scope, $rootScope, eeBack) ->
+  .controller 'app.catalogCtrl', ($scope, $rootScope, products) ->
     $rootScope.toggle = true
-    eeBack.productsGET().then (products) -> $scope.products = products
+    $scope.products = products
     return
