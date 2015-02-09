@@ -11,8 +11,7 @@ utils.delete_all_tables()
 .then () -> utils.create_user utils.random_user
 .then (body) ->
   scope.user = body.user
-  scope.token = body.token.replace('Bearer ', 'Bearer%20')
+  scope.token = body.token
   utils.create_products(10)
 .then (products) ->
-  ## TODO get selection creation working (without need for explicit seller_id)
   utils.create_selections((_.pluck products, 'id'), scope.token)

@@ -9,6 +9,7 @@ angular.module('app.core').factory 'eeAuth', ($cookies, $cookieStore, $q, eeBack
     $cookieStore.remove 'loginToken'
   _setUser = (u) -> _user = u
   _userLastSet = Date.now()
+  _userIsEmpty = Object.keys(_user).length is 0
 
   getToken: ()  -> $cookies.loginToken
   hasToken: ()  -> !!$cookies.loginToken
@@ -32,7 +33,7 @@ angular.module('app.core').factory 'eeAuth', ($cookies, $cookieStore, $q, eeBack
     if !$cookies.loginToken
       _resetUser()
       deferred.reject 'Missing login credentials'
-    else if !!_user and _user isnt {} and opts?.force isnt true
+    else if !!_user and !_userIsEmpty and opts?.force isnt true
       deferred.resolve _user
     else
       eeBack.tokenPOST $cookies.loginToken

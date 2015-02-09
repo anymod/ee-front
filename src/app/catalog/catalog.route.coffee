@@ -8,7 +8,7 @@ angular.module('app.catalog').config ($stateProvider) ->
     controller: 'app.catalogCtrl'
     resolve:
       user: (eeAuth) -> eeAuth.userFromToken()
-      products: (eeAuth) -> eeAuth.getProducts()
+      # products: (eeAuth) -> eeAuth.getProducts()
     data:
       pageTitle: 'Add products | eeosk'
       offscreenCategory: 'Catalog'

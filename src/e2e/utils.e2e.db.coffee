@@ -121,7 +121,6 @@ if process.env.NODE_ENV is 'test'
       Promise.all(createOps)
 
   utils.create_selection = (product_id, token) ->
-    console.log 'inputs', product_id, token
     req = request.defaults
       json: true
       uri: browser.apiUrl + '/v0/selections'
@@ -133,12 +132,9 @@ if process.env.NODE_ENV is 'test'
         catalog_meta: {}
         orders_meta: {}
       headers: authorization: token
-
     new Promise (resolve, reject) ->
       req.post {}, (err, res, body) ->
         if !!err then reject err else resolve body
-
-
 
   utils.log_in = (token) ->
     token = token.replace 'Bearer ', 'Bearer%20'
