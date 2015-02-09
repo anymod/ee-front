@@ -107,7 +107,11 @@ if process.env.NODE_ENV is 'test'
         content: 'Content for Product ' + i
         content_meta: {}
         image_meta:
-          main_image: 'http://placehold.it/' + img_size + '.png/09f/fff'
+          main_image:
+            url: 'http://placehold.it/' + img_size + '.png/09f/fff'
+          cloudinary:
+            main_image:
+              url: 'http://placehold.it/' + img_size + '.png/09f/fff'            
         availability_meta: {}
         category: _.sample categories
       headers: authorization: scope.admin_token
@@ -137,6 +141,7 @@ if process.env.NODE_ENV is 'test'
         if !!err then reject err else resolve body
 
   utils.log_in = (token) ->
+    browser.get '/'
     token = token.replace 'Bearer ', 'Bearer%20'
     browser.manage().addCookie('loginToken', token)
 

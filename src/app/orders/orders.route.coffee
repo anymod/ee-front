@@ -7,7 +7,7 @@ angular.module('app.orders').config ($stateProvider) ->
       url: '/orders'
       templateUrl: 'app/orders/orders.html'
       controller: 'app.ordersCtrl'
-      resolve: eeOrderData: (eeFirebaseSvc) -> eeFirebaseSvc.getOrders()
+      # resolve: eeOrderData: (eeOrders) -> eeOrders.getOrders(
       data:
         pageTitle: 'My orders | eeosk'
         offscreenCategory: 'Orders'

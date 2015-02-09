@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeProducts', ($cookies, $q, eeBack) ->
+angular.module('app.core').factory 'eeProduct', ($cookies, $q, eeBack) ->
   _storefrontProducts = []
   _catalogProducts = []
 

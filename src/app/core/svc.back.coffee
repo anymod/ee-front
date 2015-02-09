@@ -68,3 +68,30 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       .error (data, status, headers, config) ->
         if status is 0 then deferred.reject 'Connection error' else deferred.reject data
     deferred.promise
+
+  selectionsPOST: (token, attrs) ->
+    req =
+      method: 'POST'
+      url: eeBackUrl + 'selections'
+      headers: authorization: token
+      data: attrs
+    deferred = $q.defer()
+    $http(req)
+      .success (data, status, headers, config) ->
+        deferred.resolve data
+      .error (data, status, headers, config) ->
+        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
+    deferred.promise
+
+  storefrontGET: (username) ->
+    req =
+      method: 'GET'
+      url: eeBackUrl + 'store/' + username + '/all'
+      headers: authorization: {}
+    deferred = $q.defer()
+    $http(req)
+      .success (data, status, headers, config) ->
+        deferred.resolve data
+      .error (data, status, headers, config) ->
+        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
+    deferred.promise

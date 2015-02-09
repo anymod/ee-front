@@ -1,6 +1,6 @@
 angular.module 'ee-catalogProduct', []
 
-angular.module('ee-catalogProduct').directive "eeCatalogProduct", ($rootScope) ->
+angular.module('ee-catalogProduct').directive "eeCatalogProduct", ($rootScope, eeSelection) ->
   templateUrl: 'components/ee-catalog-product.html'
   restrict: 'E'
   scope:
@@ -24,5 +24,10 @@ angular.module('ee-catalogProduct').directive "eeCatalogProduct", ($rootScope) -
       scope.currentMargin = margin
       scope.currentPrice = calcCurrentPrice(basePrice, scope.currentMargin)
       return
+
+    scope.select = () ->
+      eeSelection.createSelection(scope.product, scope.currentMargin*100)
+      .then (res) -> console.info 'added', res
+      .catch (err) -> console.error err
 
     return

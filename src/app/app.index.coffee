@@ -23,8 +23,6 @@ angular.module 'eeApp', [
 
   # custom
   # 'EE.Products'
-  # 'EE.Previewer'
-  # 'EE.ProductEditor'
   # 'EE.SupplierSignup'
   'ee-navbar'
   'ee-save'

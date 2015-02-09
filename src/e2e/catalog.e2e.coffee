@@ -8,31 +8,35 @@ chai.use chaiAsPromised
 
 elem    = {}
 newVal  = {}
+scope   = {}
 
 describe 'eeosk catalog', () ->
 
   before (done) ->
     offscreen = element byAttr.css 'ee-offscreen-catalog'
     elem =
-      alert:                  element byAttr.css  '.alert'
+      alert:                  element byAttr.css '.alert'
       search:                 element byAttr.model 'search'
+      product:                element byAttr.css 'ee-catalog-product'
 
     utils.delete_all_tables()
     .then () -> utils.create_admin()
-    .then () -> utils.create_products(150)
+    .then () -> utils.create_products(10)
     .then () -> utils.create_user(utils.test_user)
-    .then (data) ->
-      utils.log_in data.token
-      browser.get '/catalog'
-      browser.getTitle().should.eventually.equal 'Add products | eeosk'
+    .then (data) -> scope.token = data.token.replace 'Bearer ', 'Bearer%20'
 
   it 'should have 100 products', () ->
-    elem.name                   .getAttribute('value').should.eventually.equal 'Common Deer VT'
-    elem.navbarBrand            .getText().should.eventually.equal 'Common Deer VT'
-    elem.name                   .clear().sendKeys newVal.name
-    elem.navbarBrand            .getText().should.eventually.equal newVal.name
+    browser.get '/'
+    browser.manage().addCookie("loginToken", scope.token)
+    browser.get '/catalog'
+    browser.getTitle().should.eventually.equal 'Add products | eeosk'
+    elem.product  .getText().should.eventually.equal []
+    # elem.name                   .getAttribute('value').should.eventually.equal 'Common Deer VT'
+    # elem.navbarBrand            .getText().should.eventually.equal 'Common Deer VT'
+    # elem.name                   .clear().sendKeys newVal.name
+    # elem.navbarBrand            .getText().should.eventually.equal newVal.name
 
-  it 'should reflect changes to the navbar colors', () ->
+  xit 'should reflect changes to the navbar colors', () ->
     elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(246, 246, 246)'
     elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(34, 34, 34)'
     elem.topBarColor            .clear().sendKeys newVal.topBarColor
@@ -40,7 +44,7 @@ describe 'eeosk catalog', () ->
     elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(0, 0, 0)'
     elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(255, 255, 255)'
 
-  it 'should reflect changes to the carousel', () ->
+  xit 'should reflect changes to the carousel', () ->
     elem.carouselHeadline       .getAttribute('value').should.eventually.equal 'TOPO DESIGNS'
     elem.carouselHeadline       .clear().sendKeys newVal.carouselHeadline
     elem.carouselHeadline       .getAttribute('value').should.eventually.equal newVal.carouselHeadline
@@ -64,7 +68,7 @@ describe 'eeosk catalog', () ->
     elem.carouselLinkCategory   .element(byAttr.css('option:nth-child(1)')).click()
     elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal 'Accessories'
 
-  it 'should have saved the changes that were made', () ->
+  xit 'should have saved the changes that were made', () ->
     elem.save                   .click()
     browser.get '/storefront/home'
     elem.carouselHeadline       .getAttribute('value').should.eventually.equal newVal.carouselHeadline
