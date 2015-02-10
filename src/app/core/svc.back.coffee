@@ -2,96 +2,66 @@
 
 angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
 
+  _handleError = (deferred, data, status) ->
+    if status is 0 then deferred.reject 'Connection error' else deferred.reject data
+
+  _makeRequest = (req) ->
+    deferred = $q.defer()
+    $http(req)
+      .success (data, status) -> deferred.resolve data
+      .error (data, status) -> _handleError deferred, data, status
+    deferred.promise
+
   _tokenPOST = (token) ->
-    req =
+    _makeRequest {
       method: 'POST'
       url: eeBackUrl + 'token'
       headers: authorization: token
-    deferred = $q.defer()
-    $http(req)
-      .success (data, status, headers, config) -> deferred.resolve data
-      .error (data, status, headers, config) ->
-        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
-    deferred.promise
+    }
 
-  tokenPOST: (token) -> _tokenPOST(token)
+  tokenPOST: (token) -> _tokenPOST token
 
   authPOST: (email, password) ->
-    req =
+    _makeRequest {
       method: 'POST'
       url: eeBackUrl + 'auth'
       headers: authorization: 'Basic ' + email + ':' + password
-    deferred = $q.defer()
-    $http(req)
-      .success (data, status, headers, config) -> deferred.resolve data
-      .error (data, status, headers, config) ->
-        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
-    deferred.promise
+    }
 
   usersPUT: (user, token) ->
-    req =
+    _makeRequest {
       method: 'PUT'
       url: eeBackUrl + 'users'
       headers: authorization: token
       data: user
-    deferred = $q.defer()
-    $http(req)
-      .success (data, status, headers, config) ->
-        deferred.resolve data
-      .error (data, status, headers, config) ->
-        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
-    deferred.promise
+    }
 
   usersPOST: (email, password, username) ->
-    req =
+    _makeRequest {
       method: 'POST'
       url: eeBackUrl + 'users'
       headers: {}
       data: { email: email, password: password, username: username }
-    deferred = $q.defer()
-    $http(req)
-      .success (data, status, headers, config) ->
-        deferred.resolve data
-      .error (data, status, headers, config) ->
-        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
-    deferred.promise
+    }
 
   productsGET: (token) ->
-    req =
+    _makeRequest {
       method: 'GET'
       url: eeBackUrl + 'products'
       headers: authorization: token
-    deferred = $q.defer()
-    $http req
-      .success (data, status, headers, config) ->
-        deferred.resolve data
-      .error (data, status, headers, config) ->
-        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
-    deferred.promise
+    }
 
   selectionsPOST: (token, attrs) ->
-    req =
+    _makeRequest {
       method: 'POST'
       url: eeBackUrl + 'selections'
       headers: authorization: token
       data: attrs
-    deferred = $q.defer()
-    $http(req)
-      .success (data, status, headers, config) ->
-        deferred.resolve data
-      .error (data, status, headers, config) ->
-        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
-    deferred.promise
+    }
 
   storefrontGET: (username) ->
-    req =
+    _makeRequest {
       method: 'GET'
       url: eeBackUrl + 'store/' + username + '/all'
       headers: authorization: {}
-    deferred = $q.defer()
-    $http(req)
-      .success (data, status, headers, config) ->
-        deferred.resolve data
-      .error (data, status, headers, config) ->
-        if status is 0 then deferred.reject 'Connection error' else deferred.reject data
-    deferred.promise
+    }

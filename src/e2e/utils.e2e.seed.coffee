@@ -15,3 +15,5 @@ utils.delete_all_tables()
   utils.create_products(10)
 .then (products) ->
   utils.create_selections((_.pluck products, 'id'), scope.token)
+.then () ->
+  utils.create_products(100)

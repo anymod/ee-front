@@ -5,11 +5,7 @@
       <div class="col col-xs-4 col-md-2 overflow-hidden">
         <h4 class="margin-0">Products</h4>
         <hr>
-        <ul class="nav nav-pills nav-stacked nav-compact">
-          <li ui-sref-active="active" ng-repeat="category in user.storefront_meta.categories">
-            <a ui-sref="app.storefront.shop({shopCategory: '{{ category }}'})">{{ category }}</a>
-          </li>
-        </ul>
+        <ee-product-nav ng-if="products" products="products"></ee-product-nav>
       </div>
       <div class="col col-xs-8 col-md-10">
         <h4 class="margin-0">{{ $state.params.shopCategory }}</h4>

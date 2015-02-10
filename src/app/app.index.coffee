@@ -29,6 +29,7 @@ angular.module 'eeApp', [
   'ee-offscreen'
   'ee-catalogProduct'
   'ee-storefrontProduct'
+  'ee-productNav'
   'ee-order'
   # 'EE.Templates' # commented out during build step for inline templates
 ]
