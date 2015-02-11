@@ -2,12 +2,7 @@
 <div class="input-group">
   <div class="input-group-btn" dropdown>
     <button dropdown-toggle type="button" class="btn btn-default dropdown-toggle"><i class="fa fa-fw fa-caret-down"></i></button>
-    <ul class="dropdown-menu">
-      <li><a ui-sref="app.storefront.shop({shopCategory: 'All'})">All Products</a></li>
-      <li ng-repeat="category in user.storefront_meta.categories">
-        <a ui-sref="app.storefront.shop({shopCategory: '{{ category }}'})">{{ category }}</a>
-      </li>
-    </ul>
+    <ee-product-nav products="products" class="dropdown-menu"></ee-product-nav>
   </div><!-- /btn-group -->
   <input type="text" class="form-control" placeholder="Category name" ng-model="$state.params.shopCategory" ng-disabled="$state.params.shopCategory == 'All'">
 </div><!-- /input-group -->

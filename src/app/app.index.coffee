@@ -31,5 +31,6 @@ angular.module 'eeApp', [
   'ee-storefrontProduct'
   'ee-productNav'
   'ee-order'
+  'ee-cloudinaryUpload'
   # 'EE.Templates' # commented out during build step for inline templates
 ]

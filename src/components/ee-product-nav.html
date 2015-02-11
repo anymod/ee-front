@@ -1,4 +1,4 @@
-<ul class="nav nav-pills nav-stacked nav-compact">
+<ul>
   <li ng-repeat="category in categories" ng-class="{ active: category == activeCategory }" >
     <a ui-sref="app.storefront.shop({shopCategory: '{{ category }}'})">{{ category }}</a>
   </li>

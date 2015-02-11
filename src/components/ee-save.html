@@ -1,6 +1,6 @@
 <div name="save"
-     class="btn btn-primary btn-block"
-     ng-class="{ 'btn-success':userSaveSuccess, 'btn-warning':userSaveError }"
+     class="btn btn-default btn-block"
+     ng-class="{ 'btn-success':userSaveSuccess, 'btn-danger': userSaveError || !userIsSaved }"
      ng-disabled="userIsSaved"
      ng-click="save()"
      ng-bind="text">save</div>

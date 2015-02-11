@@ -19,11 +19,7 @@
           <a href class="dropdown-toggle" ng-style="{ color: user.storefront_meta.home.topBarColor }" dropdown-toggle>
             Shop <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu">
-            <li ng-repeat="category in user.storefront_meta.categories">
-              <a ui-sref="app.storefront.shop({shopCategory: '{{ category }}'})">{{ category }}</a>
-            </li>
-          </ul>
+          <ee-product-nav ng-if="products" products="products" class="dropdown-menu"></ee-product-nav>
         </li>
         <li ng-class="{ active: $state.current.name == 'app.storefront.blog' }"><a ui-sref="app.storefront.blog" ng-click="navCollapsed = true" ng-style="{ color: user.storefront_meta.home.topBarColor }">Blog</a></li>
         <li ng-class="{ active: $state.current.name == 'app.storefront.about' }"><a ui-sref="app.storefront.about" ng-click="navCollapsed = true" ng-style="{ color: user.storefront_meta.home.topBarColor }">About</a></li>

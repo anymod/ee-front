@@ -15,6 +15,7 @@ angular.module('app.core').factory 'eeAuth', ($cookies, $cookieStore, $q, eeBack
   hasToken: ()  -> !!$cookies.loginToken
 
   getUser: ()   -> _user
+  getUsername: () -> _user.username
   # setUser: (u)  ->
   #   console.log 'setUser'
   #   _setUser(u)

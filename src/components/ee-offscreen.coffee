@@ -43,35 +43,11 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state, eeAut
     return
 
 # Home
-angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", (eeAuth) ->
+angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", () ->
   templateUrl: 'app/storefront/storefront.home.offscreen.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
-
-    scope.user = eeAuth.getUser()
-
-    $('.upload_form')
-      .append $.cloudinary.unsigned_upload_tag "storefront_home", {
-          cloud_name: 'eeosk',
-          tags: 'browser_uploads' # user.name
-        }
-      .bind 'cloudinarydone', (e, data) ->
-        console.log 'done', data.result
-        scope.user.storefront_meta.home.carousel[0].imgUrl = data.result.secure_url
-        scope.$apply()
-        # $('.carousel img').append($.cloudinary.image(data.result.public_id,
-        #   {
-        #     format: 'jpg',
-        #     width: 150,
-        #     height: 100,
-        #     crop: 'thumb',
-        #     gravity: 'face',
-        #     effect: 'saturation:50'
-        #   }
-        # ))
-      .bind 'cloudinaryprogress', (e, data) ->
-        console.log 'progressing', Math.round((data.loaded * 100.0) / data.total)
-        # $('.progress_bar').css('width', Math.round((data.loaded * 100.0) / data.total) + '%');
+    # scope.user = eeAuth.getUser()
     return
 
 # Shop
