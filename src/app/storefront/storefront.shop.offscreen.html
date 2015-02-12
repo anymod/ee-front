@@ -1,11 +1,10 @@
 <h5 class="vert-2">Current Category</h5>
-<div class="input-group">
-  <div class="input-group-btn" dropdown>
-    <button dropdown-toggle type="button" class="btn btn-default dropdown-toggle"><i class="fa fa-fw fa-caret-down"></i></button>
-    <ee-product-nav products="products" class="dropdown-menu"></ee-product-nav>
-  </div><!-- /btn-group -->
-  <input type="text" class="form-control" placeholder="Category name" ng-model="$state.params.shopCategory" ng-disabled="$state.params.shopCategory == 'All'">
-</div><!-- /input-group -->
+<div class="btn-group" dropdown>
+  <button dropdown-toggle type="button" class="btn btn-default dropdown-toggle">
+    <i class="fa fa-fw fa-caret-down"></i>{{ $state.params.shopCategory }}
+  </button>
+  <ee-product-nav products="products" class="dropdown-menu"></ee-product-nav>
+</div>
 
 <br>
 

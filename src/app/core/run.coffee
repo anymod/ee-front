@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').run ($rootScope, $state, $cookies, $location, eeAuth) ->
+angular.module('app.core').run ($rootScope, $state, $cookies, $location, eeAuth, eeStorefront) ->
 
   # binding this so $state.current.data.pageTitle & other $state data can be accessed
   $rootScope.$state = $state
@@ -15,6 +15,8 @@ angular.module('app.core').run ($rootScope, $state, $cookies, $location, eeAuth)
   isRestricted = (state) -> openStates.indexOf(state) < 0
 
   $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
+    eeStorefront.setCategories()
+
     # redirect to login if no token and restricted
     if !eeAuth.hasToken() and isRestricted(toState.name)
       event.preventDefault()

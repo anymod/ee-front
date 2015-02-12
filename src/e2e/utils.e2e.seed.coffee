@@ -1,19 +1,15 @@
 process.env.NODE_ENV = 'test'
-utils           = require './utils.e2e.db'
-_ = require 'lodash'
-
-console.log "SEED"
+utils = require './utils.e2e.db'
+_     = require 'lodash'
+argv  = require('yargs').argv
 
 scope = {}
 
-utils.delete_all_tables()
-.then () -> utils.create_admin()
-.then () -> utils.create_user utils.random_user
-.then (body) ->
-  scope.user = body.user
-  scope.token = body.token
-  utils.create_products(10)
-.then (products) ->
-  utils.create_selections((_.pluck products, 'id'), scope.token)
-.then () ->
-  utils.create_products(100)
+describe 'seed', () ->
+
+  it 'should seed', () ->
+    if argv.grep is 'seed'
+      console.log "SEED"
+      utils.reset_and_login browser
+      .then () ->
+        utils.create_products([21..50])

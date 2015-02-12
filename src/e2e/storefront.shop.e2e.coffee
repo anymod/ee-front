@@ -5,35 +5,17 @@ expect          = require('chai').expect
 should          = chai.should()
 chaiAsPromised  = require 'chai-as-promised'
 chai.use chaiAsPromised
-_               = require 'lodash'
 
 elem    = {}
 newVal  = {}
-scope   = {}
 
-describe 'eeosk storefront home', () ->
+describe 'eeosk storefront shop', () ->
 
   before (done) ->
-    offscreen = element byAttr.css 'ee-offscreen-storefront-home'
+    offscreen = element byAttr.css 'ee-offscreen-storefront-shop'
     elem =
       alert:                  element byAttr.css  '.alert'
       save:                   element byAttr.name 'save'
-      navbar:                 element byAttr.css  '.navbar.navbar-rgba-colors'
-      navbarBrand:            element byAttr.css  '.navbar .navbar-brand'
-      carouselImg:            element byAttr.css  '.carousel img'
-      carouselWell:           element byAttr.css  '.carousel .position-absolute'
-      carouselWellH3:         element byAttr.css  '.carousel .well h3'
-      carouselWellP:          element byAttr.css  '.carousel .well p'
-      carouselWellA:          element byAttr.css  '.carousel .well a'
-
-      topBarColor:            offscreen.element byAttr.name 'storefront_meta.home.topBarColor'
-      topBarBackgroundColor:  offscreen.element byAttr.name 'storefront_meta.home.topBarBackgroundColor'
-      name:                   offscreen.element byAttr.model 'user.storefront_meta.home.name'
-      carouselHeadline:       offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].headline'
-      carouselByline:         offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].byline'
-      carouselBtnText:        offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].btnText'
-      carouselBtnPosition:    offscreen.element byAttr.css '.btn-group'
-      carouselLinkCategory:   offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].linkCategory'
 
     newVal =
       topBarColor:            '#FFF'
@@ -43,21 +25,19 @@ describe 'eeosk storefront home', () ->
       carouselByline:         'New Byline'
       carouselBtnText:        'New Button'
 
-  utils.reset_and_login(browser)
-  .then (res) ->
-    scope = res
-    browser.get '/storefront/home'
-    browser.getTitle().should.eventually.equal 'Build your store | eeosk'
+    utils.reset_and_login(browser)
 
   describe 'changing and updating store', () ->
 
     it 'should reflect changes to the store name', () ->
-      elem.name                   .getAttribute('value').should.eventually.equal 'Common Deer'
-      elem.navbarBrand            .getText().should.eventually.equal 'Common Deer'
+      browser.get '/storefront/shop'
+      browser.getTitle().should.eventually.equal 'Build your store | eeosk'
+      elem.name                   .getAttribute('value').should.eventually.equal 'Common Deer VT'
+      elem.navbarBrand            .getText().should.eventually.equal 'Common Deer VT'
       elem.name                   .clear().sendKeys newVal.name
       elem.navbarBrand            .getText().should.eventually.equal newVal.name
 
-    it 'should reflect changes to the navbar colors', () ->
+    xit 'should reflect changes to the navbar colors', () ->
       elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(246, 246, 246)'
       elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(34, 34, 34)'
       elem.topBarColor            .clear().sendKeys newVal.topBarColor
@@ -65,7 +45,7 @@ describe 'eeosk storefront home', () ->
       elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(0, 0, 0)'
       elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(255, 255, 255)'
 
-    it 'should reflect changes to the carousel', () ->
+    xit 'should reflect changes to the carousel', () ->
       elem.carouselHeadline       .getAttribute('value').should.eventually.equal 'TOPO DESIGNS'
       elem.carouselHeadline       .clear().sendKeys newVal.carouselHeadline
       elem.carouselHeadline       .getAttribute('value').should.eventually.equal newVal.carouselHeadline
@@ -85,13 +65,11 @@ describe 'eeosk storefront home', () ->
       elem.carouselBtnPosition    .all(byAttr.css('.btn')).get(1).click()
       elem.carouselWell           .getAttribute('class').should.eventually.contain 'middle'
 
-      categories = _.unique(_.pluck scope.products, 'category')
-
-      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal categories[0]
+      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal 'Bags'
       elem.carouselLinkCategory   .element(byAttr.css('option:nth-child(1)')).click()
-      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal categories[1]
+      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal 'Accessories'
 
-    it 'should have saved the changes that were made', () ->
+    xit 'should have saved the changes that were made', () ->
       elem.save                   .click()
       browser.get '/storefront/home'
       elem.carouselHeadline       .getAttribute('value').should.eventually.equal newVal.carouselHeadline

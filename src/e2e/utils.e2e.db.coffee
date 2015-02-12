@@ -87,7 +87,10 @@ if process.env.NODE_ENV is 'test'
 
   utils.create_products = (n) ->
     createOps = []
-    _.times n, (i) -> createOps.push(utils.create_product(i + 1))
+    createOp = (i) -> createOps.push(utils.create_product(i))
+    if typeof n is 'number' then _.times n, (i) -> createOp(i+1)
+    if n instanceof Array then createOp(i) for i in n
+
     Promise.all(createOps)
 
   utils.create_product = (i) ->
@@ -111,7 +114,7 @@ if process.env.NODE_ENV is 'test'
             url: 'http://placehold.it/' + img_size + '.png/09f/fff'
           cloudinary:
             main_image:
-              url: 'http://placehold.it/' + img_size + '.png/09f/fff'            
+              url: 'http://placehold.it/' + img_size + '.png/09f/fff'
         availability_meta: {}
         category: _.sample categories
       headers: authorization: scope.admin_token
@@ -147,5 +150,25 @@ if process.env.NODE_ENV is 'test'
 
   utils.log_out = () ->
     browser.manage().deleteAllCookies()
+
+  utils.reset_and_login = (brws) ->
+    scope = {}
+    brws.get '/logout'
+    utils.delete_all_tables()
+    .then () -> utils.create_admin()
+    .then () -> utils.create_user(utils.test_user)
+    .then (data) ->
+      scope.token = data.token
+      utils.create_products(10)
+    .then (products) ->
+      scope.products = products
+      utils.create_selections(_.pluck(products, 'id'), scope.token)
+    .then (selections) ->
+      scope.selections = selections
+      utils.create_products([11..20])
+    .then (products) ->
+      scope.products = scope.products.concat products
+      utils.log_in scope.token
+      scope
 
 module.exports = utils

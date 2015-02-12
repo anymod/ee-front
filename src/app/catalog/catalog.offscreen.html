@@ -4,14 +4,13 @@
     Use the catalog to find products for your store
   </div>
 
-  <div class="input-group">
-    <input type="text" ng-model="search" class="form-control" placeholder="Search the catalog">
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="button"><i class="fa fa-fw fa-search"></i></button>
-    </span>
-  </div>
-
-  <hr>
+  <!-- TODO: implement catalog search -->
+<!--   <div class="input-group">
+  <input type="text" ng-model="search" class="form-control" placeholder="Search the catalog">
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="button"><i class="fa fa-fw fa-search"></i></button>
+  </span>
+</div> -->
 
   <h5 class="vert-2">Catalog Categories</h5>
   <div class="input-group input-group-sm vert-2">
@@ -43,98 +42,101 @@
 
   <h5 class="vert-2">Price</h5>
   <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
+    <span class="input-group-addon"><input type="checkbox" ng-model="price.range_0_25"></span>
     <div class="btn btn-default btn-sm btn-block">Under $25</div>
   </div>
   <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
+    <span class="input-group-addon"><input type="checkbox" ng-model="price.range_25_50"></span>
     <div class="btn btn-default btn-sm btn-block">$25 to $50</div>
   </div>
   <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
+    <span class="input-group-addon"><input type="checkbox" ng-model="price.range_50_100"></span>
     <div class="btn btn-default btn-sm btn-block">$50 to $100</div>
   </div>
   <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
+    <span class="input-group-addon"><input type="checkbox" ng-model="price.range_100_200"></span>
     <div class="btn btn-default btn-sm btn-block">$100 to $200</div>
   </div>
   <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
+    <span class="input-group-addon"><input type="checkbox" ng-model="price.range_200_10000"></span>
     <div class="btn btn-default btn-sm btn-block">$200 and above</div>
   </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon">min $</span>
-    <input type="text" class="form-control" placeholder="0">
-    <span class="input-group-addon" style="border-right: none;">max $</span>
-    <input type="text" class="form-control" placeholder="0">
-  </div>
+  <!-- TODO: implement custom min and max -->
+<!--   <div class="input-group input-group-sm vert-2">
+  <span class="input-group-addon">min \$</span>
+  <input type="text" class="form-control" ng-model="minPrice">
+  <span class="input-group-addon" style="border-right: none;">max \$</span>
+  <input type="text" class="form-control" ng-model="maxPrice">
+</div> -->
 
   <br>
 
-  <h5 class="vert-2">Rating</h5>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
-    <div class="btn btn-default btn-sm btn-block">
-      <i class="fa fa-star gold-color"></i>
-      <i class="fa fa-star gold-color"></i>
-      <i class="fa fa-star gold-color"></i>
-      <i class="fa fa-star gold-color"></i>
-      <i class="fa fa-star-o gold-color"></i>
-      & Up
-    </div>
+  <!-- TODO: implement rating filtering -->
+<!--   <h5 class="vert-2">Rating</h5>
+<div class="input-group input-group-sm vert-2">
+  <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
+  <div class="btn btn-default btn-sm btn-block">
+    <i class="fa fa-star gold-color"></i>
+    <i class="fa fa-star gold-color"></i>
+    <i class="fa fa-star gold-color"></i>
+    <i class="fa fa-star gold-color"></i>
+    <i class="fa fa-star-o gold-color"></i>
+    & Up
   </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
-    <div class="btn btn-default btn-sm btn-block">
-      <i class="fa fa-star gold-color"></i>
-      <i class="fa fa-star gold-color"></i>
-      <i class="fa fa-star gold-color"></i>
-      <i class="fa fa-star-o gold-color"></i>
-      <i class="fa fa-star-o gold-color"></i>
-      & Up
-    </div>
+</div>
+<div class="input-group input-group-sm vert-2">
+  <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
+  <div class="btn btn-default btn-sm btn-block">
+    <i class="fa fa-star gold-color"></i>
+    <i class="fa fa-star gold-color"></i>
+    <i class="fa fa-star gold-color"></i>
+    <i class="fa fa-star-o gold-color"></i>
+    <i class="fa fa-star-o gold-color"></i>
+    & Up
   </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
-    <div class="btn btn-default btn-sm btn-block">
-      <i class="fa fa-star gold-color"></i>
-      <i class="fa fa-star gold-color"></i>
-      <i class="fa fa-star-o gold-color"></i>
-      <i class="fa fa-star-o gold-color"></i>
-      <i class="fa fa-star-o gold-color"></i>
-      & Up
-    </div>
+</div>
+<div class="input-group input-group-sm vert-2">
+  <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
+  <div class="btn btn-default btn-sm btn-block">
+    <i class="fa fa-star gold-color"></i>
+    <i class="fa fa-star gold-color"></i>
+    <i class="fa fa-star-o gold-color"></i>
+    <i class="fa fa-star-o gold-color"></i>
+    <i class="fa fa-star-o gold-color"></i>
+    & Up
   </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
-    <div class="btn btn-default btn-sm btn-block">
-      <i class="fa fa-star gold-color"></i>
-      <i class="fa fa-star-o gold-color"></i>
-      <i class="fa fa-star-o gold-color"></i>
-      <i class="fa fa-star-o gold-color"></i>
-      <i class="fa fa-star-o gold-color"></i>
-      & Up
-    </div>
+</div>
+<div class="input-group input-group-sm vert-2">
+  <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
+  <div class="btn btn-default btn-sm btn-block">
+    <i class="fa fa-star gold-color"></i>
+    <i class="fa fa-star-o gold-color"></i>
+    <i class="fa fa-star-o gold-color"></i>
+    <i class="fa fa-star-o gold-color"></i>
+    <i class="fa fa-star-o gold-color"></i>
+    & Up
   </div>
+</div>
 
-  <br>
+<br> -->
 
-  <h5 class="vert-2">Location</h5>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
-    <div class="btn btn-default btn-sm btn-block">United States</div>
-  </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
-    <div class="btn btn-default btn-sm btn-block">Europe</div>
-  </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
-    <div class="btn btn-default btn-sm btn-block">China</div>
-  </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
-    <div class="btn btn-default btn-sm btn-block">North America</div>
-  </div>
+  <!-- TODO: implement location filtering -->
+<!--   <h5 class="vert-2">Location</h5>
+<div class="input-group input-group-sm vert-2">
+  <span class="input-group-addon"><input type="checkbox"></span>
+  <div class="btn btn-default btn-sm btn-block">United States</div>
+</div>
+<div class="input-group input-group-sm vert-2">
+  <span class="input-group-addon"><input type="checkbox"></span>
+  <div class="btn btn-default btn-sm btn-block">Europe</div>
+</div>
+<div class="input-group input-group-sm vert-2">
+  <span class="input-group-addon"><input type="checkbox"></span>
+  <div class="btn btn-default btn-sm btn-block">China</div>
+</div>
+<div class="input-group input-group-sm vert-2">
+  <span class="input-group-addon"><input type="checkbox"></span>
+  <div class="btn btn-default btn-sm btn-block">North America</div>
+</div> -->
 
 </div>

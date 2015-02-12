@@ -33,13 +33,18 @@ angular.module('ee-offscreen').directive "eeOffscreenDefault", () ->
 ## Storefront offscreens
 
 #  Parent
-angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state, eeAuth) ->
+angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state, eeAuth, eeStorefront) ->
   templateUrl: 'app/storefront/storefront.offscreen.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) ->
     scope.$state = $state
     scope.user = eeAuth.getUser()
+    eeStorefront.storefrontFromUser()
+    .then (res) ->
+      scope.products = res.product_selection
+      scope.categories = eeStorefront.getCategories()
+    .catch (err) -> console.error err
     return
 
 # Home
@@ -85,7 +90,52 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", () ->
   templateUrl: 'app/catalog/catalog.offscreen.html'
   restrict: 'E'
   scope: {}
-  link: (scope, ele, attrs) -> return
+  link: (scope, ele, attrs) ->
+    scope.price =
+      range_0_25:       false
+      range_25_50:      true
+      range_50_100:     true
+      range_100_200:    true
+      range_200_10000:  false
+
+    setBools = (min, max) ->
+      scope.minPrice = min
+      scope.maxPrice = max
+
+    setRanges = () ->
+      if scope.price.range_0_25 and scope.price.range_200_10000
+        scope.price.range_25_50 = true
+        scope.price.range_50_100 = true
+        scope.price.range_100_200 = true
+
+    scope.setPrices = (min, max) ->
+      setRanges()
+      min = 200
+      max = 0
+      if scope.price.range_0_25
+        min = 0
+        max = 25
+      if scope.price.range_25_50
+        if min >= 200 then min = 25
+        max = 50
+      if scope.price.range_50_100
+        if min >= 200 then min = 50
+        max = 100
+      if scope.price.range_100_200
+        if min >= 200 then min = 100
+        max = 200
+      if scope.price.range_200_10000
+        max = null
+      if min is 200 and max is 0 then min = 0; max = null
+      console.log 'min,max', min, max
+      setBools(min, max)
+
+    scope.setPrices()
+    scope.$watch 'price', () ->
+      scope.setPrices()
+    , true
+
+    return
 
 ## Orders
 # Parent

@@ -30,7 +30,7 @@ angular.module('ee-save').directive "eeSave", ($timeout, eeAuth) ->
       .catch (err) ->
         scope.userIsSaved = false
         scope.userSaveError = true
-        scope.text = err
+        scope.text = if typeof err is 'string' then err else err.message
       return
 
     return

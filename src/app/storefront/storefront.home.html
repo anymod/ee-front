@@ -1,6 +1,6 @@
 <div class="carousel storefront-carousel">
   <img ng-src="{{ user.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive full-width">
-  <div class="position-absolute full-width {{ user.storefront_meta.home.carousel[0].btnPosition }}">
+  <div class="position-absolute full-width hidden-xs {{ user.storefront_meta.home.carousel[0].btnPosition }}">
     <div class="well inline-block"
          ng-hide="!user.storefront_meta.home.carousel[0].headline && !user.storefront_meta.home.carousel[0].byline && !user.storefront_meta.home.carousel[0].btnText">
       <h3 class="margin-0">
@@ -13,6 +13,17 @@
         {{ user.storefront_meta.home.carousel[0].btnText }}
       </a>
     </div>
+  </div>
+  <div class="pad-15 visible-xs">
+    <h3 class="margin-0">
+      {{ user.storefront_meta.home.carousel[0].headline }}
+    </h3>
+    <p class="vert-2">
+      {{ user.storefront_meta.home.carousel[0].byline }}
+    </p>
+    <a ng-show="user.storefront_meta.home.carousel[0].btnText" ui-sref="app.storefront.shop({ shopCategory: user.storefront_meta.home.carousel[0].linkCategory })" class="btn btn-default">
+      {{ user.storefront_meta.home.carousel[0].btnText }}
+    </a>
   </div>
 </div>
 

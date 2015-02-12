@@ -1,14 +1,6 @@
 <h5 class="vert-2">Main image <small>1200x400px</small></h5>
 <ee-cloudinary-upload attr-target="'carousel'"></ee-cloudinary-upload>
 
-<br>
-
-<small>
-  <a href="https://unsplash.com/" target="_blank">
-    Free hi-res images <i class="fa fa-fw fa-external-link"></i>
-  </a>
-</small>
-
 <!-- <ul class="pagination pagination-sm margin-0">
   <li class="disabled"><a href>1</a></li>
   <li><a href><i class="fa fa-plus"></i></a></li>
@@ -16,19 +8,23 @@
 <a href class="btn btn-default btn-sm pull-right"><i class="fa fa-minus"></i></a> -->
 
 <img ng-src="{{ user.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive">
+
 <input type="text" class="form-control input-sm" placeholder="Headline" ng-model="user.storefront_meta.home.carousel[0].headline">
-<input type="text" class="form-control input-sm" placeholder="Byline" ng-model="user.storefront_meta.home.carousel[0].byline">
-<input type="text" class="form-control input-sm" placeholder="Button Text" ng-model="user.storefront_meta.home.carousel[0].btnText">
 <div class="btn-group btn-group-justified"
-     ng-show="user.storefront_meta.home.carousel[0].btnText">
+     ng-show="!!user.storefront_meta.home.carousel[0].headline || !!user.storefront_meta.home.carousel[0].byline || !!user.storefront_meta.home.carousel[0].btnText">
   <div class="btn btn-default btn-sm" ng-model="user.storefront_meta.home.carousel[0].btnPosition" btn-radio="'left'">Left</div>
   <div class="btn btn-default btn-sm" ng-model="user.storefront_meta.home.carousel[0].btnPosition" btn-radio="'middle'">Middle</div>
   <div class="btn btn-default btn-sm" ng-model="user.storefront_meta.home.carousel[0].btnPosition" btn-radio="'right'">Right</div>
 </div>
-<select class="form-control input-sm" ng-model="user.storefront_meta.home.carousel[0].linkCategory"
-        ng-show="user.storefront_meta.home.carousel[0].btnText">
-  <option ng-repeat="category in user.storefront_meta.categories">{{ category }}</option>
-</select>
+<input type="text" class="form-control input-sm" placeholder="Byline" ng-model="user.storefront_meta.home.carousel[0].byline">
+<input type="text" class="form-control input-sm" placeholder="Button Text" ng-model="user.storefront_meta.home.carousel[0].btnText">
+<div ng-show="!!user.storefront_meta.home.carousel[0].btnText">
+  <h5 class="vert-2"><small class="text-muted">'{{ user.storefront_meta.home.carousel[0].btnText }}' button goes to:</small></h5>
+  <select class="form-control input-sm" ng-model="user.storefront_meta.home.carousel[0].linkCategory">
+    <option ng-repeat="category in categories">{{ category }}</option>
+  </select>
+</div>
+
 
 <br>
 
@@ -54,7 +50,7 @@
 
 <br>
 
-<h5 class="vert-2">Store Name</h5>
+<h5 class="vert-2">Store Title</h5>
 <input type="text"
        class="form-control"
        placeholder="Enter store name"

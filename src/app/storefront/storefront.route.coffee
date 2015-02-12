@@ -23,7 +23,7 @@ angular.module('app.storefront').config ($stateProvider) ->
       controller: 'app.storefrontChildCtrl'
     .state 'app.storefront.blog',
       url: '/blog'
-      templateUrl: 'app/storefront/storefront.blog.html'
+      template: ''
       controller: 'app.storefrontChildCtrl'
     .state 'app.storefront.about',
       url: '/about'
@@ -31,5 +31,5 @@ angular.module('app.storefront').config ($stateProvider) ->
       controller: 'app.storefrontChildCtrl'
     .state 'app.storefront.audience',
       url: '/audience'
-      templateUrl: 'app/storefront/storefront.audience.html'
+      template: ''
       controller: 'app.storefrontChildCtrl'
