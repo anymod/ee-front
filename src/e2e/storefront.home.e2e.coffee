@@ -43,10 +43,13 @@ describe 'eeosk storefront home', () ->
       carouselByline:         'New Byline'
       carouselBtnText:        'New Button'
 
-  utils.reset_and_login(browser)
-  .then (res) ->
-    scope = res
-    browser.get '/storefront/home'
+    utils.reset_and_login(browser)
+    .then (res) ->
+      scope = res
+      scope.categories = ['All'].concat _.unique(_.pluck scope.products, 'category')
+
+  it 'should visit the storefront home on login', () ->
+    browser.get '/'
     browser.getTitle().should.eventually.equal 'Build your store | eeosk'
 
   describe 'changing and updating store', () ->
@@ -85,11 +88,9 @@ describe 'eeosk storefront home', () ->
       elem.carouselBtnPosition    .all(byAttr.css('.btn')).get(1).click()
       elem.carouselWell           .getAttribute('class').should.eventually.contain 'middle'
 
-      categories = _.unique(_.pluck scope.products, 'category')
-
-      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal categories[0]
-      elem.carouselLinkCategory   .element(byAttr.css('option:nth-child(1)')).click()
-      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal categories[1]
+      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal scope.categories[0]
+      elem.carouselLinkCategory   .element(byAttr.css('option:nth-child(2)')).click()
+      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal scope.categories[1]
 
     it 'should have saved the changes that were made', () ->
       elem.save                   .click()
@@ -98,7 +99,7 @@ describe 'eeosk storefront home', () ->
       elem.carouselByline         .getAttribute('value').should.eventually.equal newVal.carouselByline
       elem.carouselBtnText        .getAttribute('value').should.eventually.equal newVal.carouselBtnText
       elem.carouselWell           .getAttribute('class').should.eventually.contain 'middle'
-      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal 'Accessories'
+      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal scope.categories[1]
       elem.navbarBrand            .getText().should.eventually.equal newVal.name
       elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(0, 0, 0)'
       elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(255, 255, 255)'

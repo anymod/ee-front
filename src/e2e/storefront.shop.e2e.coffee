@@ -5,6 +5,7 @@ expect          = require('chai').expect
 should          = chai.should()
 chaiAsPromised  = require 'chai-as-promised'
 chai.use chaiAsPromised
+_               = require 'lodash'
 
 elem    = {}
 newVal  = {}
@@ -26,16 +27,15 @@ describe 'eeosk storefront shop', () ->
       carouselBtnText:        'New Button'
 
     utils.reset_and_login(browser)
+    .then (res) ->
+      scope = res
+      scope.categories = ['All'].concat _.unique(_.pluck scope.products, 'category')
+
+  it 'should visit the shop section', () ->
+    browser.get '/storefront/shop'
+    browser.getTitle().should.eventually.equal 'Build your store | eeosk'
 
   describe 'changing and updating store', () ->
-
-    it 'should reflect changes to the store name', () ->
-      browser.get '/storefront/shop'
-      browser.getTitle().should.eventually.equal 'Build your store | eeosk'
-      elem.name                   .getAttribute('value').should.eventually.equal 'Common Deer VT'
-      elem.navbarBrand            .getText().should.eventually.equal 'Common Deer VT'
-      elem.name                   .clear().sendKeys newVal.name
-      elem.navbarBrand            .getText().should.eventually.equal newVal.name
 
     xit 'should reflect changes to the navbar colors', () ->
       elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(246, 246, 246)'

@@ -128,6 +128,7 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", () ->
         max = null
       if min is 200 and max is 0 then min = 0; max = null
       console.log 'min,max', min, max
+      # TODO implement min and max for catalog
       setBools(min, max)
 
     scope.setPrices()

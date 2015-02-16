@@ -25,7 +25,7 @@ describe 'eeosk catalog', () ->
     .then () -> utils.create_user(utils.test_user)
     .then (data) -> scope.token = data.token.replace 'Bearer ', 'Bearer%20'
 
-  it 'should have 100 products', () ->
+  xit 'should have 100 products', () ->
     browser.get '/'
     browser.manage().addCookie("loginToken", scope.token)
     browser.get '/catalog'

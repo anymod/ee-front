@@ -17,6 +17,10 @@ angular.module('app.storefront').config ($stateProvider) ->
       url: '/home'
       templateUrl: 'app/storefront/storefront.home.html'
       controller: 'app.storefrontChildCtrl'
+    .state 'app.storefront.shop_redirect',  # this state is purely to avoid flicker when visiting /storefront/shop
+      url: '/shop'
+      template: ''
+      controller: 'app.storefrontChildCtrl'
     .state 'app.storefront.shop',
       url: '/shop/:shopCategory'
       templateUrl: 'app/storefront/storefront.shop.html'

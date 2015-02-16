@@ -151,7 +151,7 @@ if process.env.NODE_ENV is 'test'
   utils.log_out = () ->
     browser.manage().deleteAllCookies()
 
-  utils.reset_and_login = (brws) ->
+  utils.reset = (brws) ->
     scope = {}
     brws.get '/logout'
     utils.delete_all_tables()
@@ -166,6 +166,9 @@ if process.env.NODE_ENV is 'test'
     .then (selections) ->
       scope.selections = selections
       utils.create_products([11..20])
+    
+  utils.reset_and_login = (brws) ->
+    utils.reset(brws)
     .then (products) ->
       scope.products = scope.products.concat products
       utils.log_in scope.token

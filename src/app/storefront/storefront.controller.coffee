@@ -8,5 +8,6 @@ angular.module('app.storefront').controller 'app.storefrontRootCtrl', ($scope, $
 
   return
 
-angular.module('app.storefront').controller 'app.storefrontChildCtrl', ($scope, eeAuth) ->
+angular.module('app.storefront').controller 'app.storefrontChildCtrl', ($scope, $state, eeAuth) ->
+  if $state.current.name is 'app.storefront.shop_redirect' then $state.go 'app.storefront.shop', shopCategory: 'All'
   return

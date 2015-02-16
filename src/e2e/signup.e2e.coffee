@@ -19,11 +19,10 @@ describe 'eeosk signup', () ->
       username:     element byAttr.model 'username'
       submit:       element byAttr.css 'button[type="submit"]'
 
-    utils.delete_all_tables()
-    utils.create_user(utils.test_user)
-    browser.get '/create-online-store'
+    utils.reset(browser)
 
   it 'should show signup page', () ->
+    browser.get '/create-online-store'
     browser.getTitle().should.eventually.equal 'Create your store | eeosk'
 
   it 'should notify if validations fail', () ->
@@ -53,11 +52,11 @@ describe 'eeosk signup', () ->
     # Test for redirect to welcome screen upon success
     elem.username     .clear().sendKeys utils.random_user.username
     elem.submit       .click()
+    # Logged in
+    browser           .getTitle().should.eventually.equal 'Build your store | eeosk'
     browser           .manage().getCookie('loginToken')
     .then (cookie) ->
-    # Logged in
       cookie          .value.should.have.string('Bearer%20')
-      browser         .getTitle().should.eventually.equal 'Build your store | eeosk'
 
   it 'should not allow duplicate signups', () ->
     utils.log_out()
@@ -79,3 +78,5 @@ describe 'eeosk signup', () ->
     elem.alert        .isDisplayed().should.eventually.equal true
     elem.alert        .getText().should.eventually.equal 'username already in use'
     browser           .getTitle().should.eventually.equal 'Create your store | eeosk'
+
+  xit 'should click confirmation link in email', () ->
