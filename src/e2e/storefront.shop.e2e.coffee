@@ -9,74 +9,57 @@ _               = require 'lodash'
 
 elem    = {}
 newVal  = {}
+scope   = {}
 
 describe 'eeosk storefront shop', () ->
 
   before (done) ->
     offscreen = element byAttr.css 'ee-offscreen-storefront-shop'
+    navbar    = element byAttr.css 'nav.navbar-rgba-colors'
     elem =
-      alert:                  element byAttr.css  '.alert'
       save:                   element byAttr.name 'save'
+      offscreenBtn:           offscreen.element byAttr.css  'button.dropdown-toggle'
+      ofscDrop:               offscreen.element byAttr.css  '.btn-group > ul.dropdown-menu'
 
-    newVal =
-      topBarColor:            '#FFF'
-      topBarBackgroundColor:  '#000000'
-      name:                   'New Name'
-      carouselHeadline:       'New Headline'
-      carouselByline:         'New Byline'
-      carouselBtnText:        'New Button'
+      shopBtn:                navbar.element byAttr.css 'ul.nav.navbar-nav:nth-child(1) > li:nth-child(2)'
+
+      navPills:               element byAttr.css '.col ul.nav-pills'
 
     utils.reset_and_login(browser)
     .then (res) ->
       scope = res
       scope.categories = ['All'].concat _.unique(_.pluck scope.products, 'category')
 
-  it 'should visit the shop section', () ->
+  it 'should visit the shop section and have the right elements highlighted', () ->
     browser.get '/storefront/shop'
     browser.getTitle().should.eventually.equal 'Build your store | eeosk'
+    ## Check current category button
+    elem.offscreenBtn                                     .getText().should.eventually.contain 'All'
+    elem.ofscDrop.element(byAttr.css('li:nth-child(1)'))  .getAttribute('class').should.eventually.contain 'active'
+    # TODO fix race condition in the current category dropdown call
+    # elem.ofscDrop.element(byAttr.css('li:nth-child(2)'))  .getAttribute('class').should.eventually.equal 'ng-scope'
+    ## Check main section nav pills
+    elem.navPills.element(byAttr.css('li:nth-child(1)'))  .getAttribute('class').should.eventually.contain 'active'
+    elem.navPills.element(byAttr.css('li:nth-child(2)'))  .getAttribute('class').should.eventually.equal 'ng-scope'
+    ## Check navbar dropdown
+    elem.shopBtn.element(byAttr.css('li:nth-child(1)'))   .getAttribute('class').should.eventually.contain 'active'
+    elem.shopBtn.element(byAttr.css('li:nth-child(2)'))   .getAttribute('class').should.eventually.equal 'ng-scope'
+
+  it 'should visit another category and have the right elements highlighted', () ->
+    browser.get '/storefront/shop/' + scope.categories[1]
+    browser.getTitle().should.eventually.equal 'Build your store | eeosk'
+    ## Check current category button
+    elem.offscreenBtn                                     .getText().should.eventually.contain scope.categories[1]
+    elem.ofscDrop.element(byAttr.css('li:nth-child(1)'))  .getAttribute('class').should.eventually.equal 'ng-scope'
+    elem.ofscDrop.element(byAttr.css('li:nth-child(2)'))  .getAttribute('class').should.eventually.contain 'active'
+    ## Check main section nav pills
+    elem.navPills.element(byAttr.css('li:nth-child(1)'))  .getAttribute('class').should.eventually.equal 'ng-scope'
+    elem.navPills.element(byAttr.css('li:nth-child(2)'))  .getAttribute('class').should.eventually.contain 'active'
+    ## Check navbar dropdown
+    elem.shopBtn.element(byAttr.css('li:nth-child(1)'))   .getAttribute('class').should.eventually.equal 'ng-scope'
+    elem.shopBtn.element(byAttr.css('li:nth-child(2)'))   .getAttribute('class').should.eventually.contain 'active'
+
 
   describe 'changing and updating store', () ->
 
-    xit 'should reflect changes to the navbar colors', () ->
-      elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(246, 246, 246)'
-      elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(34, 34, 34)'
-      elem.topBarColor            .clear().sendKeys newVal.topBarColor
-      elem.topBarBackgroundColor  .clear().sendKeys newVal.topBarBackgroundColor
-      elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(0, 0, 0)'
-      elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(255, 255, 255)'
-
-    xit 'should reflect changes to the carousel', () ->
-      elem.carouselHeadline       .getAttribute('value').should.eventually.equal 'TOPO DESIGNS'
-      elem.carouselHeadline       .clear().sendKeys newVal.carouselHeadline
-      elem.carouselHeadline       .getAttribute('value').should.eventually.equal newVal.carouselHeadline
-
-      elem.carouselByline         .getAttribute('value').should.eventually.equal 'OUR FAVORITE PACKS'
-      elem.carouselByline         .clear().sendKeys newVal.carouselByline
-      elem.carouselByline         .getAttribute('value').should.eventually.equal newVal.carouselByline
-
-      elem.carouselBtnText        .getAttribute('value').should.eventually.equal 'SHOP NOW'
-      elem.carouselBtnText        .clear().sendKeys newVal.carouselBtnText
-      elem.carouselBtnText        .getAttribute('value').should.eventually.equal newVal.carouselBtnText
-
-      elem.carouselBtnPosition    .all(byAttr.css('.btn')).get(0).click()
-      elem.carouselWell           .getAttribute('class').should.eventually.contain 'left'
-      elem.carouselBtnPosition    .all(byAttr.css('.btn')).get(2).click()
-      elem.carouselWell           .getAttribute('class').should.eventually.contain 'right'
-      elem.carouselBtnPosition    .all(byAttr.css('.btn')).get(1).click()
-      elem.carouselWell           .getAttribute('class').should.eventually.contain 'middle'
-
-      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal 'Bags'
-      elem.carouselLinkCategory   .element(byAttr.css('option:nth-child(1)')).click()
-      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal 'Accessories'
-
-    xit 'should have saved the changes that were made', () ->
-      elem.save                   .click()
-      browser.get '/storefront/home'
-      elem.carouselHeadline       .getAttribute('value').should.eventually.equal newVal.carouselHeadline
-      elem.carouselByline         .getAttribute('value').should.eventually.equal newVal.carouselByline
-      elem.carouselBtnText        .getAttribute('value').should.eventually.equal newVal.carouselBtnText
-      elem.carouselWell           .getAttribute('class').should.eventually.contain 'middle'
-      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal 'Accessories'
-      elem.navbarBrand            .getText().should.eventually.equal newVal.name
-      elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(0, 0, 0)'
-      elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(255, 255, 255)'
+    xit 'should rearrange products', () ->
