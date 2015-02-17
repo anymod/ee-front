@@ -1,0 +1,19 @@
+<img ng-src="{{ product.image_meta.cloudinary.main_image.url | thumbnail }}" class="img-responsive full-width">
+<div class="vert-5">
+  <span class="product-title">{{ product.title }}</span>
+  <br>
+  <strong>{{ product.baselinePrice / (1 - 0.15) | currency }}</strong>
+  &nbsp;
+  <!-- TODO add rearrange buttons -->
+<!--   <div class="btn-group">
+  <div class="btn btn-default btn-xs">
+    <i class="fa fa-fw fa-arrow-left hidden-xs"></i>
+    <i class="fa fa-fw fa-arrow-up visible-xs-inline-block"></i>
+  </div>
+  <div class="btn btn-default btn-xs"><i class="fa fa-fw fa-pencil"></i></div>
+  <div class="btn btn-default btn-xs">
+    <i class="fa fa-fw fa-arrow-down visible-xs-inline-block"></i>
+    <i class="fa fa-fw fa-arrow-right hidden-xs"></i>
+  </div>
+</div> -->
+</div>

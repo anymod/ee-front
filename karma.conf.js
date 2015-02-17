@@ -35,6 +35,7 @@ module.exports = function(config) {
       'src/js/app/core/svc.back.js',
       'src/js/app/core/svc.auth.js',
       'src/js/app/core/svc.catalog.js',
+      'src/js/app/core/svc.orders.js',
       'src/js/app/core/svc.selection.js',
       'src/js/app/core/svc.storefront.js',
       'src/js/app/core/svc.other.js',

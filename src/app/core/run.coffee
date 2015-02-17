@@ -14,6 +14,8 @@ angular.module('app.core').run ($rootScope, $state, $cookies, $location, eeAuth,
 
   isRestricted = (state) -> openStates.indexOf(state) < 0
 
+  $rootScope.closeProductHighlight = () -> $location.search('p', null)
+
   $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
     eeStorefront.setCategories()
 

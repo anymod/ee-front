@@ -154,6 +154,7 @@ if process.env.NODE_ENV is 'test'
   utils.reset = (brws) ->
     scope = {}
     brws.get '/logout'
+    brws.sleep(100)
     utils.delete_all_tables()
     .then () -> utils.create_admin()
     .then () -> utils.create_user(utils.test_user)
@@ -166,7 +167,7 @@ if process.env.NODE_ENV is 'test'
     .then (selections) ->
       scope.selections = selections
       utils.create_products([11..20])
-    
+
   utils.reset_and_login = (brws) ->
     utils.reset(brws)
     .then (products) ->

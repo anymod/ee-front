@@ -27,9 +27,10 @@ angular.module 'eeApp', [
   'ee-navbar'
   'ee-save'
   'ee-offscreen'
-  'ee-catalogProduct'
-  'ee-storefrontProduct'
+  'ee-productForCatalog'
+  'ee-productForStorefront'
   'ee-productNav'
+  'ee-productForOverlay'
   'ee-order'
   'ee-cloudinaryUpload'
   # 'EE.Templates' # commented out during build step for inline templates

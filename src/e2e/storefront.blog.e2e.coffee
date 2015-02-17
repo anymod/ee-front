@@ -42,7 +42,8 @@ describe 'eeosk storefront blog', () ->
       browser.get '/storefront/blog'
       browser.getTitle()                        .should.eventually.equal 'Build your store | eeosk'
 
-    it 'show the initial popover', () ->
+    it 'show the initial button and popover', () ->
+      elem.blogBtn                              .getAttribute('class').should.eventually.equal 'active'
       elem.popContent.getText()                 .should.eventually.contain 'Enter the link to your blog and'
 
     it 'add a blog', () ->

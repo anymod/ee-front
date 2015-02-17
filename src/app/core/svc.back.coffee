@@ -51,6 +51,13 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
+  productGET: (id, token) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'products/' + id
+      headers: authorization: token
+    }
+
   selectionsPOST: (token, attrs) ->
     _makeRequest {
       method: 'POST'

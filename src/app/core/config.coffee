@@ -14,7 +14,7 @@ angular.module('app.core').config ($locationProvider, $stateProvider, $urlRouter
   $stateProvider
     .state 'app',
       url: ''
-      template: '<div ui-view class="white-background"></div>'
+      template: '<div ui-view class="onscreen white-background"></div>'
       data:
         narrowToggle: true
 

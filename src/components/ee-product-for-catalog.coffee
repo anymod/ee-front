@@ -1,7 +1,7 @@
-angular.module 'ee-catalogProduct', []
+angular.module 'ee-productForCatalog', []
 
-angular.module('ee-catalogProduct').directive "eeCatalogProduct", ($rootScope, eeSelection) ->
-  templateUrl: 'components/ee-catalog-product.html'
+angular.module('ee-productForCatalog').directive "eeProductForCatalog", ($rootScope, $location, eeSelection) ->
+  templateUrl: 'components/ee-product-for-catalog.html'
   restrict: 'E'
   scope:
     product: '='
@@ -29,5 +29,8 @@ angular.module('ee-catalogProduct').directive "eeCatalogProduct", ($rootScope, e
       eeSelection.createSelection(scope.product, scope.currentMargin*100)
       .then (res) -> console.info 'added', res
       .catch (err) -> console.error err
+
+    scope.highlightProduct = () ->
+      $location.search('p', scope.product.id)
 
     return

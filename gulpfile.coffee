@@ -23,6 +23,7 @@ eeModulesSrc = [
   './src/app/core/svc.auth.coffee'
   './src/app/core/svc.back.coffee'
   './src/app/core/svc.catalog.coffee'
+  './src/app/core/svc.orders.coffee'
   './src/app/core/svc.selection.coffee'
   './src/app/core/svc.storefront.coffee'
   './src/app/core/svc.other.coffee'
@@ -182,15 +183,15 @@ gulp.task "copy-prod", ->
     .pipe gp.changed distPath
     .pipe gulp.dest distPath + '/fonts'
 
-  gulp.src './src/products.json'
-    .pipe gp.plumber()
-    .pipe gp.changed distPath
-    .pipe gulp.dest distPath
-
-  gulp.src './src/orders.json'
-    .pipe gp.plumber()
-    .pipe gp.changed distPath
-    .pipe gulp.dest distPath
+  # gulp.src './src/products.json'
+  #   .pipe gp.plumber()
+  #   .pipe gp.changed distPath
+  #   .pipe gulp.dest distPath
+  #
+  # gulp.src './src/orders.json'
+  #   .pipe gp.plumber()
+  #   .pipe gp.changed distPath
+  #   .pipe gulp.dest distPath
 
 
 # ==========================

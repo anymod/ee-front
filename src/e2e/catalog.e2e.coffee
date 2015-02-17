@@ -5,6 +5,7 @@ expect          = require('chai').expect
 should          = chai.should()
 chaiAsPromised  = require 'chai-as-promised'
 chai.use chaiAsPromised
+_               = require 'lodash'
 
 elem    = {}
 newVal  = {}
@@ -17,19 +18,18 @@ describe 'eeosk catalog', () ->
     elem =
       alert:                  element byAttr.css '.alert'
       search:                 element byAttr.model 'search'
-      product:                element byAttr.css 'ee-catalog-product'
+      product:                element byAttr.css 'ee-product-for-catalog'
 
-    utils.delete_all_tables()
-    .then () -> utils.create_admin()
-    .then () -> utils.create_products(10)
-    .then () -> utils.create_user(utils.test_user)
-    .then (data) -> scope.token = data.token.replace 'Bearer ', 'Bearer%20'
+    utils.reset_and_login(browser)
+    .then (res) ->
+      scope = res
+      scope.categories = ['All'].concat _.unique(_.pluck scope.products, 'category')
+    .then () -> utils.create_products([21..150])
 
-  xit 'should have 100 products', () ->
-    browser.get '/'
-    browser.manage().addCookie("loginToken", scope.token)
+  it 'should have 100 products', () ->
     browser.get '/catalog'
     browser.getTitle().should.eventually.equal 'Add products | eeosk'
+    browser.pause()
     elem.product  .getText().should.eventually.equal []
     # elem.name                   .getAttribute('value').should.eventually.equal 'Common Deer VT'
     # elem.navbarBrand            .getText().should.eventually.equal 'Common Deer VT'

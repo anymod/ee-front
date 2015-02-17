@@ -1,4 +1,6 @@
-<nav class="navbar navbar-default margin-0 round-0" ng-style="{ 'background-color': user.storefront_meta.home.topBarBackgroundColor }">
+<nav class="navbar navbar-default margin-0 round-0"
+     ng-style="{ 'background-color': user.storefront_meta.home.topBarBackgroundColor }"
+     id="top">
   <div class="container-fluid">
     <ul class="pagination vert-5">
       <li>
@@ -20,13 +22,13 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<div style="position: fixed; top: 8px; right: 25px;">
-  <div class="btn btn-default">Top</div>
+<div style="position: fixed; bottom: 8px; right: 16px;">
+  <div class="btn btn-default" ng-click="scrollToTop()">Top</div>
 </div>
 
 
 <div class="catalog-products pad-20">
   <span ng-repeat="product in products | orderBy:'-baseline_price'">
-    <ee-catalog-product product="product"></ee-catalog-product>
+    <ee-product-for-catalog product="product"></ee-product-for-catalog>
   </span>
 </div>

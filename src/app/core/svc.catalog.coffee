@@ -8,6 +8,17 @@ angular.module('app.core').factory 'eeCatalog', ($cookies, $q, eeBack) ->
 
   getProducts: () -> _products
 
+  getProduct: (id) ->
+    deferred = $q.defer()
+    if !id
+      deferred.reject 'Missing product ID'
+    else
+      eeBack.productGET(id, $cookies.loginToken)
+      .then (data) -> deferred.resolve data
+      .catch (err) -> deferred.reject err
+    deferred.promise
+
+
   productsFromToken: (opts) ->
     deferred = $q.defer()
     if !$cookies.loginToken
