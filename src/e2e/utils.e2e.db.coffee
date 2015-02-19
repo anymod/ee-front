@@ -96,7 +96,14 @@ if process.env.NODE_ENV is 'test'
   utils.create_product = (i) ->
     supply_price = parseInt(Math.random()*100)*100 + 800
     ee_margin = 10
-    img_size = if Math.random() > 0.5 then '800x400' else '400x800'
+    random_color = () -> Math.random().toString(16).slice(2, 8)
+    w = '800'
+    h = '600'
+    if Math.random()*2 > 1 then [w,h] = [h,w]
+    main_image = 'http://placehold.it/' + w + 'x' + h + '.png/' + random_color() + '/fff'
+    image_2 = 'http://placehold.it/' + h + 'x' + h + '.png/' + random_color() + '/fff'
+    image_3 = 'http://placehold.it/' + h + 'x' + w + '.png/' + random_color() + '/fff'
+    image_4 = 'http://placehold.it/' + w + 'x' + w + '.png/' + random_color() + '/fff'
     categories = ["Apparel", "Accessories", "Home Decor", "Health & Beauty", "Electronics", "General Merchandise"]
     req = request.defaults
       json: true
@@ -111,10 +118,12 @@ if process.env.NODE_ENV is 'test'
         content_meta: {}
         image_meta:
           main_image:
-            url: 'http://placehold.it/' + img_size + '.png/09f/fff'
-          cloudinary:
-            main_image:
-              url: 'http://placehold.it/' + img_size + '.png/09f/fff'
+            url: main_image
+          additional_images: [
+            { url: image_2 },
+            { url: image_3 },
+            { url: image_4 },
+          ]
         availability_meta: {}
         category: _.sample categories
       headers: authorization: scope.admin_token

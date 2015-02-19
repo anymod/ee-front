@@ -1,13 +1,30 @@
 <div class="nav-wrapper white-background pad-10"
       style="position: absolute; top: 0; left:0; right: 0; height: 100%; z-index: 5;"
       ng-if="!!productHighlightId">
-  <div>
-    <div class="btn btn-default"
-         style="position: fixed; top: 8px; right: 16px;"
-         ng-click="closeProductHighlight()">
-      close
-    </div>
-    <ee-product-for-storefront product="product"></ee-product-for-storefront>
-    <pre>{{ product | json }}</pre>
+
+  <div class="btn btn-default btn-sm"
+       style="position: fixed; top: 8px; right: 16px; z-index: 6"
+       ng-click="closeProductHighlight()">
+    close
   </div>
+
+  <div class="row margin-0">
+    <div class="col col-xs-9">
+      <img ng-src="{{ focusImg.url }}" class="img-responsive full-width">
+      <h2 class="vert-5" ng-bind="product.title"></h2>
+      <div ng-bind="product.category" class="label label-primary"></div>
+      <p ng-bind="product.content"></p>
+    </div>
+    <div class="col col-xs-3">
+      <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}"
+           class="hover-pointer full-width vert-2 margin-top-0"
+           ng-click="setFocusImg(product.image_meta.main_image)" />
+      <div ng-repeat="img in product.image_meta.additional_images">
+        <img ng-src="{{ img.url | thumbnail }}"
+             class="hover-pointer full-width vert-2"
+             ng-click="setFocusImg(img)" />
+      </div>
+    </div>
+  </div>
+
 </div>

@@ -66,6 +66,13 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       data: attrs
     }
 
+  selectionsDELETE: (token, id) ->
+    _makeRequest {
+      method: 'DELETE'
+      url: eeBackUrl + 'selections/' + id
+      headers: authorization: token
+    }
+
   storefrontGET: (username) ->
     _makeRequest {
       method: 'GET'

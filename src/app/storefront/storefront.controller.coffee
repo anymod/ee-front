@@ -4,7 +4,8 @@ angular.module('app.storefront').controller 'app.storefrontRootCtrl', ($scope, $
   $rootScope.toggle = true
   $scope.user = user
 
-  eeStorefront.storefrontFromUser().then () -> $scope.products = eeStorefront.getProducts()
+  eeStorefront.getProducts()
+  .then (res) -> $scope.products = res
 
   return
 

@@ -22,15 +22,10 @@ angular.module 'eeApp', [
   'app.account'
 
   # custom
-  # 'EE.Products'
-  # 'EE.SupplierSignup'
   'ee-navbar'
   'ee-save'
   'ee-offscreen'
-  'ee-productForCatalog'
-  'ee-productForStorefront'
-  'ee-productNav'
-  'ee-productForOverlay'
+  'ee-product'
   'ee-order'
   'ee-cloudinaryUpload'
   # 'EE.Templates' # commented out during build step for inline templates

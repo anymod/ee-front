@@ -1,34 +1,36 @@
-angular.module 'ee-productForCatalog', []
+'use strict'
 
-angular.module('ee-productForCatalog').directive "eeProductForCatalog", ($rootScope, $location, eeSelection) ->
+angular.module('ee-product').directive "eeProductForCatalog", ($rootScope, $location, eeSelection, eeCatalog, eeStorefront) ->
   templateUrl: 'components/ee-product-for-catalog.html'
   restrict: 'E'
   scope:
     product: '='
   link: (scope, ele, attr) ->
-    basePrice   = scope.product.baseline_price
-    minMargin   = 0.05
-    maxMargin   = 0.40
-    startMargin = 0.15
+    scope.added = false
+    scope.product_selection = false
+    eeCatalog.setCurrentPriceAndCurrentMargin scope, scope.product.baseline_price, eeCatalog.startMargin
 
-    calcCurrentPrice = (baseline, margin) ->
-      return baseline / (1 - margin)
-
-    scope.currentMargin = startMargin
-    scope.currentPrice  = calcCurrentPrice(basePrice, scope.currentMargin)
-
-    scope.setCurrentPrice = (newMargin) ->
-      margin = newMargin
-      if newMargin >= maxMargin then margin = maxMargin
-      if newMargin <= minMargin then margin = minMargin
-      scope.currentMargin = margin
-      scope.currentPrice = calcCurrentPrice(basePrice, scope.currentMargin)
-      return
+    eeStorefront.getProductInStorefront(scope.product.id)
+    .then (p_s) -> scope.product_selection = p_s
+    .catch () -> scope.product_selection = false
 
     scope.select = () ->
       eeSelection.createSelection(scope.product, scope.currentMargin*100)
-      .then (res) -> console.info 'added', res
-      .catch (err) -> console.error err
+      .then (res) ->
+        scope.added = true
+        scope.selection_id = res.id
+      .catch (err) ->
+        scope.added = false
+        console.error err
+
+    scope.deselect = () ->
+      eeSelection.deleteSelection(scope.selection_id)
+      .then (res) ->
+        scope.added = false
+        scope.selection_id = undefined
+      .catch (err) ->
+        scope.added = true
+        console.error err
 
     scope.highlightProduct = () ->
       $location.search('p', scope.product.id)

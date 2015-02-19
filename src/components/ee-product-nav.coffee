@@ -1,6 +1,6 @@
-module = angular.module 'ee-productNav', []
+'use strict'
 
-module.directive "eeProductNav", ($state, eeStorefront) ->
+angular.module('ee-product').directive "eeProductNav", ($state, eeStorefront) ->
   templateUrl: 'components/ee-product-nav.html'
   restrict: 'E'
   replace: true

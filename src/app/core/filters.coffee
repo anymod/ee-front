@@ -16,7 +16,11 @@ angular.module('app.core').filter 'centToDollar', ($filter) ->
     currencyFilter Math.floor(cents)/100
 
 angular.module('app.core').filter 'thumbnail', () ->
-  (url) -> url.split("image/upload").join('image/upload/c_pad,w_150,h_150')
+  (url) ->
+    if !!url and url.indexOf("image/upload") > -1
+      url.split("image/upload").join('image/upload/c_pad,w_150,h_150')
+    else
+      url
 
 angular.module('app.core').filter 'urlText', () ->
   (text) -> text.replace(/[^a-zA-Z0-9_]/gi, '').toLowerCase()
