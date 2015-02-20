@@ -41,11 +41,13 @@ angular.module('app.core').factory 'eeStorefront', ($cookies, $q, eeBack, eeAuth
         deferred.reject err
     deferred.promise
 
-  _addCategory = (cat) -> if _categories.indexOf(cat) < 0 then _categories.push cat
+  _addCategory = (cat) -> if !!cat and (_categories.indexOf(cat) < 0) then _categories.push cat
   _setCategories = () ->
     _categories = ['All']
     if !!_storefront?.product_selection
       _addCategory(product.category) for product in _storefront.product_selection
+
+
 
   getProducts: () -> _getStorefront().then (res) -> _storefront.product_selection
 
@@ -56,3 +58,14 @@ angular.module('app.core').factory 'eeStorefront', ($cookies, $q, eeBack, eeAuth
   getCategories: () -> _getStorefront().then () -> _categories
 
   storefrontFromUser: (force) -> _getStorefront(force)
+  resetStorefront: () -> _setStorefront({})
+
+  setScopeStorefront: (scope) ->
+    _getStorefront()
+    .then (storefront) -> scope.storefront = storefront
+
+  setScopeCategories: (scope) ->
+    _getStorefront()
+    .then () -> _setCategories()
+    .then () ->  scope.categories = _categories
+    .catch () -> scope.categories = ['All']

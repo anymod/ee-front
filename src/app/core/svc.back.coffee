@@ -49,6 +49,10 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       method: 'GET'
       url: eeBackUrl + 'products'
       headers: authorization: token
+      data: {
+        min: 50
+        max: 100
+      }
     }
 
   productGET: (id, token) ->

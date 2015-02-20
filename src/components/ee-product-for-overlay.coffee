@@ -21,5 +21,4 @@ angular.module('ee-product').directive "eeProductForOverlay", ($rootScope, $loca
     scope.setFocusImg = (url) -> scope.focusImg = url
 
     $rootScope.$on '$locationChangeSuccess', (event, newState, oldState) ->
-      console.log $location.search().p
       setProductHighlightId()

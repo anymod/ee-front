@@ -40,11 +40,8 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state, eeAut
   link: (scope, ele, attrs) ->
     scope.$state = $state
     scope.user = eeAuth.getUser()
-    eeStorefront.storefrontFromUser()
-    .then (res) ->
-      scope.products = res.product_selection
-      scope.categories = eeStorefront.getCategories()
-    .catch (err) -> console.error err
+    eeStorefront.setScopeStorefront(scope)
+    eeStorefront.setScopeCategories(scope)
     return
 
 # Home
@@ -52,7 +49,6 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", () ->
   templateUrl: 'app/storefront/storefront.home.offscreen.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
-    # scope.user = eeAuth.getUser()
     return
 
 # Shop

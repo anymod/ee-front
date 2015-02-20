@@ -26,7 +26,7 @@ describe 'eeosk catalog', () ->
       scope.categories = ['All'].concat _.unique(_.pluck scope.products, 'category')
     .then () -> utils.create_products([21..150])
 
-  it 'should have 100 products', () ->
+  xit 'should have 100 products', () ->
     browser.get '/catalog'
     browser.getTitle().should.eventually.equal 'Add products | eeosk'
     browser.pause()

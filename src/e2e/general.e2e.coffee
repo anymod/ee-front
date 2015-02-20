@@ -9,6 +9,7 @@ chai.use chaiAsPromised
 describe 'eeosk general', () ->
 
   it 'should redirect to home when path not found', () ->
+    browser.manage().deleteAllCookies()
     browser.get '/foobar'
     browser.getTitle().should.eventually.have.string 'Online store builder'
     browser.getCurrentUrl().should.eventually.equal browser.baseUrl + '/'

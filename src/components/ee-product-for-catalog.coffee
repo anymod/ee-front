@@ -19,6 +19,7 @@ angular.module('ee-product').directive "eeProductForCatalog", ($rootScope, $loca
       .then (res) ->
         scope.added = true
         scope.selection_id = res.id
+        eeStorefront.resetStorefront()
       .catch (err) ->
         scope.added = false
         console.error err
@@ -28,6 +29,7 @@ angular.module('ee-product').directive "eeProductForCatalog", ($rootScope, $loca
       .then (res) ->
         scope.added = false
         scope.selection_id = undefined
+        eeStorefront.resetStorefront()
       .catch (err) ->
         scope.added = true
         console.error err
