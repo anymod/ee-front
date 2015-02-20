@@ -23,7 +23,7 @@
       <div ng-hide="added" class="btn btn-sm btn-success" ng-click="select()">
         <i class="fa fa-plus"></i>&nbsp;Add to store
       </div>
-      <div ng-show="added" class="btn btn-sm btn-primary"><i class="fa fa-check"></i>&nbsp;Added</div>
+      <a ui-sref="app.storefront.shop({ shopCategory: 'All' })" ng-show="added" class="btn btn-sm btn-primary"><i class="fa fa-check"></i>&nbsp;See it</a>
       <div ng-show="added" class="btn btn-sm btn-warning" ng-click="deselect()">Remove</div>
       <div class="btn btn-sm btn-link hidden-xs" ng-click="highlightProduct()">preview</div>
     </div>

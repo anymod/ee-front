@@ -12,6 +12,14 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       .error (data, status) -> _handleError deferred, data, status
     deferred.promise
 
+  _formQueryString = (query) ->
+    if !query then return ''
+    keys = Object.keys(query)
+    parts = []
+    addQuery = (key) -> parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(query[key]))
+    addQuery(key) for key in keys
+    '?' + parts.join('&')
+
   _tokenPOST = (token) ->
     _makeRequest {
       method: 'POST'
@@ -44,15 +52,11 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       data: { email: email, password: password, username: username }
     }
 
-  productsGET: (token) ->
+  productsGET: (token, query) ->
     _makeRequest {
       method: 'GET'
-      url: eeBackUrl + 'products'
+      url: eeBackUrl + 'products' + _formQueryString(query)
       headers: authorization: token
-      data: {
-        min: 50
-        max: 100
-      }
     }
 
   productGET: (id, token) ->

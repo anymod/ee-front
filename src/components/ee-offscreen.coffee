@@ -82,7 +82,7 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefrontAudience", () ->
 
 ## Catalog
 # Parent
-angular.module('ee-offscreen').directive "eeOffscreenCatalog", () ->
+angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCatalog) ->
   templateUrl: 'app/catalog/catalog.offscreen.html'
   restrict: 'E'
   scope: {}
@@ -93,6 +93,14 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", () ->
       range_50_100:     true
       range_100_200:    true
       range_200_10000:  false
+
+    scope.search = () ->
+      query = {}
+      min = scope.minPrice * 100
+      max = scope.maxPrice * 100
+      if !!scope.minPrice then query.min = min
+      if !!scope.maxPrice then query.max = max
+      eeCatalog.productsFromQuery(query)
 
     setBools = (min, max) ->
       scope.minPrice = min
@@ -123,7 +131,6 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", () ->
       if scope.price.range_200_10000
         max = null
       if min is 200 and max is 0 then min = 0; max = null
-      console.log 'min,max', min, max
       # TODO implement min and max for catalog
       setBools(min, max)
 

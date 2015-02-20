@@ -4,7 +4,7 @@ angular.module('app.catalog').controller 'app.catalogCtrl', ($scope, $rootScope,
   $rootScope.toggle = true
 
   eeCatalog.productsFromToken()
-  .then () -> $scope.products = eeCatalog.getProducts()
+  $scope.$on 'catalog:updated', () -> $scope.products = eeCatalog.getProducts()
 
   $scope.scrollToTop = () ->
     $location.hash 'top'

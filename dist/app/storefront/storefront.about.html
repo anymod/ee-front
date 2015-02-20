@@ -2,23 +2,25 @@
      ng-show="!!user.storefront_meta.about.headline || !!user.storefront_meta.about.content">
   <img ng-src="{{ user.storefront_meta.about.imgUrl }}" class="img-responsive full-width">
   <div class="position-absolute hidden-xs"
-       style="top: 80px; width: 80%; left: 10%;">
+       style="top: 60px; width: 80%; left: 10%;">
 
-    <div class="well" ng-if="user.storefront_meta.about.headline">
-      <h2 ng-bind="user.storefront_meta.about.headline"></h2>
-    </div>
+    <h2 class="well white-space-pre"
+         ng-if="user.storefront_meta.about.headline"
+         ng-bind="user.storefront_meta.about.headline">
+    </h2>
 
     <br>
 
-    <div class="well"
+    <div class="well white-space-pre"
          ng-if="user.storefront_meta.about.content"
          ng-bind="user.storefront_meta.about.content">
     </div>
   </div>
 
   <div class="pad-15 visible-xs">
-    <h3 class="margin-0" ng-bind="user.storefront_meta.about.headline"></h3>
-    <p class="vert-2" ng-bind="user.storefront_meta.about.content"></p>
+    <h3 class="margin-0 white-space-pre" ng-bind="user.storefront_meta.about.headline"></h3>
+    <br>
+    <p class="vert-2 white-space-pre" ng-bind="user.storefront_meta.about.content"></p>
   </div>
 
 </div>
