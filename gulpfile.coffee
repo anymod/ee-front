@@ -31,6 +31,7 @@ eeModulesSrc = [
   './src/app/**/*.route.coffee'
   './src/app/**/*.controller.coffee'
   './src/app/**/*.coffee'
+  './src/components/ee-product.coffee'
   './src/components/**/*.coffee'
   # Exclude spec files
   '!./src/**/*.spec.coffee'
