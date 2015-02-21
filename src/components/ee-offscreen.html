@@ -1,5 +1,17 @@
-<div class="open-nav" ng-class="{ open: toggle, narrow: narrowToggle }" ng-click="toggleOffscreen()">
-  <div class="btn btn-primary">
+<div class="open-nav" ng-class="{ open: toggle, narrow: narrowToggle }">
+  <div ui-sref="app.storefront.home" class="btn btn-primary" ng-class="{ active: offscreenCategory == 'Storefront' }">
+    <i class="fa fa-fw fa-home"></i>
+  </div>
+  <div ui-sref="app.catalog" class="btn btn-warning" ng-class="{ active: offscreenCategory == 'Catalog' }">
+    <i class="fa fa-fw fa-book"></i>
+  </div>
+  <div ui-sref="app.orders" class="btn btn-success" ng-class="{ active: offscreenCategory == 'Orders' }">
+    <i class="fa fa-fw fa-dollar"></i>
+  </div>
+  <div ui-sref="app.account" class="btn btn-danger" ng-class="{ active: offscreenCategory == 'Account' }">
+    <i class="fa fa-fw fa-gears"></i>
+  </div>
+  <div class="btn btn-primary btn-toggle" ng-click="toggleOffscreen()">
     <div class="icon"></div>
   </div>
 </div>
@@ -10,21 +22,26 @@
     <div class="width-250">
       <div ng-if="offscreenCategory">
 
-        <div class="dropdown btn-group position-absolute width-250 pad-10 hover-pointer {{ offscreenColor }}-background" dropdown>
-          <h2 class="margin-0 white-color" dropdown-toggle>
-            {{ offscreenCategory }} <span class="caret"></span>
-          </h2>
-          <ul class="dropdown-menu width-250 margin-0">
-            <li ng-hide="offscreenCategory == 'Storefront'"><a ui-sref="app.storefront.home"><h3 class="vert-5">Storefront</h3></a></li>
-            <li ng-hide="offscreenCategory == 'Catalog'"><a ui-sref="app.catalog"><h3 class="vert-5">Catalog</h3></a></li>
-            <li ng-hide="offscreenCategory == 'Orders'"><a ui-sref="app.orders"><h3 class="vert-5">Orders</h3></a></li>
-            <li ng-hide="offscreenCategory == 'Account'"><a ui-sref="app.account"><h3 class="vert-5">Account</h3></a></li>
-          </ul>
-        </div>
+<!--         <div class="dropdown btn-group position-absolute width-250 pad-10 hover-pointer {{ offscreenColor }}-background" dropdown>
+  <h2 class="margin-0 white-color" dropdown-toggle>
+    {{ offscreenCategory }} <span class="caret"></span>
+  </h2>
+  <ul class="dropdown-menu width-250 margin-0">
+    <li ng-hide="offscreenCategory == 'Storefront'"><a><h3 class="vert-5">Storefront</h3></a></li>
+    <li ng-hide="offscreenCategory == 'Catalog'"><a ui-sref="app.catalog"><h3 class="vert-5">Catalog</h3></a></li>
+    <li ng-hide="offscreenCategory == 'Orders'"><a ui-sref="app.orders"><h3 class="vert-5">Orders</h3></a></li>
+    <li ng-hide="offscreenCategory == 'Account'"><a ui-sref="app.account"><h3 class="vert-5">Account</h3></a></li>
+  </ul>
+</div> -->
 
         <div ng-switch on="offscreenCategory">
-          <div class="vert-20 full-width inline-block"></div>
-          <div class="vert-5 full-width inline-block"></div>
+          <div class="pad-10 {{ offscreenColor }}-background">
+            <div class="vert-15 full-width inline-block"></div>
+            <div class="vert-5 full-width inline-block"></div>
+            <h2 class="margin-0 white-color">
+              {{ offscreenCategory }}
+            </h2>
+          </div>
           <ee-offscreen-storefront ng-switch-when="Storefront"></ee-offscreen-storefront>
           <ee-offscreen-catalog ng-switch-when="Catalog"></ee-offscreen-catalog>
           <ee-offscreen-orders ng-switch-when="Orders"></ee-offscreen-orders>
