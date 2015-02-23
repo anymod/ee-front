@@ -11,7 +11,10 @@ angular.module('app.auth').controller 'loginCtrl', ($scope, $rootScope, $state, 
     $scope.alert = ''
     eeAuth.setUserFromCredentials($scope.email, $scope.password)
     .then () -> $state.go 'app.storefront.home'
-    .catch (err) -> $scope.alert = err.message || err || 'Problem logging in'
+    .catch (err) ->
+      alert = err.message || err || 'Problem logging in'
+      if typeof aler is 'object' then alert = 'Problem logging in'
+      $scope.alert = alert
 
   return
 

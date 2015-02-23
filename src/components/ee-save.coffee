@@ -9,10 +9,10 @@ angular.module('ee-save').directive "eeSave", ($timeout, eeAuth) ->
     scope.text = 'Saved'
     scope.userSaveSuccess = true
 
-    scope.user = eeAuth.getUser()
+    eeAuth.setScopeUser(scope)
 
     scope.$watch 'user', (newValue, oldValue) ->
-      if newValue isnt oldValue
+      if !!oldValue and newValue isnt oldValue
         scope.text = 'Save'
         scope.userIsSaved = false
         scope.userSaveSuccess = false

@@ -1,12 +1,22 @@
 'use strict'
 
-angular.module('app.core').factory 'eeStorefront', ($cookies, $q, eeBack, eeAuth) ->
+angular.module('app.core').factory 'eeStorefront', ($rootScope, $cookies, $q, eeBack, eeAuth) ->
   # _fetching = false if not fetching, _fetching = deferred.promise if still fetching
   _fetching   = false
   _storefront = {}
   _categories = ['All']
   _productLookup = {}
-  _setStorefront = (s) -> _storefront = s
+
+  _setStorefront = (s) ->
+    _storefront = s
+    $rootScope.$broadcast 'storefront:updated', _storefront
+
+  _setCategories = () ->
+    _categories = ['All']
+    if !!_storefront?.product_selection
+      _addCategory(product.category) for product in _storefront.product_selection
+    $rootScope.$broadcast 'storefront:categories:updated', _categories
+
   _storefrontIsEmpty = () -> Object.keys(_storefront).length is 0
   _setProductLookup = () ->
     arry = _storefront.product_selection
@@ -42,23 +52,18 @@ angular.module('app.core').factory 'eeStorefront', ($cookies, $q, eeBack, eeAuth
     deferred.promise
 
   _addCategory = (cat) -> if !!cat and (_categories.indexOf(cat) < 0) then _categories.push cat
-  _setCategories = () ->
-    _categories = ['All']
-    if !!_storefront?.product_selection
-      _addCategory(product.category) for product in _storefront.product_selection
-
-
 
   getProducts: () -> _getStorefront().then (res) -> _storefront.product_selection
 
   getProductInStorefront: (id) -> _getStorefront().then () -> _productLookup[id]
 
-  getStorefrontMeta: () -> _getStorefront().then () -> _storefront.storefront_meta
   setCategories: () -> _setCategories()
-  getCategories: () -> _getStorefront().then () -> _categories
+  getCategories: () -> _categories
 
   storefrontFromUser: (force) -> _getStorefront(force)
   resetStorefront: () -> _setStorefront({})
+
+  getStorefront: () -> _storefront
 
   setScopeStorefront: (scope) ->
     _getStorefront()

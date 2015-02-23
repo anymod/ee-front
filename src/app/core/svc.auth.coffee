@@ -1,27 +1,47 @@
 'use strict'
 
-angular.module('app.core').factory 'eeAuth', ($cookies, $cookieStore, $q, eeBack) ->
+angular.module('app.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore, $q, eeBack) ->
   _user = {}
   _userIsSaved = true
-
-  _resetUser = () ->
-    _user = {}
-    $cookieStore.remove 'loginToken'
-  _setUser = (u) -> _user = u
   _userLastSet = Date.now()
   _userIsEmpty = () -> Object.keys(_user).length is 0
+
+  _setUser = (u) ->
+    _user = u
+    $rootScope.$broadcast 'auth:user:updated', _user
+
+  _resetUser = () ->
+    $cookieStore.remove 'loginToken'
+    _setUser {}
+
+  _getUser = () ->
+    deferred = $q.defer()
+    if !$cookies.loginToken
+      _resetUser()
+      deferred.reject 'Missing login credentials'
+    else if !!_user and !_userIsEmpty() and opts?.force isnt true
+      deferred.resolve _user
+    else
+      eeBack.tokenPOST $cookies.loginToken
+      .then (data) ->
+        if !!data.username
+          _setUser data
+          deferred.resolve data
+        else
+          _resetUser()
+          deferred.reject data
+      .catch (err) ->
+        _resetUser()
+        deferred.reject err
+    deferred.promise
+
 
   getToken: ()  -> $cookies.loginToken
   hasToken: ()  -> !!$cookies.loginToken
 
   getUser: ()   -> _user
   getUsername: () -> _user.username
-  # setUser: (u)  ->
-  #   console.log 'setUser'
-  #   _setUser(u)
-  #   _userLastSet = Date.now()
-  #   $rootScope.$broadcast 'eeAuth.setUser', 'foobar'
-  # getUserLastSet: () -> _userLastSet
+
   resetUser: () -> _resetUser()
   saveUser: ()  -> eeBack.usersPUT(_user, $cookies.loginToken)
 
@@ -89,3 +109,8 @@ angular.module('app.core').factory 'eeAuth', ($cookies, $cookieStore, $q, eeBack
         _resetUser()
         deferred.reject err
     deferred.promise
+
+  setScopeUser: (scope) ->
+    _getUser()
+    .then () -> scope.user = _user
+    .catch () -> scope.user = {}

@@ -7,8 +7,7 @@ angular.module('app.storefront').config ($stateProvider) ->
       url: '/storefront'
       templateUrl: 'app/storefront/storefront.view.container.html'
       controller: 'app.storefrontRootCtrl'
-      resolve:
-        user: (eeAuth) -> eeAuth.userFromToken()
+      resolve: user: (eeAuth) -> eeAuth.userFromToken()
       data:
         pageTitle: 'Build your store | eeosk'
         offscreenCategory: 'Storefront'

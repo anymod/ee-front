@@ -54,10 +54,10 @@ describe 'eeosk storefront about', () ->
       elem.popContent.getText()                 .should.eventually.contain 'Add something about your store'
 
     it 'add headline and content', () ->
-      elem.headlineInput                        .sendKeys newVal.headline
       elem.contentInput                         .sendKeys newVal.content
-      elem.headline                             .getText().should.eventually.equal newVal.headline
+      elem.headlineInput                        .sendKeys newVal.headline
       elem.content                              .getText().should.eventually.equal newVal.content
+      elem.headline                             .getText().should.eventually.equal newVal.headline
 
     it 'save headline and content', () ->
       elem.save.click()

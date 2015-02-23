@@ -13,6 +13,8 @@ angular.module('ee-offscreen').directive "eeOffscreen", ($rootScope) ->
   link: (scope, ele, attrs) ->
     scope.categoryToggle = false
 
+    scope.$on 'auth:user:updated', (e, data) -> scope.user = data
+
     scope.toggleOffscreen = () ->
       $rootScope.toggle = !$rootScope.toggle
 
@@ -33,41 +35,40 @@ angular.module('ee-offscreen').directive "eeOffscreenDefault", () ->
 ## Storefront offscreens
 
 #  Parent
-angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state, eeAuth, eeStorefront) ->
+angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state) ->
   templateUrl: 'app/storefront/storefront.offscreen.html'
   restrict: 'E'
-  scope: {}
   link: (scope, ele, attrs) ->
     scope.$state = $state
-    scope.user = eeAuth.getUser()
-    eeStorefront.setScopeStorefront(scope)
-    eeStorefront.setScopeCategories(scope)
+    scope.$on 'storefront:updated', (e, data) -> scope.storefront = data
     return
 
 # Home
-angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", () ->
-  templateUrl: 'app/storefront/storefront.home.offscreen.html'
+angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", (eeStorefront) ->
+  templateUrl: 'app/storefront/storefront.offscreen.home.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
+    eeStorefront.setScopeCategories(scope)
     return
 
 # Shop
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontShop", () ->
-  templateUrl: 'app/storefront/storefront.shop.offscreen.html'
+  templateUrl: 'app/storefront/storefront.offscreen.shop.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
+    scope.$on 'storefront:categories:updated', (data) -> scope.categories = data
     return
 
 # Blog
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontBlog", () ->
-  templateUrl: 'app/storefront/storefront.blog.offscreen.html'
+  templateUrl: 'app/storefront/storefront.offscreen.blog.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     return
 
 # About
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontAbout", () ->
-  templateUrl: 'app/storefront/storefront.about.offscreen.html'
+  templateUrl: 'app/storefront/storefront.offscreen.about.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     $('.upload_form').append($.cloudinary.unsigned_upload_tag("storefront_about", { cloud_name: 'eeosk' }))
@@ -75,7 +76,7 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefrontAbout", () ->
 
 # Audience
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontAudience", () ->
-  templateUrl: 'app/storefront/storefront.audience.offscreen.html'
+  templateUrl: 'app/storefront/storefront.offscreen.audience.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     return
@@ -87,57 +88,85 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCat
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) ->
-    scope.price =
-      range_0_25:       false
-      range_25_50:      true
-      range_50_100:     true
-      range_100_200:    true
-      range_200_10000:  false
+    scope.currentCategory = ''
+    scope.currentRange = ''
+    scope.categories = [
+      'Home Decor',
+      'Kitchen',
+      'Apparel',
+      'Accessories',
+      'Health & Beauty',
+      'Electronics',
+      'General Merchandise'
+    ]
+    scope.ranges = [
+      '0_25',
+      '25_50',
+      '50_100',
+      '100_200',
+      '200_null',
+    ]
 
-    scope.search = () ->
-      query = {}
-      min = scope.minPrice * 100
-      max = scope.maxPrice * 100
-      if !!scope.minPrice then query.min = min
-      if !!scope.maxPrice then query.max = max
-      eeCatalog.productsFromQuery(query)
+    scope.query = eeCatalog.getQuery()
+    scope.$on 'catalog:query:updated', () -> scope.query = eeCatalog.getQuery()
 
-    setBools = (min, max) ->
-      scope.minPrice = min
-      scope.maxPrice = max
+    scope.setCurrentCategory = (category) ->
+      if category is scope.currentCategory
+        scope.currentCategory = ''
+      else
+        scope.currentCategory = category
+      eeCatalog.addQuery('categories', scope.currentCategory)
+      eeCatalog.logQuery()
+      eeCatalog.search()
 
-    setRanges = () ->
-      if scope.price.range_0_25 and scope.price.range_200_10000
-        scope.price.range_25_50 = true
-        scope.price.range_50_100 = true
-        scope.price.range_100_200 = true
+    setMinMax = (min, max) ->
+      eeCatalog.addQuery('min', min)
+      eeCatalog.addQuery('max', max)
+      eeCatalog.addQuery('page', 1)
+      eeCatalog.logQuery()
+      eeCatalog.search()
 
-    scope.setPrices = (min, max) ->
-      setRanges()
-      min = 200
-      max = 0
-      if scope.price.range_0_25
-        min = 0
-        max = 25
-      if scope.price.range_25_50
-        if min >= 200 then min = 25
-        max = 50
-      if scope.price.range_50_100
-        if min >= 200 then min = 50
-        max = 100
-      if scope.price.range_100_200
-        if min >= 200 then min = 100
-        max = 200
-      if scope.price.range_200_10000
-        max = null
-      if min is 200 and max is 0 then min = 0; max = null
-      # TODO implement min and max for catalog
-      setBools(min, max)
+    scope.setCurrentRange = (range) ->
+      if range is scope.currentRange
+        scope.currentRange = ''
+        setMinMax 0, null
+      else
+        scope.currentRange = range
+        [min, max] = Array.prototype.map.call(range.split('_'), (x) -> 100 * parseInt(x) || 0)
+        setMinMax min, max
 
-    scope.setPrices()
-    scope.$watch 'price', () ->
-      scope.setPrices()
-    , true
+    # setRanges = () ->
+    #   if scope.price.range_0_25 and scope.price.range_200_10000
+    #     scope.price.range_25_50 = true
+    #     scope.price.range_50_100 = true
+    #     scope.price.range_100_200 = true
+    #
+    # scope.setPrices = (min, max) ->
+    #   setRanges()
+    #   min = 20000
+    #   max = 0
+    #   if scope.price.range_0_25
+    #     min = 0
+    #     max = 2500
+    #   if scope.price.range_25_50
+    #     if min >= 20000 then min = 2500
+    #     max = 5000
+    #   if scope.price.range_50_100
+    #     if min >= 20000 then min = 5000
+    #     max = 10000
+    #   if scope.price.range_100_200
+    #     if min >= 20000 then min = 10000
+    #     max = 20000
+    #   if scope.price.range_200_10000
+    #     max = null
+    #   if min is 20000 and max is 0 then min = 0; max = null
+    #   # TODO implement min and max for catalog
+    #   setMinMax(min, max)
+    #
+    # scope.setPrices()
+    # scope.$watch 'price', () ->
+    #   scope.setPrices()
+    # , true
 
     return
 

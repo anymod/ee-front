@@ -1,14 +1,14 @@
-<div class="open-nav" ng-class="{ open: toggle, narrow: narrowToggle }">
-  <div ui-sref="app.storefront.home" class="btn btn-primary" ng-class="{ active: offscreenCategory == 'Storefront' }">
+<div class="open-nav {{ offscreenColor }}-background" ng-class="{ open: toggle, narrow: narrowToggle }">
+  <div ng-if="narrowToggle" ui-sref="app.storefront.home" class="btn btn-primary" ng-class="{ active: offscreenCategory == 'Storefront' }">
     <i class="fa fa-fw fa-home"></i>
   </div>
-  <div ui-sref="app.catalog" class="btn btn-warning" ng-class="{ active: offscreenCategory == 'Catalog' }">
+  <div ng-if="narrowToggle" ui-sref="app.catalog" class="btn btn-warning" ng-class="{ active: offscreenCategory == 'Catalog' }">
     <i class="fa fa-fw fa-book"></i>
   </div>
-  <div ui-sref="app.orders" class="btn btn-success" ng-class="{ active: offscreenCategory == 'Orders' }">
-    <i class="fa fa-fw fa-dollar"></i>
+  <div ng-if="narrowToggle" ui-sref="app.orders" class="btn btn-success" ng-class="{ active: offscreenCategory == 'Orders' }">
+    <i class="fa fa-fw fa-list"></i>
   </div>
-  <div ui-sref="app.account" class="btn btn-danger" ng-class="{ active: offscreenCategory == 'Account' }">
+  <div ng-if="narrowToggle" ui-sref="app.account" class="btn btn-danger" ng-class="{ active: offscreenCategory == 'Account' }">
     <i class="fa fa-fw fa-gears"></i>
   </div>
   <div class="btn btn-primary btn-toggle" ng-click="toggleOffscreen()">
@@ -21,18 +21,6 @@
 
     <div class="width-250">
       <div ng-if="offscreenCategory">
-
-<!--         <div class="dropdown btn-group position-absolute width-250 pad-10 hover-pointer {{ offscreenColor }}-background" dropdown>
-  <h2 class="margin-0 white-color" dropdown-toggle>
-    {{ offscreenCategory }} <span class="caret"></span>
-  </h2>
-  <ul class="dropdown-menu width-250 margin-0">
-    <li ng-hide="offscreenCategory == 'Storefront'"><a><h3 class="vert-5">Storefront</h3></a></li>
-    <li ng-hide="offscreenCategory == 'Catalog'"><a ui-sref="app.catalog"><h3 class="vert-5">Catalog</h3></a></li>
-    <li ng-hide="offscreenCategory == 'Orders'"><a ui-sref="app.orders"><h3 class="vert-5">Orders</h3></a></li>
-    <li ng-hide="offscreenCategory == 'Account'"><a ui-sref="app.account"><h3 class="vert-5">Account</h3></a></li>
-  </ul>
-</div> -->
 
         <div ng-switch on="offscreenCategory">
           <div class="pad-10 {{ offscreenColor }}-background">
@@ -62,8 +50,6 @@
     <div class="container">
       <div>
         <a ui-sref="landing">home</a>&nbsp;&nbsp;
-        <a ui-sref="signup">sell</a>&nbsp;&nbsp;
-        <a ui-sref="signupSupply">supply</a>&nbsp;&nbsp;
         <a href="mailto:team@eeosk.com" target="_blank">contact</a>
       </div>
       <div class="text-muted">&copy; eeosk 2014</div>

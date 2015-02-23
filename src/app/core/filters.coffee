@@ -24,3 +24,10 @@ angular.module('app.core').filter 'thumbnail', () ->
 
 angular.module('app.core').filter 'urlText', () ->
   (text) -> text.replace(/[^a-zA-Z0-9_]/gi, '').toLowerCase()
+
+angular.module('app.core').filter 'rangeToText', () ->
+  (range) ->
+    sides = range.split('_')
+    sides[0] = '$' + sides[0]
+    sides[1] = if sides[1] is 'null' then ' and above' else ' to $' + sides[1]
+    sides.join('').replace('$0 to', 'Under')

@@ -12,66 +12,37 @@
   </span>
 </div> -->
 
-  <div class="btn btn-default btn-block" ng-click="search()">Search</div>
-
+<!-- <div class="btn btn-default btn-block" ng-click="search()">Search</div> -->
   <hr class="vert-10">
 
   <h5 class="vert-2">Catalog Categories</h5>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
-    <div class="btn btn-default btn-sm btn-block">Apparel</div>
-  </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
-    <div class="btn btn-default btn-sm btn-block">Accessories</div>
-  </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
-    <div class="btn btn-default btn-sm btn-block">Home Decor</div>
-  </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
-    <div class="btn btn-default btn-sm btn-block">Health & Beauty</div>
-  </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
-    <div class="btn btn-default btn-sm btn-block">Electronics</div>
-  </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox"></span>
-    <div class="btn btn-default btn-sm btn-block">General Merchandise</div>
+  <div ng-repeat="category in categories"
+       class="input-group input-group-sm vert-2"
+       ng-click="setCurrentCategory(category)">
+    <span class="input-group-addon">
+      <i class="fa fa-fw" ng-class="category == currentCategory ? 'fa-close' : 'fa-circle-o'"></i>
+    </span>
+    <div class="btn btn-default btn-sm btn-block">{{ category }}</div>
   </div>
 
   <br>
 
   <h5 class="vert-2">Starting Price</h5>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox" ng-model="price.range_0_25"></span>
-    <div class="btn btn-default btn-sm btn-block">Under $25</div>
-  </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox" ng-model="price.range_25_50"></span>
-    <div class="btn btn-default btn-sm btn-block">$25 to $50</div>
-  </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox" ng-model="price.range_50_100"></span>
-    <div class="btn btn-default btn-sm btn-block">$50 to $100</div>
-  </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox" ng-model="price.range_100_200"></span>
-    <div class="btn btn-default btn-sm btn-block">$100 to $200</div>
-  </div>
-  <div class="input-group input-group-sm vert-2">
-    <span class="input-group-addon"><input type="checkbox" ng-model="price.range_200_10000"></span>
-    <div class="btn btn-default btn-sm btn-block">$200 and above</div>
+  <div ng-repeat="range in ranges"
+       class="input-group input-group-sm hover-pointer vert-2"
+       ng-click="setCurrentRange(range)">
+    <span class="input-group-addon">
+      <i class="fa fa-fw" ng-class="range == currentRange ? 'fa-close' : 'fa-circle-o'"></i>
+    </span>
+    <div class="btn btn-default btn-sm btn-block">{{ range | rangeToText }}</div>
   </div>
   <!-- TODO: implement custom min and max -->
-<!--   <div class="input-group input-group-sm vert-2">
-  <span class="input-group-addon">min \$</span>
-  <input type="text" class="form-control" ng-model="minPrice">
-  <span class="input-group-addon" style="border-right: none;">max \$</span>
-  <input type="text" class="form-control" ng-model="maxPrice">
-</div> -->
+  <div class="input-group input-group-sm vert-2">
+    <span class="input-group-addon">min $</span>
+    <input type="text" class="form-control" ng-model="minPrice">
+    <span class="input-group-addon" style="border-right: none;">max $</span>
+    <input type="text" class="form-control" ng-model="maxPrice">
+  </div>
 
   <br>
 
