@@ -34,7 +34,7 @@ angular.module('ee-product').directive "eeProductForCatalog", ($rootScope, $loca
         scope.added = true
         console.error err
 
-    scope.highlightProduct = () ->
-      $location.search('p', scope.product.id)
+    scope.overlayProduct = () ->
+      $rootScope.$broadcast 'overlay:catalog:product', scope.product
 
     return

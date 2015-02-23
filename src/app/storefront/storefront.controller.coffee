@@ -5,6 +5,9 @@ angular.module('app.storefront').controller 'app.storefrontRootCtrl', ($scope, $
   $scope.user = user
 
   eeStorefront.setScopeStorefront($scope)
+  $rootScope.$on 'storefront:updated', (e, storefront) ->
+    console.log 'receiving', storefront
+    $scope.storefront = storefront
 
   return
 

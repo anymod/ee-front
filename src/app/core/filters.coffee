@@ -22,6 +22,13 @@ angular.module('app.core').filter 'thumbnail', () ->
     else
       url
 
+angular.module('app.core').filter 'mainImg', () ->
+  (url) ->
+    if !!url and url.indexOf("image/upload") > -1
+      url.split("image/upload").join('image/upload/c_limit,w_500,h_500')
+    else
+      url
+
 angular.module('app.core').filter 'urlText', () ->
   (text) -> text.replace(/[^a-zA-Z0-9_]/gi, '').toLowerCase()
 

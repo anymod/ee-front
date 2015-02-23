@@ -1,14 +1,14 @@
 <div ng-if="!product_selection" style="min-height: 80px; margin-bottom: 10px;">
   <div class="media">
-    <a href class="media-left" ng-click="highlightProduct()">
+    <a href class="media-left" ng-click="overlayProduct()">
       <div class="thumb margin-2 gray-border"
            style="background-image: url('{{ product.image_meta.main_image.url | thumbnail }}')">
       </div>
-      <div class="btn btn-sm btn-link visible-xs" ng-click="highlightProduct()">preview</div>
+      <div class="btn btn-sm btn-link visible-xs" ng-click="overlayProduct()">preview</div>
     </a>
     <div class="media-body">
       <h4 class="media-heading margin-0">
-        <a href ng-click="highlightProduct()" ng-bind="product.title"></a>
+        <a href ng-click="overlayProduct()" ng-bind="product.title"></a>
       </h4>
       <!-- TODO implement ratings -->
 <!--       <i class="fa fa-star gold-color"></i>
@@ -19,13 +19,13 @@
 <small>(28)</small> -->
 <!--       <small><span class="hidden-xs">Loc:&nbsp;</span>United States</small> -->
       <!-- <br> -->
-      <ee-product-margin-setter product="product" current-margin="currentMargin"></ee-product-margin-setter>
+      <ee-product-margin-setter product="product" current-margin="currentMargin" disabled="added"></ee-product-margin-setter>
       <div ng-hide="added" class="btn btn-sm btn-success" ng-click="select()">
         <i class="fa fa-plus"></i>&nbsp;Add to store
       </div>
       <a ui-sref="app.storefront.shop({ shopCategory: 'All' })" ng-show="added" class="btn btn-sm btn-primary"><i class="fa fa-check"></i>&nbsp;See it</a>
       <div ng-show="added" class="btn btn-sm btn-warning" ng-click="deselect()">Remove</div>
-      <div class="btn btn-sm btn-link hidden-xs" ng-click="highlightProduct()">preview</div>
+      <div class="btn btn-sm btn-link hidden-xs" ng-click="overlayProduct()">preview</div>
     </div>
   </div>
 

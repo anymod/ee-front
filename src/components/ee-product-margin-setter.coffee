@@ -6,6 +6,7 @@ angular.module('ee-product').directive "eeProductMarginSetter", ($rootScope, $lo
   scope:
     product: '='
     currentMargin: '='
+    disabled: '='
   link: (scope, ele, attr) ->
     basePrice = scope.product.baseline_price
     scope.marginArray = eeCatalog.marginArray

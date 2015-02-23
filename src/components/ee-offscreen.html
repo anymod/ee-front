@@ -1,17 +1,13 @@
 <div class="open-nav {{ offscreenColor }}-background" ng-class="{ open: toggle, narrow: narrowToggle }">
   <div ng-if="narrowToggle" ui-sref="app.storefront.home" class="btn btn-primary" ng-class="{ active: offscreenCategory == 'Storefront' }">
     <i class="fa fa-fw fa-home"></i>
-  </div>
-  <div ng-if="narrowToggle" ui-sref="app.catalog" class="btn btn-warning" ng-class="{ active: offscreenCategory == 'Catalog' }">
+  </div>&nbsp;<div ng-if="narrowToggle" ui-sref="app.catalog" class="btn btn-warning" ng-class="{ active: offscreenCategory == 'Catalog' }">
     <i class="fa fa-fw fa-book"></i>
-  </div>
-  <div ng-if="narrowToggle" ui-sref="app.orders" class="btn btn-success" ng-class="{ active: offscreenCategory == 'Orders' }">
+  </div>&nbsp;<div ng-if="narrowToggle" ui-sref="app.orders" class="btn btn-success" ng-class="{ active: offscreenCategory == 'Orders' }">
     <i class="fa fa-fw fa-list"></i>
-  </div>
-  <div ng-if="narrowToggle" ui-sref="app.account" class="btn btn-danger" ng-class="{ active: offscreenCategory == 'Account' }">
+  </div>&nbsp;<div ng-if="narrowToggle" ui-sref="app.account" class="btn btn-danger" ng-class="{ active: offscreenCategory == 'Account' }">
     <i class="fa fa-fw fa-gears"></i>
-  </div>
-  <div class="btn btn-primary btn-toggle" ng-click="toggleOffscreen()">
+  </div>&nbsp;<div class="btn btn-primary btn-toggle" ng-click="toggleOffscreen()">
     <div class="icon"></div>
   </div>
 </div>

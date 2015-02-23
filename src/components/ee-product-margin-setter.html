@@ -3,7 +3,8 @@
   <button ng-repeat="margin in marginArray"
           class="btn btn-default"
           ng-class="{ active: currentMargin == margin }"
-          ng-click="update(margin)">
+          ng-click="update(margin)"
+          ng-if="!disabled || currentMargin == margin">
     {{ margin*100 }}<small><small>%</small></small>
   </button>
 </div>

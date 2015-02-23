@@ -1,6 +1,8 @@
 'use strict'
 
-angular.module('app.core').run ($rootScope, $state, $cookies, $location, eeAuth, eeStorefront) ->
+angular.module('app.core').run ($rootScope, $state, $cookies, $location, eeAuth, eeStorefront, productsPerPage) ->
+
+  $rootScope.productsPerPage = productsPerPage
 
   # binding this so $state.current.data.pageTitle & other $state data can be accessed
   $rootScope.$state = $state
