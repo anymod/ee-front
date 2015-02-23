@@ -17,10 +17,10 @@
 
   <h5 class="vert-2">Catalog Categories</h5>
   <div ng-repeat="category in categories"
-       class="input-group input-group-sm vert-2"
+       class="input-group input-group-sm hover-pointer vert-2"
        ng-click="toggleCurrentCategory(category)">
     <span class="input-group-addon">
-      <i class="fa fa-fw" ng-class="category == currentCategory ? 'fa-close' : 'fa-circle-o'"></i>
+      <i class="fa fa-fw" ng-class="categoryIsCurrent(category) ? 'fa-check' : 'fa-circle-o'"></i>
     </span>
     <div class="btn btn-default btn-sm btn-block">{{ category }}</div>
   </div>
@@ -30,9 +30,9 @@
   <h5 class="vert-2">Starting Price</h5>
   <div ng-repeat="range in ranges"
        class="input-group input-group-sm hover-pointer vert-2"
-       ng-click="setCurrentRange(range)">
+       ng-click="toggleCurrentRange(range)">
     <span class="input-group-addon">
-      <i class="fa fa-fw" ng-class="range == currentRange ? 'fa-close' : 'fa-circle-o'"></i>
+      <i class="fa fa-fw" ng-class="rangeIsCurrent(range) ? 'fa-check' : 'fa-circle-o'"></i>
     </span>
     <div class="btn btn-default btn-sm btn-block">{{ range | rangeToText }}</div>
   </div>
