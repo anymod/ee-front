@@ -82,14 +82,13 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefrontAudience", () ->
     return
 
 ## Catalog
-# Parent
 angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCatalog) ->
   templateUrl: 'app/catalog/catalog.offscreen.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) ->
-    scope.currentCategory = ''
-    scope.currentRange = ''
+    scope.currentCategories = []
+    scope.currentRanges = []
     scope.categories = [
       'Home Decor',
       'Kitchen',
@@ -100,78 +99,61 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCat
       'General Merchandise'
     ]
     scope.ranges = [
-      '0_25',
-      '25_50',
-      '50_100',
-      '100_200',
-      '200_null',
+      { min: 0,     max: 2500   },
+      { min: 2500,  max: 5000   },
+      { min: 5000,  max: 10000  },
+      { min: 10000, max: 20000  },
+      { min: 20000, max: null   }
     ]
 
     scope.query = eeCatalog.getQuery()
     scope.$on 'catalog:query:updated', () -> scope.query = eeCatalog.getQuery()
 
-    scope.setCurrentCategory = (category) ->
-      if category is scope.currentCategory
-        scope.currentCategory = ''
-      else
-        scope.currentCategory = category
-      eeCatalog.addQuery('categories', scope.currentCategory)
+    scope.categoryIsCurrent = (category) -> scope.currentCategories.indexOf(category) > -1
+
+    scope.toggleCurrentCategory = (category) ->
+      index = scope.currentCategories.indexOf category
+      if index > -1 then scope.currentCategories.splice(index, 1) else scope.currentCategories.push category
+      eeCatalog.addQuery 'categories', scope.currentCategories.join(',')
+      eeCatalog.addQuery 'page', 1
       eeCatalog.logQuery()
       eeCatalog.search()
+
+    fillCurrentRanges = (min, max) ->
+      scope.currentRanges = []
+      pushRange = (r) ->
+        if r.min >= min and ((r.max <= max and r.max isnt null) or max is null)
+          scope.currentRanges.push r
+      pushRange r for r in scope.ranges
 
     setMinMax = (min, max) ->
-      eeCatalog.addQuery('min', min)
-      eeCatalog.addQuery('max', max)
-      eeCatalog.addQuery('page', 1)
+      eeCatalog.addQuery 'min', min
+      eeCatalog.addQuery 'max', max
+      eeCatalog.addQuery 'page', 1
       eeCatalog.logQuery()
       eeCatalog.search()
 
-    scope.setCurrentRange = (range) ->
-      if range is scope.currentRange
-        scope.currentRange = ''
-        setMinMax 0, null
-      else
-        scope.currentRange = range
-        [min, max] = Array.prototype.map.call(range.split('_'), (x) -> 100 * parseInt(x) || 0)
-        setMinMax min, max
+    translateRanges = () ->
+      [mins, maxs] = [[],[]]
+      scope.currentRanges.map (r) ->
+        mins.push r.min
+        maxs.push r.max
+      min = Math.min.apply null, mins
+      max = Math.max.apply null, maxs
+      if maxs.indexOf(null) > -1 then max = null
+      fillCurrentRanges min, max
+      setMinMax min, max
 
-    # setRanges = () ->
-    #   if scope.price.range_0_25 and scope.price.range_200_10000
-    #     scope.price.range_25_50 = true
-    #     scope.price.range_50_100 = true
-    #     scope.price.range_100_200 = true
-    #
-    # scope.setPrices = (min, max) ->
-    #   setRanges()
-    #   min = 20000
-    #   max = 0
-    #   if scope.price.range_0_25
-    #     min = 0
-    #     max = 2500
-    #   if scope.price.range_25_50
-    #     if min >= 20000 then min = 2500
-    #     max = 5000
-    #   if scope.price.range_50_100
-    #     if min >= 20000 then min = 5000
-    #     max = 10000
-    #   if scope.price.range_100_200
-    #     if min >= 20000 then min = 10000
-    #     max = 20000
-    #   if scope.price.range_200_10000
-    #     max = null
-    #   if min is 20000 and max is 0 then min = 0; max = null
-    #   # TODO implement min and max for catalog
-    #   setMinMax(min, max)
-    #
-    # scope.setPrices()
-    # scope.$watch 'price', () ->
-    #   scope.setPrices()
-    # , true
+    scope.rangeIsCurrent = (range) -> scope.currentRanges.indexOf(range) > -1
+
+    scope.toggleCurrentRange = (range) ->
+      index = scope.currentRanges.indexOf range
+      if index > -1 then scope.currentRanges.splice(index, 1) else scope.currentRanges.push range
+      translateRanges()
 
     return
 
 ## Orders
-# Parent
 angular.module('ee-offscreen').directive "eeOffscreenOrders", () ->
   templateUrl: 'app/orders/orders.offscreen.html'
   restrict: 'E'
@@ -179,7 +161,6 @@ angular.module('ee-offscreen').directive "eeOffscreenOrders", () ->
   link: (scope, ele, attrs) -> return
 
 ## Account
-# Parent
 angular.module('ee-offscreen').directive "eeOffscreenAccount", () ->
   templateUrl: 'app/account/account.offscreen.html'
   restrict: 'E'

@@ -9,7 +9,6 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $cookies, $q, ee
 
   _setStorefront = (s) ->
     _storefront = s
-    console.log 'setStorefront'
     $rootScope.$broadcast 'storefront:updated', _storefront
 
   _setCategories = () ->

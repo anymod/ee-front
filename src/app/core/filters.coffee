@@ -34,7 +34,6 @@ angular.module('app.core').filter 'urlText', () ->
 
 angular.module('app.core').filter 'rangeToText', () ->
   (range) ->
-    sides = range.split('_')
-    sides[0] = '$' + sides[0]
-    sides[1] = if sides[1] is 'null' then ' and above' else ' to $' + sides[1]
-    sides.join('').replace('$0 to', 'Under')
+    ('$' + Math.floor(range.min)/100 + ' to $' + Math.floor(range.max)/100)
+      .replace '$0 to', 'Under'
+      .replace 'to $0', 'and above'

@@ -18,7 +18,7 @@
   <h5 class="vert-2">Catalog Categories</h5>
   <div ng-repeat="category in categories"
        class="input-group input-group-sm vert-2"
-       ng-click="setCurrentCategory(category)">
+       ng-click="toggleCurrentCategory(category)">
     <span class="input-group-addon">
       <i class="fa fa-fw" ng-class="category == currentCategory ? 'fa-close' : 'fa-circle-o'"></i>
     </span>
