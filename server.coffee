@@ -102,11 +102,17 @@ app.use "/", express.static path.join __dirname, "dist"
 #     else
 #       res.status(200).send 'OK'
 
+# Explicit whitelist of excluded subdomains
+excludedNames = ['demo']
+# Explicit minimum length for username subdomains
+minStoreSubdomainLength = 5
+nameIsExcluded = (name) -> (excludedNames.indexOf(name) > -1) or name.length < minStoreSubdomainLength
+
 # enable angular html5mode
 app.all '/*', (req, res, next) ->
   components = req.headers.host.split('.')
   # Send dist/index.html or dist_store/index.html to support HTML5Mode
-  top = if components.length > 1 then 'dist_store/' else 'dist/'
+  top = if (components.length > 1) and !nameIsExcluded(components[0]) then 'dist_store/' else 'dist/'
   res.sendfile 'index.html', root: path.join __dirname, top
   return
 
