@@ -3,6 +3,7 @@ switch process.env.NODE_ENV
   when 'test' then process.env.PORT = 3333
   else process.env.NODE_ENV = 'development'; process.env.PORT = 3000
 
+subdomain       = require 'express-subdomain'
 express         = require "express"
 morgan          = require "morgan"
 path            = require "path"
@@ -26,16 +27,7 @@ forceSsl = (req, res, next) ->
   return
 
 redirectToApex = (req, res, next) ->
-  if req.headers.host is "eeosk.us" or req.headers.host is "www.eeosk.us"
-    res.writeHead 301,
-      Location: [
-        "https://eeosk.com/product"
-        req.url
-      ].join("")
-      Expires: (new Date).toGMTString()
-
-    res.end()
-  else if req.headers.host is "www.eeosk.com"
+  if req.headers.host is "www.eeosk.com"
     res.writeHead 301,
       Location: [
         "https://eeosk.com"
@@ -47,44 +39,6 @@ redirectToApex = (req, res, next) ->
   else
     next()
   return
-
-# getProduct = (id, callback) ->
-#   FirebaseUrl = "https://fiery-inferno-1584.firebaseIO.com/"
-#   ref = new Firebase(FirebaseUrl)
-#   ref.child(process.env.NODE_ENV || 'development').child("links").child(id).once "value", (link) ->
-#     # console.log("link", link.val())
-#     unless link.val()?
-#       callback null, null
-#       return
-#     productId = link.val().productId
-#     ref.child(process.env.NODE_ENV || 'development').child("products").child(productId).once "value", (product) ->
-#       unless product.val()?
-#         callback null, null
-#         return
-#       callback link.val(), product.val()
-#       return
-#     return
-#   return
-#
-# sendEmail = (emailAddress, subject, content) ->
-#   message =
-#     "html": "<p>" + content + "</p>"
-#     "text": content
-#     "subject": subject
-#     "from_email": "team@eeosk.com"
-#     "from_name": "Eeosk Team"
-#     "to": [
-#       "email": emailAddress
-#       "name": "Recipient Name"
-#       "type": "to"
-#     ]
-#   mandrill_client.messages.send
-#     "message": message
-#   , (res) ->
-#     res
-#   , (err) ->
-#     err
-#   return
 
 process.stdout.write "NODE_ENV: " + process.env.NODE_ENV + ". "
 
@@ -149,11 +103,12 @@ app.use "/", express.static path.join __dirname, "dist"
 #     else
 #       res.status(200).send 'OK'
 
-
 # enable angular html5mode
 app.all '/*', (req, res, next) ->
-  # Just send the index.html for other files to support HTML5Mode
-  res.sendfile 'index.html', root: path.join __dirname, "dist/"
+  components = req.headers.host.split('.')
+  # Send dist/index.html or dist_store/index.html to support HTML5Mode
+  top = if components.length > 1 then 'dist_store/' else 'dist/'
+  res.sendfile 'index.html', root: path.join __dirname, top
   return
 
 app.listen process.env.PORT, ->
