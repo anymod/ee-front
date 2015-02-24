@@ -3,7 +3,6 @@ switch process.env.NODE_ENV
   when 'test' then process.env.PORT = 3333
   else process.env.NODE_ENV = 'development'; process.env.PORT = 3000
 
-subdomain       = require 'express-subdomain'
 express         = require "express"
 morgan          = require "morgan"
 path            = require "path"
