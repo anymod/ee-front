@@ -124,9 +124,9 @@ store.all '/*', (req, res, next) ->
   res.sendfile 'index.html', root: path.join __dirname, 'dist'
   return
 
-app.use vhost('eeosk', builder)
-app.use vhost('demo.eeosk', builder)
-app.use vhost('*.eeosk', store)
+app.use vhost('eeosk.com', builder)
+app.use vhost('demo.eeosk.com', builder)
+app.use vhost('*.eeosk.com', store)
 
 app.use vhost('localhost', builder)
 app.use vhost('*.localhost', store)
