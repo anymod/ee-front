@@ -6,6 +6,13 @@ angular.module('ee-product').directive "eeProductForCatalog", ($rootScope, $loca
   scope:
     product: '='
   link: (scope, ele, attr) ->
+    scope.overlay = false
+    scope.toggleOverlay = () -> scope.overlay = !scope.overlay
+    scope.focusImg = scope.product.image_meta.main_image
+    scope.setFocusImg = (img) ->
+      console.log 'focusImg', img
+      scope.focusImg = img
+
     scope.added = false
     scope.product_selection = false
     eeCatalog.setCurrentPriceAndCurrentMargin scope, scope.product.baseline_price, eeCatalog.startMargin
@@ -33,8 +40,5 @@ angular.module('ee-product').directive "eeProductForCatalog", ($rootScope, $loca
       .catch (err) ->
         scope.added = true
         console.error err
-
-    scope.overlayProduct = () ->
-      $rootScope.$broadcast 'overlay:catalog:product', scope.product
 
     return
