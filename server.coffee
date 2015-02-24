@@ -1,18 +1,27 @@
 switch process.env.NODE_ENV
-  when 'production' then require 'newrelic'
-  when 'test' then process.env.PORT = 3333
-  else process.env.NODE_ENV = 'development'; process.env.PORT = 3000
+  when 'production'
+    require 'newrelic'
+    stripeSecretKey = "sk_live_UNVB2zgYAXxv90X9vuQckxc6"
+  when 'test'
+    process.env.PORT = 3333
+    stripeSecretKey = "sk_test_1luLv9PtbgsqWX5irh1KLgdu"
+  else
+    process.env.NODE_ENV = 'development'
+    process.env.PORT = 3000
+    stripeSecretKey = "sk_test_1luLv9PtbgsqWX5irh1KLgdu"
 
 express         = require "express"
+vhost           = require "vhost"
 morgan          = require "morgan"
 path            = require "path"
+serveStatic     = require 'serve-static'
 Firebase        = require "firebase"
 eFirebaseRef    = new Firebase "https://fiery-inferno-1584.firebaseIO.com/"
 bodyParser      = require 'body-parser'
-app             = express()
-
-stripeSecretKey = if process.env.NODE_ENV is "production" then "sk_live_UNVB2zgYAXxv90X9vuQckxc6" else "sk_test_1luLv9PtbgsqWX5irh1KLgdu"
 stripe          = require("stripe")(stripeSecretKey)
+
+# Parent app
+app             = express()
 
 forceSsl = (req, res, next) ->
   if req.headers["x-forwarded-proto"] isnt "https"
@@ -39,20 +48,15 @@ redirectToApex = (req, res, next) ->
     next()
   return
 
-process.stdout.write "NODE_ENV: " + process.env.NODE_ENV + ". "
-
-if process.env.NODE_ENV == "production"
-  require "newrelic"
+if process.env.NODE_ENV is "production"
   app.use redirectToApex
   app.use forceSsl
-  app.use morgan("common")
+  app.use morgan "common"
 else
-  app.use morgan("dev")
+  app.use morgan "dev"
 
 app.use bodyParser.urlencoded({ extended: true })
 app.use bodyParser.json()
-
-app.use "/", express.static path.join __dirname, "dist"
 
 # app.use "/product/*.html", express.static path.join __dirname, "views"
 #
@@ -108,13 +112,35 @@ excludedNames = ['demo']
 minStoreSubdomainLength = 5
 nameIsExcluded = (name) -> (excludedNames.indexOf(name) > -1) or name.length < minStoreSubdomainLength
 
-# enable angular html5mode
-app.all '/*', (req, res, next) ->
-  components = req.headers.host.split('.')
+
+# builder is tool for building storefront; store is actual storefront
+builder         = express()
+store           = express()
+
+builder.use serveStatic(path.join __dirname, 'dist')
+builder.all '/*', (req, res, next) ->
   # Send dist/index.html or dist_store/index.html to support HTML5Mode
-  top = if (components.length > 1) and !nameIsExcluded(components[0]) then 'dist_store/' else 'dist/'
-  res.sendfile 'index.html', root: path.join __dirname, top
+  res.sendfile 'index.html', root: path.join __dirname, 'dist'
   return
+
+store.use serveStatic(path.join __dirname, 'dist/store')
+store.all '/*', (req, res, next) ->
+  # Send dist/index.html or dist_store/index.html to support HTML5Mode
+  res.sendfile 'index.html', root: path.join __dirname, 'dist'
+  return
+
+app.use vhost('eeosk', builder)
+app.use vhost('demo.eeosk', builder)
+app.use vhost('*.eeosk', store)
+
+app.use vhost('localhost', builder)
+app.use vhost('*.localhost', store)
+
+# # enable angular html5mode
+# app.all '/*', (req, res, next) ->
+#   # Send dist/index.html or dist_store/index.html to support HTML5Mode
+#   res.sendfile 'index.html', root: path.join __dirname, (distFolder + '/')
+#   return
 
 app.listen process.env.PORT, ->
   console.log "Frontend listening on port " + process.env.PORT
