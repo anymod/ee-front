@@ -5,6 +5,7 @@ angular.module 'eeApp', [
   'ui.router'
   'ui.bootstrap'
   'ngCookies'
+  'ngSanitize'
   'angulartics'
   'angulartics.google.analytics'
   'colorpicker.module'

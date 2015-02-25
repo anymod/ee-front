@@ -42,6 +42,7 @@ vendorMinSrc = [
   ## TODO remove jQuery if not using cloudinary infra for file upload
   './src/bower_components/jquery/dist/jquery.min.js'
   './src/bower_components/angular/angular.min.js'
+  './src/bower_components/angular-sanitize/angular-sanitize.min.js'
   './src/bower_components/angular-cookies/angular-cookies.min.js'
   './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
   './src/bower_components/angular-ui-router/release/angular-ui-router.min.js'

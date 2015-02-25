@@ -7,7 +7,7 @@
         <hr>
         <ee-shop-nav ng-if="storefront" storefront="storefront" class="nav nav-pills nav-stacked nav-compact"></ee-shop-nav>
       </div>
-      <div class="col col-xs-8 col-md-10">
+      <div class="col col-xs-8 col-md-10 position-inherit">
         <h4 class="margin-0">{{ $state.params.shopCategory }}</h4>
         <div class="full-width vert-20 overflow-hidden">
           <div ng-repeat="product in storefront.product_selection | eeShopCategories:$state.params.shopCategory" class="product-container inline-block width-160 vertical-align-top">

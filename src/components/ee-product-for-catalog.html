@@ -4,7 +4,10 @@
       <div class="thumb margin-2 gray-border"
            style="background-image: url('{{ product.image_meta.main_image.url | thumbnail }}')">
       </div>
-      <div class="btn btn-sm btn-link visible-xs" ng-click="toggleOverlay()">preview</div>
+      <div class="visible-xs">
+        <div ng-show="!overlay" class="btn btn-sm btn-link">preview</div>
+        <div ng-show="!!overlay" class="btn btn-sm btn-default">close</div>
+      </div>
     </a>
     <div class="media-body">
       <h4 class="media-heading margin-0">
@@ -30,70 +33,18 @@
           Remove
         </div>
       </span>
-      <div ng-show="!overlay" class="btn btn-sm btn-link hidden-xs" ng-click="toggleOverlay()">preview</div>
-      <div ng-show="!!overlay" class="btn btn-sm btn-default hidden-xs" ng-click="toggleOverlay()">close</div>
+      &nbsp;
+      <span class="hidden-xs" ng-click="toggleOverlay()">
+        <div ng-show="!overlay" class="btn btn-sm btn-link">preview</div>
+        <div ng-show="!!overlay" class="btn btn-sm btn-default">close preview</div>
+      </span>
     </div>
   </div>
+
+  <div ng-show="!!overlay" class="pad-10">
+    <ee-product-detail product="product" options="options"></ee-product-detail>
+  </div>
+
 
   <hr class="visible-xs">
-</div>
-
-<div ng-show="!!overlay">
-  <div ng-if="product.selling_price" class="row margin-0">
-    <div class="col col-xs-9 col-sm-6 col-md-offset-1 col-lg-offset-2 col-lg-5">
-      <div class="btn btn-default btn-block">{{ product.selling_price | centToDollar }}</div>
-    </div>
-    <div class="col col-xs-3 col-sm-2">
-      <div class="btn btn-danger" ng-click="removeProductFromStore()">Remove from store</div>
-    </div>
-  </div>
-
-  <div class="row margin-0">
-    <div class="col col-xs-9 col-sm-6 col-md-offset-1 col-lg-offset-2 col-lg-5">
-      <img ng-src="{{ focusImg.url | mainImg }}" class="img-responsive full-width">
-      <h2 class="vert-5" ng-bind="product.title"></h2>
-      <div ng-bind="product.category" class="label label-primary"></div>
-      <p ng-bind="product.content"></p>
-      <table ng-show="!!product.content_meta" class="table table-condensed table-striped table-bordered">
-        <tr ng-if="!!product.content_meta.item_name">
-          <td>Item</td>
-          <td>{{ product.content_meta.item_name }}</td>
-        </tr>
-        <tr ng-if="!!product.content_meta.brand_name">
-          <td>Brand Name</td>
-          <td>{{ product.content_meta.brand_name }}</td>
-        </tr>
-        <tr ng-if="!!product.content_meta.manufacturer">
-          <td>Manufacturer</td>
-          <td>{{ product.content_meta.manufacturer }}</td>
-        </tr>
-        <tr ng-if="!!product.content_meta.condition">
-          <td>Condition</td>
-          <td>{{ product.content_meta.condition }}</td>
-        </tr>
-        <tr ng-if="!!product.content_meta.warranty">
-          <td>Warranty</td>
-          <td>{{ product.content_meta.warranty }}</td>
-        </tr>
-        <tr ng-if="!!product.content_meta.details">
-          <td>Details</td>
-          <td>{{ product.content_meta.details }}</td>
-        </tr>
-      </table>
-      <pre>{{ product.content_meta | json }}</pre>
-    </div>
-    <div class="col col-xs-3 col-sm-2">
-      <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}"
-           class="hover-pointer full-width vert-2 margin-top-0"
-           ng-click="setFocusImg(product.image_meta.main_image)" />
-      <div ng-repeat="img in product.image_meta.additional_images">
-        <img ng-src="{{ img.url | thumbnail }}"
-             class="hover-pointer full-width vert-2"
-             ng-click="setFocusImg(img)" />
-      </div>
-    </div>
-  </div>
-
-  <div class="full-width vert-50"></div>
-
 </div>

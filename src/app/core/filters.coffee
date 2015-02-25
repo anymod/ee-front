@@ -32,8 +32,17 @@ angular.module('app.core').filter 'mainImg', () ->
 angular.module('app.core').filter 'urlText', () ->
   (text) -> text.replace(/[^a-zA-Z0-9_]/gi, '').toLowerCase()
 
+angular.module('app.core').filter 'unboldHtml', () ->
+  (text) -> if typeof text isnt 'string' then return text else return text.replace(/<b>/gi, '').replace(/<\/b>/gi, '')
+
+angular.module('app.core').filter 'truncateQty', () ->
+  (text) -> if parseInt(text) > 20 then return '20+' else return text
+
 angular.module('app.core').filter 'rangeToText', () ->
   (range) ->
     ('$' + Math.floor(range.min)/100 + ' to $' + Math.floor(range.max)/100)
       .replace '$0 to', 'Under'
       .replace 'to $0', 'and above'
+
+angular.module('app.core').filter 'addHttp', () ->
+  (text) -> if text.indexOf('http://') isnt 0 and text.indexOf('https://') isnt 0 then 'http://' + text else text
