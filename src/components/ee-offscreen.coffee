@@ -44,11 +44,13 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state) ->
     return
 
 # Home
-angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", (eeStorefront) ->
+angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", (eeStorefront, eeAuth) ->
   templateUrl: 'builder/storefront/storefront.offscreen.home.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
-    eeStorefront.setScopeCategories(scope)
+    eeAuth.getUsername()
+    .then (username) -> eeStorefront.storefrontFromUsername(username)
+    .then (storefront) -> eeStorefront.setScopeCategories(storefront, scope)
     return
 
 # Shop

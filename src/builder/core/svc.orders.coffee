@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeOrders', ($cookies, $q, eeBack, $http) ->
+angular.module('builder.core').factory 'eeOrders', ($cookies, $q, eeBack, $http) ->
   # _orders = []
   #
   # _setOrders  = (order_array) -> _orders = order_array

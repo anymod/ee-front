@@ -34,7 +34,8 @@
   <ee-product-for-overlay ng-class="{ open: toggle }"></ee-product-for-overlay>
 
   <!-- build:js -->
-    <!--Vendors-->
+    <!-- Vendors -->
+    <!-- TODO remove once cloudinary jQuery upload is gone -->
     <script src='bower_components/jquery/dist/jquery.js' type='text/javascript'></script>
     <script src='bower_components/cloudinary/js/jquery.ui.widget.js' type='text/javascript'></script>
     <script src='bower_components/cloudinary/js/jquery.iframe-transport.js' type='text/javascript'></script>
@@ -46,6 +47,7 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
 
+    <!-- TODO remove firebase -->
     <script src="bower_components/firebase/firebase-debug.js"></script>
 
     <script src="bower_components/angulartics/src/angulartics.js"></script>
@@ -55,24 +57,26 @@
     <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
     <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
 
-    <!--Custom-->
-    <script src="js/builder/builder.index.js"></script>
-
+    <!-- Shared -->
     <script src="js/app/core/core.module.js"></script>
-    <script src="js/app/core/run.js"></script>
+
     <script src="js/app/core/constants.js"></script>
     <script src="js/app/core/filters.js"></script>
     <script src="js/app/core/config.js"></script>
-    <script src="js/app/core/svc.back.js"></script>
-    <script src="js/app/core/svc.auth.js"></script>
-    <script src="js/app/core/svc.catalog.js"></script>
-    <script src="js/app/core/svc.orders.js"></script>
-    <script src="js/app/core/svc.selection.js"></script>
-    <script src="js/app/core/svc.storefront.js"></script>
-    <script src="js/app/core/svc.other.js"></script>
+    <script src="js/app/core/run.js"></script>
 
+    <script src="js/app/core/svc.back.js"></script>
+    <script src="js/app/core/svc.storefront.js"></script>
+    <script src="js/app/core/svc.catalog.js"></script>
+
+    <!-- Builder-specific -->
+    <script src="js/builder/builder.index.js"></script>
     <script src="js/builder/core/core.module.js"></script>
     <script src="js/builder/core/run.js"></script>
+
+    <script src="js/builder/core/svc.auth.js"></script>
+    <script src="js/builder/core/svc.orders.js"></script>
+    <script src="js/builder/core/svc.selection.js"></script>
 
     <script src="js/builder/auth/auth.module.js"></script>
     <script src="js/builder/auth/auth.route.js"></script>
@@ -106,6 +110,7 @@
     <script src="js/builder/account/account.route.js"></script>
     <script src="js/builder/account/account.controller.js"></script>
 
+    <!-- Directives -->
     <script src="js/components/ee-navbar.js"></script>
     <script src="js/components/ee-product.js"></script>
     <script src="js/components/ee-save.js"></script>

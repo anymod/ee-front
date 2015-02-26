@@ -14,23 +14,29 @@ protractor  = require("gulp-protractor").protractor
 
 # Ordered source for eeosk angular modules
 eeModulesSrc = [
+  # app (shared) startup & definitions
+  './src/app/core/constants.coffee'
+  './src/app/core/filters.coffee'
+  './src/app/core/config.coffee'
+  './src/app/core/run.coffee'
+  # app (shared) services
+  './src/app/core/svc.back.coffee'
+  './src/app/core/svc.storefront.coffee'
+  './src/app/core/svc.catalog.coffee'
+  # builder-specific startup & definitions
   './src/builder/builder.index.coffee'
   './src/builder/core/core.module.coffee'
   './src/builder/core/run.coffee'
-  './src/builder/core/constants.coffee'
-  './src/builder/core/filters.coffee'
-  './src/builder/core/config.coffee'
+  # builder-specific services
   './src/builder/core/svc.auth.coffee'
-  './src/builder/core/svc.back.coffee'
-  './src/builder/core/svc.catalog.coffee'
   './src/builder/core/svc.orders.coffee'
   './src/builder/core/svc.selection.coffee'
-  './src/builder/core/svc.storefront.coffee'
-  './src/builder/core/svc.other.coffee'
+  # builder-specific files
   './src/builder/**/*.module.coffee'
   './src/builder/**/*.route.coffee'
   './src/builder/**/*.controller.coffee'
   './src/builder/**/*.coffee'
+  # components
   './src/components/ee-product.coffee'
   './src/components/**/*.coffee'
   # Exclude spec files

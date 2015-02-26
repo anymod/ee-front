@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('ee-product').directive "eeProductDetail", ($location, $anchorScroll, eeSelection, eeStorefront) ->
+angular.module('ee-product').directive "eeProductDetail", ($location, $anchorScroll, eeStorefront, eeAuth) -> # eeSelection
   templateUrl: 'components/ee-product-detail.html'
   restrict: 'E'
   scope:
@@ -16,6 +16,7 @@ angular.module('ee-product').directive "eeProductDetail", ($location, $anchorScr
       # Remove hash in url
       $location.url $location.path()
 
-    scope.removeProductFromStore = () ->
-      eeSelection.deleteSelection(scope.product.selection_id)
-      .finally () -> eeStorefront.storefrontFromUser(true)
+    # scope.removeProductFromStore = () ->
+    #   eeSelection.deleteSelection(scope.product.selection_id)
+    #   .finally () -> eeAuth.getUsername()
+    #   .then (username) -> eeStorefront.storefrontFromUsername(username, true)

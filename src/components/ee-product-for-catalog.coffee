@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('ee-product').directive "eeProductForCatalog", ($rootScope, $location, eeSelection, eeCatalog, eeStorefront) ->
+angular.module('ee-product').directive "eeProductForCatalog", (eeStorefront, eeCatalog, eeAuth, eeSelection) ->
   templateUrl: 'components/ee-product-for-catalog.html'
   restrict: 'E'
   scope:
@@ -13,7 +13,9 @@ angular.module('ee-product').directive "eeProductForCatalog", ($rootScope, $loca
     scope.product_selection = false
     eeCatalog.setCurrentPriceAndCurrentMargin scope, scope.product.baseline_price, eeCatalog.startMargin
 
-    eeStorefront.getProductInStorefront(scope.product.id)
+    eeAuth.getUsername()
+    # TODO hide catalog items that are already in the user's storefront
+    .then (username) -> eeStorefront.getProductInStorefront(scope.product.id)
     .then (p_s) -> scope.product_selection = p_s
     .catch () -> scope.product_selection = false
 
@@ -22,7 +24,7 @@ angular.module('ee-product').directive "eeProductForCatalog", ($rootScope, $loca
       .then (res) ->
         scope.added = true
         scope.selection_id = res.id
-        eeStorefront.resetStorefront()
+        eeStorefront.reset()
       .catch (err) ->
         scope.added = false
         console.error err
@@ -32,7 +34,7 @@ angular.module('ee-product').directive "eeProductForCatalog", ($rootScope, $loca
       .then (res) ->
         scope.added = false
         scope.selection_id = undefined
-        eeStorefront.resetStorefront()
+        eeStorefront.reset()
       .catch (err) ->
         scope.added = true
         console.error err

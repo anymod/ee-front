@@ -12,7 +12,7 @@ angular.module('ee-product').directive "eeProductForOverlay", ($location, eeCata
       eeSelection.deleteSelection(scope.product.selection_id)
       .finally () ->
         scope.close()
-        eeStorefront.storefrontFromUser(true)
+        eeStorefront.storefrontFromUsername(true)
 
     scope.$on 'overlay:catalog:product', (e, product) ->
       console.log 'overlaying', product

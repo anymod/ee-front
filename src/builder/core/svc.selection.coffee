@@ -1,6 +1,12 @@
 'use strict'
 
-angular.module('app.core').factory 'eeSelection', ($cookies, $q, eeBack) ->
+angular.module('builder.core').factory 'eeSelection', ($rootScope, $cookies, $q, eeBack) ->
+
+  _addSelection  = (selection) ->
+    $rootScope.$broadcast 'selection:added', selection
+
+  _removeSelection = (id) ->
+    $rootScope.$broadcast 'selection:removed', id
 
   reset: () ->
     return
@@ -15,7 +21,9 @@ angular.module('app.core').factory 'eeSelection', ($cookies, $q, eeBack) ->
       deferred.reject 'Missing login credentials'
     else
       eeBack.selectionsPOST($cookies.loginToken, attrs)
-      .then (data) -> deferred.resolve data
+      .then (data) ->
+        _addSelection data.id
+        deferred.resolve data
       .catch (err) -> deferred.reject err
     deferred.promise
 
@@ -25,6 +33,8 @@ angular.module('app.core').factory 'eeSelection', ($cookies, $q, eeBack) ->
       deferred.reject 'Missing login credentials'
     else
       eeBack.selectionsDELETE($cookies.loginToken, id)
-      .then (data) -> deferred.resolve data
+      .then (data) ->
+        _removeSelection id
+        deferred.resolve data
       .catch (err) -> deferred.reject err
     deferred.promise

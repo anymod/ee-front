@@ -7,15 +7,17 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", (eeAuth) -
   scope:
     attrTarget: '='
   link: (scope, element, attrs) ->
-    scope.user = eeAuth.getUser()
-    username = scope.user.username
-
     form = element
-    form
-      .append $.cloudinary.unsigned_upload_tag "storefront_home", {
-          cloud_name: 'eeosk',
-          tags: 'browser_uploads', username
-        }
+
+    eeAuth.userFromToken()
+    .then (user) ->
+      scope.user = user
+      username = user.username
+      form
+        .append $.cloudinary.unsigned_upload_tag "storefront_home", {
+            cloud_name: 'eeosk',
+            tags: 'browser_uploads', username
+          }
 
     assignAttr = (data) ->
       if scope.attrTarget is 'carousel' then scope.user.storefront_meta.home.carousel[0].imgUrl = data.result.secure_url

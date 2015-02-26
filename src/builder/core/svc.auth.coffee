@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore, $q, eeBack) ->
+angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore, $q, eeBack) ->
   _user = {}
   _userIsSaved = true
   _userLastSet = Date.now()
@@ -14,7 +14,7 @@ angular.module('app.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore
     $cookieStore.remove 'loginToken'
     _setUser {}
 
-  _getUser = () ->
+  _getUser = (opts) ->
     deferred = $q.defer()
     if !$cookies.loginToken
       _resetUser()
@@ -40,8 +40,10 @@ angular.module('app.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore
   getToken: ()  -> $cookies.loginToken
   hasToken: ()  -> !!$cookies.loginToken
 
-  getUser: ()   -> _user
-  getUsername: () -> _user.username
+  getUsername: () ->
+    _getUser()
+    .then (user) -> user.username
+    .catch (err) -> console.error err
 
   saveUser: ()  -> eeBack.usersPUT(_user, $cookies.loginToken)
 
@@ -49,26 +51,7 @@ angular.module('app.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore
   userIsSaved: () -> _userIsSaved
   userIsntSaved: () -> !_userIsSaved
 
-  userFromToken: (opts) ->
-    deferred = $q.defer()
-    if !$cookies.loginToken
-      _resetUser()
-      deferred.reject 'Missing login credentials'
-    else if !!_user and !_userIsEmpty() and opts?.force isnt true
-      deferred.resolve _user
-    else
-      eeBack.tokenPOST $cookies.loginToken
-      .then (data) ->
-        if !!data.username
-          _setUser data
-          deferred.resolve data
-        else
-          _resetUser()
-          deferred.reject data
-      .catch (err) ->
-        _resetUser()
-        deferred.reject err
-    deferred.promise
+  userFromToken: (opts) -> _getUser(opts)
 
   setUserFromCredentials: (email, password) ->
     deferred = $q.defer()

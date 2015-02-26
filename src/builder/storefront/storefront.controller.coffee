@@ -1,9 +1,11 @@
 'use strict'
 
-angular.module('builder.storefront').controller 'builder.storefrontRootCtrl', ($scope, user, eeStorefront) ->
+angular.module('builder.storefront').controller 'builder.storefrontRootCtrl', ($scope, user, eeStorefront, eeAuth) ->
   $scope.user = user
 
-  eeStorefront.setScopeStorefront($scope)
+  eeAuth.getUsername()
+  .then (username) -> eeStorefront.storefrontFromUsername(username)
+  .then (storefront) -> $scope.storefront = storefront
   $scope.$on 'storefront:updated', (e, storefront) ->
     $scope.storefront = storefront
 
