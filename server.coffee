@@ -112,14 +112,14 @@ store           = express()
 
 builder.use serveStatic(path.join __dirname, 'dist')
 builder.all '/*', (req, res, next) ->
-  # Send dist/index.html or dist_store/index.html to support HTML5Mode
-  res.sendfile 'index.html', root: path.join __dirname, 'dist'
+  # Send builder.html to support HTML5Mode
+  res.sendfile 'builder.html', root: path.join __dirname, 'dist'
   return
 
-store.use serveStatic(path.join __dirname, 'dist/store')
+store.use serveStatic(path.join __dirname, 'dist')
 store.all '/*', (req, res, next) ->
-  # Send dist/index.html or dist_store/index.html to support HTML5Mode
-  res.sendfile 'index.html', root: path.join __dirname, 'dist/store'
+  # Send store.html to support HTML5Mode
+  res.sendfile 'store.html', root: path.join __dirname, 'dist'
   return
 
 app.use vhost('eeosk.com', builder)

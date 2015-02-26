@@ -6,21 +6,20 @@ angular.module('ee-offscreen').directive "eeOffscreen", ($rootScope) ->
   templateUrl: 'components/ee-offscreen.html'
   restrict: 'E'
   scope:
-    toggle: '='
     narrowToggle: '='
     offscreenCategory: '='
     offscreenColor: '='
   link: (scope, ele, attrs) ->
-    scope.categoryToggle = false
+    scope.$on '$stateChangeSuccess', (event, toState) ->
+      $rootScope.toggle = toState.name.indexOf('app.') is 0
+      scope.toggle = $rootScope.toggle
 
-    scope.$on 'auth:user:updated', (e, data) -> scope.user = data
+    scope.$on 'auth:user:updated', (e, data) ->
+      scope.user = data
 
     scope.toggleOffscreen = () ->
       $rootScope.toggle = !$rootScope.toggle
-
-    scope.setCategory = (category) ->
-      scope.offscreenCategory = category
-      scope.categoryToggle = false
+      scope.toggle = $rootScope.toggle
 
     return
 
@@ -36,16 +35,17 @@ angular.module('ee-offscreen').directive "eeOffscreenDefault", () ->
 
 #  Parent
 angular.module('ee-offscreen').directive "eeOffscreenStorefront", ($state) ->
-  templateUrl: 'app/storefront/storefront.offscreen.html'
+  templateUrl: 'builder/storefront/storefront.offscreen.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     scope.$state = $state
-    scope.$on 'storefront:updated', (e, data) -> scope.storefront = data
+    scope.$on 'storefront:updated', (e, data) ->
+      scope.storefront = data
     return
 
 # Home
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", (eeStorefront) ->
-  templateUrl: 'app/storefront/storefront.offscreen.home.html'
+  templateUrl: 'builder/storefront/storefront.offscreen.home.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     eeStorefront.setScopeCategories(scope)
@@ -53,22 +53,23 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", (eeStorefr
 
 # Shop
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontShop", () ->
-  templateUrl: 'app/storefront/storefront.offscreen.shop.html'
+  templateUrl: 'builder/storefront/storefront.offscreen.shop.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
-    scope.$on 'storefront:categories:updated', (data) -> scope.categories = data
+    scope.$on 'storefront:categories:updated', (data) ->
+      scope.categories = data
     return
 
 # Blog
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontBlog", () ->
-  templateUrl: 'app/storefront/storefront.offscreen.blog.html'
+  templateUrl: 'builder/storefront/storefront.offscreen.blog.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     return
 
 # About
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontAbout", () ->
-  templateUrl: 'app/storefront/storefront.offscreen.about.html'
+  templateUrl: 'builder/storefront/storefront.offscreen.about.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     $('.upload_form').append($.cloudinary.unsigned_upload_tag("storefront_about", { cloud_name: 'eeosk' }))
@@ -76,14 +77,14 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefrontAbout", () ->
 
 # Audience
 angular.module('ee-offscreen').directive "eeOffscreenStorefrontAudience", () ->
-  templateUrl: 'app/storefront/storefront.offscreen.audience.html'
+  templateUrl: 'builder/storefront/storefront.offscreen.audience.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
     return
 
 ## Catalog
 angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCatalog) ->
-  templateUrl: 'app/catalog/catalog.offscreen.html'
+  templateUrl: 'builder/catalog/catalog.offscreen.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) ->
@@ -107,7 +108,8 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCat
     ]
 
     scope.query = eeCatalog.getQuery()
-    scope.$on 'catalog:query:updated', () -> scope.query = eeCatalog.getQuery()
+    scope.$on 'catalog:query:updated', () ->
+      scope.query = eeCatalog.getQuery()
 
     scope.categoryIsCurrent = (category) -> scope.currentCategories.indexOf(category) > -1
 
@@ -116,7 +118,7 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCat
       if index > -1 then scope.currentCategories.splice(index, 1) else scope.currentCategories.push category
       eeCatalog.addQuery 'categories', scope.currentCategories.join(',')
       eeCatalog.addQuery 'page', 1
-      eeCatalog.logQuery()
+      # eeCatalog.logQuery()
       eeCatalog.search()
 
     fillCurrentRanges = (min, max) ->
@@ -130,7 +132,7 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCat
       eeCatalog.addQuery 'min', min
       eeCatalog.addQuery 'max', max
       eeCatalog.addQuery 'page', 1
-      eeCatalog.logQuery()
+      # eeCatalog.logQuery()
       eeCatalog.search()
 
     translateRanges = () ->
@@ -155,14 +157,14 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCat
 
 ## Orders
 angular.module('ee-offscreen').directive "eeOffscreenOrders", () ->
-  templateUrl: 'app/orders/orders.offscreen.html'
+  templateUrl: 'builder/orders/orders.offscreen.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) -> return
 
 ## Account
 angular.module('ee-offscreen').directive "eeOffscreenAccount", () ->
-  templateUrl: 'app/account/account.offscreen.html'
+  templateUrl: 'builder/account/account.offscreen.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) -> return

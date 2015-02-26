@@ -11,7 +11,6 @@
     <div class="icon"></div>
   </div>
 </div>
-
 <nav ng-class="{ open: toggle }" class="position-fixed full-height white-background">
   <div id="wrap" class="width-250 light-{{ offscreenColor }}-background">
 
@@ -22,9 +21,7 @@
           <div class="pad-10 {{ offscreenColor }}-background">
             <div class="vert-15 full-width inline-block"></div>
             <div class="vert-5 full-width inline-block"></div>
-            <h2 class="margin-0 white-color">
-              {{ offscreenCategory }}
-            </h2>
+            <h2 class="margin-0 white-color" ng-bind="offscreenCategory"></h2>
           </div>
           <ee-offscreen-storefront ng-switch-when="Storefront"></ee-offscreen-storefront>
           <ee-offscreen-catalog ng-switch-when="Catalog"></ee-offscreen-catalog>

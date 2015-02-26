@@ -21,6 +21,11 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
 
   _removeQuery = (key) -> _addQuery key, null
 
+  ## Reset
+  reset: () ->
+    _setProducts []
+    _query = {}
+
   ## Product
   getProducts: () -> _products
 

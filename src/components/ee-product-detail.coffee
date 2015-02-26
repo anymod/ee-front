@@ -13,6 +13,8 @@ angular.module('ee-product').directive "eeProductDetail", ($location, $anchorScr
     scope.testBtn = () ->
       $location.hash('navtop')
       $anchorScroll()
+      # Remove hash in url
+      $location.url $location.path()
 
     scope.removeProductFromStore = () ->
       eeSelection.deleteSelection(scope.product.selection_id)

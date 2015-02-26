@@ -1,0 +1,64 @@
+<!doctype html>
+<html ng-app="eeStore" lang="en">
+
+<head>
+  <title>Store</title>
+  <meta name="description" content="Foobar">
+
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <base href="/">
+
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+
+  <!-- build:css -->
+    <link rel="stylesheet" href="stylesheets/ee.builder.css">
+  <!-- endbuild -->
+</head>
+
+<body>
+  <div class="nav-wrapper" ng-class="{ open: toggle }">
+    <div ui-view autoscroll="true" class="white-background"></div>
+  </div>
+
+  <!-- build:js -->
+    <!--Vendors-->
+    <script src='bower_components/angular/angular.min.js'></script>
+    <script src='bower_components/angular-sanitize/angular-sanitize.min.js'></script>
+    <script src='bower_components/angular-cookies/angular-cookies.min.js'></script>
+    <script src='bower_components/angular-bootstrap/ui-bootstrap.min.js'></script>
+    <script src='bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
+    <script src='bower_components/angulartics/dist/angulartics.min.js'></script>
+    <script src='bower_components/angulartics/dist/angulartics-ga.min.js'></script>
+
+    <!--Custom-->
+    <script src="js/store/store.index.js"></script>
+
+    <script src="js/app/core/core.module.js"></script>
+    <script src="js/app/core/run.js"></script>
+    <script src="js/app/core/constants.js"></script>
+    <script src="js/app/core/filters.js"></script>
+    <script src="js/app/core/config.js"></script>
+    <script src="js/app/core/svc.back.js"></script>
+    <script src="js/app/core/svc.auth.js"></script>
+    <script src="js/app/core/svc.catalog.js"></script>
+    <script src="js/app/core/svc.orders.js"></script>
+    <script src="js/app/core/svc.selection.js"></script>
+    <script src="js/app/core/svc.storefront.js"></script>
+    <script src="js/app/core/svc.other.js"></script>
+
+    <script src="js/store/core/core.module.js"></script>
+    <script src="js/store/core/core.route.js"></script>
+
+    <script src="js/store/store.controller.js"></script>
+
+    <script src="js/components/ee-product.js"></script>
+    <script src="js/components/ee-product-detail.js"></script>
+    <script src="js/components/ee-product-for-storefront.js"></script>
+    <script src="js/components/ee-shop-nav.js"></script>
+  <!-- endbuild -->
+
+</body>
+</html>

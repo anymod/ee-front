@@ -21,7 +21,7 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $cookies, $q, ee
   _setProductLookup = () ->
     arry = _storefront.product_selection
     _productLookup = {}
-    addToProductLookup = (i) -> _productLookup[arry[i].product_id] = arry[i]
+    addToProductLookup = (i) -> if !!arry[i] then _productLookup[arry[i].product_id] = arry[i]
     addToProductLookup(i) for i in [0..arry.length-1]
 
   _getStorefront = (force) ->
@@ -52,6 +52,9 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $cookies, $q, ee
     deferred.promise
 
   _addCategory = (cat) -> if !!cat and (_categories.indexOf(cat) < 0) then _categories.push cat
+
+  reset: () ->
+    _setStorefront({})
 
   getProducts: () -> _getStorefront().then (res) -> _storefront.product_selection
 

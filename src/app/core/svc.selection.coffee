@@ -2,6 +2,9 @@
 
 angular.module('app.core').factory 'eeSelection', ($cookies, $q, eeBack) ->
 
+  reset: () ->
+    return
+
   createSelection: (product, margin) ->
     deferred = $q.defer()
     attrs =

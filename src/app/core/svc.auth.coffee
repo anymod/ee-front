@@ -35,6 +35,7 @@ angular.module('app.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore
         deferred.reject err
     deferred.promise
 
+  reset: () -> _resetUser()
 
   getToken: ()  -> $cookies.loginToken
   hasToken: ()  -> !!$cookies.loginToken
@@ -42,7 +43,6 @@ angular.module('app.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore
   getUser: ()   -> _user
   getUsername: () -> _user.username
 
-  resetUser: () -> _resetUser()
   saveUser: ()  -> eeBack.usersPUT(_user, $cookies.loginToken)
 
   setUserIsSaved: (bool) -> _userIsSaved = bool

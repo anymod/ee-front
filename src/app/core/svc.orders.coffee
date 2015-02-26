@@ -6,6 +6,9 @@ angular.module('app.core').factory 'eeOrders', ($cookies, $q, eeBack, $http) ->
   # _setOrders  = (order_array) -> _orders = order_array
   # _ordersIsEmpty = Object.keys(_orders).length is 0
 
+  reset: () ->
+    return
+
   getOrders: () ->
     # _orders
     deferred = $q.defer()
