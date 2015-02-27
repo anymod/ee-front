@@ -129,6 +129,8 @@ app.use vhost('*.eeosk.com', store)
 app.use vhost('localhost', builder)
 app.use vhost('*.localhost', store)
 
+app.use vhost('*', store)
+
 app.listen process.env.PORT, ->
   console.log 'Frontend listening on port ' + process.env.PORT
   return
