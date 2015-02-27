@@ -7,6 +7,19 @@ angular.module('store.core').config ($locationProvider, $stateProvider, $urlRout
       url: ''
       templateUrl: 'app/storefront/storefront.view.container.html'
       controller: 'storeCtrl'
+      resolve:
+        storefront: ($rootScope, eeAuth, eeStorefront) ->
+          eeAuth.getUsername()
+          .then (username) -> eeStorefront.storefrontFromUsername(username)
+          .then (storefront) ->
+            $rootScope.storeName = storefront.storefront_meta.home.name
+            storefront
+          .catch () ->
+            $rootScope.storeName = 'Not found'
+            'Not found'
+      data:
+        blogLinkActive: true
+        audienceLinkActive: true
     .state 'app.storefront.home',
       url: '/'
       templateUrl: 'app/storefront/storefront.home.html'

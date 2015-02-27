@@ -1,0 +1,33 @@
+<div ng-if="searching" style="position: fixed; left: 250px; right: 0; top: 0; bottom: 0; background: rgba(255,255,255,0.8); z-index: 1000;"></div>
+
+<nav class="navbar navbar-default margin-0 round-0"
+     ng-style="{ 'background-color': user.storefront_meta.home.topBarBackgroundColor }"
+     id="top">
+  <div class="container-fluid">
+    <div class="vert-8">
+      &nbsp;
+      <div class="btn btn-default" ng-click="decrementPage()" ng-class="{ disabled: page < 2 }">
+        <i class="fa fa-fw fa-long-arrow-left"></i>
+      </div>
+      <div class="btn btn-default" ng-click="incrementPage()" ng-class="{ disabled: products.length < productsPerPage }">
+        <i class="fa fa-fw fa-long-arrow-right"></i>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="btn-group" style="position: fixed; bottom: 8px; right: 16px; z-index: 5;">
+  <div class="btn btn-default btn-sm" ng-click="decrementPage(); scrollToTop()" ng-class="{ disabled: page < 2 }">
+    <i class="fa fa-long-arrow-left"></i>
+  </div>
+  <div class="btn btn-default btn-sm" ng-click="scrollToTop()">top</div>
+  <div class="btn btn-default btn-sm" ng-click="incrementPage(); scrollToTop()" ng-class="{ disabled: products.length < productsPerPage }">
+    <i class="fa fa-long-arrow-right"></i>
+  </div>
+</div>
+
+<div class="catalog-products pad-20 position-relative">
+  <span ng-repeat="product in products">
+    <ee-product-for-catalog product="product"></ee-product-for-catalog>
+  </span>
+</div>

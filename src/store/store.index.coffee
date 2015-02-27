@@ -18,5 +18,5 @@ angular.module 'eeStore', [
   # custom
   'ee-product'
   # 'ee-offscreen'
-  # 'EE.Templates' # commented out during build step for inline templates
+  # 'ee.templates' # commented out during build step for inline templates
 ]

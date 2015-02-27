@@ -9,7 +9,7 @@ angular.module 'eeBuilder', [
   'angulartics'
   'angulartics.google.analytics'
   'colorpicker.module'
-  'angularFileUpload'
+  # 'angularFileUpload'
 
   # core
   'app.core'
@@ -32,5 +32,5 @@ angular.module 'eeBuilder', [
   'ee-product'
   'ee-order'
   'ee-cloudinaryUpload'
-  # 'EE.Templates' # commented out during build step for inline templates
+  # 'ee.templates' # commented out during build step for inline templates
 ]

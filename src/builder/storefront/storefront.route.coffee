@@ -26,13 +26,17 @@ angular.module('builder.storefront').config ($stateProvider) ->
       controller: 'builder.storefrontChildCtrl'
     .state 'app.storefront.blog',
       url: '/blog'
-      template: ''
+      templateUrl: 'app/storefront/storefront.home.html'
       controller: 'builder.storefrontChildCtrl'
+      data:
+        storeOpacity: true
     .state 'app.storefront.about',
       url: '/about'
       templateUrl: 'app/storefront/storefront.about.html'
       controller: 'builder.storefrontChildCtrl'
     .state 'app.storefront.audience',
       url: '/audience'
-      template: ''
+      templateUrl: 'app/storefront/storefront.home.html'
       controller: 'builder.storefrontChildCtrl'
+      data:
+        storeOpacity: true

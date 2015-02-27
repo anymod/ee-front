@@ -10,11 +10,13 @@ ee-front
 ### Locations
 
 env | ee-front | ee-back
-:-----------|:------------------------|:-----------------------
-test (e2e)  | `http://localhost:3333` | `http://localhost:5555`
-test (api)  | -                       | `http://localhost:5444`
-development | `http://localhost:3000` | `http://localhost:5000`
-production  | `https://eeosk.com`     | `https://api.eeosk.com`
+:---------------------|:------------------------|:-----------------------
+test (e2e)            | `http://localhost:3333` | `http://localhost:5555`
+test (api)            | -                       | `http://localhost:5444`
+development (builder) | `http://localhost:3000` | `http://localhost:5000`
+development (store)   | `http://localhost:4000` | `http://localhost:5000`
+production (builder)  | `https://eeosk.com`     | `https://api.eeosk.com`
+production (store)    | `https://*.eeosk.com`   | `https://api.eeosk.com`
 
 ### Testing
 
@@ -32,7 +34,8 @@ ee-back   | test | `gulp watch-mocha` runs api server and tests continuously wit
 
 dev       | env         | runner
 :---------|:------------|:-------------
-ee-front  | development | `gulp dev` runs web server in development environment
+ee-front  | development | `gulp dev` runs builder server in development environment
+ee-front  | development | `gulp dev-store` runs store server in development environment
 ee-back   | development | `gulp dev` runs api server in development environment
 
 ### Production

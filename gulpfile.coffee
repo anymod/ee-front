@@ -1,5 +1,4 @@
-# vendor
-spawn = require("child_process").spawn
+spawn = require('child_process').spawn
 
 argv  = require('yargs').argv
 gulp  = require 'gulp'
@@ -7,83 +6,9 @@ gp    = do require "gulp-load-plugins"
 
 streamqueue = require 'streamqueue'
 combine     = require 'stream-combiner'
-protractor  = require("gulp-protractor").protractor
+protractor  = require('gulp-protractor').protractor
 
-# ==========================
-# sources
-
-# Ordered source for eeosk angular modules
-eeModulesSrc = [
-  # app (shared) startup & definitions
-  './src/app/core/constants.coffee'
-  './src/app/core/filters.coffee'
-  './src/app/core/config.coffee'
-  './src/app/core/run.coffee'
-  # app (shared) services
-  './src/app/core/svc.back.coffee'
-  './src/app/core/svc.storefront.coffee'
-  './src/app/core/svc.catalog.coffee'
-  # builder-specific startup & definitions
-  './src/builder/builder.index.coffee'
-  './src/builder/core/core.module.coffee'
-  './src/builder/core/run.coffee'
-  # builder-specific services
-  './src/builder/core/svc.auth.coffee'
-  './src/builder/core/svc.orders.coffee'
-  './src/builder/core/svc.selection.coffee'
-  # builder-specific files
-  './src/builder/**/*.module.coffee'
-  './src/builder/**/*.route.coffee'
-  './src/builder/**/*.controller.coffee'
-  './src/builder/**/*.coffee'
-  # components
-  './src/components/ee-product.coffee'
-  './src/components/**/*.coffee'
-  # Exclude spec files
-  '!./src/**/*.spec.coffee'
-]
-
-# Ordered vendor sources already min
-vendorMinSrc = [
-  ## TODO remove jQuery if not using cloudinary infra for file upload
-  './src/bower_components/jquery/dist/jquery.min.js'
-  './src/bower_components/angular/angular.min.js'
-  './src/bower_components/angular-sanitize/angular-sanitize.min.js'
-  './src/bower_components/angular-cookies/angular-cookies.min.js'
-  './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
-  './src/bower_components/angular-ui-router/release/angular-ui-router.min.js'
-  './src/bower_components/angulartics/dist/angulartics.min.js'
-  './src/bower_components/angulartics/dist/angulartics-ga.min.js'
-  './src/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js'
-  ## TODO remove if using cloudinary infra for file upload
-  './src/bower_components/ng-file-upload/angular-file-upload.min.js'
-]
-
-# Ordered vendor sources that need min
-vendorUnminSrc = [
-  './src/bower_components/firebase/firebase.js'
-  ## TODO remove if not using cloudinary infra for file upload
-  './src/bower_components/cloudinary/js/jquery.ui.widget.js'
-  './src/bower_components/cloudinary/js/jquery.iframe-transport.js'
-  './src/bower_components/cloudinary/js/jquery.fileupload.js'
-  './src/bower_components/jquery.cloudinary.1.0.21.js'
-]
-
-## Store
-storeModulesSrc = [
-  './src/store/store.index.coffee'
-  './src/store/store.controller.coffee'
-]
-storeVendorMinSrc = [
-  './src/bower_components/angular/angular.min.js'
-  './src/bower_components/angular-sanitize/angular-sanitize.min.js'
-  './src/bower_components/angular-cookies/angular-cookies.min.js'
-  './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
-  './src/bower_components/angular-ui-router/release/angular-ui-router.min.js'
-  './src/bower_components/angulartics/dist/angulartics.min.js'
-  './src/bower_components/angulartics/dist/angulartics-ga.min.js'
-]
-
+sources     = require './gulp.sources'
 
 # ==========================
 # task options
@@ -102,6 +27,46 @@ htmlminOptions =
   minifyJS: true
   minifyCSS: true
 
+## ==========================
+## html tasks
+
+gulp.task 'html-dev', () ->
+  # Builder html
+  gulp.src './src/builder.html'
+    .pipe gp.plumber()
+    .pipe gp.htmlReplace
+      css: 'stylesheets/ee.builder.css'
+      js: sources.builderJs(), { keepBlockTags: true }
+    .pipe gulp.dest './src'
+  # Store html
+  gulp.src './src/store.html'
+    .pipe gp.plumber()
+    .pipe gp.htmlReplace
+      css: 'stylesheets/ee.builder.css'
+      js: sources.storeJs(), { keepBlockTags: true }
+    .pipe gulp.dest './src'
+
+gulp.task 'html-prod', () ->
+  # Builder html
+  gulp.src './src/builder.html'
+    .pipe gp.plumber()
+    .pipe gp.htmlReplace
+      css: 'ee.builder.css'
+      js: 'ee.builder.js'
+    .pipe gp.htmlmin htmlminOptions
+    .pipe gulp.dest distPath
+  # Builder sitemap
+  gulp.src './src/sitemap.xml'
+    .pipe gulp.dest distPath
+  # Store html
+  gulp.src ['./src/store.html']
+    .pipe gp.plumber()
+    .pipe gp.htmlReplace
+      css: 'ee.builder.css'
+      js: 'ee.store.js'
+    .pipe gp.htmlmin htmlminOptions
+    .pipe gulp.dest distPath
+
 # ==========================
 # css tasks
 
@@ -110,7 +75,7 @@ gulp.task 'css-dev', () ->
     .pipe gp.sourcemaps.init()
     .pipe gp.less paths: './src/stylesheets/' # @import path
     # write sourcemap to separate file w/o source content to path relative to dest below
-    .pipe gp.sourcemaps.write './', {includeContent: false, sourceRoot: '../'}
+    .pipe gp.sourcemaps.write './', { includeContent: false, sourceRoot: '../' }
     .pipe gulp.dest './src/stylesheets'
 
 gulp.task 'css-prod', () ->
@@ -145,105 +110,88 @@ gulp.task 'js-dev', () ->
 
 gulp.task 'js-prod', () ->
   # inline templates; no need for ngAnnotate
-  eeTemplates = gulp.src './src/components/ee*.html'
+  # TODO separate templates for builder and store
+  appTemplates = gulp.src './src/components/ee*.html'
     .pipe gp.htmlmin htmlminOptions
     .pipe gp.angularTemplatecache
-      module: 'EE.Templates'
+      module: 'ee.templates'
       standalone: true
       root: 'components'
 
+  ## Builder prod
+  builderVendorMin    = gulp.src(sources.builderVendorMin)
+  builderVendorUnmin  = gulp.src(sources.builderVendorUnmin)
   # builder modules; replace and annotate
-  eeModules = gulp.src eeModulesSrc
+  builderModules = gulp.src sources.builderModules()
     .pipe gp.plumber()
-    .pipe gp.replace "# 'EE.Templates'", "'EE.Templates'" # for ee.builder.coffee $templateCache
+    .pipe gp.replace "# 'ee.templates'", "'ee.templates'" # for builder.index.coffee $templateCache
     .pipe gp.replace "'env', 'development'", "'env', 'production'" # TODO use gulp-ng-constant
     .pipe gp.replace /@@eeBackUrl/g, 'https://api.eeosk.com'
     .pipe gp.coffee()
     .pipe gp.ngAnnotate()
-
-  vendorMin   = gulp.src vendorMinSrc
-  vendorUnmin = gulp.src vendorUnminSrc
-
   # minified and uglify vendorUnmin, templates, and modules
-  jsMin = streamqueue objectMode: true, vendorUnmin, eeTemplates, eeModules
+  builderCustomMin = streamqueue objectMode: true, builderVendorUnmin, appTemplates, builderModules
     .pipe gp.uglify()
-
   # concat: vendorMin before jsMin because vendorMin has angular
-  streamqueue objectMode: true, vendorMin, jsMin
+  streamqueue objectMode: true, builderVendorMin, builderCustomMin
     .pipe gp.concat 'ee.builder.js'
     .pipe gulp.dest distPath
 
-gulp.task 'js-dev-store', () ->
-  gulp.src './src/store/**/*.coffee' # ** glob forces dest to same subdir
-    .pipe gp.replace /@@eeBackUrl/g, 'http://localhost:5000'
+  ## Store prod
+  storeVendorMin   = gulp.src sources.storeVendorMin
+  storeVendorUnmin = gulp.src sources.storeVendorUnmin
+  # store modules; replace and annotate
+  storeModules = gulp.src sources.storeModules()
     .pipe gp.plumber()
-    .pipe gp.sourcemaps.init()
-    .pipe gp.coffee()
-    .pipe gp.sourcemaps.write './'
-    .pipe gulp.dest './src/js/store'
-
-gulp.task 'js-prod-store', () ->
-  # inline templates; no need for ngAnnotate
-  eeTemplates = gulp.src ['./src/components/ee*.html']
-    .pipe gp.htmlmin htmlminOptions
-    .pipe gp.angularTemplatecache
-      module: 'EE.Templates'
-      standalone: true
-      root: 'components'
-
-  # builder modules; replace and annotate
-  eeModules = gulp.src storeModulesSrc
-    .pipe gp.plumber()
-    .pipe gp.replace "# 'EE.Templates'", "'EE.Templates'" # for ee.builder.coffee $templateCache
+    .pipe gp.replace "# 'ee.templates'", "'ee.templates'" # for store.index.coffee $templateCache
     .pipe gp.replace "'env', 'development'", "'env', 'production'" # TODO use gulp-ng-constant
     .pipe gp.replace /@@eeBackUrl/g, 'https://api.eeosk.com'
     .pipe gp.coffee()
     .pipe gp.ngAnnotate()
-
-  vendorMin = gulp.src storeVendorMinSrc
-
   # minified and uglify vendorUnmin, templates, and modules
-  jsMin = streamqueue objectMode: true, eeTemplates, eeModules
+  storeCustomMin = streamqueue objectMode: true, storeVendorUnmin, appTemplates, storeModules
     .pipe gp.uglify()
-
   # concat: vendorMin before jsMin because vendorMin has angular
-  streamqueue objectMode: true, vendorMin, jsMin
+  streamqueue objectMode: true, storeVendorMin, storeCustomMin
     .pipe gp.concat 'ee.store.js'
-    .pipe gulp.dest distPath + '/store'
-
-# ==========================
-# html tasks
-
-gulp.task 'html-prod', () ->
-  gulp.src ['./src/builder.html']
-    .pipe gp.plumber()
-    .pipe gp.htmlReplace
-      css: 'ee.builder.css'
-      js: 'ee.builder.js'
-    .pipe gp.htmlmin htmlminOptions
     .pipe gulp.dest distPath
 
-  gulp.src ['./src/sitemap.xml']
-    .pipe gulp.dest distPath
 
-gulp.task 'html-prod-store', () ->
-  gulp.src ['./src/store.html']
-    .pipe gp.plumber()
-    .pipe gp.htmlReplace
-      css: 'ee.store.css'
-      js: 'ee.store.js'
-    # .pipe gp.htmlmin htmlminOptions
-    .pipe gulp.dest distPath
-
-  # gulp.src ['./src/store/sitemap.xml']
-    # .pipe gulp.dest distPath + '/store'
+# gulp.task 'js-prod-store', () ->
+#   # inline templates; no need for ngAnnotate
+#   eeTemplates = gulp.src ['./src/components/ee*.html']
+#     .pipe gp.htmlmin htmlminOptions
+#     .pipe gp.angularTemplatecache
+#       module: 'ee.templates'
+#       standalone: true
+#       root: 'components'
+#
+#   # builder modules; replace and annotate
+#   eeModules = gulp.src storeModulesSrc
+#     .pipe gp.plumber()
+#     .pipe gp.replace "# 'ee.templates'", "'ee.templates'" # for ee.builder.coffee $templateCache
+#     .pipe gp.replace "'env', 'development'", "'env', 'production'" # TODO use gulp-ng-constant
+#     .pipe gp.replace /@@eeBackUrl/g, 'https://api.eeosk.com'
+#     .pipe gp.coffee()
+#     .pipe gp.ngAnnotate()
+#
+#   vendorMin = gulp.src storeVendorMinSrc
+#
+#   # minified and uglify vendorUnmin, templates, and modules
+#   jsMin = streamqueue objectMode: true, eeTemplates, eeModules
+#     .pipe gp.uglify()
+#
+#   # concat: vendorMin before jsMin because vendorMin has angular
+#   streamqueue objectMode: true, vendorMin, jsMin
+#     .pipe gp.concat 'ee.store.js'
+#     .pipe gulp.dest distPath + '/store'
 
 # ==========================
 # other tasks
 # copy non-compiled files
 
 gulp.task "copy-prod", () ->
-  gulp.src ['./src/img/**/*.*', './src/builder/**/*.html'], base: './src'
+  gulp.src ['./src/img/**/*.*', './src/app/**/*.html', './src/builder/**/*.html', './src/store/**/*.html'], base: './src'
     .pipe gp.plumber()
     .pipe gp.changed distPath
     .pipe gulp.dest distPath
