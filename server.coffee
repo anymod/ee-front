@@ -23,6 +23,10 @@ stripe          = require('stripe')(stripeSecretKey)
 # Parent app
 app             = express()
 
+# builder is tool for building storefront; store is actual storefront
+builder         = express()
+store           = express()
+
 forceSsl = (req, res, next) ->
   if req.headers['x-forwarded-proto'] isnt 'https'
     res.redirect [
@@ -49,8 +53,8 @@ redirectToApex = (req, res, next) ->
   return
 
 if process.env.NODE_ENV is 'production'
-  app.use redirectToApex
-  app.use forceSsl
+  builder.use redirectToApex
+  builder.use forceSsl
   app.use morgan 'common'
 else
   app.use morgan 'dev'
@@ -105,10 +109,6 @@ app.use bodyParser.json()
 #       res.status(402).send err
 #     else
 #       res.status(200).send 'OK'
-
-# builder is tool for building storefront; store is actual storefront
-builder         = express()
-store           = express()
 
 builder.use serveStatic(path.join __dirname, 'dist')
 builder.all '/*', (req, res, next) ->

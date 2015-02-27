@@ -1,4 +1,8 @@
-<div ng-if="searching" style="position: fixed; left: 250px; right: 0; top: 0; bottom: 0; background: rgba(255,255,255,0.8); z-index: 1000;"></div>
+<div ng-if="searching"
+     class="position-fixed top-left-bottom-right-0"
+     ng-class="{ 'left-250' : !!toggle }"
+     style="background: rgba(255,255,255,0.8); z-index: 1001;">
+</div>
 
 <nav class="navbar navbar-default margin-0 round-0"
      ng-style="{ 'background-color': user.storefront_meta.home.topBarBackgroundColor }"

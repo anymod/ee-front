@@ -20,6 +20,9 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
     $rootScope.$broadcast 'catalog:query:updated', _query
 
   _removeQuery = (key) -> _addQuery key, null
+  _replaceNaNs = () ->
+    if !!_query and isNaN _query.min then _removeQuery 'min'
+    if !!_query and isNaN _query.max then _removeQuery 'max'
 
   ## Reset
   reset: () ->
@@ -45,11 +48,12 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
   removeQuery: (key) -> _removeQuery key
   logQuery: () -> console.log '_query', _query
   search: () ->
+    deferred = $q.defer()
     # $location.search('min', _query.min)
     # $location.search('max', _query.max)
     # $location.search('categories', _query.categories)
     # $location.search('page', _query.page)
-    deferred = $q.defer()
+    _replaceNaNs()
     if !$cookies.loginToken
       deferred.reject 'Missing login credentials'
     else

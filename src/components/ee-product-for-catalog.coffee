@@ -5,6 +5,8 @@ angular.module('ee-product').directive "eeProductForCatalog", (eeStorefront, eeC
   restrict: 'E'
   scope:
     product: '='
+  controller: ($scope) ->
+    this.setCurrentMargin = (margin) -> $scope.currentMargin = margin
   link: (scope, ele, attr) ->
     scope.overlay = false
     scope.toggleOverlay = () -> scope.overlay = !scope.overlay
@@ -14,8 +16,7 @@ angular.module('ee-product').directive "eeProductForCatalog", (eeStorefront, eeC
     eeCatalog.setCurrentPriceAndCurrentMargin scope, scope.product.baseline_price, eeCatalog.startMargin
 
     eeAuth.getUsername()
-    # TODO hide catalog items that are already in the user's storefront
-    .then (username) -> eeStorefront.getProductInStorefront(scope.product.id)
+    .then (username) -> eeStorefront.getProductInStorefront(username, scope.product.id)
     .then (p_s) -> scope.product_selection = p_s
     .catch () -> scope.product_selection = false
 
