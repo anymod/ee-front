@@ -45,4 +45,4 @@ angular.module('app.core').filter 'rangeToText', () ->
       .replace 'to $0', 'and above'
 
 angular.module('app.core').filter 'addHttp', () ->
-  (text) -> if text.indexOf('http://') isnt 0 and text.indexOf('https://') isnt 0 then 'http://' + text else text
+  (text) -> if !!text and text.indexOf('http://') isnt 0 and text.indexOf('https://') isnt 0 then 'http://' + text else text

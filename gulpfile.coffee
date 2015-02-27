@@ -145,6 +145,7 @@ gulp.task 'js-prod', () ->
     .pipe gp.plumber()
     .pipe gp.replace "# 'ee.templates'", "'ee.templates'" # for store.index.coffee $templateCache
     .pipe gp.replace "'env', 'development'", "'env', 'production'" # TODO use gulp-ng-constant
+    .pipe gp.replace "'demoseller' # username", "username" # allows testing at *.localhost
     .pipe gp.replace /@@eeBackUrl/g, 'https://api.eeosk.com'
     .pipe gp.coffee()
     .pipe gp.ngAnnotate()
@@ -156,41 +157,14 @@ gulp.task 'js-prod', () ->
     .pipe gp.concat 'ee.store.js'
     .pipe gulp.dest distPath
 
-
-# gulp.task 'js-prod-store', () ->
-#   # inline templates; no need for ngAnnotate
-#   eeTemplates = gulp.src ['./src/components/ee*.html']
-#     .pipe gp.htmlmin htmlminOptions
-#     .pipe gp.angularTemplatecache
-#       module: 'ee.templates'
-#       standalone: true
-#       root: 'components'
-#
-#   # builder modules; replace and annotate
-#   eeModules = gulp.src storeModulesSrc
-#     .pipe gp.plumber()
-#     .pipe gp.replace "# 'ee.templates'", "'ee.templates'" # for ee.builder.coffee $templateCache
-#     .pipe gp.replace "'env', 'development'", "'env', 'production'" # TODO use gulp-ng-constant
-#     .pipe gp.replace /@@eeBackUrl/g, 'https://api.eeosk.com'
-#     .pipe gp.coffee()
-#     .pipe gp.ngAnnotate()
-#
-#   vendorMin = gulp.src storeVendorMinSrc
-#
-#   # minified and uglify vendorUnmin, templates, and modules
-#   jsMin = streamqueue objectMode: true, eeTemplates, eeModules
-#     .pipe gp.uglify()
-#
-#   # concat: vendorMin before jsMin because vendorMin has angular
-#   streamqueue objectMode: true, vendorMin, jsMin
-#     .pipe gp.concat 'ee.store.js'
-#     .pipe gulp.dest distPath + '/store'
-
 # ==========================
 # other tasks
 # copy non-compiled files
 
 gulp.task "copy-prod", () ->
+  sameDirFiles = [
+
+  ]
   gulp.src ['./src/img/**/*.*', './src/app/**/*.html', './src/builder/**/*.html', './src/store/**/*.html'], base: './src'
     .pipe gp.plumber()
     .pipe gp.changed distPath
@@ -245,17 +219,15 @@ gulp.task 'server-dev', () ->
     fallback: 'builder.html' # for angular html5mode
     port: 3000
   )
+  gulp.src('./src').pipe gp.webserver(
+    fallback: 'store.html' # for angular html5mode
+    port: 4000
+  )
 
 gulp.task 'server-test-store', () ->
   gulp.src('./src').pipe gp.webserver(
     fallback: 'store.html' # for angular html5mode
     port: 4444
-  )
-
-gulp.task 'server-dev-store', () ->
-  gulp.src('./src').pipe gp.webserver(
-    fallback: 'store.html' # for angular html5mode
-    port: 4000
   )
 
 gulp.task 'server-prod', () -> spawn 'foreman', ['start'], stdio: 'inherit'
@@ -265,22 +237,21 @@ gulp.task 'server-prod', () -> spawn 'foreman', ['start'], stdio: 'inherit'
 
 gulp.task 'watch-dev', () ->
   gulp.src './src/stylesheets/ee*.less'
-    .pipe gp.watch {emit: 'one', name: 'css'}, ['css-dev']
-
-  jsSrc = './src/**/*.coffee'
-  gulp.src jsSrc
-    .pipe gp.watch {emit: 'one', name: 'js'}, ['js-dev']
+    .pipe gp.watch { emit: 'one', name: 'css' }, ['css-dev']
+  gulp.src './src/**/*.coffee'
+    .pipe gp.watch { emit: 'one', name: 'js' }, ['js-dev']
+  gulp.src './src/**/*.html'
+    .pipe gp.watch { emit: 'one', name: 'html' }, ['html-dev']
 
 gulp.task 'watch-test', () ->
   gulp.src './src/stylesheets/ee*.less'
-    .pipe gp.watch {emit: 'one', name: 'css'}, ['css-dev']
-
-  jsSrc = './src/**/*.coffee'
-  gulp.src jsSrc
-    .pipe gp.watch {emit: 'one', name: 'js'}, ['js-test']
-
+    .pipe gp.watch { emit: 'one', name: 'css' }, ['css-dev']
+  gulp.src './src/**/*.coffee'
+    .pipe gp.watch { emit: 'one', name: 'js' }, ['js-test']
+  gulp.src './src/**/*.html'
+    .pipe gp.watch { emit: 'one', name: 'html' }, ['html-dev']
   gulp.src './src/e2e/*e2e*.coffee'
-    .pipe gp.watch {emit: 'one', name: 'test'}, ['protractor-test']
+    .pipe gp.watch { emit: 'one', name: 'test' }, ['protractor-test']
 
 # ===========================
 # runners
@@ -288,8 +259,6 @@ gulp.task 'watch-test', () ->
 gulp.task 'test', ['watch-test', 'server-test'], () -> return
 
 gulp.task 'dev', ['watch-dev', 'server-dev'], () -> return
-
-gulp.task 'dev-store', ['watch-dev', 'server-dev-store'], () -> return
 
 gulp.task 'pre-prod-test', ['css-prod', 'html-prod', 'copy-prod', 'js-prod', 'server-prod'], () ->
   gulp.src './dist/ee.builder.js'

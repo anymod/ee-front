@@ -16,10 +16,10 @@ angular.module('store.core').config ($locationProvider, $stateProvider, $urlRout
             storefront
           .catch () ->
             $rootScope.storeName = 'Not found'
-            'Not found'
-      data:
-        blogLinkActive: true
-        audienceLinkActive: true
+            {
+              storefront_meta: false
+              product_selection: false
+            }
     .state 'app.storefront.home',
       url: '/'
       templateUrl: 'app/storefront/storefront.home.html'
