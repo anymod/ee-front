@@ -9,9 +9,13 @@
         + {{ product.availability_meta.ship_cost | currency }} shipping
       </small>
     </h4>
-    <div ng-bind="product.category" class="label label-primary"></div>
+    <div ng-if="isBuilder" ng-bind="product.category" class="label label-primary"></div>
     <div class="vert-5">
-      <div ng-if="options.removeBtn" class="btn btn-danger" ng-click="removeProductFromStore()">Remove from store</div>
+      <ee-product-selection-button ng-if="isBuilder" product="product"></ee-product-selection-button>
+      <div ng-if="isStore" class="btn btn-primary btn-lg" ng-click="addClicked = true">
+        <span ng-hide="addClicked">Add to cart</span>
+        <span ng-show="addClicked">It's just a demo!</span>
+      </div>
     </div>
     <p ng-bind-html="product.content | unboldHtml"></p>
     <table ng-show="!!product.content_meta" class="table table-condensed table-striped table-bordered">

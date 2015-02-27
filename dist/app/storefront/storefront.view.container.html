@@ -155,10 +155,18 @@
         <!-- TODO implement search on storefront products -->
         <!-- <li><a ui-sref="app.storefront.home" ng-style="{ color: user.storefront_meta.home.topBarColor }"><i class="fa fa-search"></i></a></li> -->
 
-        <li>
-          <a ui-sref="app.storefront.home" ng-style="{ color: user.storefront_meta.home.topBarColor }">
+        <li class="dropdown" ng-click="cartPopoverOpen = !cartPopoverOpen">
+          <a href ng-style="{ color: user.storefront_meta.home.topBarColor }">
             <i class="fa fa-shopping-cart"></i>
           </a>
+          <div class="popover bottom in inline-block"
+               style="top: 42px; left: -73px; width: 120px;"
+               ng-show="cartPopoverOpen">
+            <div class="arrow" style="left: 80%;"></div>
+            <div class="popover-content">
+              Cart coming soon!
+            </div>
+          </div>
         </li>
 
       </ul>

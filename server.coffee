@@ -53,6 +53,7 @@ redirectToApex = (req, res, next) ->
   return
 
 if process.env.NODE_ENV is 'production'
+  # Force SSL and redirect on eeosk properties only
   builder.use redirectToApex
   builder.use forceSsl
   app.use morgan 'common'
@@ -129,6 +130,7 @@ app.use vhost('*.eeosk.com', store)
 app.use vhost('localhost', builder)
 app.use vhost('*.localhost', store)
 
+# Matching for external domains
 app.use vhost('*.*', store)
 app.use vhost('*.*.*', store)
 app.use vhost('*.*.*.*', store)

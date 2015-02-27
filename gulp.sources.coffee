@@ -66,13 +66,13 @@ sources.storeVendorUnmin = [
 
 ### MODULE ###
 sources.appModule = [
+  # Definitions
   './src/app/core/core.module.coffee'
-
   './src/app/core/constants.coffee'
   './src/app/core/filters.coffee'
   './src/app/core/config.coffee'
   './src/app/core/run.coffee'
-
+  # Services
   './src/app/core/svc.back.coffee'
   './src/app/core/svc.storefront.coffee'
   './src/app/core/svc.catalog.coffee'
@@ -123,6 +123,7 @@ sources.storeModule = [
   # Definitions
   './src/store/store.index.coffee'
   './src/store/core/core.module.coffee'
+  './src/store/core/run.coffee'
   './src/store/core/core.route.coffee'
   # Services
   './src/store/core/svc.auth.coffee'
@@ -139,9 +140,9 @@ sources.builderDirective = [
   './src/components/ee-product-detail.coffee'
   './src/components/ee-product-for-catalog.coffee'
   './src/components/ee-product-for-storefront.coffee'
-  './src/components/ee-product-for-overlay.coffee'
   './src/components/ee-shop-nav.coffee'
   './src/components/ee-product-margin-setter.coffee'
+  './src/components/ee-product-selection-button.coffee'
   './src/components/ee-order.coffee'
   './src/components/ee-cloudinary-upload.coffee'
 ]

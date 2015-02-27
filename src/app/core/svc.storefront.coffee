@@ -59,6 +59,9 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $cookies, $q, ee
   reset: () ->
     _setStorefront({})
 
+  isStore: () -> !!$rootScope.isStore
+  isBuilder: () -> !!$rootScope.isBuilder
+
   # getProducts: () -> _getStorefront().then (res) -> _storefront.product_selection
 
   getProductInStorefront: (username, id) -> _getStorefront(username).then () -> _productLookup[id]

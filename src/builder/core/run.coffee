@@ -1,6 +1,7 @@
 'use strict'
 
 angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeStorefront) ->
+  $rootScope.isBuilder = true
 
   openStates = [
     'landing',
