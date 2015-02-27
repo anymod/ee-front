@@ -130,8 +130,7 @@ app.use vhost('localhost', builder)
 app.use vhost('*.localhost', store)
 
 app.use vhost('*.*', store)
-app.use vhost('**.*', store)
-# app.use vhost('*.*.*', store)
+app.use vhost('*.*.*', store)
 # app.use vhost('*.*.*.*', store)
 # app.use vhost('*.*.*.*.*', store)
 
