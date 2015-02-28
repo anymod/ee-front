@@ -165,8 +165,12 @@ angular.module('ee-offscreen').directive "eeOffscreenOrders", () ->
   link: (scope, ele, attrs) -> return
 
 ## Account
-angular.module('ee-offscreen').directive "eeOffscreenAccount", () ->
+angular.module('ee-offscreen').directive "eeOffscreenAccount", (eeAuth) ->
   templateUrl: 'builder/account/account.offscreen.html'
   restrict: 'E'
   scope: {}
-  link: (scope, ele, attrs) -> return
+  link: (scope, ele, attrs) ->
+    eeAuth.userFromToken()
+    .then (user) -> scope.user = user
+    .catch (err) -> console.error err
+    return

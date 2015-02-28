@@ -6,7 +6,7 @@ angular.module('builder.account').config ($stateProvider) ->
     .state 'app.account',
       url: '/account'
       templateUrl: 'builder/account/account.html'
-      controller: 'builder.catalogCtrl'
+      controller: 'builder.accountCtrl'
       data:
         pageTitle: 'Account | eeosk'
         offscreenCategory: 'Account'

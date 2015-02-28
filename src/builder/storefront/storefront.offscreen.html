@@ -1,11 +1,5 @@
 <div class="pad-10">
-  <div class="text-right">
-    <a href="https://{{ user.username }}.eeosk.com" target="_blank" class='btn btn-default btn-sm'>
-      <i class="fa fa-globe"></i>&nbsp;&nbsp;Live
-    </a>
-    <h5 class="pull-left">Store Sections</h5>
-  </div>
-  <div class="vert-5"></div>
+  <h5 class="vert-2">Store Sections</h5>
   <a ui-sref-active="active" ui-sref="app.storefront.home" class="btn btn-default btn-sm btn-block">Home</a>
   <a ng-class="{ active: $state.current.name == 'app.storefront.shop' }" ui-sref="app.storefront.shop({shopCategory: 'All'})" class="btn btn-default btn-sm btn-block">Shop</a>
   <a ui-sref-active="active" ui-sref="app.storefront.blog" class="btn btn-default btn-sm btn-block">Blog</a>

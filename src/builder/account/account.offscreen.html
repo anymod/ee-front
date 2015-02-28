@@ -1,5 +1,39 @@
 <div class="pad-10">
-  Account options
-  <br>
-  <div ui-sref="logout" class="btn btn-sm btn-danger">Log out</div>
+  <h5 class="margin-0">Login&nbsp;&nbsp;<small>this email is private</small></h5>
+  <div class="input-group vert-2">
+    <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+    <input type="text" class="form-control" placeholder="Email" ng-model="user.email" disabled>
+  </div>
+  <div class="btn btn-default btn-block">Change password</div>
+
+  <hr class="vert-10">
+
+  <h5 class="margin-0">Store locations</h5>
+  <div class="input-group vert-2">
+    <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+    <input type="text" class="form-control" placeholder="Username" ng-model="user.username" disabled>
+  </div>
+  <div ng-if="user.username == 'demoseller'" class="input-group vert-2">
+    <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
+    <input type="text" class="form-control" placeholder="http://" ng-model="url" ng-init="url = 'http://demoseller.com'" disabled>
+  </div>
+  <div class="btn btn-default btn-block">Add / Edit Locations</div>
+
+  <hr class="vert-10">
+
+  <h5 class="margin-0">Notifications</h5>
+  <div class="btn btn-default btn-block">Change notifications</div>
+
+  <hr class="vert-10">
+
+  <h5 class="margin-0">Earnings paid to</h5>
+  <div class="input-group vert-2">
+    <span class="input-group-addon"><i class="fa fa-fw fa-bank"></i></span>
+    <input type="text" class="form-control" placeholder="Account name" ng-model="bank" ng-init="bank = 'Wells Fargo *3318'" disabled>
+  </div>
+  <div class="btn btn-default btn-block">Change earnings account</div>
+
+  <hr class="vert-10">
+
+  <div ui-sref="logout" class="btn btn-danger">Log out</div>
 </div>

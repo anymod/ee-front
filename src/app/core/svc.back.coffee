@@ -87,3 +87,10 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       url: eeBackUrl + 'store/' + username + '/all'
       headers: authorization: {}
     }
+
+  ordersGET: (token) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'orders/'
+      headers: authorization: token
+    }

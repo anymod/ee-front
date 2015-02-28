@@ -19,9 +19,16 @@
 
         <div ng-switch on="offscreenCategory">
           <div class="pad-10 {{ offscreenColor }}-background">
-            <div class="vert-15 full-width inline-block"></div>
-            <div class="vert-5 full-width inline-block"></div>
-            <h2 class="margin-0 white-color" ng-bind="offscreenCategory"></h2>
+            <div class="vert-20 full-width inline-block"></div>
+            <div>
+              <a ng-if="offscreenCategory == 'Storefront' && !!user.username"
+                 href="https://{{ user.username }}.eeosk.com"
+                 target="_blank"
+                 class='btn btn-default btn-sm pull-right'>
+                <i class="fa fa-globe"></i>&nbsp;&nbsp;Live
+              </a>
+              <h2 class="margin-0 white-color" ng-bind="offscreenCategory"></h2>
+            </div>
           </div>
           <ee-offscreen-storefront ng-switch-when="Storefront"></ee-offscreen-storefront>
           <ee-offscreen-catalog ng-switch-when="Catalog"></ee-offscreen-catalog>
