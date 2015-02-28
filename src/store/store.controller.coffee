@@ -3,6 +3,7 @@
 angular.module('eeStore').controller 'storeCtrl', ($rootScope, $scope, $http, eeAuth, eeStorefront) ->
   $scope.loading = true
   $scope.user = {}
+  $scope.storefront = {}
   $scope.storeName = 'Loading'
 
   eeAuth.getUsername()
@@ -10,6 +11,7 @@ angular.module('eeStore').controller 'storeCtrl', ($rootScope, $scope, $http, ee
     eeStorefront.storefrontFromUsername(username)
   .then (storefront) ->
     $scope.loading = false
+    $scope.storefront = storefront
     $scope.user.storefront_meta = storefront.storefront_meta
     $rootScope.storeName = storefront.storefront_meta.home.name
   .catch () ->
@@ -17,10 +19,5 @@ angular.module('eeStore').controller 'storeCtrl', ($rootScope, $scope, $http, ee
     $rootScope.storeName = 'Not found'
     $scope.user.storefront_meta =
       home: name: 'Not found'
-
-
-
-  # $scope.storefront = storefront
-
 
   return
