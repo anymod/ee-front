@@ -1,7 +1,15 @@
 <nav id="navtop"
      class="navbar navbar-default navbar-rgba-colors margin-0 round-0"
      ng-style="{ 'background-color': user.storefront_meta.home.topBarBackgroundColor }">
-  <div class="container-fluid">
+
+  <div ng-show="loading" class="container-fluid">
+    <h2 class="inline-block pull-left" style="margin: 7px 7px 0 0">
+      <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>
+    </h2>
+    <a href class="navbar-brand">Loading</a>
+  </div>
+
+  <div ng-hide="loading" class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
@@ -31,13 +39,13 @@
 
         <li ng-class="{ active: $state.current.name == 'app.storefront.blog' }"
             ng-show="$state.current.name == 'app.storefront.blog' || !!user.storefront_meta.blog.url">
-          <a ng-if="!!blogLinkActive" href="{{ user.storefront_meta.blog.url | addHttp }}" target="_blank" ng-style="{ color: user.storefront_meta.home.topBarColor }">Blog</a>
-          <a ng-if="!blogLinkActive" ui-sref="app.storefront.blog" ng-click="navCollapsed = true" ng-style="{ color: user.storefront_meta.home.topBarColor }">
+          <a ng-if="isStore" href="{{ user.storefront_meta.blog.url | addHttp }}" target="_blank" ng-style="{ color: user.storefront_meta.home.topBarColor }">Blog</a>
+          <a ng-if="isBuilder" ui-sref="app.storefront.blog" ng-click="navCollapsed = true" ng-style="{ color: user.storefront_meta.home.topBarColor }">
             Blog
           </a>
           <div class="popover bottom in inline-block"
                style="top: 42px; width: 250px;"
-               ng-show="$state.current.name == 'app.storefront.blog'">
+               ng-show="isBuilder && $state.current.name == 'app.storefront.blog'">
             <div class="arrow" style="left: 12%;"></div>
             <div class="popover-content">
               <div ng-if="user.storefront_meta.blog.url">
@@ -58,7 +66,7 @@
           </a>
           <div class="popover bottom in inline-block"
                style="top: 42px; width: 250px;"
-               ng-show="$state.current.name == 'app.storefront.about' && !user.storefront_meta.about.headline && !user.storefront_meta.about.content">
+               ng-show="isBuilder && $state.current.name == 'app.storefront.about' && !user.storefront_meta.about.headline && !user.storefront_meta.about.content">
             <div class="arrow" style="left: 13%;"></div>
             <div class="popover-content">
               Add something about your store and this section will show.
@@ -81,14 +89,14 @@
 
         <!-- audience: store -->
         <li ng-repeat="site in ['facebook', 'pinterest', 'twitter', 'instagram']"
-            ng-if="!!audienceLinksActive && !!user.storefront_meta.audience.social[site]">
+            ng-if="isStore && !!user.storefront_meta.audience.social[site]">
           <a href="http://{{ site }}.com/{{ user.storefront_meta.audience.social[site] }}"
              target="_blank" class="squeeze-5"
              ng-style="{ color: user.storefront_meta.home.topBarColor }">
             <i class="fa fa-{{ site }}"></i>
           </a>
         </li>
-        <li ng-if="!!audienceLinksActive && !!user.storefront_meta.audience.contact.email">
+        <li ng-if="isStore && !!user.storefront_meta.audience.contact.email">
           <a href="mailto:{{ user.storefront_meta.audience.contact.email }}"
              target="_blank"
              class="squeeze-5"
@@ -99,14 +107,14 @@
 
         <!-- audience: builder -->
         <li ng-repeat="site in ['facebook', 'pinterest', 'twitter', 'instagram']"
-            ng-if="!audienceLinksActive && !!user.storefront_meta.audience.social[site]">
+            ng-if="isBuilder && !!user.storefront_meta.audience.social[site]">
           <a ui-sref="app.storefront.audience"
              class="squeeze-5"
              ng-style="{ color: user.storefront_meta.home.topBarColor }">
             <i class="fa fa-{{ site }}"></i>
           </a>
         </li>
-        <li ng-if="!audienceLinksActive && !!user.storefront_meta.audience.contact.email">
+        <li ng-if="isBuilder && !!user.storefront_meta.audience.contact.email">
           <a ui-sref="app.storefront.audience" class="squeeze-5" ng-style="{ color: user.storefront_meta.home.topBarColor }">
             <i class="fa fa-envelope"></i>
           </a>
@@ -160,11 +168,11 @@
             <i class="fa fa-shopping-cart"></i>
           </a>
           <div class="popover bottom in inline-block"
-               style="top: 42px; left: -73px; width: 120px;"
+               style="top: 42px; left: -100px; width: 145px;"
                ng-show="cartPopoverOpen">
-            <div class="arrow" style="left: 80%;"></div>
+            <div class="arrow" style="left: 84%;"></div>
             <div class="popover-content">
-              Cart coming soon!
+              Cart coming soon
             </div>
           </div>
         </li>
@@ -174,6 +182,6 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<div ng-class="{ 'opacity-01': !!$state.current.data.storeOpacity }">
+<div ng-hide="loading" ng-class="{ 'opacity-01': !!$state.current.data.storeOpacity }">
   <div ui-view class="white-background position-relative"></div>
 </div>
