@@ -3,11 +3,23 @@
 angular.module('app.core').controller 'examplesCtrl', ($scope) ->
   $scope.examples = [
     {
-      name: 'Brick'
-      username: 'brick'
+      name: 'Oranges'
+      username: 'orngs'
+    },{
+      name: 'Concert'
+      username: 'cncrt'
     },{
       name: 'Bridge'
       username: 'brdge'
+    },{
+      name: 'Desk'
+      username: 'desk1'
+    },{
+      name: 'Desk 2'
+      username: 'desk2'
+    },{
+      name: 'Brick'
+      username: 'brick'
     },{
       name: 'Book'
       username: 'book_'
@@ -18,17 +30,8 @@ angular.module('app.core').controller 'examplesCtrl', ($scope) ->
       name: 'Coffee'
       username: 'cffee'
     },{
-      name: 'Concert'
-      username: 'cncrt'
-    },{
-      name: 'Desk'
-      username: 'desk1'
-    },{
       name: 'Desert'
       username: 'dsert'
-    },{
-      name: 'Desk 2'
-      username: 'desk2'
     },{
       name: 'Drops'
       username: 'drops'
@@ -44,9 +47,6 @@ angular.module('app.core').controller 'examplesCtrl', ($scope) ->
     },{
       name: 'Open Road'
       username: 'oroad'
-    },{
-      name: 'Oranges'
-      username: 'orngs'
     },{
       name: 'Purple Flowers'
       username: 'prplf'

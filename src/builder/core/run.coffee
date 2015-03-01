@@ -7,7 +7,8 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
     'landing',
     'login',
     'about',
-    'signup'
+    'signup',
+    'examples'
   ]
 
   isOpen = (state) -> openStates.indexOf(state) >= 0
