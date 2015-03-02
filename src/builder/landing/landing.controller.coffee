@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('builder.landing').controller 'landingCtrl', ($scope, $location, $anchorScroll) ->
-  $scope.scrollToMore = ->
+  $scope.scrollToMore = () ->
     # Scroll to more section
     $location.hash 'more'
     $anchorScroll()

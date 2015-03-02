@@ -22,10 +22,10 @@ angular.module('app.core').controller 'examplesCtrl', ($scope) ->
       username: 'brick'
     },{
       name: 'Book'
-      username: 'book_'
+      username: 'book'
     },{
       name: 'City'
-      username: 'city_'
+      username: 'city'
     },{
       name: 'Coffee'
       username: 'cffee'
@@ -40,7 +40,7 @@ angular.module('app.core').controller 'examplesCtrl', ($scope) ->
       username: 'ferns'
     },{
       name: 'Fish'
-      username: 'fish_'
+      username: 'fish'
     },{
       name: 'Golden Light'
       username: 'gldnl'
