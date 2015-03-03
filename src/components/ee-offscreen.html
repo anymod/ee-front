@@ -1,4 +1,5 @@
-<div class="open-nav {{ offscreenColor }}-background max-width-250" ng-class="{ open: toggle, narrow: narrowToggle }">
+<div class="open-nav {{ offscreenColor }}-background max-width-250"
+     ng-class="{ open: toggle, narrow: narrowToggle }">
   <div ng-if="narrowToggle" ui-sref="app.storefront.home" class="btn btn-primary margin-right-4" ng-class="{ active: offscreenCategory == 'Storefront' }">
     <i class="fa fa-fw fa-home"></i>
   </div><div ng-if="narrowToggle" ui-sref="app.catalog" class="btn btn-warning margin-right-4" ng-class="{ active: offscreenCategory == 'Catalog' }">

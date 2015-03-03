@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.auth').controller 'loginCtrl', ($scope, $state, eeAuth) ->
+angular.module('builder.auth').controller 'loginCtrl', ($scope, $rootScope, $state, eeAuth) ->
   $scope.alert = ''
 
   setBtnText    = (txt) -> $scope.btnText = txt
@@ -15,9 +15,9 @@ angular.module('builder.auth').controller 'loginCtrl', ($scope, $state, eeAuth) 
     setBtnText 'Sending...'
     eeAuth.setUserFromCredentials($scope.email, $scope.password)
     .then () ->
-      $state.go 'welcome'
       # TODO direct user based on first time logging in, number of products, etc
-      # $state.go 'app.storefront.home'
+      $rootScope.welcome_1 = true
+      $state.go 'app.storefront.home'
     .catch (err) ->
       resetBtnText()
       alert = err.message || err || 'Problem logging in'
