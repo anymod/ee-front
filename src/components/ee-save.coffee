@@ -7,7 +7,6 @@ angular.module('ee-save').directive "eeSave", ($timeout, eeAuth) ->
   link: (scope, ele, attr) ->
     scope.userIsSaved = eeAuth.userIsSaved()
     scope.text = 'Saved'
-    scope.userSaveSuccess = true
 
     eeAuth.setScopeUser(scope)
 

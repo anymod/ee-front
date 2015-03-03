@@ -8,8 +8,7 @@ angular.module('builder.core').factory 'eeSelection', ($rootScope, $cookies, $q,
   _removeSelection = (id) ->
     $rootScope.$broadcast 'selection:removed', id
 
-  reset: () ->
-    return
+  reset: () -> return
 
   createSelection: (product, margin) ->
     deferred = $q.defer()

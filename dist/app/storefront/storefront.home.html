@@ -29,7 +29,8 @@
 
 <div class="featured">
   <div class="full-width pad-10"></div>
-  <div class="container-fluid">
+  <div ng-if="!!product_selection && product_selection.length > 0" class="container-fluid">
+    <pre>{{ product_selection | json }}</pre>
     <div class="row">
       <div class="col col-md-offset-1 col-xs-4 col-md-2 overflow-hidden">
         <h4 class="margin-0">Products</h4>

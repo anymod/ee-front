@@ -28,8 +28,9 @@
 </div>
 
 <div class="featured">
-  <div class="full-width pad-10"></div>
-  <div class="container-fluid">
+
+  <div ng-if="storefront.product_selection.length > 0" class="container-fluid">
+    <div class="full-width pad-10"></div>
     <div class="row">
       <div class="col col-md-offset-1 col-xs-4 col-md-2 overflow-hidden">
         <h4 class="margin-0">Products</h4>
@@ -47,4 +48,14 @@
       </div>
     </div>
   </div>
+
+  <div ng-if="storefront.product_selection.length <= 0" class="pad-10">
+    <h2 class="full-width text-center">Coming soon</h2>
+    <p ng-if="isBuilder" class="full-width text-center">
+      (&nbsp;<a ui-sref="app.catalog">add products</a>&nbsp;and they will appear here&nbsp;)
+    </p>
+  </div>
+
 </div>
+
+<ee-welcome ng-if="welcome">foobar</ee-welcome>

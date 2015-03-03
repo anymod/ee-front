@@ -35,7 +35,9 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
         deferred.reject err
     deferred.promise
 
-  reset: () -> _resetUser()
+  reset: () ->
+    _resetUser()
+    return
 
   getToken: ()  -> $cookies.loginToken
   hasToken: ()  -> !!$cookies.loginToken

@@ -12,6 +12,12 @@ angular.module('builder.storefront').config ($stateProvider) ->
         pageTitle: 'Build your store | eeosk'
         offscreenCategory: 'Storefront'
         offscreenColor: 'blue'
+    .state 'app.storefront.welcome',
+      url: '/welcome'
+      templateUrl: 'app/storefront/storefront.home.html'
+      controller: 'builder.storefrontChildCtrl'
+      data:
+        welcome: true
     .state 'app.storefront.home',
       url: '/home'
       templateUrl: 'app/storefront/storefront.home.html'

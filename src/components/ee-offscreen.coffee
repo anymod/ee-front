@@ -11,7 +11,7 @@ angular.module('ee-offscreen').directive "eeOffscreen", ($rootScope) ->
     offscreenColor: '='
   link: (scope, ele, attrs) ->
     scope.$on '$stateChangeSuccess', (event, toState) ->
-      $rootScope.toggle = toState.name.indexOf('app.') is 0
+      if toState.name.indexOf('app.') is 0 then $rootScope.toggle = true
       scope.toggle = $rootScope.toggle
 
     scope.$on 'auth:user:updated', (e, data) ->

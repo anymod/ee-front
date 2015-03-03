@@ -147,12 +147,15 @@ sources.builderDirective = [
   './src/components/ee-product-selection-button.coffee'
   './src/components/ee-order.coffee'
   './src/components/ee-cloudinary-upload.coffee'
+  './src/components/ee-store-footer.coffee'
+  './src/components/ee-welcome.coffee'
 ]
 sources.storeDirective = [
   './src/components/ee-product.coffee'
   './src/components/ee-product-detail.coffee'
   './src/components/ee-product-for-storefront.coffee'
   './src/components/ee-shop-nav.coffee'
+  './src/components/ee-store-footer.coffee'
 ]
 
 module.exports = sources

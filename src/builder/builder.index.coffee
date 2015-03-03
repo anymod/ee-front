@@ -28,6 +28,7 @@ angular.module 'eeBuilder', [
   # custom
   'ee-navbar'
   'ee-save'
+  'ee-welcome'
   'ee-offscreen'
   'ee-product'
   'ee-order'

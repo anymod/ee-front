@@ -6,16 +6,6 @@ angular.module('builder.core').factory 'eeOrders', ($cookies, $q, eeBack, $http)
   _setOrders  = (order_array) -> _orders = order_array
   _ordersIsEmpty = () -> (Object.keys(_orders).length is 0)
 
-  reset: () -> return
-
-  # getOrders: () ->
-  #   # _orders
-  #   deferred = $q.defer()
-  #   $http.get '/orders.json'
-  #     .success (data) -> deferred.resolve data;
-  #     .error (data) -> deferred.resolve data;
-  #   deferred.promise
-
   dummyOrder = (storefront) ->
     if storefront?.product_selection?.length > 0
       orders = []
@@ -32,6 +22,16 @@ angular.module('builder.core').factory 'eeOrders', ($cookies, $q, eeBack, $http)
         orders.push order
       createOrder(product) for product in storefront.product_selection
       orders
+
+  reset: () -> return
+
+  # getOrders: () ->
+  #   # _orders
+  #   deferred = $q.defer()
+  #   $http.get '/orders.json'
+  #     .success (data) -> deferred.resolve data;
+  #     .error (data) -> deferred.resolve data;
+  #   deferred.promise
 
   getOrders: (opts) ->
     deferred = $q.defer()

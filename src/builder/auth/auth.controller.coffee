@@ -14,7 +14,10 @@ angular.module('builder.auth').controller 'loginCtrl', ($scope, $state, eeAuth) 
     $scope.alert = ''
     setBtnText 'Sending...'
     eeAuth.setUserFromCredentials($scope.email, $scope.password)
-    .then () -> $state.go 'app.storefront.home'
+    .then () ->
+      $state.go 'welcome'
+      # TODO direct user based on first time logging in, number of products, etc
+      # $state.go 'app.storefront.home'
     .catch (err) ->
       resetBtnText()
       alert = err.message || err || 'Problem logging in'
