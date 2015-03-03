@@ -26,6 +26,7 @@
 @ee-light-gray: #F6F6F6;
 @ee-light-dark: #DDDDDD;
 @ee-push-height: 40px;
+@ee-store-push-height: 80px;
 @ee-navbar-top-height: 0px;
 @ee-xxs-width: 480px;
 
@@ -63,6 +64,19 @@ body.no-scroll { height: 100%; overflow: hidden; }
 #wrap { height: auto !important; min-height: 100%; margin-bottom: -@ee-push-height; }
 #main-region { overflow: auto; }
 #push, #footer-region { height: @ee-push-height; }
+
+#store-wrap { height: auto !important; min-height: 100%; margin-bottom: -@ee-push-height; }
+#store-main-region { overflow: auto; }
+#store-push { height: @ee-store-push-height; }
+#store-footer-region {
+  height: @ee-push-height;
+  font-size: 0.9em;
+  li > a {
+    padding: 0px;
+    background: none;
+    color: @ee-blue;
+  }
+}
 
 .e-brand {
   background-image: none !important;
@@ -488,7 +502,7 @@ ee-offscreen-storefront {
 }
 
 .storefront-carousel {
-  max-height: 400px;
+  max-height: 500px;
   background: @gray-lighter;
   .position-absolute { top: 25%; }
   .well {

@@ -1,5 +1,4 @@
-<div class="position-relative"
-     ng-show="!!user.storefront_meta.about.headline || !!user.storefront_meta.about.content">
+<div class="position-relative" ng-class="{ 'opacity-01': !user.storefront_meta.about.headline && !user.storefront_meta.about.byline }">
   <img ng-src="{{ user.storefront_meta.about.imgUrl }}" class="img-responsive full-width">
   <div class="position-absolute hidden-xs"
        style="top: 60px; width: 80%; left: 10%;">

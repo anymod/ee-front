@@ -3,14 +3,13 @@
 
 <head>
   <title ng-bind="$state.current.data.pageTitle"></title>
-  <meta name="description" content="{{ $state.current.data.pageDescription }}">
-
   <meta charset="utf-8">
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!--enable crawling w/ googlebot, per:-->
   <!--https://developers.google.com/webmasters/ajax-crawling/docs/getting-started-->
   <meta name="fragment" content="!">
+  <meta name="description" content="Create your own store from a catalog of products" ng-bind="$state.current.data.pageDescription">
 
   <base href="/">
   <link rel="shortcut icon" href="img/eeosk_e_128x128.png" type="image/x-icon">
@@ -29,7 +28,7 @@
   </ee-offscreen>
 
   <div class="nav-wrapper" ng-class="{ open: toggle }">
-    <div ui-view autoscroll="true" class="white-background"></div>
+    <div ui-view autoscroll="true" class="white-background full-height"></div>
   </div>
 
   <!-- Do not edit inside of build block; it is auto-generated -->
