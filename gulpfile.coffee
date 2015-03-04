@@ -248,8 +248,6 @@ gulp.task 'watch-test', () ->
     .pipe gp.watch { emit: 'one', name: 'css' }, ['css-dev']
   gulp.src './src/**/*.coffee'
     .pipe gp.watch { emit: 'one', name: 'js' }, ['js-test']
-  # gulp.src './src/**/*.html'
-  #   .pipe gp.watch { emit: 'one', name: 'html' }, ['html-dev']
   gulp.src './src/e2e/*e2e*.coffee'
     .pipe gp.watch { emit: 'one', name: 'test' }, ['protractor-test']
 
