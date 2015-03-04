@@ -19,7 +19,7 @@ describe 'eeosk storefront home', () ->
       alert:                  element byAttr.css  '.alert'
       save:                   element byAttr.name 'save'
       navbar:                 element byAttr.css  '.navbar.navbar-rgba-colors'
-      navbarBrand:            element byAttr.css  '.navbar .navbar-brand'
+      navbarBrand:            element byAttr.css  '.navbar .navbar-header .navbar-brand'
       carouselImg:            element byAttr.css  '.carousel img'
       carouselWell:           element byAttr.css  '.carousel .position-absolute'
       carouselWellH3:         element byAttr.css  '.carousel .well h3'
@@ -55,12 +55,13 @@ describe 'eeosk storefront home', () ->
   describe 'changing and updating store', () ->
 
     it 'should reflect changes to the store name', () ->
-      elem.name                   .getAttribute('value').should.eventually.equal 'Common Deer'
-      elem.navbarBrand            .getText().should.eventually.equal 'Common Deer'
+      elem.name                   .getAttribute('value').should.eventually.equal ''
+      elem.navbarBrand            .getText().should.eventually.equal ''
       elem.name                   .clear().sendKeys newVal.name
       elem.navbarBrand            .getText().should.eventually.equal newVal.name
 
     it 'should reflect changes to the navbar colors', () ->
+      # TODO read appropriate color and then compare
       elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(246, 246, 246)'
       elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(34, 34, 34)'
       elem.topBarColor            .clear().sendKeys newVal.topBarColor

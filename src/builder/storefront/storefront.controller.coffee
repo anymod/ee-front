@@ -2,14 +2,13 @@
 
 angular.module('builder.storefront').controller 'builder.storefrontRootCtrl', ($scope, user, eeStorefront, eeAuth) ->
   $scope.user = user
+  
+  $scope.$on 'storefront:updated', (e, storefront) ->
+    $scope.storefront = storefront
 
   eeAuth.getUsername()
   .then (username) -> eeStorefront.storefrontFromUsername(username)
-  .then (storefront) ->
-    console.log 'storefront', storefront
-    $scope.storefront = storefront
-  $scope.$on 'storefront:updated', (e, storefront) ->
-    $scope.storefront = storefront
+  .then (storefront) -> $scope.storefront = storefront
 
   return
 

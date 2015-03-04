@@ -12,14 +12,14 @@ random_string       = () -> Math.random().toString(36).replace(/[^a-z]+/g, '').s
 random_string_const = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0,5)
 
 utils.test_admin =
-  username:       'test_admin'
-  email:          'test_admin@foo.bar'
+  username:       'test-admin'
+  email:          'test-admin@foo.bar'
   password:       'foobarbaz'
   password_hash:  '$2a$05$YB1MyntOM2MHwODctZBy7O.GmpfrLm6xlZZxB30IpR3Ushi7auCaC'
 
 utils.test_user =
-  username:       'test_user'
-  email:          'test_user@foo.bar'
+  username:       'test-user'
+  email:          'test-user@foo.bar'
   password:       'foobarbaz'
   password_hash:  '$2a$05$YB1MyntOM2MHwODctZBy7O.GmpfrLm6xlZZxB30IpR3Ushi7auCaC'
 
@@ -84,6 +84,7 @@ if process.env.NODE_ENV is 'test'
       scope.admin_user = body.user
       sequelize.query 'UPDATE "Users" SET "admin"=true WHERE "username"=\'' + body.user.username + '\';'
       body
+    .catch (err) -> throw err
 
   utils.create_products = (n) ->
     createOps = []

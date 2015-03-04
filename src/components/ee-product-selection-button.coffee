@@ -7,8 +7,11 @@ angular.module('ee-product').directive "eeProductSelectionButton", (eeSelection,
     product: '='
   link: (scope, ele, attr, eeProductForCatalogCtrl) ->
     scope.removeProductFromStore = () ->
-      eeSelection.deleteSelection(scope.product.selection_id)
-      .then () -> eeAuth.getUsername()
-      .then (username) -> eeStorefront.storefrontFromUsername(username, true)
+      name = ''
+      eeAuth.getUsername()
+      .then (username) ->
+        name = username
+        eeSelection.deleteSelection(scope.product.selection_id)
       .catch (err) -> console.error err
+      .finally () -> eeStorefront.storefrontFromUsername(name, true)
     return
