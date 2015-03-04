@@ -61,24 +61,25 @@ describe 'eeosk storefront home', () ->
       elem.navbarBrand            .getText().should.eventually.equal newVal.name
 
     it 'should reflect changes to the navbar colors', () ->
-      # TODO read appropriate color and then compare
-      elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(246, 246, 246)'
-      elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(34, 34, 34)'
+      topBarRgb           = utils.hex_to_rgb scope.user.storefront_meta.home.topBarColor
+      topBarBackgroundRgb = utils.hex_to_rgb scope.user.storefront_meta.home.topBarBackgroundColor
+      elem.navbarBrand            .getAttribute('style').should.eventually.contain topBarRgb
+      elem.navbar                 .getAttribute('style').should.eventually.contain topBarBackgroundRgb
       elem.topBarColor            .clear().sendKeys newVal.topBarColor
       elem.topBarBackgroundColor  .clear().sendKeys newVal.topBarBackgroundColor
       elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(0, 0, 0)'
       elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(255, 255, 255)'
 
     it 'should reflect changes to the carousel', () ->
-      elem.carouselHeadline       .getAttribute('value').should.eventually.equal 'TOPO DESIGNS'
+      elem.carouselHeadline       .getAttribute('value').should.eventually.equal 'Lorem Ipsum'
       elem.carouselHeadline       .clear().sendKeys newVal.carouselHeadline
       elem.carouselHeadline       .getAttribute('value').should.eventually.equal newVal.carouselHeadline
 
-      elem.carouselByline         .getAttribute('value').should.eventually.equal 'OUR FAVORITE PACKS'
+      elem.carouselByline         .getAttribute('value').should.eventually.equal 'Dolores Sunt Amet'
       elem.carouselByline         .clear().sendKeys newVal.carouselByline
       elem.carouselByline         .getAttribute('value').should.eventually.equal newVal.carouselByline
 
-      elem.carouselBtnText        .getAttribute('value').should.eventually.equal 'SHOP NOW'
+      elem.carouselBtnText        .getAttribute('value').should.eventually.equal 'Shop Now'
       elem.carouselBtnText        .clear().sendKeys newVal.carouselBtnText
       elem.carouselBtnText        .getAttribute('value').should.eventually.equal newVal.carouselBtnText
 

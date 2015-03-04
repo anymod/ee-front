@@ -248,15 +248,15 @@ gulp.task 'watch-test', () ->
     .pipe gp.watch { emit: 'one', name: 'css' }, ['css-dev']
   gulp.src './src/**/*.coffee'
     .pipe gp.watch { emit: 'one', name: 'js' }, ['js-test']
-  gulp.src './src/**/*.html'
-    .pipe gp.watch { emit: 'one', name: 'html' }, ['html-dev']
+  # gulp.src './src/**/*.html'
+  #   .pipe gp.watch { emit: 'one', name: 'html' }, ['html-dev']
   gulp.src './src/e2e/*e2e*.coffee'
     .pipe gp.watch { emit: 'one', name: 'test' }, ['protractor-test']
 
 # ===========================
 # runners
 
-gulp.task 'test', ['watch-test', 'server-test'], () -> return
+gulp.task 'test', ['html-dev', 'watch-test', 'server-test'], () -> return
 
 gulp.task 'dev', ['watch-dev', 'server-dev'], () -> return
 

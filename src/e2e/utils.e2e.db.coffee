@@ -170,6 +170,7 @@ if process.env.NODE_ENV is 'test'
     .then () -> utils.create_user(utils.test_user)
     .then (data) ->
       scope.token = data.token
+      scope.user = data.user
       utils.create_products(10)
     .then (products) ->
       scope.products = products
@@ -184,5 +185,9 @@ if process.env.NODE_ENV is 'test'
       scope.products = scope.products.concat products
       utils.log_in scope.token
       scope
+
+  utils.hex_to_rgb = (hex) ->
+    result = (/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i).exec(hex)
+    'color: rgb(' + parseInt(result[1], 16) + ', ' + parseInt(result[2], 16) + ', ' + parseInt(result[3], 16) + ')'
 
 module.exports = utils
