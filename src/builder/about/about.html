@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top e-brand">
+<div class="navbar navbar-fixed-top eee-brand">
   <div class="container">
     <div class="navbar-form pad-0 no-shadow">
       <h3 class="white-color inline-block margin-5 pad-left-20">about eeosk</h3>
@@ -28,7 +28,7 @@
           <img ng-repeat="product in products"
                ng-src="https://s3.amazonaws.com/eeosk/products/{{ product.images[0] }}"
                ng-click="clickProd = !clickProd; $parent.baselinePrice = product.baselinePrice; $parent.sellerPrice = 1.10 * $parent.baselinePrice"
-               ng-class="{ 'e-brand': clickProd }"
+               ng-class="{ 'eee-brand': clickProd }"
                class="thumbnail max-height-80 max-width-80 height-auto width-auto inline-block margin-2 hover-pointer">
         </div>
         <div class="text-center vert-10">

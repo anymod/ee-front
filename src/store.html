@@ -18,8 +18,8 @@
 </head>
 
 <body>
-  <div class="nav-wrapper" ng-class="{ open: toggle }">
-    <div ui-view autoscroll="true" class="white-background full-height"></div>
+  <div class="nav-wrapper full-height position-relative" ng-class="{ open: toggle }">
+    <div ui-view autoscroll="true" class="white-background position-absolute top-left-bottom-right-0"></div>
   </div>
 
   <!-- Do not edit inside of build block; it is auto-generated -->
@@ -45,12 +45,14 @@
   <script src="js/store/core/run.js"></script>
   <script src="js/store/core/core.route.js"></script>
   <script src="js/store/core/svc.auth.js"></script>
+  <script src="js/store/core/svc.cart.js"></script>
   <script src="js/store/store.controller.js"></script>
+  <script src="js/components/ee-cart-li.js"></script>
+  <script src="js/components/ee-button-add-to-cart.js"></script>
   <script src="js/components/ee-product.js"></script>
   <script src="js/components/ee-product-detail.js"></script>
   <script src="js/components/ee-product-for-storefront.js"></script>
   <script src="js/components/ee-shop-nav.js"></script>
-  <script src="js/components/ee-store-footer.js"></script>
   <!-- endbuild -->
 
 </body>

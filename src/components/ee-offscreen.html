@@ -12,49 +12,53 @@
     <div class="icon"></div>
   </div>
 </div>
-<nav ng-class="{ open: toggle }" class="position-fixed full-height white-background">
-  <div id="wrap" class="width-250 light-{{ offscreenColor }}-background">
 
-    <div class="width-250">
-      <div ng-if="offscreenCategory">
+<nav ng-class="{ open: toggle }" class="position-fixed full-height light-{{ offscreenColor }}-background" style="overflow-x: hidden;">
+  <div class="position-relative full-height">
+    <div id="wrap" class="width-250">
 
-        <div ng-switch on="offscreenCategory">
-          <div class="pad-10 {{ offscreenColor }}-background">
-            <div class="vert-20 full-width inline-block"></div>
-            <div>
-              <a ng-if="offscreenCategory == 'Storefront' && !!user.username"
-                 href="https://{{ user.username }}.eeosk.com"
-                 target="_blank"
-                 class='btn btn-default btn-sm pull-right'>
-                <i class="fa fa-globe"></i>&nbsp;&nbsp;Live
-              </a>
-              <h2 class="margin-0 white-color" ng-bind="offscreenCategory"></h2>
-            </div>
+      <div id="main-region">
+        <div class="width-250">
+          <div ng-if="offscreenCategory">
+
+            <div ng-switch on="offscreenCategory">
+              <div class="pad-10 {{ offscreenColor }}-background">
+                <div class="vert-20 full-width inline-block"></div>
+                <div>
+                  <a ng-if="offscreenCategory == 'Storefront' && !!user.username"
+                     href="https://{{ user.username }}.eeosk.com"
+                     target="_blank"
+                     class='btn btn-default btn-sm pull-right'>
+                    <i class="fa fa-globe"></i>&nbsp;&nbsp;Live
+                  </a>
+                  <h2 class="margin-0 white-color" ng-bind="offscreenCategory"></h2>
+                </div>
+              </div>
+              <ee-offscreen-storefront ng-switch-when="Storefront"></ee-offscreen-storefront>
+              <ee-offscreen-catalog ng-switch-when="Catalog"></ee-offscreen-catalog>
+              <ee-offscreen-orders ng-switch-when="Orders"></ee-offscreen-orders>
+              <ee-offscreen-account ng-switch-when="Account"></ee-offscreen-account>
+            </div> <!-- /ng-switch on=offscreenCategory -->
+
           </div>
-          <ee-offscreen-storefront ng-switch-when="Storefront"></ee-offscreen-storefront>
-          <ee-offscreen-catalog ng-switch-when="Catalog"></ee-offscreen-catalog>
-          <ee-offscreen-orders ng-switch-when="Orders"></ee-offscreen-orders>
-          <ee-offscreen-account ng-switch-when="Account"></ee-offscreen-account>
+
+          <ee-offscreen-default ng-if="!offscreenCategory"></ee-offscreen-default>
+
         </div>
-
       </div>
 
-      <ee-offscreen-default ng-if="!offscreenCategory"></ee-offscreen-default>
-
-    </div> <!-- /ng-switch on=offscreen -->
-
-    <div id="push"></div>
-  </div> <!-- /wrap -->
-
-
-  <div id="footer-region">
-    <div class="container">
-      <div>
-        <a ui-sref="landing">home</a>&nbsp;&nbsp;
-        <a href="mailto:team@eeosk.com" target="_blank">contact</a>
+      <div id="footer-region">
+        <div class="container">
+          <div>
+            <a ui-sref="landing">home</a>&nbsp;&nbsp;
+            <a href="mailto:team@eeosk.com" target="_blank">contact</a>
+          </div>
+          <div class="text-muted">&copy; eeosk 2014</div>
+        </div>
       </div>
-      <div class="text-muted">&copy; eeosk 2014</div>
-    </div>
+
+    </div> <!-- /wrap -->
   </div>
+
 
 </nav>

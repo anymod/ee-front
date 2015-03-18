@@ -1,3 +1,3 @@
 'use strict'
 
-module = angular.module 'ee-product', ['ngSanitize']
+angular.module 'ee-product', ['ngSanitize']

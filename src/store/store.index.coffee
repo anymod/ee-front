@@ -16,6 +16,7 @@ angular.module 'eeStore', [
   'store.core'
 
   # custom
+  'ee-button-add-to-cart'
   'ee-product'
   # 'ee-offscreen'
   # 'ee.templates' # commented out during build step for inline templates

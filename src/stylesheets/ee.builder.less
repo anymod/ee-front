@@ -8,6 +8,7 @@
 
 @icon-font-path: "../bower_components/bootstrap/fonts/";
 @fa-font-path: "../bower_components/font-awesome/fonts/";
+@grid-gutter-width: 20px;
 
 // ======================
 // custom var
@@ -58,18 +59,28 @@
 }
 .pad-top-navbar { padding-top: 50px; }
 
-html, body { height: 100%; }
+html, body { height: 100%; margin: 0; padding: 0; }
 html.nav-open, body.nav-open { overflow: hidden; }
 body.no-scroll { height: 100%; overflow: hidden; }
-#wrap { height: auto !important; min-height: 100%; margin-bottom: -@ee-push-height; }
+/* #wrap { height: auto !important; min-height: 100%; margin-bottom: -@ee-push-height; }
 #main-region { overflow: auto; }
-#push, #footer-region { height: @ee-push-height; }
+#push, #footer-region { height: @ee-push-height; } */
 
-#store-wrap { height: auto !important; min-height: 100%; margin-bottom: -@ee-push-height; }
-/* #store-main-region { overflow: auto; } */
-#store-push { height: @ee-store-push-height; }
+#wrap,
+#store-wrap {
+	min-height: 100%;
+	position: relative;
+}
+#main-region,
+#store-main-region { padding-bottom: -@ee-push-height; }
+#footer-region,
 #store-footer-region {
-  height: @ee-push-height;
+	width: 100%;
+	height: @ee-push-height;
+  padding-top: 20px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
   font-size: 0.9em;
   li > a {
     padding: 0px;
@@ -78,7 +89,27 @@ body.no-scroll { height: 100%; overflow: hidden; }
   }
 }
 
-.e-brand {
+
+/* #store-wrap {
+  height: auto !important;
+  min-height: 100%;
+  margin-bottom: -@ee-push-height;
+} */
+/* #store-push { height: @ee-store-push-height; } */
+/* #store-footer-region {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: @ee-push-height;
+  font-size: 0.9em;
+  li > a {
+    padding: 0px;
+    background: none;
+    color: @ee-blue;
+  }
+} */
+
+.ee-brand {
   background-image: none !important;
   background: @ee-blue !important;
   background-color: @ee-blue !important;
@@ -109,6 +140,7 @@ body.no-scroll { height: 100%; overflow: hidden; }
 .white-color { color: white; }
 .blue-color { color: @ee-blue; }
 .gold-color { color: @ee-gold; }
+.gray-color { color: @gray; }
 .gray-border { border: 1px solid @ee-gray; }
 .dark-gray-border { border: 1px solid @ee-dark-gray; }
 .no-shadow { box-shadow: none; -webkit-box-shadow: none; }
@@ -144,7 +176,9 @@ body.no-scroll { height: 100%; overflow: hidden; }
 .margin-0 { margin: 0px !important; }
 .margin-2 { margin: 2px; }
 .margin-5 { margin: 5px; }
+.margin-10 { margin: 10px; }
 .margin-15 { margin: 15px; }
+.margin-20 { margin: 20px; }
 .margin-0-auto { margin: 0 auto; }
 .margin-top-0 { margin-top: 0px !important; }
 .margin-right-4 { margin-right: 4px; }
@@ -173,6 +207,7 @@ body.no-scroll { height: 100%; overflow: hidden; }
 .height-0 { height: 0px; }
 .height-50 { height: 50px; }
 .width-25 { width: 25px; }
+.width-35 { width: 35px; }
 .width-250 { width: 250px; }
 .width-160 { width: 160px; }
 .width-120 { width: 120px; }

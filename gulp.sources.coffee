@@ -88,6 +88,7 @@ sources.builderModule = [
   './src/builder/core/svc.auth.coffee'
   './src/builder/core/svc.orders.coffee'
   './src/builder/core/svc.selection.coffee'
+  './src/builder/core/svc.cart.coffee'
   # Module - auth
   './src/builder/auth/auth.module.coffee'
   './src/builder/auth/auth.route.coffee'
@@ -129,6 +130,7 @@ sources.storeModule = [
   './src/store/core/core.route.coffee'
   # Services
   './src/store/core/svc.auth.coffee'
+  './src/store/core/svc.cart.coffee'
   # Module - store
   './src/store/store.controller.coffee'
 ]
@@ -142,20 +144,21 @@ sources.builderDirective = [
   './src/components/ee-product-detail.coffee'
   './src/components/ee-product-for-catalog.coffee'
   './src/components/ee-product-for-storefront.coffee'
+  # './src/components/ee-cart-li.coffee'
   './src/components/ee-shop-nav.coffee'
   './src/components/ee-product-margin-setter.coffee'
   './src/components/ee-product-selection-button.coffee'
   './src/components/ee-order.coffee'
   './src/components/ee-cloudinary-upload.coffee'
-  './src/components/ee-store-footer.coffee'
   './src/components/ee-welcome.coffee'
 ]
 sources.storeDirective = [
+  # './src/components/ee-cart-li.coffee'
+  './src/components/ee-button-add-to-cart.coffee'
   './src/components/ee-product.coffee'
   './src/components/ee-product-detail.coffee'
   './src/components/ee-product-for-storefront.coffee'
   './src/components/ee-shop-nav.coffee'
-  './src/components/ee-store-footer.coffee'
 ]
 
 module.exports = sources

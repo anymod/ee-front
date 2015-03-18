@@ -12,10 +12,7 @@
     <div ng-if="isBuilder" ng-bind="product.category" class="label label-primary"></div>
     <div class="vert-5">
       <ee-product-selection-button ng-if="isBuilder && isntCatalog" product="product"></ee-product-selection-button>
-      <div ng-if="isStore" class="btn btn-primary btn-lg" ng-click="addClicked = true">
-        <span ng-hide="addClicked">Add to cart</span>
-        <span ng-show="addClicked">It's just a demo!</span>
-      </div>
+      <ee-button-add-to-cart ng-if="isStore" product="product"></ee-button-add-to-cart>
     </div>
     <p ng-bind-html="product.content | unboldHtml"></p>
     <table ng-show="!!product.content_meta" class="table table-condensed table-striped table-bordered">
