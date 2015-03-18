@@ -27,6 +27,10 @@ angular.module('store.core').config ($locationProvider, $stateProvider, $urlRout
       url: '/cart'
       templateUrl: 'store/cart/cart.html'
       controller: 'storeCtrl'
+    .state 'app.storefront.success',
+      url: '/cart/success'
+      templateUrl: 'store/cart/success.html'
+      controller: 'storeCtrl'
 
   $urlRouterProvider.otherwise '/'
   return

@@ -29,6 +29,11 @@
           </div>
           <div class="col col-xs-2">
             <span ng-bind="cart_entry.product.selling_price | centToDollar"></span>
+            <div class="text-muted">
+              <em>
+                <span ng-bind="cart_entry.product.shipping_price | centToDollar"></span>&nbsp;s/h
+              </em>
+            </div>
           </div>
           <div class="col col-sm-2 col-xs-3">
             <select class="form-control input-sm" ng-model="cart_entry.quantity"
@@ -43,8 +48,6 @@
       <div ng-if="cart.entries.length == 0" class="alert alert-info vert-10">
         Cart is empty.&nbsp;&nbsp;<a ui-sref="app.storefront.home" class="btn btn-primary btn-sm">Shop now</a>
       </div>
-
-      <pre>{{ cart | json }}</pre>
     </div>
 
     <div class="col col-sm-4">
@@ -63,7 +66,7 @@
           <input type="hidden" name="cn" value="Add special instructions to the seller:">
           <input type="hidden" name="no_shipping" value="2">
           <input type="hidden" name="rm" value="1">
-          <input type="hidden" name="return" value="https://www.mystore.com/success">
+          <input type="hidden" name="return" value="{{ cart_url }}/success">
           <input type="hidden" name="cancel_return" value="{{ cart_url }}">
           <input type="hidden" name="shipping" value="{{ cart.calc_meta.shipping_total | centToDollar }}">
           <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">

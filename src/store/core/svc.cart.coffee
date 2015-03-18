@@ -1,6 +1,7 @@
 'use strict'
 
-angular.module('store.core').factory 'eeCart', ($rootScope) ->
+angular.module('store.core').factory 'eeCart', ($rootScope, $state) ->
+  ## Format of cart:
   # _cart = {
   #   calc_meta: {
   #     product_total: int
@@ -26,7 +27,7 @@ angular.module('store.core').factory 'eeCart', ($rootScope) ->
     grand_total     = 0
     addToTotals = (entry) ->
       product_total   += parseInt(parseInt(entry.product.selling_price) * parseInt(entry.quantity))
-      shipping_total  += parseInt(parseInt(parseFloat(entry.product.availability_meta.ship_cost)*100) * parseInt(entry.quantity))
+      shipping_total  += parseInt(parseInt(entry.product.shipping_price) * parseInt(entry.quantity))
       count           += parseInt(entry.quantity)
     addToTotals(cart_entry) for cart_entry in cart.entries
     grand_total = product_total + shipping_total + tax_total
@@ -53,6 +54,7 @@ angular.module('store.core').factory 'eeCart', ($rootScope) ->
     addOrIncrement(product.selection_id, entry) for entry in _cart.entries
     if increment is false then _cart.entries.push { product: product, quantity: 1 }
     calcMeta _cart
+    $state.go 'app.storefront.cart'
     return
 
   removeProduct: (product) ->
@@ -73,6 +75,6 @@ angular.module('store.core').factory 'eeCart', ($rootScope) ->
 
   getSelectionIds: () ->
     ids = []
-    addId = (entry) -> ids.push entry.product.selection_id
+    addId = (entry) -> ids.push(entry.quantity + 'x' + entry.product.selection_id)
     addId(entry) for entry in _cart.entries
     ids.join('; ')

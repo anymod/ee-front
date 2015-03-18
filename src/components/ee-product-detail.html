@@ -5,8 +5,8 @@
     <h4 ng-if="product.selling_price">
       {{ product.selling_price | centToDollar }}
       &nbsp;
-      <small ng-if="!!product.availability_meta.ship_cost">
-        + {{ product.availability_meta.ship_cost | currency }} shipping
+      <small ng-if="!!product.shipping_price">
+        + {{ product.shipping_price | centToDollar }} shipping
       </small>
     </h4>
     <div ng-if="isBuilder" ng-bind="product.category" class="label label-primary"></div>
@@ -24,9 +24,9 @@
         <td>Quantity Available</td>
         <td ng-bind="product.availability_meta.quantity | truncateQty"></td>
       </tr>
-      <tr ng-if="!!product.availability_meta.ship_cost">
+      <tr ng-if="!!product.shipping_price">
         <td>Shipping Cost</td>
-        <td ng-bind="product.availability_meta.ship_cost | currency"></td>
+        <td ng-bind="product.shipping_price | centToDollar"></td>
       </tr>
       <tr ng-if="!!product.content_meta.brand_name">
         <td>Brand Name</td>
