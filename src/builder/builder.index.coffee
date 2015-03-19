@@ -19,7 +19,7 @@ angular.module 'eeBuilder', [
   'builder.auth'
   'builder.landing'
   'builder.about'
-  'builder.contact'
+  # 'builder.contact'
   'builder.storefront'
   'builder.catalog'
   'builder.orders'

@@ -93,6 +93,18 @@ sources.builderModule = [
   './src/builder/auth/auth.module.coffee'
   './src/builder/auth/auth.route.coffee'
   './src/builder/auth/auth.controller.coffee'
+  # auth.login
+  './src/builder/auth.login/auth.login.route.coffee'
+  './src/builder/auth.login/auth.login.controller.coffee'
+  # auth.logout
+  './src/builder/auth.logout/auth.logout.route.coffee'
+  './src/builder/auth.logout/auth.logout.controller.coffee'
+  # auth.reset
+  './src/builder/auth.reset/auth.reset.route.coffee'
+  './src/builder/auth.reset/auth.reset.controller.coffee'
+  # auth.signup
+  './src/builder/auth.signup/auth.signup.route.coffee'
+  './src/builder/auth.signup/auth.signup.controller.coffee'
   # Module - landing
   './src/builder/landing/landing.module.coffee'
   './src/builder/landing/landing.route.coffee'
@@ -102,9 +114,9 @@ sources.builderModule = [
   './src/builder/about/about.route.coffee'
   './src/builder/about/about.controller.coffee'
   # Module - contact
-  './src/builder/contact/contact.module.coffee'
-  './src/builder/contact/contact.route.coffee'
-  './src/builder/contact/contact.controller.coffee'
+  # './src/builder/contact/contact.module.coffee'
+  # './src/builder/contact/contact.route.coffee'
+  # './src/builder/contact/contact.controller.coffee'
   # Module - storefront
   './src/builder/storefront/storefront.module.coffee'
   './src/builder/storefront/storefront.route.coffee'
@@ -144,7 +156,6 @@ sources.builderDirective = [
   './src/components/ee-product-detail.coffee'
   './src/components/ee-product-for-catalog.coffee'
   './src/components/ee-product-for-storefront.coffee'
-  # './src/components/ee-cart-li.coffee'
   './src/components/ee-shop-nav.coffee'
   './src/components/ee-product-margin-setter.coffee'
   './src/components/ee-product-selection-button.coffee'
@@ -153,7 +164,6 @@ sources.builderDirective = [
   './src/components/ee-welcome.coffee'
 ]
 sources.storeDirective = [
-  # './src/components/ee-cart-li.coffee'
   './src/components/ee-button-add-to-cart.coffee'
   './src/components/ee-product.coffee'
   './src/components/ee-product-detail.coffee'

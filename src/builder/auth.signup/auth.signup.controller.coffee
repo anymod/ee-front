@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('builder.contact').controller 'contactCtrl', ($scope, $state, $filter, eeBack, eeAuth) ->
-  $scope.alert = 'eeosk is currently in private beta and will open to the public soon'
+angular.module('builder.auth').controller 'signupCtrl', ($scope, $state, $filter, eeBack, eeAuth) ->
+  # $scope.alert = 'eeosk is currently in private beta and will open to the public soon'
   $scope.signup = {}
 
   setBtnText    = (txt) -> $scope.btnText = txt

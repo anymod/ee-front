@@ -62,7 +62,7 @@ describe 'eeosk auth', () ->
     .then (cookie) ->
     # Logged out
       should.not.exist(cookie)
-      browser       .getTitle().should.eventually.have.string 'Online store builder'
+      browser       .getTitle().should.eventually.have.string 'Logged out'
 
   it 'should not allow app visits when logged out', () ->
     browser         .manage().deleteAllCookies()
