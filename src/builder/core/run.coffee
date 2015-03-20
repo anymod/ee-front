@@ -14,9 +14,18 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
     'about'
     'examples'
   ]
+  closeOffscreenStates = [
+    'login'
+    'logout'
+    'landing'
+    'signup'
+    'examples'
+    'reset'
+  ]
 
   isNonAuth = (state) -> nonAuthStates.indexOf(state) >= 0
   isEitherAuth = (state) -> eitherAuthStates.indexOf(state) >= 0
+  isCloseOffscreen = (state) -> closeOffscreenStates.indexOf(state) >= 0
 
   $rootScope.closeProductHighlight = () -> $location.search('p', null)
 
@@ -35,5 +44,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
       # https://github.com/angular-ui/ui-router/issues/1169
       $location.path '/storefront/home'
       return
+
+    $rootScope.toggle = !isCloseOffscreen(toState.name)
 
   return
