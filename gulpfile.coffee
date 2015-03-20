@@ -254,7 +254,7 @@ gulp.task 'watch-test', () ->
 # ===========================
 # runners
 
-gulp.task 'test', ['html-dev', 'watch-test', 'server-test'], () -> return
+gulp.task 'test', ['js-test', 'html-dev', 'server-test', 'watch-test'], () -> return
 
 gulp.task 'dev', ['watch-dev', 'server-dev'], () -> return
 

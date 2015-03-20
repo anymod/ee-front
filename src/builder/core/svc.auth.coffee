@@ -99,3 +99,13 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
     _getUser()
     .then () -> scope.user = _user
     .catch () -> scope.user = {}
+
+  sendPasswordResetEmail: (email) ->
+    deferred = $q.defer()
+    if !email
+      deferred.reject 'Missing email'
+    else
+      eeBack.passwordResetEmailPOST(email)
+      .then (data) -> deferred.resolve data
+      .catch (err) -> deferred.reject err
+    deferred.promise

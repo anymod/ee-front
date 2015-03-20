@@ -91,8 +91,6 @@ sources.builderModule = [
   './src/builder/core/svc.cart.coffee'
   # Module - auth
   './src/builder/auth/auth.module.coffee'
-  './src/builder/auth/auth.route.coffee'
-  './src/builder/auth/auth.controller.coffee'
   # auth.login
   './src/builder/auth.login/auth.login.route.coffee'
   './src/builder/auth.login/auth.login.controller.coffee'

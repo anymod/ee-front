@@ -9,7 +9,7 @@ chai.use chaiAsPromised
 elem   = {}
 
 # TODO reinstate signup tests when signup page goes live
-describe 'eeosk signup', () ->
+describe 'eeosk auth.signup', () ->
 
   before (done) ->
     elem =

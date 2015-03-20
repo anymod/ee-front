@@ -9,7 +9,7 @@ chai.use chaiAsPromised
 entry = {}
 elem  = {}
 
-describe 'eeosk auth', () ->
+describe 'eeosk auth.login', () ->
 
   before (done) ->
     elem =

@@ -20,20 +20,28 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
     addQuery(key) for key in keys
     '?' + parts.join('&')
 
-  _tokenPOST = (token) ->
+  tokenPOST: (token) ->
     _makeRequest {
       method: 'POST'
       url: eeBackUrl + 'token'
       headers: authorization: token
     }
 
-  tokenPOST: (token) -> _tokenPOST token
+  # tokenPOST: (token) -> _tokenPOST token
 
   authPOST: (email, password) ->
     _makeRequest {
       method: 'POST'
       url: eeBackUrl + 'auth'
       headers: authorization: 'Basic ' + email + ':' + password
+    }
+
+  passwordResetEmailPOST: (email) ->
+    _makeRequest {
+      method: 'POST'
+      url: eeBackUrl + 'password_reset_email'
+      headers: {}
+      data: { email: email }
     }
 
   usersPUT: (user, token) ->
@@ -50,6 +58,22 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       url: eeBackUrl + 'users'
       headers: {}
       data: { email: email, password: password, username: username }
+    }
+
+  usersUpdatePasswordPUT: (password, token) ->
+    _makeRequest {
+      method: 'PUT'
+      url: eeBackUrl + 'users_update_password'
+      headers: authorization: token
+      data: { password: password }
+    }
+
+  usersUpdateEmailPUT: (email, token) ->
+    _makeRequest {
+      method: 'PUT'
+      url: eeBackUrl + 'users_update_email'
+      headers: authorization: token
+      data: { email: email }
     }
 
   productsGET: (token, query) ->
@@ -91,6 +115,6 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
   ordersGET: (token) ->
     _makeRequest {
       method: 'GET'
-      url: eeBackUrl + 'orders/'
+      url: eeBackUrl + 'orders'
       headers: authorization: token
     }

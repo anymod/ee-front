@@ -17,26 +17,22 @@
              placeholder="Email address"
              class="form-control input-lg vert-5"
              required
-             autofocus
-             disabled>
+             autofocus>
       <input type="email"
              ng-model="email_check"
              placeholder="Re-enter email address"
              class="form-control input-lg vert-5"
-             required
-             disabled>
+             required>
       <input type="password"
              ng-model="password"
              placeholder="Password"
              class="form-control input-lg vert-5"
-             required
-             disabled>
+             required>
       <input type="text"
              ng-model="username"
              placeholder="Store name"
              class="form-control input-lg vert-5"
-             required
-             disabled>
+             required>
       <div ng-show="username && username.length > 4">
         Your store will be available at
         <h4 class='vert-2'><small><i class="fa fa-fw fa-globe"></i>http://</small>{{ username }}<small>.eeosk.com</small></h4>
@@ -46,7 +42,7 @@
       <hr class="vert-5">
       <button class="btn btn-lg btn-primary btn-block"
               ng-bind="btnText"
-              ng-disabled="true"
+              ng-disabled="btnText != 'Create your store'"
               type="submit">
       </button>
     </form>

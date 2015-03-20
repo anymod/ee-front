@@ -124,6 +124,7 @@ store.all '/*', (req, res, next) ->
   return
 
 app.use vhost('eeosk.com', builder)
+app.use vhost('www.eeosk.com', builder)
 app.use vhost('demo.eeosk.com', builder)
 app.use vhost('*.eeosk.com', store)
 

@@ -77,6 +77,10 @@ if process.env.NODE_ENV is 'test'
         last_token_created  = body.token
         if !!err then reject err else resolve body
 
+  utils.users             = ()          -> sequelize.query 'SELECT * FROM "Users";'
+  utils.user_by_id        = (id)        -> sequelize.query 'SELECT * FROM "Users" WHERE id = ' + id + ' LIMIT 1;'
+  utils.user_by_username  = (username)  -> sequelize.query 'SELECT * FROM "Users" WHERE username = \'' + username + '\' LIMIT 1;'
+
   utils.create_admin = () ->
     utils.create_user utils.test_admin
     .then (body) ->
