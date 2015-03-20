@@ -1,12 +1,14 @@
 'use strict'
 
 angular.module('builder.auth').controller 'signupCtrl', ($scope, $state, $filter, eeBack, eeAuth) ->
-  # $scope.alert = 'eeosk is currently in private beta and will open to the public soon'
   $scope.signup = {}
 
   setBtnText    = (txt) -> $scope.btnText = txt
   resetBtnText  = ()    -> setBtnText 'Create your store'
   resetBtnText()
+  
+  $scope.alert = 'eeosk is currently in private beta and will open to the public soon'
+  setBtnText 'Coming soon...'
 
   $scope.signup = () ->
     if $scope.email isnt $scope.email_check then $scope.alert = "Emails don't match"; return
