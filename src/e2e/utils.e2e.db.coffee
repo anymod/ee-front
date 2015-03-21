@@ -29,8 +29,9 @@ utils.random_user =
   password:       'foobarbaz'
   password_hash:  '$2a$05$YB1MyntOM2MHwODctZBy7O.GmpfrLm6xlZZxB30IpR3Ushi7auCaC'
 
-
 if process.env.NODE_ENV is 'test'
+
+  utils.jwt = (obj) -> jwt.sign(obj, 'foobar', { expiresInMinutes: 10800 })
 
   utils.delete_all_tables = () ->
     utils.delete_all_users()

@@ -109,3 +109,14 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .then (data) -> deferred.resolve data
       .catch (err) -> deferred.reject err
     deferred.promise
+
+  resetPassword: (password, token) ->
+    deferred = $q.defer()
+    if !password or !token
+      deferred.reject 'Missing password or token'
+    else
+      token = 'Bearer ' + token
+      eeBack.usersUpdatePasswordPUT password, token
+      .then (data) -> deferred.resolve data
+      .catch (err) -> deferred.reject err
+    deferred.promise
