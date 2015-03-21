@@ -18,14 +18,15 @@ angular.module 'eeBuilder', [
   'builder.core'
   'builder.auth'
   'builder.landing'
-  'builder.about'
-  # 'builder.contact'
+  'builder.terms'
   'builder.storefront'
   'builder.catalog'
   'builder.orders'
   'builder.account'
 
   # custom
+  'ee-terms-seller'
+  'ee-terms-privacy'
   'ee-navbar'
   'ee-save'
   'ee-welcome'

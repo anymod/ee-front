@@ -108,13 +108,13 @@ sources.builderModule = [
   './src/builder/landing/landing.route.coffee'
   './src/builder/landing/landing.controller.coffee'
   # Module - about
-  './src/builder/about/about.module.coffee'
-  './src/builder/about/about.route.coffee'
-  './src/builder/about/about.controller.coffee'
-  # Module - contact
-  # './src/builder/contact/contact.module.coffee'
-  # './src/builder/contact/contact.route.coffee'
-  # './src/builder/contact/contact.controller.coffee'
+  # './src/builder/about/about.module.coffee'
+  # './src/builder/about/about.route.coffee'
+  # './src/builder/about/about.controller.coffee'
+  # Module - terms
+  './src/builder/terms/terms.module.coffee'
+  './src/builder/terms/terms.route.coffee'
+  './src/builder/terms/terms.controller.coffee'
   # Module - storefront
   './src/builder/storefront/storefront.module.coffee'
   './src/builder/storefront/storefront.route.coffee'
@@ -147,6 +147,8 @@ sources.storeModule = [
 
 ### DIRECTIVES ###
 sources.builderDirective = [
+  './src/components/ee-terms-seller.coffee'
+  './src/components/ee-terms-privacy.coffee'
   './src/components/ee-navbar.coffee'
   './src/components/ee-product.coffee'
   './src/components/ee-save.coffee'

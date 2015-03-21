@@ -11,7 +11,7 @@ elem    = {}
 newVal  = {}
 scope   = {}
 
-describe 'eeosk storefront about', () ->
+describe 'eeosk storefront.about', () ->
 
   before (done) ->
     offscreen = element byAttr.css 'ee-offscreen-storefront-about'

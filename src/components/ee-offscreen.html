@@ -1,4 +1,4 @@
-<div class="open-nav {{ offscreenColor }}-background width-250"
+<div class="open-nav {{ offscreenColor }}-background max-width-250"
      ng-class="{ open: toggle, narrow: narrowToggle }">
   <div ng-class="{ 'pull-right': narrowToggle }">
     <span dropdown>
@@ -8,11 +8,11 @@
       <ul class="dropdown-menu" style="left: 7px; right: 8px; top: 45px;">
         <li class="divider"></li>
         <li><a ui-sref="app.orders"><h4 class="vert-2"><i class="fa fa-fw fa-list"></i>&nbsp;&nbsp;Orders</h4></a></li>
-        <li><a ui-sref="app.account"><h4 class="vert-2"><i class="fa fa-fw fa-globe"></i>&nbsp;&nbsp;Store Locations</h4></a></li>
+        <!-- <li><a ui-sref="app.account"><h4 class="vert-2"><i class="fa fa-fw fa-globe"></i>&nbsp;&nbsp;Store Locations</h4></a></li> -->
         <li class="divider"></li>
         <li><a ui-sref="app.account"><h4 class="vert-2"><i class="fa fa-fw fa-gear"></i>&nbsp;&nbsp;Account Settings</h4></a></li>
-        <li><a ui-sref="app.account"><h4 class="vert-2"><i class="fa fa-fw fa-money"></i>&nbsp;&nbsp;Payment Settings</h4></a></li>
-        <li><a ui-sref="app.account"><h4 class="vert-2"><i class="fa fa-fw fa-bell-o"></i>&nbsp;&nbsp;Notifications</h4></a></li>
+        <!-- <li><a ui-sref="app.account"><h4 class="vert-2"><i class="fa fa-fw fa-money"></i>&nbsp;&nbsp;Payment Settings</h4></a></li> -->
+        <!-- <li><a ui-sref="app.account"><h4 class="vert-2"><i class="fa fa-fw fa-bell-o"></i>&nbsp;&nbsp;Notifications</h4></a></li> -->
         <li class="divider"></li>
         <li><a ui-sref="logout"><h4 class="vert-2"><i class="fa fa-fw fa-sign-out"></i>&nbsp;&nbsp;Logout</h4></a></li>
       </ul>
@@ -25,11 +25,7 @@
     <i class="fa fa-lg fa-fw fa-home"></i>
   </div><div ng-if="narrowToggle" ui-sref="app.catalog" class="btn btn-warning margin-right-4" ng-class="{ active: offscreenCategory == 'Catalog' }">
     <i class="fa fa-lg fa-fw fa-book"></i>
-  </div><!-- <div ng-if="narrowToggle" ui-sref="app.orders" class="btn btn-success margin-right-4" ng-class="{ active: offscreenCategory == 'Orders' }">
-    <i class="fa fa-fw fa-list"></i>
-  </div><div ng-if="narrowToggle" ui-sref="app.account" class="btn btn-danger margin-right-4" ng-class="{ active: offscreenCategory == 'Account' }">
-    <i class="fa fa-fw fa-gears"></i>
-  </div> -->
+  </div>
 </div>
 
 <nav ng-class="{ open: toggle }" class="position-fixed full-height light-{{ offscreenColor }}-background" style="overflow-x: hidden;">
@@ -70,7 +66,9 @@
         <div class="container">
           <div>
             <a ui-sref="landing">home</a>&nbsp;&nbsp;
-            <a href="mailto:team@eeosk.com" target="_blank">contact</a>
+            <a href="mailto:team@eeosk.com" target="_blank">contact</a>&nbsp;&nbsp;
+            <a ui-sref="terms">terms</a>&nbsp;&nbsp;
+            <a ui-sref="privacy">privacy</a>
           </div>
           <div class="text-muted">&copy; eeosk 2014</div>
         </div>

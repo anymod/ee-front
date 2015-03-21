@@ -7,12 +7,14 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
     'landing'
     'login'
     'signup'
-    'reset'
   ]
   eitherAuthStates = [
     'logout'
     'about'
     'examples'
+    'terms'
+    'privacy'
+    'reset'
   ]
   closeOffscreenStates = [
     'login'
@@ -21,6 +23,8 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
     'signup'
     'examples'
     'reset'
+    'terms'
+    'privacy'
   ]
 
   isNonAuth = (state) -> nonAuthStates.indexOf(state) >= 0

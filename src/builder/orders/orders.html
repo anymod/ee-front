@@ -18,7 +18,11 @@
     </thead>
     <tbody>
       <tr ng-if="!orders.length">
-        <td colspan="11">No orders</td>
+        <td colspan="11">
+          No orders yet.
+          <br>
+          When you make a sale, the status of your customer orders will appear here.
+        </td>
       </tr>
       <tr ng-repeat="order in orders"
           ng-init="order.sellerPrice = order.baselinePrice / (1 - order.sellerMargin)">

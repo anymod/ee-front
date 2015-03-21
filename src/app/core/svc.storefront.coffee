@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeStorefront', ($rootScope, $cookies, $q, eeBack) ->
+angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeBack) ->
   # _fetching = false if not fetching, _fetching = deferred.promise if still fetching
   _fetching   = false
   _storefront = {}

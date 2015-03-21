@@ -12,3 +12,5 @@ angular.module('ee-product').directive "eeShopNav", ($state, eeStorefront, eeAut
     eeAuth.getUsername()
     .then (username) -> eeStorefront.storefrontFromUsername(username)
     .then (storefront) -> eeStorefront.setScopeCategories(storefront, scope)
+
+    return

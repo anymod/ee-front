@@ -38,7 +38,7 @@
         <h4 class='vert-2'><small><i class="fa fa-fw fa-globe"></i>http://</small>{{ username }}<small>.eeosk.com</small></h4>
         <hr class="vert-5">
       </div>
-      <div class="vert-5 text-muted">By creating a store, you agree to the <a ui-sref='terms'>terms & conditions</a></div>
+      <div class="vert-5 text-muted">By creating a store, you agree to the&nbsp;<a ng-click="showTerms = true" name="termsLink" class="hover-pointer">terms & conditions</a></div>
       <hr class="vert-5">
       <button class="btn btn-lg btn-primary btn-block"
               ng-bind="btnText"
@@ -46,5 +46,11 @@
               type="submit">
       </button>
     </form>
+    <div ng-show="showTerms">
+      <hr>
+      <ee-terms-seller></ee-terms-seller>
+      <a ng-click="scrollToTop()" href class="btn btn-primary">Back to top</a>
+      <a ui-sref="privacy" class="btn btn-default">Privacy policy</a>
+    </div>
   </div>
 </div>

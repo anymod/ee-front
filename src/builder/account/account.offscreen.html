@@ -4,7 +4,7 @@
     <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
     <input type="text" class="form-control" placeholder="Email" ng-model="user.email" disabled>
   </div>
-  <div class="btn btn-default btn-block">Change password</div>
+  <a ui-sref="reset" class="btn btn-default btn-block">Change password</a>
 
   <hr class="vert-10">
 
@@ -19,10 +19,10 @@
   </div>
   <div class="btn btn-default btn-block">Add / Edit locations</div>
 
-  <hr class="vert-10">
+<!--   <hr class="vert-10">
 
-  <h5 class="margin-0">Notifications</h5>
-  <div class="btn btn-default btn-block">Change notifications</div>
+<h5 class="margin-0">Notifications</h5>
+<div class="btn btn-default btn-block">Change notifications</div> -->
 
   <hr class="vert-10">
 
@@ -32,8 +32,4 @@
     <input type="text" class="form-control" placeholder="Account name" ng-model="bank" ng-init="bank = 'Wells Fargo *3318'" disabled>
   </div>
   <div class="btn btn-default btn-block">Change earnings account</div>
-
-  <hr class="vert-10">
-
-  <div ui-sref="logout" class="btn btn-danger">Log out</div>
 </div>
