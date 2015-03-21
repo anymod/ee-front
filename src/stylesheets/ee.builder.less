@@ -46,6 +46,16 @@
     border-color: @gray-dark;
   }
 }
+.btn-transparent {
+  color: white;
+  background: none;
+  border-color: @gray-light;
+  &:active, &:hover, &:focus, &.focus, &.active {
+    color: white;
+    background: rgba(0,0,0,.1);
+    border-color: @gray-light;
+  }
+}
 
 // ======================
 
@@ -88,26 +98,6 @@ body.no-scroll { height: 100%; overflow: hidden; }
     color: @ee-blue;
   }
 }
-
-
-/* #store-wrap {
-  height: auto !important;
-  min-height: 100%;
-  margin-bottom: -@ee-push-height;
-} */
-/* #store-push { height: @ee-store-push-height; } */
-/* #store-footer-region {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: @ee-push-height;
-  font-size: 0.9em;
-  li > a {
-    padding: 0px;
-    background: none;
-    color: @ee-blue;
-  }
-} */
 
 .ee-brand {
   background-image: none !important;
@@ -419,11 +409,6 @@ nav { background-color: #f5f5f5; }
   .btn-toggle {
     width: @nav-btn-width;
     height: @nav-btn-height;
-    background-color: @ee-blue;
-    &:hover, &:focus, &:active {
-      background-color: @ee-blue !important;
-      border-color: @ee-blue-border !important;
-    }
   }
 }
 .open-nav:hover {
