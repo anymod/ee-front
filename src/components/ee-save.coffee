@@ -11,6 +11,7 @@ angular.module('ee-save').directive "eeSave", ($timeout, eeAuth) ->
     eeAuth.setScopeUser(scope)
 
     scope.$watch 'user', (newValue, oldValue) ->
+      console.log 'changed'
       if !!oldValue and newValue isnt oldValue
         scope.text = 'Save'
         scope.userIsSaved = false

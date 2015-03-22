@@ -21,8 +21,6 @@ angular.module('ee-offscreen').directive "eeOffscreen", ($rootScope) ->
       $rootScope.toggle = !$rootScope.toggle
       scope.toggle = $rootScope.toggle
 
-    # scope.toggle = $rootScope.toggle
-
     return
 
 ## Default offscreen
@@ -167,12 +165,18 @@ angular.module('ee-offscreen').directive "eeOffscreenOrders", () ->
   link: (scope, ele, attrs) -> return
 
 ## Account
-angular.module('ee-offscreen').directive "eeOffscreenAccount", (eeAuth) ->
+angular.module('ee-offscreen').directive "eeOffscreenAccount", (eeStorefront, eeAuth) ->
   templateUrl: 'builder/account/account.offscreen.html'
   restrict: 'E'
-  scope: {}
   link: (scope, ele, attrs) ->
-    eeAuth.userFromToken()
-    .then (user) -> scope.user = user
-    .catch (err) -> console.error err
+    eeAuth.setScopeUser(scope)
+    # eeAuth.userFromToken()
+    # .then (user) ->
+    #   console.log 'user', user
+    #   scope.user = user
+    #   eeStorefront.storefrontFromUsername(user.username)
+    # .then (storefront) ->
+    #   # scope.user.
+    #   return
+    # .catch (err) -> console.error err
     return

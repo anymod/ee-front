@@ -2,7 +2,10 @@
   <h3 class="margin-0">Store locations</h3>
   <hr class="vert-5">
   <h4 class="margin-0">
-    <a href="https://{{ user.username }}.eeosk.com" target="_blank">
+    <a href="https://{{ user.username }}.eeosk.com" target="_blank" class="btn btn-default">
+      <i class="fa fa-fw fa-globe"></i>Live store
+    </a>
+    <a href="https://{{ user.username }}.eeosk.com" target="_blank" class="btn btn-link">
       https://{{ user.username }}.eeosk.com
     </a>
   </h4>
@@ -12,7 +15,9 @@
     </a>
   </h4>
   <div class="block vert-20"></div>
-  <h3 class="margin-0">Earnings</h3>
-  <hr class="vert-5">
-  <p>Earnings will be paid to <strong>Wells Fargo *3318</strong> according to the <a href>disbursement schedule</a>.</p>
+  <div ng-show="!!user.account_meta.earnings_accounts.paypal">
+    <h3 class="margin-0">Earnings</h3>
+    <hr class="vert-5">
+    <p>Earnings will be paid via PayPal to <strong ng-bind="user.account_meta.earnings_accounts.paypal"></strong>.</p>
+  </div>
 </div>
