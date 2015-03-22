@@ -1,52 +1,41 @@
 <div ng-hide="closed" class="modal fade in" style="display: block; z-index: 2011">
   <div class="modal-dialog" style="margin-top: 60px; max-width: 455px;">
     <div class="modal-content">
-      <div class="modal-body">
-        <h1 class="modal-title">Welcome to eeosk</h1>
-        <p>how it works:</p>
-        <div class="vert-5">
-          <h2 class="inline-block margin-0 pad-10 btn-primary width-250 opacity-0">
-            <div class="btn btn-primary pull-right">
-              <i class="fa fa-fw fa-home"></i>
+      <div class="modal-header">
+        <h4 class="margin-0">Welcome to eeosk</h4>
+      </div>
+      <div class="modal-body pad-10">
+        <div class="inline-block margin-0 pad-10 blue-background width-250 max-width-250 opacity-0">
+          <div class="btn btn-primary active">
+            <i class="fa fa-fw fa-lg fa-home"></i>
+          </div>
+          <div class="btn btn-warning">
+            <i class="fa fa-fw fa-lg fa-book"></i>
+          </div>
+          <div class="pull-right">
+            <div class="btn btn-transparent btn-toggle">
+              <i class="fa fa-chevron-down"></i>
             </div>
-            Storefront
-          </h2>
-          &nbsp;&nbsp;
-          <h4 class="vert-2 inline-block">Edit your store</h4>
+            <div class="btn btn-transparent btn-toggle">
+              <i class="fa fa-times"></i>
+            </div>
+          </div>
         </div>
-        <div class="vert-5">
-          <h2 class="inline-block margin-0 pad-10 btn-warning width-250 opacity-0">
-            <div class="btn btn-warning pull-right">
-              <i class="fa fa-fw fa-book"></i>
-            </div>
-            Catalog
-          </h2>
-          &nbsp;&nbsp;
-          <h4 class="vert-2 inline-block">Add products</h4>
+        <div class="vert-10">
+          <div class="btn btn-primary">
+            <i class="fa fa-fw fa-lg fa-home"></i>
+          </div>&nbsp;&nbsp;
+          Use&nbsp;<strong>Storefront</strong>&nbsp;to design your store
         </div>
-        <div class="vert-5">
-          <h2 class="inline-block margin-0 pad-10 btn-success width-250 opacity-0">
-            <div class="btn btn-success pull-right">
-              <i class="fa fa-fw fa-list"></i>
-            </div>
-            Orders
-          </h2>
-          &nbsp;&nbsp;
-          <h4 class="vert-2 inline-block">See your orders</h4>
-        </div>
-        <div class="vert-5">
-          <h2 class="inline-block margin-0 pad-10 btn-danger width-250 opacity-0">
-            <div class="btn btn-danger pull-right">
-              <i class="fa fa-fw fa-gears"></i>
-            </div>
-            Account
-          </h2>
-          &nbsp;&nbsp;
-          <h4 class="vert-2 inline-block">Edit your account</h4>
+        <div class="vert-10">
+          <div class="btn btn-warning">
+            <i class="fa fa-fw fa-lg fa-book"></i>
+          </div>&nbsp;&nbsp;
+          Use&nbsp;<strong>Catalog</strong>&nbsp;to add products
         </div>
       </div>
       <div class="modal-footer text-left">
-        <div ng-click="closeWelcome()" class="btn btn-default">Get started!</div>
+        Got it?&nbsp;&nbsp;<div ng-click="closeWelcome()" class="btn btn-default">Get started!</div>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
