@@ -4,11 +4,11 @@
     <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
     <input type="text" class="form-control" placeholder="Email" ng-model="user.email" disabled>
   </div>
-  <div class="btn btn-default btn-block">Change password</div>
+  <a ui-sref="reset" class="btn btn-default btn-block">Change password</a>
 
   <hr class="vert-10">
 
-  <h5 class="margin-0">Store locations</h5>
+  <h5 class="margin-0">Store locations&nbsp;&nbsp;<small>coming soon</small></h5>
   <div class="input-group vert-2">
     <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
     <input type="text" class="form-control" placeholder="Username" ng-model="user.username" disabled>
@@ -17,23 +17,24 @@
     <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
     <input type="text" class="form-control" placeholder="http://" ng-model="url" ng-init="url = 'http://demoseller.com'" disabled>
   </div>
-  <div class="btn btn-default btn-block">Add / Edit locations</div>
+  <div class="btn btn-default btn-block disabled">Add / Edit locations</div>
 
-  <hr class="vert-10">
+<!--   <hr class="vert-10">
 
-  <h5 class="margin-0">Notifications</h5>
-  <div class="btn btn-default btn-block">Change notifications</div>
+<h5 class="margin-0">Notifications</h5>
+<div class="btn btn-default btn-block">Change notifications</div> -->
 
   <hr class="vert-10">
 
   <h5 class="margin-0">Earnings paid to</h5>
   <div class="input-group vert-2">
-    <span class="input-group-addon"><i class="fa fa-fw fa-bank"></i></span>
-    <input type="text" class="form-control" placeholder="Account name" ng-model="bank" ng-init="bank = 'Wells Fargo *3318'" disabled>
+    <span class="input-group-addon"><i class="fa fa-fw fa-paypal"></i></span>
+    <input type="text" class="form-control" placeholder="paypal email" ng-model="user.account_meta.earnings_accounts.paypal">
   </div>
-  <div class="btn btn-default btn-block">Change earnings account</div>
-
-  <hr class="vert-10">
-
-  <div ui-sref="logout" class="btn btn-danger">Log out</div>
+  <p>
+    Enter your paypal email address to receive payment
+    <br>
+    <small>(more options coming soon)</small>
+  </p>
+  <ee-save></ee-save>
 </div>
