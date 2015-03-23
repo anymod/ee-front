@@ -97,9 +97,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
 
   setScopeUser: (scope) ->
     _getUser()
-    .then () ->
-      console.log 'setting user', _user
-      scope.user = _user
+    .then () -> scope.user = _user
     .catch () -> scope.user = {}
 
   sendPasswordResetEmail: (email) ->
