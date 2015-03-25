@@ -1,12 +1,12 @@
-<div class="pad-10">
-  <h5 class="vert-2">Store Sections</h5>
-  <a ui-sref-active="active" ui-sref="app.storefront.home" class="btn btn-default btn-sm btn-block">Home</a>
-  <a ng-class="{ active: $state.current.name == 'app.storefront.shop' }" ui-sref="app.storefront.shop({shopCategory: 'All'})" class="btn btn-default btn-sm btn-block">Shop</a>
-  <a ui-sref-active="active" ui-sref="app.storefront.blog" class="btn btn-default btn-sm btn-block">Blog</a>
-  <a ui-sref-active="active" ui-sref="app.storefront.about" class="btn btn-default btn-sm btn-block">About</a>
-  <a ui-sref-active="active" ui-sref="app.storefront.audience" class="btn btn-default btn-sm btn-block">Audience</a>
+<div class="btn-group btn-group-justified">
+  <a ui-sref-active="active" ui-sref="app.storefront.home" class="btn btn-default btn-sm btn-block pad-5 round-0">Home</a>
+  <a ng-class="{ active: $state.current.name == 'app.storefront.shop' }" ui-sref="app.storefront.shop({shopCategory: 'All'})" class="btn btn-default btn-sm btn-block pad-5">Shop</a>
+  <a ui-sref-active="active" ui-sref="app.storefront.blog" class="btn btn-default btn-sm btn-block pad-5">Blog</a>
+  <a ui-sref-active="active" ui-sref="app.storefront.about" class="btn btn-default btn-sm btn-block pad-5">About</a>
+  <a ui-sref-active="active" ui-sref="app.storefront.audience" class="btn btn-default btn-sm btn-block pad-5 round-0">Social</a>
+</div>
 
-  <hr class="vert-10">
+<div class="pad-10">
 
   <ee-save></ee-save>
 
