@@ -110,7 +110,7 @@ if process.env.NODE_ENV is 'test'
     image_2 = 'http://placehold.it/' + h + 'x' + h + '.png/' + random_color() + '/fff'
     image_3 = 'http://placehold.it/' + h + 'x' + w + '.png/' + random_color() + '/fff'
     image_4 = 'http://placehold.it/' + w + 'x' + w + '.png/' + random_color() + '/fff'
-    categories = ["Apparel", "Accessories", "Home Decor", "Health & Beauty", "Electronics", "General Merchandise"]
+    categories = ["Kitchen", "Accessories", "Home Decor", "Health & Beauty", "Electronics", "General Merchandise"]
     req = request.defaults
       json: true
       uri: browser.apiUrl + '/v0/products'
