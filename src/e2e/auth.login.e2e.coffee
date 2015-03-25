@@ -47,7 +47,7 @@ describe 'eeosk auth.login', () ->
     browser         .getTitle().should.eventually.equal 'Build your store | eeosk'
     browser         .manage().getCookie('loginToken')
     .then (cookie) ->
-    # Logged in
+      # Logged in
       cookie        .value.should.have.string('Bearer%20')
       browser       .get '/storefront/blog'
       browser       .getTitle().should.eventually.have.string 'Build your store'
@@ -58,11 +58,11 @@ describe 'eeosk auth.login', () ->
       browser       .get '/account'
       browser       .getTitle().should.eventually.have.string 'Account'
       browser       .get '/logout'
+      # Logged out
+      browser       .getTitle().should.eventually.have.string 'Logged out'
       browser       .manage().getCookie('loginToken')
     .then (cookie) ->
-    # Logged out
       should.not.exist(cookie)
-      browser       .getTitle().should.eventually.have.string 'Logged out'
 
   it 'should not allow app visits when logged out', () ->
     browser         .manage().deleteAllCookies()

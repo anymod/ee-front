@@ -49,6 +49,8 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
       $location.path '/storefront/home'
       return
 
+  $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
+
     $rootScope.toggle = !isCloseOffscreen(toState.name)
 
   return
