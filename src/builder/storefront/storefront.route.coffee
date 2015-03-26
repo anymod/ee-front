@@ -3,40 +3,49 @@
 angular.module('builder.storefront').config ($stateProvider) ->
 
   $stateProvider
-    .state 'app.storefront',
+    .state 'storefront',
       url: '/storefront'
-      templateUrl: 'app/storefront/storefront.view.container.html'
-      controller: 'builder.storefrontRootCtrl'
       resolve: user: (eeAuth) -> eeAuth.userFromToken()
+      views:
+        main:
+          templateUrl: 'app/storefront/storefront.view.container.html'
+          controller: 'builder.storefrontRootCtrl'
+        offscreen:
+          templateUrl: 'components/ee-offscreen.html'
+          controller: 'builder.storefrontRootCtrl'
+          offscreenCategory: 'Storefront'
+          offscreenColor: 'blue'
       data:
         pageTitle: 'Build your store | eeosk'
-        offscreenCategory: 'Storefront'
-        offscreenColor: 'blue'
-    .state 'app.storefront.home',
+    .state 'storefront.home',
       url: '/home'
-      templateUrl: 'app/storefront/storefront.home.html'
-      controller: 'builder.storefrontChildCtrl'
-    .state 'app.storefront.shop_redirect',  # this state is purely to avoid flicker when visiting /storefront/shop
+      views:
+        main:       templateUrl: 'app/storefront/storefront.home.html'
+        offscreen:  templateUrl: 'builder/storefront/storefront.offscreen.home.html'
+    .state 'storefront.shop_redirect',  # this state is purely to avoid flicker when visiting /storefront/shop
       url: '/shop'
-      template: ''
-      controller: 'builder.storefrontChildCtrl'
-    .state 'app.storefront.shop',
+    .state 'storefront.shop',
       url: '/shop/:shopCategory'
-      templateUrl: 'app/storefront/storefront.shop.html'
-      controller: 'builder.storefrontChildCtrl'
-    .state 'app.storefront.blog',
+      views:
+        main:       templateUrl: 'app/storefront/storefront.shop.html'
+        offscreen:  templateUrl: 'builder/storefront/storefront.offscreen.shop.html'
+    .state 'storefront.blog',
       url: '/blog'
-      templateUrl: 'app/storefront/storefront.home.html'
-      controller: 'builder.storefrontChildCtrl'
+      views:
+        main:       templateUrl: 'app/storefront/storefront.home.html'
+        offscreen:  templateUrl: 'builder/storefront/storefront.offscreen.blog.html'
       data:
         storeOpacity: true
-    .state 'app.storefront.about',
+    .state 'storefront.about',
       url: '/about'
-      templateUrl: 'app/storefront/storefront.about.html'
-      controller: 'builder.storefrontChildCtrl'
-    .state 'app.storefront.audience',
+      views:
+        main:       templateUrl: 'app/storefront/storefront.about.html'
+        offscreen:  templateUrl: 'builder/storefront/storefront.offscreen.about.html'
+          # controller: () -> $('.upload_form').append($.cloudinary.unsigned_upload_tag("storefront_about", { cloud_name: 'eeosk' }))
+    .state 'storefront.audience',
       url: '/audience'
-      templateUrl: 'app/storefront/storefront.home.html'
-      controller: 'builder.storefrontChildCtrl'
+      views:
+        main:       templateUrl: 'app/storefront/storefront.home.html'
+        offscreen:  templateUrl: 'builder/storefront/storefront.offscreen.audience.html'
       data:
         storeOpacity: true

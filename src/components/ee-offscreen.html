@@ -7,12 +7,12 @@
       </div>
       <ul class="dropdown-menu" style="left: 7px; right: 8px; top: 45px;">
         <li class="divider"></li>
-        <li><a ui-sref="app.orders"><h4 class="vert-2"><i class="fa fa-fw fa-list"></i>&nbsp;&nbsp;Orders</h4></a></li>
-        <!-- <li><a ui-sref="app.account"><h4 class="vert-2"><i class="fa fa-fw fa-globe"></i>&nbsp;&nbsp;Store Locations</h4></a></li> -->
+        <li><a ui-sref="orders"><h4 class="vert-2"><i class="fa fa-fw fa-list"></i>&nbsp;&nbsp;Orders</h4></a></li>
+        <!-- <li><a ui-sref="account"><h4 class="vert-2"><i class="fa fa-fw fa-globe"></i>&nbsp;&nbsp;Store Locations</h4></a></li> -->
         <li class="divider"></li>
-        <li><a ui-sref="app.account"><h4 class="vert-2"><i class="fa fa-fw fa-gear"></i>&nbsp;&nbsp;Account Settings</h4></a></li>
-        <!-- <li><a ui-sref="app.account"><h4 class="vert-2"><i class="fa fa-fw fa-money"></i>&nbsp;&nbsp;Payment Settings</h4></a></li> -->
-        <!-- <li><a ui-sref="app.account"><h4 class="vert-2"><i class="fa fa-fw fa-bell-o"></i>&nbsp;&nbsp;Notifications</h4></a></li> -->
+        <li><a ui-sref="account"><h4 class="vert-2"><i class="fa fa-fw fa-gear"></i>&nbsp;&nbsp;Account Settings</h4></a></li>
+        <!-- <li><a ui-sref="account"><h4 class="vert-2"><i class="fa fa-fw fa-money"></i>&nbsp;&nbsp;Payment Settings</h4></a></li> -->
+        <!-- <li><a ui-sref="account"><h4 class="vert-2"><i class="fa fa-fw fa-bell-o"></i>&nbsp;&nbsp;Notifications</h4></a></li> -->
         <li class="divider"></li>
         <li><a ui-sref="logout"><h4 class="vert-2"><i class="fa fa-fw fa-sign-out"></i>&nbsp;&nbsp;Logout</h4></a></li>
       </ul>
@@ -20,9 +20,9 @@
       <div class="icon"></div>
     </div>
   </div>
-  <div ng-if="narrowToggle" ui-sref="app.storefront.home" class="btn btn-primary margin-right-4" ng-class="{ active: offscreenCategory == 'Storefront' }">
+  <div ng-if="narrowToggle" ui-sref="storefront.home" class="btn btn-primary margin-right-4" ng-class="{ active: offscreenCategory == 'Storefront' }">
     <i class="fa fa-lg fa-fw fa-home"></i>
-  </div><div ng-if="narrowToggle" ui-sref="app.catalog" class="btn btn-warning margin-right-4" ng-class="{ active: offscreenCategory == 'Catalog' }">
+  </div><div ng-if="narrowToggle" ui-sref="catalog" class="btn btn-warning margin-right-4" ng-class="{ active: offscreenCategory == 'Catalog' }">
     <i class="fa fa-lg fa-fw fa-book"></i>
   </div>
 </div>
@@ -33,30 +33,33 @@
 
       <div id="main-region">
         <div class="width-250">
-          <div ng-if="offscreenCategory">
 
-            <div ng-switch on="offscreenCategory">
-              <div class="pad-10 {{ offscreenColor }}-background">
-                <div class="vert-20 full-width inline-block"></div>
-                <div>
-                  <a ng-if="offscreenCategory == 'Storefront' && !!user.username"
-                     href="https://{{ user.username }}.eeosk.com"
-                     target="_blank"
-                     class='btn btn-default btn-sm pull-right'>
-                    <i class="fa fa-globe"></i>&nbsp;&nbsp;Live
-                  </a>
-                  <h2 class="margin-0 white-color" ng-bind="offscreenCategory"></h2>
-                </div>
-              </div>
-              <ee-offscreen-storefront ng-switch-when="Storefront"></ee-offscreen-storefront>
-              <ee-offscreen-catalog ng-switch-when="Catalog"></ee-offscreen-catalog>
-              <ee-offscreen-orders ng-switch-when="Orders"></ee-offscreen-orders>
-              <ee-offscreen-account ng-switch-when="Account"></ee-offscreen-account>
-            </div> <!-- /ng-switch on=offscreenCategory -->
-
+          <div class="pad-10 {{ offscreenColor }}-background">
+            <div class="vert-20 full-width inline-block"></div>
+            <div>
+              <a ng-if="offscreenCategory == 'Storefront' && !!user.username"
+                 href="https://{{ user.username }}.eeosk.com"
+                 target="_blank"
+                 class='btn btn-default btn-sm pull-right'>
+                <i class="fa fa-globe"></i>&nbsp;&nbsp;Live
+              </a>
+              <h2 class="margin-0 white-color" ng-bind="offscreenCategory"></h2>
+            </div>
           </div>
 
-          <ee-offscreen-default ng-if="!offscreenCategory"></ee-offscreen-default>
+          <div ng-if="offscreenCategory == 'Storefront'" class="btn-group btn-group-justified">
+            <a ui-sref-active="active" ui-sref="storefront.home" class="btn btn-info btn-sm btn-block pad-5 round-0">Home</a>
+            <a ng-class="{ active: $state.current.name == 'storefront.shop' }" ui-sref="storefront.shop({shopCategory: 'All'})" class="btn btn-info btn-sm btn-block pad-5">Shop</a>
+            <a ui-sref-active="active" ui-sref="storefront.blog" class="btn btn-info btn-sm btn-block pad-5">Blog</a>
+            <a ui-sref-active="active" ui-sref="storefront.about" class="btn btn-info btn-sm btn-block pad-5">About</a>
+            <a ui-sref-active="active" ui-sref="storefront.audience" class="btn btn-info btn-sm btn-block pad-5 round-0">Social</a>
+          </div>
+
+          <div class="pad-10">
+            <ee-save></ee-save>
+            <hr class="vert-5">
+            <div ui-view="offscreen" id="ee-offscreen-child"></div>
+          </div>
 
         </div>
       </div>

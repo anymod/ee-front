@@ -8,7 +8,7 @@ angular.module('builder.auth').controller 'loginCtrl', ($scope, $rootScope, $sta
   resetBtnText()
 
   eeAuth.userFromToken()
-  .then () -> $state.go 'app.storefront.home'
+  .then () -> $state.go 'storefront.home'
 
   $scope.login = () ->
     $scope.alert = ''
@@ -17,7 +17,7 @@ angular.module('builder.auth').controller 'loginCtrl', ($scope, $rootScope, $sta
     .then () ->
       # TODO direct user based on first time logging in, number of products, etc
       $rootScope.welcome_1 = true
-      $state.go 'app.storefront.home'
+      $state.go 'storefront.home'
     .catch (err) ->
       resetBtnText()
       alert = err.message || err || 'Problem logging in'

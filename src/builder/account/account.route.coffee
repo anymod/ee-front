@@ -3,7 +3,7 @@
 angular.module('builder.account').config ($stateProvider) ->
 
   $stateProvider
-    .state 'app.account',
+    .state 'account',
       url: '/account'
       templateUrl: 'builder/account/account.html'
       controller: 'builder.accountCtrl'

@@ -54,7 +54,7 @@ angular.module('store.core').factory 'eeCart', ($rootScope, $state) ->
     addOrIncrement(product.selection_id, entry) for entry in _cart.entries
     if increment is false then _cart.entries.push { product: product, quantity: 1 }
     calcMeta _cart
-    $state.go 'app.storefront.cart'
+    $state.go 'storefront.cart'
     return
 
   removeProduct: (product) ->

@@ -14,7 +14,8 @@ scope   = {}
 describe 'eeosk storefront.home', () ->
 
   before (done) ->
-    offscreen = element byAttr.css 'ee-offscreen-storefront-home'
+    offscreen = element byAttr.css '#ee-offscreen'
+    onscreen  = element byAttr.css '#ee-main'
     elem =
       alert:                  element byAttr.css  '.alert'
       save:                   element byAttr.name 'save'
@@ -32,7 +33,7 @@ describe 'eeosk storefront.home', () ->
       carouselHeadline:       offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].headline'
       carouselByline:         offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].byline'
       carouselBtnText:        offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].btnText'
-      carouselBtnPosition:    offscreen.element byAttr.css '.btn-group'
+      carouselBtnPosition:    offscreen.element byAttr.css '#ee-offscreen-child .btn-group'
       carouselLinkCategory:   offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].linkCategory'
 
     newVal =

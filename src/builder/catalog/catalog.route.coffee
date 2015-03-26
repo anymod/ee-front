@@ -2,14 +2,18 @@
 
 angular.module('builder.catalog').config ($stateProvider) ->
 
-  $stateProvider.state 'app.catalog',
+  $stateProvider.state 'catalog',
     url: '/catalog'
-    templateUrl: 'builder/catalog/catalog.html'
-    controller: 'builder.catalogCtrl'
+    views:
+      main:
+        templateUrl: 'builder/catalog/catalog.html'
+        controller: 'builder.catalogCtrl'
+      offscreen:
+        templateUrl: 'builder/catalog/catalog.offscreen.html'
+        controller: 'builder.catalogCtrl'
+        offscreenCategory: 'Catalog'
+        offscreenColor: 'gold'
     resolve:
       user: (eeAuth) -> eeAuth.userFromToken()
-      # products: (eeAuth) -> eeAuth.getProducts()
     data:
       pageTitle: 'Add products | eeosk'
-      offscreenCategory: 'Catalog'
-      offscreenColor: 'gold'

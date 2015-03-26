@@ -3,34 +3,31 @@
 angular.module('store.core').config ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider) ->
 
   $stateProvider
-    .state 'app.storefront',
-      url: ''
+    .state 'storefront',
       templateUrl: 'app/storefront/storefront.view.container.html'
       controller: 'storeCtrl'
-    .state 'app.storefront.home',
+    .state 'storefront.home',
       url: '/'
-      templateUrl: 'app/storefront/storefront.home.html'
-      controller: 'storeCtrl'
-    .state 'app.storefront.shop_redirect',  # this state is purely to avoid flicker when visiting /storefront/shop
+      views:
+        main: templateUrl: 'app/storefront/storefront.home.html'
+    .state 'storefront.shop_redirect',  # this state is purely to avoid flicker when visiting /storefront/shop
       url: '/shop'
-      template: ''
-      controller: 'storeCtrl'
-    .state 'app.storefront.shop',
+    .state 'storefront.shop',
       url: '/shop/:shopCategory'
-      templateUrl: 'app/storefront/storefront.shop.html'
-      controller: 'storeCtrl'
-    .state 'app.storefront.about',
+      views:
+        main: templateUrl: 'app/storefront/storefront.shop.html'
+    .state 'storefront.about',
       url: '/about'
-      templateUrl: 'app/storefront/storefront.about.html'
-      controller: 'storeCtrl'
-    .state 'app.storefront.cart',
+      views:
+        main: templateUrl: 'app/storefront/storefront.about.html'
+    .state 'storefront.cart',
       url: '/cart'
-      templateUrl: 'store/cart/cart.html'
-      controller: 'storeCtrl'
-    .state 'app.storefront.success',
+      views:
+        main: templateUrl: 'store/cart/cart.html'
+    .state 'storefront.success',
       url: '/cart/success'
-      templateUrl: 'store/cart/success.html'
-      controller: 'storeCtrl'
+      views:
+        main: templateUrl: 'store/cart/success.html'
 
   $urlRouterProvider.otherwise '/'
   return

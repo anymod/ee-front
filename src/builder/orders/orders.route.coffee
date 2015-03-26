@@ -3,7 +3,7 @@
 angular.module('builder.orders').config ($stateProvider) ->
 
   $stateProvider
-    .state 'app.orders',
+    .state 'orders',
       url: '/orders'
       templateUrl: 'builder/orders/orders.html'
       controller: 'builder.ordersCtrl'

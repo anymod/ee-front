@@ -14,8 +14,8 @@ scope   = {}
 describe 'eeosk storefront.about', () ->
 
   before (done) ->
-    offscreen = element byAttr.css 'ee-offscreen-storefront-about'
-    onscreen  = element byAttr.css '.onscreen'
+    offscreen = element byAttr.css '#ee-offscreen'
+    onscreen  = element byAttr.css '#ee-main'
     navbar    = element byAttr.css 'nav.navbar-rgba-colors'
 
     elem =

@@ -1,6 +1,14 @@
 'use strict'
 
-angular.module('builder.landing').controller 'landingCtrl', ($scope, $location, $anchorScroll) ->
+angular.module('builder.landing').controller 'landingCtrl', ($scope, $rootScope, $location, $anchorScroll) ->
+  console.log 'loaded'
+  $scope.toggle = $rootScope.toggle
+
+  $scope.toggleOffscreen = () ->
+    console.log 'TOGGLING', $rootScope.toggle
+    $rootScope.toggle = !$rootScope.toggle
+    $scope.toggle = $rootScope.toggle
+
   $scope.scrollToMore = () ->
     # Scroll to more section
     $location.hash 'more'
