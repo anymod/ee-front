@@ -1,119 +1,141 @@
-<div class="pad-10">
+<ee-offscreen-header></ee-offscreen-header>
 
-  <!-- TODO: implement catalog search -->
-  <div class="input-group">
-    <input type="text" ng-model="search" class="form-control" placeholder="Search the catalog" disabled>
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="button" disabled><i class="fa fa-fw fa-search"></i></button>
-    </span>
+<nav ng-class="{ open: toggle }" class="position-fixed full-height light-{{ offscreenColor }}-background" style="overflow-x: hidden;">
+  <div class="position-relative full-height">
+    <div id="wrap" class="width-250">
+
+      <div id="main-region">
+        <div class="width-250">
+
+          <div class="pad-10 {{ offscreenColor }}-background">
+            <div class="vert-20 full-width inline-block"></div>
+            <h2 class="margin-0 white-color" ng-bind="offscreenCategory"></h2>
+          </div>
+          <!-- TODO: implement catalog search -->
+          <div class="input-group round-0">
+            <input type="text" ng-model="search" class="form-control round-0" placeholder="Search the catalog" disabled>
+            <span class="input-group-btn">
+              <a class="btn btn-warning round-0" disabled>search</a>
+            </span>
+          </div>
+          <h5 class="margin-5">&nbsp;<small class="pull-right">search coming soon</small></h5>
+
+          <div class="pad-10">
+
+            <h5 class="vert-2">Categories</h5>
+            <div class="btn-group-vertical full-width">
+              <a href ng-repeat="category in categories" class="btn btn-sm btn-default" ng-click="setCurrentCategory(category)" ng-class="{ 'btn-warning active': currentCategory == category }" style="text-align: left;">
+                <i class="fa fa-fw fa-lg" ng-class="{ 'fa-times': currentCategory == category }"></i>&nbsp;{{ category }}
+              </a>
+            </div>
+
+            <hr class="vert-5">
+
+            <h5 class="vert-2">Starting Price</h5>
+            <div class="btn-group-vertical full-width">
+              <a href ng-repeat="range in ranges" class="btn btn-sm btn-default" ng-click="setCurrentRange(range)" ng-class="{ 'btn-warning active': currentRange.min == range.min }" style="text-align: left;">
+                <i class="fa fa-fw fa-lg" ng-class="{ 'fa-times': currentRange.min == range.min }"></i>&nbsp;{{ range | rangeToText }}
+              </a>
+            </div>
+            <!-- TODO: implement custom min and max -->
+            <!--   <div class="input-group input-group-sm vert-2">
+              <span class="input-group-addon">min \$</span>
+              <input type="text" class="form-control" ng-model="minPrice">
+              <span class="input-group-addon" style="border-right: none;">max \$</span>
+              <input type="text" class="form-control" ng-model="maxPrice">
+            </div> -->
+
+            <br>
+
+            <!-- TODO: implement rating filtering -->
+            <!--   <h5 class="vert-2">Rating</h5>
+            <div class="input-group input-group-sm vert-2">
+              <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
+              <div class="btn btn-default btn-sm btn-block">
+                <i class="fa fa-star gold-color"></i>
+                <i class="fa fa-star gold-color"></i>
+                <i class="fa fa-star gold-color"></i>
+                <i class="fa fa-star gold-color"></i>
+                <i class="fa fa-star-o gold-color"></i>
+                & Up
+              </div>
+            </div>
+            <div class="input-group input-group-sm vert-2">
+              <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
+              <div class="btn btn-default btn-sm btn-block">
+                <i class="fa fa-star gold-color"></i>
+                <i class="fa fa-star gold-color"></i>
+                <i class="fa fa-star gold-color"></i>
+                <i class="fa fa-star-o gold-color"></i>
+                <i class="fa fa-star-o gold-color"></i>
+                & Up
+              </div>
+            </div>
+            <div class="input-group input-group-sm vert-2">
+              <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
+              <div class="btn btn-default btn-sm btn-block">
+                <i class="fa fa-star gold-color"></i>
+                <i class="fa fa-star gold-color"></i>
+                <i class="fa fa-star-o gold-color"></i>
+                <i class="fa fa-star-o gold-color"></i>
+                <i class="fa fa-star-o gold-color"></i>
+                & Up
+              </div>
+            </div>
+            <div class="input-group input-group-sm vert-2">
+              <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
+              <div class="btn btn-default btn-sm btn-block">
+                <i class="fa fa-star gold-color"></i>
+                <i class="fa fa-star-o gold-color"></i>
+                <i class="fa fa-star-o gold-color"></i>
+                <i class="fa fa-star-o gold-color"></i>
+                <i class="fa fa-star-o gold-color"></i>
+                & Up
+              </div>
+            </div>
+
+            <br> -->
+
+              <!-- TODO: implement location filtering -->
+            <!--   <h5 class="vert-2">Location</h5>
+            <div class="input-group input-group-sm vert-2">
+              <span class="input-group-addon"><input type="checkbox"></span>
+              <div class="btn btn-default btn-sm btn-block">United States</div>
+            </div>
+            <div class="input-group input-group-sm vert-2">
+              <span class="input-group-addon"><input type="checkbox"></span>
+              <div class="btn btn-default btn-sm btn-block">Europe</div>
+            </div>
+            <div class="input-group input-group-sm vert-2">
+              <span class="input-group-addon"><input type="checkbox"></span>
+              <div class="btn btn-default btn-sm btn-block">China</div>
+            </div>
+            <div class="input-group input-group-sm vert-2">
+              <span class="input-group-addon"><input type="checkbox"></span>
+              <div class="btn btn-default btn-sm btn-block">North America</div>
+            </div> -->
+
+          </div> <!-- pad-10 -->
+
+        </div>
+      </div>
+      <div class="full-width vert-20 inline-block"></div>
+
+      <!-- TODO ee-offscreen-footer directive -->
+      <div id="footer-region">
+        <div class="container">
+          <div>
+            <a ui-sref="landing">home</a>&nbsp;&nbsp;
+            <a href="mailto:team@eeosk.com" target="_blank">contact</a>&nbsp;&nbsp;
+            <a ui-sref="terms">terms</a>&nbsp;&nbsp;
+            <a ui-sref="privacy">privacy</a>
+          </div>
+          <div class="text-muted">&copy; eeosk 2014</div>
+        </div>
+      </div>
+
+    </div> <!-- /wrap -->
   </div>
-  <h5 class="margin-5">&nbsp;<small class="pull-right">search coming soon</small></h5>
 
-  <hr class="vert-5" ng-hide="hideCatalogAlert">
-  <div class="alert alert-info alert-dismissible" ng-hide="hideCatalogAlert">
-    <button type="button" class="close" ng-click="hideCatalogAlert = !hideCatalogAlert">&times;</button>
-    Use the catalog to find products for your store
-  </div>
 
-  <hr class="vert-10">
-
-  <h5 class="vert-2">Catalog Categories</h5>
-  <div ng-repeat="category in categories"
-       class="input-group input-group-sm hover-pointer vert-2"
-       ng-click="toggleCurrentCategory(category)">
-    <span class="input-group-addon">
-      <i class="fa fa-fw" ng-class="categoryIsCurrent(category) ? 'fa-check' : 'fa-circle-o'"></i>
-    </span>
-    <div class="btn btn-default btn-sm btn-block">{{ category }}</div>
-  </div>
-
-  <br>
-
-  <h5 class="vert-2">Starting Price</h5>
-  <div ng-repeat="range in ranges"
-       class="input-group input-group-sm hover-pointer vert-2"
-       ng-click="toggleCurrentRange(range)">
-    <span class="input-group-addon">
-      <i class="fa fa-fw" ng-class="rangeIsCurrent(range) ? 'fa-check' : 'fa-circle-o'"></i>
-    </span>
-    <div class="btn btn-default btn-sm btn-block">{{ range | rangeToText }}</div>
-  </div>
-  <!-- TODO: implement custom min and max -->
-<!--   <div class="input-group input-group-sm vert-2">
-  <span class="input-group-addon">min \$</span>
-  <input type="text" class="form-control" ng-model="minPrice">
-  <span class="input-group-addon" style="border-right: none;">max \$</span>
-  <input type="text" class="form-control" ng-model="maxPrice">
-</div> -->
-
-  <br>
-
-  <!-- TODO: implement rating filtering -->
-<!--   <h5 class="vert-2">Rating</h5>
-<div class="input-group input-group-sm vert-2">
-  <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
-  <div class="btn btn-default btn-sm btn-block">
-    <i class="fa fa-star gold-color"></i>
-    <i class="fa fa-star gold-color"></i>
-    <i class="fa fa-star gold-color"></i>
-    <i class="fa fa-star gold-color"></i>
-    <i class="fa fa-star-o gold-color"></i>
-    & Up
-  </div>
-</div>
-<div class="input-group input-group-sm vert-2">
-  <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
-  <div class="btn btn-default btn-sm btn-block">
-    <i class="fa fa-star gold-color"></i>
-    <i class="fa fa-star gold-color"></i>
-    <i class="fa fa-star gold-color"></i>
-    <i class="fa fa-star-o gold-color"></i>
-    <i class="fa fa-star-o gold-color"></i>
-    & Up
-  </div>
-</div>
-<div class="input-group input-group-sm vert-2">
-  <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
-  <div class="btn btn-default btn-sm btn-block">
-    <i class="fa fa-star gold-color"></i>
-    <i class="fa fa-star gold-color"></i>
-    <i class="fa fa-star-o gold-color"></i>
-    <i class="fa fa-star-o gold-color"></i>
-    <i class="fa fa-star-o gold-color"></i>
-    & Up
-  </div>
-</div>
-<div class="input-group input-group-sm vert-2">
-  <span class="input-group-addon"><input type="radio" name="rating" ng-model="ratingRadio"></span>
-  <div class="btn btn-default btn-sm btn-block">
-    <i class="fa fa-star gold-color"></i>
-    <i class="fa fa-star-o gold-color"></i>
-    <i class="fa fa-star-o gold-color"></i>
-    <i class="fa fa-star-o gold-color"></i>
-    <i class="fa fa-star-o gold-color"></i>
-    & Up
-  </div>
-</div>
-
-<br> -->
-
-  <!-- TODO: implement location filtering -->
-<!--   <h5 class="vert-2">Location</h5>
-<div class="input-group input-group-sm vert-2">
-  <span class="input-group-addon"><input type="checkbox"></span>
-  <div class="btn btn-default btn-sm btn-block">United States</div>
-</div>
-<div class="input-group input-group-sm vert-2">
-  <span class="input-group-addon"><input type="checkbox"></span>
-  <div class="btn btn-default btn-sm btn-block">Europe</div>
-</div>
-<div class="input-group input-group-sm vert-2">
-  <span class="input-group-addon"><input type="checkbox"></span>
-  <div class="btn btn-default btn-sm btn-block">China</div>
-</div>
-<div class="input-group input-group-sm vert-2">
-  <span class="input-group-addon"><input type="checkbox"></span>
-  <div class="btn btn-default btn-sm btn-block">North America</div>
-</div> -->
-
-</div>
+</nav>

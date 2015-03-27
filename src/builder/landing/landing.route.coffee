@@ -10,7 +10,7 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
         templateUrl: 'builder/landing/landing.html'
         controller: 'landingCtrl'
       offscreen:
-        templateUrl: 'components/ee-offscreen.html'
+        templateUrl: 'components/template.offscreen.default.html'
         controller: 'landingCtrl'
     data:
       pageTitle: 'Online store builder, ecommerce storefront, dropship product catalog | eeosk'

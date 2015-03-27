@@ -5,13 +5,21 @@ angular.module('builder.terms').config ($stateProvider) ->
   $stateProvider
     .state 'terms',
       url: '/terms'
-      templateUrl: 'builder/terms/terms.html'
-      controller: 'termsCtrl'
+      views:
+        main:
+          templateUrl: 'builder/terms/terms.html'
+          controller: 'termsCtrl'
+        offscreen:
+          templateUrl: 'components/template.offscreen.default.html'
       data:
         pageTitle: 'Terms & Conditions | eeosk'
     .state 'privacy',
       url: '/privacy'
-      templateUrl: 'builder/terms/privacy.html'
-      controller: 'termsCtrl'
+      views:
+        main:
+          templateUrl: 'builder/terms/privacy.html'
+          controller: 'termsCtrl'
+        offscreen:
+          templateUrl: 'components/template.offscreen.default.html'
       data:
         pageTitle: 'Privacy Policy | eeosk'

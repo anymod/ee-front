@@ -23,9 +23,19 @@
 <body ng-class="{ 'nav-open': toggle }">
   <h1 class="position-fixed overflow-hidden height-0" style="top: -5000px;">eeosk | Create an online store</h1>
 
-  <div ui-view="offscreen" id="ee-offscreen"></div>
-  <div class="nav-wrapper full-height position-relative" ng-class="{ open: toggle }">
-    <div ui-view="main" id="ee-main"></div>
+  <div class="btn btn-default position-fixed" ng-click="toggleLeft = !toggleLeft" style="bottom: 10px; left: 10px; z-index: 10">left</div>
+  <div class="btn btn-default position-fixed" ng-click="toggleRight = !toggleRight" style="bottom: 10px; left: 60px; z-index: 10">right</div>
+
+  <div ui-view="offscreen" id="ee-offscreen" ng-class="{ 'offset-left': toggleRight }"></div>
+
+<!--   <div class="nav-wrapper full-height position-relative" > -->
+  <div ui-view="main" id="ee-main" class="full-height position-relative" ng-class="{ 'open': toggleLeft, 'open-right': toggleRight }"></div>
+<!--   </div> -->
+
+  <div ui-view="offscreen-right" id="ee-offscreen-right" class="blue-background">
+    <div class="pad-10 width-250">
+      This is it
+    </div>
   </div>
 
 
@@ -102,7 +112,8 @@
   <script src="js/components/ee-navbar.js"></script>
   <script src="js/components/ee-product.js"></script>
   <script src="js/components/ee-save.js"></script>
-  <script src="js/components/ee-offscreen.js"></script>
+  <script src="js/components/ee-offscreen-toggle.js"></script>
+  <script src="js/components/ee-offscreen-header.js"></script>
   <script src="js/components/ee-product-detail.js"></script>
   <script src="js/components/ee-product-for-catalog.js"></script>
   <script src="js/components/ee-product-for-storefront.js"></script>

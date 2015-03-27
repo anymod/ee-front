@@ -11,7 +11,7 @@ angular.module('builder.storefront').config ($stateProvider) ->
           templateUrl: 'app/storefront/storefront.view.container.html'
           controller: 'builder.storefrontRootCtrl'
         offscreen:
-          templateUrl: 'components/ee-offscreen.html'
+          templateUrl: 'builder/storefront/storefront.offscreen.view.container.html'
           controller: 'builder.storefrontRootCtrl'
           offscreenCategory: 'Storefront'
           offscreenColor: 'blue'

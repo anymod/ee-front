@@ -3,7 +3,7 @@
 angular.module 'ee-offscreen', []
 
 angular.module('ee-offscreen').directive "eeOffscreen", ($rootScope) ->
-  templateUrl: 'components/ee-offscreen.html'
+  templateUrl: 'builder/storefront/storefront.offscreen.view.container.html'
   restrict: 'E'
   scope:
     narrowToggle: '='
@@ -24,7 +24,7 @@ angular.module('ee-offscreen').directive "eeOffscreen", ($rootScope) ->
 
 ## Default offscreen
 angular.module('ee-offscreen').directive "eeOffscreenDefault", () ->
-  templateUrl: 'components/ee-offscreen-default.html'
+  templateUrl: 'components/template.offscreen.default.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) ->

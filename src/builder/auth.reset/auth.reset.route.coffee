@@ -10,6 +10,6 @@ angular.module('builder.auth').config ($stateProvider) ->
           templateUrl: 'builder/auth.reset/auth.reset.html'
           controller: 'resetCtrl'
         offscreen:
-          templateUrl: 'components/ee-offscreen.html'
+          templateUrl: 'components/template.offscreen.default.html'
           controller: 'landingCtrl'
       data: pageTitle: 'Reset your password | eeosk'

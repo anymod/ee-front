@@ -5,6 +5,12 @@ angular.module('builder.orders').controller 'builder.ordersCtrl', ($scope, eeOrd
   $scope.storefront = {}
   $scope.hideCatalogAlert = true
 
+  ## Formerly directive
+  $scope.narrowToggle = true
+  $scope.offscreenCategory = 'Orders'
+  $scope.offscreenColor = 'green'
+  ##
+
   # eeAuth.getUsername()
   # .then (username) -> eeStorefront.storefrontFromUsername(username)
   # .then (storefront) ->
