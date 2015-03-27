@@ -1,3 +1,7 @@
+<div ng-show="!toggleLeft" class="position-fixed" style="top: 9px; left: -25px; z-index: 1001;">
+  <ee-offscreen-toggle color="'gold'"></ee-offscreen-toggle>
+</div>
+
 <div ng-if="searching"
      class="position-fixed top-left-bottom-right-0"
      ng-class="{ 'left-250' : !!toggle }"
@@ -16,7 +20,8 @@
       <div class="btn btn-default" ng-click="decrementPage()" ng-class="{ disabled: page < 2 }">
         <i class="fa fa-fw fa-long-arrow-left"></i>
       </div>
-      <div class="btn btn-default" ng-click="toggleOffscreenRight()"><i class="fa fa-fw fa-eye"></i></div>
+      <ee-offscreen-toggle color="'blue'" side="'right'"></ee-offscreen-toggle>
+      <!-- <div class="btn btn-default" ng-click="toggleOffscreenRight()"><i class="fa fa-fw fa-eye"></i></div> -->
       <div class="btn btn-default" ng-click="incrementPage()" ng-class="{ disabled: products.length < productsPerPage }">
         <i class="fa fa-fw fa-long-arrow-right"></i>
       </div>
@@ -35,7 +40,7 @@
 </div>
 
 <!-- <div class="catalog-products pad-20 position-relative pull-left"> -->
-<div class="pad-10">
+<div class="pad-20 text-center">
   <span ng-repeat="product in products">
     <ee-product-for-catalog product="product"></ee-product-for-catalog>
   </span>

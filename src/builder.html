@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="eeBuilder" lang="en" ng-class="{ 'nav-open': toggle }">
+<html ng-app="eeBuilder" lang="en">
 
 <head>
   <title ng-bind="$state.current.data.pageTitle"></title>
@@ -20,21 +20,19 @@
   <!-- endbuild -->
 </head>
 
-<body ng-class="{ 'nav-open': toggle }">
+<body ng-class="{ 'open': toggleLeft, 'open-right': toggleRight }">
   <h1 class="position-fixed overflow-hidden height-0" style="top: -5000px;">eeosk | Create an online store</h1>
 
-  <div class="btn btn-default position-fixed" ng-click="toggleLeft = !toggleLeft" style="bottom: 10px; left: 10px; z-index: 10">left</div>
-  <div class="btn btn-default position-fixed" ng-click="toggleRight = !toggleRight" style="bottom: 10px; left: 60px; z-index: 10">right</div>
+<!-- <div class="btn btn-default position-fixed" ng-click="toggleLeft = !toggleLeft" style="bottom: 10px; left: 10px; z-index: 10">left</div>
+<div class="btn btn-default position-fixed" ng-click="toggleRight = !toggleRight" style="bottom: 10px; left: 60px; z-index: 10">right</div> -->
 
-  <div ui-view="offscreen" id="ee-offscreen" ng-class="{ 'offset-left': toggleRight }"></div>
+  <div ui-view="offscreen" id="ee-offscreen"></div>
 
-<!--   <div class="nav-wrapper full-height position-relative" > -->
   <div ui-view="main" id="ee-main" class="full-height position-relative" ng-class="{ 'open': toggleLeft, 'open-right': toggleRight }"></div>
-<!--   </div> -->
 
-  <div ui-view="offscreen-right" id="ee-offscreen-right" class="blue-background">
-    <div class="pad-10 width-250">
-      This is it
+  <div ui-view="offscreen-right" id="ee-offscreen-right">
+    <div class="pad-10" style="width: 320px;">
+      <ee-offscreen-toggle side="'right'" color="'gold'"></ee-offscreen-toggle>
     </div>
   </div>
 

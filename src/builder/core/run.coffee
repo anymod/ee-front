@@ -2,6 +2,12 @@
 
 angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeStorefront) ->
   $rootScope.isBuilder = true
+  $rootScope.$on 'toggle:offscreen:left', () ->
+    $rootScope.toggleLeft = !$rootScope.toggleLeft
+    $rootScope.$broadcast 'set:toggle:offscreen:left', $rootScope.toggleLeft
+  $rootScope.$on 'toggle:offscreen:right', () ->
+    $rootScope.toggleRight = !$rootScope.toggleRight
+    $rootScope.$broadcast 'set:toggle:offscreen:right', $rootScope.toggleRight
 
   nonAuthStates = [
     'landing'
@@ -50,7 +56,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
       return
 
   $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
-
-    $rootScope.toggle = !isCloseOffscreen(toState.name)
+    $rootScope.toggleLeft = !isCloseOffscreen(toState.name)
+    $rootScope.$broadcast 'set:toggle:offscreen:left', $rootScope.toggleLeft
 
   return
