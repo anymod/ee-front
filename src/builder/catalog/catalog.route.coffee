@@ -11,9 +11,12 @@ angular.module('builder.catalog').config ($stateProvider) ->
           controller: 'builder.catalogCtrl'
         offscreen:
           templateUrl: 'builder/catalog/catalog.offscreen.html'
-          controller: 'builder.catalogCtrl'
+          controller: 'builder.catalogOffscreenCtrl'
           offscreenCategory: 'Catalog'
           offscreenColor: 'gold'
+        # 'offscreen-right':
+        #   templateUrl: 'builder/catalog/catalog.offscreen.right.html'
+        #   controller: 'builder.catalogOffscreenRightCtrl'
       resolve:
         user: (eeAuth) -> eeAuth.userFromToken()
       data:

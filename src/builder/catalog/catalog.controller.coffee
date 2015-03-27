@@ -1,27 +1,6 @@
 'use strict'
 
-angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $rootScope, $anchorScroll, $location, eeCatalog) ->
-  ## Setup
-  $scope.narrowToggle = true
-  $scope.offscreenCategory = 'Catalog'
-  $scope.offscreenColor = 'gold'
-  $scope.page = 1
-  $scope.categories = [
-    'Home Decor',
-    'Kitchen',
-    'Accessories',
-    'Health & Beauty',
-    'Electronics',
-    'General Merchandise'
-  ]
-  $scope.ranges = [
-    { min: 0,     max: 2500   },
-    { min: 2500,  max: 5000   },
-    { min: 5000,  max: 10000  },
-    { min: 10000, max: 20000  },
-    { min: 20000, max: null   }
-  ]
-  ##
+angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $location, eeCatalog) ->
 
   $scope.currentCategory = null
   $scope.setCurrentCategory = (category) ->
@@ -30,6 +9,7 @@ angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $ro
     eeCatalog.addQuery 'page', 1
     # eeCatalog.logQuery()
     eeCatalog.search()
+    return
 
   $scope.currentRange = {}
   $scope.setCurrentRange = (range) ->
@@ -37,16 +17,15 @@ angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $ro
     eeCatalog.addQuery 'min', $scope.currentRange.min
     eeCatalog.addQuery 'max', $scope.currentRange.max
     eeCatalog.addQuery 'page', 1
+    setHighlightedProduct { foo: 'bar', page: Math.random() }
     # eeCatalog.logQuery()
     eeCatalog.search()
+    return
 
 
   ## Formerly directive
-  $scope.toggleOffscreenRight = () ->
-    $rootScope.toggleRight = !$rootScope.toggleRight
   $scope.query = eeCatalog.getQuery()
   $scope.$on 'storefront:updated', (e, data) -> $scope.storefront = data
-  $scope.$on '$stateChangeSuccess', (event, toState) -> $scope.toggle = $rootScope.toggle
   $scope.$on 'auth:user:updated', (e, data) -> $scope.user = data
   $scope.$on 'catalog:query:updated', () -> $scope.query = eeCatalog.getQuery()
   $scope.$on 'catalog:products:updated',  () -> $scope.products = eeCatalog.getProducts()
@@ -57,9 +36,6 @@ angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $ro
 
   # $scope.currentRanges = []
   #
-
-
-
   # $scope.categoryIsCurrent = (category) -> $scope.currentCategories.indexOf(category) > -1
   #
   # $scope.toggleCurrentCategory = (category) ->
@@ -103,13 +79,19 @@ angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $ro
   #   translateRanges()
   ##
 
+  ## Highlighted product
+  $scope.productFocus = (id) ->
+    $scope.$emit 'highlight:product', id
+    return
+  ##
+
   eeCatalog.search()
 
-  $scope.scrollToTop = () ->
-    $location.hash 'top'
-    $anchorScroll()
-    # Remove hash in url
-    $location.url $location.path()
+  # $scope.scrollToTop = () ->
+  #   $location.hash 'top'
+  #   $anchorScroll()
+  #   # Remove hash in url
+  #   $location.url $location.path()
 
   changePageBy = (n) ->
     $scope.page += n

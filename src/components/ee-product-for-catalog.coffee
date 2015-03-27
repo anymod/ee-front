@@ -10,7 +10,7 @@ angular.module('ee-product').directive "eeProductForCatalog", (eeStorefront, eeC
   link: (scope, ele, attr) ->
     scope.productFocus = (id) ->
       console.log 'focusing!', id
-      scope.$emit 'toggle:offscreen:right'
+      scope.$emit 'offscreen:right:open'
     # scope.overlay = false
     # scope.toggleOverlay = () -> scope.overlay = !scope.overlay
     #

@@ -123,6 +123,7 @@ sources.builderModule = [
   './src/builder/catalog/catalog.module.coffee'
   './src/builder/catalog/catalog.route.coffee'
   './src/builder/catalog/catalog.controller.coffee'
+  './src/builder/catalog/catalog.offscreen.right.controller.coffee'
   # Module - orders
   './src/builder/orders/orders.module.coffee'
   './src/builder/orders/orders.route.coffee'
@@ -163,6 +164,7 @@ sources.builderDirective = [
   './src/components/ee-order.coffee'
   './src/components/ee-cloudinary-upload.coffee'
   './src/components/ee-welcome.coffee'
+  './src/components/ee-image-preload.coffee'
 ]
 sources.storeDirective = [
   './src/components/ee-button-add-to-cart.coffee'

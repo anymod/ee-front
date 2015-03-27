@@ -35,5 +35,6 @@ angular.module 'eeBuilder', [
   'ee-product'
   'ee-order'
   'ee-cloudinaryUpload'
+  'ee-image-preload'
   # 'ee.templates' # commented out during build step for inline templates
 ]

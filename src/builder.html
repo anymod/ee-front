@@ -30,11 +30,7 @@
 
   <div ui-view="main" id="ee-main" class="full-height position-relative" ng-class="{ 'open': toggleLeft, 'open-right': toggleRight }"></div>
 
-  <div ui-view="offscreen-right" id="ee-offscreen-right">
-    <div class="pad-10" style="width: 320px;">
-      <ee-offscreen-toggle side="'right'" color="'gold'"></ee-offscreen-toggle>
-    </div>
-  </div>
+  <!-- <div ui-view="offscreen-right" id="ee-offscreen-right"></div> -->
 
 
 <!--   <ee-offscreen narrow-toggle="$state.current.data.narrowToggle"
@@ -99,6 +95,7 @@
   <script src="js/builder/catalog/catalog.module.js"></script>
   <script src="js/builder/catalog/catalog.route.js"></script>
   <script src="js/builder/catalog/catalog.controller.js"></script>
+  <script src="js/builder/catalog/catalog.offscreen.right.controller.js"></script>
   <script src="js/builder/orders/orders.module.js"></script>
   <script src="js/builder/orders/orders.route.js"></script>
   <script src="js/builder/orders/orders.controller.js"></script>
@@ -121,6 +118,7 @@
   <script src="js/components/ee-order.js"></script>
   <script src="js/components/ee-cloudinary-upload.js"></script>
   <script src="js/components/ee-welcome.js"></script>
+  <script src="js/components/ee-image-preload.js"></script>
   <!-- endbuild -->
 
   <!--GA-->

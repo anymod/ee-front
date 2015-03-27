@@ -11,9 +11,9 @@ angular.module('ee-offscreen-toggle').directive "eeOffscreenToggle", () ->
     side: '='
   link: (scope, ele, attrs) ->
     if scope.side is 'right'
-      scope.$on 'set:toggle:offscreen:right', (e, data) -> scope.open = data
-      scope.toggleOffscreen = () -> scope.$emit 'toggle:offscreen:right'
+      scope.$on 'set:offscreen:right:toggle', (e, data) -> scope.open = data
+      scope.toggleOffscreen = () -> scope.$emit 'offscreen:right:toggle'
     else
-      scope.$on 'set:toggle:offscreen:left', (e, data) -> scope.open = data
-      scope.toggleOffscreen = () -> scope.$emit 'toggle:offscreen:left'
+      scope.$on 'set:offscreen:left:toggle', (e, data) -> scope.open = data
+      scope.toggleOffscreen = () -> scope.$emit 'offscreen:left:toggle'
     return
