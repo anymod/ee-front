@@ -10,10 +10,10 @@ angular.module('ee-product').directive "eeProductMarginSetter", (eeCatalog) ->
   link: (scope, ele, attr, eeProductForCatalogCtrl) ->
     basePrice = scope.product.baseline_price
     scope.marginArray = eeCatalog.marginArray
-    eeCatalog.setCurrentPriceAndCurrentMargin scope, basePrice, eeCatalog.startMargin
+    eeCatalog.setCurrents scope, basePrice, eeCatalog.startMargin
 
     scope.update = (newMargin) ->
       eeProductForCatalogCtrl.setCurrentMargin newMargin
-      eeCatalog.setCurrentPriceAndCurrentMargin scope, basePrice, newMargin
+      eeCatalog.setCurrents scope, basePrice, newMargin
 
     return

@@ -123,7 +123,6 @@ sources.builderModule = [
   './src/builder/catalog/catalog.module.coffee'
   './src/builder/catalog/catalog.route.coffee'
   './src/builder/catalog/catalog.controller.coffee'
-  './src/builder/catalog/catalog.offscreen.right.controller.coffee'
   # Module - orders
   './src/builder/orders/orders.module.coffee'
   './src/builder/orders/orders.route.coffee'

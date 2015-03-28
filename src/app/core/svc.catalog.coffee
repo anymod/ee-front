@@ -24,15 +24,7 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
     if !!_query and isNaN _query.min then _removeQuery 'min'
     if !!_query and isNaN _query.max then _removeQuery 'max'
 
-  ## Reset
-  reset: () ->
-    _setProducts []
-    _query = {}
-
-  ## Product
-  getProducts: () -> _products
-
-  getProduct: (id) ->
+  _getProduct = (id) ->
     deferred = $q.defer()
     if !id
       deferred.reject 'Missing product ID'
@@ -41,6 +33,16 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
       .then (data) -> deferred.resolve data
       .catch (err) -> deferred.reject err
     deferred.promise
+
+  ## Reset
+  reset: () ->
+    _setProducts []
+    _query = {}
+
+  ## Product
+
+  getProducts: () -> _products
+  getProduct: (id) -> _getProduct id
 
   ## Query
   getQuery: () -> _query
@@ -75,10 +77,11 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
   maxMargin: _maxMargin
   startMargin: _startMargin
   calcPrice: (base, margin) -> _calcPrice(base, margin)
-  setCurrentPriceAndCurrentMargin: (scope, base, newMargin) ->
+  setCurrents: (scope, base, newMargin) ->
     margin = newMargin
     if newMargin >= _maxMargin then margin = _maxMargin
     if newMargin <= _minMargin then margin = _minMargin
     scope.currentMargin = margin
     scope.currentPrice = _calcPrice(base, margin)
+    scope.currentProfit = scope.currentPrice - base
     return

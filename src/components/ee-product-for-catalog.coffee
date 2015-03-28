@@ -16,7 +16,7 @@ angular.module('ee-product').directive "eeProductForCatalog", (eeStorefront, eeC
     #
     # scope.added = false
     # scope.product_selection = false
-    # eeCatalog.setCurrentPriceAndCurrentMargin scope, scope.product.baseline_price, eeCatalog.startMargin
+    # eeCatalog.setCurrents scope, scope.product.baseline_price, eeCatalog.startMargin
     #
     # eeAuth.getUsername()
     # .then (username) -> eeStorefront.getProductInStorefront(username, scope.product.id)

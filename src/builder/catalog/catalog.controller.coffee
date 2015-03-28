@@ -1,6 +1,62 @@
 'use strict'
 
-angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $location, eeCatalog) ->
+angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $rootScope, $location, user, eeCatalog, eeSelection, eeStorefront) ->
+  ## Setup
+  basePrice = null
+  $scope.currentPrice = null
+  $scope.currentMargin = null
+  $scope.user = user
+  $scope.narrowToggle = true
+  $scope.offscreenCategory = 'Catalog'
+  $scope.offscreenColor = 'gold'
+  $scope.page = 1
+  $scope.categories = [
+    'Home Decor',
+    'Kitchen',
+    'Accessories',
+    'Health & Beauty',
+    'Electronics',
+    'General Merchandise'
+  ]
+  $scope.ranges = [
+    { min: 0,     max: 2500   },
+    { min: 2500,  max: 5000   },
+    { min: 5000,  max: 10000  },
+    { min: 10000, max: 20000  },
+    { min: 20000, max: null   }
+  ]
+  ##
+
+  ## Setup
+  setProduct = (prod) -> $scope.product = prod
+  $scope.update = (newMargin) -> eeCatalog.setCurrents $scope, basePrice, newMargin
+  $scope.setFocusImg = (img) -> $scope.focusImg = img
+  initializeProduct = (prod) ->
+    setProduct prod
+    $scope.setFocusImg $scope.product.image_meta.main_image
+    basePrice = $scope.product.baseline_price
+    $scope.marginArray = eeCatalog.marginArray
+    eeCatalog.setCurrents $scope, basePrice, eeCatalog.startMargin
+  ## Highlighted product
+  $scope.productFocus = (id) ->
+    $rootScope.$broadcast 'highlight:product', id
+    return
+  $scope.$on 'highlight:product', (e, id) ->
+    eeCatalog.getProduct(id)
+    .then (product) -> initializeProduct product
+    .catch () -> initializeProduct {}
+    return
+
+  $scope.select = () ->
+    eeSelection.createSelection($scope.product, $scope.currentMargin*100)
+    .then (res) ->
+      $scope.added = true
+      $scope.selection_id = res.id
+      eeStorefront.reset()
+    .catch (err) ->
+      $scope.added = false
+      console.error err
+  ##
 
   $scope.currentCategory = null
   $scope.setCurrentCategory = (category) ->
@@ -17,11 +73,9 @@ angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $lo
     eeCatalog.addQuery 'min', $scope.currentRange.min
     eeCatalog.addQuery 'max', $scope.currentRange.max
     eeCatalog.addQuery 'page', 1
-    setHighlightedProduct { foo: 'bar', page: Math.random() }
     # eeCatalog.logQuery()
     eeCatalog.search()
     return
-
 
   ## Formerly directive
   $scope.query = eeCatalog.getQuery()
@@ -77,12 +131,6 @@ angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $lo
   #   index = $scope.currentRanges.indexOf range
   #   if index > -1 then $scope.currentRanges.splice(index, 1) else $scope.currentRanges.push range
   #   translateRanges()
-  ##
-
-  ## Highlighted product
-  $scope.productFocus = (id) ->
-    $scope.$emit 'highlight:product', id
-    return
   ##
 
   eeCatalog.search()

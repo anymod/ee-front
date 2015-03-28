@@ -8,20 +8,99 @@
 
         <div class="width-300">
 
-          <div class="pad-10 {{ offscreenColor }}-background">
-            <div class="vert-20 full-width inline-block"></div>
-            <div ng-show="!!product" class="btn btn-sm btn-default pull-right" ng-click="product = null"><i class="fa fa-search"></i>&nbsp;search</div>
-            <h2 class="margin-0 white-color" ng-bind="offscreenCategory"></h2>
-          </div>
-
-          <div ng-show="!!product" class="pad-10">
-            <img ng-src="{{ product.image_meta.main_image.url }}" ee-src="product.image_meta.main_image.url" class="full-width" ee-image-preload />
-            <!-- images -->
-            <h4 ng-bind="product.title"></h4>
-            <pre>{{ product | json }}</pre>
+          <div ng-show="!!product">
+            <div class="full-width inline-block" style="height: 47px;"></div>
+            <div class="margin-10">
+              <div>
+<!--                 <span ng-show="added">
+  <div ui-sref="storefront.home" class="btn btn-sm btn-primary">
+    <i class="fa fa-home"></i>&nbsp;See in store
+  </div>&nbsp;<div class="btn btn-sm btn-default" ng-click="deselect()">
+    Remove
+  </div>
+</span> -->
+                <div class="btn btn-primary" style="width: 103px;" ng-click="select()">Add to store</div>
+                <div class="inline-block text-right" style="width: 100px; height: 25px; vertical-align: middle">
+                  <h3 class="inline-block margin-0" style="line-height: 12px;">
+                    <span ng-bind="currentPrice | centToDollar"></span>
+                    <br>
+                    <span style="font-size: 12px; font-weight: normal; color: #555;">+{{ product.shipping_price | centToDollar }} s/h</span>
+                  </h3>
+                </div>
+                <div class="btn btn-sm btn-default pull-right" ng-click="product = null">Close</div>
+              </div>
+            </div>
+            <div class="btn-group btn-group-justified">
+              <a href ng-repeat="margin in marginArray"
+                  class="btn btn-warning btn-sm pad-5 round-0"
+                  ng-class="{ active: currentMargin == margin }"
+                  ng-click="update(margin)">
+                {{ margin*100 }}<small><small>%</small></small>
+              </a>
+            </div>
+            <div class="full-width text-center vert-2">
+              <strong>{{ currentMargin*100 }}%</strong> margin: you earn <strong ng-bind="currentProfit | centToDollar"></strong> each sale
+            </div>
+            <div class="margin-10">
+              <img ng-src="{{ focusImg.url }}" ee-src="focusImg.url" class="full-width" ee-image-preload />
+              <!-- images -->
+              <div ng-show="product.image_meta.additional_images.length > 0" class="vert-5">
+                <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}"
+                     class="inline-block gray-border hover-pointer margin-2"
+                     style="width: 64px"
+                     ng-click="setFocusImg(product.image_meta.main_image)" />
+                <img ng-repeat="img in product.image_meta.additional_images"
+                     ng-src="{{ img.url | thumbnail }}"
+                     class="inline-block gray-border hover-pointer margin-2"
+                     style="width: 64px"
+                     ng-click="setFocusImg(img)" />
+              </div>
+              <div class="pad-5 vert-10 white-background">
+                <h4 ng-bind="product.title" class="margin-5"></h4>
+                <p ng-bind-html="product.content | unboldHtml" class="margin-5"></p>
+              </div>
+              <table ng-show="!!product.content_meta" class="table table-condensed table-striped table-bordered white-background">
+                <tr ng-if="!!product.content_meta.item_name">
+                  <td>Item</td>
+                  <td ng-bind="product.content_meta.item_name"></td>
+                </tr>
+                <tr ng-if="!!product.availability_meta.quantity">
+                  <td>Quantity Available</td>
+                  <td ng-bind="product.availability_meta.quantity | truncateQty"></td>
+                </tr>
+                <tr ng-if="!!product.shipping_price">
+                  <td>Shipping Cost</td>
+                  <td ng-bind="product.shipping_price | centToDollar"></td>
+                </tr>
+                <tr ng-if="!!product.content_meta.brand_name">
+                  <td>Brand Name</td>
+                  <td ng-bind="product.content_meta.brand_name"</td>
+                </tr>
+                <tr ng-if="!!product.content_meta.manufacturer">
+                  <td>Manufacturer</td>
+                  <td ng-bind="product.content_meta.manufacturer"></td>
+                </tr>
+                <tr ng-if="!!product.content_meta.condition">
+                  <td>Condition</td>
+                  <td ng-bind="product.content_meta.condition"></td>
+                </tr>
+                <tr ng-if="!!product.content_meta.warranty">
+                  <td>Warranty</td>
+                  <td ng-bind="product.content_meta.warranty"></td>
+                </tr>
+                <tr ng-if="!!product.content_meta.details">
+                  <td>Details</td>
+                  <td ng-bind-html="product.content_meta.details | unboldHtml"></td>
+                </tr>
+              </table>
+            </div>
           </div>
 
           <div ng-hide="!!product">
+            <div class="pad-10 {{ offscreenColor }}-background">
+              <div class="vert-20 full-width inline-block"></div>
+              <h2 class="margin-0 white-color" ng-bind="offscreenCategory"></h2>
+            </div>
             <!-- TODO: implement catalog search -->
             <div class="input-group round-0">
               <input type="text" ng-model="search" class="form-control round-0" placeholder="Search the catalog" disabled>

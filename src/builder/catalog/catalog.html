@@ -11,11 +11,15 @@
   </h2>
 </div>
 
-<nav class="navbar navbar-default margin-0 round-0"
+<nav class="navbar navbar-default navbar-rgba-colors margin-0 round-0"
      ng-style="{ 'background-color': user.storefront_meta.home.topBarBackgroundColor }"
      id="top">
   <div class="container-fluid">
-    <div class="vert-8 full-width text-center">
+    <a class="navbar-brand margin-0"
+       ng-style="{ color: user.storefront_meta.home.topBarColor }"
+       ng-bind="user.storefront_meta.home.name">
+    </a>
+    <div class="vert-8">
       &nbsp;
       <div class="btn btn-default" ng-click="decrementPage()" ng-class="{ disabled: page < 2 }">
         <i class="fa fa-fw fa-long-arrow-left"></i>
