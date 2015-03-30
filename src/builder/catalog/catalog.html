@@ -1,5 +1,5 @@
 <div ng-show="!toggleLeft" class="position-fixed" style="top: 9px; left: -25px; z-index: 1001;">
-  <ee-offscreen-toggle color="'gold'"></ee-offscreen-toggle>
+  <ee-offscreen-toggle color="'gold'" icon="'icon'"></ee-offscreen-toggle>
 </div>
 
 <div ng-if="searching"
@@ -31,15 +31,12 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<!-- <div class="catalog-products pad-20 position-relative pull-left"> -->
 <div class="pad-20 text-center">
   <span ng-repeat="product in products">
-    <a href
-        ng-click="productFocus(product.id)"
-        class="thumb margin-2 gray-border"
+    <a href ng-click="productFocus(product.id)"
+        class="thumb margin-2"
+        ng-class="{ 'blue-border': !!productLookup[product.id] }"
         style="width: 23%; height: 120px; background-image: url('{{ product.image_meta.main_image.url | thumbnail }}')">
     </a>
-    <!-- <ee-product-for-catalog product="product"></ee-product-for-catalog> -->
   </span>
 </div>
-<!-- </div> -->

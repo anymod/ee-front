@@ -6,7 +6,6 @@ angular.module('builder.orders').controller 'builder.ordersCtrl', ($scope, eeOrd
   $scope.hideCatalogAlert = true
 
   ## Formerly directive
-  $scope.narrowToggle = true
   $scope.offscreenCategory = 'Orders'
   $scope.offscreenColor = 'green'
   ##

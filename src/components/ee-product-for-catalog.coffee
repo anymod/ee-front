@@ -7,10 +7,9 @@ angular.module('ee-product').directive "eeProductForCatalog", (eeStorefront, eeC
     product: '='
   # controller: ($scope) ->
   #   this.setCurrentMargin = (margin) -> $scope.currentMargin = margin
-  link: (scope, ele, attr) ->
-    scope.productFocus = (id) ->
-      console.log 'focusing!', id
-      scope.$emit 'offscreen:right:open'
+  # link: (scope, ele, attr) ->
+    # scope.productFocus = (id) ->
+    #   console.log 'focusing!', id
     # scope.overlay = false
     # scope.toggleOverlay = () -> scope.overlay = !scope.overlay
     #
@@ -43,4 +42,4 @@ angular.module('ee-product').directive "eeProductForCatalog", (eeStorefront, eeC
     #     scope.added = true
     #     console.error err
 
-    return
+    # return

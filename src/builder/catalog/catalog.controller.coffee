@@ -6,7 +6,6 @@ angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $ro
   $scope.currentPrice = null
   $scope.currentMargin = null
   $scope.user = user
-  $scope.narrowToggle = true
   $scope.offscreenCategory = 'Catalog'
   $scope.offscreenColor = 'gold'
   $scope.page = 1
@@ -25,6 +24,9 @@ angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $ro
     { min: 10000, max: 20000  },
     { min: 20000, max: null   }
   ]
+
+  # Defines scope.storefront and scope.productLookup
+  eeStorefront.defineForCatalog $scope, user.username
   ##
 
   ## Setup
@@ -47,14 +49,28 @@ angular.module('builder.catalog').controller 'builder.catalogCtrl', ($scope, $ro
     .catch () -> initializeProduct {}
     return
 
+  ## Add to store
   $scope.select = () ->
+    $scope.btnText = 'Adding'
     eeSelection.createSelection($scope.product, $scope.currentMargin*100)
-    .then (res) ->
-      $scope.added = true
-      $scope.selection_id = res.id
-      eeStorefront.reset()
+    .then () -> eeStorefront.storefrontFromUsername(user.username, true)
+    .then () -> eeStorefront.defineForCatalog $scope, user.username
+    .then () -> $scope.btnText = 'See in store'
     .catch (err) ->
-      $scope.added = false
+      $scope.btnText = 'Didn\'t add to store'
+      console.error err
+  ##
+
+  ## Remove from store
+  $scope.deselect = () ->
+    $scope.btnText = 'Removing'
+    selection_id = $scope.productLookup[$scope.product.id].selection_id
+    eeSelection.deleteSelection(selection_id)
+    .then () -> eeStorefront.storefrontFromUsername(user.username, true)
+    .then () -> eeStorefront.defineForCatalog $scope, user.username
+    .then () -> $scope.btnText = 'Remove from my store'
+    .catch (err) ->
+      $scope.btnText = 'Didn\'t remove from store'
       console.error err
   ##
 

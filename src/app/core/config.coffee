@@ -15,8 +15,6 @@ angular.module('app.core').config ($locationProvider, $stateProvider, $urlRouter
     .state 'app',
       url: ''
       template: '<div ui-view autoscroll="true" class="onscreen white-background full-height"></div>'
-      data:
-        narrowToggle: true
     .state 'examples',
       url: '/examples'
       templateUrl: '/app/examples/examples.html'

@@ -2,18 +2,13 @@
 
 angular.module 'ee-offscreen-toggle', []
 
-angular.module('ee-offscreen-toggle').directive "eeOffscreenToggle", () ->
+angular.module('ee-offscreen-toggle').directive "eeOffscreenToggle", ($rootScope) ->
   templateUrl: 'components/ee-offscreen-toggle.html'
   restrict: 'E'
   replace: true
   scope:
     color: '='
-    side: '='
+    icon: '='
   link: (scope, ele, attrs) ->
-    if scope.side is 'right'
-      scope.$on 'set:offscreen:right:toggle', (e, data) -> scope.open = data
-      scope.toggleOffscreen = () -> scope.$emit 'offscreen:right:toggle'
-    else
-      scope.$on 'set:offscreen:left:toggle', (e, data) -> scope.open = data
-      scope.toggleOffscreen = () -> scope.$emit 'offscreen:left:toggle'
+    scope.toggleOffscreen = () -> $rootScope.toggleLeft = !$rootScope.toggleLeft
     return

@@ -3,30 +3,6 @@
 angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeStorefront) ->
   $rootScope.isBuilder = true
 
-  ## Toggle
-  broadcastLeft = ()  -> $rootScope.$broadcast 'set:offscreen:left:toggle', $rootScope.toggleLeft
-  broadcastRight = () -> $rootScope.$broadcast 'set:offscreen:right:toggle', $rootScope.toggleRight
-
-  $rootScope.$on 'offscreen:left:open', () ->
-    $rootScope.toggleLeft = true
-    broadcastLeft()
-  $rootScope.$on 'offscreen:left:close', () ->
-    $rootScope.toggleLeft = false
-    broadcastLeft()
-  $rootScope.$on 'offscreen:right:open', () ->
-    $rootScope.toggleRight = true
-    broadcastLeft()
-  $rootScope.$on 'offscreen:right:close', () ->
-    $rootScope.toggleRight = false
-    broadcastLeft()
-  $rootScope.$on 'offscreen:left:toggle', () ->
-    $rootScope.toggleLeft = !$rootScope.toggleLeft
-    broadcastLeft()
-  $rootScope.$on 'offscreen:right:toggle', () ->
-    $rootScope.toggleRight = !$rootScope.toggleRight
-    broadcastRight()
-  ##
-
   nonAuthStates = [
     'landing'
     'login'
@@ -75,8 +51,5 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
 
   $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
     $rootScope.toggleLeft = !isCloseOffscreen(toState.name)
-    $rootScope.toggleRight = toState.name is 'catalog'
-    broadcastLeft()
-    broadcastRight()
 
   return

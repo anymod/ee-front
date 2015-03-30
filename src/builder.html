@@ -23,24 +23,8 @@
 <body ng-class="{ 'open': toggleLeft, 'open-right': toggleRight }">
   <h1 class="position-fixed overflow-hidden height-0" style="top: -5000px;">eeosk | Create an online store</h1>
 
-<!-- <div class="btn btn-default position-fixed" ng-click="toggleLeft = !toggleLeft" style="bottom: 10px; left: 10px; z-index: 10">left</div>
-<div class="btn btn-default position-fixed" ng-click="toggleRight = !toggleRight" style="bottom: 10px; left: 60px; z-index: 10">right</div> -->
-
   <div ui-view="offscreen" id="ee-offscreen"></div>
-
   <div ui-view="main" id="ee-main" class="full-height position-relative" ng-class="{ 'open': toggleLeft, 'open-right': toggleRight }"></div>
-
-  <!-- <div ui-view="offscreen-right" id="ee-offscreen-right"></div> -->
-
-
-<!--   <ee-offscreen narrow-toggle="$state.current.data.narrowToggle"
-              offscreen-category="$state.current.data.offscreenCategory"
-              offscreen-color="$state.current.data.offscreenColor">
-</ee-offscreen>
-
-<div class="nav-wrapper full-height position-relative" ng-class="{ open: toggle }">
-  <div ui-view autoscroll="true" class="white-background position-absolute top-left-bottom-right-0"></div>
-</div> -->
 
   <!-- Do not edit inside of build block; it is auto-generated -->
   <!-- build:js -->
@@ -95,7 +79,6 @@
   <script src="js/builder/catalog/catalog.module.js"></script>
   <script src="js/builder/catalog/catalog.route.js"></script>
   <script src="js/builder/catalog/catalog.controller.js"></script>
-  <script src="js/builder/catalog/catalog.offscreen.right.controller.js"></script>
   <script src="js/builder/orders/orders.module.js"></script>
   <script src="js/builder/orders/orders.route.js"></script>
   <script src="js/builder/orders/orders.controller.js"></script>

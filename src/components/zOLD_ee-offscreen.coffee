@@ -6,7 +6,6 @@ angular.module('ee-offscreen').directive "eeOffscreen", ($rootScope) ->
   templateUrl: 'builder/storefront/storefront.offscreen.view.container.html'
   restrict: 'E'
   scope:
-    narrowToggle: '='
     offscreenCategory: '='
     offscreenColor: '='
   link: (scope, ele, attrs) ->

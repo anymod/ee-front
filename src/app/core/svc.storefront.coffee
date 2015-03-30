@@ -75,3 +75,11 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeBack) ->
 
   setScopeCategories: (storefront, scope) ->
     scope.categories = _getCategories(storefront)
+
+  defineForCatalog: (scope, username) ->
+    _getStorefront username
+    .then (storefront) ->
+      scope.storefront = storefront
+      _setProductLookup()
+      scope.productLookup = _productLookup
+    .catch (err) -> console.error err

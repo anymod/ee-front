@@ -11,26 +11,30 @@
           <div ng-show="!!product">
             <div class="full-width inline-block" style="height: 47px;"></div>
             <div class="margin-10">
-              <div>
-<!--                 <span ng-show="added">
-  <div ui-sref="storefront.home" class="btn btn-sm btn-primary">
-    <i class="fa fa-home"></i>&nbsp;See in store
-  </div>&nbsp;<div class="btn btn-sm btn-default" ng-click="deselect()">
-    Remove
-  </div>
-</span> -->
-                <div class="btn btn-primary" style="width: 103px;" ng-click="select()">Add to store</div>
-                <div class="inline-block text-right" style="width: 100px; height: 25px; vertical-align: middle">
-                  <h3 class="inline-block margin-0" style="line-height: 12px;">
-                    <span ng-bind="currentPrice | centToDollar"></span>
-                    <br>
-                    <span style="font-size: 12px; font-weight: normal; color: #555;">+{{ product.shipping_price | centToDollar }} s/h</span>
-                  </h3>
-                </div>
-                <div class="btn btn-sm btn-default pull-right" ng-click="product = null">Close</div>
+              <!-- <span ng-show="added">
+              <div ui-sref="storefront.home" class="btn btn-sm btn-primary">
+                <i class="fa fa-home"></i>&nbsp;See in store
+              </div>&nbsp;<div class="btn btn-sm btn-default" ng-click="deselect()">
+                Remove
+              </div>
+              </span> -->
+              <a ng-show="productLookup[product.id]" ui-sref="storefront.shop({ shopCategory: productLookup[product.id].category })" class="btn btn-default" style="width: 103px;">See in store</a>
+              <div ng-hide="productLookup[product.id]" class="btn btn-primary" style="width: 103px;" ng-click="select()">Add to store</div>
+              <div class="inline-block text-right" style="width: 100px; height: 25px; vertical-align: middle">
+                <h3 class="inline-block margin-0" style="line-height: 12px;">
+                  <span ng-bind="currentPrice | centToDollar"></span>
+                  <br>
+                  <span style="font-size: 12px; font-weight: normal; color: #555;">+{{ product.shipping_price | centToDollar }} s/h</span>
+                </h3>
+              </div>
+              <div class="btn btn-sm btn-default pull-right" ng-click="product = null">close</div>
+            </div>
+            <div ng-show="productLookup[product.id]" class="margin-10 vert-0">
+              <div class="btn btn-danger btn-block" ng-click="deselect()">
+                Remove from my store
               </div>
             </div>
-            <div class="btn-group btn-group-justified">
+            <div ng-hide="productLookup[product.id]" class="btn-group btn-group-justified">
               <a href ng-repeat="margin in marginArray"
                   class="btn btn-warning btn-sm pad-5 round-0"
                   ng-class="{ active: currentMargin == margin }"
