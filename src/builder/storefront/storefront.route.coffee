@@ -8,15 +8,15 @@ angular.module('builder.storefront').config ($stateProvider) ->
       resolve: user: (eeAuth) -> eeAuth.userFromToken()
       views:
         main:
+          controller: 'builder.storefront.onscreenCtrl'
           templateUrl: 'app/storefront/storefront.view.container.html'
-          controller: 'builder.storefrontRootCtrl'
         offscreen:
+          controller: 'builder.storefront.offscreenCtrl'
           templateUrl: 'builder/storefront/storefront.offscreen.view.container.html'
-          controller: 'builder.storefrontRootCtrl'
-          offscreenCategory: 'Storefront'
-          offscreenColor: 'blue'
       data:
         pageTitle: 'Build your store | eeosk'
+        offscreenCategory:  'Storefront'
+        offscreenColor:     'blue'
     .state 'storefront.home',
       url: '/home'
       views:
@@ -41,7 +41,6 @@ angular.module('builder.storefront').config ($stateProvider) ->
       views:
         main:       templateUrl: 'app/storefront/storefront.about.html'
         offscreen:  templateUrl: 'builder/storefront/storefront.offscreen.about.html'
-          # controller: () -> $('.upload_form').append($.cloudinary.unsigned_upload_tag("storefront_about", { cloud_name: 'eeosk' }))
     .state 'storefront.audience',
       url: '/audience'
       views:
@@ -49,3 +48,5 @@ angular.module('builder.storefront').config ($stateProvider) ->
         offscreen:  templateUrl: 'builder/storefront/storefront.offscreen.audience.html'
       data:
         storeOpacity: true
+
+  return

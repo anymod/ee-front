@@ -75,7 +75,6 @@ sources.appModule = [
   # Services
   './src/app/core/svc.back.coffee'
   './src/app/core/svc.storefront.coffee'
-  './src/app/core/svc.catalog.coffee'
   # Examples
   './src/app/examples/examples.controller.coffee'
 ]
@@ -86,6 +85,7 @@ sources.builderModule = [
   './src/builder/core/run.coffee'
   # Services
   './src/builder/core/svc.auth.coffee'
+  './src/builder/core/svc.catalog.coffee'
   './src/builder/core/svc.orders.coffee'
   './src/builder/core/svc.selection.coffee'
   './src/builder/core/svc.cart.coffee'
@@ -123,6 +123,7 @@ sources.builderModule = [
   './src/builder/catalog/catalog.module.coffee'
   './src/builder/catalog/catalog.route.coffee'
   './src/builder/catalog/catalog.controller.coffee'
+  './src/builder/catalog/catalog.offscreen.controller.coffee'
   # Module - orders
   './src/builder/orders/orders.module.coffee'
   './src/builder/orders/orders.route.coffee'
@@ -154,6 +155,7 @@ sources.builderDirective = [
   './src/components/ee-save.coffee'
   './src/components/ee-offscreen-toggle.coffee'
   './src/components/ee-offscreen-header.coffee'
+  './src/components/ee-offscreen-footer.coffee'
   './src/components/ee-product-detail.coffee'
   './src/components/ee-product-for-catalog.coffee'
   './src/components/ee-product-for-storefront.coffee'
@@ -164,6 +166,8 @@ sources.builderDirective = [
   './src/components/ee-cloudinary-upload.coffee'
   './src/components/ee-welcome.coffee'
   './src/components/ee-image-preload.coffee'
+  './src/components/ee-storefront-header.coffee'
+  './src/components/ee-storefront-footer.coffee'
 ]
 sources.storeDirective = [
   './src/components/ee-button-add-to-cart.coffee'
@@ -171,6 +175,8 @@ sources.storeDirective = [
   './src/components/ee-product-detail.coffee'
   './src/components/ee-product-for-storefront.coffee'
   './src/components/ee-shop-nav.coffee'
+  './src/components/ee-storefront-header.coffee'
+  './src/components/ee-storefront-footer.coffee'
 ]
 
 module.exports = sources

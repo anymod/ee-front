@@ -32,9 +32,12 @@ angular.module 'eeBuilder', [
   'ee-welcome'
   'ee-offscreen-toggle'
   'ee-offscreen-header'
+  'ee-offscreen-footer'
   'ee-product'
   'ee-order'
   'ee-cloudinaryUpload'
   'ee-image-preload'
+  'ee-storefront-header'
+  'ee-storefront-footer'
   # 'ee.templates' # commented out during build step for inline templates
 ]

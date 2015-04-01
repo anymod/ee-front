@@ -7,13 +7,12 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
     url: '/'
     views:
       main:
-        templateUrl: 'builder/landing/landing.html'
         controller: 'landingCtrl'
+        templateUrl: 'builder/landing/landing.html'
       offscreen:
         templateUrl: 'components/template.offscreen.default.html'
-        controller: 'landingCtrl'
     data:
-      pageTitle: 'Online store builder, ecommerce storefront, dropship product catalog | eeosk'
-      pageDescription: 'Create an online store from a catalog of products.'
+      pageTitle:        'Online store builder, ecommerce storefront, dropship product catalog | eeosk'
+      pageDescription:  'Create an online store from a catalog of products.'
 
   return

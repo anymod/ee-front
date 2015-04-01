@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('builder.auth').controller 'loginCtrl', ($scope, $rootScope, $state, eeAuth) ->
-  $scope.alert = ''
+  $scope.alert    = ''
 
   setBtnText    = (txt) -> $scope.btnText = txt
   resetBtnText  = ()    -> setBtnText 'Sign in'
@@ -21,7 +21,7 @@ angular.module('builder.auth').controller 'loginCtrl', ($scope, $rootScope, $sta
     .catch (err) ->
       resetBtnText()
       alert = err.message || err || 'Problem logging in'
-      if typeof aler is 'object' then alert = 'Problem logging in'
+      if typeof alert is 'object' then alert = 'Problem logging in'
       $scope.alert = alert
 
   return

@@ -7,9 +7,9 @@ angular.module('builder.auth').config ($stateProvider) ->
       url: '/password-reset'
       views:
         main:
-          templateUrl: 'builder/auth.reset/auth.reset.html'
           controller: 'resetCtrl'
+          templateUrl: 'builder/auth.reset/auth.reset.html'
         offscreen:
           templateUrl: 'components/template.offscreen.default.html'
-          controller: 'landingCtrl'
-      data: pageTitle: 'Reset your password | eeosk'
+      data:
+        pageTitle: 'Reset your password | eeosk'

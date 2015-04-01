@@ -7,10 +7,9 @@ angular.module('builder.auth').config ($stateProvider) ->
       url: '/create-online-store'
       views:
         main:
-          templateUrl: 'builder/auth.signup/auth.signup.html'
           controller: 'signupCtrl'
+          templateUrl: 'builder/auth.signup/auth.signup.html'
         offscreen:
           templateUrl: 'components/template.offscreen.default.html'
-          controller: 'landingCtrl'
       data:
         pageTitle: 'Create your store | eeosk'

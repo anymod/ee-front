@@ -35,7 +35,7 @@
   <span ng-repeat="product in products">
     <a href ng-click="productFocus(product.id)"
         class="thumb margin-2"
-        ng-class="{ 'blue-border': !!productLookup[product.id] }"
+        ng-class="{ 'blue-border': productInStorefront(product.id) }"
         style="width: 23%; height: 120px; background-image: url('{{ product.image_meta.main_image.url | thumbnail }}')">
     </a>
   </span>
