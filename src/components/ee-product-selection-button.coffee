@@ -13,5 +13,5 @@ angular.module('ee-product').directive "eeProductSelectionButton", (eeSelection,
         name = username
         eeSelection.deleteSelection(scope.product.selection_id)
       .catch (err) -> console.error err
-      .finally () -> eeStorefront.storefrontFromUsername(name, true)
+      .finally () -> eeStorefront.getStorefront(true)
     return

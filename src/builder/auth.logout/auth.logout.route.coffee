@@ -10,8 +10,8 @@ angular.module('builder.auth').config ($stateProvider) ->
           controller: 'logoutCtrl'
           templateUrl: 'builder/auth.logout/auth.logout.html'
         offscreen:
-          templateUrl: 'components/template.offscreen.default.html'
+          templateUrl: 'builder/templates/template.offscreen.default.html'
       data:
-        pageTitle: 'Login | eeosk'
+        pageTitle: 'Logged out | eeosk'
 
   return

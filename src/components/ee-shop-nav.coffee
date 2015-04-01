@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('ee-product').directive "eeShopNav", ($state, eeStorefront, eeAuth) ->
+angular.module('ee-product').directive "eeShopNav", ($state, eeStorefront) ->
   templateUrl: 'components/ee-shop-nav.html'
   restrict: 'E'
   replace: true
@@ -9,8 +9,7 @@ angular.module('ee-product').directive "eeShopNav", ($state, eeStorefront, eeAut
   link: (scope, ele, attrs) ->
     scope.$state = $state
 
-    eeAuth.getUsername()
-    .then (username) -> eeStorefront.storefrontFromUsername(username)
+    eeStorefront.getStorefront()
     .then (storefront) -> eeStorefront.setScopeCategories(storefront, scope)
 
     return

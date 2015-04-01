@@ -32,7 +32,6 @@
 @ee-xxs-width: 480px;
 
 @offscreen-left-width: 300px;
-@offscreen-right-width: 320px;
 
 // bs var override
 /* @font-family-base: 'RobotoDraft', "Helvetica Neue", sans-serif; */
@@ -131,7 +130,7 @@ body.no-scroll { height: 100%; overflow: hidden; }
 .opacity-05 { opacity: 0.5; }
 .opacity-08 { opacity: 0.8; }
 
-.white-color { color: white; }
+.white-color { color: white !important; }
 .blue-color { color: @ee-blue; }
 .gold-color { color: @ee-gold; }
 .gray-color { color: @gray; }
@@ -161,7 +160,7 @@ body.no-scroll { height: 100%; overflow: hidden; }
 .position-inherit { position: inherit; }
 
 .top-0 { top: 0 !important; }
-.left-250 { left: 300px !important; }
+.left-300 { left: 300px !important; }
 .top-left-bottom-right-0 { top: 0; left: 0; bottom: 0; right: 0; }
 .vert-2 { margin-top: 2px; margin-bottom: 2px; }
 .vert-5 { margin-top: 5px; margin-bottom: 5px; }
@@ -178,6 +177,7 @@ body.no-scroll { height: 100%; overflow: hidden; }
 .margin-20 { margin: 20px; }
 .margin-0-auto { margin: 0 auto; }
 .margin-top-0 { margin-top: 0px !important; }
+.margin-bottom-0 { margin-bottom: 0px !important; }
 .margin-right-4 { margin-right: 4px; }
 .margin-left-10 { margin-left: 10px; }
 .pad-0 { padding: 0px !important; }
@@ -192,6 +192,8 @@ body.no-scroll { height: 100%; overflow: hidden; }
 .squeeze-5 { padding-left: 5px !important; padding-right: 5px !important; }
 .round-0 { border-radius: 0px !important; }
 .round-5 { border-radius: 5px; }
+.round-top { border-top-left-radius: 5px; border-top-right-radius: 5px; }
+.round-bottom { border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
 .border-none { border: none; }
 .height-auto { height: auto; }
 .width-auto { width: auto; }
@@ -325,12 +327,12 @@ img.media-object {
 .icon-bar { background-color: #f5f5f5; }
 nav { background-color: #f5f5f5; }
 
-.office-background {
-  background: url('../img/office.jpg') no-repeat center 0;
+.desk-background {
+  background: url('../img/desk.jpg') no-repeat center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
-  height: 720px;
+  height: 680px;
 }
 
 .jumbotron-landing {
@@ -341,7 +343,7 @@ nav { background-color: #f5f5f5; }
   border-radius: 6px;
   font-size: 44px;
   width: 79%;
-  margin-top: 120px;
+  margin-top: 80px;
 }
 
 .intro-btn-container { margin-top: 20px; }
@@ -356,7 +358,7 @@ nav { background-color: #f5f5f5; }
 }
 
 .segment-2 {
-  background: url('../img/simple_phone.jpg') no-repeat;
+  background: url('../img/computer.jpg') no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -410,6 +412,15 @@ nav { background-color: #f5f5f5; }
 @icon-width: 20px;
 @nav-btn-width: 41px;
 @nav-btn-height: 34px;
+
+.landing-toggle {
+  top: 5px;
+  left: 8px;
+  -webkit-transition: all 0.2s cubic-bezier(0.7, 0, 0.175, 1) 0s;
+  -ms-transition: all 0.2s cubic-bezier(0.7, 0, 0.175, 1) 0s;
+  transition: left 0.2s cubic-bezier(0.7, 0, 0.175, 1) 0s;
+}
+.landing-toggle.open { left: 308px; }
 
 .open-nav {
   -webkit-transition: all 0.2s cubic-bezier(0.7, 0, 0.175, 1) 0s;
@@ -577,4 +588,9 @@ nav { background-color: #f5f5f5; }
     padding-right: 12%;
     .well { text-align: left; }
   }
+}
+
+#catalog-products {
+  .thumb { width: 22%; height: 120px; }
+  .label { position: absolute; bottom: 8px; left: 5px; }
 }

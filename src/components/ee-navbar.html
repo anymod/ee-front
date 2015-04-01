@@ -1,12 +1,9 @@
 <nav class="navbar navbar-absolute-top navbar-transparent" id="navbar-top">
   <div class="container-fluid">
-
     <div class="margin-5">
-      <div class="pull-left">
-        <ee-offscreen-toggle color="'blue'" icon="'icon'"></ee-offscreen-toggle>&nbsp;<a ui-sref="landing">
-          <img src="../img/eeosk_250x67.png" class="width-120" style="margin-top: -6px;" />
-        </a>
-      </div>
+      <a ui-sref="landing" class="pull-left">
+        <img src="../img/eeosk_250x67.png" class="width-120" style="margin-top: -2px; margin-left: 40px;" />
+      </a>
       <div ng-hide="user" class="collapse navbar-collapse">
         <div class="pull-right" role="form">
           <a ui-sref="login"
@@ -26,6 +23,7 @@
         </div>
       </div>
     </div>
-
   </div>
 </nav>
+
+<ee-offscreen-toggle class="position-fixed landing-toggle" ng-class="{ open: toggleLeft }" color="'blue'" icon="'icon'"></ee-offscreen-toggle>

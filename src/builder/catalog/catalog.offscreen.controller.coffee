@@ -11,8 +11,6 @@ angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($
   basePrice                 = null
   $scope.currentPrice       = null
   $scope.currentMargin      = null
-  $scope.addBtnText         = 'Add to store'
-  $scope.removeBtnText      = 'Remove from my store'
   $scope.addBtnDisabled     = false
   $scope.removeBtnDisabled  = false
   ##
@@ -20,15 +18,18 @@ angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($
   ## Setup functions
   # Respond to searches
   $scope.$on 'catalog:search:started', () -> $scope.searching  = true
-  $scope.$on 'catalog:search:ended', (e, data) ->
-    console.log 'search ended', data
-    $scope.searching = false
+  $scope.$on 'catalog:updated', (e, data) ->
     # offscreen scope only needs search params
     $scope.search   = data.search
     $scope.min      = data.min
     $scope.max      = data.max
     $scope.category = data.category
     $scope.storefront_product_ids = data.storefront_product_ids
+    $scope.product_selection_obj  = data.product_selection_obj
+    # reflect status on buttons
+    $scope.searching = false
+    $scope.addBtnDisabled = false
+    $scope.removeBtnDisabled = false
   # Generate searches
   $scope.setCategory  = (category) ->
     $scope.category = category
@@ -39,59 +40,44 @@ angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($
     eeCatalog.setRange range
 
   # Offscreen product
-  # TODO finish catalog offscreen for product focus
   setProduct          = (prod) -> $scope.product = prod
   clearProduct        = () -> setProduct {}
-  # $scope.update       = (newMargin) -> eeCatalog.setCurrents $scope, basePrice, newMargin
+  $scope.update       = (newMargin) -> eeCatalog.setCurrents $scope, basePrice, newMargin
   $scope.setFocusImg  = (img) -> $scope.focusImg = img
   initializeProduct   = (prod) ->
     setProduct prod
     basePrice = $scope.product.baseline_price
     $scope.setFocusImg prod.image_meta.main_image
     $scope.update eeCatalog.startMargin
-  nullProduct = () -> initializeProduct { loading: true, image_meta: main_image: '' }
 
   ## Focus product
-  # $scope.$on 'product:focus', (e, id) ->
-    # $scope.setFocusImg null
-    # nullProduct()
-    # eeCatalog.getProduct(id)
-    # .then (product) ->
-      # initializeProduct product
-      # console.log '$scope.product', $scope.product
-    # .catch () -> nullProduct()
+  $scope.$on 'product:focus', (e, id) ->
+    $scope.loadingProduct = true
+    $scope.focusImg = null
+    eeCatalog.getProduct id
+    .then (product) -> initializeProduct product
+    .catch (err) -> console.error 'Error loading product', err
+    .finally () -> $scope.loadingProduct = false
+
+  $scope.productInStorefront = (id) ->
+    $scope.storefront_product_ids?.indexOf(id) > -1
 
   ## Add to store
-  $scope.select = () ->
-    $scope.addBtnText     = 'Adding'
+  $scope.addToStore = () ->
     $scope.addBtnDisabled = true
     eeSelection.createSelection($scope.product, $scope.currentMargin*100)
-    .then () -> eeStorefront.storefrontFromUsername($scope.user.username, true)
-    .then () -> eeStorefront.defineForCatalog $scope, $scope.user.username
-    .then () ->
-      $scope.addBtnText = 'Add to store'
-      $rootScope.$broadcast 'catalog:updated'
-    .catch (err) ->
-      $scope.addBtnText = 'Unable to add'
-      console.error err
-    .finally () -> $scope.addBtnDisabled = false
-  ##
+    .catch (err) -> console.error err
 
   ## Remove from store
-  $scope.deselect = () ->
-    $scope.removeBtnText      = 'Removing'
+  $scope.removeFromStore = () ->
     $scope.removeBtnDisabled  = true
-    selection_id = $scope.productLookup[$scope.product.id].selection_id
+    selection_id = $scope.product_selection_obj[$scope.product.id]
     eeSelection.deleteSelection(selection_id)
-    .then () -> eeStorefront.storefrontFromUsername($scope.user.username, true)
-    .then () -> eeStorefront.defineForCatalog $scope, $scope.user.username
-    .then () -> $scope.removeBtnText = 'Remove from my store'
-    .catch (err) ->
-      $scope.removeBtnText = 'Didn\'t remove from store'
-      console.error err
-    .finally () -> $scope.removeBtnDisabled = false
-  ##
+    .catch (err) -> console.error err
 
-
+  ## Close offscreen product focus
+  $scope.closeProduct = () ->
+    $scope.loadingProduct = false
+    clearProduct()
 
   return

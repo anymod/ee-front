@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.orders').controller 'builder.ordersCtrl', ($scope, eeOrders, eeAuth, eeStorefront) ->
+angular.module('builder.orders').controller 'builder.ordersCtrl', ($scope, eeOrders, eeStorefront) ->
   $scope.orders = []
   $scope.storefront = {}
   $scope.hideCatalogAlert = true
@@ -10,8 +10,7 @@ angular.module('builder.orders').controller 'builder.ordersCtrl', ($scope, eeOrd
   $scope.offscreenColor = 'green'
   ##
 
-  # eeAuth.getUsername()
-  # .then (username) -> eeStorefront.storefrontFromUsername(username)
+  # eeStorefront.getStorefront()
   # .then (storefront) ->
   #   $scope.storefront = storefront
   #   eeOrders.getOrders { storefront: storefront }

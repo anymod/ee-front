@@ -23,7 +23,7 @@ angular.module('ee-offscreen').directive "eeOffscreen", ($rootScope) ->
 
 ## Default offscreen
 angular.module('ee-offscreen').directive "eeOffscreenDefault", () ->
-  templateUrl: 'components/template.offscreen.default.html'
+  templateUrl: 'builder/templates/template.offscreen.default.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) ->
@@ -46,8 +46,7 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefrontHome", (eeStorefr
   templateUrl: 'builder/storefront/storefront.offscreen.home.html'
   restrict: 'E'
   link: (scope, ele, attrs) ->
-    eeAuth.getUsername()
-    .then (username) -> eeStorefront.storefrontFromUsername(username)
+    eeStorefront.getStorefront()
     .then (storefront) -> eeStorefront.setScopeCategories(storefront, scope)
     return
 
@@ -168,13 +167,4 @@ angular.module('ee-offscreen').directive "eeOffscreenAccount", (eeStorefront, ee
   restrict: 'E'
   link: (scope, ele, attrs) ->
     eeAuth.setScopeUser(scope)
-    # eeAuth.userFromToken()
-    # .then (user) ->
-    #   console.log 'user', user
-    #   scope.user = user
-    #   eeStorefront.storefrontFromUsername(user.username)
-    # .then (storefront) ->
-    #   # scope.user.
-    #   return
-    # .catch (err) -> console.error err
     return

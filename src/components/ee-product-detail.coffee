@@ -10,5 +10,5 @@ angular.module('ee-product').directive "eeProductDetail", ($state, eeStorefront,
     scope.isStore     = eeStorefront.isStore()
     scope.isntCatalog = $state.current.name.indexOf('catalog') < 0
 
-    scope.focusImg    = scope.product.image_meta.main_image
+    scope.focusImg    = scope.product?.image_meta?.main_image
     scope.setFocusImg = (img) -> scope.focusImg = img

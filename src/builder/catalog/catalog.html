@@ -2,11 +2,11 @@
   <ee-offscreen-toggle color="'gold'" icon="'icon'"></ee-offscreen-toggle>
 </div>
 
-<div ng-if="searching"
+<div ng-show="searching"
      class="position-fixed top-left-bottom-right-0"
-     ng-class="{ 'left-250' : !!toggle }"
+     ng-class="{ 'left-300' : toggleLeft }"
      style="background: rgba(255,255,255,0.8); z-index: 1001;">
-  <h2 class="margin-0 pad-10 white-background text-muted">
+  <h2 class="margin-0 pad-10">
     <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>
   </h2>
 </div>
@@ -31,12 +31,12 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<div class="pad-20 text-center">
-  <span ng-repeat="product in products">
-    <a href ng-click="productFocus(product.id)"
+<div id="catalog-products" class="pad-20 text-center">
+  <span ng-repeat="product in products" class="position-relative">
+    <a href ng-click="focusProduct(product.id)"
         class="thumb margin-2"
-        ng-class="{ 'blue-border': productInStorefront(product.id) }"
-        style="width: 23%; height: 120px; background-image: url('{{ product.image_meta.main_image.url | thumbnail }}')">
+        style="background-image: url('{{ product.image_meta.main_image.url | thumbnail }}')">
+      <div ng-show="productInStorefront(product.id)" class="label label-primary">in <span class="hidden-xs">my </span>store</div>
     </a>
   </span>
 </div>

@@ -10,6 +10,6 @@ angular.module('builder.auth').config ($stateProvider) ->
           controller: 'signupCtrl'
           templateUrl: 'builder/auth.signup/auth.signup.html'
         offscreen:
-          templateUrl: 'components/template.offscreen.default.html'
+          templateUrl: 'builder/templates/template.offscreen.default.html'
       data:
         pageTitle: 'Create your store | eeosk'

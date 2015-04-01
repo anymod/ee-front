@@ -9,7 +9,7 @@
   <!--enable crawling w/ googlebot, per:-->
   <!--https://developers.google.com/webmasters/ajax-crawling/docs/getting-started-->
   <meta name="fragment" content="!">
-  <meta name="description" content="Create your own store from a catalog of products" ng-bind="$state.current.data.pageDescription">
+  <meta name="description" content="Choose inventory from a catalog of products and let eeosk manage overhead and shipping." ng-bind="$state.current.data.pageDescription">
 
   <base href="/">
   <link rel="shortcut icon" href="img/eeosk_e_128x128.png" type="image/x-icon">
@@ -20,8 +20,8 @@
   <!-- endbuild -->
 </head>
 
-<body ng-class="{ 'open': toggleLeft, 'open-right': toggleRight }">
-  <h1 class="position-fixed overflow-hidden height-0" style="top: -5000px;">eeosk | Create an online store</h1>
+<body ng-class="{ 'open': toggleLeft }">
+  <h1 class="position-fixed overflow-hidden height-0" style="top: -5000px;">eeosk | Create your own online store in minutes</h1>
 
   <div ui-view="offscreen" id="ee-offscreen"></div>
   <div ui-view="main" id="ee-main" class="full-height position-relative" ng-class="{ 'open': toggleLeft }"></div>

@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('eeStore').controller 'storeCtrl', ($rootScope, $scope, $location, eeAuth, eeStorefront, eeCart) ->
+angular.module('eeStore').controller 'storeCtrl', ($rootScope, $scope, $location, eeStorefront, eeCart) ->
   $scope.loading = true
   $scope.user = {}
   $scope.storefront = {}
@@ -9,9 +9,7 @@ angular.module('eeStore').controller 'storeCtrl', ($rootScope, $scope, $location
 
   $scope.cart_url = $location.absUrl()
 
-  eeAuth.getUsername()
-  .then (username) ->
-    eeStorefront.storefrontFromUsername(username)
+  eeStorefront.getStorefront()
   .then (storefront) ->
     $scope.loading = false
     $scope.storefront = storefront

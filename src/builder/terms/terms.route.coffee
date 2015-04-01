@@ -10,7 +10,7 @@ angular.module('builder.terms').config ($stateProvider) ->
           templateUrl: 'builder/terms/terms.html'
           controller: 'termsCtrl'
         offscreen:
-          templateUrl: 'components/template.offscreen.default.html'
+          templateUrl: 'builder/templates/template.offscreen.default.html'
       data:
         pageTitle: 'Terms & Conditions | eeosk'
     .state 'privacy',
@@ -20,6 +20,6 @@ angular.module('builder.terms').config ($stateProvider) ->
           templateUrl: 'builder/terms/privacy.html'
           controller: 'termsCtrl'
         offscreen:
-          templateUrl: 'components/template.offscreen.default.html'
+          templateUrl: 'builder/templates/template.offscreen.default.html'
       data:
         pageTitle: 'Privacy Policy | eeosk'

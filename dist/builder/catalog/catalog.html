@@ -1,22 +1,29 @@
-<div ng-if="searching"
+<div ng-show="!toggleLeft" class="position-fixed" style="top: 9px; left: -25px; z-index: 1001;">
+  <ee-offscreen-toggle color="'gold'" icon="'icon'"></ee-offscreen-toggle>
+</div>
+
+<div ng-show="searching"
      class="position-fixed top-left-bottom-right-0"
-     ng-class="{ 'left-250' : !!toggle }"
+     ng-class="{ 'left-300' : toggleLeft }"
      style="background: rgba(255,255,255,0.8); z-index: 1001;">
-  <h2 class="margin-0 pad-10 white-background text-muted">
+  <h2 class="margin-0 pad-10">
     <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>
   </h2>
 </div>
 
-<nav class="navbar navbar-default margin-0 round-0"
+<nav class="navbar navbar-default navbar-rgba-colors margin-0 round-0"
      ng-style="{ 'background-color': user.storefront_meta.home.topBarBackgroundColor }"
      id="top">
   <div class="container-fluid">
+    <a class="navbar-brand margin-0"
+       ng-style="{ color: user.storefront_meta.home.topBarColor }"
+       ng-bind="user.storefront_meta.home.name">
+    </a>
     <div class="vert-8">
       &nbsp;
       <div class="btn btn-default" ng-click="decrementPage()" ng-class="{ disabled: page < 2 }">
         <i class="fa fa-fw fa-long-arrow-left"></i>
       </div>
-      <div class="btn btn-default" ng-click="toggleOffscreenRight()"><i class="fa fa-fw fa-eye"></i></div>
       <div class="btn btn-default" ng-click="incrementPage()" ng-class="{ disabled: products.length < productsPerPage }">
         <i class="fa fa-fw fa-long-arrow-right"></i>
       </div>
@@ -24,20 +31,12 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<div class="btn-group" style="position: fixed; bottom: 8px; right: 16px; z-index: 5;">
-  <div class="btn btn-default btn-sm" ng-click="decrementPage(); scrollToTop()" ng-class="{ disabled: page < 2 }">
-    <i class="fa fa-long-arrow-left"></i>
-  </div>
-  <div class="btn btn-default btn-sm" ng-click="scrollToTop()">top</div>
-  <div class="btn btn-default btn-sm" ng-click="incrementPage(); scrollToTop()" ng-class="{ disabled: products.length < productsPerPage }">
-    <i class="fa fa-long-arrow-right"></i>
-  </div>
-</div>
-
-<!-- <div class="catalog-products pad-20 position-relative pull-left"> -->
-<div class="pad-10">
-  <span ng-repeat="product in products">
-    <ee-product-for-catalog product="product"></ee-product-for-catalog>
+<div id="catalog-products" class="pad-20 text-center">
+  <span ng-repeat="product in products" class="position-relative">
+    <a href ng-click="focusProduct(product.id)"
+        class="thumb margin-2"
+        style="background-image: url('{{ product.image_meta.main_image.url | thumbnail }}')">
+      <div ng-show="productInStorefront(product.id)" class="label label-primary">in <span class="hidden-xs">my </span>store</div>
+    </a>
   </span>
 </div>
-<!-- </div> -->
