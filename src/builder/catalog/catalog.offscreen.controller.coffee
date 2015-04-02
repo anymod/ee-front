@@ -25,7 +25,7 @@ angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($
     $scope.max      = data.max
     $scope.category = data.category
     $scope.storefront_product_ids = data.storefront_product_ids
-    $scope.product_selection_obj  = data.product_selection_obj
+    $scope.product_selection  = data.product_selection
     # reflect status on buttons
     $scope.searching = false
     $scope.addBtnDisabled = false
@@ -45,15 +45,20 @@ angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($
   $scope.update       = (newMargin) -> eeCatalog.setCurrents $scope, basePrice, newMargin
   $scope.setFocusImg  = (img) -> $scope.focusImg = img
   initializeProduct   = (prod) ->
+    productInStorefront = eeCatalog.getProductSelection()[prod.id]
     setProduct prod
     basePrice = $scope.product.baseline_price
     $scope.setFocusImg prod.image_meta.main_image
-    $scope.update eeCatalog.startMargin
+    if !!productInStorefront?.selling_price
+      $scope.currentPrice   = productInStorefront.selling_price
+      $scope.currentProfit  = productInStorefront.selling_price - basePrice
+      $scope.currentMargin  = Math.round((1 - (basePrice / productInStorefront.selling_price)) * 1000) / 1000
+    else
+      $scope.update eeCatalog.startMargin
 
   ## Focus product
   $scope.$on 'product:focus', (e, id) ->
     $scope.loadingProduct = true
-    $scope.focusImg = null
     eeCatalog.getProduct id
     .then (product) -> initializeProduct product
     .catch (err) -> console.error 'Error loading product', err
@@ -71,7 +76,7 @@ angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($
   ## Remove from store
   $scope.removeFromStore = () ->
     $scope.removeBtnDisabled  = true
-    selection_id = $scope.product_selection_obj[$scope.product.id]
+    selection_id = $scope.product_selection[$scope.product.id].selection_id
     eeSelection.deleteSelection(selection_id)
     .catch (err) -> console.error err
 

@@ -12,7 +12,7 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
     max:      null
     category: null
     storefront_product_ids: []
-    product_selection_obj: {}
+    product_selection: {}
 
   _catalog      = _defaults
   _minMargin    = 0.05
@@ -34,10 +34,10 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
     sels    = {}
     setVars = (p_s) ->
       ids.push p_s.product_id
-      sels[p_s.product_id] = p_s.selection_id
+      sels[p_s.product_id] = p_s
     if !!storefront.product_selection then setVars(p_s) for p_s in storefront.product_selection
     _catalog.storefront_product_ids = ids
-    _catalog.product_selection_obj = sels
+    _catalog.product_selection = sels
 
   _formQuery = () ->
     query = {}
@@ -110,8 +110,9 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
     _catalog.max = range.max || null
     _runQuery()
 
-  # ## Product
+  ## Product
   getProduct: (id) -> _getProduct id
+  getProductSelection: () -> _catalog.product_selection
 
   ## Catalog setup
   categoryArray: [

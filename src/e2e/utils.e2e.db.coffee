@@ -137,6 +137,9 @@ if process.env.NODE_ENV is 'test'
       req.post {}, (err, res, body) ->
         if !!err then reject err else resolve body
 
+  utils.product_by_id = (id) -> sequelize.query 'SELECT * FROM "Products" WHERE id = ' + id + ' LIMIT 1;'
+
+
   utils.create_selections = (product_ids, token) ->
       createOps = []
       createOps.push(utils.create_selection(product_id, token)) for product_id in product_ids
