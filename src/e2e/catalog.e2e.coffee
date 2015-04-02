@@ -14,11 +14,12 @@ scope   = {}
 describe 'eeosk catalog', () ->
 
   before (done) ->
-    offscreen = element byAttr.css 'ee-offscreen-catalog'
     elem =
-      alert:                  element byAttr.css '.alert'
-      search:                 element byAttr.model 'search'
-      product:                element byAttr.css 'ee-product-for-catalog'
+      offscreen:  element byAttr.css '#ee-offscreen'
+      alert:      element byAttr.css '.alert'
+      search:     element byAttr.model 'search'
+      products:   element byAttr.css '#catalog-products'
+      vals:       element.all byAttr.repeater('product in products').column('product.id')
 
     utils.reset_and_login(browser)
     .then (res) ->
@@ -26,15 +27,19 @@ describe 'eeosk catalog', () ->
       scope.categories = ['All'].concat _.unique(_.pluck scope.products, 'category')
     .then () -> utils.create_products([21..150])
 
-  xit 'should have 100 products', () ->
+  it 'should have 24 clickable products', () ->
     browser.get '/catalog'
     browser.getTitle().should.eventually.equal 'Add products | eeosk'
-    browser.pause()
-    elem.product  .getText().should.eventually.equal []
-    # elem.name                   .getAttribute('value').should.eventually.equal 'Common Deer VT'
-    # elem.navbarBrand            .getText().should.eventually.equal 'Common Deer VT'
-    # elem.name                   .clear().sendKeys newVal.name
-    # elem.navbarBrand            .getText().should.eventually.equal newVal.name
+    element.all(byAttr.repeater('product in products'))
+    .then (arry) ->
+      arry.length.should.equal 24
+      # Products should show in offscreen when clicked
+      element(byAttr.repeater('product in products').row(5)).click()
+      elem.offscreen.$$('#product-focus').getAttribute('ee-id')
+    .then (attr) ->
+      console.log 'id', parseInt(attr[0])
+      # TODO continue implementing catalog tests
+      # browser.pause()
 
   xit 'should reflect changes to the navbar colors', () ->
     elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(246, 246, 246)'
