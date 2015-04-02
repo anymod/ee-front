@@ -17,6 +17,14 @@ describe 'eeosk storefront.home', () ->
     offscreen = element byAttr.css '#ee-offscreen'
     onscreen  = element byAttr.css '#ee-main'
     elem =
+      loginBtn:               onscreen.element byAttr.cssContainingText('.btn', 'Login')
+
+      homeBtn:                offscreen.element byAttr.cssContainingText('.btn', 'Home')
+      shopBtn:                offscreen.element byAttr.cssContainingText('.btn', 'Shop')
+      blogBtn:                offscreen.element byAttr.cssContainingText('.btn', 'Blog')
+      aboutBtn:               offscreen.element byAttr.cssContainingText('.btn', 'About')
+      socialBtn:              offscreen.element byAttr.cssContainingText('.btn', 'Social')
+
       alert:                  element byAttr.css  '.alert'
       save:                   element byAttr.name 'save'
       navbar:                 element byAttr.css  '.navbar.navbar-rgba-colors'
@@ -50,59 +58,57 @@ describe 'eeosk storefront.home', () ->
       scope.categories = ['All'].concat _.unique(_.pluck scope.products, 'category')
 
   it 'should visit the storefront home on login', () ->
-    browser.get '/'
-    browser.getTitle().should.eventually.equal 'Build your store | eeosk'
+    elem.loginBtn             .click()
+    browser                   .getTitle().should.eventually.equal 'Build your store | eeosk'
 
-  describe 'changing and updating store', () ->
+  it 'should reflect changes to the store name', () ->
+    elem.name                 .getAttribute('value').should.eventually.equal ''
+    elem.navbarBrand          .getText().should.eventually.equal ''
+    elem.name                 .clear().sendKeys newVal.name
+    elem.navbarBrand          .getText().should.eventually.equal newVal.name
 
-    it 'should reflect changes to the store name', () ->
-      elem.name                   .getAttribute('value').should.eventually.equal ''
-      elem.navbarBrand            .getText().should.eventually.equal ''
-      elem.name                   .clear().sendKeys newVal.name
-      elem.navbarBrand            .getText().should.eventually.equal newVal.name
+  it 'should reflect changes to the navbar colors', () ->
+    topBarRgb             =   utils.hex_to_rgb scope.user.storefront_meta.home.topBarColor
+    topBarBackgroundRgb   =   utils.hex_to_rgb scope.user.storefront_meta.home.topBarBackgroundColor
+    elem.navbarBrand          .getAttribute('style').should.eventually.contain topBarRgb
+    elem.navbar               .getAttribute('style').should.eventually.contain topBarBackgroundRgb
+    elem.topBarColor          .clear().sendKeys newVal.topBarColor
+    elem.topBarBackgroundColor.clear().sendKeys newVal.topBarBackgroundColor
+    elem.navbarBrand          .getAttribute('style').should.eventually.contain 'color: rgb(0, 0, 0)'
+    elem.navbar               .getAttribute('style').should.eventually.contain 'background-color: rgb(255, 255, 255)'
 
-    it 'should reflect changes to the navbar colors', () ->
-      topBarRgb           = utils.hex_to_rgb scope.user.storefront_meta.home.topBarColor
-      topBarBackgroundRgb = utils.hex_to_rgb scope.user.storefront_meta.home.topBarBackgroundColor
-      elem.navbarBrand            .getAttribute('style').should.eventually.contain topBarRgb
-      elem.navbar                 .getAttribute('style').should.eventually.contain topBarBackgroundRgb
-      elem.topBarColor            .clear().sendKeys newVal.topBarColor
-      elem.topBarBackgroundColor  .clear().sendKeys newVal.topBarBackgroundColor
-      elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(0, 0, 0)'
-      elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(255, 255, 255)'
+  it 'should reflect changes to the carousel', () ->
+    elem.carouselHeadline     .getAttribute('value').should.eventually.equal 'Lorem Ipsum'
+    elem.carouselHeadline     .clear().sendKeys newVal.carouselHeadline
+    elem.carouselHeadline     .getAttribute('value').should.eventually.equal newVal.carouselHeadline
 
-    it 'should reflect changes to the carousel', () ->
-      elem.carouselHeadline       .getAttribute('value').should.eventually.equal 'Lorem Ipsum'
-      elem.carouselHeadline       .clear().sendKeys newVal.carouselHeadline
-      elem.carouselHeadline       .getAttribute('value').should.eventually.equal newVal.carouselHeadline
+    elem.carouselByline       .getAttribute('value').should.eventually.equal 'Dolores Sunt Amet'
+    elem.carouselByline       .clear().sendKeys newVal.carouselByline
+    elem.carouselByline       .getAttribute('value').should.eventually.equal newVal.carouselByline
 
-      elem.carouselByline         .getAttribute('value').should.eventually.equal 'Dolores Sunt Amet'
-      elem.carouselByline         .clear().sendKeys newVal.carouselByline
-      elem.carouselByline         .getAttribute('value').should.eventually.equal newVal.carouselByline
+    elem.carouselBtnText      .getAttribute('value').should.eventually.equal 'Shop Now'
+    elem.carouselBtnText      .clear().sendKeys newVal.carouselBtnText
+    elem.carouselBtnText      .getAttribute('value').should.eventually.equal newVal.carouselBtnText
 
-      elem.carouselBtnText        .getAttribute('value').should.eventually.equal 'Shop Now'
-      elem.carouselBtnText        .clear().sendKeys newVal.carouselBtnText
-      elem.carouselBtnText        .getAttribute('value').should.eventually.equal newVal.carouselBtnText
+    elem.carouselBtnPosition  .all(byAttr.css('.btn')).get(0).click()
+    elem.carouselWell         .getAttribute('class').should.eventually.contain 'left'
+    elem.carouselBtnPosition  .all(byAttr.css('.btn')).get(2).click()
+    elem.carouselWell         .getAttribute('class').should.eventually.contain 'right'
+    elem.carouselBtnPosition  .all(byAttr.css('.btn')).get(1).click()
+    elem.carouselWell         .getAttribute('class').should.eventually.contain 'middle'
 
-      elem.carouselBtnPosition    .all(byAttr.css('.btn')).get(0).click()
-      elem.carouselWell           .getAttribute('class').should.eventually.contain 'left'
-      elem.carouselBtnPosition    .all(byAttr.css('.btn')).get(2).click()
-      elem.carouselWell           .getAttribute('class').should.eventually.contain 'right'
-      elem.carouselBtnPosition    .all(byAttr.css('.btn')).get(1).click()
-      elem.carouselWell           .getAttribute('class').should.eventually.contain 'middle'
+    elem.carouselLinkCategory .getAttribute('value').should.eventually.equal scope.categories[0]
+    elem.carouselLinkCategory .element(byAttr.css('option:nth-child(2)')).click()
+    elem.carouselLinkCategory .getAttribute('value').should.eventually.equal scope.categories[1]
 
-      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal scope.categories[0]
-      elem.carouselLinkCategory   .element(byAttr.css('option:nth-child(2)')).click()
-      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal scope.categories[1]
-
-    it 'should have saved the changes that were made', () ->
-      elem.save                   .click()
-      browser.get '/storefront/home'
-      elem.carouselHeadline       .getAttribute('value').should.eventually.equal newVal.carouselHeadline
-      elem.carouselByline         .getAttribute('value').should.eventually.equal newVal.carouselByline
-      elem.carouselBtnText        .getAttribute('value').should.eventually.equal newVal.carouselBtnText
-      elem.carouselWell           .getAttribute('class').should.eventually.contain 'middle'
-      elem.carouselLinkCategory   .getAttribute('value').should.eventually.equal scope.categories[1]
-      elem.navbarBrand            .getText().should.eventually.equal newVal.name
-      elem.navbarBrand            .getAttribute('style').should.eventually.contain 'color: rgb(0, 0, 0)'
-      elem.navbar                 .getAttribute('style').should.eventually.contain 'background-color: rgb(255, 255, 255)'
+  it 'should have saved the changes that were made', () ->
+    elem.save                 .click()
+    browser.get '/storefront/home'
+    elem.carouselHeadline     .getAttribute('value').should.eventually.equal newVal.carouselHeadline
+    elem.carouselByline       .getAttribute('value').should.eventually.equal newVal.carouselByline
+    elem.carouselBtnText      .getAttribute('value').should.eventually.equal newVal.carouselBtnText
+    elem.carouselWell         .getAttribute('class').should.eventually.contain 'middle'
+    elem.carouselLinkCategory .getAttribute('value').should.eventually.equal scope.categories[1]
+    elem.navbarBrand          .getText().should.eventually.equal newVal.name
+    elem.navbarBrand          .getAttribute('style').should.eventually.contain 'color: rgb(0, 0, 0)'
+    elem.navbar               .getAttribute('style').should.eventually.contain 'background-color: rgb(255, 255, 255)'

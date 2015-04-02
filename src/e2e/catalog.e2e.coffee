@@ -15,6 +15,8 @@ describe 'eeosk catalog', () ->
 
   before (done) ->
     elem =
+      storefrontBtn:            element byAttr.name 'storefront-btn'
+      catalogBtn:               element byAttr.name 'catalog-btn'
       offscreen:                element byAttr.css '#ee-offscreen'
       alert:                    element byAttr.css '.alert'
       search:                   element byAttr.model 'search'
@@ -123,4 +125,11 @@ describe 'eeosk catalog', () ->
       allText                   .should.contain scope.product.title
       allText                   .should.contain scope.selling_25
       allText                   .should.not.contain scope.product.content
-      # TODO continue implementing catalog tests
+
+  # TODO continue implementing catalog tests
+  it 'should filter by category', () ->
+    elem.catalogBtn           .click()
+
+
+  xit 'should filter by price range', () ->
+  xit 'should filter by search', () ->

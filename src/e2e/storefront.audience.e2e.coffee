@@ -19,6 +19,14 @@ describe 'eeosk storefront.audience', () ->
     navbar    = element byAttr.css 'nav.navbar-rgba-colors'
 
     elem =
+      loginBtn:               onscreen.element byAttr.cssContainingText('.btn', 'Login')
+
+      homeBtn:                offscreen.element byAttr.cssContainingText('.btn', 'Home')
+      shopBtn:                offscreen.element byAttr.cssContainingText('.btn', 'Shop')
+      blogBtn:                offscreen.element byAttr.cssContainingText('.btn', 'Blog')
+      aboutBtn:               offscreen.element byAttr.cssContainingText('.btn', 'About')
+      socialBtn:              offscreen.element byAttr.cssContainingText('.btn', 'Social')
+
       save:                   element byAttr.name 'save'
       facebookInput:          offscreen.element byAttr.model 'user.storefront_meta.audience.social.facebook'
       pinterestInput:         offscreen.element byAttr.model 'user.storefront_meta.audience.social.pinterest'
@@ -26,7 +34,7 @@ describe 'eeosk storefront.audience', () ->
       instagramInput:         offscreen.element byAttr.model 'user.storefront_meta.audience.social.instagram'
       emailInput:             offscreen.element byAttr.model 'user.storefront_meta.audience.contact.email'
 
-      audienceBtn:            navbar.element byAttr.css 'ul.nav.navbar-nav:nth-child(2) > li:nth-child(1)'
+      navSocialBtn:           navbar.element byAttr.css 'ul.nav.navbar-nav:nth-child(2) > li:nth-child(1)'
       popover:                navbar.element byAttr.css 'ul.nav.navbar-nav:nth-child(2) > li:nth-child(1) .popover'
       popContent:             navbar.element byAttr.css 'ul.nav.navbar-nav:nth-child(2) > li:nth-child(1) .popover > .popover-content'
 
@@ -48,38 +56,36 @@ describe 'eeosk storefront.audience', () ->
       scope = res
 
   it 'should hide the audience button when not in use', () ->
-    browser.get '/storefront/home'
-    elem.audienceBtn                            .getAttribute('class').should.eventually.equal 'ng-hide'
+    elem.loginBtn             .click()
+    elem.navSocialBtn         .getAttribute('class').should.eventually.equal 'ng-hide'
 
-  describe 'visit the audience section and', () ->
+  it 'should have the proper title', () ->
+    elem.socialBtn            .click()
+    browser.getTitle()        .should.eventually.equal 'Build your store | eeosk'
 
-    before () ->
-      browser.get '/storefront/audience'
-      browser.getTitle()                        .should.eventually.equal 'Build your store | eeosk'
+  it 'show the initial button and popover', () ->
+    elem.navSocialBtn         .getAttribute('class').should.eventually.equal ''
+    elem.popContent           .getText().should.eventually.contain 'Add your social media'
 
-    it 'show the initial button and popover', () ->
-      elem.audienceBtn                          .getAttribute('class').should.eventually.equal ''
-      elem.popContent.getText()                 .should.eventually.contain 'Add your social media'
+  it 'add social media', () ->
+    elem.facebookInput        .sendKeys newVal.facebook
+    elem.pinterestInput       .sendKeys newVal.pinterest
+    elem.twitterInput         .sendKeys newVal.twitter
+    elem.instagramInput       .sendKeys newVal.instagram
+    elem.facebook             .getText().should.eventually.equal 'facebook.com/' + newVal.facebook
+    elem.pinterest            .getText().should.eventually.equal 'pinterest.com/' + newVal.pinterest
+    elem.twitter              .getText().should.eventually.equal 'twitter.com/' + newVal.twitter
+    elem.instagram            .getText().should.eventually.equal 'instagram.com/' + newVal.instagram
 
-    it 'add social media', () ->
-      elem.facebookInput                        .sendKeys newVal.facebook
-      elem.pinterestInput                       .sendKeys newVal.pinterest
-      elem.twitterInput                         .sendKeys newVal.twitter
-      elem.instagramInput                       .sendKeys newVal.instagram
-      elem.facebook                             .getText().should.eventually.equal 'facebook.com/' + newVal.facebook
-      elem.pinterest                            .getText().should.eventually.equal 'pinterest.com/' + newVal.pinterest
-      elem.twitter                              .getText().should.eventually.equal 'twitter.com/' + newVal.twitter
-      elem.instagram                            .getText().should.eventually.equal 'instagram.com/' + newVal.instagram
+  it 'add email', () ->
+    elem.emailInput           .sendKeys newVal.email
+    elem.email                .getText().should.eventually.equal newVal.email
 
-    it 'add email', () ->
-      elem.emailInput                           .sendKeys newVal.email
-      elem.email                                .getText().should.eventually.equal newVal.email
-
-    it 'save social media and email', () ->
-      elem.save.click()
-      browser.refresh()
-      elem.facebook                             .getText().should.eventually.equal 'facebook.com/' + newVal.facebook
-      elem.pinterest                            .getText().should.eventually.equal 'pinterest.com/' + newVal.pinterest
-      elem.twitter                              .getText().should.eventually.equal 'twitter.com/' + newVal.twitter
-      elem.instagram                            .getText().should.eventually.equal 'instagram.com/' + newVal.instagram
-      elem.email                                .getText().should.eventually.equal newVal.email
+  it 'save social media and email', () ->
+    elem.save.click()
+    browser.refresh()
+    elem.facebook             .getText().should.eventually.equal 'facebook.com/' + newVal.facebook
+    elem.pinterest            .getText().should.eventually.equal 'pinterest.com/' + newVal.pinterest
+    elem.twitter              .getText().should.eventually.equal 'twitter.com/' + newVal.twitter
+    elem.instagram            .getText().should.eventually.equal 'instagram.com/' + newVal.instagram
+    elem.email                .getText().should.eventually.equal newVal.email

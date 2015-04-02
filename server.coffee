@@ -129,6 +129,7 @@ app.use vhost('demo.eeosk.com', builder)
 app.use vhost('*.eeosk.com', store)
 
 app.use vhost('localhost', builder)
+app.use vhost('192.168.1.*', builder)
 app.use vhost('*.localhost', store)
 
 # Matching for external domains
