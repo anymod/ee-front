@@ -127,7 +127,7 @@ describe 'eeosk catalog', () ->
       allText                   .should.not.contain scope.product.content
 
   # TODO continue implementing catalog tests
-  it 'should filter by category', () ->
+  xit 'should filter by category', () ->
     elem.catalogBtn           .click()
 
 

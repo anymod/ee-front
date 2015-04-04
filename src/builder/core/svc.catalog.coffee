@@ -109,6 +109,9 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
     _catalog.min = range.min || null
     _catalog.max = range.max || null
     _runQuery()
+  setSearchTerm: (search_term) ->
+    _catalog.search = search_term
+    _runQuery()
 
   ## Product
   getProduct: (id) -> _getProduct id

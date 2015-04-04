@@ -38,6 +38,8 @@ angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($
     $scope.min = range.min
     $scope.max = range.max
     eeCatalog.setRange range
+  $scope.setSearch = () ->
+    eeCatalog.setSearchTerm $scope.search
 
   # Offscreen product
   setProduct          = (prod) -> $scope.product = prod
