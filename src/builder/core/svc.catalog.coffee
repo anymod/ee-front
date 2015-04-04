@@ -45,7 +45,7 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
     if _catalog.min       then query.min        = _catalog.min
     if _catalog.max       then query.max        = _catalog.max
     if _catalog.search    then query.search     = _catalog.search
-    if _catalog.category  then query.categories = [ _catalog.category ]
+    if _catalog.category  then query.categories = [ _catalog.category ] else query.categories = []
     query
 
   _runQuery = () ->
@@ -85,7 +85,7 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
   changePageBy = (n) ->
     $scope.page += n
     if $scope.page <= 1 then $scope.page = 1
-    eeCatalog.search()
+    _runQuery()
 
   $rootScope.$on 'storefront:updated', (e, storefront) ->
     _setStorefrontVars storefront

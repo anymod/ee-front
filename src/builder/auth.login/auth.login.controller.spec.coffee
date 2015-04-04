@@ -17,7 +17,6 @@ describe 'loginCtrl', () ->
   #   scope.email = 'foo'
   #   scope.password = 'bar'
   #   scope.authWithPassword()
-  #   # console.log res
 
 describe 'logoutCtrl', () ->
 

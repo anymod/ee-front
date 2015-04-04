@@ -32,9 +32,10 @@ angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($
     $scope.removeBtnDisabled = false
   # Generate searches
   $scope.setCategory  = (category) ->
-    $scope.category = category
-    eeCatalog.setCategory category
+    $scope.category = if category is $scope.category then null else category
+    eeCatalog.setCategory $scope.category
   $scope.setRange = (range) ->
+    if range.min is $scope.min and range.max is $scope.max then range = {}
     $scope.min = range.min
     $scope.max = range.max
     eeCatalog.setRange range
