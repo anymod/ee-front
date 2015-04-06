@@ -107,6 +107,10 @@ sources.builderModule = [
   './src/builder/landing/landing.module.coffee'
   './src/builder/landing/landing.route.coffee'
   './src/builder/landing/landing.controller.coffee'
+  # Module - container
+  './src/builder/container/container.module.coffee'
+  './src/builder/container/container.route.coffee'
+  './src/builder/container/container.controller.coffee'
   # Module - about
   # './src/builder/about/about.module.coffee'
   # './src/builder/about/about.route.coffee'

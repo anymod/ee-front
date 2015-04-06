@@ -1,0 +1,241 @@
+<ee-storefront-header class="navbar-fixed-top"></ee-storefront-header>
+
+<div class="white-background position-relative">
+  <div class="carousel storefront-carousel overflow-hidden">
+    <img ng-src="{{ user.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive full-width">
+    <div class="position-absolute full-width hidden-xs {{ user.storefront_meta.home.carousel[0].btnPosition }}">
+      <div class="well inline-block"
+           ng-hide="!user.storefront_meta.home.carousel[0].headline && !user.storefront_meta.home.carousel[0].byline && !user.storefront_meta.home.carousel[0].btnText">
+        <h3 class="margin-0">
+          {{ user.storefront_meta.home.carousel[0].headline }}
+        </h3>
+        <p class="vert-2">
+          {{ user.storefront_meta.home.carousel[0].byline }}
+        </p>
+        <a ng-show="user.storefront_meta.home.carousel[0].btnText" ui-sref="storefront.shop({ shopCategory: user.storefront_meta.home.carousel[0].linkCategory })" class="btn btn-default">
+          {{ user.storefront_meta.home.carousel[0].btnText }}
+        </a>
+      </div>
+    </div>
+    <div class="pad-15 visible-xs">
+      <h3 class="margin-0">
+        {{ user.storefront_meta.home.carousel[0].headline }}
+      </h3>
+      <p class="vert-2">
+        {{ user.storefront_meta.home.carousel[0].byline }}
+      </p>
+      <a ng-show="user.storefront_meta.home.carousel[0].btnText" ui-sref="storefront.shop({ shopCategory: user.storefront_meta.home.carousel[0].linkCategory })" class="btn btn-default">
+        {{ user.storefront_meta.home.carousel[0].btnText }}
+      </a>
+    </div>
+  </div>
+<!--
+  <div class="featured">
+    <div ng-if="storefront.product_selection.length > 0" class="container-fluid">
+      <div class="full-width pad-10"></div>
+      <div class="row">
+        <div class="col col-md-offset-1 col-xs-4 col-md-2 overflow-hidden">
+          <h4 class="margin-0">Products</h4>
+          <hr>
+          <ee-shop-nav ng-if="storefront" storefront="storefront" class="nav nav-pills nav-stacked nav-compact"></ee-shop-nav>
+        </div>
+        <div class="col col-xs-8 position-inherit">
+          <h4 class="margin-0">Featured</h4>
+          <div class="full-width vert-20 overflow-hidden">
+            <div ng-repeat="product in storefront.product_selection" class="product-container inline-block width-160 vertical-align-top">
+              <ee-product-for-storefront product="product"></ee-product-for-storefront>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="storefront.product_selection.length <= 0" class="pad-10">
+      <h2 class="full-width text-center">Coming soon</h2>
+      <p ng-if="isBuilder" class="full-width text-center">
+        (&nbsp;<a ui-sref="catalog">add products</a>&nbsp;and they will appear here&nbsp;)
+      </p>
+    </div>
+  </div> /featured -->
+
+</div>
+
+<div class="navbar navbar-inverse margin-0 round-0">
+  <div class="container-fluid text-center full-width">
+    <h2 class="white-color margin-10">
+      <i class="fa fa-fw fa-arrow-circle-down"></i>&nbsp;EDITOR&nbsp;<i class="fa fa-fw fa-arrow-circle-down"></i>
+    </h2>
+  </div>
+</div> <!-- /EDITOR navbar -->
+
+<div class="full-width pad-10">
+
+  <form class="form-horizontal">
+    <!-- TITLE -->
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Store title</label>
+      <div class="col-sm-3">
+        <input type="text" ng-model="user.storefront_meta.home.name" class="form-control" placeholder="Store Title (optional)">
+      </div>
+    </div>
+    <!-- /TITLE -->
+    <!-- TOP BAR COLORS -->
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Top bar colors</label>
+      <div class="col-sm-2">
+        <div class="position-relative inline-block">
+          <div class="input-group" colorpicker colorpicker-parent="true" ng-model="user.storefront_meta.home.topBarBackgroundColor">
+            <span class="input-group-addon"><i class="fa fa-fw fa-paint-brush"></i></span>
+            <input name="storefront_meta.home.topBarColor"
+                   ng-model="user.storefront_meta.home.topBarBackgroundColor"
+                   class="form-control"
+                   ng-style="{ 'background-color': user.storefront_meta.home.topBarBackgroundColor }">
+          </div>
+          <div ng-show="show.colorPopover" class="popover bottom in inline-block" style="top: 30px;">
+            <div class="arrow"></div>
+            <div class="popover-content">Try changing your store's top bar color</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="position-relative inline-block">
+          <div class="input-group" colorpicker colorpicker-parent="true" ng-model="user.storefront_meta.home.topBarColor">
+            <span class="input-group-addon"><i class="fa fa-fw fa-font"></i></span>
+            <input name="storefront_meta.home.topBarBackgroundColor"
+                   ng-model="user.storefront_meta.home.topBarColor"
+                   class="form-control"
+                   ng-style="{ 'background-color': user.storefront_meta.home.topBarColor }">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /TOP BAR COLORS -->
+    <!-- CAROUSEL IMAGE -->
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Main image</label>
+      <div class="col-sm-4">
+        <div class="position-relative" dropdown>
+          <div class="hover-pointer position-relative" dropdown-toggle>
+            <div class="btn btn-sm btn-default position-absolute margin-5">
+              <div class="fa fa-fw fa-chevron-down"></div>
+            </div>
+            <img ng-src="{{ user.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive full-width vert-2">
+          </div>
+          <ul class="dropdown-menu" style="left: -2px; right: -2px;">
+            <li class="margin-10 vert-0">
+              Select or upload an image&nbsp;&nbsp;<small><em class="text-muted">1200x400px</em></small>
+              <br>
+              <ee-cloudinary-upload class="inline-block width-200"></ee-cloudinary-upload>
+            </li>
+            <img ng-repeat="img in defaultImages" ng-src="{{ img }}" class="full-width hover-pointer pad-2" ng-click="setImg(img)"/>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-5">
+      </div>
+    </div>
+    <!-- /CAROUSEL IMAGE -->
+    <!-- CAROUSEL CONTENT -->
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Headline</label>
+      <div class="col-sm-3">
+        <div class="position-relative">
+          <input type="text" ng-model="user.storefront_meta.home.carousel[0].headline" class="form-control" placeholder="Headline (optional)">
+          <div ng-show="show.headlinePopover" class="popover bottom in inline-block full-width" style="top: 30px; margin-bottom: 20px;">
+            <div class="arrow"></div>
+            <div class="popover-content">
+              Add a headline if you'd like
+              <br>
+              <a href><small>skip</small></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="btn-group btn-group-justified">
+          <div class="btn btn-default active"><i class="fa fa-align-left"></i></div>
+          <div class="btn btn-default"><i class="fa fa-align-center"></i></div>
+          <div class="btn btn-default"><i class="fa fa-align-right"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Byline</label>
+      <div class="col-sm-3">
+        <input type="text" ng-model="user.storefront_meta.home.carousel[0].byline" class="form-control" placeholder="Byline (optional)">
+      </div>
+    </div>
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Button text</label>
+      <div class="col-sm-3">
+        <input type="text" ng-model="user.storefront_meta.home.carousel[0].btnText" class="form-control" placeholder="Button text (optional)">
+      </div>
+      <div class="col-sm-2">
+        <div ng-show="!!user.storefront_meta.home.carousel[0].btnText">
+          <select class="form-control" ng-model="user.storefront_meta.home.carousel[0].linkCategory">
+            <option ng-repeat="category in categories">{{ category }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- /CAROUSEL CONTENT -->
+    <!-- BLOG -->
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Blog</label>
+      <div class="col-sm-3">
+        <div class="position-relative">
+          <input type="text" ng-model="user.storefront_meta.blog.url" class="form-control" placeholder="Link to your blog (optional)">
+          <div ng-show="show.blogPopover" class="popover bottom in inline-block full-width" style="top: 30px; margin-bottom: 20px;">
+            <div class="arrow"></div>
+            <div class="popover-content">
+              Add a link to your blog
+              <br>
+              <a href><small>skip</small></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <small class="line-height-1">
+          The top 'Blog' button links to:<br>
+          <a href="{{ user.storefront_meta.blog.url }}" ng-bind="user.storefront_meta.blog.url"></a>
+        </small>
+      </div>
+    </div>
+    <!-- /BLOG -->
+    <!-- SOCIAL -->
+<!--     <div class="form-group vert-5">
+  <label class="col-sm-3 control-label">Facebook</label>
+  <div class="col-sm-3">
+    <input type="text" ng-model="user.storefront_meta.audience.social.facebook" class="form-control" placeholder="Link to your facebook (optional)">
+  </div>
+</div>
+<div class="form-group vert-5">
+  <label class="col-sm-3 control-label">Pinterest</label>
+  <div class="col-sm-3">
+    <input type="text" ng-model="user.storefront_meta.audience.social.pinterest" class="form-control" placeholder="Link to your pinterest (optional)">
+  </div>
+</div>
+<div class="form-group vert-5">
+  <label class="col-sm-3 control-label">Twitter</label>
+  <div class="col-sm-3">
+    <input type="text" ng-model="user.storefront_meta.audience.social.twitter" class="form-control" placeholder="Link to your twitter (optional)">
+  </div>
+</div>
+<div class="form-group vert-5">
+  <label class="col-sm-3 control-label">Instagram</label>
+  <div class="col-sm-3">
+    <input type="text" ng-model="user.storefront_meta.audience.social.instagram" class="form-control" placeholder="Link to your instagram (optional)">
+  </div>
+</div> -->
+    <!-- /SOCIAL -->
+
+
+  </form>
+
+  <!-- <pre>{{ user.storefront_meta | json }}</pre> -->
+
+</div>
+
+<div class="inline-block full-width vert-20"></div>

@@ -17,6 +17,7 @@ angular.module 'eeBuilder', [
   # builder
   'builder.core'
   'builder.auth'
+  'builder.container'
   'builder.landing'
   'builder.terms'
   'builder.storefront'
