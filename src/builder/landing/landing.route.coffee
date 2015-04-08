@@ -1,10 +1,9 @@
 'use strict'
 
 angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
-  # $locationProvider.html5Mode true
 
-  $stateProvider.state 'landing',
-    url: '/'
+  $stateProvider.state 'landing_old',
+    url: '/landing'
     views:
       main:
         controller: 'landingCtrl'

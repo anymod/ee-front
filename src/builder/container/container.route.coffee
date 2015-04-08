@@ -2,9 +2,9 @@
 
 angular.module('builder.container').config ($stateProvider, $locationProvider) ->
 
-  $stateProvider.state 'container',
-    url: '/container'
-    resolve: user: (eeAuth) -> eeAuth.userFromToken()
+  $stateProvider.state 'landing',
+    url: '/'
+    resolve: user: () -> {} # eeAuth.userFromToken()
     views:
       main:
         controller: 'containerCtrl'

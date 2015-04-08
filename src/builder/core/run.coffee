@@ -7,6 +7,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
     'landing'
     'login'
     'signup'
+    'container'
   ]
   eitherAuthStates = [
     'logout'
@@ -15,26 +16,16 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
     'terms'
     'privacy'
     'reset'
-  ]
-  closeOffscreenStates = [
-    'login'
-    'logout'
-    'landing'
-    'signup'
-    'examples'
-    'reset'
-    'terms'
-    'privacy'
+    'container'
   ]
 
   isNonAuth = (state) -> nonAuthStates.indexOf(state) >= 0
   isEitherAuth = (state) -> eitherAuthStates.indexOf(state) >= 0
-  isCloseOffscreen = (state) -> closeOffscreenStates.indexOf(state) >= 0
 
   $rootScope.closeProductHighlight = () -> $location.search('p', null)
 
   $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
-    eeStorefront.setCategories()
+    # eeStorefront.setCategories()
 
     # redirect to login if no token and restricted
     if !isEitherAuth(toState.name) and !eeAuth.hasToken() and !isNonAuth(toState.name)
@@ -46,10 +37,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
     if !isEitherAuth(toState.name) and eeAuth.hasToken() and isNonAuth(toState.name)
       # $state.go causes redirect loop with child state, so using $location.path instead
       # https://github.com/angular-ui/ui-router/issues/1169
-      $location.path '/storefront/home'
+      $location.path '/container'
       return
-
-  $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
-    $rootScope.toggleLeft = !isCloseOffscreen(toState.name)
 
   return

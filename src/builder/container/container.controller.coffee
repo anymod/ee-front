@@ -1,21 +1,110 @@
 'use strict'
 
-angular.module('builder.container').controller 'containerCtrl', ($scope, $rootScope, user, eeStorefront) ->
+angular.module('builder.container').controller 'containerCtrl', ($scope, $rootScope) ->
   $rootScope.toggleLeft = false
+  user =
+    storefront_meta:
+      home:
+        name: 'My Store'
+        topBarBackgroundColor: '#dad6ff'
+        topBarColor: '#021709'
+        carousel: [{
+          imgUrl: ''
+        }]
+      blog: { url: 'https://eeosk.com' }
+      about: { headline: 'eeosk' }
+      audience:
+        social:
+          facebook: 'facebook'
+          pinterest: 'pinterest'
+          twitter: 'twitter'
+          instagram: 'instagram'
   $scope.user = user
 
-  ## Define storefront & categories
-  eeStorefront.getStorefront(true)
-  .then (storefront) ->
-    $scope.storefront = storefront
-    eeStorefront.setScopeCategories(storefront, $scope)
+  $scope.reset = (shw) ->
+    shw.landing =
+      content:                true
 
-  $scope.show = {}
-  $scope.show.colorPopover      = false
-  $scope.show.headlinePopover   = false
-  $scope.show.blogPopover       = true
+    shw.example =
+      content:                false
 
-  $scope.setImg = (img) -> user.storefront_meta.home.carousel[0].imgUrl = img
+    shw.store   =
+      content:                false
+      navbar:                 false
+      mainImage:              false
+      carouselContent:        false
+
+    shw.editor  =
+      navbar:                 false
+      topBarColor:            false
+      topBarBackgroundColor:  false
+      mainImage:              false
+      storeTitle:             false
+
+    shw.catalog =
+      content:                false
+
+    shw.popover =
+      topBarShown:            false
+      topBarColor:            false
+      topBarBackgroundColor:  false
+      mainImage:              false
+      storeTitle:             false
+
+    shw
+
+  $scope.show = $scope.reset({})
+
+  ## Landing
+  showLanding = (shw) -> shw.landing  = { content: true }
+  hideLanding = (shw) -> shw.landing  = { content: false }
+
+  ## Example
+  showExample = (shw) -> shw.example  = { content: true }
+  hideExample = (shw) -> shw.example  = { content: false }
+
+  ## Store
+  showStore   = (shw) ->
+    shw.store.content   = true
+    shw.store.navbar    = true
+    shw.store.mainImage = false
+
+  ## Editor
+  showEditor  = (shw) ->
+    shw.editor.content                = true
+    shw.editor.topBarBackgroundColor  = true
+    shw.popover.topBarBackgroundColor = true
+    shw.popover.topBarShown           = false
+
+  $scope.$on 'colorpicker-closed', (e, data) ->
+    if !$scope.show.popover?.topBarShown and data.name is 'user.storefront_meta.home.topBarBackgroundColor'
+      $scope.show.popover.topBarShown = true
+      $scope.show.popover.topBarColor = true
+      $scope.show.popover.topBarBackgroundColor = false
+      $scope.$apply()
+    if data.name is 'user.storefront_meta.home.topBarColor'
+      $scope.show.popover.topBarColor = false
+      $scope.show.editor.mainImage    = true
+      $scope.$apply()
+
+  ## Catalog
+
+  ## Functions
+  $scope.tryItOut = (shw) ->
+    hideLanding shw
+    hideExample shw
+    showStore   shw
+    showEditor  shw
+  $scope.$on 'initiate:tryItOut', (e, data) ->
+    console.log 'data', data
+    $scope.tryItOut data
+
+  $scope.showDemoStore = (shw) ->
+    shw.example.content = !shw.example.content
+
+  $scope.setImg = (shw, img) ->
+    shw.store.mainImage = true
+    user.storefront_meta.home.carousel[0].imgUrl = img
 
   # Fisher–Yates shuffle algorithm
   shuffleArray = (array) ->

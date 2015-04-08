@@ -172,6 +172,7 @@ sources.builderDirective = [
   './src/components/ee-image-preload.coffee'
   './src/components/ee-storefront-header.coffee'
   './src/components/ee-storefront-footer.coffee'
+  './src/components/ee-example-store.coffee'
 ]
 sources.storeDirective = [
   './src/components/ee-button-add-to-cart.coffee'
