@@ -5,8 +5,10 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
 
   nonAuthStates = [
     'landing'
+    'try'
     'login'
     'signup'
+    'example'
   ]
   eitherAuthStates = [
     'logout'

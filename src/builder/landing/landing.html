@@ -12,7 +12,7 @@
     </p>
     <div class="full-width inline-block vert-20"></div>
   </div>
-  <div ng-click="fns.tryItOut()" class="btn btn-lg btn-primary full-width max-width-300 vert-20 margin-top-0">
+  <div ui-sref="try" ng-clicks="fns.tryItOut()" class="btn btn-lg btn-primary full-width max-width-300 vert-20 margin-top-0">
     Try it out
   </div>
 </div>
@@ -181,7 +181,7 @@
 <div ng-show="show.landing.content" class="inline-block full-width pad-20 gray-background">
   <div class="row">
     <div class="col col-sm-6 col-sm-offset-1">
-      <div ng-click="fns.toggleExample()" class="btn btn-default" ng-class="{ 'active': show.example.content }">See a demo store</div>
+      <a ui-sref="example" class="btn btn-default" ng-class="{ 'active': show.example.content }">See a demo store</a>
       <a ui-sref="login" class="btn btn-default">Login</a>
       <br>
       <div class="vert-10 ">
@@ -201,8 +201,8 @@
 </div>
 
 <div ng-hide="show.landing.content" style="position: fixed; bottom: 10px; left: 10px; z-index: 10;">
-  <div class="btn btn-sm btn-default" ng-click="fns.reset()">
+  <a ui-sref="landing" class="btn btn-sm btn-default">
     <i class="fa fa-fw fa-arrow-left"></i>&nbsp;back to home page
-  </div>
-  <div ui-sref="signup" class="btn btn-sm btn-default">Sign up</div>
+  </a>
+  <a ui-sref="signup" class="btn btn-sm btn-default">Sign up</a>
 </div>

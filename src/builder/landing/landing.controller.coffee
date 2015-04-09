@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.landing').controller 'landingCtrl', ($scope, eeLanding) ->
+angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, eeLanding) ->
 
   $scope.user           = eeLanding.user
   $scope.show           = eeLanding.show
@@ -9,5 +9,7 @@ angular.module('builder.landing').controller 'landingCtrl', ($scope, eeLanding) 
 
   $scope.$watch 'user.storefront_meta.home.name', (newVal, oldVal) ->
     if newVal?.length > 3 and $scope.show.popover?.title then eeLanding.fns.finishEditorTimeout()
+
+  eeLanding.fns.showState $state.current.name
 
   return

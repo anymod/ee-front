@@ -1,6 +1,7 @@
 'use strict'
 
 angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorScroll, $timeout) ->
+
   user =
     storefront_meta:
       home:
@@ -65,6 +66,10 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
     show.store.content   = true
     show.store.navbar    = true
     show.store.mainImage = false
+  hideStore   = () ->
+    show.store.content   = false
+    show.store.navbar    = false
+    show.store.mainImage = false
 
   ## Editor
   showEditor  = () ->
@@ -72,6 +77,12 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
     show.editor.topBarBackgroundColor    = true
     show.editor.topBarColor              = false
     show.popover.topBarBackgroundColor   = true
+    show.finished.topBarColor            = false
+  hideEditor  = () ->
+    show.editor.content                  = false
+    show.editor.topBarBackgroundColor    = false
+    show.editor.topBarColor              = false
+    show.popover.topBarBackgroundColor   = false
     show.finished.topBarColor            = false
 
   $rootScope.$on 'colorpicker-closed', (e, data) ->
@@ -162,17 +173,40 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
   ]
 
 
+  landingState = () ->
+    showLanding()
+    hideExample()
+    hideStore()
+    hideEditor()
+
+  tryState = () ->
+    hideLanding()
+    hideExample()
+    showStore()
+    showEditor()
+
+  exampleState = () ->
+    hideLanding()
+    showExample()
+    hideStore()
+    hideEditor()
+
   user: user
   show: show
   fns:
     reset:        () -> reset show
+    showState:    (name) ->
+      if name is 'landing' then $timeout landingState, 100
+      if name is 'try'     then $timeout tryState, 200
+      if name is 'example' then $timeout exampleState, 200
+
     hidePopovers: () -> hidePopovers()
-    tryItOut:     () ->
-      hideLanding()
-      hideExample()
-      showStore()
-      showEditor()
-      $rootScope.$on 'initiate:tryItOut', () -> tryItOut()
+    # tryItOut:     () ->
+    #   toggleLanding()
+    #   hideExample()
+    #   showStore()
+    #   showEditor()
+    # $rootScope.$on 'initiate:tryItOut', () -> tryItOut()
 
     toggleExample: () ->
       show.landing.content = !show.landing.content
