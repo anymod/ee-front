@@ -12,7 +12,7 @@
     </p>
     <div class="full-width inline-block vert-20"></div>
   </div>
-  <div ui-sref="try" ng-clicks="fns.tryItOut()" class="btn btn-lg btn-primary full-width max-width-300 vert-20 margin-top-0">
+  <div ui-sref="try" class="btn btn-lg btn-primary full-width max-width-300 vert-20 margin-top-0">
     Try it out
   </div>
 </div>
@@ -28,7 +28,7 @@
 <!-- STORE -->
 <div ng-show="show.store.content">
   <div class="navbar navbar-fixed-top" style="z-index: 5000; height: 52px;"></div>
-  <ee-storefront-header ng-show="show.store.navbar" class="navbar-fixed-top"></ee-storefront-header>
+  <ee-storefront-header class="navbar-fixed-top"></ee-storefront-header>
 
   <div class="white-background position-relative" style="margin-top: 50px;">
     <div class="carousel storefront-carousel">
@@ -80,7 +80,7 @@
       <div class="form-group vert-2">
         <label class="col-sm-3 control-label">Top bar colors</label>
         <div class="col-sm-2">
-          <div class="position-relative inline-block" ng-click="fns.hidePopovers()">
+          <div class="position-relative inline-block" ng-click="fns.hidePopover('topBarBackgroundColor')">
             <div class="input-group" colorpicker colorpicker-parent="true"
                  ng-model="user.storefront_meta.home.topBarBackgroundColor">
               <span class="input-group-addon hover-pointer"><i class="fa fa-fw fa-paint-brush"></i></span>
@@ -97,7 +97,7 @@
           </div>
         </div>
         <div class="col-sm-2" ng-show="show.editor.topBarColor">
-          <div class="position-relative inline-block" ng-click="fns.hidePopovers()">
+          <div class="position-relative inline-block" ng-click="fns.hidePopover('topBarColor')">
             <div class="input-group" colorpicker colorpicker-parent="true"
                  ng-model="user.storefront_meta.home.topBarColor">
               <span class="input-group-addon hover-pointer"><i class="fa fa-fw fa-font"></i></span>
