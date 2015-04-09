@@ -125,6 +125,8 @@ app.use vhost('eeosk.com', builder)
 app.use vhost('www.eeosk.com', builder)
 app.use vhost('demo.eeosk.com', builder)
 app.use vhost('*.eeosk.com', store)
+app.use vhost('*.ee-front-staging.herokuapp.com', builder)
+app.use vhost('ee-front-staging.herokuapp.com', builder)
 
 app.use vhost('localhost', builder)
 app.use vhost('192.168.1.*', builder)
