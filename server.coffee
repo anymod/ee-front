@@ -15,8 +15,6 @@ vhost           = require 'vhost'
 morgan          = require 'morgan'
 path            = require 'path'
 serveStatic     = require 'serve-static'
-Firebase        = require 'firebase'
-eFirebaseRef    = new Firebase 'https://fiery-inferno-1584.firebaseIO.com/'
 bodyParser      = require 'body-parser'
 stripe          = require('stripe')(stripeSecretKey)
 

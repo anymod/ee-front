@@ -7,7 +7,6 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
     'landing'
     'login'
     'signup'
-    'container'
   ]
   eitherAuthStates = [
     'logout'
@@ -16,7 +15,6 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
     'terms'
     'privacy'
     'reset'
-    'container'
   ]
 
   isNonAuth = (state) -> nonAuthStates.indexOf(state) >= 0
@@ -37,7 +35,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
     if !isEitherAuth(toState.name) and eeAuth.hasToken() and isNonAuth(toState.name)
       # $state.go causes redirect loop with child state, so using $location.path instead
       # https://github.com/angular-ui/ui-router/issues/1169
-      $location.path '/container'
+      $location.path '/landing'
       return
 
   return

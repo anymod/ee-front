@@ -1,16 +1,13 @@
 'use strict'
 
-angular.module('builder.landing').controller 'landingCtrl', ($scope, $rootScope, $location, $anchorScroll) ->
-  $scope.toggle = $rootScope.toggle
+angular.module('builder.landing').controller 'landingCtrl', ($scope, eeLanding) ->
 
-  $scope.toggleOffscreen = () ->
-    $rootScope.toggle = !$rootScope.toggle
-    $scope.toggle = $rootScope.toggle
+  $scope.user           = eeLanding.user
+  $scope.show           = eeLanding.show
+  $scope.defaultImages  = eeLanding.defaultImages
+  $scope.fns            = eeLanding.fns
 
-  $scope.scrollToMore = () ->
-    # Scroll to more section
-    $location.hash 'more'
-    $anchorScroll()
-    # Remove hash in url
-    $location.url $location.path()
+  $scope.$watch 'user.storefront_meta.home.name', (newVal, oldVal) ->
+    if newVal?.length > 3 and $scope.show.popover?.title then eeLanding.fns.finishEditorTimeout()
+
   return

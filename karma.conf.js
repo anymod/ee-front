@@ -21,7 +21,6 @@ module.exports = function(config) {
       'src/bower_components/angular-cookies/angular-cookies.min.js',
       'src/bower_components/angular-bootstrap/ui-bootstrap.min.js',
       'src/bower_components/angular-ui-router/release/angular-ui-router.min.js',
-      'src/bower_components/firebase/firebase.js',
       'src/bower_components/angulartics/dist/angulartics.min.js',
       'src/bower_components/angulartics/dist/angulartics-ga.min.js',
       'src/bower_components/angular-marked/angular-marked.js',

@@ -2,19 +2,14 @@
 
 angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
 
-  $stateProvider.state 'landing',
-    url: '/'
-    resolve: user: () -> {} # eeAuth.userFromToken()
+  $stateProvider.state 'landing_old',
+    url: '/landing'
     views:
-      top:
+      'top-view':
         controller: 'landingCtrl'
         templateUrl: 'builder/landing/landing.html'
-      bottom:
-        controller: 'exampleCtrl'
-        templateUrl: 'builder/example/example.html'
-      footer:
-        # controller: 'footerCtrl'
-        templateUrl: 'builder/landing/landing.footer.html'
+      'bottom-view':
+        templateUrl: 'builder/templates/template.offscreen.default.html'
     data:
       pageTitle:        'Online store builder, ecommerce storefront, dropship product catalog | eeosk'
       pageDescription:  'Create an online store from a catalog of products.'

@@ -13,7 +13,6 @@
     "angular": "~1.2",
     "bootstrap": "~3.3",
     "angular-ui-router": "^0.2",
-    "firebase": "~2.0",
     "angulartics": "^0.17",
     "font-awesome": "~4.2",
     "angular-bootstrap": "~0.12",

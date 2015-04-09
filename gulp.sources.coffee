@@ -44,8 +44,6 @@ sources.builderVendorMin = [
   './src/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js'
 ]
 sources.builderVendorUnmin = [
-  # TODO remove firebase
-  './src/bower_components/firebase/firebase-debug.js'
   './src/bower_components/cloudinary/js/jquery.ui.widget.js'
   './src/bower_components/cloudinary/js/jquery.iframe-transport.js'
   './src/bower_components/cloudinary/js/jquery.fileupload.js'
@@ -85,6 +83,7 @@ sources.builderModule = [
   './src/builder/core/run.coffee'
   # Services
   './src/builder/core/svc.auth.coffee'
+  './src/builder/core/svc.landing.coffee'
   './src/builder/core/svc.catalog.coffee'
   './src/builder/core/svc.orders.coffee'
   './src/builder/core/svc.selection.coffee'
@@ -107,10 +106,13 @@ sources.builderModule = [
   './src/builder/landing/landing.module.coffee'
   './src/builder/landing/landing.route.coffee'
   './src/builder/landing/landing.controller.coffee'
+  # Module - example
+  './src/builder/example/example.module.coffee'
+  './src/builder/example/example.controller.coffee'
   # Module - container
-  './src/builder/container/container.module.coffee'
-  './src/builder/container/container.route.coffee'
-  './src/builder/container/container.controller.coffee'
+  # './src/builder/container/container.module.coffee'
+  # './src/builder/container/container.route.coffee'
+  # './src/builder/container/container.controller.coffee'
   # Module - about
   # './src/builder/about/about.module.coffee'
   # './src/builder/about/about.route.coffee'
@@ -168,11 +170,9 @@ sources.builderDirective = [
   './src/components/ee-product-selection-button.coffee'
   './src/components/ee-order.coffee'
   './src/components/ee-cloudinary-upload.coffee'
-  './src/components/ee-welcome.coffee'
   './src/components/ee-image-preload.coffee'
   './src/components/ee-storefront-header.coffee'
   './src/components/ee-storefront-footer.coffee'
-  './src/components/ee-example-store.coffee'
 ]
 sources.storeDirective = [
   './src/components/ee-button-add-to-cart.coffee'

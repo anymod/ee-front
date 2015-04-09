@@ -17,20 +17,19 @@ angular.module 'eeBuilder', [
   # builder
   'builder.core'
   'builder.auth'
-  'builder.container'
   'builder.landing'
   'builder.terms'
   'builder.storefront'
   'builder.catalog'
   'builder.orders'
   'builder.account'
+  'builder.example'
 
   # custom
   'ee-terms-seller'
   'ee-terms-privacy'
   'ee-navbar'
   'ee-save'
-  'ee-welcome'
   'ee-offscreen-toggle'
   'ee-offscreen-header'
   'ee-offscreen-footer'
@@ -40,6 +39,5 @@ angular.module 'eeBuilder', [
   'ee-image-preload'
   'ee-storefront-header'
   'ee-storefront-footer'
-  'ee-example-store'
   # 'ee.templates' # commented out during build step for inline templates
 ]
