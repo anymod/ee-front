@@ -39,7 +39,7 @@
     </div>
     <!-- /STORE carousel -->
     <!-- STORE products -->
-    <div class="featured">
+    <div ng-show="show.store.products" class="featured">
       <div class="container-fluid">
         <div class="full-width pad-10"></div>
         <div class="row">
@@ -74,12 +74,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div ng-if="storefront.product_selection.length <= 0" class="pad-10">
-        <h2 class="full-width text-center">Coming soon</h2>
-        <p ng-if="isBuilder" class="full-width text-center">
-          (&nbsp;<a ui-sref="catalog">add products</a>&nbsp;and they will appear here&nbsp;)
-        </p>
       </div>
     </div> <!-- /featured -->
     <!-- /STORE products -->

@@ -62,6 +62,8 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
       content:                false
       mainImage:              false
       carouselContent:        false
+      products:               false
+      footer:                 false
     shw.editor    =
       topBarColor:            true
       topBarBackgroundColor:  true
@@ -135,6 +137,7 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
   startCatalog = () ->
     user.storefront_meta.home.carousel[0].imgUrl ||= shuffleArray(images)[0]
     show.store.mainImage = true
+    show.store.products = true
     hideLanding()
     hideExample()
     hideEditor()
