@@ -9,6 +9,7 @@ angular.module('builder.catalog').controller 'catalogCtrl', ($scope, $rootScope,
 
   $scope.catalog = eeCatalog.catalog
   $scope.fns = eeCatalog.fns
+  
   eeCatalog.fns.search()
 
   return

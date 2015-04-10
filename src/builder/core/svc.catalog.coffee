@@ -4,17 +4,23 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
 
   ## Catalog setup
   _defaults =
-    products: []
-    productsPerPage: 24
-    page:     null
-    search:   null
-    # min:      null
-    # max:      null
-    range: { min: null, max: null }
-    category: null
+    products:               []
+    focusedProduct:         null
+    focusedImage:           null
+    productsPerPage:        24
+    page:                   null
+    search:                 null
+    range:
+      min:                  null
+      max:                  null
+    category:               null
     storefront_product_ids: []
-    product_selection: {}
-    searching: false
+    product_selection:      {}
+    searching:              false
+    minMargin:              0.05
+    maxMargin:              0.40
+    startMargin:            0.15
+    marginArray:  [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4]
     categoryArray: [
       'Home Decor',
       'Kitchen',
@@ -30,10 +36,6 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
       { min: 10000, max: 20000  },
       { min: 20000, max: null   }
     ]
-    marginArray:  [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4]
-    minMargin:    0.05
-    maxMargin:    0.40
-    startMargin:  0.15
 
   _catalog = _defaults
 
@@ -123,6 +125,7 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
       _catalog.category = category
       _runQuery()
     setRange: (range) ->
+      range = range || {}
       _catalog.page = 1
       _catalog.range.min = range.min || null
       _catalog.range.max = range.max || null
@@ -135,6 +138,19 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
     ## Product
     getProduct: (id) -> _getProduct id
     getProductSelection: () -> _catalog.product_selection
+
+    ## Focused product
+    setFocusedProduct: (id) ->
+      if !id then _catalog.focusedProduct = null; return
+      _getProduct id
+      .then (data) ->
+        _catalog.focusedProduct = data
+        _catalog.focusedImage = data.image_meta.main_image
+      .catch (err) -> console.error err
+
+    setFocusedImage: (img) ->
+      console.log 'setting focusedImage', img
+      _catalog.focusedImage = img
 
     ## Pricing
     # calcPrice: (base, margin) -> _calcPrice(base, margin)

@@ -25,6 +25,11 @@
 <!-- STORE -->
 <div ng-show="show.store.content">
 
+  <!-- STORE navbar -->
+  <div class="navbar navbar-fixed-top" style="z-index: 1040; height: 52px;"></div>
+  <ee-storefront-header class="navbar-fixed-top"></ee-storefront-header>
+  <!-- /STORE navbar -->
+
   <div class="white-background position-relative">
     <!-- STORE carousel -->
     <div class="carousel storefront-carousel">
@@ -75,10 +80,6 @@
 
   </div>
 
-  <!-- STORE navbar -->
-  <div class="navbar navbar-fixed-top" style="z-index: 1040; height: 52px;"></div>
-  <ee-storefront-header class="navbar-fixed-top"></ee-storefront-header>
-  <!-- /STORE navbar -->
 </div>
 <!-- /STORE -->
 
@@ -190,7 +191,7 @@
 </div>
 <!-- /EDITOR -->
 
-<div ng-hide="show.landing.content" style="position: fixed; bottom: 10px; left: 10px; z-index: 10;">
+<div ng-hide="show.landing.content" style="position: fixed; bottom: 10px; left: 10px; z-index: 3000;">
   <a ui-sref="landing" class="btn btn-sm btn-default">
     <i class="fa fa-fw fa-arrow-left"></i>&nbsp;back to home page
   </a>
