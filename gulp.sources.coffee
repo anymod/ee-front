@@ -42,6 +42,7 @@ sources.builderVendorMin = [
   './src/bower_components/angulartics/dist/angulartics-ga.min.js'
   './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
   './src/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js'
+  './src/bower_components/angular-scroll/angular-scroll.min.js'
 ]
 sources.builderVendorUnmin = [
   './src/bower_components/cloudinary/js/jquery.ui.widget.js'
@@ -110,10 +111,6 @@ sources.builderModule = [
   './src/builder/example/example.module.coffee'
   './src/builder/example/example.route.coffee'
   './src/builder/example/example.controller.coffee'
-  # Module - container
-  # './src/builder/container/container.module.coffee'
-  # './src/builder/container/container.route.coffee'
-  # './src/builder/container/container.controller.coffee'
   # Module - about
   # './src/builder/about/about.module.coffee'
   # './src/builder/about/about.route.coffee'
@@ -174,6 +171,7 @@ sources.builderDirective = [
   './src/components/ee-image-preload.coffee'
   './src/components/ee-storefront-header.coffee'
   './src/components/ee-storefront-footer.coffee'
+  './src/components/ee-scroller.coffee'
 ]
 sources.storeDirective = [
   './src/components/ee-button-add-to-cart.coffee'

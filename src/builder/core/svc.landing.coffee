@@ -137,12 +137,14 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
   startCatalog = () ->
     user.storefront_meta.home.carousel[0].imgUrl ||= shuffleArray(images)[0]
     show.store.mainImage = true
-    show.store.products = true
+    showStoreProducts = () ->
+      show.store.products = true
+      showCatalog()
+    $timeout showStoreProducts, 200
     hideLanding()
     hideExample()
     hideEditor()
     showStore()
-    showCatalog()
 
   landingState = () ->
     showLanding()

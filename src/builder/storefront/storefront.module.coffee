@@ -1,3 +1,3 @@
 'use strict'
 
-angular.module 'builder.storefront', ['app.core']
+angular.module 'builder.storefront', ['builder.core']

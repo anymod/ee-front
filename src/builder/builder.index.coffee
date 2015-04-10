@@ -30,14 +30,15 @@ angular.module 'eeBuilder', [
   'ee-terms-privacy'
   'ee-navbar'
   'ee-save'
-  'ee-offscreen-toggle'
-  'ee-offscreen-header'
-  'ee-offscreen-footer'
+  # 'ee-offscreen-toggle'
+  # 'ee-offscreen-header'
+  # 'ee-offscreen-footer'
   'ee-product'
   'ee-order'
   'ee-cloudinaryUpload'
   'ee-image-preload'
   'ee-storefront-header'
   'ee-storefront-footer'
+  'ee-scroller'
   # 'ee.templates' # commented out during build step for inline templates
 ]

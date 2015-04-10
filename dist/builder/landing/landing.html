@@ -24,13 +24,8 @@
 
 <!-- STORE -->
 <div ng-show="show.store.content">
-  <div class="navbar navbar-fixed-top" style="z-index: 5000; height: 52px;"></div>
 
-  <!-- STORE navbar -->
-  <ee-storefront-header class="navbar-fixed-top"></ee-storefront-header>
-  <!-- /STORE navbar -->
-
-  <div class="white-background position-relative" style="margin-top: 50px;">
+  <div class="white-background position-relative">
     <!-- STORE carousel -->
     <div class="carousel storefront-carousel">
       <img ng-src="{{ user.storefront_meta.home.carousel[0].imgUrl }}"
@@ -39,10 +34,10 @@
     </div>
     <!-- /STORE carousel -->
     <!-- STORE products -->
-    <div ng-show="show.store.products" class="featured">
+    <div class="featured overflow-hidden transition-400" ng-class="show.store.products ? 'max-height-2400' : 'max-height-0'">
       <div class="container-fluid">
-        <div class="full-width pad-10"></div>
-        <div class="row">
+        <div class="row" ng-show="storefront.product_selection">
+          <div class="full-width pad-10"></div>
           <div class="col col-md-offset-1 col-xs-4 col-md-2 overflow-hidden">
             <h4 class="margin-0">Categories</h4>
             <hr>
@@ -55,21 +50,21 @@
                 <ee-product-for-storefront product="product"></ee-product-for-storefront>
                 <br>
               </div>
-              <div ng-if="!storefront.product_selection">
-                <div class="panel panel-primary">
-                  <div class="panel-heading">
-                    <div class="panel-title">Add products below</div>
-                  </div>
-                  <div class="panel-body">
-                    Your products will appear here.
-                  </div>
-                  <div class="panel-footer">
-                    <i class="fa fa-2x fa-info-circle text-muted vert-2 pull-left"></i>
-                    <div style="margin-left: 30px;">
-                      When a customer buys a product, eeosk handles the payment, inventory, shipping, & returns.  If the customer keeps it, then you earn the profit you chose for that product.
-                    </div>
-                  </div>
-                </div>
+            </div>
+          </div>
+        </div>
+        <div ng-hide="storefront.product_selection" class="position-relative full-width text-center vert-50">
+          <div class="panel panel-primary text-left max-width-600 margin-0-auto">
+            <div class="panel-heading">
+              <div class="panel-title">Add products below</div>
+            </div>
+            <div class="panel-body">
+              Your products will appear here.
+            </div>
+            <div class="panel-footer">
+              <i class="fa fa-2x fa-info-circle text-muted vert-2 pull-left"></i>
+              <div style="margin-left: 30px;">
+                When a customer buys a product, eeosk handles the payment, inventory, shipping, & returns.  If the customer keeps it, then you earn the profit you chose for that product.
               </div>
             </div>
           </div>
@@ -79,6 +74,11 @@
     <!-- /STORE products -->
 
   </div>
+
+  <!-- STORE navbar -->
+  <div class="navbar navbar-fixed-top" style="z-index: 1040; height: 52px;"></div>
+  <ee-storefront-header class="navbar-fixed-top"></ee-storefront-header>
+  <!-- /STORE navbar -->
 </div>
 <!-- /STORE -->
 
@@ -103,7 +103,7 @@
             </div>
             <div ng-show="show.popover.topBarBackgroundColor" class="popover popover-primary bottom in inline-block full-width max-width-100-pct">
               <div class="arrow arrow-primary"></div>
-              <div class="popover-title">OK, let's build!</div>
+              <div class="popover-title">OK, let's build your store!</div>
               <div class="popover-content">Click to change your store's top bar color</div>
             </div>
           </div>

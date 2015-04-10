@@ -1,3 +1,3 @@
 'use strict'
 
-angular.module 'builder.about', ['app.core']
+angular.module 'builder.about', ['builder.core']

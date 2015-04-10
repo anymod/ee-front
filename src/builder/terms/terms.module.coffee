@@ -1,3 +1,3 @@
 'use strict'
 
-angular.module 'builder.terms', []
+angular.module 'builder.terms', ['builder.core']

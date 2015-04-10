@@ -1,3 +1,3 @@
 'use strict'
 
-angular.module 'builder.landing', []
+angular.module 'builder.landing', ['builder.core']

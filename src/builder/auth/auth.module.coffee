@@ -1,3 +1,3 @@
 'use strict'
 
-angular.module 'builder.auth', ['app.core']
+angular.module 'builder.auth', ['builder.core']

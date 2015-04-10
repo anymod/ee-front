@@ -20,11 +20,12 @@
   <!-- endbuild -->
 </head>
 
-<body ng-class="{ 'open': toggleLeft }">
+<body>
   <h1 class="position-fixed overflow-hidden height-0" style="top: -5000px;">eeosk | Create your own online store in minutes</h1>
 
   <div ui-view="header"></div>
   <div ui-view="top" id="ee-top-view" class="position-relative"></div>
+  <ee-scroller></ee-scroller>
   <div ui-view="bottom" id="ee-bottom-view" class="position-relative"></div>
   <div ui-view="footer"></div>
 
@@ -39,6 +40,7 @@
   <script src="bower_components/angulartics/src/angulartics-ga.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
   <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+  <script src="bower_components/angular-scroll/angular-scroll.js"></script>
   <script src="bower_components/cloudinary/js/jquery.ui.widget.js"></script>
   <script src="bower_components/cloudinary/js/jquery.iframe-transport.js"></script>
   <script src="bower_components/cloudinary/js/jquery.fileupload.js"></script>
@@ -110,6 +112,7 @@
   <script src="js/components/ee-image-preload.js"></script>
   <script src="js/components/ee-storefront-header.js"></script>
   <script src="js/components/ee-storefront-footer.js"></script>
+  <script src="js/components/ee-scroller.js"></script>
   <!-- endbuild -->
 
   <!--GA-->
