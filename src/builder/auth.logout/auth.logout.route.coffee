@@ -6,11 +6,11 @@ angular.module('builder.auth').config ($stateProvider) ->
     .state 'logout',
       url: '/logout'
       views:
-        main:
+        top:
           controller: 'logoutCtrl'
           templateUrl: 'builder/auth.logout/auth.logout.html'
-        offscreen:
-          templateUrl: 'builder/templates/template.offscreen.default.html'
+        footer:
+          templateUrl: 'builder/landing/landing.footer.html'
       data:
         pageTitle: 'Logged out | eeosk'
 

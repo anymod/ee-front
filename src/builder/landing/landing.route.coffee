@@ -31,17 +31,4 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
         pageTitle:        'Try it out: build your online store | eeosk'
         pageDescription:  'Start building your own online store.'
 
-    .state 'example',
-      url: '/example'
-      views:
-        top:
-          controller: 'landingCtrl'
-          templateUrl: 'builder/landing/landing.html'
-        bottom:
-          controller: 'exampleCtrl'
-          templateUrl: 'builder/example/example.html'
-      data:
-        pageTitle:        'Demo Store | eeosk'
-        pageDescription:  'An example of what\'s possible on eeosk.'
-
   return

@@ -6,10 +6,10 @@ angular.module('builder.auth').config ($stateProvider) ->
     .state 'login',
       url: '/login'
       views:
-        main:
+        top:
           controller: 'loginCtrl'
           templateUrl: 'builder/auth.login/auth.login.html'
-        offscreen:
-          templateUrl: 'builder/templates/template.offscreen.default.html'
+        footer:
+          templateUrl: 'builder/landing/landing.footer.html'
       data:
         pageTitle: 'Login | eeosk'

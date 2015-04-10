@@ -108,6 +108,7 @@ sources.builderModule = [
   './src/builder/landing/landing.controller.coffee'
   # Module - example
   './src/builder/example/example.module.coffee'
+  './src/builder/example/example.route.coffee'
   './src/builder/example/example.controller.coffee'
   # Module - container
   # './src/builder/container/container.module.coffee'

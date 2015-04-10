@@ -19,30 +19,32 @@
 <!-- /LANDING -->
 
 <!-- EXAMPLE -->
-<!-- <div class="pad-20">
-  <div ng-click="showDemoStore()" class="btn btn-default">See a demo store</div>
-</div> -->
 <ee-example-store show="show"></ee-example-store></div>
 <!-- /EXAMPLE -->
 
 <!-- STORE -->
 <div ng-show="show.store.content">
   <div class="navbar navbar-fixed-top" style="z-index: 5000; height: 52px;"></div>
+
+  <!-- STORE navbar -->
   <ee-storefront-header class="navbar-fixed-top"></ee-storefront-header>
+  <!-- /STORE navbar -->
 
   <div class="white-background position-relative" style="margin-top: 50px;">
+    <!-- STORE carousel -->
     <div class="carousel storefront-carousel">
       <img ng-src="{{ user.storefront_meta.home.carousel[0].imgUrl }}"
            class="img-responsive full-width transition-200"
            ng-class="show.store.mainImage ? 'max-height-2400' : 'max-height-0'">
     </div>
-  <!--
+    <!-- /STORE carousel -->
+    <!-- STORE products -->
     <div class="featured">
-      <div ng-if="storefront.product_selection.length > 0" class="container-fluid">
+      <div class="container-fluid">
         <div class="full-width pad-10"></div>
         <div class="row">
           <div class="col col-md-offset-1 col-xs-4 col-md-2 overflow-hidden">
-            <h4 class="margin-0">Products</h4>
+            <h4 class="margin-0">Categories</h4>
             <hr>
             <ee-shop-nav ng-if="storefront" storefront="storefront" class="nav nav-pills nav-stacked nav-compact"></ee-shop-nav>
           </div>
@@ -53,18 +55,34 @@
                 <ee-product-for-storefront product="product"></ee-product-for-storefront>
                 <br>
               </div>
+              <div ng-if="!storefront.product_selection">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <div class="panel-title">Add products below</div>
+                  </div>
+                  <div class="panel-body">
+                    Your products will appear here.
+                  </div>
+                  <div class="panel-footer">
+                    <i class="fa fa-2x fa-info-circle text-muted vert-2 pull-left"></i>
+                    <div style="margin-left: 30px;">
+                      When a customer buys a product, eeosk handles the payment, inventory, shipping, & returns.  If the customer keeps it, then you earn the profit you chose for that product.
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
       <div ng-if="storefront.product_selection.length <= 0" class="pad-10">
         <h2 class="full-width text-center">Coming soon</h2>
         <p ng-if="isBuilder" class="full-width text-center">
           (&nbsp;<a ui-sref="catalog">add products</a>&nbsp;and they will appear here&nbsp;)
         </p>
       </div>
-    </div> /featured -->
+    </div> <!-- /featured -->
+    <!-- /STORE products -->
 
   </div>
 </div>
@@ -165,7 +183,7 @@
               <div class="panel-title">Looking good! Now you can:</div>
             </div>
             <div class="panel-body">
-              <div class="btn btn-warning vert-2 width-120">Add Products</div>&nbsp;&nbsp;to your store
+              <div ui-sref="catalog" class="btn btn-warning vert-2 width-120">Add Products</div>&nbsp;&nbsp;to your store
               <br>
               <div class="btn btn-primary vert-2 width-120">Sign up</div>&nbsp;&nbsp;to save and continue
             </div>
@@ -177,28 +195,6 @@
   </div>
 </div>
 <!-- /EDITOR -->
-
-<div ng-show="show.landing.content" class="inline-block full-width pad-20 gray-background">
-  <div class="row">
-    <div class="col col-sm-6 col-sm-offset-1">
-      <a ui-sref="example" class="btn btn-default" ng-class="{ 'active': show.example.content }">See a demo store</a>
-      <a ui-sref="login" class="btn btn-default">Login</a>
-      <br>
-      <div class="vert-10 ">
-        <a ui-sref="terms">Terms & Conditions</a>
-        <br>
-        <a ui-sref="privacy">Privacy Policy</a>
-      </div>
-      <br>
-    </div>
-    <div class="col col-sm-3"></div>
-  </div>
-  <div class="row">
-    <div class="col col-sm-6 col-sm-offset-1 text-muted">
-      &copy;2015 eeosk, Inc.
-    </div>
-  </div>
-</div>
 
 <div ng-hide="show.landing.content" style="position: fixed; bottom: 10px; left: 10px; z-index: 10;">
   <a ui-sref="landing" class="btn btn-sm btn-default">

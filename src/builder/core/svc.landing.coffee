@@ -104,6 +104,10 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
       show.editor.topBarColor            = false
   hideEditor = () -> show.editor.content = false
 
+  ## Catalog
+  showCatalog   = () -> show.catalog.content = true
+  hideCatalog   = () -> show.catalog.content = false
+
   ## Popover
   showPopover = (name) -> show.popover[name] = true
   hidePopover = (name) -> show.popover[name] = false
@@ -127,6 +131,15 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
   finishEditor = () ->
     hidePopovers ['topBarColor', 'topBarBackgroundColor', 'mainImage', 'title']
     show.editor.alert = true
+
+  startCatalog = () ->
+    user.storefront_meta.home.carousel[0].imgUrl ||= shuffleArray(images)[0]
+    show.store.mainImage = true
+    hideLanding()
+    hideExample()
+    hideEditor()
+    showStore()
+    showCatalog()
 
   landingState = () ->
     showLanding()
@@ -172,3 +185,5 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
 
     finishEditor: () -> finishEditor()
     finishEditorTimeout: () -> $timeout(finishEditor, 2000)
+
+    startCatalog: () -> startCatalog()

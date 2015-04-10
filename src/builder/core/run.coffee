@@ -9,6 +9,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeSto
     'login'
     'signup'
     'example'
+    'catalog'
   ]
   eitherAuthStates = [
     'logout'
