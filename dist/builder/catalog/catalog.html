@@ -1,4 +1,5 @@
-<div ng-show="show.catalog.content" class="position-relative" ng-class="{ 'margin-top-50': pin.bottom }">
+<div ng-show="show.catalog.content" class="position-relative" ng-class="{ 'pad-top-50': pin.bottom }">
+  <!-- CATALOG navbar -->
   <nav class="navbar navbar-default navbar-rgba-colors margin-0 round-0 no-side-border"
        style="z-index: 2000;"
        ng-class="{ 'navbar-fixed-top': pin.bottom }"
@@ -50,98 +51,106 @@
       </form>
     </div><!-- /.container-fluid -->
   </nav>
-
+  <!-- /CATALOG navbar -->
+  <!-- CATALOG products -->
   <div id="catalog-products" class="pad-20 text-center position-relative min-height-600">
+    <span ng-repeat="product in catalog.products" class="position-relative">
+      <a href ng-click="fns.setFocusedProduct(product.id)"
+          class="thumb margin-2"
+          style="background-image: url('{{ product.image_meta.main_image.url | thumbnail }}')">
+        <div ng-show="productInStorefront(product.id)" class="label label-primary">in <span class="hidden-xs">my </span>store</div>
+      </a>
+    </span>
 
-    <div ng-show="catalog.searching || catalog.focusedProduct"
-         class="position-absolute top-left-bottom-right-0"
-         style="z-index: 1001;">
-      <h2 ng-show="catalog.searching" class="margin-0 pad-10">
-        <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>&nbsp;Loading
-      </h2>
-      <div ng-show="catalog.focusedProduct" class="position-relative full-width full-height pad-20 text-left">
-        <div class="position-absolute top-left-bottom-right-0 pad-20 hover-pointer" ng-click="fns.setFocusedProduct()"></div>
-        <div class="max-width-600 margin-0-auto pad-10 white-background gray-border">
-          <div class="row">
-            <div class="col col-sm-7">
-              <img ng-src="{{ catalog.focusedImage.url }}" class="full-width">
-              <!-- images -->
-              <div ng-show="catalog.focusedProduct.image_meta.additional_images.length > 0" class="vert-5">
-                <img ng-src="{{ catalog.focusedProduct.image_meta.main_image.url | thumbnail }}"
-                     class="inline-block width-62 gray-border hover-pointer margin-2"
-                     ng-click="fns.setFocusedImage(catalog.focusedProduct.image_meta.main_image)" />
-                <img ng-repeat="img in catalog.focusedProduct.image_meta.additional_images"
-                     ng-src="{{ img.url | thumbnail }}"
-                     class="inline-block width-62 gray-border hover-pointer margin-2"
-                     ng-click="fns.setFocusedImage(img)" />
-              </div>
-            </div>
-            <div class="col col-sm-5">
-              <div ng-hide="catalog.loading">
-                <h4 ng-bind="catalog.focusedProduct.title" class="margin-top-0"></h4>
-                <!-- TODO change from baseline_price -->
-                <h4 ng-bind="catalog.focusedProduct.baseline_price | centToDollar"></h4>
-                <div class="btn btn-primary btn-block">Add to store</div>
-              </div>
-            </div>
+    <h2 ng-show="catalog.searching" class="margin-0 pad-10">
+      <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>&nbsp;Loading
+    </h2>
+
+    <div ng-show="!catalog.searching && catalog.products.length <= 0">
+      <div class="pad-20">No results found</div>
+    </div>
+  </div>
+  <!-- /CATALOG products -->
+</div>
+
+<!-- CATALOG overlay -->
+<div ng-show="catalog.focusedProduct"
+     ng-click="fns.setFocusedProduct()"
+     class="position-fixed top-left-bottom-right-0 hover-pointer"
+     style="overflow-y: scroll; z-index: 3001;">
+
+  <div class="position-relative pad-20 text-left" style="z-index: 2;">
+    <div class="max-width-600 margin-0-auto pad-10 white-background gray-border">
+      <div class="row">
+        <div class="col col-sm-7">
+          <img ng-src="{{ catalog.focusedImage.url }}" class="full-width">
+          <!-- images -->
+          <div ng-show="catalog.focusedProduct.image_meta.additional_images.length > 0" class="vert-5">
+            <img ng-src="{{ catalog.focusedProduct.image_meta.main_image.url | thumbnail }}"
+                 class="inline-block width-62 gray-border hover-pointer margin-2"
+                 ng-click="fns.setFocusedImage(catalog.focusedProduct.image_meta.main_image)" />
+            <img ng-repeat="img in catalog.focusedProduct.image_meta.additional_images"
+                 ng-src="{{ img.url | thumbnail }}"
+                 class="inline-block width-62 gray-border hover-pointer margin-2"
+                 ng-click="fns.setFocusedImage(img)" />
           </div>
-          <div class="row">
-            <div class="col col-sm-12">
-              <p ng-bind="catalog.focusedProduct.content" class="pad-10"></p>
-              <table ng-show="catalog.focusedProduct.content_meta && !catalog.loading" class="table table-condensed table-striped table-bordered white-background">
-                <tr ng-if="catalog.focusedProduct.content_meta.item_name">
-                  <td>Item</td>
-                  <td ng-bind="catalog.focusedProduct.content_meta.item_name"></td>
-                </tr>
-                <tr ng-if="catalog.focusedProduct.availability_meta.quantity">
-                  <td>Quantity Available</td>
-                  <td ng-bind="catalog.focusedProduct.availability_meta.quantity | truncateQty"></td>
-                </tr>
-                <tr ng-if="catalog.focusedProduct.shipping_price">
-                  <td>Shipping Cost</td>
-                  <td ng-bind="catalog.focusedProduct.shipping_price | centToDollar"></td>
-                </tr>
-                <tr ng-if="catalog.focusedProduct.content_meta.brand_name">
-                  <td>Brand Name</td>
-                  <td ng-bind="catalog.focusedProduct.content_meta.brand_name"</td>
-                </tr>
-                <tr ng-if="catalog.focusedProduct.content_meta.manufacturer">
-                  <td>Manufacturer</td>
-                  <td ng-bind="catalog.focusedProduct.content_meta.manufacturer"></td>
-                </tr>
-                <tr ng-if="catalog.focusedProduct.content_meta.condition">
-                  <td>Condition</td>
-                  <td ng-bind="catalog.focusedProduct.content_meta.condition"></td>
-                </tr>
-                <tr ng-if="catalog.focusedProduct.content_meta.warranty">
-                  <td>Warranty</td>
-                  <td ng-bind="catalog.focusedProduct.content_meta.warranty"></td>
-                </tr>
-                <tr ng-if="catalog.focusedProduct.content_meta.details">
-                  <td>Details</td>
-                  <td ng-bind-html="catalog.focusedProduct.content_meta.details | unboldHtml"></td>
-                </tr>
-              </table>
+        </div>
+        <div class="col col-sm-5">
+          <div ng-hide="catalog.loading">
+            <div class="full-width text-right">
+              <div class="btn btn-sm btn-default" ng-click="fns.setFocusedProduct()">Close</div>
             </div>
+            <h4 ng-bind="catalog.focusedProduct.title" class="vert-10"></h4>
+            <!-- TODO change from baseline_price -->
+            <h3 ng-bind="catalog.focusedProduct.baseline_price | centToDollar" class="margin-0"></h3>
+            <!-- TODO change from shipping_price -->
+            <div class="text-muted">You earn&nbsp;<strong ng-bind="catalog.focusedProduct.shipping_price | centToDollar"></strong>&nbsp;each sale</div>
+            <div class="inline-block full-width vert-5"></div>
+            <div class="btn btn-primary btn-block">Add to store</div>
+            <div class="btn btn-default btn-block">Set a different price</div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div ng-class="{ 'opacity-01': catalog.searching || catalog.focusedProduct }">
-      <span ng-repeat="product in catalog.products" class="position-relative">
-        <a href ng-click="fns.setFocusedProduct(product.id)"
-            class="thumb margin-2"
-            style="background-image: url('{{ product.image_meta.main_image.url | thumbnail }}')">
-          <div ng-show="productInStorefront(product.id)" class="label label-primary">in <span class="hidden-xs">my </span>store</div>
-        </a>
-      </span>
-
-      <div ng-show="!catalog.searching && catalog.products.length <= 0">
-        <div class="pad-20">No results found</div>
+      <div class="row">
+        <div class="col col-sm-12">
+          <p ng-bind="catalog.focusedProduct.content" class="pad-10"></p>
+          <table ng-show="catalog.focusedProduct.content_meta && !catalog.loading" class="table table-condensed table-striped table-bordered white-background">
+            <tr ng-if="catalog.focusedProduct.content_meta.item_name">
+              <td>Item</td>
+              <td ng-bind="catalog.focusedProduct.content_meta.item_name"></td>
+            </tr>
+            <tr ng-if="catalog.focusedProduct.availability_meta.quantity">
+              <td>Quantity Available</td>
+              <td ng-bind="catalog.focusedProduct.availability_meta.quantity | truncateQty"></td>
+            </tr>
+            <tr ng-if="catalog.focusedProduct.shipping_price">
+              <td>Shipping Cost</td>
+              <td ng-bind="catalog.focusedProduct.shipping_price | centToDollar"></td>
+            </tr>
+            <tr ng-if="catalog.focusedProduct.content_meta.brand_name">
+              <td>Brand Name</td>
+              <td ng-bind="catalog.focusedProduct.content_meta.brand_name"</td>
+            </tr>
+            <tr ng-if="catalog.focusedProduct.content_meta.manufacturer">
+              <td>Manufacturer</td>
+              <td ng-bind="catalog.focusedProduct.content_meta.manufacturer"></td>
+            </tr>
+            <tr ng-if="catalog.focusedProduct.content_meta.condition">
+              <td>Condition</td>
+              <td ng-bind="catalog.focusedProduct.content_meta.condition"></td>
+            </tr>
+            <tr ng-if="catalog.focusedProduct.content_meta.warranty">
+              <td>Warranty</td>
+              <td ng-bind="catalog.focusedProduct.content_meta.warranty"></td>
+            </tr>
+            <tr ng-if="catalog.focusedProduct.content_meta.details">
+              <td>Details</td>
+              <td ng-bind-html="catalog.focusedProduct.content_meta.details | unboldHtml"></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- <pre>{{ catalog | json }}</pre> -->
 </div>
+<!-- /CATALOG overlay -->

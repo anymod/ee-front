@@ -141,6 +141,7 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
 
     ## Focused product
     setFocusedProduct: (id) ->
+      $rootScope.overlay = !!id
       if !id then _catalog.focusedProduct = null; return
       _getProduct id
       .then (data) ->
@@ -148,17 +149,15 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
         _catalog.focusedImage = data.image_meta.main_image
       .catch (err) -> console.error err
 
-    setFocusedImage: (img) ->
-      console.log 'setting focusedImage', img
-      _catalog.focusedImage = img
+    setFocusedImage: (img) -> _catalog.focusedImage = img
 
     ## Pricing
-    # calcPrice: (base, margin) -> _calcPrice(base, margin)
-    # setCurrents: (scope, base, newMargin) ->
-    #   margin = newMargin
-    #   if newMargin >= _catalog.maxMargin then margin = _catalog.maxMargin
-    #   if newMargin <= _catalog.minMargin then margin = _catalog.minMargin
-    #   scope.currentMargin = margin
-    #   scope.currentPrice = _calcPrice(base, margin)
-    #   scope.currentProfit = scope.currentPrice - base
-    #   return
+    calcPrice: (base, margin) -> _calcPrice(base, margin)
+    setCurrents: (newMargin) ->
+      margin = newMargin
+      if newMargin >= _catalog.maxMargin then margin = _catalog.maxMargin
+      if newMargin <= _catalog.minMargin then margin = _catalog.minMargin
+      _catalog.focusedProduct.currentMargin = margin
+      _catalog.focusedProduct.currentPrice  = _calcPrice(base, margin)
+      _catalog.focusedProduct.currentProfit = _catalog.focusedProduct.currentPrice - base
+      return

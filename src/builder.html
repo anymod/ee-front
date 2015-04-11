@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="eeBuilder" lang="en">
+<html ng-app="eeBuilder" lang="en" ng-class="{ overlay: overlay }">
 
 <head>
   <title ng-bind="$state.current.data.pageTitle"></title>
@@ -25,9 +25,11 @@
 
   <div ui-view="header"></div>
   <div ui-view="top" id="ee-top-view" class="position-relative"></div>
-  <ee-scroller></ee-scroller>
+  <ee-scroller id="ee-scroller"></ee-scroller>
   <div ui-view="bottom" id="ee-bottom-view" class="position-relative"></div>
   <div ui-view="footer"></div>
+
+  <ee-overlay style="z-index: 3000;"></ee-overlay>
 
   <!-- Do not edit inside of build block; it is auto-generated -->
   <!-- build:js -->
@@ -113,6 +115,7 @@
   <script src="js/components/ee-storefront-header.js"></script>
   <script src="js/components/ee-storefront-footer.js"></script>
   <script src="js/components/ee-scroller.js"></script>
+  <script src="js/components/ee-overlay.js"></script>
   <!-- endbuild -->
 
   <!--GA-->

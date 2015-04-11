@@ -172,6 +172,7 @@ sources.builderDirective = [
   './src/components/ee-storefront-header.coffee'
   './src/components/ee-storefront-footer.coffee'
   './src/components/ee-scroller.coffee'
+  './src/components/ee-overlay.coffee'
 ]
 sources.storeDirective = [
   './src/components/ee-button-add-to-cart.coffee'
@@ -181,6 +182,7 @@ sources.storeDirective = [
   './src/components/ee-shop-nav.coffee'
   './src/components/ee-storefront-header.coffee'
   './src/components/ee-storefront-footer.coffee'
+  './src/components/ee-overlay.coffee'
 ]
 
 module.exports = sources
