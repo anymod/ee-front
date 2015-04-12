@@ -2,9 +2,9 @@
 
 angular.module('builder.example').controller 'exampleCtrl', ($scope, $rootScope, $location, $anchorScroll, $timeout, eeLanding) ->
 
-  $scope.show = eeLanding.show
+  this.show = eeLanding.show
 
-  $scope.toggleBlock = (shw) ->
+  this.toggleBlock = (shw) ->
     $location.hash 'example-top'
     $anchorScroll()
     # Remove hash in url
@@ -12,9 +12,7 @@ angular.module('builder.example').controller 'exampleCtrl', ($scope, $rootScope,
     shw.tryout = !shw.tryout
     return
 
-  $scope.tryout = () -> eeLanding.fns.tryItOut()
-
-  $scope.user =
+  this.user =
     storefront_meta:
       home:
         name: 'Demo Store'
@@ -36,7 +34,7 @@ angular.module('builder.example').controller 'exampleCtrl', ($scope, $rootScope,
           pinterest:  'pinterest'
           instagram:  'instagram'
 
-  $scope.example_products = [
+  this.example_products = [
     {
       image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1427215234/oydybot7mzo85imnaw4j.jpg' }
       title: 'Colorful Stripe Woven Fabric Shoulder Bag'
@@ -78,3 +76,19 @@ angular.module('builder.example').controller 'exampleCtrl', ($scope, $rootScope,
       selling_price: 549
     }
   ]
+
+  ## For ngInclude partial
+  $scope.carousel = this.user.storefront_meta.home.carousel[0]
+
+  $scope.storefront =
+    product_selection: this.example_products
+    categories: [
+      'All',
+      'Accessories',
+      'Jewelry',
+      'Outdoor',
+      'Home Decor',
+      'Health & Beauty'
+    ]
+
+  return

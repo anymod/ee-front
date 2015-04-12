@@ -1,15 +1,11 @@
 'use strict'
 
-angular.module('ee-product').directive "eeShopNav", ($state, eeStorefront) ->
+angular.module('ee-product').directive "eeShopNav", ($state) ->
   templateUrl: 'components/ee-shop-nav.html'
   restrict: 'E'
   replace: true
   scope:
-    storefront: '='
+    categories: '='
   link: (scope, ele, attrs) ->
     scope.$state = $state
-
-    eeStorefront.getStorefront()
-    .then (storefront) -> eeStorefront.setScopeCategories(storefront, scope)
-
     return

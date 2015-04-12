@@ -96,15 +96,9 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
       .catch (err) -> deferred.reject err
     deferred.promise
 
-  changePageBy = (n) ->
-    $scope.page += n
-    if $scope.page <= 1 then $scope.page = 1
-    _runQuery()
-
   $rootScope.$on 'storefront:updated', (e, storefront) ->
     _setStorefrontVars storefront
     _broadcast()
-
 
   catalog: _catalog
 

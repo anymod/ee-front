@@ -6,11 +6,8 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
     .state 'landing',
       url: '/'
       views:
-        top:
-          controller: 'exampleCtrl'
-          templateUrl: 'builder/example/example.html'
         bottom:
-          controller: 'landingCtrl'
+          controller: 'landingCtrl as landing'
           templateUrl: 'builder/landing/landing.html'
         footer:
           templateUrl: 'builder/landing/landing.footer.html'
@@ -22,10 +19,10 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
       url: '/try'
       views:
         top:
-          controller: 'exampleCtrl'
+          controller: 'exampleCtrl as example'
           templateUrl: 'builder/example/example.html'
         bottom:
-          controller: 'landingCtrl'
+          controller: 'landingCtrl as landing'
           templateUrl: 'builder/landing/landing.html'
       data:
         pageTitle:        'Try it out: build your online store | eeosk'

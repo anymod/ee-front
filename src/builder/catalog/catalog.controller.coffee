@@ -1,21 +1,15 @@
 'use strict'
 
-angular.module('builder.catalog').controller 'catalogCtrl', ($scope, $location, $anchorScroll, eeLanding, eeCatalog) ->
+angular.module('builder.catalog').controller 'catalogCtrl', (eeLanding, eeCatalog) ->
 
-  $scope.user = eeLanding.user
-  $scope.show = eeLanding.show
+  this.user         = eeLanding.user
+  this.catalogData  = eeCatalog.catalog
+  this.fns          = eeCatalog.fns
 
   eeLanding.fns.startCatalog()
-
-  $scope.catalog = eeCatalog.catalog
-  $scope.fns = eeCatalog.fns
-
   eeCatalog.fns.search()
 
   return
-
-
-
 
 
 

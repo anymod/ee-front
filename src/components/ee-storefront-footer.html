@@ -25,9 +25,7 @@
     <div class="col col-sm-2" ng-if="storefront">
       <ul class="nav nav-pills nav-stacked nav-compact">
         <li class="disabled">Categories</li>
-        <ee-shop-nav storefront="storefront"
-                     class="nav nav-pills nav-stacked nav-compact">
-        </ee-shop-nav>
+        <ee-shop-nav storefront="storefront" class="nav nav-pills nav-stacked nav-compact"></ee-shop-nav>
       </ul>
     </div>
     <div class="col col-sm-2" ng-if="!!user.storefront_meta.audience.social.facebook || !!user.storefront_meta.audience.social.pinterest || !!user.storefront_meta.audience.social.twitter || !!user.storefront_meta.audience.social.instagram || !!user.storefront_meta.audience.contact.email">

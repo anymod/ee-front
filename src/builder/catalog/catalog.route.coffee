@@ -8,18 +8,10 @@ angular.module('builder.catalog').config ($stateProvider) ->
       # resolve: user: (eeAuth) -> eeAuth.userFromToken()
       views:
         top:
-          controller: 'landingCtrl'
+          controller: 'landingCtrl as landing'
           templateUrl: 'builder/landing/landing.html'
         bottom:
-          controller: 'catalogCtrl'
+          controller: 'catalogCtrl as catalog'
           templateUrl: 'builder/catalog/catalog.html'
-        # main:
-        #   controller: 'builder.catalog.onscreenCtrl'
-        #   templateUrl: 'builder/catalog/catalog.html'
-        # offscreen:
-        #   controller: 'builder.catalog.offscreenCtrl'
-        #   templateUrl: 'builder/catalog/catalog.offscreen.html'
       data:
-        pageTitle:          'Add products | eeosk'
-        offscreenCategory:  'Catalog'
-        offscreenColor:     'gold'
+        pageTitle:     'Add products | eeosk'

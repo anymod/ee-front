@@ -2,6 +2,8 @@
 
 angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorScroll, $timeout) ->
 
+  landing = {}
+
   user =
     storefront_meta:
       home:
@@ -17,6 +19,8 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
           pinterest:  'pinterest'
           twitter:    'twitter'
           instagram:  'instagram'
+
+  product_selection = []
 
   images = [
     'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425249778/book_.jpg', # Book
@@ -117,56 +121,67 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
 
   $rootScope.$on 'colorpicker-closed', (e, data) ->
     show.editor.topBarColor = true
-    if !show.finished?.topBarBackgroundColor and data.name is 'user.storefront_meta.home.topBarBackgroundColor'
+    if !show.finished?.topBarBackgroundColor and data.name is 'landing.user.storefront_meta.home.topBarBackgroundColor'
       show.finished.topBarBackgroundColor = true
       showPopover 'topBarColor'
       $rootScope.$apply()
-    if !show.finished?.topBarColor and data.name is 'user.storefront_meta.home.topBarColor'
+    if !show.finished?.topBarColor and data.name is 'landing.user.storefront_meta.home.topBarColor'
       show.finished.topBarColor  = true
       show.editor.mainImage      = true
       hidePopover 'topBarColor'
       $rootScope.$apply()
 
-  ## Catalog
-
   ## Functions
+  scrollTop = () ->
+    $location.hash 'body-top'
+    $anchorScroll()
+    $location.url $location.path()
+
   finishEditor = () ->
     hidePopovers ['topBarColor', 'topBarBackgroundColor', 'mainImage', 'title']
     show.editor.alert = true
 
   startCatalog = () ->
+    console.log show
+    hideLanding()
+    $rootScope.pin.bottom = false
     user.storefront_meta.home.carousel[0].imgUrl ||= shuffleArray(images)[0]
     show.store.mainImage = false
     showStoreProducts = () ->
       show.store.products = true
       showCatalog()
     $timeout showStoreProducts, 200
-    hideLanding()
     hideExample()
     hideEditor()
     showStore()
+    scrollTop()
 
   landingState = () ->
     showLanding()
     hideExample()
     hideStore()
     hideEditor()
+    scrollTop()
 
   tryState = () ->
     hideLanding()
     hideExample()
     showStore()
+    show.store.mainImage = !!user?.storefront_meta?.home?.carousel[0]?.imgUrl
     showEditor()
+    scrollTop()
 
   exampleState = () ->
     hideLanding()
     showExample()
     hideStore()
     hideEditor()
+    scrollTop()
 
   ## Exposed variables and functions
   user: user
   show: show
+  product_selection: product_selection
 
   defaultImages: shuffleArray images
 
@@ -174,7 +189,11 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
     reset:        () -> reset show
     showState:    (name) ->
       if name is 'landing' then $timeout landingState, 100
-      if name is 'try'     then $timeout tryState, 200
+      if name is 'try'
+        if show.store.products
+          show.store.mainImage = true
+          show.store.products  = false
+        $timeout tryState, 200
       if name is 'example' then $timeout exampleState, 200
 
     showPopover: (name) -> showPopover name
@@ -192,3 +211,16 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
     finishEditorTimeout: () -> $timeout(finishEditor, 2000)
 
     startCatalog: () -> startCatalog()
+
+    selectProduct: (product, margin) ->
+      product_selection.push {
+        product_id:         product.id
+        selling_price:      parseInt(product.baseline_price * (100 + margin)/100)
+        shipping_price:     product.availability_meta.ship_cost
+        title:              product.title
+        content:            product.content
+        content_meta:       product.content_meta
+        image_meta:         product.image_meta
+        availability_meta:  product.availability_meta
+        category:           product.category
+      }

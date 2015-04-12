@@ -1,9 +1,9 @@
 <!-- LANDING -->
 <div id="top"></div>
-<ee-navbar ng-if="show.landing.content"></ee-navbar>
+<ee-navbar ng-if="landing.show.landing.content"></ee-navbar>
 
-<div class="jumbotron jumbotron-landing desk-background text-center overflow-hidden transition-400"
-     ng-class="{ 'pad-0 height-0': !show.landing.content }">
+<div ng-show="!landing.show.catalog.content" class="jumbotron jumbotron-landing desk-background text-center overflow-hidden transition-400"
+     ng-class="{ 'pad-0 height-0': !landing.show.landing.content }">
   <div class="container-fluid vert-20 max-width-600 margin-0-auto">
     <div class="inline-block full-width vert-20"></div>
     <h1 class="white-background margin-0 pad-20 line-height-1 round-top">Create an online store in minutes</h1>
@@ -18,28 +18,24 @@
 </div>
 <!-- /LANDING -->
 
-<!-- EXAMPLE -->
-<ee-example-store show="show"></ee-example-store></div>
-<!-- /EXAMPLE -->
-
 <!-- STORE -->
-<div ng-show="show.store.content" style="margin-top: 51px;">
+<div ng-show="landing.show.store.content" style="margin-top: 51px;">
 
   <!-- STORE navbar -->
   <div class="navbar navbar-fixed-top" style="z-index: 1040; height: 52px;"></div>
-  <ee-storefront-header class="navbar-fixed-top"></ee-storefront-header>
+  <ee-storefront-header class="navbar-fixed-top" user="landing.user"></ee-storefront-header>
   <!-- /STORE navbar -->
 
   <div class="white-background position-relative">
     <!-- STORE carousel -->
     <div class="carousel storefront-carousel">
-      <img ng-src="{{ user.storefront_meta.home.carousel[0].imgUrl }}"
+      <img ng-src="{{ landing.user.storefront_meta.home.carousel[0].imgUrl }}"
            class="img-responsive full-width transition-200"
-           ng-class="show.store.mainImage ? 'max-height-2400' : 'max-height-0'">
+           ng-class="landing.show.store.mainImage ? 'max-height-2400' : 'max-height-0'">
     </div>
     <!-- /STORE carousel -->
     <!-- STORE products -->
-    <div class="featured overflow-hidden transition-400" ng-class="show.store.products ? 'max-height-2400' : 'max-height-0'">
+    <div class="featured overflow-hidden transition-400" ng-class="landing.show.store.products ? 'max-height-2400' : 'max-height-0'">
       <div class="container-fluid">
         <div class="row" ng-show="storefront.product_selection">
           <div class="full-width pad-10"></div>
@@ -84,7 +80,7 @@
 <!-- /STORE -->
 
 <!-- EDITOR -->
-<div ng-show="show.editor.content">
+<div ng-show="landing.show.editor.content">
 
   <div class="full-width pad-10">
 
@@ -93,33 +89,33 @@
       <div class="form-group vert-2">
         <label class="col-sm-3 control-label">Top bar colors</label>
         <div class="col-sm-2">
-          <div class="position-relative inline-block" ng-click="fns.hidePopover('topBarBackgroundColor')">
+          <div class="position-relative inline-block" ng-click="landing.fns.hidePopover('topBarBackgroundColor')">
             <div class="input-group" colorpicker colorpicker-parent="true"
-                 ng-model="user.storefront_meta.home.topBarBackgroundColor">
+                 ng-model="landing.user.storefront_meta.home.topBarBackgroundColor">
               <span class="input-group-addon hover-pointer"><i class="fa fa-fw fa-paint-brush"></i></span>
               <input name="storefront_meta.home.topBarColor"
-                     ng-model="user.storefront_meta.home.topBarBackgroundColor"
+                     ng-model="landing.user.storefront_meta.home.topBarBackgroundColor"
                      class="form-control"
-                     ng-style="{ 'background-color': user.storefront_meta.home.topBarBackgroundColor }">
+                     ng-style="{ 'background-color': landing.user.storefront_meta.home.topBarBackgroundColor }">
             </div>
-            <div ng-show="show.popover.topBarBackgroundColor" class="popover popover-primary bottom in inline-block full-width max-width-100-pct">
+            <div ng-show="landing.show.popover.topBarBackgroundColor" class="popover popover-primary bottom in inline-block full-width max-width-100-pct">
               <div class="arrow arrow-primary"></div>
               <div class="popover-title">OK, let's build your store!</div>
               <div class="popover-content">Click to change your store's top bar color</div>
             </div>
           </div>
         </div>
-        <div class="col-sm-2" ng-show="show.editor.topBarColor">
-          <div class="position-relative inline-block" ng-click="fns.hidePopover('topBarColor')">
+        <div class="col-sm-2" ng-show="landing.show.editor.topBarColor">
+          <div class="position-relative inline-block" ng-click="landing.fns.hidePopover('topBarColor')">
             <div class="input-group" colorpicker colorpicker-parent="true"
-                 ng-model="user.storefront_meta.home.topBarColor">
+                 ng-model="landing.user.storefront_meta.home.topBarColor">
               <span class="input-group-addon hover-pointer"><i class="fa fa-fw fa-font"></i></span>
               <input name="storefront_meta.home.topBarBackgroundColor"
-                     ng-model="user.storefront_meta.home.topBarColor"
+                     ng-model="landing.user.storefront_meta.home.topBarColor"
                      class="form-control"
-                     ng-style="{ 'background-color': user.storefront_meta.home.topBarColor }">
+                     ng-style="{ 'background-color': landing.user.storefront_meta.home.topBarColor }">
             </div>
-            <div ng-show="show.popover.topBarColor" class="popover popover-primary bottom in inline-block full-width max-width-100-pct">
+            <div ng-show="landing.show.popover.topBarColor" class="popover popover-primary bottom in inline-block full-width max-width-100-pct">
               <div class="arrow"></div>
               <div class="popover-content">Click to change your store's top bar font color</div>
             </div>
@@ -128,22 +124,22 @@
       </div>
       <!-- /EDITOR top bar colors -->
       <!-- EDITOR carousel image -->
-      <div ng-show="show.editor.mainImage" class="form-group vert-2">
+      <div ng-show="landing.show.editor.mainImage" class="form-group vert-2">
         <label class="col-sm-3 control-label">Main image</label>
         <div class="col-sm-4">
           <div class="position-relative" dropdown>
             <div class="hover-pointer position-relative" dropdown-toggle>
-              <div class="btn btn-default position-absolute" ng-class="{ 'btn-sm margin-5': user.storefront_meta.home.carousel[0].imgUrl }">
+              <div class="btn btn-default position-absolute" ng-class="{ 'btn-sm margin-5': landing.user.storefront_meta.home.carousel[0].imgUrl }">
                 <div class="fa fa-fw fa-chevron-down"></div>
               </div>
-              <div ng-hide="user.storefront_meta.home.carousel[0].imgUrl" class="popover popover-primary bottom in inline-block">
+              <div ng-hide="landing.user.storefront_meta.home.carousel[0].imgUrl" class="popover popover-primary bottom in inline-block">
                 <div class="arrow" style="left: 20px;"></div>
                 <div class="popover-content">Choose a main image for your store</div>
               </div>
-              <img ng-src="{{ user.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive full-width vert-2">
+              <img ng-src="{{ landing.user.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive full-width vert-2">
             </div>
             <ul class="dropdown-menu" style="left: -2px; right: -2px;">
-              <img ng-repeat="img in defaultImages" ng-src="{{ img }}" class="full-width hover-pointer pad-2" ng-click="fns.setImg(img)"/>
+              <img ng-repeat="img in landing.defaultImages" ng-src="{{ img }}" class="full-width hover-pointer pad-2" ng-click="landing.fns.setImg(img)"/>
             </ul>
           </div>
         </div>
@@ -152,48 +148,51 @@
       </div>
       <!-- /EDITOR carousel image -->
       <!-- EDITOR title -->
-      <div ng-show="show.editor.title" class="form-group vert-5">
+      <div ng-show="landing.show.editor.title" class="form-group vert-5">
         <label class="col-sm-3 control-label">Store title</label>
         <div class="col-sm-3">
           <div class="position-relative">
-            <input type="text" ng-model="user.storefront_meta.home.name" class="form-control" placeholder="Store Title (optional)">
-            <div ng-show="show.popover.title" class="popover popover-primary bottom in inline-block full-width max-width-100-pct">
+            <input type="text" ng-model="landing.user.storefront_meta.home.name" class="form-control" placeholder="Store Title (optional)">
+            <div ng-show="landing.show.popover.title" class="popover popover-primary bottom in inline-block full-width max-width-100-pct">
               <div class="arrow arrow-primary"></div>
               <div class="popover-title">Great!</div>
               <div class="popover-content">
                 Now choose your store title
                 <br>
-                (you can change later or <a href ng-click="fns.finishEditor()">skip this</a>)
+                (you can change later or <a href ng-click="landing.fns.finishEditor()">skip this</a>)
               </div>
             </div>
           </div>
         </div>
       </div>
       <!-- /EDITOR title -->
-      <!-- EDITOR alert -->
-      <div ng-show="show.editor.alert" class="form-group vert-5">
-        <div class="col-sm-offset-3 col-sm-6">
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <div class="panel-title">Looking good! Now you can:</div>
-            </div>
-            <div class="panel-body">
-              <div ui-sref="catalog" class="btn btn-warning vert-2 width-120">Add Products</div>&nbsp;&nbsp;to your store
-              <br>
-              <div class="btn btn-primary vert-2 width-120">Sign up</div>&nbsp;&nbsp;to save and continue
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /EDITOR alert -->
     </form>
   </div>
 </div>
+
+<!-- EDITOR alert -->
+<div ng-show="landing.show.editor.content && landing.show.editor.alert" class="position-fixed width-300" style="bottom: 30px; left: 10px; z-index: 3000;">
+
+  <div class="popover popover-primary top in open inline-block" style="top: -55px;">
+    <div class="popover-title border-none round-5">Looking good! Now you can:</div>
+    <div class="arrow arrow-primary" style="left: 37px;"></div>
+  </div>
+<!--   <div class="panel panel-primary">
+  <div class="panel-heading">
+    <div class="panel-title">Looking good! Now you can:</div>
+  </div>
+</div> -->
+</div>
+<!-- /EDITOR alert -->
+
 <!-- /EDITOR -->
 
-<div ng-hide="show.landing.content" style="position: fixed; bottom: 10px; left: 10px; z-index: 3000;">
-  <a ui-sref="landing" class="btn btn-sm btn-default">
-    <i class="fa fa-fw fa-arrow-left"></i>&nbsp;back to home page
+<div ng-hide="landing.show.landing.content" class="position-fixed" style="bottom: 10px; left: 10px; z-index: 3000;">
+  <a ng-show="$state.current.name == 'example'" ui-sref="landing" class="btn btn-default">
+    <i class="fa fa-fw fa-arrow-left"></i>&nbsp;Back
   </a>
-  <a ui-sref="signup" class="btn btn-sm btn-default">Sign up</a>
+  <a ng-hide="$state.current.name == 'example'" ui-sref="signup" class="btn btn-default">
+    <i class="fa fa-fw fa-save"></i>&nbsp;Save
+  </a>&nbsp;
+  <a ng-show="$state.current.name == 'try' && landing.show.editor.alert" ui-sref="catalog" class="btn btn-default">Add Products&nbsp;<i class="fa fa-fw fa-arrow-right"></i></a>
 </div>
