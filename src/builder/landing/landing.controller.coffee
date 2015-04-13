@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, eeLanding) ->
+angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, $modal, eeLanding) ->
 
   this.user               = eeLanding.user
   this.show               = eeLanding.show
@@ -13,5 +13,10 @@ angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, eeL
     if newVal?.length > 3 and that.show.popover?.title then eeLanding.fns.finishEditorTimeout()
 
   eeLanding.fns.showState $state.current.name
+
+  # $modal.open({
+  #   templateUrl: 'builder/auth.signup/auth.signup.modal.html'
+  #   backdropClass: 'white-background opacity-08'
+  # })
 
   return

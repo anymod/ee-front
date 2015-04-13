@@ -1,7 +1,28 @@
 'use strict'
 
 angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore, $q, eeBack) ->
+
+  ## SETUP
+  _userDefaults =
+    storefront_meta:
+      home:
+        name: ''
+        topBarBackgroundColor: '#dbd6ff'
+        topBarColor: '#021709'
+        carousel: [{ imgUrl: '' }]
+      blog: { url: 'https://eeosk.com' }
+      about: { headline: 'eeosk' }
+      audience:
+        social:
+          facebook:   'facebook'
+          pinterest:  'pinterest'
+          twitter:    'twitter'
+          instagram:  'instagram'
+
+  ## PRIVATE EXPORT DEFAULTS
   _user = {}
+
+  ## PRIVATE FUNCTIONS
   _userIsSaved = true
   _userLastSet = Date.now()
   _userIsEmpty = () -> Object.keys(_user).length is 0
@@ -35,88 +56,84 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
         deferred.reject err
     deferred.promise
 
-  reset: () ->
-    _resetUser()
-    return
+  ## EXPORTS
+  user: _user
+  fns:
+    reset: () -> _resetUser()
 
-  getToken: ()  -> $cookies.loginToken
-  hasToken: ()  -> !!$cookies.loginToken
+    getToken: ()  -> $cookies.loginToken
+    hasToken: ()  -> !!$cookies.loginToken
 
-  getUsername: () ->
-    _getUser()
-    .then (user) -> user.username
-    .catch (err) -> console.error err
+    getUsername: () ->
+      _getUser()
+      .then (user) -> user.username
+      .catch (err) -> console.error err
 
-  saveUser: ()  -> eeBack.usersPUT(_user, $cookies.loginToken)
+    saveUser: ()  -> eeBack.usersPUT(_user, $cookies.loginToken)
 
-  setUserIsSaved: (bool) -> _userIsSaved = bool
-  userIsSaved: () -> _userIsSaved
-  userIsntSaved: () -> !_userIsSaved
+    setUserIsSaved: (bool) -> _userIsSaved = bool
+    userIsSaved: () -> _userIsSaved
+    userIsntSaved: () -> !_userIsSaved
 
-  userFromToken: (opts) -> _getUser(opts)
+    userFromToken: (opts) -> _getUser(opts)
 
-  setUserFromCredentials: (email, password) ->
-    deferred = $q.defer()
-    if !email or !password
-      _resetUser()
-      deferred.reject 'Missing login credentials'
-    else
-      eeBack.authPOST(email, password)
-      .then (data) ->
-        if !!data.user and !!data.token
-          $cookies.loginToken = data.token
-          _setUser data.user
-          deferred.resolve data.user
-        else
-          _resetUser()
-          deferred.reject data
-      .catch (err) ->
+    setUserFromCredentials: (email, password) ->
+      deferred = $q.defer()
+      if !email or !password
         _resetUser()
-        deferred.reject err
-    deferred.promise
-
-  createUserFromSignup: (email, password, username) ->
-    deferred = $q.defer()
-    if !email or !password or !username
-      _resetUser()
-      deferred.reject 'Missing login credentials'
-    else
-      eeBack.usersPOST(email, password, username)
-      .then (data) ->
-        if !!data.user and !!data.token
-          $cookies.loginToken = data.token
-          _setUser data.user
-          deferred.resolve data.user
-        else
+        deferred.reject 'Missing login credentials'
+      else
+        eeBack.authPOST(email, password)
+        .then (data) ->
+          if !!data.user and !!data.token
+            $cookies.loginToken = data.token
+            _setUser data.user
+            deferred.resolve data.user
+          else
+            _resetUser()
+            deferred.reject data
+        .catch (err) ->
           _resetUser()
-          deferred.reject data
-      .catch (err) ->
+          deferred.reject err
+      deferred.promise
+
+    createUserFromSignup: (email, password, username) ->
+      deferred = $q.defer()
+      if !email or !password or !username
         _resetUser()
-        deferred.reject err
-    deferred.promise
+        deferred.reject 'Missing login credentials'
+      else
+        eeBack.usersPOST(email, password, username)
+        .then (data) ->
+          if !!data.user and !!data.token
+            $cookies.loginToken = data.token
+            _setUser data.user
+            deferred.resolve data.user
+          else
+            _resetUser()
+            deferred.reject data
+        .catch (err) ->
+          _resetUser()
+          deferred.reject err
+      deferred.promise
 
-  setScopeUser: (scope) ->
-    _getUser()
-    .then () -> scope.user = _user
-    .catch () -> scope.user = {}
+    sendPasswordResetEmail: (email) ->
+      deferred = $q.defer()
+      if !email
+        deferred.reject 'Missing email'
+      else
+        eeBack.passwordResetEmailPOST(email)
+        .then (data) -> deferred.resolve data
+        .catch (err) -> deferred.reject err
+      deferred.promise
 
-  sendPasswordResetEmail: (email) ->
-    deferred = $q.defer()
-    if !email
-      deferred.reject 'Missing email'
-    else
-      eeBack.passwordResetEmailPOST(email)
-      .then (data) -> deferred.resolve data
-      .catch (err) -> deferred.reject err
-    deferred.promise
-
-  resetPassword: (password, token) ->
-    deferred = $q.defer()
-    if !password or !token
-      deferred.reject 'Missing password or token'
-    else
-      token = 'Bearer ' + token
-      eeBack.usersUpdatePasswordPUT password, token
-      .then (data) -> deferred.resolve data
-      .catch (err) -> deferred.reject err
-    deferred.promise
+    resetPassword: (password, token) ->
+      deferred = $q.defer()
+      if !password or !token
+        deferred.reject 'Missing password or token'
+      else
+        token = 'Bearer ' + token
+        eeBack.usersUpdatePasswordPUT password, token
+        .then (data) -> deferred.resolve data
+        .catch (err) -> deferred.reject err
+      deferred.promise

@@ -61,54 +61,6 @@ else
 app.use bodyParser.urlencoded({ extended: true })
 app.use bodyParser.json()
 
-# app.use '/product/*.html', express.static path.join __dirname, 'views'
-#
-# app.get '/product/:id?', (req, res) ->
-#   getProduct req.params.id, (link, product) ->
-#     if link and product
-#       product.baselinePrice = undefined
-#       product.url = undefined
-#       res.render 'index.ejs',
-#         path: req.params.id
-#         stripeKey: stripeKey
-#         link: link
-#         product: product
-#         env: process.env.NODE_ENV || 'development'
-#     else
-#       res.writeHead 301,
-#         Location: 'https://eeosk.com'
-#         Expires: (new Date).toGMTString()
-#
-#       res.end()
-#     return
-#   return
-#
-# app.use '/product', express.static path.join __dirname, 'dist/product'
-#
-# app.post '/email/supplier/signup', (req, res) ->
-#   supplierEmail = req.body.email
-#   note = 'I want to be a supplier: ' + supplierEmail
-#   sendEmail 'team@eeosk.com', note, note
-#   res.end()
-#
-# app.post '/stripe/charges/create', (req, res) ->
-#   { stripeToken, amount, product, link, address } = req.body
-#   stripe.charges.create
-#     amount: amount
-#     currency: 'usd'
-#     card: stripeToken.id
-#     receipt_email: stripeToken.email
-#     statement_description: product.title.substring(0, 15)
-#     metadata:
-#       email: stripeToken.email
-#       amount: amount
-#       link: JSON.stringify link
-#   , (err, charge) ->
-#     if err
-#       res.status(402).send err
-#     else
-#       res.status(200).send 'OK'
-
 builder.use serveStatic(path.join __dirname, 'dist')
 builder.all '/*', (req, res, next) ->
   # Send builder.html to support HTML5Mode

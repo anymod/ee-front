@@ -37,6 +37,5 @@ angular.module 'eeBuilder', [
   'ee-storefront-header'
   'ee-storefront-footer'
   'ee-scroller'
-  'ee-overlay'
   # 'ee.templates' # commented out during build step for inline templates
 ]

@@ -6,11 +6,4 @@ angular.module('ee-product').directive "eeProductForStorefront", ($rootScope, $l
   scope:
     product: '='
   link: (scope, ele, attr) ->
-    scope.overlay = false
-
-    scope.toggleOverlay = () ->
-      scope.overlay = !scope.overlay
-      $location.hash('navtop')
-      $anchorScroll()
-      # Remove hash in url
-      $location.url $location.path()
+    return

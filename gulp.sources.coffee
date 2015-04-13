@@ -41,6 +41,7 @@ sources.builderVendorMin = [
   './src/bower_components/angulartics/dist/angulartics.min.js'
   './src/bower_components/angulartics/dist/angulartics-ga.min.js'
   './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
+  './src/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
   './src/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js'
   './src/bower_components/angular-scroll/angular-scroll.min.js'
 ]
@@ -74,6 +75,7 @@ sources.appModule = [
   # Services
   './src/app/core/svc.back.coffee'
   './src/app/core/svc.storefront.coffee'
+  './src/app/core/svc.product.coffee'
   # Examples
   './src/app/examples/examples.controller.coffee'
 ]
@@ -127,7 +129,7 @@ sources.builderModule = [
   './src/builder/catalog/catalog.module.coffee'
   './src/builder/catalog/catalog.route.coffee'
   './src/builder/catalog/catalog.controller.coffee'
-  './src/builder/catalog/catalog.offscreen.controller.coffee'
+  './src/builder/catalog/catalog.modal.controller.coffee'
   # Module - orders
   './src/builder/orders/orders.module.coffee'
   './src/builder/orders/orders.route.coffee'
@@ -161,8 +163,6 @@ sources.builderDirective = [
   './src/components/ee-offscreen-header.coffee'
   './src/components/ee-offscreen-footer.coffee'
   './src/components/ee-product-detail.coffee'
-  './src/components/ee-product-for-catalog.coffee'
-  './src/components/ee-product-for-storefront.coffee'
   './src/components/ee-shop-nav.coffee'
   './src/components/ee-product-margin-setter.coffee'
   './src/components/ee-product-selection-button.coffee'
@@ -172,17 +172,14 @@ sources.builderDirective = [
   './src/components/ee-storefront-header.coffee'
   './src/components/ee-storefront-footer.coffee'
   './src/components/ee-scroller.coffee'
-  './src/components/ee-overlay.coffee'
 ]
 sources.storeDirective = [
   './src/components/ee-button-add-to-cart.coffee'
   './src/components/ee-product.coffee'
   './src/components/ee-product-detail.coffee'
-  './src/components/ee-product-for-storefront.coffee'
   './src/components/ee-shop-nav.coffee'
   './src/components/ee-storefront-header.coffee'
   './src/components/ee-storefront-footer.coffee'
-  './src/components/ee-overlay.coffee'
 ]
 
 module.exports = sources

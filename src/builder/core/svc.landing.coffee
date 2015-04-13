@@ -2,27 +2,37 @@
 
 angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorScroll, $timeout) ->
 
-  landing = {}
+  ## SETUP
+  _showDefaults =
+    landing:
+      content:                true
+    example:
+      content:                false
+    store:
+      content:                false
+      mainImage:              false
+      carouselContent:        false
+      products:               false
+      footer:                 false
+    editor:
+      topBarColor:            true
+      topBarBackgroundColor:  true
+      mainImage:              false
+      title:                  false
+    catalog:
+      content:                false
+    popover:
+      topBarColor:            false
+      topBarBackgroundColor:  false
+      mainImage:              false
+      title:                  false
+    finished:
+      topBarColor:            false
+      topBarBackgroundColor:  false
+      mainImage:              false
+      title:                  false
 
-  user =
-    storefront_meta:
-      home:
-        name: ''
-        topBarBackgroundColor: '#dbd6ff'
-        topBarColor: '#021709'
-        carousel: [{ imgUrl: '' }]
-      blog: { url: 'https://eeosk.com' }
-      about: { headline: 'eeosk' }
-      audience:
-        social:
-          facebook:   'facebook'
-          pinterest:  'pinterest'
-          twitter:    'twitter'
-          instagram:  'instagram'
-
-  product_selection = []
-
-  images = [
+  _images = [
     'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425249778/book_.jpg', # Book
     'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425249925/brick.jpg', # Brick
     'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250980/brdge.jpg', # Bridge
@@ -46,7 +56,7 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
   ]
 
   # Fisher–Yates shuffle algorithm
-  shuffleArray = (array) ->
+  _shuffleArray = (array) ->
     if !array then return
     m = array?.length
     t = i = null
@@ -57,160 +67,126 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
       array[i] = t
     array
 
-  showDefaults = (shw) ->
-    shw.landing   =
-      content:                true
-    shw.example   =
-      content:                false
-    shw.store     =
-      content:                false
-      mainImage:              false
-      carouselContent:        false
-      products:               false
-      footer:                 false
-    shw.editor    =
-      topBarColor:            true
-      topBarBackgroundColor:  true
-      mainImage:              false
-      title:                  false
-    shw.catalog   =
-      content:                false
-    shw.popover   =
-      topBarColor:            false
-      topBarBackgroundColor:  false
-      mainImage:              false
-      title:                  false
-    shw.finished  =
-      topBarColor:            false
-      topBarBackgroundColor:  false
-      mainImage:              false
-      title:                  false
+  ## PRIVATE EXPORT DEFAULTS
+  _show           = _showDefaults
+  _defaultImages  = _shuffleArray _images
 
-  show = {}
-  reset = (shw) -> showDefaults shw
-  reset show
+  ## PRIVATE FUNCTIONS
+  _reset = () -> _show = _showDefaults
 
   ## Landing
-  showLanding = () -> show.landing.content = true
-  hideLanding = () -> show.landing.content = false
+  __showLanding = () -> _show.landing.content = true
+  _hideLanding = () -> _show.landing.content = false
 
   ## Example
-  showExample = () -> show.example.content = true
-  hideExample = () -> show.example.content = false
+  _showExample = () -> _show.example.content = true
+  _hideExample = () -> _show.example.content = false
 
   ## Store
-  showStore   = () -> show.store.content   = true
-  hideStore   = () -> show.store.content   = false
+  _showStore   = () -> _show.store.content   = true
+  _hideStore   = () -> _show.store.content   = false
 
   ## Editor
-  showEditor  = () ->
-    show.editor.content                  = true
-    if !show.finished?.topBarBackgroundColor
-      showPopover 'topBarBackgroundColor'
-      show.editor.topBarColor            = false
-  hideEditor = () -> show.editor.content = false
+  _showEditor  = () ->
+    _show.editor.content                  = true
+    if !_show.finished?.topBarBackgroundColor
+      _showLanding 'topBarBackgroundColor'
+      _show.editor.topBarColor            = false
+  _hideEditor = () -> _show.editor.content = false
 
   ## Catalog
-  showCatalog   = () -> show.catalog.content = true
-  hideCatalog   = () -> show.catalog.content = false
+  _showCatalog   = () -> _show.catalog.content = true
+  _hideCatalog   = () -> _show.catalog.content = false
 
   ## Popover
-  showPopover = (name) -> show.popover[name] = true
-  hidePopover = (name) -> show.popover[name] = false
-  hidePopovers = (ary) -> hidePopover name for name in ary
+  _showPopover = (name) -> _show.popover[name] = true
+  _hidePopover = (name) -> _show.popover[name] = false
+  _hidePopovers = (ary) -> _hidePopover name for name in ary
 
   $rootScope.$on 'colorpicker-closed', (e, data) ->
-    show.editor.topBarColor = true
-    if !show.finished?.topBarBackgroundColor and data.name is 'landing.user.storefront_meta.home.topBarBackgroundColor'
-      show.finished.topBarBackgroundColor = true
-      showPopover 'topBarColor'
+    _show.editor.topBarColor = true
+    if !_show.finished?.topBarBackgroundColor and data.name is 'landing.user.storefront_meta.home.topBarBackgroundColor'
+      _show.finished.topBarBackgroundColor = true
+      _showLanding 'topBarColor'
       $rootScope.$apply()
-    if !show.finished?.topBarColor and data.name is 'landing.user.storefront_meta.home.topBarColor'
-      show.finished.topBarColor  = true
-      show.editor.mainImage      = true
-      hidePopover 'topBarColor'
+    if !_show.finished?.topBarColor and data.name is 'landing.user.storefront_meta.home.topBarColor'
+      _show.finished.topBarColor  = true
+      _show.editor.mainImage      = true
+      _hidePopover 'topBarColor'
       $rootScope.$apply()
 
-  ## Functions
-  scrollTop = () ->
+  ## Other
+  _scrollTop = () ->
     $location.hash 'body-top'
     $anchorScroll()
     $location.url $location.path()
 
-  finishEditor = () ->
-    hidePopovers ['topBarColor', 'topBarBackgroundColor', 'mainImage', 'title']
-    show.editor.alert = true
+  _finishEditor = () ->
+    _hidePopovers ['topBarColor', 'topBarBackgroundColor', 'mainImage', 'title']
+    _show.editor.alert = true
 
-  startCatalog = () ->
-    console.log show
-    hideLanding()
+  _startCatalog = () ->
+    _hideLanding()
     $rootScope.pin.bottom = false
-    user.storefront_meta.home.carousel[0].imgUrl ||= shuffleArray(images)[0]
-    show.store.mainImage = false
+    _show.store.mainImage = false
     showStoreProducts = () ->
-      show.store.products = true
-      showCatalog()
-    $timeout showStoreProducts, 200
-    hideExample()
-    hideEditor()
-    showStore()
-    scrollTop()
+      _show.store.products = true
+      _showCatalog()
+    $timeout _showStoreProducts, 200
+    _hideExample()
+    _hideEditor()
+    _showStore()
+    _scrollTop()
 
-  landingState = () ->
-    showLanding()
-    hideExample()
-    hideStore()
-    hideEditor()
-    scrollTop()
+  _landingState = () ->
+    _showLanding()
+    _hideExample()
+    _hideStore()
+    _hideEditor()
+    _scrollTop()
 
-  tryState = () ->
-    hideLanding()
-    hideExample()
-    showStore()
-    show.store.mainImage = !!user?.storefront_meta?.home?.carousel[0]?.imgUrl
-    showEditor()
-    scrollTop()
+  _tryState = () ->
+    _hideLanding()
+    _hideExample()
+    _showStore()
+    _showEditor()
+    _scrollTop()
 
-  exampleState = () ->
-    hideLanding()
-    showExample()
-    hideStore()
-    hideEditor()
-    scrollTop()
+  _exampleState = () ->
+    _hideLanding()
+    _showExample()
+    _hideStore()
+    _hideEditor()
+    _scrollTop()
 
-  ## Exposed variables and functions
-  user: user
-  show: show
-  product_selection: product_selection
-
-  defaultImages: shuffleArray images
-
+  ## EXPORTS
+  show:           _show
+  defaultImages:  _defaultImages
   fns:
-    reset:        () -> reset show
+    reset:        () -> _reset()
     showState:    (name) ->
       if name is 'landing' then $timeout landingState, 100
       if name is 'try'
-        if show.store.products
-          show.store.mainImage = true
-          show.store.products  = false
+        if _show.store.products
+          _show.store.mainImage = true
+          _show.store.products  = false
         $timeout tryState, 200
       if name is 'example' then $timeout exampleState, 200
 
-    showPopover: (name) -> showPopover name
-    hidePopover: (name) -> hidePopover name
+    showPopover: (name) -> _showLanding name
+    hidePopover: (name) -> _hidePopover name
 
-    setImg: (img) ->
-      show.store.mainImage = true
-      show.editor.title    = true
-      if !show.finished?.title
-        showPopover 'title'
-        show.finished.title = true
-      user.storefront_meta.home.carousel[0].imgUrl = img
+    showImg: (img) ->
+      _show.store.mainImage = true
+      _show.editor.title    = true
+      if !_show.finished?.title
+        _showLanding 'title'
+        _show.finished.title = true
 
-    finishEditor: () -> finishEditor()
+    finishEditor: () -> _finishEditor()
     finishEditorTimeout: () -> $timeout(finishEditor, 2000)
 
-    startCatalog: () -> startCatalog()
+    startCatalog: () -> _startCatalog()
 
     selectProduct: (product, margin) ->
       product_selection.push {

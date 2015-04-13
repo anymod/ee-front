@@ -1,23 +1,27 @@
 'use strict'
 
 angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBack) ->
-  # _fetching = false if not fetching, _fetching = deferred.promise if still fetching
-  _fetching   = false
-  _storefront = {}
-  _categories = ['All']
 
-  _broadcast = () -> $rootScope.$broadcast 'storefront:updated', _storefront
-  _broadcastCategories = () -> $rootScope.$broadcast 'storefront:categories:updated', _categories
+  ## SETUP
+  # none
 
+  ## PRIVATE EXPORT DEFAULTS
+  _storefront_meta    = {}
+  _product_selection  = []
+  _product_ids        = []
+  _categories         = ['All']
+  _fetching           = false
+
+  ## PRIVATE FUNCTIONS
   _addCategory = (cat, categories) -> if !!cat and (categories.indexOf(cat) < 0) then categories.push cat
 
-  _getCategories = (storefront) ->
+  _getCategories = (product_selection) ->
     categories = ['All']
-    if !!storefront?.product_selection
-      _addCategory(product.category, categories) for product in storefront.product_selection
+    if product_selection then _addCategory(product.category, categories) for product in product_selection
     categories
 
-  _storefrontIsEmpty = () -> Object.keys(_storefront).length is 0
+  _storefrontIsEmpty = () ->
+    Object.keys(_storefront_meta).length is 0 and _product_selection.length is 0
 
   _getStorefront = (force) ->
     deferred = $q.defer()
@@ -25,44 +29,30 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBa
     if !!_fetching then return _fetching
     if !_storefrontIsEmpty() and force isnt true
       _fetching = false
-      deferred.resolve _storefront
+      deferred.resolve {
+        storefront_meta:    _storefront_meta
+        product_selection:  _product_selection
+      }
     else
       # set _fetching to deferred.promise so that subsequent method calls will not lead to API calls
       _fetching = deferred.promise
       eeAuth.getUsername()
       .then (username) -> eeBack.storefrontGET(username)
       .then (data) ->
-        # set _fetching to false because API call is finished
-        _fetching = false
-        _storefront = data
-        _categories = _getCategories data
-        _broadcast()
-        _broadcastCategories()
+        _storefront_meta    = data.storefront_meta
+        _product_selection  = data.product_selection
+        _categories         = _getCategories data.product_selection
         deferred.resolve data
-      .catch (err) ->
-        # set _fetching to false because API call is finished
-        _fetching = false
-        deferred.reject err
+      .catch (err) -> deferred.reject err
+      .finally () -> _fetching = false
     deferred.promise
 
-  # Fetch and rebroadcast storefront upon selection changes
-  $rootScope.$on 'selection:added',   () -> _getStorefront(true)
-  $rootScope.$on 'selection:removed', () -> _getStorefront(true)
-
-  reset: () ->
-    _storefront = {}
-    _broadcast()
-
-  isStore: () -> !!$rootScope.isStore
-  isBuilder: () -> !!$rootScope.isBuilder
-
-  setCategories: () ->
-    _categories = _getCategories _storefront
-    _broadcastCategories()
-
-  getCategories: () -> _categories
-
-  getStorefront: (force) -> _getStorefront(force)
-
-  setScopeCategories: (storefront, scope) ->
-    scope.categories = _getCategories(storefront)
+  ## EXPORTS
+  storefront_meta:    _storefront_meta
+  product_selection:  _product_selection
+  product_ids:        _product_ids
+  categories:         _categories
+  fetching:           _fetching
+  fns:
+    setCategories: () -> _categories = _getCategories _storefront_meta
+    getStorefront: (force) -> _getStorefront(force)

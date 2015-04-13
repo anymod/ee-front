@@ -166,27 +166,24 @@
         </div>
       </div>
       <!-- /EDITOR title -->
+
+      <div class="full-width inline-block vert-50"></div>
     </form>
   </div>
 </div>
 
 <!-- EDITOR alert -->
 <div ng-show="landing.show.editor.content && landing.show.editor.alert" class="position-fixed width-300" style="bottom: 30px; left: 10px; z-index: 3000;">
-
-  <div class="popover popover-primary top in open inline-block" style="top: -55px;">
+  <div class="popover top in open inline-block" style="top: -55px;">
     <div class="popover-title border-none round-5">Looking good! Now you can:</div>
     <div class="arrow arrow-primary" style="left: 37px;"></div>
+    <div class="arrow arrow-primary" style="left: 140px;"></div>
   </div>
-<!--   <div class="panel panel-primary">
-  <div class="panel-heading">
-    <div class="panel-title">Looking good! Now you can:</div>
-  </div>
-</div> -->
 </div>
 <!-- /EDITOR alert -->
-
 <!-- /EDITOR -->
 
+<!-- NAVIGATION -->
 <div ng-hide="landing.show.landing.content" class="position-fixed" style="bottom: 10px; left: 10px; z-index: 3000;">
   <a ng-show="$state.current.name == 'example'" ui-sref="landing" class="btn btn-default">
     <i class="fa fa-fw fa-arrow-left"></i>&nbsp;Back
@@ -194,5 +191,7 @@
   <a ng-hide="$state.current.name == 'example'" ui-sref="signup" class="btn btn-default">
     <i class="fa fa-fw fa-save"></i>&nbsp;Save
   </a>&nbsp;
-  <a ng-show="$state.current.name == 'try' && landing.show.editor.alert" ui-sref="catalog" class="btn btn-default">Add Products&nbsp;<i class="fa fa-fw fa-arrow-right"></i></a>
+  <a ng-show="$state.current.name == 'try' && landing.show.editor.alert" ui-sref="catalog" class="btn btn-warning">Add Products</a>
+  <a ng-show="$state.current.name == 'catalog'" ui-sref="try" class="btn btn-primary">Edit Store</a>
 </div>
+<!-- /NAVIGATION -->

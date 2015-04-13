@@ -1,0 +1,70 @@
+<div class="container-fluid vert-10">
+  <div class="row">
+    <div class="col col-sm-7">
+      <img ng-src="{{ modal.mainImage.url }}" class="full-width">
+      <!-- images -->
+      <div ng-show="modal.product.image_meta.additional_images.length > 0" class="vert-5">
+        <img ng-src="{{ modal.product.image_meta.main_image.url | thumbnail }}"
+             class="inline-block width-62 gray-border hover-pointer margin-2"
+             ng-click="modal.setMainImage(modal.product.image_meta.main_image)" />
+        <img ng-repeat="img in modal.product.image_meta.additional_images"
+             ng-src="{{ img.url | thumbnail }}"
+             class="inline-block width-62 gray-border hover-pointer margin-2"
+             ng-click="modal.setMainImage(img)" />
+      </div>
+    </div>
+    <div class="col col-sm-5">
+      <div ng-hide="catalog.catalogData.loading">
+        <div class="full-width text-right">
+          <div class="btn btn-sm btn-default" ng-click="$close()">Close</div>
+        </div>
+        <h4 ng-bind="modal.product.title" class="vert-10"></h4>
+        <h3 ng-bind="modal.product.calculated.selling_price | centToDollar" class="margin-0"></h3>
+        <div class="text-muted line-height-1">Recommended price. You earn&nbsp;<strong ng-bind="modal.product.calculated.earnings | centToDollar"></strong>&nbsp;each sale.</div>
+        <div class="inline-block full-width vert-5"></div>
+        <div class="btn btn-primary btn-block" ng-click="modal.addProductSelection(modal.product)">Add to store</div>
+        <div class="btn btn-default btn-block">Set a different price</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-sm-12">
+      <p ng-bind="modal.product.content" class="pad-10"></p>
+      <table ng-show="modal.product.content_meta && !catalog.catalogData.loading" class="table table-condensed table-striped table-bordered white-background">
+        <tr ng-if="modal.product.content_meta.item_name">
+          <td>Item</td>
+          <td ng-bind="modal.product.content_meta.item_name"></td>
+        </tr>
+        <tr ng-if="modal.product.availability_meta.quantity">
+          <td>Quantity Available</td>
+          <td ng-bind="modal.product.availability_meta.quantity | truncateQty"></td>
+        </tr>
+        <tr ng-if="modal.product.shipping_price">
+          <td>Shipping Cost</td>
+          <td ng-bind="modal.product.shipping_price | centToDollar"></td>
+        </tr>
+        <tr ng-if="modal.product.content_meta.brand_name">
+          <td>Brand Name</td>
+          <td ng-bind="modal.product.content_meta.brand_name"</td>
+        </tr>
+        <tr ng-if="modal.product.content_meta.manufacturer">
+          <td>Manufacturer</td>
+          <td ng-bind="modal.product.content_meta.manufacturer"></td>
+        </tr>
+        <tr ng-if="modal.product.content_meta.condition">
+          <td>Condition</td>
+          <td ng-bind="modal.product.content_meta.condition"></td>
+        </tr>
+        <tr ng-if="modal.product.content_meta.warranty">
+          <td>Warranty</td>
+          <td ng-bind="modal.product.content_meta.warranty"></td>
+        </tr>
+        <tr ng-if="modal.product.content_meta.details">
+          <td>Details</td>
+          <td ng-bind-html="modal.product.content_meta.details | unboldHtml"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<pre>{{ modal.margins | json }}</pre>

@@ -1,7 +1,6 @@
 <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}"
-     class="img-responsive full-width"
-     ng-click="toggleOverlay()">
-<div class="vert-5" ng-click="toggleOverlay()">
+     class="img-responsive full-width">
+<div class="vert-5">
   <span class="product-title">{{ product.title }}</span>
   <br>
   <strong>{{ product.selling_price | centToDollar }}</strong>
