@@ -28,57 +28,56 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
     ]
 
   ## PRIVATE EXPORT DEFAULTS
-  _products   = []
-  _inputs     = _inputDefaults
-  _searching  = false
+  _data =
+    products:   []
+    inputs:     _inputDefaults
+    searching:  false
 
   ## PRIVATE FUNCTIONS
   _formQuery = () ->
     query = {}
-    if _inputs.page      then query.page       = _inputs.page
-    if _inputs.range.min then query.min        = _inputs.range.min
-    if _inputs.range.max then query.max        = _inputs.range.max
-    if _inputs.search    then query.search     = _inputs.search
-    if _inputs.category  then query.categories = [ _inputs.category ] else query.categories = []
+    if _data.inputs.page      then query.page       = _data.inputs.page
+    if _data.inputs.range.min then query.min        = _data.inputs.range.min
+    if _data.inputs.range.max then query.max        = _data.inputs.range.max
+    if _data.inputs.search    then query.search     = _data.inputs.search
+    if _data.inputs.category  then query.categories = [ _data.inputs.category ] else query.categories = []
     query
 
   _runQuery = () ->
     deferred = $q.defer()
     # if searching then avoid simultaneous calls to API
-    if !!_searching then return _searching
-    _searching = deferred.promise
+    if !!_data.searching then return _data.searching
+    _data.searching = deferred.promise
     eeBack.productsGET $cookies.loginToken, _formQuery()
     .then (products) ->
-      _products = products
-      deferred.resolve products
+      _data.products = products
+      deferred.resolve _data.products
     .catch (err) -> deferred.reject err
     .finally () ->
-      _searching = false
+      _data.searching = false
     deferred.promise
 
   ## EXPORTS
-  products:   _products
-  inputs:     _inputs
-  searching:  _searching
+  data: _data
   fns:
     search: () -> _runQuery()
     incrementPage: () ->
-      _inputs.page = if _inputs.page < 1 then 2 else _inputs.page + 1
+      _data.inputs.page = if _data.inputs.page < 1 then 2 else _data.inputs.page + 1
       _runQuery()
     decrementPage: () ->
-      _inputs.page = if _inputs.page < 2 then 1 else _inputs.page - 1
+      _data.inputs.page = if _data.inputs.page < 2 then 1 else _data.inputs.page - 1
       _runQuery()
     setCategory: (category) ->
-      _inputs.page = 1
-      _inputs.category = category
+      _data.inputs.page = 1
+      _data.inputs.category = category
       _runQuery()
     setRange: (range) ->
       range = range || {}
-      _inputs.page = 1
-      _inputs.range.min = range.min || null
-      _inputs.range.max = range.max || null
+      _data.inputs.page = 1
+      _data.inputs.range.min = range.min || null
+      _data.inputs.range.max = range.max || null
       _runQuery()
     setSearchTerm: (search_term) ->
-      _inputs.page = 1
-      _inputs.search = search_term
+      _data.inputs.page = 1
+      _data.inputs.search = search_term
       _runQuery()

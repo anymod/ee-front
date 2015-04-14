@@ -1,10 +1,13 @@
 'use strict'
 
-angular.module('builder.catalog').controller 'catalogCtrl', (eeLanding, eeCatalog) ->
+angular.module('builder.catalog').controller 'catalogCtrl', (eeAuth, eeLanding, eeProduct, eeCatalog) ->
 
-  this.user         = eeLanding.user
-  this.catalogData  = eeCatalog.catalog
-  this.fns          = eeCatalog.fns
+  this.user       = eeAuth.fns.landingUser()
+
+  this.data       = eeCatalog.data
+  this.fns        = eeCatalog.fns
+
+  this.productFns = eeProduct.fns
 
   eeLanding.fns.startCatalog()
   eeCatalog.fns.search()

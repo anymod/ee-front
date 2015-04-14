@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore, $q, eeBack) ->
+angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore, $q, $modal, eeBack) ->
 
   ## SETUP
   _userDefaults =
@@ -137,3 +137,15 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
         .then (data) -> deferred.resolve data
         .catch (err) -> deferred.reject err
       deferred.promise
+
+    landingUser: () ->
+      if _userIsEmpty() then _user.storefront_meta = _userDefaults.storefront_meta
+      _user
+
+    openSignupModal: () ->
+      $modal.open({
+        templateUrl: 'builder/auth.signup/auth.signup.modal.html'
+        backdropClass: 'white-background opacity-08'
+        controller: 'signupCtrl'
+        controllerAs: 'modal'
+      })

@@ -1,17 +1,12 @@
 'use strict'
 
-angular.module('builder.catalog').controller 'catalogModalCtrl', (data, margins, catalog) ->
+angular.module('builder.catalog').controller 'catalogModalCtrl', (product, margins, eeStorefront) ->
 
-  this.product      = data
-  this.mainImage    = data.image_meta.main_image
+  this.product      = product
+  this.mainImage    = product.image_meta.main_image
   this.margins      = margins
-  this.catalog      = catalog
 
-  console.log catalog
-
-  this.addProductSelection = (p_s) ->
-    console.log 'p_s', p_s
-    catalog.product_selection[p_s.id] = p_s
+  this.addProductSelection = (product) -> eeStorefront.fns.addDummyProduct product
 
   this.product.calculated =
     margin:         this.margins.startMargin

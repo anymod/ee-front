@@ -68,14 +68,15 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
     array
 
   ## PRIVATE EXPORT DEFAULTS
-  _show           = _showDefaults
-  _defaultImages  = _shuffleArray _images
+  _show = _showDefaults
+  _data =
+    defaultImages: _shuffleArray _images
 
   ## PRIVATE FUNCTIONS
   _reset = () -> _show = _showDefaults
 
   ## Landing
-  __showLanding = () -> _show.landing.content = true
+  _showLanding = () -> _show.landing.content = true
   _hideLanding = () -> _show.landing.content = false
 
   ## Example
@@ -90,7 +91,7 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
   _showEditor  = () ->
     _show.editor.content                  = true
     if !_show.finished?.topBarBackgroundColor
-      _showLanding 'topBarBackgroundColor'
+      _showPopover 'topBarBackgroundColor'
       _show.editor.topBarColor            = false
   _hideEditor = () -> _show.editor.content = false
 
@@ -105,11 +106,11 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
 
   $rootScope.$on 'colorpicker-closed', (e, data) ->
     _show.editor.topBarColor = true
-    if !_show.finished?.topBarBackgroundColor and data.name is 'landing.user.storefront_meta.home.topBarBackgroundColor'
+    if !_show.finished?.topBarBackgroundColor and data.name is 'landing.storefront.storefront_meta.home.topBarBackgroundColor'
       _show.finished.topBarBackgroundColor = true
-      _showLanding 'topBarColor'
+      _showPopover 'topBarColor'
       $rootScope.$apply()
-    if !_show.finished?.topBarColor and data.name is 'landing.user.storefront_meta.home.topBarColor'
+    if !_show.finished?.topBarColor and data.name is 'landing.storefront.storefront_meta.home.topBarColor'
       _show.finished.topBarColor  = true
       _show.editor.mainImage      = true
       _hidePopover 'topBarColor'
@@ -132,7 +133,7 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
     showStoreProducts = () ->
       _show.store.products = true
       _showCatalog()
-    $timeout _showStoreProducts, 200
+    $timeout showStoreProducts, 200
     _hideExample()
     _hideEditor()
     _showStore()
@@ -160,31 +161,31 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
     _scrollTop()
 
   ## EXPORTS
-  show:           _show
-  defaultImages:  _defaultImages
+  show: _show
+  data: _data
   fns:
     reset:        () -> _reset()
     showState:    (name) ->
-      if name is 'landing' then $timeout landingState, 100
+      if name is 'landing' then $timeout _landingState, 100
       if name is 'try'
         if _show.store.products
           _show.store.mainImage = true
           _show.store.products  = false
-        $timeout tryState, 200
-      if name is 'example' then $timeout exampleState, 200
+        $timeout _tryState, 200
+      if name is 'example' then $timeout _exampleState, 200
 
-    showPopover: (name) -> _showLanding name
+    showPopover: (name) -> _showPopover name
     hidePopover: (name) -> _hidePopover name
 
-    showImg: (img) ->
+    showCarouselImage: (img) ->
       _show.store.mainImage = true
       _show.editor.title    = true
       if !_show.finished?.title
-        _showLanding 'title'
+        _showPopover 'title'
         _show.finished.title = true
 
     finishEditor: () -> _finishEditor()
-    finishEditorTimeout: () -> $timeout(finishEditor, 2000)
+    finishEditorTimeout: () -> $timeout _finishEditor, 2000
 
     startCatalog: () -> _startCatalog()
 

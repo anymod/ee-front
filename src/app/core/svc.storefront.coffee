@@ -6,11 +6,13 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBa
   # none
 
   ## PRIVATE EXPORT DEFAULTS
-  _storefront_meta    = {}
-  _product_selection  = []
-  _product_ids        = []
-  _categories         = ['All']
-  _fetching           = false
+  _storefront =
+    storefront_meta:    {}
+    product_selection:  []
+  _data =
+    product_ids:          []
+    categories:           ['All']
+    fetching:             false
 
   ## PRIVATE FUNCTIONS
   _addCategory = (cat, categories) -> if !!cat and (categories.indexOf(cat) < 0) then categories.push cat
@@ -21,38 +23,42 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBa
     categories
 
   _storefrontIsEmpty = () ->
-    Object.keys(_storefront_meta).length is 0 and _product_selection.length is 0
+    Object.keys(_storefront.storefront_meta).length is 0 and _storefront.product_selection.length is 0
 
   _getStorefront = (force) ->
     deferred = $q.defer()
-    # if _fetching then avoid simultaneous calls to API
-    if !!_fetching then return _fetching
+    # if _data.fetching then avoid simultaneous calls to API
+    if !!_data.fetching then return _data.fetching
     if !_storefrontIsEmpty() and force isnt true
-      _fetching = false
+      _data.fetching = false
       deferred.resolve {
-        storefront_meta:    _storefront_meta
-        product_selection:  _product_selection
+        storefront_meta:    _storefront.storefront_meta
+        product_selection:  _storefront.product_selection
       }
     else
-      # set _fetching to deferred.promise so that subsequent method calls will not lead to API calls
-      _fetching = deferred.promise
+      # set _data.fetching to deferred.promise so that subsequent method calls will not lead to API calls
+      _data.fetching = deferred.promise
       eeAuth.getUsername()
       .then (username) -> eeBack.storefrontGET(username)
       .then (data) ->
-        _storefront_meta    = data.storefront_meta
-        _product_selection  = data.product_selection
-        _categories         = _getCategories data.product_selection
+        _storefront.storefront_meta = data.storefront_meta
+        _storefront.product_selection = data.product_selection
+        _data.categories            = _getCategories data.product_selection
         deferred.resolve data
       .catch (err) -> deferred.reject err
-      .finally () -> _fetching = false
+      .finally () -> _data.fetching = false
     deferred.promise
 
   ## EXPORTS
-  storefront_meta:    _storefront_meta
-  product_selection:  _product_selection
-  product_ids:        _product_ids
-  categories:         _categories
-  fetching:           _fetching
+  storefront: _storefront
+  data:       _data
   fns:
-    setCategories: () -> _categories = _getCategories _storefront_meta
+    setCategories: () -> _data.categories = _getCategories _storefront.storefront_meta
     getStorefront: (force) -> _getStorefront(force)
+
+    setCarouselImage: (user, imgUrl) ->
+      user.storefront_meta.home.carousel[0].imgUrl = imgUrl
+
+    addDummyProduct: (product) ->
+      if !product.calculated then console.error('Problem adding dummy product'); return
+      _storefront.product_selection.push product

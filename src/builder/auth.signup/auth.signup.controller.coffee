@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.auth').controller 'signupCtrl', ($scope, $state, $filter, $location, $anchorScroll, eeBack, eeAuth) ->
+angular.module('builder.auth').controller 'signupCtrl', ($scope, $state, $filter, eeAuth) ->
   $scope.signup = {}
 
   setBtnText    = (txt) -> $scope.btnText = txt
@@ -11,11 +11,10 @@ angular.module('builder.auth').controller 'signupCtrl', ($scope, $state, $filter
   # setBtnText 'Coming soon...'
 
   $scope.signup = () ->
-    if $scope.email isnt $scope.email_check then $scope.alert = "Emails don't match"; return
     $scope.alert = undefined
     setBtnText 'Sending...'
 
-    eeAuth.createUserFromSignup($scope.email, $scope.password, $scope.username)
+    eeAuth.fns.createUserFromSignup($scope.email, $scope.password, $scope.username)
     .then (data) -> $state.go 'storefront.home'
     .catch (err) ->
       resetBtnText()
@@ -24,11 +23,5 @@ angular.module('builder.auth').controller 'signupCtrl', ($scope, $state, $filter
 
   $scope.$watch 'username', (newVal, oldVal) ->
     if !!newVal then $scope.username = $filter('urlText')(newVal)
-
-  $scope.scrollToTop = () ->
-    $location.hash 'navbar-top'
-    $anchorScroll()
-    # Remove hash in url
-    $location.url $location.path()
 
   return

@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeProduct', ($q, $cookies, eeBack) ->
+angular.module('app.core').factory 'eeProduct', ($q, $cookies, $modal, eeBack) ->
 
   ## SETUP
   # none
@@ -8,7 +8,8 @@ angular.module('app.core').factory 'eeProduct', ($q, $cookies, eeBack) ->
   ## PRIVATE EXPORT DEFAULTS
   _focused_product  = {}
   _focused_image    = {}
-  _loading          = false
+  _data =
+    loading: false
 
   ## PRIVATE FUNCTIONS
   _getProduct = (id) ->
@@ -44,23 +45,20 @@ angular.module('app.core').factory 'eeProduct', ($q, $cookies, eeBack) ->
   ## EXPORTS
   focused_product:  _focused_product
   focused_image:    _focused_image
-  loading:          _loading
+  data:             _data
   fns:
-
     openProductModal: (id) ->
       if !id then return
       _getProduct id
       .then (data) ->
+        _focused_product = data
         $modal.open({
           templateUrl: 'builder/catalog/catalog.modal.html'
           backdropClass: 'white-background opacity-08'
           resolve:
-            data:     () -> data
+            product:  () -> _focused_product
             margins:  () -> _margins
-            products: () -> _products
           controller: 'catalogModalCtrl'
           controllerAs: 'modal'
         })
       .catch (err) -> console.error err
-
-  return
