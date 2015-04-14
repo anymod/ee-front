@@ -111,6 +111,8 @@ if process.env.NODE_ENV is 'test'
     image_3 = 'http://placehold.it/' + h + 'x' + w + '.png/' + random_color() + '/fff'
     image_4 = 'http://placehold.it/' + w + 'x' + w + '.png/' + random_color() + '/fff'
     categories = ["Kitchen", "Accessories", "Home Decor", "Health & Beauty", "Electronics", "General Merchandise"]
+    category = _.sample categories
+    search_term = _.sample ['Handmade', 'Green', 'Metal']
     req = request.defaults
       json: true
       uri: browser.apiUrl + '/v0/products'
@@ -119,8 +121,8 @@ if process.env.NODE_ENV is 'test'
         supply_price: supply_price
         baseline_price: parseInt(supply_price * (100 + ee_margin)/100)
         suggested_price: parseInt(supply_price * (100 + 30)/100)
-        title: 'Product ' + i
-        content: 'Content for Product ' + i
+        title: '' + search_term + ' product (' + i + ')'
+        content: 'Content for Product ' + i + '. Product is in the category ' + category + '. It\'s ' + search_term + '.'
         content_meta: {}
         image_meta:
           main_image:
@@ -131,7 +133,7 @@ if process.env.NODE_ENV is 'test'
             { url: image_4 },
           ]
         availability_meta: {}
-        category: _.sample categories
+        category: category
       headers: authorization: scope.admin_token
     new Promise (resolve, reject) ->
       req.post {}, (err, res, body) ->

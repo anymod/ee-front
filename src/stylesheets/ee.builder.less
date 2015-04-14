@@ -80,6 +80,13 @@
 .modal { z-index: 5001 !important; }
 .modal-backdrop { z-index: 5000 !important; bottom: 0; }
 @media (min-width: 768px) { .modal-dialog { margin-top: 60px; } }
+/* TODO remove once using new angular-ui-bootstrap with animation: false */
+.modal.fade,
+.modal.fade .modal-dialog,
+.modal-backdrop.fade {
+  transition: none !important;
+  transform: none !important;
+}
 
 // ======================
 

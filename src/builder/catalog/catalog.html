@@ -44,7 +44,7 @@
         <div class="input-group">
           <input type="text" ng-model="catalog.data.inputs.search" class="form-control" placeholder="Search">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="submit"><i class="fa fa-fw fa-search"></i></button>
+            <button class="btn btn-default" type="submit" name="search-btn"><i class="fa fa-fw fa-search"></i></button>
           </span>
         </div>
       </form>
@@ -66,7 +66,7 @@
         <a href ng-click="catalog.productFns.openProductModal(product.id)"
             class="thumb margin-2"
             style="background-image: url('{{ product.image_meta.main_image.url | thumbnail }}')">
-          <div ng-show="productInStorefront(product.id)" class="label label-primary">in <span class="hidden-xs">my </span>store</div>
+          <div ng-show="catalog.storeFns.inStorefront(product.id)" class="label label-primary">in <span class="hidden-xs">my </span>store</div>
         </a>
       </span>
     </div>

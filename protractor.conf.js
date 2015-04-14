@@ -4,6 +4,7 @@ var protractor_hash = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
 
   framework: 'mocha',
+  // stackTrace: false,
 
   capabilities: {
     'browserName': 'chrome'

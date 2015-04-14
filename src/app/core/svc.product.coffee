@@ -55,6 +55,7 @@ angular.module('app.core').factory 'eeProduct', ($q, $cookies, $modal, eeBack) -
         $modal.open({
           templateUrl: 'builder/catalog/catalog.modal.html'
           backdropClass: 'white-background opacity-08'
+          animation: false
           resolve:
             product:  () -> _focused_product
             margins:  () -> _margins

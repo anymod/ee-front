@@ -15,12 +15,25 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBa
     fetching:             false
 
   ## PRIVATE FUNCTIONS
-  _addCategory = (cat, categories) -> if !!cat and (categories.indexOf(cat) < 0) then categories.push cat
+  _inStorefront   = (id)                -> _data.product_ids.indexOf(id) >= 0
+  _addProductId   = (id, ids)           -> if !!id and (ids.indexOf(id) < 0) then ids.push id
+  _addCategory    = (cat, categories)   -> if !!cat and (categories.indexOf(cat) < 0) then categories.push cat
 
-  _getCategories = (product_selection) ->
+  _getCategories  = (product_selection) ->
     categories = ['All']
     if product_selection then _addCategory(product.category, categories) for product in product_selection
     categories
+
+  _defineData = () ->
+    product_ids = []
+    categories  = ['All']
+    defineData = (product) ->
+      _addProductId product.id, product_ids
+      _addCategory product.category, categories
+    defineData product for product in _storefront.product_selection
+    _data.product_ids = product_ids
+    _data.categories  = categories
+    return
 
   _storefrontIsEmpty = () ->
     Object.keys(_storefront.storefront_meta).length is 0 and _storefront.product_selection.length is 0
@@ -41,9 +54,9 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBa
       eeAuth.getUsername()
       .then (username) -> eeBack.storefrontGET(username)
       .then (data) ->
-        _storefront.storefront_meta = data.storefront_meta
+        _storefront.storefront_meta   = data.storefront_meta
         _storefront.product_selection = data.product_selection
-        _data.categories            = _getCategories data.product_selection
+        _defineData()
         deferred.resolve data
       .catch (err) -> deferred.reject err
       .finally () -> _data.fetching = false
@@ -61,4 +74,12 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBa
 
     addDummyProduct: (product) ->
       if !product.calculated then console.error('Problem adding dummy product'); return
-      _storefront.product_selection.push product
+      if !_inStorefront(product.id) then _storefront.product_selection.push product
+      _defineData()
+
+    removeDummyProduct: (product) ->
+      index = _data.product_ids.indexOf product.id
+      if index >= 0 then _storefront.product_selection.splice index, 1
+      _defineData()
+
+    inStorefront: (id) -> _inStorefront id
