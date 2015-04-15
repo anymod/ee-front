@@ -50,6 +50,8 @@ gulp.task 'html-prod', () ->
   # Builder html
   gulp.src './src/builder.html'
     .pipe gp.plumber()
+    # Replace localhost tracking code with product tracking code
+    .pipe gp.replace /UA-55625421-2/g, 'UA-55625421-1'
     .pipe gp.htmlReplace
       css: 'ee.builder.css'
       js: 'ee.builder.js'

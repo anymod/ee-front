@@ -24,19 +24,13 @@ describe 'eeosk landing.catalog', () ->
       saveBtn:                element byAttr.cssContainingText '.btn', 'Save'
       saveCancelBtn:          element byAttr.cssContainingText '.btn', 'cancel'
       addProductsBtn:         element byAttr.cssContainingText '.btn', 'Add Products'
-      # navbarBrand:            bottom.element byAttr.css  '.navbar .navbar-header .navbar-brand'
-      # navbar:                 bottom.element byAttr.css  '.navbar.navbar-rgba-colors'
-      # topBarBackgroundColor:  bottom.element byAttr.name 'storefront_meta.home.topBarBackgroundColor'
-      # topBarColor:            bottom.element byAttr.name 'storefront_meta.home.topBarColor'
-      # mainImageToggle:        bottom.element byAttr.name 'mainImageToggle'
-      # mainImageFive:          bottom.element byAttr.repeater('imgUrl in landing.data.defaultImages').row(4)
-      # carouselImage:          bottom.element byAttr.css  '#ee-bottom-view .carousel > img'
-      # name:                   bottom.element byAttr.model 'landing.storefront.storefront_meta.home.name'
+
       modal:                  element byAttr.css '.modal'
       modalMainImage:         element byAttr.name 'mainImage'
       modalImageTwo:          element byAttr.repeater('img in modal.product.image_meta.additional_images').row(0)
       closeModalBtn:          element byAttr.cssContainingText '.modal .btn', 'Close'
       addToStoreBtn:          element byAttr.cssContainingText '.modal .btn', 'Add to store'
+      removeFromStoreBtn:     element byAttr.cssContainingText '.modal .btn', 'Remove from store'
       setPriceBtn:            element byAttr.cssContainingText '.modal .btn', 'Set a different price'
       leftBtn:                element byAttr.name 'left-btn'
       rightBtn:               element byAttr.name 'right-btn'
@@ -59,6 +53,7 @@ describe 'eeosk landing.catalog', () ->
 
   it 'should visit the landing catalog', () ->
     browser                   .get '/logout'
+    browser                   .waitForAngular()
     browser                   .get '/catalog'
     browser                   .getTitle().should.eventually.equal 'Add products | eeosk'
 
@@ -140,7 +135,7 @@ describe 'eeosk landing.catalog', () ->
       elem.modal              .getText().should.eventually.contain 'Metal product'
       elem.closeModalBtn      .click()
 
-  it 'should add to store when Add to Store button is clicked', () ->
+  xit 'should add to store when Add to Store button is clicked', () ->
     elem.body                 .getText().should.eventually.contain 'Add products below'
     elem.productSix           .click()
     elem.addToStoreBtn        .click()
@@ -151,7 +146,23 @@ describe 'eeosk landing.catalog', () ->
     elem.storefrontProducts
     .then (product_array) ->
       product_array           .length.should.equal 1
-      browser.sleep 5000
+      element(byAttr.repeater('product in catalog.data.products').row(0)).click()
+      elem.addToStoreBtn      .click()
+      elem.closeModalBtn      .click()
+      elem.storefrontProducts
+    .then (product_array) ->
+      product_array           .length.should.equal 2
+
+  xit 'should remove from store when Remove button is clicked', () ->
+    elem.productSix           .click()
+    elem.modal                .getText().should.eventually.contain 'Remove from store'
+    elem.removeFromStoreBtn   .click()
+    elem.modal                .getText().should.eventually.contain 'Add'
+    elem.modal                .getText().should.not.eventually.contain 'Remove'
+    elem.closeModalBtn        .click()
+    elem.storefrontProducts
+    .then (product_array) ->
+      product_array           .length.should.equal 1
 
   xit 'should show and close signup modal through save button', () ->
     elem.saveBtn              .click()
@@ -160,4 +171,18 @@ describe 'eeosk landing.catalog', () ->
     elem.saveCancelBtn        .click()
     elem.body                 .getText().should.not.eventually.contain 'Save & continue'
 
-  xit 'should retain landing page when navigating backward', () ->
+  it 'should retain landing page when navigating backward', () ->
+    browser                   .get '/'
+    elem.tryBtn               .click()
+    browser                   .waitForAngular()
+    element(byAttr.css('#ee-bottom-view input[name="storefront_meta.home.topBarColor"]')).click()
+    elem.body                 .click()
+    element(byAttr.css('#ee-bottom-view input[name="storefront_meta.home.topBarBackgroundColor"]')).click()
+    elem.body                 .click()
+    browser.sleep 5000
+    browser                   .navigate().back()
+    browser.sleep 5000
+    # browser                   .getTitle().should.eventually.contain 'Try it out'
+    # browser                   .back()
+    # browser                   .getTitle().should.eventually.contain 'Online store builder'
+    # elem.body                 .getText().should.eventually.contain 'Build an online store in minutes'

@@ -33,15 +33,6 @@ describe 'eeosk landing.try', () ->
       carouselImage:          bottom.element byAttr.css  '#ee-bottom-view .carousel > img'
       name:                   bottom.element byAttr.model 'landing.storefront.storefront_meta.home.name'
       modalTitle:             element byAttr.css '.modal'
-      # navbarBrand:        element byAttr.cssContainingText 'a', 'Demo'
-      # exampleBtn:         element byAttr.cssContainingText '.btn', 'See a demo store'
-      # backBtn:            element byAttr.cssContainingText '.btn', 'Back'
-      # categories:         element.all byAttr.repeater 'category in categories'
-      # categoryThree:      element byAttr.repeater('category in categories').row(2)
-      # products:           element.all byAttr.repeater 'product in storefront.product_selection'
-      # productFive:        element byAttr.repeater('product in storefront.product_selection').row(4)
-      # exampleOverlay:     element byAttr.css '.position-absolute.top-left-bottom-right-0.hover-pointer.text-center'
-      # noThanksBtn:        element byAttr.cssContainingText '.btn', 'No thanks'
 
     oldVal =
       topBarColor:            '#021709'
