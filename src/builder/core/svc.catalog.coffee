@@ -12,13 +12,22 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
       max:            null
     category:         null
     categoryArray: [
-      'Home Decor',
-      'Kitchen',
-      'Accessories',
-      'Health & Beauty',
-      'Electronics',
-      'General Merchandise'
+      'Accessories'
+      'Arts & Crafts'
+      'Artwork'
+      'Bed & Bath'
+      'Electronics'
+      'Furniture'
+      'Health & Beauty'
+      'Home Decor'
+      'Jewelry'
+      'Kitchen'
+      'Outdoor'
+      'Pet Supplies'
     ]
+
+
+
     rangeArray: [
       { min: 0,     max: 2500   },
       { min: 2500,  max: 5000   },
