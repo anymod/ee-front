@@ -138,6 +138,9 @@ sources.builderModule = [
   './src/builder/account/account.module.coffee'
   './src/builder/account/account.route.coffee'
   './src/builder/account/account.controller.coffee'
+  # TODO remove this module
+  # Module - dummy product admin
+  './src/builder/dummy/dummy.route.coffee'
 ]
 sources.storeModule = [
   # Definitions
