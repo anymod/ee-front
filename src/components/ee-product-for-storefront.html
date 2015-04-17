@@ -1,28 +1,9 @@
-<img ng-src="{{ product.image_meta.main_image.url | thumbnail }}"
-     class="img-responsive full-width">
-<div class="vert-5">
-  <span class="product-title">{{ product.title }}</span>
-  <br>
-  <strong>{{ product.selling_price | centToDollar }}</strong>
-  &nbsp;
-  <!-- TODO add rearrange buttons -->
-<!--   <div class="btn-group">
-  <div class="btn btn-default btn-xs">
-    <i class="fa fa-fw fa-arrow-left hidden-xs"></i>
-    <i class="fa fa-fw fa-arrow-up visible-xs-inline-block"></i>
+<div ng-click="openModal(product.id)">
+  <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}"
+       class="img-responsive full-width">
+  <div class="vert-5">
+    <span ng-bind="product.title" class="product-title"></span>
+    <br>
+    <strong ng-bind="product.calculated.selling_price | centToDollar"></strong>
   </div>
-  <div class="btn btn-default btn-xs"><i class="fa fa-fw fa-pencil"></i></div>
-  <div class="btn btn-default btn-xs">
-    <i class="fa fa-fw fa-arrow-down visible-xs-inline-block"></i>
-    <i class="fa fa-fw fa-arrow-right hidden-xs"></i>
-  </div>
-</div> -->
-</div>
-
-<div ng-show="!!overlay"
-     class="white-background pad-10 position-absolute top-left-bottom-right-0">
-  <div>
-    <div ng-click="toggleOverlay()" class="btn btn-default">close</div>
-  </div>
-  <ee-product-detail product="product"></ee-product-detail>
 </div>

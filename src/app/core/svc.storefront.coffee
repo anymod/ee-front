@@ -25,14 +25,13 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBa
     categories
 
   _defineData = () ->
-    product_ids = []
-    categories  = ['All']
+    _data.product_ids.length = 0
+    _data.categories.length  = 0
+    _data.categories.push 'All'
     defineData = (product) ->
-      _addProductId product.id, product_ids
-      _addCategory product.category, categories
+      _addProductId product.id, _data.product_ids
+      _addCategory product.category, _data.categories
     defineData product for product in _storefront.product_selection
-    _data.product_ids = product_ids
-    _data.categories  = categories
     return
 
   _storefrontIsEmpty = () ->

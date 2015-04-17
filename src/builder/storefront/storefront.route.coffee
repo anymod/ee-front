@@ -18,6 +18,9 @@ angular.module('builder.storefront').config ($stateProvider) ->
         bottom:
           controller: 'storefrontCtrl as storefront'
           templateUrl: 'builder/storefront/storefront.add.html'
+        footer:
+          controller: 'storefrontCtrl as storefront'
+          templateUrl: 'app/storefront/storefront.footer.html'
       data:
         pageTitle:     'Add products | eeosk'
         pageDescription:  'Choose products to add to your store.'

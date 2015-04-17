@@ -39,7 +39,7 @@
             <a href class="dropdown-toggle" ng-style="{ color: user.storefront_meta.home.topBarColor }" dropdown-toggle>
               Shop <span class="caret"></span>
             </a>
-            <ee-shop-nav ng-if="storefront" storefront="storefront" class="dropdown-menu"></ee-shop-nav>
+            <ee-shop-nav ng-show="storefront" categories="storefront.categories" class="dropdown-menu"></ee-shop-nav>
           </li>
 
           <li ng-class="{ active: state == 'storefront.blog' }"

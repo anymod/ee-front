@@ -1,6 +1,8 @@
 'use strict'
 
-angular.module('ee-scroller').directive "eeScrollToTop", ($location, $anchorScroll) ->
+angular.module 'ee-scroll-to-top', []
+
+angular.module('ee-scroll-to-top').directive "eeScrollToTop", ($location, $anchorScroll) ->
   scope: {}
   link: (scope, ele, attrs) ->
     ele.on 'click', () ->
