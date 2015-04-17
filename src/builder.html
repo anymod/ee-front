@@ -20,14 +20,14 @@
   <!-- endbuild -->
 </head>
 
-<body id="body-top">
+<body id="body-top" style="padding-top: {{ $state.current.data.padTop }}">
   <h1 class="position-fixed overflow-hidden height-0" style="top: -5000px;">eeosk | Create your own online store in minutes</h1>
 
-  <div ui-view="header"></div>
-  <div ui-view="top" id="ee-top-view" class="position-relative"></div>
-  <ee-scroller id="ee-scroller"></ee-scroller>
+  <div ui-view="header" id="ee-header" class="position-fixed" style="top: 0; z-index: 2000;"></div>
+  <div ui-view="top"    id="ee-top-view" class="position-relative"></div>
+  <div ui-view="middle" id="ee-middle-view" class="position-relative"></div>
   <div ui-view="bottom" id="ee-bottom-view" class="position-relative"></div>
-  <div ui-view="footer"></div>
+  <div ui-view="footer" id="ee-footer" class="position-relative"></div>
 
   <!-- Do not edit inside of build block; it is auto-generated -->
   <!-- build:js -->
@@ -79,6 +79,9 @@
   <script src="js/builder/example/example.module.js"></script>
   <script src="js/builder/example/example.route.js"></script>
   <script src="js/builder/example/example.controller.js"></script>
+  <script src="js/builder/edit/edit.module.js"></script>
+  <script src="js/builder/edit/edit.route.js"></script>
+  <script src="js/builder/edit/edit.controller.js"></script>
   <script src="js/builder/terms/terms.module.js"></script>
   <script src="js/builder/terms/terms.route.js"></script>
   <script src="js/builder/terms/terms.controller.js"></script>
@@ -99,6 +102,7 @@
   <script src="js/components/ee-terms-seller.js"></script>
   <script src="js/components/ee-terms-privacy.js"></script>
   <script src="js/components/ee-navbar.js"></script>
+  <script src="js/components/ee-navbar-main.js"></script>
   <script src="js/components/ee-product.js"></script>
   <script src="js/components/ee-save.js"></script>
   <script src="js/components/ee-offscreen-toggle.js"></script>

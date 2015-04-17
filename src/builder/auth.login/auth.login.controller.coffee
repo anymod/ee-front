@@ -7,13 +7,13 @@ angular.module('builder.auth').controller 'loginCtrl', ($scope, $rootScope, $sta
   resetBtnText  = ()    -> setBtnText 'Sign in'
   resetBtnText()
 
-  eeAuth.userFromToken()
+  eeAuth.fns.userFromToken()
   .then () -> $state.go 'storefront.home'
 
   $scope.login = () ->
     $scope.alert = ''
     setBtnText 'Sending...'
-    eeAuth.setUserFromCredentials($scope.email, $scope.password)
+    eeAuth.fns.setUserFromCredentials($scope.email, $scope.password)
     .then () ->
       # TODO direct user based on first time logging in, number of products, etc
       $rootScope.welcome_1 = true

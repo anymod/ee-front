@@ -9,7 +9,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
         name: ''
         topBarBackgroundColor: '#dbd6ff'
         topBarColor: '#021709'
-        carousel: [{ imgUrl: '' }]
+        carousel: [{ imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250403/desk1.jpg' }]
       blog: { url: 'https://eeosk.com' }
       about: { headline: 'eeosk' }
       audience:

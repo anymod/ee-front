@@ -1,0 +1,105 @@
+<!-- EDITOR -->
+<div class="full-width pad-10 min-height-600">
+  <!-- POPOVER -->
+  <div class="row" ng-show="edit.show.popover.editPopover">
+    <div class="col-sm-offset-3 col-sm-6">
+      <div class="position-relative">
+        <div class="popover popover-primary top in inline-block full-width max-width-300" style="top: -100px;">
+          <div class="arrow" style="left: 25px;"></div>
+          <div class="popover-title">Great! <span class="btn btn-xs btn-primary pull-right" ng-click="edit.hidePopover()">close</span></div>
+          <div class="popover-content">Now try editing your store below and then adding products.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /POPOVER -->
+  <form class="form-horizontal">
+    <!-- EDITOR top bar colors -->
+    <div class="form-group vert-2">
+      <label class="col-sm-3 control-label">Top bar colors</label>
+      <div class="col-sm-2">
+        <div class="position-relative inline-block" ng-click="edit.fns.hidePopover('topBarBackgroundColor')">
+          <div class="input-group" colorpicker colorpicker-parent="true"
+               ng-model="edit.storefront.storefront_meta.home.topBarBackgroundColor">
+            <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-paint-brush"></i></span>
+            <input name="storefront_meta.home.topBarColor"
+                   ng-model="edit.storefront.storefront_meta.home.topBarBackgroundColor"
+                   class="form-control hover-pointer"
+                   ng-style="{ 'background-color': edit.storefront.storefront_meta.home.topBarBackgroundColor, color: edit.storefront.storefront_meta.home.topBarBackgroundColor }">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2" ng-show="edit.show.editor.topBarColor">
+        <div class="input-group" colorpicker colorpicker-parent="true"
+             ng-model="edit.storefront.storefront_meta.home.topBarColor">
+          <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-font"></i></span>
+          <input name="storefront_meta.home.topBarBackgroundColor"
+                 ng-model="edit.storefront.storefront_meta.home.topBarColor"
+                 class="form-control hover-pointer"
+                 ng-style="{ 'background-color': edit.storefront.storefront_meta.home.topBarColor, color: edit.storefront.storefront_meta.home.topBarColor }">
+        </div>
+      </div>
+    </div>
+    <!-- /EDITOR top bar colors -->
+    <!-- EDITOR carousel image -->
+    <div ng-show="edit.show.editor.mainImage" class="form-group vert-2">
+      <label class="col-sm-3 control-label">Main image</label>
+      <div class="col-sm-4">
+        <div class="position-relative" dropdown>
+          <div class="hover-pointer position-relative" dropdown-toggle>
+            <div class="btn btn-sm btn-default margin-5 position-absolute"
+                 name="mainImageToggle">
+              <div class="fa fa-fw fa-chevron-down"></div>
+            </div>
+            <img ng-src="{{ edit.storefront.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive full-width vert-2">
+          </div>
+          <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;;">
+            <img ng-repeat="theme in edit.data.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setCarouselImage(theme.imgUrl)"/>
+            <li class="pad-10 text-left">
+              <i class="fa fa-2x fa-info-circle text-muted vert-2 pull-left"></i>
+              <div style="margin-left: 30px;">
+                You can upload your own images too once you've saved your store.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-5">
+      </div>
+    </div>
+    <!-- /EDITOR carousel image -->
+    <!-- EDITOR title -->
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Store title</label>
+      <div class="col-sm-3">
+        <input type="text" ng-model="edit.storefront.storefront_meta.home.name" class="form-control" placeholder="Store Title (optional or later)">
+      </div>
+    </div>
+    <div class="form-group vert-10">
+      <div class="col-sm-offset-3 col-sm-4">
+        <div class="inline-block">
+          <i class="fa fa-2x fa-info-circle text-muted vert-2 pull-left"></i>
+          <div style="margin-left: 30px;">
+            There are many more options once you've saved your store.
+          </div>
+        </div>
+        <hr>
+        Next:
+        <br>
+        <div ui-sref="catalog" class="btn btn-default">
+          Add Products
+        </div>
+        &nbsp;&nbsp;or&nbsp;&nbsp;
+        <div class="btn btn-default" ng-click="edit.save()">
+          <i class="fa fa-fw fa-save"></i>&nbsp;Save
+        </div>
+      </div>
+    </div>
+    <!-- /EDITOR title -->
+
+
+
+    <div class="full-width inline-block vert-50"></div>
+  </form>
+</div>
+<!-- /EDITOR -->

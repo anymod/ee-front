@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, eeAuth, eeLanding, eeStorefront) ->
+angular.module('builder.edit').controller 'editCtrl', ($scope, $state, eeAuth, eeLanding, eeStorefront) ->
 
   this.user = eeAuth.fns.landingUser()
 
@@ -20,6 +20,9 @@ angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, eeA
   this.setTheme = (theme) ->
     eeStorefront.fns.setTheme eeAuth.fns.landingUser(), theme
     $state.go 'edit'
+
+  this.hidePopover = () ->
+    eeLanding.fns.hidePopover 'editPopover'
 
   eeLanding.fns.showState $state.current.name
 

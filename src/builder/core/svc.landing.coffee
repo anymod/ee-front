@@ -10,49 +10,131 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
       content:                false
     store:
       content:                false
-      mainImage:              false
+      mainImage:              true
       carouselContent:        false
       products:               false
       footer:                 false
     editor:
       topBarColor:            true
       topBarBackgroundColor:  true
-      mainImage:              false
-      title:                  false
+      mainImage:              true
+      title:                  true
     catalog:
       content:                false
     popover:
+      editPopover:            true
       topBarColor:            false
       topBarBackgroundColor:  false
       mainImage:              false
       title:                  false
     finished:
-      topBarColor:            false
-      topBarBackgroundColor:  false
-      mainImage:              false
+      topBarColor:            true
+      topBarBackgroundColor:  true
+      mainImage:              true
       title:                  false
 
-  _images = [
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425249778/book_.jpg', # Book
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425249925/brick.jpg', # Brick
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250980/brdge.jpg', # Bridge
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250064/city_.jpg', # City
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250130/cffee.jpg', # Coffee
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250164/cncrt.jpg', # Concert
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_south,h_400,w_1200/v1425250332/dsert.jpg', # Desert
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250403/desk1.jpg', # Desk
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250486/desk2.jpg', # Desk 2
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250531/drops.jpg', # Drops
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_north,h_400,w_1200/v1427406804/ferns.jpg', # Ferns
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250595/fish_.jpg', # Fish
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250656/gldnl.jpg', # Golden Light
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250720/oroad.jpg', # Open Road
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425251056/orngs.jpg', # Oranges
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425251082/prplf.jpg', # Purple Flowers
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_north,h_400,w_1200/v1425251100/raspb.jpg', # Raspberries
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_north,h_400,w_1200/v1425251183/spdcr.jpg', # Speeding Cars
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425251208/tmsqr.jpg', # Times Square
-    'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425251226/wslbt.jpg' # Water and Sailboat
+  _demoStores = [
+    {
+      name: 'Book'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425249778/book_.jpg'
+      topBarBackgroundColor: '#fafce8'
+      topBarColor: '#321b01'
+    },{
+      name: 'Brick'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425249925/brick.jpg'
+      topBarBackgroundColor: '#824b4b'
+      topBarColor: '#ffffff'
+    },{
+      name: 'Bridge'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250980/brdge.jpg'
+      topBarBackgroundColor: '#e5cdb3'
+      topBarColor: '#1f1e1e'
+    },{
+      name: 'City'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250064/city_.jpg'
+      topBarBackgroundColor: '#fffae0'
+      topBarColor: '#000000'
+    },{
+      name: 'Coffee'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250130/cffee.jpg'
+      topBarBackgroundColor: '#c98a4f'
+      topBarColor: '#960000'
+    },{
+      name: 'Concert'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250164/cncrt.jpg'
+      topBarBackgroundColor: '#000000'
+      topBarColor: '#dbf1ff'
+    },{
+      name: 'Desert'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_south,h_400,w_1200/v1425250332/dsert.jpg'
+      topBarBackgroundColor: '#701600'
+      topBarColor: '#ffffff'
+    },{
+      name: 'Desk'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250403/desk1.jpg'
+      topBarBackgroundColor: '#dad8d8'
+      topBarColor: '#3d3d3d'
+    },{
+      name: 'Desk 2'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250486/desk2.jpg'
+      topBarBackgroundColor: '#321706'
+      topBarColor: '#ffffff'
+    },{
+      name: 'Drops'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250531/drops.jpg'
+      topBarBackgroundColor: '#291e34'
+      topBarColor: '#ffffff'
+    },{
+      name: 'Ferns'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_north,h_400,w_1200/v1425250561/ferns.jpg'
+      topBarBackgroundColor: '#123a2d'
+      topBarColor: '#f1eadf'
+    },{
+      name: 'Fish'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250595/fish_.jpg'
+      topBarBackgroundColor: '#eefcfb'
+      topBarColor: '#001a33'
+    },{
+      name: 'Golden Light'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250656/gldnl.jpg'
+      topBarBackgroundColor: '#291205'
+      topBarColor: '#fffdd6'
+    },{
+      name: 'Open Road'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250720/oroad.jpg'
+      topBarBackgroundColor: '#1a1e23'
+      topBarColor: '#ffffff'
+    },{
+      name: 'Oranges'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425251056/orngs.jpg'
+      topBarBackgroundColor: '#add8ff'
+      topBarColor: '#b34b05'
+    },{
+      name: 'Purple Flowers'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425251082/prplf.jpg'
+      topBarBackgroundColor: '#ebb8ff'
+      topBarColor: '#000000'
+    },{
+      name: 'Raspberries'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_north,h_400,w_1200/v1425251100/raspb.jpg'
+      topBarBackgroundColor: '#ffffff'
+      topBarColor: '#000000'
+    },{
+      name: 'Speeding Cars'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_north,h_400,w_1200/v1425251183/spdcr.jpg'
+      topBarBackgroundColor: '#242323'
+      topBarColor: '#e6d5d1'
+    },{
+      name: 'Times Square'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425251208/tmsqr.jpg'
+      topBarBackgroundColor: '#de423a'
+      topBarColor: '#f2f3f1'
+    },{
+      name: 'Water and Sailboat'
+      imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425251226/wslbt.jpg'
+      topBarBackgroundColor: '#a80000'
+      topBarColor: '#ffffff'
+    }
   ]
 
   # Fisher–Yates shuffle algorithm
@@ -70,51 +152,47 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
   ## PRIVATE EXPORT DEFAULTS
   _show = _showDefaults
   _data =
-    defaultImages: _shuffleArray _images
+    demoStores: _shuffleArray _demoStores
 
   ## PRIVATE FUNCTIONS
   _reset = () -> _show = _showDefaults
 
   ## Landing
-  _showLanding = () -> _show.landing.content = true
-  _hideLanding = () -> _show.landing.content = false
+  _showLanding  = () -> _show.landing.content = true
+  _hideLanding  = () -> _show.landing.content = false
 
   ## Example
-  _showExample = () -> _show.example.content = true
-  _hideExample = () -> _show.example.content = false
+  _showExample  = () -> _show.example.content = true
+  _hideExample  = () -> _show.example.content = false
 
   ## Store
-  _showStore   = () -> _show.store.content   = true
-  _hideStore   = () -> _show.store.content   = false
+  _showStore    = () -> _show.store.content   = true
+  _hideStore    = () -> _show.store.content   = false
 
   ## Editor
-  _showEditor  = () ->
-    _show.editor.content                  = true
-    if !_show.finished?.topBarBackgroundColor
-      _showPopover 'topBarBackgroundColor'
-      _show.editor.topBarColor            = false
-  _hideEditor = () -> _show.editor.content = false
+  _showEditor   = () -> _show.editor.content  = true
+  _hideEditor   = () -> _show.editor.content  = false
 
   ## Catalog
-  _showCatalog   = () -> _show.catalog.content = true
-  _hideCatalog   = () -> _show.catalog.content = false
+  _showCatalog  = () -> _show.catalog.content = true
+  _hideCatalog  = () -> _show.catalog.content = false
 
   ## Popover
-  _showPopover = (name) -> _show.popover[name] = true
-  _hidePopover = (name) -> _show.popover[name] = false
+  _showPopover  = (name) -> _show.popover[name] = true
+  _hidePopover  = (name) -> _show.popover[name] = false
   _hidePopovers = (ary) -> _hidePopover name for name in ary
 
-  $rootScope.$on 'colorpicker-closed', (e, data) ->
-    _show.editor.topBarColor = true
-    if !_show.finished?.topBarBackgroundColor and data.name is 'landing.storefront.storefront_meta.home.topBarBackgroundColor'
-      _show.finished.topBarBackgroundColor = true
-      _showPopover 'topBarColor'
-      $rootScope.$apply()
-    if !_show.finished?.topBarColor and data.name is 'landing.storefront.storefront_meta.home.topBarColor'
-      _show.finished.topBarColor  = true
-      _show.editor.mainImage      = true
-      _hidePopover 'topBarColor'
-      $rootScope.$apply()
+  # $rootScope.$on 'colorpicker-closed', (e, data) ->
+  #   _show.editor.topBarColor = true
+  #   if !_show.finished?.topBarBackgroundColor and data.name is 'landing.storefront.storefront_meta.home.topBarBackgroundColor'
+  #     _show.finished.topBarBackgroundColor = true
+  #     _showPopover 'topBarColor'
+  #     $rootScope.$apply()
+  #   if !_show.finished?.topBarColor and data.name is 'landing.storefront.storefront_meta.home.topBarColor'
+  #     _show.finished.topBarColor  = true
+  #     _show.editor.mainImage      = true
+  #     _hidePopover 'topBarColor'
+  #     $rootScope.$apply()
 
   ## Other
   _scrollTop = () ->
@@ -127,17 +205,17 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
     _show.editor.alert = true
 
   _startCatalog = () ->
-    _hideLanding()
-    $rootScope.pin.bottom = false
-    _show.store.mainImage = false
-    showStoreProducts = () ->
-      _show.store.products = true
-      _showCatalog()
-    $timeout showStoreProducts, 200
-    _hideExample()
-    _hideEditor()
-    _showStore()
-    _scrollTop()
+    # _hideLanding()
+    # # $rootScope.pin.bottom = false
+    # _show.store.mainImage = false
+    # showStoreProducts = () ->
+    #   _show.store.products = true
+    #   _showCatalog()
+    # $timeout showStoreProducts, 200
+    # _hideExample()
+    # _hideEditor()
+    # _showStore()
+    # _scrollTop()
 
   _landingState = () ->
     _showLanding()
@@ -146,7 +224,14 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
     _hideEditor()
     _scrollTop()
 
-  _tryState = () ->
+  _themeState = () ->
+    _hideLanding()
+    _hideExample()
+    _hideStore()
+    _hideEditor()
+    _scrollTop()
+
+  _editState = () ->
     _hideLanding()
     _hideExample()
     _showStore()
@@ -167,11 +252,8 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
     reset:        () -> _reset()
     showState:    (name) ->
       if name is 'landing' then $timeout _landingState, 100
-      if name is 'try'
-        if _show.store.products
-          _show.store.mainImage = true
-          _show.store.products  = false
-        $timeout _tryState, 200
+      if name is 'theme' then $timeout _themeState, 200
+      if name is 'edit' then _editState()
       if name is 'example' then $timeout _exampleState, 200
 
     showPopover: (name) -> _showPopover name

@@ -113,6 +113,10 @@ sources.builderModule = [
   './src/builder/example/example.module.coffee'
   './src/builder/example/example.route.coffee'
   './src/builder/example/example.controller.coffee'
+  # Module - edit
+  './src/builder/edit/edit.module.coffee'
+  './src/builder/edit/edit.route.coffee'
+  './src/builder/edit/edit.controller.coffee'
   # Module - about
   # './src/builder/about/about.module.coffee'
   # './src/builder/about/about.route.coffee'
@@ -160,6 +164,7 @@ sources.builderDirective = [
   './src/components/ee-terms-seller.coffee'
   './src/components/ee-terms-privacy.coffee'
   './src/components/ee-navbar.coffee'
+  './src/components/ee-navbar-main.coffee'
   './src/components/ee-product.coffee'
   './src/components/ee-save.coffee'
   './src/components/ee-offscreen-toggle.coffee'
@@ -175,7 +180,7 @@ sources.builderDirective = [
   './src/components/ee-image-preload.coffee'
   './src/components/ee-storefront-header.coffee'
   './src/components/ee-storefront-footer.coffee'
-  './src/components/ee-scroller.coffee'
+  # './src/components/ee-scroller.coffee'
   './src/components/ee-scroll-to-top.coffee'
 ]
 sources.storeDirective = [

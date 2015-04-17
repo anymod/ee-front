@@ -7,11 +7,16 @@ angular.module('builder.catalog').config ($stateProvider) ->
       url: '/catalog'
       # resolve: user: (eeAuth) -> eeAuth.userFromToken()
       views:
+        header:
+          controller: 'catalogCtrl as catalog'
+          templateUrl: 'builder/catalog/catalog.header.html'
         top:
-          controller: 'landingCtrl as landing'
-          templateUrl: 'builder/landing/landing.html'
-        bottom:
+          controller: 'storefrontCtrl as storefront'
+          templateUrl: 'app/storefront/storefront.home.products.html'
+        middle:
           controller: 'catalogCtrl as catalog'
           templateUrl: 'builder/catalog/catalog.html'
       data:
         pageTitle:     'Add products | eeosk'
+        pageDescription:  'Choose products to add to your store.'
+        padTop: '85px'

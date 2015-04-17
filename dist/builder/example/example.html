@@ -2,7 +2,8 @@
      class="position-relative overflow-hidden transition-200"
      ng-class="example.show.example.content ? 'max-height-2400' : 'max-height-0'">
   <ee-storefront-header user="example.user"></ee-storefront-header>
-  <div ng-include="'app/storefront/storefront.home.html'"></div>
+  <div ng-include="'app/storefront/storefront.home.carousel.html'"></div>
+  <div ng-include="'app/storefront/storefront.home.products.html'"></div>
   <ee-storefront-footer user="example.user"></ee-storefront-footer>
 
   <div class="full-width inline-block vert-20 gray-background"></div>
@@ -12,7 +13,7 @@
       <div class="well white-background max-width-300 margin-0-auto">
         This is just a demo store. You can build your own one like it (or better)
         <hr>
-        <div ui-sref="try" class="btn btn-primary">Try building yours</div>
+        <div ui-sref="theme" class="btn btn-primary">Try building yours</div>
         <div class="btn btn-link">No thanks</div>
       </div>
     </div>

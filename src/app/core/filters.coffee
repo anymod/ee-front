@@ -29,6 +29,13 @@ angular.module('app.core').filter 'mainImg', () ->
     else
       url
 
+angular.module('app.core').filter 'scaledDownBackground', () ->
+  (url) ->
+    if !!url and url.indexOf("h_400,w_1200") > -1
+      url.replace('h_400,w_1200', 'h_133,w_400')
+    else
+      url
+
 angular.module('app.core').filter 'urlText', () ->
   (text) -> text.replace(/[^a-zA-Z0-9-]|^-/gi, '').toLowerCase()
 

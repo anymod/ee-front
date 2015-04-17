@@ -1,0 +1,15 @@
+<nav class="navbar navbar-default main-navbar navbar-fixed-top margin-0 round-0 no-side-border"
+     style="min-height: 30px;">
+  <div class="container-fluid pad-5">
+    <div ui-sref="storefront" class="btn btn-sm btn-default" ng-class="{ active: state == 'storefront' }">Preview</div>
+    &nbsp;
+    <div ui-sref="edit" class="btn btn-sm btn-default" ng-class="{ active: state == 'edit' }">Edit</div>
+    &nbsp;
+    <div ui-sref="catalog" class="btn btn-sm btn-default" ng-class="{ active: state == 'catalog' }">Add Products</div>
+    <div class="pull-right">
+      <div class="btn btn-sm btn-primary" ng-click="save()">
+        <i class="fa fa-save"></i>&nbsp;&nbsp;Save
+      </div>
+    </div>
+  </div>
+</nav>

@@ -24,11 +24,13 @@ angular.module 'eeBuilder', [
   'builder.orders'
   'builder.account'
   'builder.example'
+  'builder.edit'
 
   # custom
   'ee-terms-seller'
   'ee-terms-privacy'
   'ee-navbar'
+  'ee-navbar-main'
   'ee-save'
   'ee-product'
   'ee-order'
@@ -36,6 +38,5 @@ angular.module 'eeBuilder', [
   'ee-image-preload'
   'ee-storefront-header'
   'ee-storefront-footer'
-  'ee-scroller'
   # 'ee.templates' # commented out during build step for inline templates
 ]

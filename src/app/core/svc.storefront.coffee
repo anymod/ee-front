@@ -83,3 +83,9 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBa
       _defineData()
 
     inStorefront: (id) -> _inStorefront id
+
+    setTheme: (user, theme) ->
+      user.storefront_meta.home.topBarColor = theme.topBarColor
+      user.storefront_meta.home.topBarBackgroundColor = theme.topBarBackgroundColor
+      user.storefront_meta.home.carousel[0].imgUrl = theme.imgUrl
+      return

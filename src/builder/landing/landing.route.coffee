@@ -15,17 +15,17 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
         pageTitle:        'Online store builder, ecommerce storefront, dropship product catalog | eeosk'
         pageDescription:  'Create an online store from a catalog of products.'
 
-    .state 'try',
-      url: '/try'
+    .state 'theme',
+      url: '/choose-theme'
       views:
         top:
-          controller: 'exampleCtrl as example'
-          templateUrl: 'builder/example/example.html'
-        bottom:
           controller: 'landingCtrl as landing'
           templateUrl: 'builder/landing/landing.html'
+        bottom:
+          controller: 'landingCtrl as landing'
+          templateUrl: 'builder/landing/landing.theme.html'
       data:
-        pageTitle:        'Try it out: build your online store | eeosk'
-        pageDescription:  'Start building your own online store.'
+        pageTitle:        'Choose a theme for your store | eeosk'
+        pageDescription:  'Start building your store by choosing a theme (you can edit it next).'
 
   return
