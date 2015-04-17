@@ -7,14 +7,12 @@ angular.module('builder.auth').controller 'signupCtrl', ($scope, $state, $filter
   resetBtnText  = ()    -> setBtnText 'Create your store'
   resetBtnText()
 
-  # $scope.alert = 'eeosk is currently in private beta and will open to the public soon'
-  # setBtnText 'Coming soon...'
-
   $scope.signup = () ->
+    if $scope.email isnt $scope.email_check then $scope.alert = "Emails don't match"; return
     $scope.alert = undefined
     setBtnText 'Sending...'
 
-    eeAuth.fns.createUserFromSignup($scope.email, $scope.password, $scope.username)
+    eeAuth.fns.createUserFromSignup $scope.email, $scope.password
     .then (data) -> $state.go 'storefront.home'
     .catch (err) ->
       resetBtnText()
@@ -23,5 +21,7 @@ angular.module('builder.auth').controller 'signupCtrl', ($scope, $state, $filter
 
   $scope.$watch 'username', (newVal, oldVal) ->
     if !!newVal then $scope.username = $filter('urlText')(newVal)
+
+  $scope.openTerms = () -> eeAuth.fns.openSellerTermsModal()
 
   return

@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorScroll, $timeout) ->
+angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorScroll, $timeout, $modal) ->
 
   ## SETUP
   _showDefaults =
@@ -252,8 +252,8 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
     reset:        () -> _reset()
     showState:    (name) ->
       if name is 'landing' then $timeout _landingState, 100
-      if name is 'theme' then $timeout _themeState, 200
-      if name is 'edit' then _editState()
+      if name is 'try-theme' then $timeout _themeState, 200
+      if name is 'try-edit' then _editState()
       if name is 'example' then $timeout _exampleState, 200
 
     showPopover: (name) -> _showPopover name
@@ -283,3 +283,12 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
         availability_meta:  product.availability_meta
         category:           product.category
       }
+
+    openExampleModal: () ->
+      $modal.open({
+        templateUrl: 'builder/example/example.modal.html'
+        backdropClass: 'white-background opacity-08'
+        # controller: 'termsModalCtrl'
+        # controllerAs: 'modal'
+        size: 'sm'
+      })

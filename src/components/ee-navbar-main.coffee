@@ -5,6 +5,6 @@ angular.module('ee-navbar-main').directive "eeNavbarMain", ($state, eeAuth) ->
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) ->
-    scope.state = $state.current.name
-    scope.save = () -> eeAuth.fns.openSignupModal()
+    scope.state       = $state.current.name
+    scope.save        = eeAuth.fns.saveOrSignup
     return

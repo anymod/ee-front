@@ -8,15 +8,5 @@
 
   <div class="full-width inline-block vert-20 gray-background"></div>
 
-  <div ng-click="example.toggleBlock(example.show)" class="position-absolute top-left-bottom-right-0 hover-pointer text-center">
-    <div ng-show="example.show.tryout" class="position-absolute full-width" style="top: 180px; z-index: 10">
-      <div class="well white-background max-width-300 margin-0-auto">
-        This is just a demo store. You can build your own one like it (or better)
-        <hr>
-        <div ui-sref="theme" class="btn btn-primary">Try building yours</div>
-        <div class="btn btn-link">No thanks</div>
-      </div>
-    </div>
-    <div class="position-absolute top-left-bottom-right-0 opacity-08 white-background" ng-show="example.show.tryout"></div>
-  </div>
+  <div ng-click="example.openExampleModal()" class="position-absolute top-left-bottom-right-0 hover-pointer"></div>
 </div>

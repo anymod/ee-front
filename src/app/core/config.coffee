@@ -21,4 +21,5 @@ angular.module('app.core').config ($locationProvider, $stateProvider, $urlRouter
       controller: 'examplesCtrl'
 
   $urlRouterProvider.otherwise '/'
+
   return

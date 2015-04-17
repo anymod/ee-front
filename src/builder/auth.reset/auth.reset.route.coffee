@@ -4,7 +4,7 @@ angular.module('builder.auth').config ($stateProvider) ->
 
   $stateProvider
     .state 'reset',
-      url: '/password-reset'
+      url: '/reset-password'
       views:
         top:
           controller: 'resetCtrl'

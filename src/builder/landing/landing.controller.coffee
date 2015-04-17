@@ -10,6 +10,7 @@ angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, eeA
   this.show = eeLanding.show
   this.data = eeLanding.data
   this.fns  = eeLanding.fns
+  this.authFns = eeAuth.fns
 
   this.product_selection  = eeStorefront.product_selection
   this.setCarouselImage   = (imgUrl) ->
@@ -19,7 +20,7 @@ angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, eeA
 
   this.setTheme = (theme) ->
     eeStorefront.fns.setTheme eeAuth.fns.landingUser(), theme
-    $state.go 'edit'
+    $state.go 'try-edit'
 
   eeLanding.fns.showState $state.current.name
 

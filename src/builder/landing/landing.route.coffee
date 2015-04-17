@@ -10,13 +10,14 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
           controller: 'landingCtrl as landing'
           templateUrl: 'builder/landing/landing.html'
         footer:
+          controller: 'landingCtrl as landing'
           templateUrl: 'builder/landing/landing.footer.html'
       data:
         pageTitle:        'Online store builder, ecommerce storefront, dropship product catalog | eeosk'
         pageDescription:  'Create an online store from a catalog of products.'
 
-    .state 'theme',
-      url: '/choose-theme'
+    .state 'try-theme',
+      url: '/try/choose-theme'
       views:
         top:
           controller: 'landingCtrl as landing'

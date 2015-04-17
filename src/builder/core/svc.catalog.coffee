@@ -25,9 +25,6 @@ angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $loca
       'Outdoor'
       'Pet Supplies'
     ]
-
-
-
     rangeArray: [
       { min: 0,     max: 2500   },
       { min: 2500,  max: 5000   },

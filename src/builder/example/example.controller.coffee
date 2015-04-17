@@ -1,15 +1,11 @@
 'use strict'
 
-angular.module('builder.example').controller 'exampleCtrl', ($scope, $rootScope, $location, $anchorScroll, $timeout, eeLanding) ->
+angular.module('builder.example').controller 'exampleCtrl', ($scope, eeLanding) ->
 
   this.show = eeLanding.show
 
-  this.toggleBlock = (shw) ->
-    $location.hash 'example-top'
-    $anchorScroll()
-    # Remove hash in url
-    $location.url $location.path()
-    shw.tryout = !shw.tryout
+  this.openExampleModal = () ->
+    eeLanding.fns.openExampleModal()
     return
 
   this.user =

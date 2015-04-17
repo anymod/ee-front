@@ -4,6 +4,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
 
   ## SETUP
   _userDefaults =
+    landing: true
     storefront_meta:
       home:
         name: ''
@@ -19,17 +20,19 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
           twitter:    'twitter'
           instagram:  'instagram'
 
+  _fetching = false
+
   ## PRIVATE EXPORT DEFAULTS
   _user = {}
 
   ## PRIVATE FUNCTIONS
-  _userIsSaved = true
-  _userLastSet = Date.now()
-  _userIsEmpty = () -> Object.keys(_user).length is 0
+  _userIsSaved  = true
+  _userLastSet  = Date.now()
+  _userIsEmpty  = () -> Object.keys(_user).length is 0
 
   _setUser = (u) ->
-    _user = u
-    $rootScope.$broadcast 'auth:user:updated', _user
+    assignKey = (k) -> _user[k] = u[k]
+    assignKey key for key in Object.keys u
 
   _resetUser = () ->
     $cookieStore.remove 'loginToken'
@@ -37,6 +40,8 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
 
   _getUser = (opts) ->
     deferred = $q.defer()
+    if _fetching then return _fetching
+    _fetching = deferred
     if !$cookies.loginToken
       _resetUser()
       deferred.reject 'Missing login credentials'
@@ -56,6 +61,28 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
         deferred.reject err
     deferred.promise
 
+  _defineUser = () ->
+    deferred = $q.defer()
+    if !_userIsEmpty() then deferred.resolve _user
+    if _fetching then deferred = _fetching
+    if !_fetching and $cookies.loginToken
+      _getUser().then (data) -> deferred.resolve data
+    else
+      _user.storefront_meta = _userDefaults.storefront_meta
+      deferred.resolve _user
+    deferred.promise
+
+  _saveUser = () -> eeBack.usersPUT(_user, $cookies.loginToken)
+
+  _openSignupModal = () ->
+    $modal.open({
+      templateUrl: 'builder/auth.signup/auth.signup.modal.html'
+      backdropClass: 'white-background opacity-08'
+      controller: 'signupCtrl'
+      controllerAs: 'modal'
+      size: 'sm'
+    })
+
   ## EXPORTS
   user: _user
   fns:
@@ -69,7 +96,10 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .then (user) -> user.username
       .catch (err) -> console.error err
 
-    saveUser: ()  -> eeBack.usersPUT(_user, $cookies.loginToken)
+    defineUser: () -> _defineUser()
+
+    saveUser: ()  -> _saveUser()
+    saveOrSignup: () -> if _user.landing then _openSignupModal() else _saveUser()
 
     setUserIsSaved: (bool) -> _userIsSaved = bool
     userIsSaved: () -> _userIsSaved
@@ -139,13 +169,26 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       deferred.promise
 
     landingUser: () ->
-      if _userIsEmpty() then _user.storefront_meta = _userDefaults.storefront_meta
+      if _userIsEmpty()
+        _user.storefront_meta = _userDefaults.storefront_meta
+        _user.landing         = _userDefaults.landing
       _user
 
-    openSignupModal: () ->
+    openSignupModal: () -> _openSignupModal()
+
+    # TODO create terms or other service for these
+    openSellerTermsModal: () ->
       $modal.open({
-        templateUrl: 'builder/auth.signup/auth.signup.modal.html'
+        templateUrl: 'builder/terms/terms.modal.html'
         backdropClass: 'white-background opacity-08'
-        controller: 'signupCtrl'
+        controller: 'termsModalCtrl'
+        controllerAs: 'modal'
+      })
+
+    openPrivacyPolicyModal: () ->
+      $modal.open({
+        templateUrl: 'builder/terms/terms.modal.privacy.html'
+        backdropClass: 'white-background opacity-08'
+        controller: 'termsModalCtrl'
         controllerAs: 'modal'
       })

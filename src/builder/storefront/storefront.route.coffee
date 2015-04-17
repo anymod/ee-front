@@ -2,29 +2,38 @@
 
 angular.module('builder.storefront').config ($stateProvider) ->
 
+  views =
+    header:
+      controller: 'storefrontCtrl as storefront'
+      templateUrl: 'builder/storefront/storefront.header.html'
+    top:
+      controller: 'storefrontCtrl as storefront'
+      templateUrl: 'app/storefront/storefront.home.carousel.html'
+    middle:
+      controller: 'storefrontCtrl as storefront'
+      templateUrl: 'app/storefront/storefront.home.products.html'
+    bottom:
+      controller: 'storefrontCtrl as storefront'
+      templateUrl: 'builder/storefront/storefront.add.html'
+    footer:
+      controller: 'storefrontCtrl as storefront'
+      templateUrl: 'app/storefront/storefront.footer.html'
+
+  data =
+    pageTitle:        'Add products | eeosk'
+    pageDescription:  'Choose products to add to your store.'
+    padTop:           '85px'
+
   $stateProvider
+    .state 'try-storefront',
+      url: '/try/storefront'
+      views: views
+      data: data
+
     .state 'storefront',
       url: '/storefront'
-      views:
-        header:
-          controller: 'storefrontCtrl as storefront'
-          templateUrl: 'builder/storefront/storefront.header.html'
-        top:
-          controller: 'storefrontCtrl as storefront'
-          templateUrl: 'app/storefront/storefront.home.carousel.html'
-        middle:
-          controller: 'storefrontCtrl as storefront'
-          templateUrl: 'app/storefront/storefront.home.products.html'
-        bottom:
-          controller: 'storefrontCtrl as storefront'
-          templateUrl: 'builder/storefront/storefront.add.html'
-        footer:
-          controller: 'storefrontCtrl as storefront'
-          templateUrl: 'app/storefront/storefront.footer.html'
-      data:
-        pageTitle:     'Add products | eeosk'
-        pageDescription:  'Choose products to add to your store.'
-        padTop: '85px'
+      views: views
+      data: data
 
 
 
