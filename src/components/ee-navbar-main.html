@@ -1,14 +1,23 @@
 <nav class="navbar navbar-default main-navbar navbar-fixed-top margin-0 round-0 no-side-border"
      style="min-height: 30px;">
   <div class="container-fluid pad-5">
-    <a ui-sref="storefront" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('storefront') > -1 }">Preview</a>
-    &nbsp;
-    <a ui-sref="edit" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('edit') > -1 }">Edit</a>
-    &nbsp;
-    <a ui-sref="catalog" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('catalog') > -1 }">Add Products</a>
+    <a ui-sref="storefront" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('storefront') > -1 }">Preview</a>&nbsp;<a ui-sref="edit" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('edit') > -1 }">Edit</a>&nbsp;<a ui-sref="catalog" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('catalog') > -1 }">Add Products</a>
     <div class="pull-right">
-      <div class="btn btn-sm btn-primary" ng-click="save()">
-        <i class="fa fa-save"></i>&nbsp;&nbsp;Save
+      <div ng-show="isSignedIn" class="btn-group" dropdown is-open="status.isopen">
+        <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+          <span class="hidden-xs">More&nbsp;</span><span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" style="left: auto; right: 0;">
+          <li><a ui-sref="orders"><i class="fa fa-fw fa-globe"></i>&nbsp;&nbsp;Live Store</a></li>
+          <li class="divider"></li>
+          <li><a ui-sref="orders"><i class="fa fa-fw fa-list"></i>&nbsp;&nbsp;Orders</a></li>
+          <li><a ui-sref="account"><i class="fa fa-fw fa-gear"></i>&nbsp;&nbsp;Account Settings</a></li>
+          <!-- TODO add payment settings and notification settings -->
+          <li class="divider"></li>
+          <li><a ui-sref="logout"><i class="fa fa-fw fa-sign-out"></i>&nbsp;&nbsp;Logout</a></li>
+        </ul>
+      </div>&nbsp;<div class="btn btn-sm btn-primary" ng-click="save()">
+        <i class="fa fa-save"></i>&nbsp;Save
       </div>
     </div>
   </div>

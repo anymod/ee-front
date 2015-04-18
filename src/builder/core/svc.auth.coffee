@@ -21,6 +21,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
 
   _fetching = false
   _landing  = true
+  _signedIn = false
 
   ## PRIVATE EXPORT DEFAULTS
   _user = {}
@@ -36,11 +37,13 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
     _user
 
   _defineAsLanding = () ->
-    _landing = true
+    _landing  = true
+    _signedIn = false
     _setUser _userDefaults
 
   _resetUser = () ->
     $cookieStore.remove 'loginToken'
+    _signedIn = false
     _setUser {}
 
   _getUser = (opts) ->
@@ -57,6 +60,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .then (data) ->
         if !!data.username
           _setUser data
+          _signedIn = true
           deferred.resolve data
         else
           _resetUser()
@@ -65,16 +69,6 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
         _resetUser()
         deferred.reject err
       .finally () -> _landing = false
-    deferred.promise
-
-  _defineUser = () ->
-    deferred = $q.defer()
-    if !_userIsEmpty() then deferred.resolve _user
-    if _fetching then deferred = _fetching
-    if !_fetching and $cookies.loginToken
-      _getUser().then (data) -> deferred.resolve data
-    else
-      _defineAsLanding()
     deferred.promise
 
   _getOrSetUser = () ->
@@ -101,6 +95,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
     reset:        () -> _resetUser()
     getOrSetUser: () -> _getOrSetUser()
     isLanding:    () -> _landing
+    isSignedIn:   () -> _signedIn
 
 
     getToken: ()  -> $cookies.loginToken
@@ -110,8 +105,6 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       _getUser()
       .then (user) -> user.username
       .catch (err) -> console.error err
-
-    defineUser: () -> _defineUser()
 
     saveUser: ()  -> _saveUser()
     saveOrSignup: () -> if _user.landing then _openSignupModal() else _saveUser()
