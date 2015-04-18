@@ -68,8 +68,8 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBa
     setCategories: () -> _data.categories = _getCategories _storefront.storefront_meta
     getStorefront: (force) -> _getStorefront(force)
 
-    setCarouselImage: (user, imgUrl) ->
-      user.storefront_meta.home.carousel[0].imgUrl = imgUrl
+    setCarouselImage: (user, imgUrl) -> user.storefront_meta.home.carousel[0].imgUrl = imgUrl
+    setAboutImage:    (user, imgUrl) -> user.storefront_meta.about.imgUrl = imgUrl
 
     addDummyProduct: (product) ->
       if !product.calculated then console.error('Problem adding dummy product'); return

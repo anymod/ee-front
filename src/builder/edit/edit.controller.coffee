@@ -1,24 +1,28 @@
 'use strict'
 
-angular.module('builder.edit').controller 'editCtrl', ($scope, $state, eeAuth, eeLanding, eeStorefront) ->
+angular.module('builder.edit').controller 'editCtrl', ($scope, $state, user, eeAuth, eeLanding, eeStorefront) ->
 
-  this.user = eeAuth.fns.landingUser()
+  this.user = user
 
   this.storefront = eeStorefront.storefront
+  this.categories = eeStorefront.data.categories
   this.storefront.storefront_meta = this.user.storefront_meta
 
-  this.show = eeLanding.show
-  this.data = eeLanding.data
-  this.fns  = eeLanding.fns
+  this.show       = eeLanding.show
+  this.data       = eeLanding.data
+  this.fns        = eeLanding.fns
+  this.isLanding  = eeAuth.fns.isLanding()
 
   this.product_selection  = eeStorefront.product_selection
-  this.setCarouselImage   = (imgUrl) ->
+  this.setCarouselImage   = (imgUrl) =>
     eeStorefront.fns.setCarouselImage this.user, imgUrl
     eeLanding.fns.showCarouselImage imgUrl
+  this.setAboutImage   = (imgUrl) =>
+    eeStorefront.fns.setAboutImage this.user, imgUrl
   this.save = () -> eeAuth.fns.openSignupModal()
 
-  this.setTheme = (theme) ->
-    eeStorefront.fns.setTheme eeAuth.fns.landingUser(), theme
+  this.setTheme = (theme) =>
+    eeStorefront.fns.setTheme this.user, theme
     $state.go 'edit'
 
   this.hidePopover = () ->

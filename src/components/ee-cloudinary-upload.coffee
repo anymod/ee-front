@@ -9,7 +9,7 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", (eeAuth) -
   link: (scope, element, attrs) ->
     form = element
 
-    eeAuth.userFromToken()
+    eeAuth.fns.getOrSetUser()
     .then (user) ->
       scope.user = user
       username = user.username

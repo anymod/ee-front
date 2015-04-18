@@ -1,8 +1,8 @@
 'use strict'
 
-angular.module('builder.catalog').controller 'catalogCtrl', (eeAuth, eeLanding, eeProduct, eeStorefront, eeCatalog) ->
+angular.module('builder.catalog').controller 'catalogCtrl', (user, eeAuth, eeLanding, eeProduct, eeStorefront, eeCatalog) ->
 
-  this.user       = eeAuth.fns.landingUser()
+  this.user       = user
 
   this.data       = eeCatalog.data
   this.fns        = eeCatalog.fns

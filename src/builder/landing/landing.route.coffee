@@ -15,6 +15,8 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
       data:
         pageTitle:        'Online store builder, ecommerce storefront, dropship product catalog | eeosk'
         pageDescription:  'Create an online store from a catalog of products.'
+      resolve:
+        user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
     .state 'try-theme',
       url: '/try/choose-theme'
@@ -28,5 +30,7 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
       data:
         pageTitle:        'Choose a theme for your store | eeosk'
         pageDescription:  'Start building your store by choosing a theme (you can edit it next).'
+      resolve:
+        user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
   return

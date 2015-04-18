@@ -1,7 +1,7 @@
 <!-- EDITOR -->
 <div class="full-width pad-10 min-height-600">
   <!-- POPOVER -->
-  <div class="row" ng-show="edit.show.popover.editPopover">
+  <div class="row" ng-show="edit.isLanding && edit.show.popover.editPopover">
     <div class="col-sm-offset-3 col-sm-6">
       <div class="position-relative">
         <div class="popover popover-primary top in inline-block full-width max-width-300" style="top: -100px;">
@@ -43,7 +43,12 @@
     <!-- /EDITOR top bar colors -->
     <!-- EDITOR carousel image -->
     <div ng-show="edit.show.editor.mainImage" class="form-group vert-2">
-      <label class="col-sm-3 control-label">Main image</label>
+      <label class="col-sm-3 control-label">
+        Main image
+        <div ng-hide="edit.isLanding" ng-click="showUpload = !showUpload">
+          <div class="btn btn-sm btn-link pad-0">Upload</div>
+        </div>
+      </label>
       <div class="col-sm-4">
         <div class="position-relative" dropdown>
           <div class="hover-pointer position-relative" dropdown-toggle>
@@ -53,9 +58,9 @@
             </div>
             <img ng-src="{{ edit.storefront.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive full-width vert-2">
           </div>
-          <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;;">
+          <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;">
             <img ng-repeat="theme in edit.data.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setCarouselImage(theme.imgUrl)"/>
-            <li class="pad-10 text-left">
+            <li ng-if="isLanding" class="pad-10 text-left">
               <i class="fa fa-2x fa-info-circle text-muted vert-2 pull-left"></i>
               <div style="margin-left: 30px;">
                 You can upload your own images too once you've saved your store.
@@ -63,8 +68,13 @@
             </li>
           </ul>
         </div>
-      </div>
-      <div class="col-sm-5">
+        <div ng-if="!isLanding" ng-show="showUpload" class="vert-5 text-left">
+          <a href="https://unsplash.com/grid" target="_blank" class="pull-right">
+            <small>Free images <i class="fa fa-fw fa-external-link"></i></small>
+          </a>
+          <h5 class="margin-0">Upload an image&nbsp;<small>1200x400px</small></h5>
+          <ee-cloudinary-upload attr-target="'carousel'"></ee-cloudinary-upload>
+        </div>
       </div>
     </div>
     <!-- /EDITOR carousel image -->
@@ -75,7 +85,9 @@
         <input type="text" ng-model="edit.storefront.storefront_meta.home.name" class="form-control" placeholder="Store Title (optional or later)">
       </div>
     </div>
-    <div class="form-group vert-10">
+    <!-- /EDITOR title -->
+    <!-- EDITOR logged out -->
+    <div ng-show="edit.isLanding" class="form-group vert-10">
       <div class="col-sm-offset-3 col-sm-4">
         <div class="inline-block">
           <i class="fa fa-2x fa-info-circle text-muted vert-2 pull-left"></i>
@@ -95,8 +107,146 @@
         </div>
       </div>
     </div>
-    <!-- /EDITOR title -->
+    <!-- /EDITOR logged out -->
+    <!-- EDITOR logged in -->
+    <div ng-hide="edit.isLanding">
+      <!-- EDITOR carousel info -->
+      <div class="form-group vert-5">
+        <label class="col-sm-3 control-label">Headline</label>
+        <div class="col-sm-3">
+          <input type="text" ng-model="edit.storefront.storefront_meta.home.carousel[0].headline" class="form-control" placeholder="Headline">
+        </div>
+        <div class="col-sm-2">
+          <div class="btn-group btn-group-justified"
+               ng-show="!!edit.storefront.storefront_meta.home.carousel[0].headline || !!edit.storefront.storefront_meta.home.carousel[0].byline || !!edit.storefront.storefront_meta.home.carousel[0].btnText">
+            <div class="btn btn-default btn-sm" ng-model="edit.storefront.storefront_meta.home.carousel[0].btnPosition" btn-radio="'left'"><i class="fa fa-align-left"></i></div>
+            <div class="btn btn-default btn-sm" ng-model="edit.storefront.storefront_meta.home.carousel[0].btnPosition" btn-radio="'middle'"><i class="fa fa-align-center"></i></div>
+            <div class="btn btn-default btn-sm" ng-model="edit.storefront.storefront_meta.home.carousel[0].btnPosition" btn-radio="'right'"><i class="fa fa-align-right"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group vert-5">
+        <label class="col-sm-3 control-label">Byline</label>
+        <div class="col-sm-3">
+          <input type="text" ng-model="edit.storefront.storefront_meta.home.carousel[0].byline" class="form-control" placeholder="Byline">
+        </div>
+      </div>
+      <div class="form-group vert-5">
+        <label class="col-sm-3 control-label">Headline button</label>
+        <div class="col-sm-3">
+          <input type="text" ng-model="edit.storefront.storefront_meta.home.carousel[0].btnText" class="form-control" placeholder="Button text">
+        </div>
+        <div class="col-sm-2">
+          <div ng-show="!!edit.storefront.storefront_meta.home.carousel[0].btnText">
+            <select class="form-control" ng-model="edit.storefront.storefront_meta.home.carousel[0].linkCategory">
+              <option ng-repeat="category in edit.categories">{{ category }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
+      <div class="form-group margin-0">
+        <div class="col-sm-offset-3 col-sm-5">
+          <hr class="vert-10">
+        </div>
+      </div>
+
+      <div class="form-group vert-5">
+        <label class="col-sm-3 control-label">Blog</label>
+        <div class="col-sm-3">
+          <div class="input-group margin-0">
+            <span class="input-group-addon"><i class="fa fa-fw fa-link"></i></span>
+            <input type="text" class="form-control" placeholder="http://" ng-model="edit.storefront.storefront_meta.blog.url">
+          </div>
+        </div>
+      </div>
+      <div class="form-group vert-5">
+        <label class="col-sm-3 control-label">Social Media</label>
+        <div class="col-sm-3">
+          <div class="input-group vert-5 margin-top-0">
+            <span class="input-group-addon"><i class="fa fa-fw fa-facebook"></i></span>
+            <input type="text" class="form-control" placeholder="Facebook" ng-model="edit.storefront.storefront_meta.audience.social.facebook">
+          </div>
+          <div class="input-group vert-5">
+            <span class="input-group-addon"><i class="fa fa-fw fa-pinterest"></i></span>
+            <input type="text" class="form-control" placeholder="Pinterest" ng-model="edit.storefront.storefront_meta.audience.social.pinterest">
+          </div>
+          <div class="input-group vert-5">
+            <span class="input-group-addon"><i class="fa fa-fw fa-twitter"></i></span>
+            <input type="text" class="form-control" placeholder="Twitter" ng-model="edit.storefront.storefront_meta.audience.social.twitter">
+          </div>
+          <div class="input-group vert-5 margin-bottom-0">
+            <span class="input-group-addon"><i class="fa fa-fw fa-instagram"></i></span>
+            <input type="text" class="form-control" placeholder="Instagram" ng-model="edit.storefront.storefront_meta.audience.social.instagram">
+          </div>
+        </div>
+      </div>
+      <div class="form-group vert-5">
+        <label class="col-sm-3 control-label">Contact email</label>
+        <div class="col-sm-3">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+            <input type="text" class="form-control" placeholder="Email" ng-model="edit.storefront.storefront_meta.audience.contact.email">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group margin-0">
+        <div class="col-sm-offset-3 col-sm-5">
+          <hr class="vert-10">
+        </div>
+      </div>
+
+      <div class="form-group vert-5">
+        <label class="col-sm-3 control-label">About headline</label>
+        <div class="col-sm-5">
+          <textarea class="form-control max-width-100-pct" rows="1" ng-model="edit.storefront.storefront_meta.about.headline"></textarea>
+        </div>
+      </div>
+      <div class="form-group vert-5">
+        <label class="col-sm-3 control-label">About content</label>
+        <div class="col-sm-5">
+          <!-- TODO implement bold and italic -->
+          <!-- Use * and _ for <strong>*bold*</strong> and <em>_italic_</em> -->
+          <!-- <br> -->
+          <textarea class="form-control max-width-100-pct" rows="9" ng-model="user.storefront_meta.about.content"></textarea>
+        </div>
+      </div>
+      <div ng-show="edit.show.editor.mainImage" class="form-group vert-2">
+        <label class="col-sm-3 control-label">
+          About image
+          <div ng-hide="edit.isLanding" ng-click="showAboutUpload = !showAboutUpload">
+            <div class="btn btn-sm btn-link pad-0">Upload</div>
+          </div>
+        </label>
+        <div class="col-sm-4">
+          <div class="position-relative" dropdown>
+            <div class="hover-pointer position-relative" dropdown-toggle>
+              <div class="btn btn-sm btn-default margin-5 position-absolute"
+                   name="mainImageToggle">
+                <div class="fa fa-fw fa-chevron-down"></div>
+              </div>
+              <img ng-src="{{ edit.storefront.storefront_meta.about.imgUrl }}" class="img-responsive full-width vert-2">
+            </div>
+            <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;">
+              <img ng-repeat="theme in edit.data.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setAboutImage(theme.imgUrl)"/>
+            </ul>
+          </div>
+          <div ng-show="showAboutUpload" class="vert-5 text-left">
+            <a href="https://unsplash.com/grid" target="_blank" class="pull-right">
+              <small>Free images <i class="fa fa-fw fa-external-link"></i></small>
+            </a>
+            <h5 class="margin-0">Upload an image&nbsp;<small>1200x400px</small></h5>
+            <ee-cloudinary-upload attr-target="'about'"></ee-cloudinary-upload>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- /EDITOR carousel info -->
+    </div>
+    <!-- /EDITOR logged in -->
 
 
     <div class="full-width inline-block vert-50"></div>

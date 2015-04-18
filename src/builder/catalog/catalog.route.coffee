@@ -21,15 +21,18 @@ angular.module('builder.catalog').config ($stateProvider) ->
     pageDescription:  'Choose products to add to your store.'
     padTop:           '85px'
 
+  resolve =
+    user: (eeAuth) -> eeAuth.fns.getOrSetUser()
+
   $stateProvider
     .state 'try-catalog',
-      url: '/try/products'
-      # resolve: user: (eeAuth) -> eeAuth.userFromToken()
-      views: views
-      data: data
+      url:      '/try/products'
+      views:    views
+      data:     data
+      resolve:  resolve
 
     .state 'catalog',
-      url: '/products'
-      # resolve: user: (eeAuth) -> eeAuth.userFromToken()
-      views: views
-      data: data
+      url:      '/products'
+      views:    views
+      data:     data
+      resolve:  resolve

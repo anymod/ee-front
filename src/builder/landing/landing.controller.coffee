@@ -1,8 +1,8 @@
 'use strict'
 
-angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, eeAuth, eeLanding, eeStorefront) ->
+angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, user, eeAuth, eeLanding, eeStorefront) ->
 
-  this.user = eeAuth.fns.landingUser()
+  this.user = user
 
   this.storefront = eeStorefront.storefront
   this.storefront.storefront_meta = this.user.storefront_meta
@@ -13,13 +13,13 @@ angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, eeA
   this.authFns = eeAuth.fns
 
   this.product_selection  = eeStorefront.product_selection
-  this.setCarouselImage   = (imgUrl) ->
+  this.setCarouselImage   = (imgUrl) =>
     eeStorefront.fns.setCarouselImage this.user, imgUrl
     eeLanding.fns.showCarouselImage imgUrl
   this.save = () -> eeAuth.fns.openSignupModal()
 
-  this.setTheme = (theme) ->
-    eeStorefront.fns.setTheme eeAuth.fns.landingUser(), theme
+  this.setTheme = (theme) =>
+    eeStorefront.fns.setTheme this.user, theme
     $state.go 'try-edit'
 
   eeLanding.fns.showState $state.current.name

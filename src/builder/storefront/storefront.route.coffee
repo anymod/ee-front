@@ -24,16 +24,21 @@ angular.module('builder.storefront').config ($stateProvider) ->
     pageDescription:  'Choose products to add to your store.'
     padTop:           '85px'
 
+  resolve =
+    user: (eeAuth) -> eeAuth.fns.getOrSetUser()
+
   $stateProvider
     .state 'try-storefront',
-      url: '/try/storefront'
-      views: views
-      data: data
+      url:      '/try/storefront'
+      views:    views
+      data:     data
+      resolve:  resolve
 
     .state 'storefront',
-      url: '/storefront'
-      views: views
-      data: data
+      url:      '/storefront'
+      views:    views
+      data:     data
+      resolve:  resolve
 
 
 
