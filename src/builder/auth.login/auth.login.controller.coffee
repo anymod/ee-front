@@ -7,8 +7,8 @@ angular.module('builder.auth').controller 'loginCtrl', ($scope, $rootScope, $sta
   resetBtnText  = ()    -> setBtnText 'Sign in'
   resetBtnText()
 
-  eeAuth.fns.userFromToken()
-  .then () -> $state.go 'storefront.home'
+  # eeAuth.fns.userFromToken()
+  # .then () -> $state.go 'storefront.home'
 
   $scope.login = () ->
     $scope.alert = ''
@@ -20,5 +20,7 @@ angular.module('builder.auth').controller 'loginCtrl', ($scope, $rootScope, $sta
       alert = err.message || err || 'Problem logging in'
       if typeof alert is 'object' then alert = 'Problem logging in'
       $scope.alert = alert
+
+  $scope.signup = () -> eeAuth.fns.openSignupModal()
 
   return

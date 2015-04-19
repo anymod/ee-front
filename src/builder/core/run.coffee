@@ -1,48 +1,57 @@
 'use strict'
 
-angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll, eeAuth) ->
+angular.module('builder.core').run ($rootScope, $timeout, $state, $location, $anchorScroll, eeAuth) ->
   $rootScope.isBuilder = true
 
-  nonAuthStates = [
-    'landing'
-    'login'
-    'reset'
-    'logout'
-    'example'
+  tryStates = [
     'try-theme'
     'try-storefront'
     'try-edit'
     'try-catalog'
   ]
+  openStates = tryStates.concat [
+    'landing'
+    'login'
+    'reset'
+    'logout'
+    'example'
+  ]
 
-  isTry     = (state) -> state.indexOf('try-') > -1
-  isNonAuth = (state) -> nonAuthStates.indexOf(state) > -1
+  isTry     = (state) -> tryStates.indexOf(state) > -1
+  isntTry   = (state) -> !isTry state
+  isOpen    = (state) -> openStates.indexOf(state) > -1
+  needsAuth = (state) -> !isOpen state
 
   $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
-    toName = toState.name
+    loggedIn  = eeAuth.fns.hasToken()
+    loggedOut = !loggedIn
 
-    if isTry(fromState.name) and !isTry(toName) and !isNonAuth(toName)
+    console.log 'here', loggedIn, toState.name, fromState.name
+
+    stopAndRedirectTo = (state) ->
+      console.log 'redirecting', state
       event.preventDefault()
-      toName = 'try-' + toName
-      $state.go toName
+      $state.go state
+      # If redirect loop: $state.go causes this with child state, so use $location.path for storefront instead. See https://github.com/angular-ui/ui-router/issues/1169
       return
 
-    # redirect to login if no token and restricted
-    if !eeAuth.fns.hasToken() and !isNonAuth(toName)
-      event.preventDefault()
-      $state.go 'login'
-      return
+    # redirect to logged in state if token and try- state
+    if loggedIn and isTry(toState.name) then return stopAndRedirectTo(toState.name.replace('try-', ''))
+    # redirect to try- state if going from try- state to another state that needs auth
+    if isTry(fromState.name) and isntTry(toState.name) and needsAuth(toState.name) then return stopAndRedirectTo('try-' + toState.name)
+    # redirect to login if logged out and restricted
+    if loggedOut and needsAuth(toState.name) then return stopAndRedirectTo('login')
+    # redirect to storefront if logged in and unrestricted
+    if loggedIn and isOpen(toState.name) and toState.name isnt 'logout' and toState.name isnt 'reset' then return stopAndRedirectTo('storefront')
 
-    # redirect to storefront if token and unrestricted
-    if eeAuth.fns.hasToken() and isNonAuth(toName)
-      # $state.go may cause redirect loop with child state; use $location.path if it does
-      # https://github.com/angular-ui/ui-router/issues/1169
-      $state.go 'storefront'
-      return
+    console.log 'finished'
+
+    return
 
   $rootScope.$on '$stateChangeSuccess', () ->
     $location.hash 'body-top'
     $anchorScroll()
     $location.url $location.path()
+    return
 
   return

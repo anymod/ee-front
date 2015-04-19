@@ -5,13 +5,14 @@ angular.module('builder.orders').config ($stateProvider) ->
   $stateProvider.state 'orders',
     url: '/orders'
     views:
-      main:
+      header:
+        controller: 'ordersCtrl as orders'
+        templateUrl: 'builder/orders/orders.header.html'
+      top:
+        controller: 'ordersCtrl as orders'
         templateUrl: 'builder/orders/orders.html'
-        controller: 'builder.ordersCtrl'
-      offscreen:
-        templateUrl: 'builder/orders/orders.offscreen.html'
-        controller: 'builder.ordersCtrl'
-        offscreenCategory: 'Orders'
-        offscreenColor: 'green'
     data:
       pageTitle: 'My orders | eeosk'
+      padTop:    '85px'
+    resolve:
+      user: (eeAuth) -> eeAuth.fns.getOrSetUser()

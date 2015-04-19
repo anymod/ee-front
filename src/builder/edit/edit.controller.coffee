@@ -11,7 +11,7 @@ angular.module('builder.edit').controller 'editCtrl', ($scope, $state, user, eeA
   this.show       = eeLanding.show
   this.data       = eeLanding.data
   this.fns        = eeLanding.fns
-  this.isLanding  = eeAuth.fns.isLanding()
+  this.authStatus = eeAuth.status
 
   this.product_selection  = eeStorefront.product_selection
   this.setCarouselImage   = (imgUrl) =>

@@ -1,27 +1,77 @@
-<div ng-show="!toggleLeft" class="position-fixed" style="top: 9px; left: -25px; z-index: 1001;">
-  <ee-offscreen-toggle color="'dark'" icon="'icon'"></ee-offscreen-toggle>
-</div>
+<!-- ACCOUNT -->
+<div class="full-width pad-20 min-height-600">
+  <h2 class="margin-0">Account</h2>
+  <form class="form-horizontal">
+    <!-- ACCOUNT store url -->
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Store URL</label>
+      <div class="col-sm-4 col-md-3">
+        <div class="input-group">
+          <input type="text" ng-model="account.user.username" class="form-control" placeholder="storename">
+          <span class="input-group-addon">.eeosk.com</span>
+        </div>
+        <a href="https://{{ account.user.username }}.eeosk.com" target="_blank" class="inline-block vert-5 margin-top-0">
+          https://{{ account.user.username }}.eeosk.com
+        </a>
+      </div>
+    </div>
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Custom URL</label>
+      <div class="col-sm-4 col-md-3">
+        <input disabled type="text" class="form-control" placeholder="https://example.com (coming soon)">
+      </div>
+    </div>
+    <!-- /ACCOUNT store url -->
 
-<div class="pad-20">
-  <h3 class="margin-0">Store locations</h3>
-  <hr class="vert-5">
-  <h4 class="margin-0">
-    <a href="https://{{ user.username }}.eeosk.com" target="_blank" class="btn btn-default">
-      <i class="fa fa-fw fa-globe"></i>Live store
-    </a>
-    <a href="https://{{ user.username }}.eeosk.com" target="_blank" class="btn btn-link">
-      https://{{ user.username }}.eeosk.com
-    </a>
-  </h4>
-  <h4 ng-if="user.username == 'demoseller'" class="margin-0">
-    <a href="http://demoseller.com" target="_blank" class="inline-block vert-5">
-      http://demoseller.com
-    </a>
-  </h4>
-  <div class="block vert-20"></div>
-  <div ng-show="!!user.account_meta.earnings_accounts.paypal">
-    <h3 class="margin-0">Earnings</h3>
-    <hr class="vert-5">
-    <p>Earnings will be paid via PayPal to <strong ng-bind="user.account_meta.earnings_accounts.paypal"></strong>.</p>
-  </div>
+    <div class="form-group margin-0">
+      <div class="col-sm-offset-3 col-sm-5">
+        <hr class="vert-10">
+      </div>
+    </div>
+
+    <!-- ACCOUNT login -->
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Login email</label>
+      <div class="col-sm-4 col-md-3">
+        <div class="input-group margin-0">
+          <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+          <input disabled type="email" class="form-control" ng-model="account.user.email" placeholder="Enter your email">
+        </div>
+      </div>
+    </div>
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Password</label>
+      <div class="col-sm-3 col-md-2">
+        <a ui-sref="reset" class="btn btn-default btn-block">Change password</a>
+      </div>
+    </div>
+    <!-- /ACCOUNT login -->
+
+    <div class="form-group margin-0">
+      <div class="col-sm-offset-3 col-sm-5">
+        <hr class="vert-10">
+      </div>
+    </div>
+
+    <!-- ACCOUNT paid to -->
+    <div class="form-group vert-5">
+      <label class="col-sm-3 control-label">Earnings paid to</label>
+      <div class="col-sm-4 col-md-3">
+        <div class="input-group vert-5 margin-top-0">
+          <span class="input-group-addon"><i class="fa fa-fw fa-paypal"></i></span>
+          <input type="text" class="form-control" placeholder="PayPal email" ng-model="account.user.account_meta.earnings_accounts.paypal">
+        </div>
+        <p ng-hide="account.user.account_meta.earnings_accounts.paypal" class="margin-0">
+          Enter your paypal email address to receive payment
+        </p>
+        <p ng-show="account.user.account_meta.earnings_accounts.paypal" class="margin-0">
+          Earnings will be paid via PayPal to <strong ng-bind="account.user.account_meta.earnings_accounts.paypal"></strong>
+        </p>
+        <small>(more options coming soon)</small>
+      </div>
+    </div>
+    <!-- /ACCOUNT paid to -->
+    <div class="full-width inline-block vert-50"></div>
+  </form>
 </div>
+<!-- /ACCOUNT -->

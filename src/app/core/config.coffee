@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').config ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider) ->
+angular.module('app.core').config ($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider, $cookiesProvider) ->
   $locationProvider.html5Mode true
 
   ## Configure CORS
@@ -20,6 +20,8 @@ angular.module('app.core').config ($locationProvider, $stateProvider, $urlRouter
       templateUrl: '/app/examples/examples.html'
       controller: 'examplesCtrl'
 
-  $urlRouterProvider.otherwise '/'
+  otherwise = if !!$cookiesProvider.$get().loginToken then '/storefront' else '/'
+
+  $urlRouterProvider.otherwise otherwise
 
   return

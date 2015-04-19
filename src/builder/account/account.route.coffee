@@ -5,11 +5,14 @@ angular.module('builder.account').config ($stateProvider) ->
   $stateProvider.state 'account',
     url: '/account'
     views:
-      main:
+      header:
+        controller:  'accountCtrl as account'
+        templateUrl: 'builder/account/account.header.html'
+      top:
+        controller:  'accountCtrl as account'
         templateUrl: 'builder/account/account.html'
-        controller: 'builder.accountCtrl'
-      offscreen:
-        templateUrl: 'builder/account/account.offscreen.html'
-        controller: 'builder.accountCtrl'
     data:
       pageTitle: 'Account | eeosk'
+      padTop:    '85px'
+    resolve:
+      user: (eeAuth) -> eeAuth.fns.getOrSetUser()

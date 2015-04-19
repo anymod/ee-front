@@ -1,34 +1,26 @@
-<div ng-show="!toggleLeft" class="position-fixed" style="top: 9px; left: -25px; z-index: 1001;">
-  <ee-offscreen-toggle color="'green'" icon="'icon'"></ee-offscreen-toggle>
-</div>
-
 <div class="catalog-orders pad-20">
-  <div class="alert alert-info alert-dismissible" ng-hide="hideCatalogAlert">
-    <button type="button" class="close" ng-click="hideCatalogAlert = true">&times;</button>
-    Example orders
-  </div>
+  <h2 class="margin-0">Orders</h2>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
         <th>Shipment</th>
-        <th>Order</th>
+        <th>Order #</th>
         <th colspan="2">Placed</th>
         <th colspan="2">Product</th>
         <th colspan="2">Price</th>
         <th colspan="2">Margin</th>
         <th colspan="2">Earn</th>
-        <!-- <th>Date</th> -->
       </tr>
     </thead>
     <tbody>
-      <tr ng-if="!orders.length">
+      <tr ng-show="orders.orders.length <= 0">
         <td colspan="11">
           No orders yet.
           <br>
           When you make a sale, the status of your customer orders will appear here.
         </td>
       </tr>
-      <tr ng-repeat="order in orders"
+      <tr ng-repeat="order in orders.orders"
           ng-init="order.sellerPrice = order.baselinePrice / (1 - order.sellerMargin)">
         <td>
           <div ng-if="order.shipmentStatus == 'pending'" class="btn btn-sm btn-default">pending</div>
@@ -51,10 +43,6 @@
           <div ng-if="order.disbursementStatus == 'refunded'" class="btn btn-sm btn-warning">refunded</div>
           <div ng-if="order.disbursementStatus == 'out of stock'" class="btn btn-sm btn-warning">out of stock</div>
         </td>
-<!--         <td>
-  {{ order.date | date:'shortDate' }}<br>
-  {{ order.date | date:'shortTime' }}
-</td> -->
       </tr>
     </tbody>
   </div>

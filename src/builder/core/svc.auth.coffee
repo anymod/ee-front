@@ -19,9 +19,10 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
           twitter:    'twitter'
           instagram:  'instagram'
 
-  _fetching = false
-  _landing  = true
-  _signedIn = false
+  _status   =
+    fetching: false
+    landing:  true
+    signedIn: false
 
   ## PRIVATE EXPORT DEFAULTS
   _user = {}
@@ -36,20 +37,25 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
     assignKey key for key in Object.keys u
     _user
 
+  _setLoginToken = (token) ->
+    $cookies.loginToken = token
+    _status.landing     = false
+    _status.signedIn    = true
+
   _defineAsLanding = () ->
-    _landing  = true
-    _signedIn = false
+    _status.landing  = true
+    _status.signedIn = false
     _setUser _userDefaults
 
   _resetUser = () ->
     $cookieStore.remove 'loginToken'
-    _signedIn = false
+    _status.signedIn = false
     _setUser {}
 
   _getUser = (opts) ->
     deferred = $q.defer()
-    if _fetching then return _fetching
-    _fetching = deferred
+    if _status.fetching then return _status.fetching
+    _status.fetching = deferred
     if !$cookies.loginToken
       _resetUser()
       deferred.reject 'Missing login credentials'
@@ -60,7 +66,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .then (data) ->
         if !!data.username
           _setUser data
-          _signedIn = true
+          _status.signedIn = true
           deferred.resolve data
         else
           _resetUser()
@@ -68,7 +74,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .catch (err) ->
         _resetUser()
         deferred.reject err
-      .finally () -> _landing = false
+      .finally () -> _status.landing = false
     deferred.promise
 
   _getOrSetUser = () ->
@@ -80,6 +86,15 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
 
   _saveUser = () -> eeBack.usersPUT(_user, $cookies.loginToken)
 
+  _openLoginModal = () ->
+    $modal.open({
+      templateUrl: 'builder/auth.login/auth.login.modal.html'
+      backdropClass: 'white-background opacity-08'
+      controller: 'loginCtrl'
+      controllerAs: 'modal'
+      size: 'sm'
+    })
+
   _openSignupModal = () ->
     $modal.open({
       templateUrl: 'builder/auth.signup/auth.signup.modal.html'
@@ -90,13 +105,11 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
     })
 
   ## EXPORTS
-  user: _user
+  user:   _user
+  status: _status
   fns:
     reset:        () -> _resetUser()
     getOrSetUser: () -> _getOrSetUser()
-    isLanding:    () -> _landing
-    isSignedIn:   () -> _signedIn
-
 
     getToken: ()  -> $cookies.loginToken
     hasToken: ()  -> !!$cookies.loginToken
@@ -124,7 +137,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
         eeBack.authPOST(email, password)
         .then (data) ->
           if !!data.user and !!data.token
-            $cookies.loginToken = data.token
+            _setLoginToken data.token
             _setUser data.user
             deferred.resolve data.user
           else
@@ -133,7 +146,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
         .catch (err) ->
           _resetUser()
           deferred.reject err
-        .finally () -> _landing = false
+        .finally () -> _status.landing = false
       deferred.promise
 
     createUserFromSignup: (email, password, username) ->
@@ -145,7 +158,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
         eeBack.usersPOST(email, password, username)
         .then (data) ->
           if !!data.user and !!data.token
-            $cookies.loginToken = data.token
+            _setLoginToken data.token
             _setUser data.user
             deferred.resolve data.user
           else
@@ -154,7 +167,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
         .catch (err) ->
           _resetUser()
           deferred.reject err
-        .finally () -> _landing = false
+        .finally () -> _status.landing = false
       deferred.promise
 
     sendPasswordResetEmail: (email) ->
@@ -180,7 +193,8 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
 
     landingUser: () -> if _userIsEmpty() then _defineAsLanding()
 
-    openSignupModal: () -> _openSignupModal()
+    openLoginModal:   () -> _openLoginModal()
+    openSignupModal:  () -> _openSignupModal()
 
     # TODO create terms or other service for these
     openSellerTermsModal: () ->

@@ -1,7 +1,7 @@
 <!-- EDITOR -->
 <div class="full-width pad-10 min-height-600">
   <!-- POPOVER -->
-  <div class="row" ng-show="edit.isLanding && edit.show.popover.editPopover">
+  <div class="row" ng-show="!edit.authStatus.signedIn && edit.show.popover.editPopover">
     <div class="col-sm-offset-3 col-sm-6">
       <div class="position-relative">
         <div class="popover popover-primary top in inline-block full-width max-width-300" style="top: -100px;">
@@ -45,7 +45,7 @@
     <div ng-show="edit.show.editor.mainImage" class="form-group vert-2">
       <label class="col-sm-3 control-label">
         Main image
-        <div ng-hide="edit.isLanding" ng-click="showUpload = !showUpload">
+        <div ng-show="edit.authStatus.signedIn" ng-click="showUpload = !showUpload">
           <div class="btn btn-sm btn-link pad-0">Upload</div>
         </div>
       </label>
@@ -60,7 +60,7 @@
           </div>
           <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;">
             <img ng-repeat="theme in edit.data.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setCarouselImage(theme.imgUrl)"/>
-            <li ng-if="isLanding" class="pad-10 text-left">
+            <li ng-if="!edit.authStatus.signedIn" class="pad-10 text-left">
               <i class="fa fa-2x fa-info-circle text-muted vert-2 pull-left"></i>
               <div style="margin-left: 30px;">
                 You can upload your own images too once you've saved your store.
@@ -68,7 +68,7 @@
             </li>
           </ul>
         </div>
-        <div ng-if="!isLanding" ng-show="showUpload" class="vert-5 text-left">
+        <div ng-if="edit.authStatus.signedIn" ng-show="showUpload" class="vert-5 text-left">
           <a href="https://unsplash.com/grid" target="_blank" class="pull-right">
             <small>Free images <i class="fa fa-fw fa-external-link"></i></small>
           </a>
@@ -87,7 +87,7 @@
     </div>
     <!-- /EDITOR title -->
     <!-- EDITOR logged out -->
-    <div ng-show="edit.isLanding" class="form-group vert-10">
+    <div ng-hide="edit.authStatus.signedIn" class="form-group vert-10">
       <div class="col-sm-offset-3 col-sm-4">
         <div class="inline-block">
           <i class="fa fa-2x fa-info-circle text-muted vert-2 pull-left"></i>
@@ -109,7 +109,7 @@
     </div>
     <!-- /EDITOR logged out -->
     <!-- EDITOR logged in -->
-    <div ng-hide="edit.isLanding">
+    <div ng-show="edit.authStatus.signedIn">
       <!-- EDITOR carousel info -->
       <div class="form-group vert-5">
         <label class="col-sm-3 control-label">Headline</label>
@@ -215,7 +215,7 @@
       <div ng-show="edit.show.editor.mainImage" class="form-group vert-2">
         <label class="col-sm-3 control-label">
           About image
-          <div ng-hide="edit.isLanding" ng-click="showAboutUpload = !showAboutUpload">
+          <div ng-show="edit.authStatus.signedIn" ng-click="showAboutUpload = !showAboutUpload">
             <div class="btn btn-sm btn-link pad-0">Upload</div>
           </div>
         </label>
@@ -241,14 +241,9 @@
           </div>
         </div>
       </div>
-
-
-
       <!-- /EDITOR carousel info -->
     </div>
     <!-- /EDITOR logged in -->
-
-
     <div class="full-width inline-block vert-50"></div>
   </form>
 </div>

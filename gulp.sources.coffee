@@ -86,11 +86,11 @@ sources.builderModule = [
   './src/builder/core/run.coffee'
   # Services
   './src/builder/core/svc.auth.coffee'
-  './src/builder/core/svc.landing.coffee'
+  './src/builder/core/svc.cart.coffee'
   './src/builder/core/svc.catalog.coffee'
+  './src/builder/core/svc.landing.coffee'
   './src/builder/core/svc.orders.coffee'
   './src/builder/core/svc.selection.coffee'
-  './src/builder/core/svc.cart.coffee'
   # Module - auth
   './src/builder/auth/auth.module.coffee'
   # auth.login

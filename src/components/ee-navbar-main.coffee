@@ -7,5 +7,6 @@ angular.module('ee-navbar-main').directive "eeNavbarMain", ($state, eeAuth) ->
   link: (scope, ele, attrs) ->
     scope.state       = $state.current.name
     scope.save        = eeAuth.fns.saveOrSignup
-    scope.isSignedIn  = eeAuth.fns.isSignedIn()
+    scope.login       = eeAuth.fns.openLoginModal
+    scope.authStatus  = eeAuth.status
     return

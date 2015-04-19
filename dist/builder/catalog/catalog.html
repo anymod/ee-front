@@ -11,7 +11,7 @@
   <div ng-class="{ 'opacity-08': catalog.data.searching }">
     <span ng-repeat="product in catalog.data.products" class="position-relative">
       <a href ng-click="catalog.productFns.openProductModal(product.id)"
-          class="thumb margin-2"
+          class="thumb margin-2 hover-pointer gray-border"
           style="background-image: url('{{ product.image_meta.main_image.url | thumbnail }}')">
         <div ng-show="catalog.storeFns.inStorefront(product.id)" class="label label-primary">in <span class="hidden-xs">my </span>store</div>
       </a>
