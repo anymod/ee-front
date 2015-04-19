@@ -19,6 +19,13 @@ angular.module('builder.storefront').config ($stateProvider) ->
       controller: 'storefrontCtrl as storefront'
       templateUrl: 'app/storefront/storefront.footer.html'
 
+  aboutViews =
+    header: views.header
+    top:
+      controller: 'storefrontCtrl as storefront'
+      templateUrl: 'app/storefront/storefront.about.html'
+    footer: views.footer
+
   data =
     pageTitle:        'Add products | eeosk'
     pageDescription:  'Choose products to add to your store.'
@@ -34,6 +41,12 @@ angular.module('builder.storefront').config ($stateProvider) ->
     .state 'storefront',
       url:      '/storefront'
       views:    views
+      data:     data
+      resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
+
+    .state 'storefront-about',
+      url:      '/storefront/about'
+      views:    aboutViews
       data:     data
       resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 

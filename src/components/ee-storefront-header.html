@@ -23,7 +23,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a ui-sref="storefront.home"
+        <a ui-sref="storefront"
            class="navbar-brand margin-0"
            ng-style="{ color: user.storefront_meta.home.topBarColor }"
            ng-bind="user.storefront_meta.home.name">
@@ -33,7 +33,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div collapse="navCollapsed" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li ng-class="{ active: state == 'storefront.home' }"><a ui-sref="storefront.home" ng-click="navCollapsed = true" ng-style="{ color: user.storefront_meta.home.topBarColor }">Home</a></li>
+          <li ng-class="{ active: state == 'storefront' }"><a ui-sref="storefront" ng-click="navCollapsed = true" ng-style="{ color: user.storefront_meta.home.topBarColor }">Home</a></li>
 
           <li ng-class="{ active: state == 'storefront.shop' }" class="dropdown" dropdown>
             <a href class="dropdown-toggle" ng-style="{ color: user.storefront_meta.home.topBarColor }" dropdown-toggle>
@@ -64,14 +64,14 @@
             </div>
           </li>
 
-          <li ng-class="{ active: state == 'storefront.about' }"
-              ng-show="state == 'storefront.about' || !!user.storefront_meta.about.headline">
-            <a ui-sref="storefront.about" ng-click="navCollapsed = true" ng-style="{ color: user.storefront_meta.home.topBarColor }">
+          <li ng-class="{ active: state == 'storefront-about' }"
+              ng-show="state == 'storefront-about' || !!user.storefront_meta.about.headline">
+            <a ui-sref="storefront-about" ng-click="navCollapsed = true" ng-style="{ color: user.storefront_meta.home.topBarColor }">
               About
             </a>
             <div class="popover bottom in inline-block"
                  style="top: 42px; width: 300px;"
-                 ng-show="isBuilder && state == 'storefront.about' && !user.storefront_meta.about.headline && !user.storefront_meta.about.content">
+                 ng-show="isBuilder && state == 'storefront-about' && !user.storefront_meta.about.headline && !user.storefront_meta.about.content">
               <div class="arrow" style="left: 13%;"></div>
               <div class="popover-content">
                 Add something about your store and this section will show.
@@ -156,7 +156,7 @@
           </li>
 
           <!-- TODO implement search on storefront products -->
-          <!-- <li><a ui-sref="storefront.home" ng-style="{ color: user.storefront_meta.home.topBarColor }"><i class="fa fa-search"></i></a></li> -->
+          <!-- <li><a ui-sref="storefront" ng-style="{ color: user.storefront_meta.home.topBarColor }"><i class="fa fa-search"></i></a></li> -->
 
           <li class="dropdown" dropdown>
             <a ng-if="isBuilder" href class="dropdown-toggle" ng-style="{ color: user.storefront_meta.home.topBarColor }" dropdown-toggle>
