@@ -16,3 +16,5 @@ angular.module('builder.account').config ($stateProvider) ->
       padTop:    '85px'
     resolve:
       user: (eeAuth) -> eeAuth.fns.getOrSetUser()
+
+  return

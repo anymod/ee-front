@@ -13,3 +13,5 @@ angular.module('builder.auth').config ($stateProvider) ->
           templateUrl: 'builder/landing/landing.footer.html'
       data:
         pageTitle: 'Reset your password | eeosk'
+
+  return

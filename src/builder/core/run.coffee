@@ -26,10 +26,7 @@ angular.module('builder.core').run ($rootScope, $timeout, $state, $location, $an
     loggedIn  = eeAuth.fns.hasToken()
     loggedOut = !loggedIn
 
-    console.log 'here', loggedIn, toState.name, fromState.name
-
     stopAndRedirectTo = (state) ->
-      console.log 'redirecting', state
       event.preventDefault()
       $state.go state
       # If redirect loop: $state.go causes this with child state, so use $location.path for storefront instead. See https://github.com/angular-ui/ui-router/issues/1169
@@ -44,14 +41,12 @@ angular.module('builder.core').run ($rootScope, $timeout, $state, $location, $an
     # redirect to storefront if logged in and unrestricted
     if loggedIn and isOpen(toState.name) and toState.name isnt 'logout' and toState.name isnt 'reset' then return stopAndRedirectTo('storefront')
 
-    console.log 'finished'
-
     return
 
-  $rootScope.$on '$stateChangeSuccess', () ->
-    $location.hash 'body-top'
-    $anchorScroll()
-    $location.url $location.path()
-    return
+  # $rootScope.$on '$stateChangeSuccess', () ->
+  #   $location.hash 'body-top'
+  #   $anchorScroll()
+  #   $location.url $location.path()
+  #   return
 
   return

@@ -18,20 +18,17 @@ angular.module('builder.landing').config ($stateProvider) ->
     pageDescription:  'Start building your own online store.'
     padTop:           '85px'
 
-  resolve =
-    user: (eeAuth) -> eeAuth.fns.getOrSetUser()
-
   $stateProvider
     .state 'try-edit',
       url:      '/try/edit'
       views:    views
       data:     data
-      resolve:  resolve
+      resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
     .state 'edit',
       url:      '/edit'
       views:    views
       data:     data
-      resolve:  resolve
+      resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
   return
