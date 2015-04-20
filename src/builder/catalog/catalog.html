@@ -1,5 +1,14 @@
 <!-- CATALOG products -->
-<div id="catalog-products" class="pad-20 text-center position-relative min-height-600">
+<div id="catalog-products" class="margin-20 margin-top-0 text-center position-relative min-height-600">
+  <hr>
+  <div class="vert-20 hidden-xs">
+    <div ng-repeat="category in catalog.data.inputs.categoryArray"
+         ng-bind="category"
+         ng-click="catalog.fns.setCategory(category)"
+         class="btn btn-xs btn-default margin-2"
+         ng-class="{ active: category == catalog.data.inputs.category }">
+    </div>
+  </div>
 
   <div ng-show="catalog.data.searching" class="position-absolute top-left-bottom-right-0" style="z-index: 100;">
     <div class="position-absolute full-width full-height white-background opacity-08" style="z-index: 0;"></div>

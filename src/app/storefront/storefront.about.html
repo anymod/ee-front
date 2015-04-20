@@ -1,25 +1,25 @@
-<div class="position-relative" ng-class="{ 'opacity-01': !about.headline && !about.byline }">
-  <img ng-src="{{ about.imgUrl }}" class="img-responsive full-width">
+<div class="position-relative" ng-class="{ 'opacity-01': !storefront.about.headline && !storefront.about.byline }">
+  <img ng-src="{{ storefront.about.imgUrl }}" class="img-responsive full-width">
   <div class="position-absolute hidden-xs"
        style="top: 60px; width: 80%; left: 10%;">
 
     <h2 class="well white-space-pre"
-         ng-if="about.headline"
-         ng-bind="about.headline">
+         ng-if="storefront.about.headline"
+         ng-bind="storefront.about.headline">
     </h2>
 
     <br>
 
     <div class="well white-space-pre"
-         ng-if="about.content"
-         ng-bind="about.content">
+         ng-if="storefront.about.content"
+         ng-bind="storefront.about.content">
     </div>
   </div>
 
   <div class="pad-15 visible-xs">
-    <h3 class="margin-0 white-space-pre" ng-bind="about.headline"></h3>
+    <h3 class="margin-0 white-space-pre" ng-bind="storefront.about.headline"></h3>
     <br>
-    <p class="vert-2 white-space-pre" ng-bind="about.content"></p>
+    <p class="vert-2 white-space-pre" ng-bind="storefront.about.content"></p>
   </div>
 
 </div>

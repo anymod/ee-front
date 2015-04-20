@@ -1,40 +1,23 @@
 'use strict'
 
-angular.module('eeStore').controller 'storeCtrl', ($rootScope, $scope, $location, eeStorefront, eeCart) ->
-  $scope.loading = true
-  $scope.user = {}
-  $scope.storefront = {}
-  $scope.storeName = 'Loading'
-  $scope.cart = eeCart.cart()
+angular.module('eeStore').controller 'storeCtrl', ($rootScope, eeStorefront) ->
+  this.loading          = true
+  that                  = this
+  $rootScope.storeName  = 'Loading'
 
-  $scope.cart_url = $location.absUrl()
-
-  eeStorefront.getStorefront()
+  eeStorefront.fns.getStorefront()
   .then (storefront) ->
-    $scope.loading = false
-    $scope.storefront = storefront
-    $scope.user.storefront_meta = storefront.storefront_meta
-    $rootScope.storeName = storefront.storefront_meta.home.name
-    # cart = eeCart.cart()
-    # if cart.entries.length is 0
-    #   eeCart.addProduct $scope.storefront.product_selection[1]
-    #   eeCart.addProduct $scope.storefront.product_selection[2]
-  .catch () ->
-    $scope.loading = false
-    $rootScope.storeName = 'Not found'
-    $scope.user.storefront_meta =
-      home: name: 'Not found'
+    ## For loading
+    $rootScope.storeName    = storefront.storefront_meta?.home?.name
 
-  $scope.addProduct = (product) -> eeCart.addProduct product
-  $scope.removeProduct = (product) -> eeCart.removeProduct product
+    ## For shared views (carousel, products, about, footer)
+    that.meta               = storefront.storefront_meta
+    that.carousel           = storefront.storefront_meta?.home.carousel[0]
+    that.about              = storefront.storefront_meta?.about
+    that.product_selection  = storefront.product_selection
+    that.categories         = eeStorefront.data.categories
 
-  $scope.$watch 'cart.entries', (newVal, oldVal) ->
-    eeCart.calculate()
-  , true
-
-  $scope.$on 'cart:updated', () ->
-    $scope.cart = eeCart.cart()
-    $scope.product_names = eeCart.getProductNames()
-    $scope.selection_ids = eeCart.getSelectionIds()
+  .catch () -> $rootScope.storeName = 'Not found'
+  .finally () -> that.loading = false
 
   return

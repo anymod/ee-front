@@ -1,16 +1,16 @@
 <div class="carousel storefront-carousel overflow-hidden">
-  <img ng-src="{{ carousel.imgUrl }}" class="img-responsive full-width">
-  <div class="position-absolute full-width hidden-xs {{ carousel.btnPosition }}">
+  <img ng-src="{{ storefront.carousel.imgUrl }}" class="img-responsive full-width">
+  <div class="position-absolute full-width hidden-xs {{ storefront.carousel.btnPosition }}">
     <div class="well inline-block"
-         ng-hide="!carousel.headline && !carousel.byline && !carousel.btnText">
-      <h3 ng-bind="carousel.headline" class="margin-0"></h3>
-      <p ng-bind="carousel.byline" class="vert-2"></p>
-      <a ng-bind="carousel.btnText" ng-show="carousel.btnText" ui-sref="storefront.shop({ shopCategory: carousel.linkCategory })" class="btn btn-default"></a>
+         ng-hide="!storefront.carousel.headline && !storefront.carousel.byline && !storefront.carousel.btnText">
+      <h3 ng-bind="storefront.carousel.headline" class="margin-0"></h3>
+      <p ng-bind="storefront.carousel.byline" class="vert-2"></p>
+      <a ng-bind="storefront.carousel.btnText" ng-show="storefront.carousel.btnText" ui-sref="storefront.shop({ shopCategory: storefront.carousel.linkCategory })" class="btn btn-default"></a>
     </div>
   </div>
   <div class="pad-15 visible-xs">
-    <h3 ng-bind="carousel.headline" class="margin-0"></h3>
-    <p ng-bind="carousel.byline" class="vert-2"></p>
-    <a ng-bind="carousel.btnText" ng-show="carousel.btnText" ui-sref="storefront.shop({ shopCategory: carousel.linkCategory })" class="btn btn-default"></a>
+    <h3 ng-bind="storefront.carousel.headline" class="margin-0"></h3>
+    <p ng-bind="storefront.carousel.byline" class="vert-2"></p>
+    <a ng-bind="storefront.carousel.btnText" ng-show="storefront.carousel.btnText" ui-sref="storefront.shop({ shopCategory: storefront.carousel.linkCategory })" class="btn btn-default"></a>
   </div>
 </div>

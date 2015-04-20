@@ -7,15 +7,17 @@ angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, use
   this.storefront = eeStorefront.storefront
   this.storefront.storefront_meta = this.user.storefront_meta
 
-  this.show = eeLanding.show
-  this.data = eeLanding.data
-  this.fns  = eeLanding.fns
-  this.authFns = eeAuth.fns
+  this.show     = eeLanding.show
+  this.data     = eeLanding.data
+  this.fns      = eeLanding.fns
+  this.authFns  = eeAuth.fns
 
-  this.product_selection  = eeStorefront.product_selection
+  this.product_selection  = eeStorefront.storefront.product_selection
+
   this.setCarouselImage   = (imgUrl) =>
     eeStorefront.fns.setCarouselImage this.user, imgUrl
     eeLanding.fns.showCarouselImage imgUrl
+
   this.save = () -> eeAuth.fns.openSignupModal()
 
   this.setTheme = (theme) =>

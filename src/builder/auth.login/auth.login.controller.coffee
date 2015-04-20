@@ -8,13 +8,14 @@ angular.module('builder.auth').controller 'loginCtrl', ($scope, $rootScope, $sta
   resetBtnText()
 
   # eeAuth.fns.userFromToken()
-  # .then () -> $state.go 'storefront.home'
+  # .then () -> $state.go 'storefront'
 
   $scope.login = () ->
     $scope.alert = ''
     setBtnText 'Sending...'
     eeAuth.fns.setUserFromCredentials($scope.email, $scope.password)
-    .then () -> $state.go 'storefront'
+    .then () ->
+      $state.go 'storefront'
     .catch (err) ->
       resetBtnText()
       alert = err.message || err || 'Problem logging in'

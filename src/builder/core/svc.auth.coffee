@@ -50,7 +50,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
   _resetUser = () ->
     $cookieStore.remove 'loginToken'
     _status.signedIn = false
-    _setUser {}
+    _defineAsLanding()
 
   _getUser = (opts) ->
     deferred = $q.defer()
@@ -120,7 +120,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .catch (err) -> console.error err
 
     saveUser: ()  -> _saveUser()
-    saveOrSignup: () -> if _user.landing then _openSignupModal() else _saveUser()
+    saveOrSignup: () -> if _status.landing then _openSignupModal() else _saveUser()
 
     setUserIsSaved: (bool) -> _userIsSaved = bool
     userIsSaved: () -> _userIsSaved

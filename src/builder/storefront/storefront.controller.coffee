@@ -5,11 +5,12 @@ angular.module('builder.storefront').controller 'storefrontCtrl', ($scope, user,
   ## Setup
   this.user               = user
   this.product_selection  = eeStorefront.storefront.product_selection
-  this.categories         = eeStorefront.data.categories
   this.authStatus         = eeAuth.status
 
-  ## For storefront partials
-  $scope.carousel         = user.storefront_meta?.home?.carousel[0]
-  $scope.about            = user.storefront_meta?.about
+  ## For shared views (carousel, products, about, footer)
+  this.meta             = user.storefront_meta
+  this.carousel         = user.storefront_meta?.home?.carousel[0]
+  this.about            = user.storefront_meta?.about
+  this.categories       = eeStorefront.data.categories
 
   return

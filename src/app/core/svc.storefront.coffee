@@ -50,7 +50,7 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBa
     else
       # set _data.fetching to deferred.promise so that subsequent method calls will not lead to API calls
       _data.fetching = deferred.promise
-      eeAuth.getUsername()
+      eeAuth.fns.getUsername()
       .then (username) -> eeBack.storefrontGET(username)
       .then (data) ->
         _storefront.storefront_meta   = data.storefront_meta

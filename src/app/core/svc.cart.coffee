@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('store.core').factory 'eeCart', ($rootScope, $state) ->
+angular.module('app.core').factory 'eeCart', ($rootScope, $state) ->
   ## Format of cart:
   # _cart = {
   #   calc_meta: {
@@ -40,7 +40,7 @@ angular.module('store.core').factory 'eeCart', ($rootScope, $state) ->
     $rootScope.$broadcast 'cart:updated', _cart
     return
 
-  cart: () -> _cart
+  cart: _cart
   calculate: () -> calcMeta _cart; return
 
   count: () -> _cart.length || 0
@@ -54,7 +54,7 @@ angular.module('store.core').factory 'eeCart', ($rootScope, $state) ->
     addOrIncrement(product.selection_id, entry) for entry in _cart.entries
     if increment is false then _cart.entries.push { product: product, quantity: 1 }
     calcMeta _cart
-    $state.go 'storefront.cart'
+    $state.go 'cart'
     return
 
   removeProduct: (product) ->

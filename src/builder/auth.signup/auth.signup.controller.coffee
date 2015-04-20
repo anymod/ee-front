@@ -13,7 +13,7 @@ angular.module('builder.auth').controller 'signupCtrl', ($scope, $state, $filter
     setBtnText 'Sending...'
 
     eeAuth.fns.createUserFromSignup $scope.email, $scope.password
-    .then (data) -> $state.go 'storefront.home'
+    .then (data) -> $state.go 'storefront'
     .catch (err) ->
       resetBtnText()
       $scope.alert = err?.message || 'Problem creating account'

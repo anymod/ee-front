@@ -16,7 +16,7 @@ angular.module 'eeStore', [
   'store.core'
 
   # custom
-  'ee-button-add-to-cart'
+  'ee-storefront-header'
   'ee-product'
   'ee-scroll-to-top'
   # 'ee-offscreen'
