@@ -77,6 +77,7 @@ sources.appModule = [
   './src/app/core/svc.storefront.coffee'
   './src/app/core/svc.product.coffee'
   './src/app/core/svc.cart.coffee'
+  './src/app/core/svc.modal.coffee'
   # Examples
   './src/app/examples/examples.controller.coffee'
 ]

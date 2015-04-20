@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.auth').controller 'signupCtrl', ($scope, $state, $filter, eeAuth) ->
+angular.module('builder.auth').controller 'signupCtrl', ($scope, $state, $filter, eeAuth, eeModal) ->
   $scope.signup = {}
 
   setBtnText    = (txt) -> $scope.btnText = txt
@@ -22,6 +22,6 @@ angular.module('builder.auth').controller 'signupCtrl', ($scope, $state, $filter
   $scope.$watch 'username', (newVal, oldVal) ->
     if !!newVal then $scope.username = $filter('urlText')(newVal)
 
-  $scope.openTerms = () -> eeAuth.fns.openSellerTermsModal()
+  $scope.openTerms = () -> eeModal.fns.openSellerTermsModal()
 
   return

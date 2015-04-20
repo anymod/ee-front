@@ -1,27 +1,26 @@
 'use strict'
 
-angular.module('builder.auth').controller 'loginCtrl', ($scope, $rootScope, $state, eeAuth) ->
-  $scope.alert    = ''
+angular.module('builder.auth').controller 'loginCtrl', ($state, eeAuth, eeModal) ->
+  this.alert    = ''
+  that          = this
 
-  setBtnText    = (txt) -> $scope.btnText = txt
+  setBtnText    = (txt) -> that.btnText = txt
   resetBtnText  = ()    -> setBtnText 'Sign in'
   resetBtnText()
 
-  # eeAuth.fns.userFromToken()
-  # .then () -> $state.go 'storefront'
-
-  $scope.login = () ->
-    $scope.alert = ''
+  this.login = () ->
+    that.alert = ''
     setBtnText 'Sending...'
-    eeAuth.fns.setUserFromCredentials($scope.email, $scope.password)
+    eeAuth.fns.setUserFromCredentials that.email, that.password
     .then () ->
+      eeModal.fns.closeLoginModal()
       $state.go 'storefront'
     .catch (err) ->
       resetBtnText()
       alert = err.message || err || 'Problem logging in'
       if typeof alert is 'object' then alert = 'Problem logging in'
-      $scope.alert = alert
+      that.alert = alert
 
-  $scope.signup = () -> eeAuth.fns.openSignupModal()
+  this.signup = () -> eeModal.fns.openSignupModal()
 
   return

@@ -9,16 +9,16 @@
       Sign in
     </h1>
     <small>Want to create a store?&nbsp;<a ui-sref="signup">Sign up</a></small>
-    <form ng-submit="login()" class="vert-20">
-      <div class="alert alert-info" ng-show='alert'>{{ alert }}</div>
+    <form ng-submit="login.login()" class="vert-20">
+      <div class="alert alert-info" ng-show='login.alert' ng-bind="login.alert"></div>
       <input type="email"
-             ng-model="email"
+             ng-model="login.email"
              placeholder="Email address"
              class="form-control input-lg vert-5"
              required
              autofocus>
       <input type="password"
-             ng-model="password"
+             ng-model="login.password"
              placeholder="Password"
              class="form-control input-lg vert-5"
              required>
@@ -27,8 +27,8 @@
       </p>
       <button class="btn btn-lg btn-primary btn-block"
               type="submit"
-              ng-bind="btnText"
-              ng-disabled="btnText != 'Sign in'"></button>
+              ng-bind="login.btnText"
+              ng-disabled="login.btnText != 'Sign in'"></button>
     </form>
   </div>
 </div>

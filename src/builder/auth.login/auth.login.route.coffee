@@ -7,7 +7,7 @@ angular.module('builder.auth').config ($stateProvider) ->
       url: '/login'
       views:
         top:
-          controller: 'loginCtrl'
+          controller: 'loginCtrl as login'
           templateUrl: 'builder/auth.login/auth.login.html'
         footer:
           templateUrl: 'builder/landing/landing.footer.html'

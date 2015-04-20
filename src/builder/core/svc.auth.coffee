@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore, $q, $modal, eeBack) ->
+angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore, $q, eeBack, eeModal) ->
 
   ## SETUP
   _userDefaults =
@@ -86,24 +86,6 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
 
   _saveUser = () -> eeBack.usersPUT(_user, $cookies.loginToken)
 
-  _openLoginModal = () ->
-    $modal.open({
-      templateUrl: 'builder/auth.login/auth.login.modal.html'
-      backdropClass: 'white-background opacity-08'
-      controller: 'loginCtrl'
-      controllerAs: 'modal'
-      size: 'sm'
-    })
-
-  _openSignupModal = () ->
-    $modal.open({
-      templateUrl: 'builder/auth.signup/auth.signup.modal.html'
-      backdropClass: 'white-background opacity-08'
-      controller: 'signupCtrl'
-      controllerAs: 'modal'
-      size: 'sm'
-    })
-
   ## EXPORTS
   user:   _user
   status: _status
@@ -120,7 +102,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .catch (err) -> console.error err
 
     saveUser: ()  -> _saveUser()
-    saveOrSignup: () -> if _status.landing then _openSignupModal() else _saveUser()
+    saveOrSignup: () -> if _status.landing then eeModal.fns.openSignupModal() else _saveUser()
 
     setUserIsSaved: (bool) -> _userIsSaved = bool
     userIsSaved: () -> _userIsSaved
@@ -192,23 +174,3 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       deferred.promise
 
     landingUser: () -> if _userIsEmpty() then _defineAsLanding()
-
-    openLoginModal:   () -> _openLoginModal()
-    openSignupModal:  () -> _openSignupModal()
-
-    # TODO create terms or other service for these
-    openSellerTermsModal: () ->
-      $modal.open({
-        templateUrl: 'builder/terms/terms.modal.html'
-        backdropClass: 'white-background opacity-08'
-        controller: 'termsModalCtrl'
-        controllerAs: 'modal'
-      })
-
-    openPrivacyPolicyModal: () ->
-      $modal.open({
-        templateUrl: 'builder/terms/terms.modal.privacy.html'
-        backdropClass: 'white-background opacity-08'
-        controller: 'termsModalCtrl'
-        controllerAs: 'modal'
-      })

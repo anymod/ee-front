@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.edit').controller 'editCtrl', ($scope, $state, user, eeAuth, eeLanding, eeStorefront) ->
+angular.module('builder.edit').controller 'editCtrl', ($scope, $state, user, eeAuth, eeModal, eeLanding, eeStorefront) ->
 
   this.user = user
 
@@ -19,7 +19,7 @@ angular.module('builder.edit').controller 'editCtrl', ($scope, $state, user, eeA
     eeLanding.fns.showCarouselImage imgUrl
   this.setAboutImage   = (imgUrl) =>
     eeStorefront.fns.setAboutImage this.user, imgUrl
-  this.save = () -> eeAuth.fns.openSignupModal()
+  this.save = () -> eeModal.fns.openSignupModal()
 
   this.setTheme = (theme) =>
     eeStorefront.fns.setTheme this.user, theme
