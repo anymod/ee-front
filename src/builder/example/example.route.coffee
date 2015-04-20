@@ -10,7 +10,7 @@ angular.module('builder.example').config ($stateProvider, $locationProvider) ->
           controller: 'landingCtrl as landing'
           templateUrl: 'builder/landing/landing.html'
         bottom:
-          controller: 'exampleCtrl as example'
+          controller: 'exampleCtrl as storefront'
           templateUrl: 'builder/example/example.html'
       data:
         pageTitle:        'Demo Store | eeosk'

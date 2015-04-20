@@ -32,59 +32,58 @@ angular.module('builder.example').controller 'exampleCtrl', ($scope, eeLanding) 
 
   this.example_products = [
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1427215234/oydybot7mzo85imnaw4j.jpg' }
+      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429114377/jmmsrojayjmq9xi1napc.jpg' }
       title: 'Colorful Stripe Woven Fabric Shoulder Bag'
       selling_price: 5415
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1427216099/jkajiq9beknd7r0xdjxq.jpg' }
+      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115629/l5icqvt3vbgsfgkljcep.jpg' }
       title: 'Simplemente Delicioso Orinda 16-Piece Dinnerware Set-Orange'
       selling_price: 9799
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1427217147/p5aewbyutw8lqwo981j3.jpg' }
+      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115651/ddm1miyodkbxc80tcmib.jpg' }
       title: 'Garden Tools Carry Bag'
       selling_price: 6749
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1427215978/nsy22jmwluzngng1y4go.jpg' }
+      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115648/hmmgo7ewmumsnulf0jwj.jpg' }
       title: 'Urban 880 Fire Pit'
       selling_price: 11499
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1427217101/re3pwtarhompmvjblqve.jpg' }
+      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115610/eb2rv43ay4xeadcjwhea.jpg' }
       title: 'Slitzer™ 16pc Cutlery Set in Wood Block'
       selling_price: 4268
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1427215844/tcxh7hqtgmaa1wzzvltj.jpg' }
+      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115659/bawzqqy34prnvivqixev.jpg' }
+      title: 'Merry Products Folding Eucalyptus Durable Outdoor Dining Table'
+      selling_price: 25999
+    },
+    {
+      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115212/mirqazdfxsa5swcbr28i.jpg' }
       title: 'Ionic Turbo Hair Dryer/Styler'
       selling_price: 2288
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1427215933/tdmayxdopcyw2faots0u.jpg' }
+      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429114962/v0p3xgbfgm0wxk2klmle.jpg' }
       title: 'Cherry Maurice Chevalier by Roger de Valerio- 24 x 32'
       selling_price: 6995
-    },
-    {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1427216263/oectgcycpjsgf74it4zf.jpg' }
-      title: 'Mitaki-Japan® Wind-Up LED Head Lamp'
-      selling_price: 549
     }
   ]
 
   ## For ngInclude partial
-  $scope.carousel = this.user.storefront_meta.home.carousel[0]
+  this.carousel = this.user.storefront_meta.home.carousel[0]
 
-  $scope.storefront =
-    product_selection: this.example_products
-    categories: [
-      'All',
-      'Accessories',
-      'Jewelry',
-      'Outdoor',
-      'Home Decor',
-      'Health & Beauty'
-    ]
+  this.product_selection = this.example_products
+  this.categories = [
+    'All',
+    'Accessories',
+    'Jewelry',
+    'Outdoor',
+    'Home Decor',
+    'Health & Beauty'
+  ]
 
   return
