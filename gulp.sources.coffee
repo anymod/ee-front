@@ -109,6 +109,9 @@ sources.builderModule = [
   # auth.signup
   './src/builder/auth.signup/auth.signup.route.coffee'
   './src/builder/auth.signup/auth.signup.controller.coffee'
+  # Contact
+  './src/builder/contact/contact.module.coffee'
+  './src/builder/contact/contact.controller.coffee'
   # Module - landing
   './src/builder/landing/landing.module.coffee'
   './src/builder/landing/landing.route.coffee'

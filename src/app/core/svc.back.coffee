@@ -125,3 +125,10 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       url: eeBackUrl + 'orders'
       headers: authorization: token
     }
+
+  contactPOST: (name, email, message) ->
+    _makeRequest {
+      method: 'POST'
+      url: eeBackUrl + 'contact'
+      data: { name: name, email: email, message: message }
+    }

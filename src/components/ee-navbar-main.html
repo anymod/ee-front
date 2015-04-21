@@ -3,7 +3,9 @@
   <div class="container-fluid pad-5">
     <a ui-sref="storefront" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('storefront') > -1 }">Preview</a>&nbsp;<a ui-sref="edit" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('edit') > -1 }">Edit</a>&nbsp;<a ui-sref="catalog" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('catalog') > -1 }">Add Products</a>
     <div class="pull-right">
-      <div ng-hide="authStatus.signedIn" class="btn btn-sm btn-default" ng-click="login()">
+      <div class="btn btn-sm btn-default" ng-click="feedback()">
+        Feedback
+      </div>&nbsp;<div ng-hide="authStatus.signedIn" class="btn btn-sm btn-default" ng-click="login()">
         Login
       </div>
       <div ng-show="authStatus.signedIn" class="btn-group" dropdown is-open="status.isopen">

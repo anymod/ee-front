@@ -25,6 +25,11 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
       templateUrl:    'builder/terms/terms.modal.privacy.html'
       controller:     'termsModalCtrl as modal'
       backdropClass:  _backdropClass
+    feedback:
+      templateUrl:    'builder/contact/contact.modal.feedback.html'
+      controller:     'contactCtrl as modal'
+      size:           'sm'
+      backdropClass:  _backdropClass
 
   ## PRIVATE FUNCTIONS
   _open = (name) ->

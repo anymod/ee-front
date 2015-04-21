@@ -9,4 +9,5 @@ angular.module('ee-navbar-main').directive "eeNavbarMain", ($state, eeAuth, eeMo
     scope.save        = eeAuth.fns.saveOrSignup
     scope.authStatus  = eeAuth.status
     scope.login       = eeModal.fns.openLoginModal
+    scope.feedback    = () -> eeModal.fns.open 'feedback'
     return
