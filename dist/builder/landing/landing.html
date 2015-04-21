@@ -29,7 +29,7 @@
   <div class="white-background position-relative">
     <!-- STORE carousel -->
     <div class="carousel storefront-carousel">
-      <img ng-src="{{ landing.meta.home.carousel[0].imgUrl }}"
+      <img ng-src="{{ landing.ee.carousel.imgUrl }}"
            class="img-responsive full-width transition-200"
            ng-class="landing.show.store.mainImage ? 'max-height-2400' : 'max-height-0'">
     </div>
@@ -37,7 +37,7 @@
     <!-- STORE products -->
     <div class="featured overflow-hidden transition-400" ng-class="landing.show.store.products ? 'max-height-2400' : 'max-height-0'">
       <div class="container-fluid">
-        <div class="row" ng-show="landing.product_selection.length > 0">
+        <div class="row" ng-show="landing.ee.product_selection.length > 0">
           <div class="full-width pad-10"></div>
           <div class="col col-md-offset-1 col-xs-4 col-md-2 overflow-hidden">
             <h4 class="margin-0">Categories</h4>
@@ -47,14 +47,14 @@
           <div class="col col-xs-8 position-inherit">
             <h4 class="margin-0">Featured</h4>
             <div class="full-width vert-20 overflow-hidden">
-              <div ng-repeat="product in landing.product_selection" class="product-container inline-block width-160 vertical-align-top">
+              <div ng-repeat="product in landing.ee.product_selection" class="product-container inline-block width-160 vertical-align-top">
                 <ee-product-for-storefront product="product"></ee-product-for-storefront>
                 <br>
               </div>
             </div>
           </div>
         </div>
-        <div ng-hide="landing.product_selection.length > 0" class="position-relative full-width text-center vert-50">
+        <div ng-hide="landing.ee.product_selection.length > 0" class="position-relative full-width text-center vert-50">
           <div class="panel panel-primary text-left max-width-600 margin-0-auto">
             <div class="panel-heading">
               <div class="panel-title">Add products below</div>

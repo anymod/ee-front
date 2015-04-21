@@ -66,8 +66,8 @@
           <input type="hidden" name="cn" value="Add special instructions to the seller:">
           <input type="hidden" name="no_shipping" value="2">
           <input type="hidden" name="rm" value="1">
-          <input type="hidden" name="return" value="{{ cart_url }}/success">
-          <input type="hidden" name="cancel_return" value="{{ cart_url }}">
+          <input type="hidden" name="return" value="{{ cart.cart_url }}/success">
+          <input type="hidden" name="cancel_return" value="{{ cart.cart_url }}">
           <input type="hidden" name="shipping" value="{{ cart.data.calc_meta.shipping_total | centToDollar }}">
           <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
           <input type="hidden" name="validation" value="my-hashed-value">
