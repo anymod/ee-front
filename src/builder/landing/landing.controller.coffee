@@ -4,16 +4,14 @@ angular.module('builder.landing').controller 'landingCtrl', ($scope, $state, use
 
   this.user = user
 
-  this.storefront = eeStorefront.storefront
-  this.storefront.storefront_meta = this.user.storefront_meta
+  this.product_selection = eeStorefront.data.product_selection
+  this.meta     = this.user.storefront_meta
 
   this.show     = eeLanding.show
   this.data     = eeLanding.data
   this.fns      = eeLanding.fns
   this.authFns  = eeAuth.fns
   this.modalFns = eeModal.fns
-
-  this.product_selection  = eeStorefront.storefront.product_selection
 
   this.setCarouselImage   = (imgUrl) =>
     eeStorefront.fns.setCarouselImage this.user, imgUrl

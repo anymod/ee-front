@@ -5,12 +5,12 @@
          ng-hide="!storefront.carousel.headline && !storefront.carousel.byline && !storefront.carousel.btnText">
       <h3 ng-bind="storefront.carousel.headline" class="margin-0"></h3>
       <p ng-bind="storefront.carousel.byline" class="vert-2"></p>
-      <a ng-bind="storefront.carousel.btnText" ng-show="storefront.carousel.btnText" ui-sref="storefront.shop({ shopCategory: storefront.carousel.linkCategory })" class="btn btn-default"></a>
+      <a ng-bind="storefront.carousel.btnText" ng-show="storefront.carousel.btnText" ui-sref="storefront-shop({ shopCategory: storefront.carousel.linkCategory })" class="btn btn-default"></a>
     </div>
   </div>
   <div class="pad-15 visible-xs">
     <h3 ng-bind="storefront.carousel.headline" class="margin-0"></h3>
     <p ng-bind="storefront.carousel.byline" class="vert-2"></p>
-    <a ng-bind="storefront.carousel.btnText" ng-show="storefront.carousel.btnText" ui-sref="storefront.shop({ shopCategory: storefront.carousel.linkCategory })" class="btn btn-default"></a>
+    <a ng-bind="storefront.carousel.btnText" ng-show="storefront.carousel.btnText" ui-sref="storefront-shop({ shopCategory: storefront.carousel.linkCategory })" class="btn btn-default"></a>
   </div>
 </div>

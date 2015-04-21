@@ -3,10 +3,10 @@
 angular.module('builder.edit').controller 'editCtrl', ($scope, $state, user, eeAuth, eeModal, eeLanding, eeStorefront) ->
 
   this.user = user
+  that      = this
 
-  this.storefront = eeStorefront.storefront
   this.categories = eeStorefront.data.categories
-  this.storefront.storefront_meta = this.user.storefront_meta
+  this.meta       = this.user.storefront_meta
 
   this.show       = eeLanding.show
   this.data       = eeLanding.data
@@ -14,15 +14,18 @@ angular.module('builder.edit').controller 'editCtrl', ($scope, $state, user, eeA
   this.authStatus = eeAuth.status
 
   this.product_selection  = eeStorefront.product_selection
-  this.setCarouselImage   = (imgUrl) =>
-    eeStorefront.fns.setCarouselImage this.user, imgUrl
+
+  this.setCarouselImage   = (imgUrl) ->
+    eeStorefront.fns.setCarouselImage that.user, imgUrl
     eeLanding.fns.showCarouselImage imgUrl
-  this.setAboutImage   = (imgUrl) =>
-    eeStorefront.fns.setAboutImage this.user, imgUrl
+
+  this.setAboutImage   = (imgUrl) ->
+    eeStorefront.fns.setAboutImage that.user, imgUrl
+
   this.save = () -> eeModal.fns.openSignupModal()
 
-  this.setTheme = (theme) =>
-    eeStorefront.fns.setTheme this.user, theme
+  this.setTheme = (theme) ->
+    eeStorefront.fns.setTheme that.user, theme
     $state.go 'edit'
 
   this.hidePopover = () ->

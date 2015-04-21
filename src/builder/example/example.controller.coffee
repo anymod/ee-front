@@ -8,27 +8,26 @@ angular.module('builder.example').controller 'exampleCtrl', ($scope, eeLanding) 
     eeLanding.fns.openExampleModal()
     return
 
-  this.user =
-    storefront_meta:
-      home:
-        name: 'Demo Store'
-        topBarBackgroundColor: '#dbd6ff'
-        topBarColor: '#021709'
-        carousel: [{
-          imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250064/city_.jpg'
-          headline: 'Demo store'
-          byline: 'This is an example of what\'s possible'
-          btnText: 'Build yours'
-          btnPosition: 'right'
-        }]
-      blog: { url: 'http://eeosk.com' }
-      about: { headline: 'foobar' }
-      audience:
-        social:
-          facebook:   'facebook'
-          twitter:    'twitter'
-          pinterest:  'pinterest'
-          instagram:  'instagram'
+  this.meta =
+    home:
+      name: 'Demo Store'
+      topBarBackgroundColor: '#dbd6ff'
+      topBarColor: '#021709'
+      carousel: [{
+        imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250064/city_.jpg'
+        headline: 'Demo store'
+        byline: 'This is an example of what\'s possible'
+        btnText: 'Build yours'
+        btnPosition: 'right'
+      }]
+    blog: { url: 'http://eeosk.com' }
+    about: { headline: 'foobar' }
+    audience:
+      social:
+        facebook:   'facebook'
+        twitter:    'twitter'
+        pinterest:  'pinterest'
+        instagram:  'instagram'
 
   this.example_products = [
     {
@@ -73,10 +72,9 @@ angular.module('builder.example').controller 'exampleCtrl', ($scope, eeLanding) 
     }
   ]
 
-  ## For ngInclude partial
-  this.carousel = this.user.storefront_meta.home.carousel[0]
-
-  this.product_selection = this.example_products
+  ## For ngInclude partials
+  this.carousel           = this.meta?.home?.carousel[0]
+  this.product_selection  = this.example_products
   this.categories = [
     'All',
     'Accessories',

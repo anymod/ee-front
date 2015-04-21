@@ -1,8 +1,8 @@
 'use strict'
 
-angular.module('app.core').factory 'eeCart', ($rootScope, $state) ->
+angular.module('store.core').factory 'eeCart', ($rootScope, $state, eeModal) ->
   ## Format of cart:
-  # _cart = {
+  # _data = {
   #   calc_meta: {
   #     product_total: int
   #     shipping_total: int
@@ -15,35 +15,38 @@ angular.module('app.core').factory 'eeCart', ($rootScope, $state) ->
   #     { product: product, quantity: int }
   #   ]
   # }
-  _cart =
+
+  ## SETUP
+  _data =
     calc_meta: {}
     entries: []
 
-  calcMeta = (cart) ->
+  ## PRIVATE FUNCTIONS
+  _calcMeta = () ->
     count           = 0
     product_total   = 0
     shipping_total  = 0
     tax_total       = 0
     grand_total     = 0
     addToTotals = (entry) ->
-      product_total   += parseInt(parseInt(entry.product.selling_price) * parseInt(entry.quantity))
+      product_total   += parseInt(parseInt(entry.product.calculated.selling_price) * parseInt(entry.quantity))
       shipping_total  += parseInt(parseInt(entry.product.shipping_price) * parseInt(entry.quantity))
       count           += parseInt(entry.quantity)
-    addToTotals(cart_entry) for cart_entry in cart.entries
+    addToTotals(cart_entry) for cart_entry in _data.entries
     grand_total = product_total + shipping_total + tax_total
-    cart.calc_meta =
+    _data.calc_meta =
       count:          count
       product_total:  product_total
       shipping_total: shipping_total
       tax_total:      tax_total
       grand_total:    grand_total
-    $rootScope.$broadcast 'cart:updated', _cart
     return
 
-  cart: _cart
-  calculate: () -> calcMeta _cart; return
+  ## EXPORTS
+  data: _data
+  calculate: () -> _calcMeta(); return
 
-  count: () -> _cart.length || 0
+  count: () -> _data.entries.length || 0
 
   addProduct: (product) ->
     increment = false
@@ -51,30 +54,33 @@ angular.module('app.core').factory 'eeCart', ($rootScope, $state) ->
       if !!selection_id && entry.product.selection_id is selection_id
         entry.quantity += 1
         increment = true
-    addOrIncrement(product.selection_id, entry) for entry in _cart.entries
-    if increment is false then _cart.entries.push { product: product, quantity: 1 }
-    calcMeta _cart
+    addOrIncrement(product.selection_id, entry) for entry in _data.entries
+    if increment is false then _data.entries.push { product: product, quantity: 1 }
+    _calcMeta()
+    eeModal.fns.close 'product'
     $state.go 'cart'
     return
 
   removeProduct: (product) ->
     newCart = { calc_meta: {}, entries: [] }
     removeIfMatch = (selection_id, n) ->
-      entry = _cart.entries[n]
+      entry = _data.entries[n]
       if !!entry && entry.product.selection_id isnt selection_id then newCart.entries.push entry
-    removeIfMatch(product.selection_id, n) for n in [0..(_cart.entries.length - 1)]
-    _cart = newCart
-    calcMeta _cart
+    removeIfMatch(product.selection_id, n) for n in [0..(_data.entries.length - 1)]
+    _data.calc_meta = newCart.calc_meta
+    _data.entries   = newCart.entries
+    _calcMeta()
+    console.log 'removed', _data
     return
 
   getProductNames: () ->
     names = []
     addName = (entry) -> names.push entry.product.title
-    addName(entry) for entry in _cart.entries
+    addName(entry) for entry in _data.entries
     names.join('; ')
 
   getSelectionIds: () ->
     ids = []
     addId = (entry) -> ids.push(entry.quantity + 'x' + entry.product.selection_id)
-    addId(entry) for entry in _cart.entries
+    addId(entry) for entry in _data.entries
     ids.join('; ')

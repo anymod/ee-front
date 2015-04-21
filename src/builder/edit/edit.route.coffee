@@ -8,7 +8,7 @@ angular.module('builder.landing').config ($stateProvider) ->
       templateUrl: 'builder/storefront/storefront.header.html'
     top:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'app/storefront/storefront.home.carousel.html'
+      templateUrl: 'app/storefront/storefront.carousel.html'
     middle:
       controller: 'editCtrl as edit'
       templateUrl: 'builder/edit/edit.html'

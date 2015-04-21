@@ -8,10 +8,10 @@ angular.module('builder.storefront').config ($stateProvider) ->
       templateUrl: 'builder/storefront/storefront.header.html'
     top:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'app/storefront/storefront.home.carousel.html'
+      templateUrl: 'app/storefront/storefront.carousel.html'
     middle:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'app/storefront/storefront.home.products.html'
+      templateUrl: 'app/storefront/storefront.products.html'
     bottom:
       controller: 'storefrontCtrl as storefront'
       templateUrl: 'builder/storefront/storefront.add.html'

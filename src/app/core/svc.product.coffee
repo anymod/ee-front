@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeProduct', ($q, $cookies, $modal, eeBack) ->
+angular.module('app.core').factory 'eeProduct', ($q, $cookies, eeBack, eeModal) ->
 
   ## SETUP
   # none
@@ -50,16 +50,5 @@ angular.module('app.core').factory 'eeProduct', ($q, $cookies, $modal, eeBack) -
     openProductModal: (id) ->
       if !id then return
       _getProduct id
-      .then (data) ->
-        _focused_product = data
-        $modal.open({
-          templateUrl: 'builder/catalog/catalog.modal.html'
-          backdropClass: 'white-background opacity-08'
-          animation: false
-          resolve:
-            product:  () -> _focused_product
-            margins:  () -> _margins
-          controller: 'catalogModalCtrl'
-          controllerAs: 'modal'
-        })
+      .then (data) -> eeModal.fns.openProductModal data, _margins
       .catch (err) -> console.error err

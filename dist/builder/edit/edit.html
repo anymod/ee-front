@@ -20,23 +20,23 @@
       <div class="col-sm-2">
         <div class="position-relative inline-block" ng-click="edit.fns.hidePopover('topBarBackgroundColor')">
           <div class="input-group" colorpicker colorpicker-parent="true"
-               ng-model="edit.storefront.storefront_meta.home.topBarBackgroundColor">
+               ng-model="edit.meta.home.topBarBackgroundColor">
             <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-paint-brush"></i></span>
             <input name="storefront_meta.home.topBarColor"
-                   ng-model="edit.storefront.storefront_meta.home.topBarBackgroundColor"
+                   ng-model="edit.meta.home.topBarBackgroundColor"
                    class="form-control hover-pointer"
-                   ng-style="{ 'background-color': edit.storefront.storefront_meta.home.topBarBackgroundColor, color: edit.storefront.storefront_meta.home.topBarBackgroundColor }">
+                   ng-style="{ 'background-color': edit.meta.home.topBarBackgroundColor, color: edit.meta.home.topBarBackgroundColor }">
           </div>
         </div>
       </div>
       <div class="col-sm-2" ng-show="edit.show.editor.topBarColor">
         <div class="input-group" colorpicker colorpicker-parent="true"
-             ng-model="edit.storefront.storefront_meta.home.topBarColor">
+             ng-model="edit.meta.home.topBarColor">
           <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-font"></i></span>
           <input name="storefront_meta.home.topBarBackgroundColor"
-                 ng-model="edit.storefront.storefront_meta.home.topBarColor"
+                 ng-model="edit.meta.home.topBarColor"
                  class="form-control hover-pointer"
-                 ng-style="{ 'background-color': edit.storefront.storefront_meta.home.topBarColor, color: edit.storefront.storefront_meta.home.topBarColor }">
+                 ng-style="{ 'background-color': edit.meta.home.topBarColor, color: edit.meta.home.topBarColor }">
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@
                  name="mainImageToggle">
               <div class="fa fa-fw fa-chevron-down"></div>
             </div>
-            <img ng-src="{{ edit.storefront.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive full-width vert-2">
+            <img ng-src="{{ edit.meta.home.carousel[0].imgUrl }}" class="img-responsive full-width vert-2">
           </div>
           <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;">
             <img ng-repeat="theme in edit.data.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setCarouselImage(theme.imgUrl)"/>
@@ -82,7 +82,7 @@
     <div class="form-group vert-5">
       <label class="col-sm-3 control-label">Store title</label>
       <div class="col-sm-3">
-        <input type="text" ng-model="edit.storefront.storefront_meta.home.name" class="form-control" placeholder="Store Title (optional or later)">
+        <input type="text" ng-model="edit.meta.home.name" class="form-control" placeholder="Store Title (optional or later)">
       </div>
     </div>
     <!-- /EDITOR title -->
@@ -114,31 +114,31 @@
       <div class="form-group vert-5">
         <label class="col-sm-3 control-label">Headline</label>
         <div class="col-sm-3">
-          <input type="text" ng-model="edit.storefront.storefront_meta.home.carousel[0].headline" class="form-control" placeholder="Headline">
+          <input type="text" ng-model="edit.meta.home.carousel[0].headline" class="form-control" placeholder="Headline">
         </div>
         <div class="col-sm-2">
           <div class="btn-group btn-group-justified"
-               ng-show="!!edit.storefront.storefront_meta.home.carousel[0].headline || !!edit.storefront.storefront_meta.home.carousel[0].byline || !!edit.storefront.storefront_meta.home.carousel[0].btnText">
-            <div class="btn btn-default btn-sm" ng-model="edit.storefront.storefront_meta.home.carousel[0].btnPosition" btn-radio="'left'"><i class="fa fa-align-left"></i></div>
-            <div class="btn btn-default btn-sm" ng-model="edit.storefront.storefront_meta.home.carousel[0].btnPosition" btn-radio="'middle'"><i class="fa fa-align-center"></i></div>
-            <div class="btn btn-default btn-sm" ng-model="edit.storefront.storefront_meta.home.carousel[0].btnPosition" btn-radio="'right'"><i class="fa fa-align-right"></i></div>
+               ng-show="!!edit.meta.home.carousel[0].headline || !!edit.meta.home.carousel[0].byline || !!edit.meta.home.carousel[0].btnText">
+            <div class="btn btn-default btn-sm" ng-model="edit.meta.home.carousel[0].btnPosition" btn-radio="'left'"><i class="fa fa-align-left"></i></div>
+            <div class="btn btn-default btn-sm" ng-model="edit.meta.home.carousel[0].btnPosition" btn-radio="'middle'"><i class="fa fa-align-center"></i></div>
+            <div class="btn btn-default btn-sm" ng-model="edit.meta.home.carousel[0].btnPosition" btn-radio="'right'"><i class="fa fa-align-right"></i></div>
           </div>
         </div>
       </div>
       <div class="form-group vert-5">
         <label class="col-sm-3 control-label">Byline</label>
         <div class="col-sm-3">
-          <input type="text" ng-model="edit.storefront.storefront_meta.home.carousel[0].byline" class="form-control" placeholder="Byline">
+          <input type="text" ng-model="edit.meta.home.carousel[0].byline" class="form-control" placeholder="Byline">
         </div>
       </div>
       <div class="form-group vert-5">
         <label class="col-sm-3 control-label">Headline button</label>
         <div class="col-sm-3">
-          <input type="text" ng-model="edit.storefront.storefront_meta.home.carousel[0].btnText" class="form-control" placeholder="Button text">
+          <input type="text" ng-model="edit.meta.home.carousel[0].btnText" class="form-control" placeholder="Button text">
         </div>
         <div class="col-sm-2">
-          <div ng-show="!!edit.storefront.storefront_meta.home.carousel[0].btnText">
-            <select class="form-control" ng-model="edit.storefront.storefront_meta.home.carousel[0].linkCategory">
+          <div ng-show="!!edit.meta.home.carousel[0].btnText">
+            <select class="form-control" ng-model="edit.meta.home.carousel[0].linkCategory">
               <option ng-repeat="category in edit.categories">{{ category }}</option>
             </select>
           </div>
@@ -156,7 +156,7 @@
         <div class="col-sm-3">
           <div class="input-group margin-0">
             <span class="input-group-addon"><i class="fa fa-fw fa-link"></i></span>
-            <input type="text" class="form-control" placeholder="http://" ng-model="edit.storefront.storefront_meta.blog.url">
+            <input type="text" class="form-control" placeholder="http://" ng-model="edit.meta.blog.url">
           </div>
         </div>
       </div>
@@ -165,19 +165,19 @@
         <div class="col-sm-3">
           <div class="input-group vert-5 margin-top-0">
             <span class="input-group-addon"><i class="fa fa-fw fa-facebook"></i></span>
-            <input type="text" class="form-control" placeholder="Facebook" ng-model="edit.storefront.storefront_meta.audience.social.facebook">
+            <input type="text" class="form-control" placeholder="Facebook" ng-model="edit.meta.audience.social.facebook">
           </div>
           <div class="input-group vert-5">
             <span class="input-group-addon"><i class="fa fa-fw fa-pinterest"></i></span>
-            <input type="text" class="form-control" placeholder="Pinterest" ng-model="edit.storefront.storefront_meta.audience.social.pinterest">
+            <input type="text" class="form-control" placeholder="Pinterest" ng-model="edit.meta.audience.social.pinterest">
           </div>
           <div class="input-group vert-5">
             <span class="input-group-addon"><i class="fa fa-fw fa-twitter"></i></span>
-            <input type="text" class="form-control" placeholder="Twitter" ng-model="edit.storefront.storefront_meta.audience.social.twitter">
+            <input type="text" class="form-control" placeholder="Twitter" ng-model="edit.meta.audience.social.twitter">
           </div>
           <div class="input-group vert-5 margin-bottom-0">
             <span class="input-group-addon"><i class="fa fa-fw fa-instagram"></i></span>
-            <input type="text" class="form-control" placeholder="Instagram" ng-model="edit.storefront.storefront_meta.audience.social.instagram">
+            <input type="text" class="form-control" placeholder="Instagram" ng-model="edit.meta.audience.social.instagram">
           </div>
         </div>
       </div>
@@ -186,7 +186,7 @@
         <div class="col-sm-3">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
-            <input type="text" class="form-control" placeholder="Email" ng-model="edit.storefront.storefront_meta.audience.contact.email">
+            <input type="text" class="form-control" placeholder="Email" ng-model="edit.meta.audience.contact.email">
           </div>
         </div>
       </div>
@@ -200,7 +200,7 @@
       <div class="form-group vert-5">
         <label class="col-sm-3 control-label">About headline</label>
         <div class="col-sm-5">
-          <textarea class="form-control max-width-100-pct" rows="1" ng-model="edit.storefront.storefront_meta.about.headline"></textarea>
+          <textarea class="form-control max-width-100-pct" rows="1" ng-model="edit.meta.about.headline"></textarea>
         </div>
       </div>
       <div class="form-group vert-5">
@@ -226,7 +226,7 @@
                    name="mainImageToggle">
                 <div class="fa fa-fw fa-chevron-down"></div>
               </div>
-              <img ng-src="{{ edit.storefront.storefront_meta.about.imgUrl }}" class="img-responsive full-width vert-2">
+              <img ng-src="{{ edit.meta.about.imgUrl }}" class="img-responsive full-width vert-2">
             </div>
             <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;">
               <img ng-repeat="theme in edit.data.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setAboutImage(theme.imgUrl)"/>

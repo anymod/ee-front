@@ -11,7 +11,7 @@ angular.module('builder.catalog').config ($stateProvider) ->
       templateUrl: 'builder/catalog/catalog.popover.html'
     middle:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'app/storefront/storefront.home.products.html'
+      templateUrl: 'app/storefront/storefront.products.html'
     bottom:
       controller: 'catalogCtrl as catalog'
       templateUrl: 'builder/catalog/catalog.html'

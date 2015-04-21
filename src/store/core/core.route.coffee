@@ -8,10 +8,10 @@ angular.module('store.core').config ($locationProvider, $stateProvider, $urlRout
       templateUrl: 'store/store.header.html'
     top:
       controller: 'storeCtrl as storefront'
-      templateUrl: 'app/storefront/storefront.home.carousel.html'
+      templateUrl: 'app/storefront/storefront.carousel.html'
     middle:
       controller: 'storeCtrl as storefront'
-      templateUrl: 'app/storefront/storefront.home.products.html'
+      templateUrl: 'app/storefront/storefront.products.html'
     footer:
       controller: 'storeCtrl as storefront'
       templateUrl: 'app/storefront/storefront.footer.html'

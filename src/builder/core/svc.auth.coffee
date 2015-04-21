@@ -54,8 +54,8 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
 
   _getUser = (opts) ->
     deferred = $q.defer()
-    if _status.fetching then return _status.fetching
-    _status.fetching = deferred
+    if !!_status.fetching then return _status.fetching
+    _status.fetching = deferred.promise
     if !$cookies.loginToken
       _resetUser()
       deferred.reject 'Missing login credentials'
@@ -131,13 +131,13 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
         .finally () -> _status.landing = false
       deferred.promise
 
-    createUserFromSignup: (email, password, username) ->
+    createUserFromSignup: (email, password) ->
       deferred = $q.defer()
-      if !email or !password or !username
+      if !email or !password
         _resetUser()
         deferred.reject 'Missing login credentials'
       else
-        eeBack.usersPOST(email, password, username)
+        eeBack.usersPOST(email, password)
         .then (data) ->
           if !!data.user and !!data.token
             _setLoginToken data.token

@@ -3,7 +3,7 @@
 angular.module('builder.catalog').controller 'catalogCtrl', (user, eeAuth, eeLanding, eeProduct, eeStorefront, eeCatalog) ->
 
   this.user       = user
-
+  this.meta       = user.storefront_meta
   this.data       = eeCatalog.data
   this.fns        = eeCatalog.fns
 

@@ -6,5 +6,6 @@ angular.module('ee-product').directive "eeProductForStorefront", (eeProduct) ->
   scope:
     product: '='
   link: (scope, ele, attr) ->
-    scope.openModal = (id) -> eeProduct.fns.openProductModal id
+    id = scope.product.id or scope.product.product_id
+    scope.openModal = () -> eeProduct.fns.openProductModal id
     return

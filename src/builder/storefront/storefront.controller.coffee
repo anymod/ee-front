@@ -4,13 +4,17 @@ angular.module('builder.storefront').controller 'storefrontCtrl', ($scope, user,
 
   ## Setup
   this.user               = user
-  this.product_selection  = eeStorefront.storefront.product_selection
   this.authStatus         = eeAuth.status
+  this.blocked            = eeAuth.status.landing
 
   ## For shared views (carousel, products, about, footer)
-  this.meta             = user.storefront_meta
-  this.carousel         = user.storefront_meta?.home?.carousel[0]
-  this.about            = user.storefront_meta?.about
-  this.categories       = eeStorefront.data.categories
+  this.meta               = user.storefront_meta
+  this.carousel           = user.storefront_meta?.home?.carousel[0]
+  this.about              = user.storefront_meta?.about
+  this.categories         = eeStorefront.data.categories
+  this.product_selection  = eeStorefront.data.product_selection
+  this.loading            = eeStorefront.data.loading
+
+  eeStorefront.fns.getStorefront()
 
   return

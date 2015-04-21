@@ -52,12 +52,12 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       data: user
     }
 
-  usersPOST: (email, password, username) ->
+  usersPOST: (email, password) ->
     _makeRequest {
       method: 'POST'
       url: eeBackUrl + 'users'
       headers: {}
-      data: { email: email, password: password, username: username }
+      data: { email: email, password: password }
     }
 
   usersUpdatePasswordPUT: (password, token) ->
@@ -74,6 +74,13 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       url: eeBackUrl + 'users_update_email'
       headers: authorization: token
       data: { email: email }
+    }
+
+  usersStorefrontGET: (token) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'users/storefront'
+      headers: authorization: token
     }
 
   productsGET: (token, query) ->

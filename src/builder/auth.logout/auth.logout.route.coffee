@@ -10,7 +10,8 @@ angular.module('builder.auth').config ($stateProvider) ->
           controller: 'logoutCtrl'
           templateUrl: 'builder/auth.logout/auth.logout.html'
         footer:
-          templateUrl: 'builder/landing/landing.footer.html'
+          controller:   'landingCtrl as landing'
+          templateUrl:  'builder/landing/landing.footer.html'
       data:
         pageTitle: 'Logged out | eeosk'
 

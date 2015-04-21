@@ -56,6 +56,7 @@ sources.storeVendorMin = [
   './src/bower_components/angular-sanitize/angular-sanitize.min.js'
   './src/bower_components/angular-cookies/angular-cookies.min.js'
   './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
+  './src/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
   './src/bower_components/angular-ui-router/release/angular-ui-router.min.js'
   './src/bower_components/angulartics/dist/angulartics.min.js'
   './src/bower_components/angulartics/dist/angulartics-ga.min.js'
@@ -76,8 +77,9 @@ sources.appModule = [
   './src/app/core/svc.back.coffee'
   './src/app/core/svc.storefront.coffee'
   './src/app/core/svc.product.coffee'
-  './src/app/core/svc.cart.coffee'
   './src/app/core/svc.modal.coffee'
+  # Product modal
+  './src/app/product/product.modal.controller.coffee'
   # Examples
   './src/app/examples/examples.controller.coffee'
 ]
@@ -132,7 +134,6 @@ sources.builderModule = [
   './src/builder/catalog/catalog.module.coffee'
   './src/builder/catalog/catalog.route.coffee'
   './src/builder/catalog/catalog.controller.coffee'
-  './src/builder/catalog/catalog.modal.controller.coffee'
   # Module - orders
   './src/builder/orders/orders.module.coffee'
   './src/builder/orders/orders.route.coffee'
@@ -153,6 +154,7 @@ sources.storeModule = [
   './src/store/core/core.route.coffee'
   # Services
   './src/store/core/svc.auth.coffee'
+  './src/store/core/svc.cart.coffee'
   # Module - store
   './src/store/store.controller.coffee'
   # Module - cart
@@ -166,9 +168,9 @@ sources.builderDirective = [
   './src/components/ee-navbar.coffee'
   './src/components/ee-navbar-main.coffee'
   './src/components/ee-product.coffee'
+  './src/components/ee-product-for-storefront.coffee'
   './src/components/ee-save.coffee'
   './src/components/ee-shop-nav.coffee'
-  './src/components/ee-product-for-storefront.coffee'
   './src/components/ee-order.coffee'
   './src/components/ee-cloudinary-upload.coffee'
   './src/components/ee-image-preload.coffee'
@@ -178,6 +180,7 @@ sources.builderDirective = [
 sources.storeDirective = [
   './src/components/ee-button-add-to-cart.coffee'
   './src/components/ee-product.coffee'
+  './src/components/ee-product-for-storefront.coffee'
   './src/components/ee-shop-nav.coffee'
   './src/components/ee-storefront-header.coffee'
   './src/components/ee-scroll-to-top.coffee'

@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('eeStore').controller 'cartCtrl', ($rootScope, $location, eeStorefront, eeCart) ->
-  this.cart             = eeCart.cart
+angular.module('eeStore').controller 'cartCtrl', ($rootScope, $scope, $location, eeStorefront, eeCart) ->
+  this.data             = eeCart.data
   this.cart_url         = $location.absUrl()
 
   that                  = this
@@ -17,11 +17,11 @@ angular.module('eeStore').controller 'cartCtrl', ($rootScope, $location, eeStore
   .catch () -> return
 
   # $scope.addProduct = (product) -> eeCart.addProduct product
-  # $scope.removeProduct = (product) -> eeCart.removeProduct product
-  #
-  # $scope.$watch 'cart.entries', (newVal, oldVal) ->
-  #   eeCart.calculate()
-  # , true
+  this.removeProduct = (product) -> eeCart.removeProduct product
+
+  $scope.$watch 'cart.data.entries', (newVal, oldVal) ->
+    eeCart.calculate()
+  , true
   #
   # $scope.$on 'cart:updated', () ->
   #   $scope.cart = eeCart.cart
