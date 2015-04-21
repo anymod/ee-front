@@ -42,30 +42,30 @@ angular.module('builder.storefront').config ($stateProvider) ->
       url:      '/try/storefront'
       views:    views
       data:     data
-      resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
+      # resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
     .state 'storefront',
       url:      '/storefront'
       views:    views
       data:     data
-      resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
+      # resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
     .state 'storefront-shop',
       url:      '/storefront/shop'
       views:    shopViews
       data:     data
-      resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
+      # resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
     .state 'storefront-shop-category',
       url:      '/storefront/shop/:category'
       views:    shopViews
       data:     data
-      resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
+      # resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
     .state 'storefront-about',
       url:      '/storefront/about'
       views:    aboutViews
       data:     data
-      resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
+      # resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
   return

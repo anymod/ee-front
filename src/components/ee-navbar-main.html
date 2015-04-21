@@ -5,10 +5,10 @@
     <div class="pull-right">
       <div class="btn btn-sm btn-default" ng-click="feedback()">
         Feedback
-      </div>&nbsp;<div ng-hide="authStatus.signedIn" class="btn btn-sm btn-default" ng-click="login()">
+      </div>&nbsp;<div ng-hide="ee.logged_in" class="btn btn-sm btn-default" ng-click="login()">
         Login
       </div>
-      <div ng-show="authStatus.signedIn" class="btn-group" dropdown is-open="status.isopen">
+      <div ng-show="ee.logged_in" class="btn-group" dropdown is-open="status.isopen">
         <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-toggle ng-disabled="disabled">
           <span class="hidden-xs">More&nbsp;</span><span class="caret"></span>
         </button>

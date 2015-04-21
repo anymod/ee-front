@@ -7,11 +7,11 @@
       <label class="col-sm-3 control-label">Store URL</label>
       <div class="col-sm-4 col-md-3">
         <div class="input-group">
-          <input type="text" ng-model="account.user.username" class="form-control" placeholder="storename">
+          <input type="text" ng-model="account.ee.user.username" class="form-control" placeholder="storename">
           <span class="input-group-addon">.eeosk.com</span>
         </div>
-        <a href="https://{{ account.user.username }}.eeosk.com" target="_blank" class="inline-block vert-5 margin-top-0">
-          https://{{ account.user.username }}.eeosk.com
+        <a href="https://{{ account.ee.user.username }}.eeosk.com" target="_blank" class="inline-block vert-5 margin-top-0">
+          https://{{ account.ee.user.username }}.eeosk.com
         </a>
 
 <!--          <div ng-show="username && username.length > 4">
@@ -41,7 +41,7 @@
       <div class="col-sm-4 col-md-3">
         <div class="input-group margin-0">
           <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
-          <input disabled type="email" class="form-control" ng-model="account.user.email" placeholder="Enter your email">
+          <input disabled type="email" class="form-control" ng-model="account.ee.user.email" placeholder="Enter your email">
         </div>
       </div>
     </div>
@@ -65,13 +65,13 @@
       <div class="col-sm-4 col-md-3">
         <div class="input-group vert-5 margin-top-0">
           <span class="input-group-addon"><i class="fa fa-fw fa-paypal"></i></span>
-          <input type="text" class="form-control" placeholder="PayPal email" ng-model="account.user.account_meta.earnings_accounts.paypal">
+          <input type="text" class="form-control" placeholder="PayPal email" ng-model="account.ee.meta.earnings_accounts.paypal">
         </div>
-        <p ng-hide="account.user.account_meta.earnings_accounts.paypal" class="margin-0">
+        <p ng-hide="account.ee.meta.earnings_accounts.paypal" class="margin-0">
           Enter your paypal email address to receive payment
         </p>
-        <p ng-show="account.user.account_meta.earnings_accounts.paypal" class="margin-0">
-          Earnings will be paid via PayPal to <strong ng-bind="account.user.account_meta.earnings_accounts.paypal"></strong>
+        <p ng-show="account.ee.meta.earnings_accounts.paypal" class="margin-0">
+          Earnings will be paid via PayPal to <strong ng-bind="account.ee.meta.earnings_accounts.paypal"></strong>
         </p>
         <small>(more options coming soon)</small>
       </div>

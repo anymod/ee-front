@@ -12,7 +12,7 @@ angular.module('eeStore').controller 'storeCtrl', ($rootScope, eeStorefront) ->
 
     ## For shared views (carousel, products, about, footer)
     that.meta               = storefront.storefront_meta
-    that.carousel           = storefront.storefront_meta?.home.carousel[0]
+    that.carousel           = storefront.storefront_meta?.home?.carousel[0]
     that.about              = storefront.storefront_meta?.about
     that.product_selection  = storefront.product_selection
     that.categories         = eeStorefront.data.categories

@@ -14,7 +14,5 @@ angular.module('builder.orders').config ($stateProvider) ->
     data:
       pageTitle: 'My orders | eeosk'
       padTop:    '85px'
-    resolve:
-      user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
   return

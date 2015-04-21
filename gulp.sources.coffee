@@ -78,6 +78,7 @@ sources.appModule = [
   './src/app/core/svc.storefront.coffee'
   './src/app/core/svc.product.coffee'
   './src/app/core/svc.modal.coffee'
+  './src/app/core/svc.definer.coffee'
   # Product modal
   './src/app/product/product.modal.controller.coffee'
   # Examples

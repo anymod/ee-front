@@ -3,21 +3,21 @@
 angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore, $q, eeBack, eeModal) ->
 
   ## SETUP
-  _userDefaults =
-    storefront_meta:
-      home:
-        name: ''
-        topBarBackgroundColor: '#dbd6ff'
-        topBarColor: '#021709'
-        carousel: [{ imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250403/desk1.jpg' }]
-      blog: { url: 'https://eeosk.com' }
-      about: { headline: 'eeosk' }
-      audience:
-        social:
-          facebook:   'facebook'
-          pinterest:  'pinterest'
-          twitter:    'twitter'
-          instagram:  'instagram'
+  # _userDefaults =
+  #   storefront_meta:
+  #     home:
+  #       name: ''
+  #       topBarBackgroundColor: '#dbd6ff'
+  #       topBarColor: '#021709'
+  #       carousel: [{ imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250403/desk1.jpg' }]
+  #     blog: { url: 'https://eeosk.com' }
+  #     about: { headline: 'eeosk' }
+  #     audience:
+  #       social:
+  #         facebook:   'facebook'
+  #         pinterest:  'pinterest'
+  #         twitter:    'twitter'
+  #         instagram:  'instagram'
 
   _status   =
     fetching: false
@@ -42,15 +42,14 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
     _status.landing     = false
     _status.signedIn    = true
 
-  _defineAsLanding = () ->
-    _status.landing  = true
-    _status.signedIn = false
-    _setUser _userDefaults
+  _clearLoginToken = () -> $cookieStore.remove 'loginToken'
 
-  _resetUser = () ->
-    $cookieStore.remove 'loginToken'
-    _status.signedIn = false
-    _defineAsLanding()
+  # _defineAsLanding = () ->
+  #   _status.landing  = true
+  #   _status.signedIn = false
+  #   _setUser _userDefaults
+
+  _resetUser = () -> _clearLoginToken()
 
   _getUser = (opts) ->
     deferred = $q.defer()
@@ -77,12 +76,30 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .finally () -> _status.landing = false
     deferred.promise
 
-  _getOrSetUser = () ->
+  _defineUserFromToken = () ->
     deferred = $q.defer()
-    if !_userIsEmpty() then deferred.resolve _user
-    if _userIsEmpty() and $cookies.loginToken  then return _getUser()
-    if _userIsEmpty() and !$cookies.loginToken then deferred.resolve _defineAsLanding()
+
+    if !!_status.fetching then return _status.fetching
+    if !$cookies.loginToken then deferred.reject('Missing login credentials'); return deferred.promise
+    _status.fetching = deferred.promise
+
+    eeBack.tokenPOST $cookies.loginToken
+    .then (data) ->
+      _setUser data
+      if !!data.email then deferred.resolve(data) else deferred.reject(data)
+    .catch (err) ->
+      _resetUser()
+      deferred.reject err
+    .finally () -> _status.fetching = false
     deferred.promise
+
+
+  # _getOrSetUser = () ->
+  #   deferred = $q.defer()
+  #   if !_userIsEmpty() then deferred.resolve _user
+  #   if _userIsEmpty() and $cookies.loginToken  then return _getUser()
+  #   if _userIsEmpty() and !$cookies.loginToken then deferred.resolve _defineAsLanding()
+  #   deferred.promise
 
   _saveUser = () -> eeBack.usersPUT(_user, $cookies.loginToken)
 
@@ -90,11 +107,12 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
   user:   _user
   status: _status
   fns:
-    reset:        () -> _resetUser()
-    getOrSetUser: () -> _getOrSetUser()
+    reset:                () -> _resetUser()
+    hasToken:             () -> !!$cookies.loginToken
+    defineUserFromToken:  () -> _defineUserFromToken()
+    # getOrSetUser: () -> _getOrSetUser()
 
-    getToken: ()  -> $cookies.loginToken
-    hasToken: ()  -> !!$cookies.loginToken
+    # getToken: ()  -> $cookies.loginToken
 
     getUsername: () ->
       _getUser()

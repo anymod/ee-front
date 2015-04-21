@@ -7,7 +7,7 @@ angular.module('builder.catalog').config ($stateProvider) ->
       controller: 'catalogCtrl as catalog'
       templateUrl: 'builder/catalog/catalog.header.html'
     top:
-      controller: 'storefrontCtrl as storefront'
+      controller: 'catalogCtrl as catalog'
       templateUrl: 'builder/catalog/catalog.popover.html'
     middle:
       controller: 'storefrontCtrl as storefront'
@@ -26,12 +26,10 @@ angular.module('builder.catalog').config ($stateProvider) ->
       url:      '/try/products'
       views:    views
       data:     data
-      resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
     .state 'catalog',
       url:      '/products'
       views:    views
       data:     data
-      resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
   return

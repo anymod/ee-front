@@ -3,6 +3,22 @@
 angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorScroll, $timeout, $modal) ->
 
   ## SETUP
+  _userDefaults =
+    storefront_meta:
+      home:
+        name: ''
+        topBarBackgroundColor: '#dbd6ff'
+        topBarColor: '#021709'
+        carousel: [{ imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250403/desk1.jpg' }]
+      blog: { url: 'https://eeosk.com' }
+      about: { headline: 'eeosk' }
+      audience:
+        social:
+          facebook:   'facebook'
+          pinterest:  'pinterest'
+          twitter:    'twitter'
+          instagram:  'instagram'
+
   _showDefaults =
     landing:
       content:                true
@@ -248,6 +264,10 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
   ## EXPORTS
   show: _show
   data: _data
+
+  landingUser:        _userDefaults
+  landingStorefront:  {}
+
   fns:
     reset:        () -> _reset()
     showState:    (name) ->
@@ -255,6 +275,11 @@ angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorS
       if name is 'try-theme' then $timeout _themeState, 200
       if name is 'try-edit' then _editState()
       if name is 'example' then $timeout _exampleState, 200
+
+    defineLandingUser:       () -> _userDefaults
+    defineLandingStorefront: () ->
+
+
 
     showPopover: (name) -> _showPopover name
     hidePopover: (name) -> _hidePopover name

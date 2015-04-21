@@ -1,20 +1,9 @@
 'use strict'
 
-angular.module('builder.storefront').controller 'storefrontCtrl', ($scope, user, eeAuth, eeStorefront) ->
+angular.module('builder.storefront').controller 'storefrontCtrl', (eeDefiner) ->
 
   ## Setup
-  this.user               = user
-  this.authStatus         = eeAuth.status
-  this.blocked            = eeAuth.status.landing
-
-  ## For shared views (carousel, products, about, footer)
-  this.meta               = user.storefront_meta
-  this.carousel           = user.storefront_meta?.home?.carousel[0]
-  this.about              = user.storefront_meta?.about
-  this.categories         = eeStorefront.data.categories
-  this.product_selection  = eeStorefront.data.product_selection
-  this.loading            = eeStorefront.data.loading
-
-  eeStorefront.fns.getStorefront()
+  #  For shared views (carousel, products, about, footer)
+  this.ee = eeDefiner.exports
 
   return

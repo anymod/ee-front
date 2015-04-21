@@ -1,6 +1,8 @@
 'use strict'
 
-angular.module('builder.example').controller 'exampleCtrl', ($scope, eeLanding) ->
+angular.module('builder.example').controller 'exampleCtrl', (eeLanding) ->
+
+  this.ee = {}
 
   this.show = eeLanding.show
 
@@ -8,7 +10,7 @@ angular.module('builder.example').controller 'exampleCtrl', ($scope, eeLanding) 
     eeLanding.fns.openExampleModal()
     return
 
-  this.meta =
+  this.ee.meta =
     home:
       name: 'Demo Store'
       topBarBackgroundColor: '#dbd6ff'
@@ -29,7 +31,7 @@ angular.module('builder.example').controller 'exampleCtrl', ($scope, eeLanding) 
         pinterest:  'pinterest'
         instagram:  'instagram'
 
-  this.example_products = [
+  example_products = [
     {
       image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429114377/jmmsrojayjmq9xi1napc.jpg' }
       title: 'Colorful Stripe Woven Fabric Shoulder Bag'
@@ -73,9 +75,9 @@ angular.module('builder.example').controller 'exampleCtrl', ($scope, eeLanding) 
   ]
 
   ## For ngInclude partials
-  this.carousel           = this.meta?.home?.carousel[0]
-  this.product_selection  = this.example_products
-  this.categories = [
+  this.ee.carousel           = this.ee.meta?.home?.carousel[0]
+  this.ee.product_selection  = example_products
+  this.ee.categories = [
     'All',
     'Accessories',
     'Jewelry',

@@ -1,6 +1,6 @@
 angular.module 'ee-cloudinaryUpload', []
 
-angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", (eeAuth) ->
+angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", (eeDefiner) ->
   templateUrl: 'components/ee-cloudinary-upload.html'
   restrict: 'E'
   replace: true
@@ -9,15 +9,13 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", (eeAuth) -
   link: (scope, element, attrs) ->
     form = element
 
-    eeAuth.fns.getOrSetUser()
-    .then (user) ->
-      scope.user = user
-      username = user.username
-      form
-        .append $.cloudinary.unsigned_upload_tag "storefront_home", {
-            cloud_name: 'eeosk',
-            tags: 'browser_uploads', username
-          }
+    scope.user  = eeDefiner.user
+    username    = scope.user.username
+    form
+      .append $.cloudinary.unsigned_upload_tag "storefront_home", {
+          cloud_name: 'eeosk',
+          tags: 'browser_uploads', username
+        }
 
     assignAttr = (data) ->
       if scope.attrTarget is 'carousel' then scope.user.storefront_meta.home.carousel[0].imgUrl = data.result.secure_url

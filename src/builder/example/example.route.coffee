@@ -15,7 +15,5 @@ angular.module('builder.example').config ($stateProvider, $locationProvider) ->
       data:
         pageTitle:        'Demo Store | eeosk'
         pageDescription:  'An example of what\'s possible on eeosk.'
-      resolve:
-        user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
   return

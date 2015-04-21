@@ -14,7 +14,5 @@ angular.module('builder.account').config ($stateProvider) ->
     data:
       pageTitle: 'Account | eeosk'
       padTop:    '85px'
-    resolve:
-      user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
   return

@@ -1,9 +1,10 @@
 'use strict'
 
-angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBack) ->
+angular.module('app.core').factory 'eeStorefront', ($rootScope, $cookies, $q, eeAuth, eeBack) ->
 
   ## SETUP
-  # none
+  _status =
+    fetching:           false
 
   ## PRIVATE EXPORT DEFAULTS
   _data =
@@ -43,34 +44,53 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBa
   _storefrontIsEmpty = () ->
     _data.product_selection.length is 0
 
-  _getStorefront = (force) ->
+  # _getStorefront = (force) ->
+  #   deferred = $q.defer()
+  #   # if _data.loading then avoid simultaneous calls to API
+  #   if !!_data.loading then return _data.loading
+  #   if !_storefrontIsEmpty() and force isnt true
+  #     _data.loading = false
+  #     deferred.resolve { product_selection: _data.product_selection }
+  #   else
+  #     # set _data.loading to deferred.promise so that subsequent method calls will not lead to API calls
+  #     _data.loading = deferred.promise
+  #     eeAuth.fns.getUsername()
+  #     .then (username) ->
+  #       if !username then eeBack.usersStorefrontGET(eeAuth.getToken()) else eeBack.storefrontGET(username)
+  #     .then (data) ->
+  #       _defineData data.product_selection
+  #       deferred.resolve data
+  #     .catch (err) -> deferred.reject err
+  #     .finally () -> _data.loading = false
+  #   deferred.promise
+
+  _defineStorefrontFromToken = () ->
     deferred = $q.defer()
-    # if _data.loading then avoid simultaneous calls to API
-    if !!_data.loading then return _data.loading
-    if !_storefrontIsEmpty() and force isnt true
-      _data.loading = false
-      deferred.resolve { product_selection: _data.product_selection }
-    else
-      # set _data.loading to deferred.promise so that subsequent method calls will not lead to API calls
-      _data.loading = deferred.promise
-      eeAuth.fns.getUsername()
-      .then (username) ->
-        if !username then eeBack.usersStorefrontGET(eeAuth.getToken()) else eeBack.storefrontGET(username)
-      .then (data) ->
-        _defineData data.product_selection
-        deferred.resolve data
-      .catch (err) -> deferred.reject err
-      .finally () -> _data.loading = false
+
+    if !!_status.fetching then return _status.fetching
+    if !$cookies.loginToken then deferred.reject('Missing login credentials'); return deferred.promise
+    _status.fetching = deferred.promise
+
+    eeBack.usersStorefrontGET $cookies.loginToken
+    .then (data) ->
+      _defineData data.product_selection
+      console.log '_data', _data
+      deferred.resolve data
+    .catch (err) -> deferred.reject err
+    .finally () -> _status.fetching = false
     deferred.promise
+
 
   ## EXPORTS
   data: _data
   fns:
-    setCategories: () -> _setCategories()
-    getStorefront: (force) -> _getStorefront(force)
+    defineStorefrontFromToken: () -> _defineStorefrontFromToken()
 
-    setCarouselImage: (user, imgUrl) -> user.storefront_meta.home.carousel[0].imgUrl = imgUrl
-    setAboutImage:    (user, imgUrl) -> user.storefront_meta.about.imgUrl = imgUrl
+    setCategories: () -> _setCategories()
+    # getStorefront: (force) -> _getStorefront(force)
+
+    # setCarouselImage: (meta, imgUrl) -> meta.home.carousel[0].imgUrl = imgUrl
+    # setAboutImage:    (meta, imgUrl) -> meta.about.imgUrl = imgUrl
 
     addDummyProduct: (product) ->
       if !product.calculated then return console.error('Problem adding dummy product')
@@ -84,8 +104,9 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, eeAuth, eeBa
 
     inStorefront: (id) -> _inStorefront id
 
-    setTheme: (user, theme) ->
-      user.storefront_meta.home.topBarColor = theme.topBarColor
-      user.storefront_meta.home.topBarBackgroundColor = theme.topBarBackgroundColor
-      user.storefront_meta.home.carousel[0].imgUrl = theme.imgUrl
+    setTheme: (meta, theme) ->
+      if !meta.home.carousel[0] then meta.home.carousel[0] = {}
+      meta.home.topBarColor           = theme.topBarColor
+      meta.home.topBarBackgroundColor = theme.topBarBackgroundColor
+      meta.home.carousel[0].imgUrl    = theme.imgUrl
       return
