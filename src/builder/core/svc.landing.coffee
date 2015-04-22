@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeLanding', ($rootScope, $location, $anchorScroll, $timeout, $modal) ->
+angular.module('builder.core').factory 'eeLanding', ($rootScope, $location, $anchorScroll, $timeout, $modal) ->
 
   ## SETUP
   _userDefaults =

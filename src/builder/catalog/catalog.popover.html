@@ -1,4 +1,4 @@
-<div ng-show="catalog.ee.product_selection.length <= 0 && !closePopover" class="full-width text-center pad-10 vert-50">
+<div ng-show="catalog.ee.product_selection.length <= 0 && !closePopover" ng-hide="catalog.ee.loading" class="full-width text-center pad-10 vert-50">
   <div class="popover popover-primary inline-block position-relative margin-0-auto" style="top: 0;">
     <div class="btn btn-xs btn-primary margin-5 pull-right" ng-click="closePopover = true">close</div>
     <div class="popover-title">Looking good!</div>

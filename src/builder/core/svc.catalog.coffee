@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $location, $modal, eeBack, eeAuth, eeStorefront) ->
+angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $location, $modal, eeBack, eeAuth, eeStorefront) ->
 
   ## SETUP
   _inputDefaults =

@@ -1,36 +1,29 @@
 module = angular.module 'ee-save', []
 
-angular.module('ee-save').directive "eeSave", ($timeout, eeAuth) ->
+angular.module('ee-save').directive "eeSave", (eeDefiner, eeAuth, eeModal) ->
   templateUrl: 'components/ee-save.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attr) ->
-    scope.userIsSaved = eeAuth.userIsSaved()
-    scope.text = 'Saved'
+    scope.ee = eeDefiner.exports
 
-    eeAuth.setScopeUser(scope)
-    scope.$on 'auth:user:updated', (e, user) -> eeAuth.setScopeUser(scope)
+    setBtnText    = (txt) -> scope.btnText = txt
+    resetBtnText  = ()    -> setBtnText 'Save'
+    resetBtnText()
 
-    scope.$watch 'user', (newValue, oldValue) ->
-      if !!oldValue and newValue isnt oldValue
-        scope.text = 'Save'
-        scope.userIsSaved = false
-        scope.userSaveSuccess = false
+    scope.$watch 'ee.user', (newVal, oldVal) ->
+      if !!oldVal.email and !angular.equals(newVal, oldVal)
+        scope.ee.unsaved = true
+        resetBtnText()
     , true
 
     scope.save = () ->
-      scope.text = 'Saving...'
-      scope.userSaveSuccess = false
-      scope.userSaveError = false
-      eeAuth.saveUser()
-      .then () ->
-        scope.userIsSaved = true
-        scope.userSaveSuccess = true
-        scope.text = 'Saved'
-      .catch (err) ->
-        scope.userIsSaved = false
-        scope.userSaveError = true
-        scope.text = if typeof err is 'string' then err else err.message
-      return
+      setBtnText 'Saving'
+      eeAuth.fns.saveUser()
+      .then     () -> scope.ee.unsaved = false
+      .catch    () -> scope.ee.unsaved = true
+      .finally  () -> setBtnText 'Saved'
+
+    scope.saveModal = () -> eeModal.fns.openSignupModal()
 
     return

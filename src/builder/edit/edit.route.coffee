@@ -23,12 +23,10 @@ angular.module('builder.landing').config ($stateProvider) ->
       url:      '/try/edit'
       views:    views
       data:     data
-      # resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
     .state 'edit',
       url:      '/edit'
       views:    views
       data:     data
-      # resolve:  user: (eeAuth) -> eeAuth.fns.getOrSetUser()
 
   return

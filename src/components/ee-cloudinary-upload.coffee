@@ -9,7 +9,7 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", (eeDefiner
   link: (scope, element, attrs) ->
     form = element
 
-    scope.user  = eeDefiner.user
+    scope.user  = eeDefiner.exports.user
     username    = scope.user.username
     form
       .append $.cloudinary.unsigned_upload_tag "storefront_home", {

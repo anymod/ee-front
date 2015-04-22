@@ -159,6 +159,7 @@ sources.storeModule = [
   # Services
   './src/store/core/svc.auth.coffee'
   './src/store/core/svc.cart.coffee'
+  './src/store/core/svc.landing.coffee'
   # Module - store
   './src/store/store.controller.coffee'
   # Module - cart

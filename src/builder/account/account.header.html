@@ -6,7 +6,15 @@
 <nav class="navbar navbar-default position-fixed navbar-rgba-colors navbar-subheader margin-0 round-0 no-side-border"
      ng-style="{ 'background-color': account.ee.meta.home.topBarBackgroundColor }"
      id="account-top">
-  <div class="container-fluid pad-10">
+
+  <div ng-show="account.ee.loading" class="container-fluid">
+    <h2 class="inline-block pull-left" style="margin: 7px 7px 0 0">
+      <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>
+    </h2>
+    <a href class="navbar-brand">Loading</a>
+  </div>
+
+  <div class="container-fluid pad-10" ng-hide="account.ee.loading">
     <!-- <div class="btn btn-default">Request a feature</div> -->
     <div class="navbar-right margin-0">
       <!-- <div class="btn btn-default">Give feedback</div> -->

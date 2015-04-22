@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeStorefront', ($rootScope, $cookies, $q, eeAuth, eeBack) ->
+angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, eeAuth, eeBack) ->
 
   ## SETUP
   _status =
@@ -41,56 +41,51 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $cookies, $q, ee
     defineIdAndCategory p_s for p_s in _data.product_selection
     return
 
-  _storefrontIsEmpty = () ->
-    _data.product_selection.length is 0
-
-  # _getStorefront = (force) ->
-  #   deferred = $q.defer()
-  #   # if _data.loading then avoid simultaneous calls to API
-  #   if !!_data.loading then return _data.loading
-  #   if !_storefrontIsEmpty() and force isnt true
-  #     _data.loading = false
-  #     deferred.resolve { product_selection: _data.product_selection }
-  #   else
-  #     # set _data.loading to deferred.promise so that subsequent method calls will not lead to API calls
-  #     _data.loading = deferred.promise
-  #     eeAuth.fns.getUsername()
-  #     .then (username) ->
-  #       if !username then eeBack.usersStorefrontGET(eeAuth.getToken()) else eeBack.storefrontGET(username)
-  #     .then (data) ->
-  #       _defineData data.product_selection
-  #       deferred.resolve data
-  #     .catch (err) -> deferred.reject err
-  #     .finally () -> _data.loading = false
-  #   deferred.promise
+  _storefrontIsEmpty = () -> _data.product_selection.length is 0
 
   _defineStorefrontFromToken = () ->
     deferred = $q.defer()
 
     if !!_status.fetching then return _status.fetching
-    if !$cookies.loginToken then deferred.reject('Missing login credentials'); return deferred.promise
+    if !eeAuth.fns.getToken() then deferred.reject('Missing login credentials'); return deferred.promise
     _status.fetching = deferred.promise
 
-    eeBack.usersStorefrontGET $cookies.loginToken
+    eeBack.usersStorefrontGET eeAuth.fns.getToken()
     .then (data) ->
       _defineData data.product_selection
-      console.log '_data', _data
       deferred.resolve data
     .catch (err) -> deferred.reject err
     .finally () -> _status.fetching = false
     deferred.promise
 
+  _defineCustomerStore = () ->
+    deferred  = $q.defer()
+
+    if !!_status.fetching then return _status.fetching
+    host      = $location.host()
+    username  = host.split('.')[0]
+
+    if !!host and host is 'testing.localhost'    then username = 'demoseller'
+    if !!host and host.indexOf('herokuapp') > -1 then username = 'demoseller'
+
+    if !username then deferred.reject('Missing username'); return deferred.promise
+
+    eeBack.storefrontGET username
+    .then (storefront) ->
+      _defineData storefront.product_selection
+      $rootScope.storeName = storefront.storefront_meta?.home?.name
+      deferred.resolve storefront
+    .catch (err) -> deferred.reject err
+    .finally () -> _status.fetching = false
+    deferred.promise
 
   ## EXPORTS
   data: _data
   fns:
     defineStorefrontFromToken: () -> _defineStorefrontFromToken()
+    defineCustomerStore: () -> _defineCustomerStore()
 
     setCategories: () -> _setCategories()
-    # getStorefront: (force) -> _getStorefront(force)
-
-    # setCarouselImage: (meta, imgUrl) -> meta.home.carousel[0].imgUrl = imgUrl
-    # setAboutImage:    (meta, imgUrl) -> meta.about.imgUrl = imgUrl
 
     addDummyProduct: (product) ->
       if !product.calculated then return console.error('Problem adding dummy product')

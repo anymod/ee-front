@@ -18,6 +18,7 @@ angular.module('app.core').factory 'eeDefiner', ($rootScope, eeAuth, eeStorefron
     logged_in:          _loggedIn
     loading:            {}
     blocked:            {}
+    unsaved:            false
 
   ## PRIVATE FUNCTIONS
   _fillExportData = (user, data) ->
@@ -31,28 +32,29 @@ angular.module('app.core').factory 'eeDefiner', ($rootScope, eeAuth, eeStorefron
 
   _defineLoggedIn = () ->
     console.info '_defineLoggedIn'
-    _exports.loading = true
-    _exports.blocked = false
+    _exports.logged_in  = true
+    _exports.loading    = true
+    _exports.blocked    = false
     eeAuth.fns.defineUserFromToken()
-    .then     () ->
-      eeStorefront.fns.defineStorefrontFromToken()
-      console.log eeAuth.user, eeStorefront.data
-    .then     () -> _fillExportData eeAuth.user, eeStorefront.data
+    .then     () -> eeStorefront.fns.defineStorefrontFromToken()
+    .then     () -> _fillExportData eeAuth.exports.user, eeStorefront.data
     .catch (err) -> console.error err
     .finally  () -> _exports.loading = false
 
   _defineLanding = () ->
     console.info '_defineLanding'
-    _exports.loading = false
-    _exports.blocked = true
+    _exports.logged_in  = false
+    _exports.loading    = false
+    _exports.blocked    = true
     _fillExportData eeLanding.landingUser, eeLanding.landingStorefront
 
   _defineCustomerStore = () ->
     console.info '_defineCustomerStore'
-    _exports.loading = true
-    _exports.blocked = false
+    _exports.logged_in  = false
+    _exports.loading    = true
+    _exports.blocked    = false
     eeStorefront.fns.defineCustomerStore()
-    .then     () -> _fillExportData eeStorefront.user, eeStorefront.data
+    .then  (res) -> _fillExportData res, eeStorefront.data
     .catch (err) -> console.error err
     .finally  () -> _exports.loading = false
 
@@ -61,13 +63,8 @@ angular.module('app.core').factory 'eeDefiner', ($rootScope, eeAuth, eeStorefron
   if _isBuilder and _loggedIn   then _defineLoggedIn()
   if _isBuilder and _loggedOut  then _defineLanding()
 
+  $rootScope.$on 'definer:login',   () -> _defineLoggedIn()
+  $rootScope.$on 'definer:logout',  () -> _defineLanding()
+
   ## EXPORTS
   exports: _exports
-  # user:               _exports.user
-  # meta:               _exports.meta
-  # carousel:           _exports.carousel
-  # about:              _exports.about
-  # product_selection:  _exports.product_selection
-  # categories:         _exports.categories
-  # loading:            _exports.loading
-  # blocked:            _exports.blocked

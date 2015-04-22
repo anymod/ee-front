@@ -14,10 +14,6 @@ angular.module('builder.edit').controller 'editCtrl', ($state, eeDefiner, eeModa
 
   this.save = () -> eeModal.fns.openSignupModal()
 
-  this.setTheme = (theme) ->
-    eeStorefront.fns.setTheme that.meta, theme
-    $state.go 'edit'
-
   this.hidePopover = () ->
     eeLanding.fns.hidePopover 'editPopover'
 
