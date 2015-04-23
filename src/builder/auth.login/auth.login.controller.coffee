@@ -21,6 +21,6 @@ angular.module('builder.auth').controller 'loginCtrl', ($state, eeAuth, eeModal)
       if typeof alert is 'object' then alert = 'Problem logging in'
       that.alert = alert
 
-  this.signup = () -> eeModal.fns.openSignupModal()
+  this.signup = () -> eeModal.fns.open 'signup'
 
   return

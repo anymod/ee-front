@@ -16,6 +16,7 @@ angular.module('builder.core').run ($rootScope, $timeout, $state, $location, $an
     'reset'
     'logout'
     'example'
+    'signup'
   ]
 
   isTry     = (state) -> tryStates.indexOf(state) > -1

@@ -7,7 +7,7 @@ angular.module('builder.auth').config ($stateProvider) ->
       url: '/create-online-store'
       views:
         top:
-          controller: 'signupCtrl'
+          controller: 'signupCtrl as signup'
           templateUrl: 'builder/auth.signup/auth.signup.html'
         footer:
           templateUrl: 'builder/landing/landing.footer.html'

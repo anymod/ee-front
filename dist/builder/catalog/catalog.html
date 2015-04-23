@@ -1,11 +1,19 @@
 <!-- CATALOG products -->
 <div id="catalog-products" class="margin-20 margin-top-0 text-center position-relative min-height-600" ng-hide="catalog.ee.loading">
-  <div class="vert-20 hidden-xs">
+
+  <div class="vert-20">
     <div ng-repeat="category in catalog.data.inputs.categoryArray"
-         ng-bind="category"
          ng-click="catalog.fns.setCategory(category)"
          class="btn btn-xs btn-default margin-2"
-         ng-class="{ active: category == catalog.data.inputs.category }">
+         ng-class="{ 'btn-primary': category == catalog.data.inputs.category }">
+      <span ng-show="category == catalog.data.inputs.category"><i class="fa fa-fw fa-times"></i></span>{{ category }}
+    </div>
+    <br>
+    <div ng-repeat="range in catalog.data.inputs.rangeArray"
+         ng-click="catalog.fns.setRange(range)"
+         class="btn btn-xs btn-default margin-2"
+         ng-class="{ 'btn-primary': range.min == catalog.data.inputs.range.min && range.max == catalog.data.inputs.range.max }">
+      <span ng-show="range.min == catalog.data.inputs.range.min && range.max == catalog.data.inputs.range.max"><i class="fa fa-fw fa-times"></i></span>{{ range | rangeToText }}
     </div>
   </div>
 
