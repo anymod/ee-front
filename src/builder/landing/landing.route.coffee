@@ -29,4 +29,17 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
         pageTitle:        'Choose a theme for your store | eeosk'
         pageDescription:  'Start building your store by choosing a theme (you can edit it next).'
 
+    .state 'welcome',
+      url: '/welcome'
+      views:
+        bottom:
+          controller: 'landingCtrl as landing'
+          templateUrl: 'builder/landing/landing.html'
+        footer:
+          controller: 'landingCtrl as landing'
+          templateUrl: 'builder/landing/landing.footer.html'
+      data:
+        pageTitle:        'Welcome to eeosk | eeosk'
+        pageDescription:  'Create an online store in minutes.'
+
   return

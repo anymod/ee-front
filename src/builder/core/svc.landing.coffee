@@ -188,6 +188,7 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $location, $anc
     reset:        () -> _reset()
     showState:    (name) ->
       if name is 'landing'    then $timeout _landingState,  100
+      if name is 'welcome'    then $timeout _landingState,  100
       if name is 'try-theme'  then $timeout _themeState,    200
       if name is 'example'    then $timeout _exampleState,  200
 

@@ -11,6 +11,7 @@ angular.module('builder.core').run ($rootScope, $timeout, $state, $location, $an
   ]
   openStates = tryStates.concat [
     'landing'
+    'welcome'
     'login'
     'reset'
     'logout'
