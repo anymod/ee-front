@@ -10,47 +10,30 @@
     </h1>
 
     <small>Already have a store? <a ui-sref="login">Log in</a></small>
-    <form ng-submit="signup()" class="vert-20">
-      <div class="alert alert-info" ng-show='alert'>{{ alert }}</div>
+    <form ng-submit="signup.signup()" class="vert-20">
+      <div class="alert alert-info" ng-show='signup.alert'>{{ signup.alert }}</div>
       <input type="email"
-             ng-model="email"
+             ng-model="signup.email"
              placeholder="Email address"
              class="form-control input-lg vert-5"
              required
              autofocus>
       <input type="email"
-             ng-model="email_check"
+             ng-model="signup.email_check"
              placeholder="Re-enter email address"
              class="form-control input-lg vert-5"
              required>
       <input type="password"
-             ng-model="password"
+             ng-model="signup.password"
              placeholder="Password"
              class="form-control input-lg vert-5"
              required>
-      <input type="text"
-             ng-model="username"
-             placeholder="Store name"
-             class="form-control input-lg vert-5"
-             required>
-      <div ng-show="username && username.length > 4">
-        Your store will be available at
-        <h4 class='vert-2'><small><i class="fa fa-fw fa-globe"></i>http://</small>{{ username }}<small>.eeosk.com</small></h4>
-        <hr class="vert-5">
+      <div class="vert-5 text-muted">
+        By creating a store, you agree to the&nbsp;
+        <a ng-click="signup.openTerms()" name="termsLink" class="hover-pointer">terms & conditions</a>
       </div>
-      <div class="vert-5 text-muted">By creating a store, you agree to the&nbsp;<a ng-click="showTerms = true" name="termsLink" class="hover-pointer">terms & conditions</a></div>
       <hr class="vert-5">
-      <button class="btn btn-lg btn-primary btn-block"
-              ng-bind="btnText"
-              ng-disabled="btnText != 'Create your store'"
-              type="submit">
-      </button>
+      <button type="submit" class="btn btn-lg btn-block btn-primary" ng-bind="signup.btnText" ng-disabled="signup.btnText == 'Sending...'"></button>
     </form>
-    <div ng-show="showTerms">
-      <hr>
-      <ee-terms-seller></ee-terms-seller>
-      <a ng-click="scrollToTop()" href class="btn btn-primary">Back to top</a>
-      <a ui-sref="privacy" class="btn btn-default">Privacy policy</a>
-    </div>
   </div>
 </div>
