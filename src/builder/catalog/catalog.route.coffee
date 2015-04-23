@@ -9,9 +9,9 @@ angular.module('builder.catalog').config ($stateProvider) ->
     top:
       controller: 'catalogCtrl as catalog'
       templateUrl: 'builder/catalog/catalog.popover.html'
-    middle:
-      controller: 'storefrontCtrl as storefront'
-      templateUrl: 'app/storefront/storefront.products.html'
+    # middle:
+    #   controller: 'storefrontCtrl as storefront'
+    #   templateUrl: 'app/storefront/storefront.products.html'
     bottom:
       controller: 'catalogCtrl as catalog'
       templateUrl: 'builder/catalog/catalog.html'
@@ -19,7 +19,7 @@ angular.module('builder.catalog').config ($stateProvider) ->
   data =
     pageTitle:        'Add products | eeosk'
     pageDescription:  'Choose products to add to your store.'
-    padTop:           '85px'
+    padTop:           '88px'
 
   $stateProvider
     .state 'try-catalog',

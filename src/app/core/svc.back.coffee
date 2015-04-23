@@ -109,6 +109,14 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       data: attrs
     }
 
+  selectionsPUT: (token, id, attrs) ->
+    _makeRequest {
+      method: 'PUT'
+      url: eeBackUrl + 'selections/' + id
+      headers: authorization: token
+      data: attrs
+    }
+
   selectionsDELETE: (token, id) ->
     _makeRequest {
       method: 'DELETE'

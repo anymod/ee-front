@@ -31,7 +31,7 @@
               <div ng-click="removeFromStore()" ng-disabled="removeBtnDisabled || !focusImg" class="btn btn-sm btn-danger btn-block">Remove from my store</div>
             </div>
             <div ng-hide="productInStorefront(product.id)" class="btn-group btn-group-justified">
-              <a href ng-repeat="margin in marginArray"
+              <a href ng-repeat="margin in margin_array"
                   class="btn btn-warning btn-sm pad-5 round-0"
                   ng-class="{ active: currentMargin == margin }"
                   ng-click="update(margin)">

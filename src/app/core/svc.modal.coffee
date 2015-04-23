@@ -53,13 +53,12 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
     openSellerTermsModal:   () -> _open 'sellerTerms'
     openPrivacyPolicyModal: () -> _open 'privacyPolicy'
 
-    openProductModal: (product, margins) ->
+    openProductModal: (product) ->
       _modals.product = $modal.open({
         templateUrl: 'app/product/product.modal.html'
         backdropClass: 'white-background opacity-08'
         resolve:
           product: () -> product
-          margins: () -> margins
         controller: 'productModalCtrl as modal'
       })
 

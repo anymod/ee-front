@@ -23,7 +23,7 @@ describe 'eeosk catalog', () ->
       products:                 element.all byAttr.repeater('product in products')
       productSix:               element byAttr.repeater('product in products').row(5)
       productFocus:             element byAttr.css '#ee-offscreen [name="product-focus"]'
-      margin25:                 element byAttr.repeater('margin in marginArray').row(4)
+      margin25:                 element byAttr.repeater('margin in margin_array').row(4)
       addBtn:                   element byAttr.cssContainingText('#ee-offscreen .btn-primary', 'Add to store')
       seeInStoreBtn:            element byAttr.cssContainingText('#ee-offscreen .btn-primary', 'See in store')
       removeBtn:                element byAttr.cssContainingText('#ee-offscreen .btn-danger', 'Remove from my store')

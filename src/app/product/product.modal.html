@@ -19,7 +19,7 @@
           <div class="btn btn-sm btn-default" ng-click="$close()">Close</div>
         </div>
         <h4 ng-bind="modal.product.title" class="vert-10"></h4>
-        <h3 ng-bind="modal.product.calculated.selling_price | centToDollar" class="margin-0"></h3>
+        <h3 ng-bind="modal.data.calculated.selling_price | centToDollar" class="margin-0"></h3>
         <!-- customer view ONLY -->
         <div ng-show="isStore || modal.showCustomerView" class="position-relative">
           <div class="inline-block full-width vert-5"></div>
@@ -28,43 +28,54 @@
             <div class="btn btn-xs btn-primary margin-5 pull-right" ng-click="modal.showAddPopover = false">close</div>
             <div class="arrow arrow-primary"></div>
             <div class="popover-title">Added</div>
-            <div class="popover-content">The customer would have just added this product to their cart for {{ modal.product.calculated.selling_price | centToDollar }}.</div>
+            <div class="popover-content">The customer would have just added this product to their cart for {{ modal.data.calculated.selling_price | centToDollar }}.</div>
           </div>
         </div>
         <!-- /customer view ONLY -->
         <!-- isBuilder ONLY -->
         <div ng-if="isBuilder" ng-hide="modal.showCustomerView">
-          <div class="text-muted line-height-1">Recommended price. You earn&nbsp;<strong ng-bind="modal.product.calculated.earnings | centToDollar"></strong>&nbsp;each sale.</div>
+          <div class="text-muted line-height-1">
+            <span ng-show="modal.data.calculated.margin == modal.data.margins.start_margin">Recommended price.</span>
+            <span ng-hide="modal.data.calculated.margin == modal.data.margins.start_margin">{{ modal.data.calculated.margin * 100 | number:1 }}%&nbsp;margin.</span>
+            &nbsp;You earn&nbsp;<strong ng-bind="modal.data.calculated.earnings | centToDollar"></strong>&nbsp;each sale.</div>
           <div class="inline-block full-width vert-5"></div>
-          <div ng-hide="showPriceOptions">
-            <div ng-hide="modal.fns.inStorefront(modal.product.id)" class="btn btn-primary btn-block" ng-click="modal.addProduct(modal.product)">Add to store</div>
-            <div ng-show="modal.fns.inStorefront(modal.product.id)" class="btn btn-danger margin-0 btn-block" ng-click="modal.removeProductSelection(modal.product)">Remove from store</div>
-            <div class="btn btn-default btn-block" ng-click="showPriceOptions = true">Set a different price</div>
+          <div ng-hide="modal.showPriceOptions" style="min-height: 120px;">
+            <div ng-hide="modal.inStorefront(modal.product.id)" class="btn btn-primary btn-block" ng-click="modal.addProduct(modal.product)">Add to store</div>
+            <div ng-show="modal.inStorefront(modal.product.id)" class="btn btn-danger margin-0 btn-block" ng-click="modal.removeProductSelection(modal.product)">Remove from store</div>
+            <div class="btn btn-default btn-block" ng-click="modal.showPriceOptions = true">Set a different price</div>
           </div>
           <!-- priceOptions -->
-          <div ng-show="showPriceOptions">
-            <div class="vert-2 margin-top-0">
-              <small>Set your price (min {{ modal.product.baseline_price / (1 - modal.margins.minMargin) | centToDollar }} / max {{ modal.product.baseline_price / (1 - modal.margins.maxMargin) | centToDollar }})</small>
-              <div class="input-group" style="max-width: 165px;">
-                <span class="input-group-addon">$</span>
-                <input type="text" class="form-control inline-block text-right">
-                <span class="input-group-addon pad-5">.</span>
-                <input type="text" class="form-control inline-block" style="width: 50px;">
-              </div>
+          <div ng-show="modal.showPriceOptions" style="min-height: 120px;">
+            <div class="vert-5 margin-top-0">
+              <form ng-submit="modal.updatePricing()">
+                <div class="input-group" style="max-width: 230px;">
+                  <span class="input-group-addon white-background"><i class="fa fa-fw fa-dollar"></i></span>
+                  <input type="text" ng-model="modal.data.calculated.selling_dollars" class="form-control inline-block text-right">
+                  <span class="input-group-addon pad-5 white-background no-side-border">.</span>
+                  <input type="text" ng-model="modal.data.calculated.selling_cents" class="form-control inline-block" style="width: 50px;" autofocus>
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-check"></i></button>
+                  </span>
+                </div>
+              </form>
             </div>
-            <div class="vert-2 margin-top-0">
-              <small>Or set your margin (%)</small>
+            <div class="vert-5 margin-top-0">
               <div class="btn-group btn-group-justified">
-                <a href ng-repeat="margin in modal.margins.marginArray"
-                    class="btn btn-default btn-xs" style="padding: 8px 0;"
-                    ng-class="{ active: margin == modal.product.calculated.margin }"
-                    ng-click="update(margin)">
-                  {{ margin*100 }}<span ng-show="margin == modal.product.calculated.margin"><small><small>%</small></small></span>
+                <a href ng-repeat="margin in modal.data.margins.margin_array"
+                    class="btn btn-default btn-xs" style="padding: 7px 0;"
+                    ng-class="{ active: margin == modal.data.calculated.margin }"
+                    ng-click="modal.fns.calcByMargin(margin)">
+                  {{ margin*100 }}<span ng-show="margin == modal.data.calculated.margin"><small><small>%</small></small></span>
                 </a>
               </div>
             </div>
-            <div class="btn btn-default btn-block" disabled>Save new price</div>
-            <div class="btn btn-default btn-block" ng-click="showPriceOptions = false">Cancel</div>
+            <small class="inline-block">
+              Set the price or set margin % directly.
+              <br>
+              <a href ng-click="modal.fns.calcByMargin(modal.data.margins.min_margin)">Min price: {{ modal.product.baseline_price / (1 - modal.data.margins.min_margin) | centToDollar }}</a>
+              ,&nbsp;
+              <a href ng-click="modal.fns.calcByMargin(modal.data.margins.max_margin)">Max price: {{ modal.product.baseline_price / (1 - modal.data.margins.max_margin) | centToDollar }}</a>
+            </small>
           </div>
           <!-- /priceOptions -->
         </div>

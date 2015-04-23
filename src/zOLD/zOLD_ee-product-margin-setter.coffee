@@ -9,8 +9,8 @@ angular.module('ee-product').directive "eeProductMarginSetter", (eeCatalog) ->
     disabled: '='
   link: (scope, ele, attr, eeProductForCatalogCtrl) ->
     basePrice = scope.product.baseline_price
-    scope.marginArray = eeCatalog.marginArray
-    eeCatalog.setCurrents scope, basePrice, eeCatalog.startMargin
+    scope.margin_array = eeCatalog.margin_array
+    eeCatalog.setCurrents scope, basePrice, eeCatalog.start_margin
 
     scope.update = (newMargin) ->
       eeProductForCatalogCtrl.setCurrentMargin newMargin

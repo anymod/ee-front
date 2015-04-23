@@ -18,7 +18,11 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
   _reset()
 
   ## PRIVATE FUNCTIONS
-  _inStorefront   = (id)                -> _data.product_ids.indexOf(id) > -1
+  _inStorefront   = (id)           -> _data.product_ids.indexOf(id) > -1
+  _getProductSelection = (product) ->
+    if !product?.id or !_inStorefront(product.id) then return false
+    index = _data.product_ids.indexOf(product.id)
+    _data.product_selection[index]
 
   _addProductSel  = (p_s, psArray)      -> if !!p_s and !!p_s.product_id then psArray.push p_s
   _addProductId   = (id, ids)           -> if !!id  and (ids.indexOf(id) < 0) then ids.push id
@@ -43,7 +47,6 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
     _data.categories.length  = 0
     _data.categories.push 'All'
     defineIdAndCategory p_s for p_s in _data.product_selection
-    console.log _data
     return
 
   _storefrontIsEmpty = () -> _data.product_selection.length is 0
@@ -115,17 +118,32 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
     .then (res) -> _defineStorefrontFromToken()
     .catch (err) -> console.error err
 
+  _updateProductSelection = (p_s, product) ->
+    eeBack.selectionsPUT eeAuth.fns.getToken(), p_s.selection_id, {
+      product_id:   product.id
+      supplier_id:  product.supplier_id
+      margin:       product.calculated.margin*100
+    }
+
+  _updateDummyProductSelection = (p_s, product) ->
+    p_s.selling_price = product.calculated.selling_price
+    return
+
   ## EXPORTS
   data: _data
   fns:
-    logout: () -> _reset()
-    defineStorefrontFromToken: () -> _defineStorefrontFromToken()
-    defineCustomerStore: () -> _defineCustomerStore()
+    logout: _reset
 
-    setCategories: () -> _setCategories()
+    defineStorefrontFromToken:    _defineStorefrontFromToken
+    defineCustomerStore:          _defineCustomerStore
+    inStorefront:                 _inStorefront
 
-    addProduct:             (product) -> _addProduct product
-    removeProductSelection: (p_s)     -> _removeProductSelection p_s
+    setCategories:                _setCategories
+    addProduct:                   _addProduct
+    getProductSelection:          _getProductSelection
+    removeProductSelection:       _removeProductSelection
+    updateProductSelection:       _updateProductSelection
+    updateDummyProductSelection:  _updateDummyProductSelection
 
     addDummyProduct: (product) ->
       if !product.calculated then return console.error('Problem adding dummy product')
@@ -136,8 +154,6 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
       index = _data.product_ids.indexOf p_s.product_id
       if index > -1 then _data.product_selection.splice index, 1
       _defineData()
-
-    inStorefront: (id) -> _inStorefront id
 
     setTheme: (meta, theme) ->
       if !meta.home.carousel[0] then meta.home.carousel[0] = {}

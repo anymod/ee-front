@@ -6,7 +6,7 @@ angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($
   # Search
   $scope.categoryArray      = eeCatalog.categoryArray
   $scope.rangeArray         = eeCatalog.rangeArray
-  $scope.marginArray        = eeCatalog.marginArray
+  $scope.margin_array        = eeCatalog.margin_array
   # Offscreen product
   basePrice                 = null
   $scope.currentPrice       = null
@@ -57,7 +57,7 @@ angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($
       $scope.currentProfit  = productInStorefront.selling_price - basePrice
       $scope.currentMargin  = Math.round((1 - (basePrice / productInStorefront.selling_price)) * 1000) / 1000
     else
-      $scope.update eeCatalog.startMargin
+      $scope.update eeCatalog.start_margin
 
   ## Focus product
   $scope.$on 'product:focus', (e, id) ->
