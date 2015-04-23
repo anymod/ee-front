@@ -13,7 +13,7 @@ angular.module('builder.example').controller 'exampleCtrl', (eeLanding) ->
   this.ee.meta =
     home:
       name: 'Demo Store'
-      topBarBackgroundColor: '#dbd6ff'
+      topBarBackgroundColor: '#83bec3'
       topBarColor: '#021709'
       carousel: [{
         imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250064/city_.jpg'
