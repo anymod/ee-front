@@ -33,8 +33,8 @@ angular.module('builder.storefront').config ($stateProvider) ->
     footer: views.footer
 
   data =
-    pageTitle:        'Add products | eeosk'
-    pageDescription:  'Choose products to add to your store.'
+    pageTitle:        'My store | eeosk'
+    pageDescription:  'Preview and navigate my eeosk.'
     padTop:           '85px'
 
   $stateProvider
