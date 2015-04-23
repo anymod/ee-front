@@ -75,13 +75,19 @@ angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $
       _runQuery()
     setCategory: (category) ->
       _data.inputs.page = 1
-      _data.inputs.category = category
+      _data.inputs.category = if _data.inputs.category is category then null else category
       _runQuery()
     setRange: (range) ->
       range = range || {}
       _data.inputs.page = 1
-      _data.inputs.range.min = range.min || null
-      _data.inputs.range.max = range.max || null
+      console.log 'start', range, _data.inputs.range
+      if _data.inputs.range.min is range.min and _data.inputs.range.max is range.max
+        _data.inputs.range.min = null
+        _data.inputs.range.max = null
+      else
+        _data.inputs.range.min = range.min
+        _data.inputs.range.max = range.max
+      console.log 'end', range, _data.inputs.range
       _runQuery()
     setSearchTerm: (search_term) ->
       _data.inputs.page = 1

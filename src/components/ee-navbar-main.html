@@ -1,16 +1,28 @@
 <nav class="navbar navbar-default main-navbar navbar-fixed-top margin-0 round-0 no-side-border"
      style="min-height: 30px;">
   <div class="container-fluid pad-5">
-    <a ui-sref="storefront" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('storefront') > -1 }">Preview</a>&nbsp;<a ui-sref="edit" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('edit') > -1 }">Edit</a>&nbsp;<a ui-sref="catalog" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('catalog') > -1 }">Add Products</a>
+    <a ui-sref="storefront" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('storefront') > -1 }">
+      <span class="hidden-xs">Preview</span>
+      <span class="visible-xs"><i class="fa fa-fw fa-home"></i></span>
+    </a>&nbsp;
+    <a ui-sref="edit" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('edit') > -1 }">
+      <span class="hidden-xs">Edit</span>
+      <span class="visible-xs"><i class="fa fa-fw fa-pencil"></i></span>
+    </a>&nbsp;
+    <a ui-sref="catalog" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('catalog') > -1 }">
+      <span class="hidden-xs">Add Products</span>
+      <span class="visible-xs"><i class="fa fa-fw fa-plus"></i></span>
+    </a>
     <div class="pull-right">
       <div class="btn btn-sm btn-default" ng-click="feedback()">
-        Feedback
+        <span class="hidden-xs">Feedback</span>
+        <span class="visible-xs"><i class="fa fa-fw fa-comment-o"></i></span>
       </div>&nbsp;<div ng-hide="ee.logged_in" class="btn btn-sm btn-default" ng-click="login()">
         Login
       </div>
       <div ng-show="ee.logged_in" class="btn-group" dropdown is-open="status.isopen">
         <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-          <span class="hidden-xs">More&nbsp;</span><span class="caret"></span>
+          <span class="hidden-xs">More&nbsp;</span><i class="fa fa-fw fa-caret-down"></i>
         </button>
         <ul class="dropdown-menu" style="left: auto; right: 0;">
           <li><a href ng-click="live()"><i class="fa fa-fw fa-globe"></i>&nbsp;&nbsp;Live Store</a></li>

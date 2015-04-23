@@ -15,39 +15,39 @@
   </div>
 
   <div class="container-fluid pad-10" ng-hide="catalog.ee.loading">
-    <div class="btn-group" dropdown>
-      <div class="btn btn-default dropdown-toggle" dropdown-toggle>
-        {{ catalog.data.inputs.category || 'Categories'}} <span class="caret"></span>
-      </div>
-      <ul class="dropdown-menu">
-        <li><a href ng-click="catalog.fns.setCategory()">All Categories</a></li>
-        <li class="divider"></li>
-        <li ng-repeat="cat in catalog.data.inputs.categoryArray" ng-class="{ active: cat == catalog.data.inputs.category }">
-          <a href ng-click="catalog.fns.setCategory(cat)" ng-bind="cat"></a>
-        </li>
-      </ul>
-    </div>
-    <div class="btn-group" dropdown>
-      <div class="btn btn-default dropdown-toggle" dropdown-toggle>
-        {{ catalog.data.inputs.range | rangeToText }} <span class="caret"></span>
-      </div>
-      <ul class="dropdown-menu">
-        <li><a href ng-click="catalog.fns.setRange()">All Prices</a></li>
-        <li class="divider"></li>
-        <li ng-repeat="range in catalog.data.inputs.rangeArray" ng-class="{ active: range.min == catalog.data.inputs.range.min }">
-          <a href ng-click="catalog.fns.setRange(range)">
-            {{ range | rangeToText }}
-          </a>
-        </li>
-      </ul>
-    </div>
+<!--     <div class="btn-group" dropdown>
+  <div class="btn btn-default dropdown-toggle" dropdown-toggle>
+    {{ catalog.data.inputs.category || 'Categories'}} <span class="caret"></span>
+  </div>
+  <ul class="dropdown-menu">
+    <li><a href ng-click="catalog.fns.setCategory()">All Categories</a></li>
+    <li class="divider"></li>
+    <li ng-repeat="cat in catalog.data.inputs.categoryArray" ng-class="{ active: cat == catalog.data.inputs.category }">
+      <a href ng-click="catalog.fns.setCategory(cat)" ng-bind="cat"></a>
+    </li>
+  </ul>
+</div>
+<div class="btn-group" dropdown>
+  <div class="btn btn-default dropdown-toggle" dropdown-toggle>
+    {{ catalog.data.inputs.range | rangeToText }} <span class="caret"></span>
+  </div>
+  <ul class="dropdown-menu">
+    <li><a href ng-click="catalog.fns.setRange()">All Prices</a></li>
+    <li class="divider"></li>
+    <li ng-repeat="range in catalog.data.inputs.rangeArray" ng-class="{ active: range.min == catalog.data.inputs.range.min }">
+      <a href ng-click="catalog.fns.setRange(range)">
+        {{ range | rangeToText }}
+      </a>
+    </li>
+  </ul>
+</div> -->
     <div class="btn btn-default" ng-click="catalog.fns.decrementPage()" name="left-btn" ng-class="{ disabled: catalog.data.inputs.page < 2 }">
       <i class="fa fa-fw fa-long-arrow-left"></i>
     </div>
     <div class="btn btn-default" ng-click="catalog.fns.incrementPage()" name="right-btn" ng-class="{ disabled: catalog.data.inputs.products.length < catalog.data.inputs.productsPerPage }">
       <i class="fa fa-fw fa-long-arrow-right"></i>
     </div>
-    <form class="navbar-form navbar-right margin-0" ng-submit="catalog.fns.search()">
+    <form class="pull-right inline-block margin-0" style="max-width: 200px;" ng-submit="catalog.fns.search()">
       <div class="input-group">
         <input type="text" ng-model="catalog.data.inputs.search" class="form-control" placeholder="Search">
         <span class="input-group-btn">
