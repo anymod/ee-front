@@ -37,7 +37,7 @@
           <div class="text-muted line-height-1">Recommended price. You earn&nbsp;<strong ng-bind="modal.product.calculated.earnings | centToDollar"></strong>&nbsp;each sale.</div>
           <div class="inline-block full-width vert-5"></div>
           <div ng-hide="showPriceOptions">
-            <div ng-hide="modal.fns.inStorefront(modal.product.id)" class="btn btn-primary btn-block" ng-click="modal.addProductSelection(modal.product)">Add to store</div>
+            <div ng-hide="modal.fns.inStorefront(modal.product.id)" class="btn btn-primary btn-block" ng-click="modal.addProduct(modal.product)">Add to store</div>
             <div ng-show="modal.fns.inStorefront(modal.product.id)" class="btn btn-danger margin-0 btn-block" ng-click="modal.removeProductSelection(modal.product)">Remove from store</div>
             <div class="btn btn-default btn-block" ng-click="showPriceOptions = true">Set a different price</div>
           </div>
