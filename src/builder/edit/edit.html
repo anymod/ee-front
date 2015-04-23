@@ -1,12 +1,12 @@
 <!-- EDITOR -->
 <div class="full-width pad-10 min-height-600" ng-hide="edit.ee.loading">
   <!-- POPOVER -->
-  <div class="row" ng-hide="edit.ee.logged_in && edit.show.popover.editPopover">
+  <div class="row" ng-hide="edit.ee.logged_in || !edit.show.popover.edit">
     <div class="col-sm-offset-3 col-sm-6">
       <div class="position-relative">
         <div class="popover popover-primary top in inline-block full-width max-width-300" style="top: -100px;">
           <div class="arrow" style="left: 25px;"></div>
-          <span class="btn btn-xs btn-primary pull-right margin-5" ng-click="edit.hidePopover()">close</span>
+          <span class="btn btn-xs btn-primary pull-right margin-5" ng-click="edit.fns.hidePopover('edit')">close</span>
           <div class="popover-title">Great!</div>
           <div class="popover-content">Now try editing your store below and then adding products.</div>
         </div>
@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-2" ng-show="edit.show.editor.topBarColor">
+      <div class="col-sm-2">
         <div class="input-group" colorpicker colorpicker-parent="true"
              ng-model="edit.ee.meta.home.topBarColor">
           <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-font"></i></span>
@@ -43,7 +43,7 @@
     </div>
     <!-- /EDITOR top bar colors -->
     <!-- EDITOR carousel image -->
-    <div ng-show="edit.show.editor.mainImage" class="form-group vert-2">
+    <div class="form-group vert-2">
       <label class="col-sm-3 control-label">
         Main image
         <div ng-show="edit.ee.logged_in" ng-click="showUpload = !showUpload">
@@ -213,7 +213,7 @@
           <textarea class="form-control max-width-100-pct" rows="9" ng-model="edit.ee.meta.about.content"></textarea>
         </div>
       </div>
-      <div ng-show="edit.show.editor.mainImage" class="form-group vert-2">
+      <div class="form-group vert-2">
         <label class="col-sm-3 control-label">
           About image
           <div ng-show="edit.ee.logged_in" ng-click="showAboutUpload = !showAboutUpload">

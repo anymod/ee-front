@@ -1,7 +1,8 @@
 'use strict'
 
-angular.module('builder.auth').controller 'signupCtrl', ($state, eeAuth, eeModal) ->
+angular.module('builder.auth').controller 'signupCtrl', ($state, eeDefiner, eeAuth, eeModal) ->
   # this.signup = {}
+  this.ee = eeDefiner.exports
   this.alert = undefined
   that = this
 
@@ -14,8 +15,10 @@ angular.module('builder.auth').controller 'signupCtrl', ($state, eeAuth, eeModal
     that.alert = undefined
     setBtnText 'Sending...'
 
-    eeAuth.fns.createUserFromSignup that.email, that.password
-    .then (data) -> $state.go 'storefront'
+    eeAuth.fns.createUserFromSignup that.email, that.password, that.ee.meta, that.ee.product_selection
+    .then (data) ->
+      eeModal.fns.close 'signup'
+      $state.go 'storefront'
     .catch (err) ->
       console.error err
       resetBtnText()

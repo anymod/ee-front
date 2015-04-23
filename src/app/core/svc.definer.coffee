@@ -26,8 +26,8 @@ angular.module('app.core').factory 'eeDefiner', ($rootScope, eeAuth, eeStorefron
     _exports.meta               = user.storefront_meta
     _exports.carousel           = user.storefront_meta?.home?.carousel[0]
     _exports.about              = user.storefront_meta?.about
-    _exports.product_selection  = data.product_selection || []
-    _exports.categories         = data.categories || ['All']
+    _exports.product_selection  = data.product_selection
+    _exports.categories         = data.categories
     _exports.logged_in          = eeAuth.fns.hasToken()
 
   _defineLoggedIn = () ->
@@ -46,7 +46,7 @@ angular.module('app.core').factory 'eeDefiner', ($rootScope, eeAuth, eeStorefron
     _exports.logged_in  = false
     _exports.loading    = false
     _exports.blocked    = true
-    _fillExportData eeLanding.landingUser, eeLanding.landingStorefront
+    _fillExportData eeLanding.landingUser, eeStorefront.data
 
   _defineCustomerStore = () ->
     console.info '_defineCustomerStore'

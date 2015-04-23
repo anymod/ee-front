@@ -1,6 +1,6 @@
-<div ng-show="catalog.ee.product_selection.length <= 0 && !closePopover" ng-hide="catalog.ee.loading" class="full-width text-center pad-10 vert-50">
+<div ng-hide="catalog.ee.logged_in || catalog.ee.loading || catalog.ee.product_selection.length > 0 || !catalog.show.popover.catalog" class="full-width text-center pad-10 vert-50">
   <div class="popover popover-primary inline-block position-relative margin-0-auto" style="top: 0;">
-    <div class="btn btn-xs btn-primary margin-5 pull-right" ng-click="closePopover = true">close</div>
+    <div class="btn btn-xs btn-primary margin-5 pull-right" ng-click="catalog.landingFns.hidePopover('catalog')">close</div>
     <div class="popover-title">Looking good!</div>
     <div class="popover-content">Add products below and they'll appear in your store.</div>
   </div>

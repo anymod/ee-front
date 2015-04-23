@@ -20,34 +20,11 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $location, $anc
           instagram:  'instagram'
 
   _showDefaults =
-    landing:
-      content:                true
-    example:
-      content:                false
-    store:
-      content:                false
-      mainImage:              true
-      carouselContent:        false
-      products:               false
-      footer:                 false
-    editor:
-      topBarColor:            true
-      topBarBackgroundColor:  true
-      mainImage:              true
-      title:                  true
-    catalog:
-      content:                false
+    landing: content: true
+    example: content: false
     popover:
-      editPopover:            true
-      topBarColor:            false
-      topBarBackgroundColor:  false
-      mainImage:              false
-      title:                  false
-    finished:
-      topBarColor:            true
-      topBarBackgroundColor:  true
-      mainImage:              true
-      title:                  false
+      edit:     true
+      catalog:  true
 
   _demoStores = [
     {
@@ -169,135 +146,55 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $location, $anc
   _show = _showDefaults
   _data =
     demoStores: _shuffleArray _demoStores
+    signup:
+      product_selection: []
 
   ## PRIVATE FUNCTIONS
   _reset = () -> _show = _showDefaults
 
-  ## Landing
-  _showLanding  = () -> _show.landing.content = true
-  _hideLanding  = () -> _show.landing.content = false
+  _showLanding = ()     -> _show.landing.content = true
+  _hideLanding = ()     -> _show.landing.content = false
+  _showExample = ()     -> _show.example.content = true
+  _hideExample = ()     -> _show.example.content = false
+  _hidePopover = (name) -> _show.popover[name]   = false
 
-  ## Example
-  _showExample  = () -> _show.example.content = true
-  _hideExample  = () -> _show.example.content = false
-
-  ## Store
-  _showStore    = () -> _show.store.content   = true
-  _hideStore    = () -> _show.store.content   = false
-
-  ## Editor
-  _showEditor   = () -> _show.editor.content  = true
-  _hideEditor   = () -> _show.editor.content  = false
-
-  ## Catalog
-  _showCatalog  = () -> _show.catalog.content = true
-  _hideCatalog  = () -> _show.catalog.content = false
-
-  ## Popover
-  _showPopover  = (name) -> _show.popover[name] = true
-  _hidePopover  = (name) -> _show.popover[name] = false
-  _hidePopovers = (ary) -> _hidePopover name for name in ary
-
-  # $rootScope.$on 'colorpicker-closed', (e, data) ->
-  #   _show.editor.topBarColor = true
-  #   if !_show.finished?.topBarBackgroundColor and data.name is 'landing.storefront.storefront_meta.home.topBarBackgroundColor'
-  #     _show.finished.topBarBackgroundColor = true
-  #     _showPopover 'topBarColor'
-  #     $rootScope.$apply()
-  #   if !_show.finished?.topBarColor and data.name is 'landing.storefront.storefront_meta.home.topBarColor'
-  #     _show.finished.topBarColor  = true
-  #     _show.editor.mainImage      = true
-  #     _hidePopover 'topBarColor'
-  #     $rootScope.$apply()
-
-  ## Other
   _scrollTop = () ->
     $location.hash 'body-top'
     $anchorScroll()
     $location.url $location.path()
 
-  _finishEditor = () ->
-    _hidePopovers ['topBarColor', 'topBarBackgroundColor', 'mainImage', 'title']
-    _show.editor.alert = true
-
-  _startCatalog = () ->
-    # _hideLanding()
-    # # $rootScope.pin.bottom = false
-    # _show.store.mainImage = false
-    # showStoreProducts = () ->
-    #   _show.store.products = true
-    #   _showCatalog()
-    # $timeout showStoreProducts, 200
-    # _hideExample()
-    # _hideEditor()
-    # _showStore()
-    # _scrollTop()
-
   _landingState = () ->
     _showLanding()
     _hideExample()
-    _hideStore()
-    _hideEditor()
     _scrollTop()
 
   _themeState = () ->
     _hideLanding()
     _hideExample()
-    _hideStore()
-    _hideEditor()
-    _scrollTop()
-
-  _editState = () ->
-    _hideLanding()
-    _hideExample()
-    _showStore()
-    _showEditor()
     _scrollTop()
 
   _exampleState = () ->
     _hideLanding()
     _showExample()
-    _hideStore()
-    _hideEditor()
     _scrollTop()
 
   ## EXPORTS
   show: _show
   data: _data
 
-  landingUser:        _userDefaults
-  landingStorefront:  {}
+  landingUser: _userDefaults
 
   fns:
     reset:        () -> _reset()
     showState:    (name) ->
-      if name is 'landing' then $timeout _landingState, 100
-      if name is 'try-theme' then $timeout _themeState, 200
-      if name is 'try-edit' then _editState()
-      if name is 'example' then $timeout _exampleState, 200
+      if name is 'landing'    then $timeout _landingState,  100
+      if name is 'try-theme'  then $timeout _themeState,    200
+      if name is 'example'    then $timeout _exampleState,  200
 
-    defineLandingUser:       () -> _userDefaults
-    defineLandingStorefront: () ->
-
-
-
-    showPopover: (name) -> _showPopover name
     hidePopover: (name) -> _hidePopover name
 
-    showCarouselImage: (img) ->
-      _show.store.mainImage = true
-      _show.editor.title    = true
-      if !_show.finished?.title
-        _showPopover 'title'
-        _show.finished.title = true
-
-    finishEditor: () -> _finishEditor()
-    finishEditorTimeout: () -> $timeout _finishEditor, 2000
-
-    startCatalog: () -> _startCatalog()
-
     selectProduct: (product, margin) ->
-      product_selection.push {
+      _data.signup.product_selection.push {
         product_id:         product.id
         selling_price:      parseInt(product.baseline_price * (100 + margin)/100)
         shipping_price:     product.availability_meta.ship_cost
@@ -313,7 +210,5 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $location, $anc
       $modal.open({
         templateUrl: 'builder/example/example.modal.html'
         backdropClass: 'white-background opacity-08'
-        # controller: 'termsModalCtrl'
-        # controllerAs: 'modal'
         size: 'sm'
       })

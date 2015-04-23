@@ -20,9 +20,12 @@ angular.module('ee-save').directive "eeSave", (eeDefiner, eeAuth, eeModal) ->
     scope.save = () ->
       setBtnText 'Saving'
       eeAuth.fns.saveUser()
-      .then     () -> scope.ee.unsaved = false
-      .catch    () -> scope.ee.unsaved = true
-      .finally  () -> setBtnText 'Saved'
+      .then     () ->
+        scope.ee.unsaved = false
+        setBtnText 'Saved'
+      .catch    () ->
+        scope.ee.unsaved = true
+        setBtnText 'Error'
 
     scope.saveModal = () -> eeModal.fns.openSignupModal()
 

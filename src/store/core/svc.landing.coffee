@@ -3,4 +3,3 @@
 angular.module('store.core').factory 'eeLanding', () ->
 
   landingUser: {}
-  landingStorefront: {}

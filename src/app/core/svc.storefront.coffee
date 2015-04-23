@@ -7,11 +7,15 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
     fetching:           false
 
   ## PRIVATE EXPORT DEFAULTS
-  _data =
-    product_selection:  []
-    product_ids:        []
-    categories:         ['All']
-    loading:            false
+  _data = {}
+
+  _reset = () ->
+    _data.product_selection = []
+    _data.product_ids       = []
+    _data.categories        = ['All']
+    _data.loading           = false
+
+  _reset()
 
   ## PRIVATE FUNCTIONS
   _inStorefront   = (id)                -> _data.product_ids.indexOf(id) > -1
@@ -39,6 +43,7 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
     _data.categories.length  = 0
     _data.categories.push 'All'
     defineIdAndCategory p_s for p_s in _data.product_selection
+    console.log _data
     return
 
   _storefrontIsEmpty = () -> _data.product_selection.length is 0
@@ -79,21 +84,56 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
     .finally () -> _status.fetching = false
     deferred.promise
 
+  _addDummyProduct = (product) ->
+    p_s =
+      product_id:         product.id
+      supplier_id:        product.supplier_id
+      selling_price:      product.calculated.selling_price
+      suggested_price:    product.suggested_price
+      shipping_price:     product.shipping_price
+      title:              product.title
+      content:            product.content
+      content_meta:       product.content_meta
+      image_meta:         product.image_meta
+      availability_meta:  product.availability_meta
+      category:           product.category
+      dummy_only:
+        margin:           product.calculated.margin*100
+    _data.product_selection.push p_s
+
+  _addProduct = (product) ->
+    eeBack.selectionsPOST(eeAuth.fns.getToken(), {
+      product_id:   product.id
+      supplier_id:  product.supplier_id
+      margin:       product.calculated.margin*100
+    })
+    .then (res) -> _defineStorefrontFromToken()
+    .catch (err) -> console.error err
+
+  _removeProductSelection = (p_s) ->
+    eeBack.selectionsDELETE eeAuth.fns.getToken(), p_s.selection_id
+    .then (res) -> _defineStorefrontFromToken()
+    .catch (err) -> console.error err
+
   ## EXPORTS
   data: _data
   fns:
+    logout: () -> _reset()
     defineStorefrontFromToken: () -> _defineStorefrontFromToken()
     defineCustomerStore: () -> _defineCustomerStore()
 
     setCategories: () -> _setCategories()
 
+    addProduct:             (product) -> _addProduct product
+    removeProductSelection: (p_s)     -> _removeProductSelection p_s
+
     addDummyProduct: (product) ->
       if !product.calculated then return console.error('Problem adding dummy product')
-      if !_inStorefront product.id then _data.product_selection.push product
+      if !_inStorefront product.id then _addDummyProduct product
       _defineData()
 
-    removeDummyProduct: (product) ->
-      index = _data.product_ids.indexOf product.id
+    removeDummyProductSelection: (p_s) ->
+      index = _data.product_ids.indexOf p_s.product_id
       if index > -1 then _data.product_selection.splice index, 1
       _defineData()
 

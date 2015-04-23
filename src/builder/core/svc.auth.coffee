@@ -43,13 +43,42 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
     .finally () -> _status.fetching = false
     deferred.promise
 
+  _createUserFromSignup = (email, password, storefront_meta, product_selection) ->
+    deferred = $q.defer()
+    if !email or !password
+      _reset()
+      deferred.reject 'Missing signup credentials'
+    else
+      signup = { product_selection: [] }
+      addToSignup = (p_s) ->
+        margin = p_s.dummy_only?.margin
+        signup.product_selection.push { product_id: p_s.product_id, supplier_id: p_s.supplier_id, margin: margin }
+      addToSignup p_s for p_s in product_selection
+
+      eeBack.usersPOST(email, password, storefront_meta, signup)
+      .then (data) ->
+        if !!data.user and !!data.token
+          _setLoginToken data.token
+          _setUser data.user
+          $rootScope.$emit 'definer:login'
+          deferred.resolve data.user
+        else
+          _reset()
+          deferred.reject data
+      .catch (err) ->
+        _reset()
+        deferred.reject err
+      .finally () -> _status.landing = false
+    deferred.promise
+
+
   _saveUser = () -> eeBack.usersPUT _user, $cookies.loginToken
 
   ## EXPORTS
   exports:
     user: _user
   fns:
-    reset:                () -> _reset()
+    logout:               () -> _reset()
     hasToken:             () -> !!$cookies.loginToken
     getToken:             () -> $cookies.loginToken
     defineUserFromToken:  () -> _defineUserFromToken()
@@ -82,27 +111,8 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
         .finally () -> _status.landing = false
       deferred.promise
 
-    createUserFromSignup: (email, password) ->
-      deferred = $q.defer()
-      if !email or !password
-        _reset()
-        deferred.reject 'Missing login credentials'
-      else
-        eeBack.usersPOST(email, password)
-        .then (data) ->
-          if !!data.user and !!data.token
-            _setLoginToken data.token
-            _setUser data.user
-            $rootScope.$emit 'definer:login'
-            deferred.resolve data.user
-          else
-            _reset()
-            deferred.reject data
-        .catch (err) ->
-          _reset()
-          deferred.reject err
-        .finally () -> _status.landing = false
-      deferred.promise
+    createUserFromSignup: (email, password, storefront_meta, product_selection) ->
+      _createUserFromSignup email, password, storefront_meta, product_selection
 
     sendPasswordResetEmail: (email) ->
       deferred = $q.defer()
