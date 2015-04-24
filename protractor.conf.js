@@ -27,6 +27,7 @@ var protractor_hash = {
 
   onPrepare: function() {
     global.byAttr = global.by;
+    global.has    = global.by;
     browser.driver.manage().window().setPosition(400,8000);
     browser.apiUrl = argv.apiUrl
   }

@@ -59,7 +59,7 @@
     "mocha": "^2.2.4",
     "pg": "~4.1",
     "pg-hstore": "^2.3.1",
-    "protractor": "^1.6",
+    "protractor": "^1.8.0",
     "request": "^2.53",
     "sequelize": "~2.0",
     "stream-combiner": "^0.x",
