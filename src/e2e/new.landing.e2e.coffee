@@ -47,7 +47,7 @@ describe 'eeosk new.landing', () ->
     browser.getTitle().should.eventually.contain 'Online store builder'
 
   it 'should show terms modal', () ->
-    browser.sleep 100
+    browser.sleep 400
     element(has.cssContainingText '#ee-footer a', 'Terms & Conditions').click()
     browser.sleep 400
     element(has.css '.modal').getText().should.eventually.contain 'Seller Terms & Conditions'
@@ -55,7 +55,7 @@ describe 'eeosk new.landing', () ->
     browser.sleep 200
 
   it 'should show privacy modal', () ->
-    browser.sleep 100
+    browser.sleep 400
     element(has.cssContainingText '#ee-footer a', 'Privacy Policy').click()
     browser.sleep 400
     element(has.css '.modal').getText().should.eventually.contain 'PRIVACY STATEMENT'
