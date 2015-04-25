@@ -10,15 +10,112 @@ _               = require 'lodash'
 elem    = {}
 scope   = {}
 
-describe 'eeosk login', () ->
+describe 'eeosk new.login', () ->
 
-  before (done) ->
+  before () -> utils.reset browser
 
-    elem =
-      body:                   element byAttr.css 'body'
+  describe 'dedicated login page', () ->
 
-    utils.reset_and_login(browser)
-    .then (res) ->
-      scope = res
-      scope.categories = ['All'].concat _.unique(_.pluck scope.products, 'category')
-    .then () -> utils.create_products([21..150])
+    it 'should be able to log in from the landing page', () ->
+      browser.get '/'
+      element(has.cssContainingText '#navbar-top .btn', 'Login').click()
+      browser.getTitle().should.eventually.contain 'Login'
+      element(has.css '.well').getText().should.eventually.contain 'Sign in'
+      element(has.css '.alert').isDisplayed().should.eventually.equal false
+      element(has.model 'login.email').sendKeys utils.test_user.email
+      element(has.model 'login.password').sendKeys utils.test_user.password
+      element(has.cssContainingText '.btn', 'Sign in').click()
+      browser.getTitle().should.eventually.contain 'My store'
+      browser.get '/logout'
+
+    it 'should navigate to the sign up state', () ->
+      browser.get '/login'
+      element(has.cssContainingText '.well a', 'Sign up').click()
+      browser.getTitle().should.eventually.contain 'Create your store'
+      browser.navigate().back()
+
+    it 'should navigate to the reset password state', () ->
+      element(has.cssContainingText '.well a', 'Forgot password').click()
+      browser.getTitle().should.eventually.contain 'Reset your password'
+      browser.navigate().back()
+
+    it 'should navigate to the landing state', () ->
+      element(has.css '#navbar-top a > img').click()
+      browser.getTitle().should.eventually.contain 'Online store builder'
+      browser.navigate().back()
+
+    it 'should show message on invalid password', () ->
+      element(has.css '.alert').isDisplayed().should.eventually.equal false
+      element(has.model 'login.email').sendKeys utils.test_user.email
+      element(has.model 'login.password').sendKeys 'foobar'
+      element(has.cssContainingText '.btn', 'Sign in').click()
+      element(has.css '.alert').getText().should.eventually.equal 'Invalid email or password'
+
+    it 'should show message on invalid email', () ->
+      browser.navigate().back()
+      browser.navigate().forward()
+      element(has.css '.alert').isDisplayed().should.eventually.equal false
+      element(has.model 'login.email').sendKeys('another-' + utils.test_user.email)
+      element(has.model 'login.password').sendKeys utils.test_user.password
+      element(has.cssContainingText '.btn', 'Sign in').click()
+      element(has.css '.alert').getText().should.eventually.equal 'Invalid email or password'
+
+
+  describe 'login modal', () ->
+
+    it 'should be able to log in via modal from the try sections', () ->
+      browser.get '/try/edit'
+      browser.getTitle().should.eventually.contain 'Try it out'
+      element(has.cssContainingText '#ee-header .btn', 'Login').click()
+      browser.sleep 300
+      element(has.css '.modal').getText().should.eventually.contain 'Login'
+      element(has.model 'modal.email').sendKeys utils.test_user.email
+      element(has.model 'modal.password').sendKeys utils.test_user.password
+      element(has.cssContainingText '.btn', 'Sign in').click()
+      browser.getTitle().should.eventually.contain 'My store'
+      browser.get '/logout'
+
+    it 'should open and close the modal', () ->
+      browser.get '/try/edit'
+      browser.getTitle().should.eventually.contain 'Try it out'
+      element(has.cssContainingText '#ee-header .btn', 'Login').click()
+      browser.sleep 300
+      element(has.cssContainingText '.modal .btn', 'cancel').click()
+      browser.sleep 300
+      element(has.css '.modal').isPresent().should.eventually.equal false
+
+    it 'should open sign up modal', () ->
+      element(has.cssContainingText '#ee-header .btn', 'Login').click()
+      browser.sleep 300
+      element(has.cssContainingText '.modal a', 'Sign up').click()
+      browser.sleep 100
+      element(has.css '.modal').getText().should.eventually.contain 'Save & continue'
+      element(has.cssContainingText '.modal .btn', 'cancel').click()
+      browser.sleep 300
+
+    it 'should navigate to reset password state', () ->
+      element(has.cssContainingText '#ee-header .btn', 'Login').click()
+      browser.sleep 300
+      element(has.cssContainingText '.modal a', 'Forgot password').click()
+      browser.getTitle().should.eventually.contain 'Reset your password'
+      browser.navigate().back()
+
+    it 'should show message on invalid password', () ->
+      element(has.cssContainingText '#ee-header .btn', 'Login').click()
+      browser.sleep 300
+      element(has.css '.alert').isDisplayed().should.eventually.equal false
+      element(has.model 'modal.email').sendKeys utils.test_user.email
+      element(has.model 'modal.password').sendKeys 'foobar'
+      element(has.cssContainingText '.btn', 'Sign in').click()
+      element(has.css '.alert').getText().should.eventually.equal 'Invalid email or password'
+      element(has.cssContainingText '.modal .btn', 'cancel').click()
+      browser.sleep 300
+
+    it 'should show message on invalid email', () ->
+      element(has.cssContainingText '#ee-header .btn', 'Login').click()
+      browser.sleep 300
+      element(has.css '.alert').isDisplayed().should.eventually.equal false
+      element(has.model 'modal.email').sendKeys('another-' + utils.test_user.email)
+      element(has.model 'modal.password').sendKeys utils.test_user.password
+      element(has.cssContainingText '.btn', 'Sign in').click()
+      element(has.css '.alert').getText().should.eventually.equal 'Invalid email or password'

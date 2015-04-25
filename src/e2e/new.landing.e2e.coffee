@@ -12,12 +12,7 @@ scope   = {}
 
 describe 'eeosk new.landing', () ->
 
-  before (done) ->
-
-    elem =
-      body:                   element has.css 'body'
-
-    utils.reset browser
+  before () -> utils.reset browser
 
   it 'should show the landing page', () ->
     browser.get '/'
@@ -48,15 +43,24 @@ describe 'eeosk new.landing', () ->
     element(has.cssContainingText '.jumbotron .btn', 'Build your own store').click()
     browser.getTitle().should.eventually.contain 'Choose a theme'
     browser.navigate().back()
+    browser.sleep 200
     browser.getTitle().should.eventually.contain 'Online store builder'
 
   it 'should show terms modal', () ->
-    browser.sleep 200
-    element(has.cssContainingText '#ee-footer a', 'Terms & Conditions').click()
     browser.sleep 100
+    element(has.cssContainingText '#ee-footer a', 'Terms & Conditions').click()
+    browser.sleep 400
     element(has.css '.modal').getText().should.eventually.contain 'Seller Terms & Conditions'
+    element(has.cssContainingText '.modal .btn', 'close').click()
+    browser.sleep 200
 
+  it 'should show privacy modal', () ->
+    browser.sleep 100
+    element(has.cssContainingText '#ee-footer a', 'Privacy Policy').click()
+    browser.sleep 400
+    element(has.css '.modal').getText().should.eventually.contain 'PRIVACY STATEMENT'
+    element(has.cssContainingText '.modal .btn', 'close').click()
+    browser.sleep 200
 
-  xit 'should show privacy modal', () ->
   xit 'should navigate to about page', () ->
   xit 'should navigate to faq page ', () ->

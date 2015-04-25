@@ -6,7 +6,7 @@ should          = chai.should()
 chaiAsPromised  = require 'chai-as-promised'
 chai.use chaiAsPromised
 
-describe 'eeosk general', () ->
+describe 'eeosk new.general', () ->
 
   it 'should redirect to home when path not found', () ->
     browser.manage().deleteAllCookies()

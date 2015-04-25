@@ -22,6 +22,11 @@ utils.test_user =
   email:          'test-user@foo.bar'
   password:       'foobarbaz'
   password_hash:  '$2a$05$YB1MyntOM2MHwODctZBy7O.GmpfrLm6xlZZxB30IpR3Ushi7auCaC'
+  storefront_meta:
+    home:
+      name: 'Test User Store'
+      topBarColor: '#000444'
+      topBarBackgroundColor: '#FFCC42'
 
 utils.random_user =
   username:       random_string_const
@@ -71,6 +76,7 @@ if process.env.NODE_ENV is 'test'
         username: user.username
         email:    user.email
         password: user.password
+        storefront_meta: user.storefront_meta
       headers: authorization: {}
     new Promise (resolve, reject) ->
       req.post {}, (err, res, body) ->
@@ -167,6 +173,7 @@ if process.env.NODE_ENV is 'test'
     browser.get '/'
     token = token.replace 'Bearer ', 'Bearer%20'
     browser.manage().addCookie('loginToken', token)
+    browser.get '/'
 
   utils.log_out = () ->
     browser.manage().deleteAllCookies()
@@ -188,11 +195,13 @@ if process.env.NODE_ENV is 'test'
     .then (selections) ->
       scope.selections = selections
       utils.create_products([11..20])
+    .then (products) ->
+      scope.products = scope.products.concat products
+      scope
 
   utils.reset_and_login = (brws) ->
     utils.reset(brws)
-    .then (products) ->
-      scope.products = scope.products.concat products
+    .then () ->
       utils.log_in scope.token
       scope
 
