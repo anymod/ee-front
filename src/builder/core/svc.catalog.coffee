@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $location, $modal, eeBack, eeAuth, eeStorefront) ->
+angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $location, $modal, eeBack, eeAuth) ->
 
   ## SETUP
   _inputDefaults =
@@ -80,14 +80,12 @@ angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $
     setRange: (range) ->
       range = range || {}
       _data.inputs.page = 1
-      console.log 'start', range, _data.inputs.range
       if _data.inputs.range.min is range.min and _data.inputs.range.max is range.max
         _data.inputs.range.min = null
         _data.inputs.range.max = null
       else
         _data.inputs.range.min = range.min
         _data.inputs.range.max = range.max
-      console.log 'end', range, _data.inputs.range
       _runQuery()
     setSearchTerm: (search_term) ->
       _data.inputs.page = 1

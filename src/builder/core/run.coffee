@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').run ($rootScope, $timeout, $state, $location, $anchorScroll, eeAuth) ->
+angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll, eeAuth) ->
   $rootScope.isBuilder = true
 
   tryStates = [
