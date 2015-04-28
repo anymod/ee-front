@@ -1,6 +1,6 @@
 {
-  "name": "web-mvc",
-  "version": "0.0.0",
+  "name": "ee-front",
+  "version": "1.0.0",
   "private": true,
   "ignore": [
     "**/.*",
