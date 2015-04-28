@@ -11,12 +11,12 @@
     <small>
       <a ui-sref="signup">Sign up</a>&nbsp;or&nbsp;<a ui-sref="login">Log in</a>
     </small>
-    <div class="alert alert-info vert-20" ng-show="alert" ng-bind="alert"></div>
-    <div ng-hide="passwordInputs || loginButton">
-      <form ng-hide="resetSent" ng-submit="sendPasswordResetEmail()" class="vert-20">
+    <div class="alert alert-info vert-20" ng-show="reset.alert" ng-bind="reset.alert"></div>
+    <div ng-show="reset.show.email">
+      <form ng-submit="reset.sendPasswordResetEmail()" class="vert-20">
         <p>Enter the email address for your account. Instructions on how to reset your password will be sent to this address.</p>
         <input type="email"
-               ng-model="email"
+               ng-model="reset.email"
                placeholder="Email address"
                class="form-control input-lg vert-5"
                required
@@ -24,32 +24,34 @@
         <button class="btn btn-lg btn-primary btn-block"
                 type="submit"
                 name="submitEmail"
-                ng-bind="btnText"
-                ng-disabled="btnText != 'Submit'"></button>
+                ng-bind="reset.btnText"
+                ng-disabled="reset.btnText != 'Submit'"></button>
       </form>
     </div>
 
-    <div ng-show="passwordInputs && !loginButton">
-      <form ng-submit="resetPassword()" class="vert-20">
+    <div ng-show="reset.show.password">
+      <form ng-submit="reset.resetPassword()" class="vert-20">
         <p>Enter and confirm your new password</p>
         <input type="password"
-               ng-model="password"
+               ng-model="reset.password"
                placeholder="New password"
                class="form-control input-lg vert-5"
                required
                autofocus>
         <input type="password"
-               ng-model="password_confirmation"
+               ng-model="reset.password_confirmation"
                placeholder="Confirm new password"
                class="form-control input-lg vert-5"
                required>
         <button class="btn btn-lg btn-primary btn-block"
                 type="submit"
                 name="submitPassword"
-                ng-bind="btnText"
-                ng-disabled="btnText != 'Submit'"></button>
+                ng-bind="reset.btnText"
+                ng-disabled="reset.btnText != 'Submit'"></button>
       </form>
     </div>
-    <a ng-show="loginButton" ui-sref="login" class="btn btn-lg btn-primary btn-block vert-20" name="loginBtn">Login</a>
+    <div ng-show="reset.show.login" class="vert-10">
+      Password changed. You may now&nbsp;&nbsp;<a ui-sref="login" class="btn btn-primary">Login</a>
+    </div>
   </div>
 </div>

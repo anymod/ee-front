@@ -8,8 +8,10 @@ angular.module('app.core').run ($rootScope, $location, $anchorScroll, $state, pr
   $rootScope.$state = $state
 
   $rootScope.$on '$stateChangeSuccess', () ->
+    search = $location.search()
     $location.hash 'body-top'
     $anchorScroll()
     $location.url $location.path()
+    $location.search search
 
   return

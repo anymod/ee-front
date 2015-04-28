@@ -19,11 +19,11 @@
     <div class="form-group vert-2">
       <label class="col-sm-3 control-label">Top bar colors</label>
       <div class="col-sm-2">
-        <div class="position-relative inline-block" ng-click="edit.fns.hidePopover('topBarBackgroundColor')">
+        <div class="position-relative inline-block">
           <div class="input-group" colorpicker colorpicker-parent="true"
                ng-model="edit.ee.meta.home.topBarBackgroundColor">
             <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-paint-brush"></i></span>
-            <input name="storefront_meta.home.topBarColor"
+            <input name="topBarBackgroundColor"
                    ng-model="edit.ee.meta.home.topBarBackgroundColor"
                    class="form-control hover-pointer"
                    ng-style="{ 'background-color': edit.ee.meta.home.topBarBackgroundColor, color: edit.ee.meta.home.topBarBackgroundColor }">
@@ -31,13 +31,15 @@
         </div>
       </div>
       <div class="col-sm-2">
-        <div class="input-group" colorpicker colorpicker-parent="true"
-             ng-model="edit.ee.meta.home.topBarColor">
-          <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-font"></i></span>
-          <input name="storefront_meta.home.topBarBackgroundColor"
-                 ng-model="edit.ee.meta.home.topBarColor"
-                 class="form-control hover-pointer"
-                 ng-style="{ 'background-color': edit.ee.meta.home.topBarColor, color: edit.ee.meta.home.topBarColor }">
+        <div class="position-relative inline-block">
+          <div class="input-group" colorpicker colorpicker-parent="true"
+               ng-model="edit.ee.meta.home.topBarColor">
+            <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-font"></i></span>
+            <input name="topBarColor"
+                   ng-model="edit.ee.meta.home.topBarColor"
+                   class="form-control hover-pointer"
+                   ng-style="{ 'background-color': edit.ee.meta.home.topBarColor, color: edit.ee.meta.home.topBarColor }">
+          </div>
         </div>
       </div>
     </div>
@@ -224,7 +226,7 @@
           <div class="position-relative" dropdown>
             <div class="hover-pointer position-relative" dropdown-toggle>
               <div class="btn btn-sm btn-default margin-5 position-absolute"
-                   name="mainImageToggle">
+                   name="aboutImageToggle">
                 <div class="fa fa-fw fa-chevron-down"></div>
               </div>
               <img ng-src="{{ edit.ee.meta.about.imgUrl }}" class="img-responsive full-width vert-2">

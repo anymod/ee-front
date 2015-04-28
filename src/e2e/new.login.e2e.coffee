@@ -30,6 +30,7 @@ describe 'eeosk new.login', () ->
 
     it 'should navigate to the sign up state', () ->
       browser.get '/login'
+      browser.sleep 200
       element(has.cssContainingText '.well a', 'Sign up').click()
       browser.getTitle().should.eventually.contain 'Create your store'
       browser.navigate().back()
@@ -59,6 +60,22 @@ describe 'eeosk new.login', () ->
       element(has.model 'login.password').sendKeys utils.test_user.password
       element(has.cssContainingText '.btn', 'Sign in').click()
       element(has.css '.alert').getText().should.eventually.equal 'Invalid email or password'
+
+    it 'should show terms modal via footer', () ->
+      browser.sleep 400
+      element(has.cssContainingText '#ee-footer a', 'Terms & Conditions').click()
+      browser.sleep 400
+      element(has.css '.modal').getText().should.eventually.contain 'Seller Terms & Conditions'
+      element(has.cssContainingText '.modal .btn', 'close').click()
+      browser.sleep 200
+
+    it 'should show privacy modal via footer', () ->
+      browser.sleep 400
+      element(has.cssContainingText '#ee-footer a', 'Privacy Policy').click()
+      browser.sleep 400
+      element(has.css '.modal').getText().should.eventually.contain 'PRIVACY STATEMENT'
+      element(has.cssContainingText '.modal .btn', 'close').click()
+      browser.sleep 200
 
 
   describe 'login modal', () ->

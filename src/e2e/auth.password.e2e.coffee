@@ -26,7 +26,7 @@ describe 'eeosk auth.password', () ->
     .then (body) -> scope.username = body.user.username
 
   it 'should send reset email with a link that works once', () ->
-    browser.get '/password-reset'
+    browser.get '/reset-password'
     elem.alert            .isDisplayed().should.eventually.equal false
     elem.email            .sendKeys 'nonexistent@example.com'
     elem.submit_email     .click()
@@ -44,7 +44,7 @@ describe 'eeosk auth.password', () ->
       expect(password_reset_token).to.exist
       # generate a jwt similar to one sent in the email
       token = utils.jwt({ token: user[0].ee_uuid, password_reset_token: password_reset_token })
-      browser.get '/password-reset?token=' + token
+      browser.get '/reset-password?token=' + token
       elem.alert                  .isDisplayed().should.eventually.equal false
       elem.password               .clear().sendKeys 'foobar'
       elem.password_confirmation  .clear().sendKeys 'foobar'
@@ -57,7 +57,7 @@ describe 'eeosk auth.password', () ->
       elem.login                  .click()
       browser                     .getTitle().should.eventually.equal 'Login | eeosk'
       # Token should fail on second use
-      browser.get '/password-reset?token=' + token
+      browser.get '/reset-password?token=' + token
       elem.password               .clear().sendKeys 'bazfoobar99'
       elem.password_confirmation  .clear().sendKeys 'bazfoobar99'
       elem.submit_password        .click()

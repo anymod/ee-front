@@ -19,7 +19,7 @@
     <div class="form-group vert-2">
       <label class="col-sm-3 control-label">Top bar colors</label>
       <div class="col-sm-2">
-        <div class="position-relative inline-block" ng-click="edit.fns.hidePopover('topBarBackgroundColor')">
+        <div class="position-relative inline-block">
           <div class="input-group" colorpicker colorpicker-parent="true"
                ng-model="edit.ee.meta.home.topBarBackgroundColor">
             <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-paint-brush"></i></span>
@@ -31,13 +31,15 @@
         </div>
       </div>
       <div class="col-sm-2">
-        <div class="input-group" colorpicker colorpicker-parent="true"
-             ng-model="edit.ee.meta.home.topBarColor">
-          <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-font"></i></span>
-          <input name="topBarColor"
-                 ng-model="edit.ee.meta.home.topBarColor"
-                 class="form-control hover-pointer"
-                 ng-style="{ 'background-color': edit.ee.meta.home.topBarColor, color: edit.ee.meta.home.topBarColor }">
+        <div class="position-relative inline-block">
+          <div class="input-group" colorpicker colorpicker-parent="true"
+               ng-model="edit.ee.meta.home.topBarColor">
+            <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-font"></i></span>
+            <input name="topBarColor"
+                   ng-model="edit.ee.meta.home.topBarColor"
+                   class="form-control hover-pointer"
+                   ng-style="{ 'background-color': edit.ee.meta.home.topBarColor, color: edit.ee.meta.home.topBarColor }">
+          </div>
         </div>
       </div>
     </div>

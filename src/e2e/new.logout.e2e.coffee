@@ -38,7 +38,7 @@ describe 'eeosk new.logout', () ->
 
   it 'should not persist storefront information into try sections after logout, especially without hard refresh', () ->
     element(has.cssContainingText '#ee-header .btn', 'Preview').click()
-    element(has.binding 'meta.home.name').getText().should.eventually.equal ''
+    element(has.css '[name="store-navbar"] .navbar-brand').getText().should.eventually.equal ''
     element(has.css '#ee-bottom-view').getText().should.eventually.contain "Add Products"
     element.all(has.repeater 'product in storefront.ee.product_selection')
     .then (products) ->
@@ -48,3 +48,35 @@ describe 'eeosk new.logout', () ->
     browser.manage().getCookie 'loginToken'
     .then (token) ->
       expect(token).to.not.exist
+
+  it 'should have proper messaging', () ->
+    browser.get '/logout'
+    browser.getTitle().should.eventually.contain 'Logged out'
+    element(has.css('.well')).getText()
+    .then (text) ->
+      text.should.contain 'Logged out'
+      text.should.contain 'You have been logged out successfully'
+
+  it 'should show terms modal via footer', () ->
+    element(has.cssContainingText '#ee-footer a', 'Terms & Conditions').click()
+    browser.sleep 400
+    element(has.css '.modal').getText().should.eventually.contain 'Seller Terms & Conditions'
+    element(has.cssContainingText '.modal .btn', 'close').click()
+    browser.sleep 200
+
+  it 'should show privacy modal via footer', () ->
+    element(has.cssContainingText '#ee-footer a', 'Privacy Policy').click()
+    browser.sleep 400
+    element(has.css '.modal').getText().should.eventually.contain 'PRIVACY STATEMENT'
+    element(has.cssContainingText '.modal .btn', 'close').click()
+    browser.sleep 200
+
+  it 'should navigate to the home page via home button', () ->
+    element(has.cssContainingText '.well .btn', 'Home').click()
+    browser.getTitle().should.eventually.contain 'Online store builder'
+    browser.navigate().back()
+
+  it 'should navigate to the login page via login button', () ->
+    element(has.cssContainingText '.well .btn', 'Login').click()
+    browser.getTitle().should.eventually.contain 'Login'
+    browser.navigate().back()

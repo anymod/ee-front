@@ -45,10 +45,4 @@ angular.module('builder.core').run ($rootScope, $timeout, $state, $location, $an
 
     return
 
-  # $rootScope.$on '$stateChangeSuccess', () ->
-  #   $location.hash 'body-top'
-  #   $anchorScroll()
-  #   $location.url $location.path()
-  #   return
-
   return

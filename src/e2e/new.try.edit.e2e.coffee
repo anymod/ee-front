@@ -64,34 +64,50 @@ describe 'eeosk new.try.edit', () ->
     element(has.css 'input[name="topBarBackgroundColor"]').getAttribute('value').should.eventually.equal '#dbd6ff'
     element(has.css 'input[name="topBarBackgroundColor"]').click()
     element(has.css '.colorpicker-visible colorpicker-saturation').click()
-    element(has.css 'input[name="topBarBackgroundColor"]').getAttribute('value').should.eventually.equal '#494180'
-    element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain utils.hex_to_rgb('#494180')
+    element(has.css 'input[name="topBarBackgroundColor"]').getAttribute('value')
+    .then (color) ->
+      scope.topBarBackgroundColor = color
+      color.should.not.equal '#dbd6ff'
+      element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain utils.hex_to_rgb(scope.topBarBackgroundColor)
 
-  it 'should adjust top bar color', () ->
+  it 'should adjust top bar text color', () ->
     element(has.css 'input[name="topBarColor"]').getAttribute('value').should.eventually.equal '#021709'
     element(has.css 'input[name="topBarColor"]').click()
     element(has.css '.colorpicker-visible colorpicker-saturation').click()
-    element(has.css 'input[name="topBarColor"]').getAttribute('value').should.eventually.equal '#418056'
-    element(has.css '[name="store-navbar"] ul:first-child > li:first-child a').getAttribute('style').should.eventually.contain utils.hex_to_rgb('#418056')
+    element(has.css 'input[name="topBarColor"]').getAttribute('value')
+    .then (color) ->
+      scope.topBarColor = color
+      color.should.not.equal '#021709'
+      element(has.css '[name="store-navbar"] ul:first-child > li:first-child a').getAttribute('style').should.eventually.contain utils.hex_to_rgb(scope.topBarColor)
 
   it 'should adjust carousel image', () ->
     element(has.css '.btn[name="mainImageToggle"]').click()
     newTheme = element(has.repeater('theme in edit.data.demoStores').row(3))
     newTheme.getAttribute('src')
     .then (src) ->
-      newMainImgUrl = src.split('w_1200')[1]
+      scope.mainImageUrl = src.split('w_1200')[1]
       newTheme.click()
-      element(has.css '.carousel > img').getAttribute('src').should.eventually.contain newMainImgUrl
+      element(has.css '.carousel > img').getAttribute('src').should.eventually.contain scope.mainImageUrl
 
   it 'should adjust store title', () ->
-    title = 'Test Store Title'
-    element(has.model 'edit.ee.meta.home.name').sendKeys title
-    element(has.css '[name="store-navbar"] .navbar-brand').getText().should.eventually.contain title
+    scope.title = 'Test Store Title'
+    element(has.model 'edit.ee.meta.home.name').sendKeys scope.title
+    element(has.css '[name="store-navbar"] .navbar-brand').getText().should.eventually.contain scope.title
 
   xit 'should not allow click on navbar', () ->
 
-  xit 'should persist information on signup', () ->
-  xit 'should', () ->
-  xit 'should', () ->
-  xit 'should', () ->
-  xit 'should', () ->
+  it 'should persist information on signup', () ->
+    element(has.cssContainingText '#ee-header .btn', 'Save').click()
+    browser.sleep 300
+    element(has.css '.modal').getText().should.eventually.contain 'Save & continue'
+    element(has.model 'modal.email').clear().sendKeys 'try-edit-test@foo.bar'
+    element(has.model 'modal.email_check').clear().sendKeys 'try-edit-test@foo.bar'
+    element(has.model 'modal.password').clear().sendKeys 'foobarbaz'
+    element(has.cssContainingText '.btn', 'Create your store').click()
+    browser.getCurrentUrl().should.eventually.equal 'http://localhost:3333/storefront'
+    browser.navigate().refresh()
+    browser.getTitle().should.eventually.contain 'My store'
+    element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain utils.hex_to_rgb(scope.topBarBackgroundColor)
+    element(has.css '[name="store-navbar"] ul:first-child > li:first-child a').getAttribute('style').should.eventually.contain utils.hex_to_rgb(scope.topBarColor)
+    element(has.css '.carousel > img').getAttribute('src').should.eventually.contain scope.mainImageUrl
+    element(has.css '[name="store-navbar"] .navbar-brand').getText().should.eventually.contain scope.title
