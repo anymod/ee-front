@@ -17,7 +17,7 @@ describe 'eeosk new.try.theme', () ->
   it 'should navigate to theme choice page ', () ->
     browser.get '/try/choose-theme'
     browser.getTitle().should.eventually.contain 'Choose a theme'
-    browser.sleep 200
+    browser.sleep 400
 
   it 'should have the right messaging and appropriate choices', () ->
     element(has.css '#ee-bottom-view').getText().should.eventually.contain 'Choose a theme'
@@ -36,6 +36,7 @@ describe 'eeosk new.try.theme', () ->
     .then (res) ->
       scope.src = res.split('w_400')[1]
       store.click()
+      browser.sleep 200
       browser.getTitle().should.eventually.contain 'Try it out'
       element(has.css '[name="store-navbar"] ul:first-child > li:first-child a').getAttribute('style').should.eventually.contain scope.color
       element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain scope.backgroundColor

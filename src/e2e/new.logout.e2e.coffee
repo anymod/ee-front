@@ -30,7 +30,7 @@ describe 'eeosk new.logout', () ->
       element(has.cssContainingText '#ee-header .btn', 'More').click()
       element(has.cssContainingText '#ee-header li > a', 'Logout').click()
       element(has.cssContainingText '.btn', 'Home').click()
-      element(has.cssContainingText '.btn', 'Build your own store').click()
+      element(has.cssContainingText '.btn', 'Try it out').click()
       browser.sleep 400
       element(has.repeater('theme in landing.data.demoStores').row(1)).click()
       element(has.css '[name="store-navbar"] .navbar-brand').getText().should.eventually.equal ''
