@@ -50,6 +50,14 @@ describe 'eeosk new.signup', () ->
       element(has.cssContainingText '.modal .btn', 'close').click()
       browser.sleep 200
 
+    it 'should show faq modal via footer', () ->
+      browser.sleep 400
+      element(has.cssContainingText '#ee-footer a', 'FAQ').click()
+      browser.sleep 400
+      element(has.css '.modal').getText().should.eventually.contain 'Frequently Asked Questions'
+      element(has.cssContainingText '.modal .btn', 'close').click()
+      browser.sleep 200
+
     it 'should notify if emails don\'t match', () ->
       element(has.css '.alert').isDisplayed().should.eventually.equal false
       element(has.model 'signup.email').sendKeys 'one-' + utils.test_user.email

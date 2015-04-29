@@ -63,5 +63,13 @@ describe 'eeosk new.landing', () ->
     element(has.cssContainingText '.modal .btn', 'close').click()
     browser.sleep 200
 
+  it 'should show faq modal', () ->
+    browser.sleep 400
+    element(has.cssContainingText '#ee-footer a', 'FAQ').click()
+    browser.sleep 400
+    element(has.css '.modal').getText().should.eventually.contain 'Frequently Asked Questions'
+    element(has.cssContainingText '.modal .btn', 'close').click()
+    browser.sleep 200
+
   xit 'should navigate to about page', () ->
   xit 'should navigate to faq page ', () ->

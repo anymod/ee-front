@@ -30,6 +30,11 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
       controller:     'contactCtrl as modal'
       size:           'sm'
       backdropClass:  _backdropClass
+    faq:
+      templateUrl:    'builder/terms/terms.modal.faq.html'
+      controller:     'termsModalCtrl as modal'
+      backdropClass:  _backdropClass
+
 
   ## PRIVATE FUNCTIONS
   _open = (name) ->
@@ -52,6 +57,7 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
     openSignupModal:        () -> _open 'signup'
     openSellerTermsModal:   () -> _open 'sellerTerms'
     openPrivacyPolicyModal: () -> _open 'privacyPolicy'
+    openFAQModal:           () -> _open 'faq'
 
     openProductModal: (product) ->
       _modals.product = $modal.open({
