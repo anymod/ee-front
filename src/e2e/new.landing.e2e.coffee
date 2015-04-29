@@ -41,9 +41,10 @@ describe 'eeosk new.landing', () ->
 
   it 'should navigate to theme choice page ', () ->
     element(has.cssContainingText '.jumbotron .btn', 'Build your own store').click()
+    browser.sleep 200
     browser.getTitle().should.eventually.contain 'Choose a theme'
     browser.navigate().back()
-    browser.sleep 200
+    browser.sleep 400
     browser.getTitle().should.eventually.contain 'Online store builder'
 
   it 'should show terms modal', () ->

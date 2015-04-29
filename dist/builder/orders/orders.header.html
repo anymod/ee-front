@@ -42,7 +42,7 @@
     <div disabled class="btn btn-default" ng-click="orders.fns.decrementPage()" name="left-btn" ng-class="{ disabled: orders.data.inputs.page < 2 }">
       <i class="fa fa-fw fa-long-arrow-left"></i>
     </div>
-    <div disabled class="btn btn-default" ng-click="orders.fns.incrementPage()" name="right-btn" ng-class="{ disabled: orders.data.inputs.products.length < orders.data.inputs.productsPerPage }">
+    <div disabled class="btn btn-default" ng-click="orders.fns.incrementPage()" name="right-btn" ng-class="{ disabled: orders.data.products.length < orders.data.inputs.productsPerPage }">
       <i class="fa fa-fw fa-long-arrow-right"></i>
     </div>
     <form class="pull-right inline-block margin-0" ng-submit="orders.fns.search()" style="max-width: 200px;">
