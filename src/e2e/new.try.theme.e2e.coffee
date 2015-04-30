@@ -36,7 +36,7 @@ describe 'eeosk new.try.theme', () ->
     .then (res) ->
       scope.src = res.split('w_400')[1]
       store.click()
-      browser.sleep 200
+      browser.sleep 400
       browser.getTitle().should.eventually.contain 'Try it out'
       element(has.css '[name="store-navbar"] ul:first-child > li:first-child a').getAttribute('style').should.eventually.contain scope.color
       element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain scope.backgroundColor
