@@ -1,0 +1,76 @@
+<ee-storefront-header></ee-storefront-header>
+
+<div id="store-wrap">
+  <div id="store-main-region">
+
+    <div ng-hide="loading" ng-class="{ 'opacity-01': !!$state.current.data.storeOpacity }">
+      <div class="white-background position-relative">
+        <div class="carousel storefront-carousel overflow-hidden">
+          <img ng-src="{{ user.storefront_meta.home.carousel[0].imgUrl }}" class="img-responsive full-width">
+          <div class="position-absolute full-width hidden-xs {{ user.storefront_meta.home.carousel[0].btnPosition }}">
+            <div class="well inline-block"
+                 ng-hide="!user.storefront_meta.home.carousel[0].headline && !user.storefront_meta.home.carousel[0].byline && !user.storefront_meta.home.carousel[0].btnText">
+              <h3 class="margin-0">
+                {{ user.storefront_meta.home.carousel[0].headline }}
+              </h3>
+              <p class="vert-2">
+                {{ user.storefront_meta.home.carousel[0].byline }}
+              </p>
+              <a ng-show="user.storefront_meta.home.carousel[0].btnText" ui-sref="storefront.shop({ shopCategory: user.storefront_meta.home.carousel[0].linkCategory })" class="btn btn-default">
+                {{ user.storefront_meta.home.carousel[0].btnText }}
+              </a>
+            </div>
+          </div>
+          <div class="pad-15 visible-xs">
+            <h3 class="margin-0">
+              {{ user.storefront_meta.home.carousel[0].headline }}
+            </h3>
+            <p class="vert-2">
+              {{ user.storefront_meta.home.carousel[0].byline }}
+            </p>
+            <a ng-show="user.storefront_meta.home.carousel[0].btnText" ui-sref="storefront.shop({ shopCategory: user.storefront_meta.home.carousel[0].linkCategory })" class="btn btn-default">
+              {{ user.storefront_meta.home.carousel[0].btnText }}
+            </a>
+          </div>
+        </div>
+
+        <div class="featured">
+          <div ng-if="storefront.product_selection.length > 0" class="container-fluid">
+            <div class="full-width pad-10"></div>
+            <div class="row">
+              <div class="col col-md-offset-1 col-xs-4 col-md-2 overflow-hidden">
+                <h4 class="margin-0">Products</h4>
+                <hr>
+                <ee-shop-nav ng-if="storefront" storefront="storefront" class="nav nav-pills nav-stacked nav-compact"></ee-shop-nav>
+              </div>
+              <div class="col col-xs-8 position-inherit">
+                <h4 class="margin-0">Featured</h4>
+                <div class="full-width vert-20 overflow-hidden">
+                  <div ng-repeat="product in storefront.product_selection" class="product-container inline-block width-160 vertical-align-top">
+                    <ee-product-for-storefront product="product"></ee-product-for-storefront>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div ng-if="storefront.product_selection.length <= 0" class="pad-10">
+            <h2 class="full-width text-center">Coming soon</h2>
+            <p ng-if="isBuilder" class="full-width text-center">
+              (&nbsp;<a ui-sref="catalog">add products</a>&nbsp;and they will appear here&nbsp;)
+            </p>
+          </div>
+        </div> <!-- /featured -->
+        
+      </div>
+    </div>
+  </div><!-- /store-main-region -->
+
+  <div id="store-footer-region" ng-hide="loading" ng-class="{ 'opacity-01': !!$state.current.data.storeOpacity }">
+    <ee-storefront-footer></ee-storefront-footer>
+  </div><!-- /store-footer-region -->
+
+</div><!-- /store-wrap -->
+
+<ee-welcome ng-if="welcome_1"></ee-welcome>

@@ -18,7 +18,7 @@ utils.test_admin =
   password_hash:  '$2a$05$YB1MyntOM2MHwODctZBy7O.GmpfrLm6xlZZxB30IpR3Ushi7auCaC'
 
 utils.test_user =
-  username:       'test-user'
+  # username:       'test-user'
   email:          'test-user@foo.bar'
   password:       'foobarbaz'
   password_hash:  '$2a$05$YB1MyntOM2MHwODctZBy7O.GmpfrLm6xlZZxB30IpR3Ushi7auCaC'

@@ -25,7 +25,12 @@
           <span class="hidden-xs">More&nbsp;</span><i class="fa fa-fw fa-caret-down"></i>
         </button>
         <ul class="dropdown-menu" style="left: auto; right: 0;">
-          <li><a href ng-click="live()"><i class="fa fa-fw fa-globe"></i>&nbsp;&nbsp;Live Store</a></li>
+          <li ng-show="ee.user.username">
+            <a href="https://{{ ee.user.username }}.eeosk.com" target="_blank"><i class="fa fa-fw fa-globe"></i>&nbsp;&nbsp;Live Store</a>
+          </li>
+          <li ng-hide="ee.user.username">
+            <a href ui-sref="account"><i class="fa fa-fw fa-globe"></i>&nbsp;&nbsp;Publish store</a>
+          </li>
           <li class="divider"></li>
           <li><a ui-sref="orders"><i class="fa fa-fw fa-list"></i>&nbsp;&nbsp;Orders</a></li>
           <li><a ui-sref="account"><i class="fa fa-fw fa-gear"></i>&nbsp;&nbsp;Account Settings</a></li>
