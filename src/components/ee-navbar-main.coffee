@@ -9,10 +9,10 @@ angular.module('ee-navbar-main').directive "eeNavbarMain", ($state, $window, eeD
     scope.state       = $state.current.name
     scope.login       = eeModal.fns.openLoginModal
     scope.feedback    = () -> eeModal.fns.open 'feedback'
-    scope.live        = () ->
-      if scope.ee.user.username
-        console.log 'username is ', scope.ee.user.username
-        $window.open('https://' + scope.ee.user.username + '.eeosk.com')
-      else
-        $state.go 'account'
+    scope.edit        = () ->
+      if scope.state.indexOf('edit') > -1 then $state.go 'storefront' else $state.go 'edit'
+      #   console.log 'username is ', scope.ee.user.username
+      #   $window.open('https://' + scope.ee.user.username + '.eeosk.com')
+      # else
+      #   $state.go 'account'
     return

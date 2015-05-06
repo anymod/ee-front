@@ -29,6 +29,7 @@
 @ee-push-height: 60px;
 @ee-store-push-height: 80px;
 @ee-navbar-top-height: 0px;
+@ee-main-navbar-height: 40px;
 @ee-xxs-width: 480px;
 
 @offscreen-left-width: 300px;
@@ -140,7 +141,16 @@ html { overflow-x: hidden; }
   }
 }
 
-.main-navbar .btn-sm { padding: 2px 10px; }
+.main-navbar {
+  height: @ee-main-navbar-height;
+  min-height: @ee-main-navbar-height;
+  max-height: @ee-main-navbar-height;
+  ul.nav { display: inline-block !important; }
+  ul.nav > li, ul.nav > li > a { display: inline-block; }
+  ul.nav > li > a { padding: 10px 10px; }
+  ul.dropdown-menu { left: auto; right: 0; }
+}
+.navbar-subheader { top: @ee-main-navbar-height; left: 0; right: 0; }
 
 .white-background { background: white !important; }
 
@@ -355,7 +365,6 @@ img.small-thumb {
     background: rgba(255, 255, 255, 0.1) !important;
   }
 }
-.navbar-subheader { top: 34px; left: 0; right: 0; }
 
 // bootstrap mod
 

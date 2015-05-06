@@ -16,12 +16,12 @@ angular.module('builder.landing').config ($stateProvider) ->
   try_data =
     pageTitle:        'Try it out: build your online store | eeosk'
     pageDescription:  'Start building your own online store.'
-    padTop:           '85px'
+    padTop:           '82px'
 
   data =
     pageTitle:        'Edit your store | eeosk'
     pageDescription:  'Edit the look and feel of your online store.'
-    padTop:           '85px'
+    padTop:           '82px'
 
   $stateProvider
     .state 'try-edit',
