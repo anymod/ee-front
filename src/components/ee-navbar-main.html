@@ -20,7 +20,9 @@
         </div>
 
         <div class="pull-right">
-          <ee-save ng-hide="ee.logged_in"></ee-save>
+          <div ng-hide="ee.logged_in" ng-click="signup()" class="btn btn-sm btn-primary">
+            Sign up
+          </div>
           <a ng-show="ee.logged_in" ui-sref="account" class="btn btn-sm btn-primary">
             Publish<span class="hidden-xs">&nbsp;Store</span>
           </a>&nbsp;

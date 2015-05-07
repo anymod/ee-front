@@ -5,18 +5,18 @@
 <div class="modal-body">
   <form ng-submit="modal.submit()" ng-hide="modal.success">
     <div class="alert alert-info" ng-show='modal.alert' ng-bind="modal.alert"></div>
+    <textarea ng-model="modal.message"
+        class="form-control vert-5 max-width-100-pct margin-top-0"
+        cols="30" rows="8"
+        autofocus></textarea>
     <input type="text"
            ng-model="modal.name"
            placeholder="Name (optional)"
-           class="form-control input-lg vert-5"
-           autofocus>
+           class="form-control input-lg vert-10">
     <input type="email"
            ng-model="modal.email"
            placeholder="Email (optional)"
-           class="form-control input-lg vert-5">
-    <textarea ng-model="modal.message"
-           class="form-control vert-5 max-width-100-pct"
-           cols="30" rows="8"></textarea>
+           class="form-control input-lg vert-10">
     <button class="btn btn-lg btn-primary btn-block"
             type="submit"
             ng-bind="modal.btnText"

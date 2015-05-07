@@ -12,4 +12,5 @@ angular.module('ee-navbar-main').directive "eeNavbarMain", ($state, $window, eeD
     scope.edit      = () -> if scope.state.indexOf('edit') > -1 then $state.go 'storefront' else $state.go 'edit'
     scope.feedback  = () -> eeModal.fns.open 'feedback'
     scope.login     = eeModal.fns.openLoginModal
+    scope.signup    = eeModal.fns.openSignupModal
     return
