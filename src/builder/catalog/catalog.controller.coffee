@@ -9,10 +9,10 @@ angular.module('builder.catalog').controller 'catalogCtrl', (eeDefiner, eeLandin
   this.productFns = eeProduct.fns
   this.storeFns   = eeStorefront.fns
 
-  if !this.ee.logged_in
-    this.show         = eeLanding.show
-    this.landingData  = eeLanding.data
-    this.landingFns   = eeLanding.fns
+  # if !this.ee.logged_in
+  #   this.show         = eeLanding.show
+  #   this.landingData  = eeLanding.data
+  #   this.landingFns   = eeLanding.fns
 
   eeCatalog.fns.search()
 
