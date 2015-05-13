@@ -77,4 +77,15 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
         controller:     'productModalCtrl as modal'
       })
 
+    openCatalogProductModal: (product) ->
+      _modals.product = $modal.open({
+        templateUrl:    'app/product/product.catalog.modal.html'
+        backdropClass:  'white-background opacity-08'
+        windowClass:    'catalog-modal'
+        resolve:
+          product: () -> product
+        controller:     'productModalCtrl as modal'
+        size:           'lg'
+      })
+
     closeLoginModal: () -> _close 'login'

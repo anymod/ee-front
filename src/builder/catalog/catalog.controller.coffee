@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.catalog').controller 'catalogCtrl', (eeDefiner, eeLanding, eeProduct, eeStorefront, eeCatalog) ->
+angular.module('builder.catalog').controller 'catalogCtrl', (eeModal, eeDefiner, eeLanding, eeProduct, eeStorefront, eeCatalog) ->
 
   this.ee = eeDefiner.exports
 
@@ -8,6 +8,7 @@ angular.module('builder.catalog').controller 'catalogCtrl', (eeDefiner, eeLandin
   this.fns        = eeCatalog.fns
   this.productFns = eeProduct.fns
   this.storeFns   = eeStorefront.fns
+  this.feedback   = () -> eeModal.fns.open 'feedback'
 
   # if !this.ee.logged_in
   #   this.show         = eeLanding.show

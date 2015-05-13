@@ -25,6 +25,7 @@
 @ee-light-gold: #FAEBCC;
 @ee-light-green: #DFF0D8;
 @ee-light-gray: #F6F6F6;
+@ee-light-light-gray: #FCFCFC;
 @ee-light-dark: #DDDDDD;
 @ee-push-height: 60px;
 @ee-store-push-height: 80px;
@@ -181,6 +182,7 @@ html { overflow-x: hidden; }
 .light-gold-background { background: @ee-light-gold !important; }
 .light-green-background { background: @ee-light-green !important; }
 .light-gray-background { background: @ee-light-gray !important; }
+.light-light-gray-background { background: @ee-light-light-gray !important; }
 .light-dark-background { background: @ee-light-dark !important; }
 .opacity-01 { opacity: 0.1 !important; }
 .opacity-03 { opacity: 0.3 !important; }
@@ -265,8 +267,10 @@ html { overflow-x: hidden; }
 .squeeze-5 { padding-left: 5px !important; padding-right: 5px !important; }
 .round-0 { border-radius: 0px !important; }
 .round-5 { border-radius: 5px; }
-.round-top { border-top-left-radius: 5px; border-top-right-radius: 5px; }
-.round-bottom { border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
+.round-top { border-top-left-radius: 5px !important; border-top-right-radius: 5px !important; }
+.round-bottom { border-bottom-left-radius: 5px !important; border-bottom-right-radius: 5px !important; }
+.round-left { border-top-left-radius: 5px !important; border-bottom-left-radius: 5px !important; }
+.round-right { border-top-right-radius: 5px !important; border-bottom-right-radius: 5px !important; }
 .border-none { border: none; }
 .no-side-border { border-left: none; border-right: none; }
 .height-auto { height: auto; }

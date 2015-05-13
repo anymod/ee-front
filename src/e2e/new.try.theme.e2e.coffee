@@ -37,12 +37,14 @@ describe 'eeosk new.try.theme', () ->
       scope.src = res.split('w_400')[1]
       store.click()
       browser.sleep 400
-      browser.getTitle().should.eventually.contain 'Try it out'
+      browser.getTitle().should.eventually.contain 'My store'
       element(has.css '[name="store-navbar"] ul:first-child > li:first-child a').getAttribute('style').should.eventually.contain scope.color
       element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain scope.backgroundColor
       element(has.css '.carousel > img').getAttribute('src').should.eventually.contain scope.src
 
   it 'should populate the try models with image and color when clicked', () ->
+    element(has.cssContainingText '#ee-header .btn', 'Edit').click()
+    browser.getTitle().should.eventually.contain 'Try it out'
     element(has.model 'edit.ee.meta.home.topBarColor').getAttribute('value')
     .then (value) ->
       scope.color.should.contain utils.hex_to_rgb(value)

@@ -16,7 +16,7 @@ angular.module('builder.landing').controller 'landingCtrl', ($state, eeDefiner, 
 
   this.setTheme = (theme) ->
     eeStorefront.fns.setTheme that.ee.meta, theme
-    $state.go 'try-edit'
+    $state.go 'try-storefront'
 
   eeLanding.fns.showState $state.current.name
 

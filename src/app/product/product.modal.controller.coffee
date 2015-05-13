@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').controller 'productModalCtrl', ($rootScope, eeDefiner, eeProduct, eeStorefront, eeCart) ->
+angular.module('app.core').controller 'productModalCtrl', ($rootScope, eeDefiner, eeModal, eeProduct, eeStorefront, eeCart) ->
 
   that = this
 
@@ -14,6 +14,7 @@ angular.module('app.core').controller 'productModalCtrl', ($rootScope, eeDefiner
 
   this.addProduct   = () ->
     if that.ee.logged_in then eeStorefront.fns.addProduct(that.product) else eeStorefront.fns.addDummyProduct(that.product)
+    eeModal.fns.close 'product'
 
   this.removeProductSelection = () ->
     index = eeStorefront.data.product_ids.indexOf that.product.id
