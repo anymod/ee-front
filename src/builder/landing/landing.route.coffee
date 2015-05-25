@@ -8,7 +8,7 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
       views:
         bottom:
           controller: 'landingCtrl as landing'
-          templateUrl: 'builder/landing/landing.html'
+          templateUrl: 'builder/landing/landing2.html'
         footer:
           controller: 'landingCtrl as landing'
           templateUrl: 'builder/landing/landing.footer.html'
