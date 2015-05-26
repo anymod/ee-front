@@ -1,5 +1,5 @@
 <!-- LANDING -->
-<ee-navbar id="top"></ee-navbar>
+<ee-navbar id="top" transparent="true"></ee-navbar>
 
 <div class="jumbotron text-center overflow-hidden transition-400 pad-0 margin-0"
      style="background: url('https://res.cloudinary.com/eeosk/image/upload/c_scale,h_750,w_1100,e_brightness:-20/v1430439803/cross_leg.jpg') no-repeat center;
@@ -11,15 +11,16 @@
   </div>
   <div style="height: 350px" class="full-width">
     <img src="https://res.cloudinary.com/eeosk/image/upload/v1432580735/demo_store.png"
-        class="round-5"
-        style="width: 300px; border: 3px solid lightgray;">
+        class="round-5 hover-pointer"
+        style="width: 300px; border: 3px solid lightgray;"
+        ng-click="landing.modalFns.open('example')">
   </div>
   <div class="pad-20 opacity-08-white-background text-center">
     <div class="vert-20">
       <h3 class="max-width-600 margin-0-auto font-weight-200" style="text-shadow: 0 1px 4px white">
         eeosk is a store builder with inventory: earn money by building and promoting your own online store in minutes.
       </h3>
-      <form class="form-inline vert-20">
+      <form id="top-signup" class="form-inline vert-20">
         <div class="form-group full-width max-width-300">
           <input type="text" class="form-control input-lg" style="width:100%" placeholder="Email address">
         </div>
@@ -81,9 +82,9 @@
   <div class="container-fluid margin-0-auto" style="max-width: 95%;">
     <div class="inline-block full-width vert-50">
       <img src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_400/v1432578504/eeosk_blue.png" style="max-width: 400px; width: 100%;">
-      <h1 class="vert-20 line-height-1 font-weight-100" style="font-size: 52px;">We're on a mission to enable small sellers to compete and win.</h1>
+      <h1 class="vert-20 line-height-1 font-weight-100" style="font-size: 52px;">We're on a mission to enable independent sellers to compete and win.</h1>
       <div class="well">
-        <form class="form-inline vert-10">
+        <form id="bottom-signup" class="form-inline vert-10">
           <div class="form-group full-width max-width-300">
             <input type="text" class="form-control input-lg" style="width:100%" placeholder="Email address">
           </div>

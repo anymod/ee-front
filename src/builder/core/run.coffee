@@ -17,6 +17,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
     'logout'
     'example'
     'signup'
+    'go'
   ]
 
   isTry     = (state) -> tryStates.indexOf(state) > -1

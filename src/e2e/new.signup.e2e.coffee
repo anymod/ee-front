@@ -14,7 +14,15 @@ describe 'eeosk new.signup', () ->
 
   before () -> utils.reset browser
 
-  describe 'dedicated signup page', () ->
+  describe 'signup from landing', () ->
+
+    it 'should send email', () ->
+      browser.get '/'
+      element(has.css '#top-signup input').sendKeys 'foo@bar.baz'
+      element(has.css '#top-signup .btn').click()
+      browser.getTitle().should.eventually.contain 'You\'re signed up!'
+
+  xdescribe 'dedicated signup page', () ->
 
     it 'should have the appropriate messaging', () ->
       browser.get '/create-online-store'
@@ -99,7 +107,7 @@ describe 'eeosk new.signup', () ->
       .then (cookie) ->
         cookie.value.should.have.string('Bearer%20')
 
-  describe 'signup modal', () ->
+  xdescribe 'signup modal', () ->
 
     it 'should open signup modal from the try/edit section', () ->
       browser.manage().deleteAllCookies()

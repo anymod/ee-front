@@ -25,22 +25,6 @@ describe 'eeosk new.reset', () ->
   xit 'should navigate to login page', () ->
   xit 'should navigate to landing page', () ->
 
-  it 'should show terms modal', () ->
-    browser.sleep 400
-    element(has.cssContainingText '#ee-footer a', 'Terms & Conditions').click()
-    browser.sleep 400
-    element(has.css '.modal').getText().should.eventually.contain 'Seller Terms & Conditions'
-    element(has.cssContainingText '.modal .btn', 'close').click()
-    browser.sleep 200
-
-  it 'should show privacy modal', () ->
-    browser.sleep 400
-    element(has.cssContainingText '#ee-footer a', 'Privacy Policy').click()
-    browser.sleep 400
-    element(has.css '.modal').getText().should.eventually.contain 'PRIVACY STATEMENT'
-    element(has.cssContainingText '.modal .btn', 'close').click()
-    browser.sleep 200
-
   it 'should show alert message if email address doesn\'t exist', () ->
     element(has.css '.alert').isDisplayed().should.eventually.equal false
     element(has.model 'reset.email').sendKeys 'nonexistent@example.com'
@@ -85,5 +69,5 @@ describe 'eeosk new.reset', () ->
     browser.get 'login'
     element(has.model 'login.email').sendKeys utils.test_user.email
     element(has.model 'login.password').sendKeys scope.newPassword
-    element(has.cssContainingText '.btn', 'Sign in').click()
+    element(has.cssContainingText '.well .btn', 'Sign in').click()
     browser.getTitle().should.eventually.contain 'My store'

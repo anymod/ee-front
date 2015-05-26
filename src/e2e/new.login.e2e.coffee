@@ -14,34 +14,29 @@ describe 'eeosk new.login', () ->
 
   before () -> utils.reset browser
 
-  describe 'dedicated login page', () ->
+  describe 'dedicated signin page', () ->
 
-    it 'should be able to log in from the landing page', () ->
+    it 'should be able to sign in from the landing page', () ->
       browser.get '/'
-      element(has.cssContainingText '#navbar-top .btn', 'Login').click()
-      browser.getTitle().should.eventually.contain 'Login'
+      element(has.cssContainingText '#navbar-top .btn', 'Sign in').click()
+      browser.getTitle().should.eventually.contain 'Sign in'
       element(has.css '.well').getText().should.eventually.contain 'Sign in'
       element(has.css '.alert').isDisplayed().should.eventually.equal false
       element(has.model 'login.email').sendKeys utils.test_user.email
       element(has.model 'login.password').sendKeys utils.test_user.password
-      element(has.cssContainingText '.btn', 'Sign in').click()
+      element(has.cssContainingText '.well .btn', 'Sign in').click()
       browser.getTitle().should.eventually.contain 'My store'
       browser.get '/logout'
 
-    it 'should navigate to the sign up state', () ->
-      browser.get '/login'
-      browser.sleep 200
-      element(has.cssContainingText '.well a', 'Sign up').click()
-      browser.getTitle().should.eventually.contain 'Create your store'
-      browser.navigate().back()
-
     it 'should navigate to the reset password state', () ->
-      element(has.cssContainingText '.well a', 'Forgot password').click()
+      element(has.cssContainingText '#navbar-top .btn', 'Sign in').click()
+      browser.getTitle().should.eventually.contain 'Sign in'
+      element(has.cssContainingText 'a', 'Reset password').click()
       browser.getTitle().should.eventually.contain 'Reset your password'
       browser.navigate().back()
 
     it 'should navigate to the landing state', () ->
-      element(has.css '#navbar-top a > img').click()
+      element(has.css '#brand').click()
       browser.getTitle().should.eventually.contain 'Online store builder'
       browser.navigate().back()
 
@@ -49,7 +44,7 @@ describe 'eeosk new.login', () ->
       element(has.css '.alert').isDisplayed().should.eventually.equal false
       element(has.model 'login.email').sendKeys utils.test_user.email
       element(has.model 'login.password').sendKeys 'foobar'
-      element(has.cssContainingText '.btn', 'Sign in').click()
+      element(has.cssContainingText '.well .btn', 'Sign in').click()
       element(has.css '.alert').getText().should.eventually.equal 'Invalid email or password'
 
     it 'should show message on invalid email', () ->
@@ -58,27 +53,10 @@ describe 'eeosk new.login', () ->
       element(has.css '.alert').isDisplayed().should.eventually.equal false
       element(has.model 'login.email').sendKeys('another-' + utils.test_user.email)
       element(has.model 'login.password').sendKeys utils.test_user.password
-      element(has.cssContainingText '.btn', 'Sign in').click()
+      element(has.cssContainingText '.well .btn', 'Sign in').click()
       element(has.css '.alert').getText().should.eventually.equal 'Invalid email or password'
 
-    it 'should show terms modal via footer', () ->
-      browser.sleep 400
-      element(has.cssContainingText '#ee-footer a', 'Terms & Conditions').click()
-      browser.sleep 400
-      element(has.css '.modal').getText().should.eventually.contain 'Seller Terms & Conditions'
-      element(has.cssContainingText '.modal .btn', 'close').click()
-      browser.sleep 200
-
-    it 'should show privacy modal via footer', () ->
-      browser.sleep 400
-      element(has.cssContainingText '#ee-footer a', 'Privacy Policy').click()
-      browser.sleep 400
-      element(has.css '.modal').getText().should.eventually.contain 'PRIVACY STATEMENT'
-      element(has.cssContainingText '.modal .btn', 'close').click()
-      browser.sleep 200
-
-
-  describe 'login modal', () ->
+  xdescribe 'login modal', () ->
 
     it 'should be able to log in via modal from the try sections', () ->
       browser.get '/try/edit'

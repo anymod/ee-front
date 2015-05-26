@@ -17,6 +17,12 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
       controller:     'signupCtrl as modal'
       size:           'sm'
       backdropClass:  _backdropClass
+    example:
+      templateUrl:    'builder/example/example.html'
+      controller:     'exampleCtrl as storefront'
+      size:           'lg'
+      backdropClass:  _backdropClass
+      windowClass:    'full-modal'
     sellerTerms:
       templateUrl:    'builder/terms/terms.modal.html'
       controller:     'termsModalCtrl as modal'
@@ -63,7 +69,7 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
       _modals.catalog = $modal.open({
         templateUrl:    'builder/catalog/catalog.modal.html'
         backdropClass:  'white-background opacity-08'
-        windowClass:    'catalog-modal'
+        windowClass:    'full-modal'
         controller:     'catalogCtrl as catalog'
         size:           'lg'
       })
@@ -81,7 +87,7 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
       _modals.product = $modal.open({
         templateUrl:    'app/product/product.catalog.modal.html'
         backdropClass:  'white-background opacity-08'
-        windowClass:    'catalog-modal'
+        windowClass:    'full-modal'
         resolve:
           product: () -> product
         controller:     'productModalCtrl as modal'

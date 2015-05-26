@@ -1,12 +1,14 @@
-<nav class="navbar navbar-absolute-top navbar-transparent" id="navbar-top">
+<nav class="navbar navbar-absolute-top round-0" id="navbar-top" ng-class="{ 'box-shadow': shadow, 'navbar-transparent': transparent }">
   <div class="container-fluid">
-    <div class="margin-5">
-      <a ui-sref="landing" class="pull-left">
-        <img src="../img/eeosk_250x67.png" class="width-120" style="margin-top: -2px;" />
+    <div class="margin-7">
+      <a ui-sref="landing" id="brand" class="pull-left">
+        <img ng-hide="logo == 'blue'" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_150/v1432656685/eeosk_white.png" class="width-120"/>
+        <img ng-show="logo == 'blue'" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_400/v1432578504/eeosk_blue.png" class="width-120"/>
       </a>
       <div class="pull-right" role="form">
         <a ui-sref="login"
            class="btn btn-success"
+           ng-hide="hideSignin"
            analytics-on
            analytics-category="user-management"
            analytics-event="login">
