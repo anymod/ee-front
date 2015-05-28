@@ -72,11 +72,7 @@ if process.env.NODE_ENV is 'test'
     req = request.defaults
       json: true
       uri: browser.apiUrl + '/v0/users'
-      body:
-        username: user.username
-        email:    user.email
-        password: user.password
-        storefront_meta: user.storefront_meta
+      body: email: user.email
       headers: authorization: {}
     new Promise (resolve, reject) ->
       req.post {}, (err, res, body) ->
@@ -86,14 +82,17 @@ if process.env.NODE_ENV is 'test'
 
   utils.users             = ()          -> sequelize.query 'SELECT * FROM "Users";'
   utils.user_by_id        = (id)        -> sequelize.query 'SELECT * FROM "Users" WHERE id = ' + id + ' LIMIT 1;'
+  utils.user_by_email     = (email)     -> sequelize.query 'SELECT * FROM "Users" WHERE email = \'' + email + '\' LIMIT 1;'
   utils.user_by_username  = (username)  -> sequelize.query 'SELECT * FROM "Users" WHERE username = \'' + username + '\' LIMIT 1;'
+  utils.confirm_user      = (email)     -> sequelize.query 'UPDATE "Users" SET confirmed = true, confirmed_at = created_at WHERE email = \'' + email + '\';'
+  utils.complete_user     = (email)     -> sequelize.query 'UPDATE "Users" SET confirmed = true, confirmed_at = created_at, completed = true, completed_at = created_at WHERE email = \'' + email + '\';'
 
   utils.create_admin = () ->
     utils.create_user utils.test_admin
     .then (body) ->
-      scope.admin_token = body.token
-      scope.admin_user = body.user
-      sequelize.query 'UPDATE "Users" SET "admin"=true WHERE "username"=\'' + body.user.username + '\';'
+      scope.admin_user = body
+      utils.complete_user body.email
+      sequelize.query 'UPDATE "Users" SET "admin"=true WHERE "email"=\'' + body.email + '\';'
       body
     .catch (err) -> throw err
 
@@ -186,8 +185,8 @@ if process.env.NODE_ENV is 'test'
     .then () -> utils.create_admin()
     .then () -> utils.create_user(utils.test_user)
     .then (data) ->
-      scope.token = data.token
-      scope.user = data.user
+      scope.user = data
+      utils.complete_user data.email
       utils.create_products(10)
     .then (products) ->
       scope.products = products

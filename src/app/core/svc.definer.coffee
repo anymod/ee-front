@@ -38,7 +38,7 @@ angular.module('app.core').factory 'eeDefiner', ($rootScope, eeAuth, eeStorefron
     eeAuth.fns.defineUserFromToken()
     .then     () -> eeStorefront.fns.defineStorefrontFromToken()
     .then     () -> _fillExportData eeAuth.exports.user, eeStorefront.data
-    .catch (err) -> console.error err
+    .catch (err) -> return # console.error err
     .finally  () -> _exports.loading = false
 
   _defineLanding = () ->

@@ -6,17 +6,19 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
   _status = {}
 
   ## PRIVATE EXPORT DEFAULTS
-  _user = {}
+  _exports =
+    user:       {}
+    confirming: false
 
   ## PRIVATE FUNCTIONS
   _userIsSaved  = true
   _userLastSet  = Date.now()
-  _userIsEmpty  = () -> Object.keys(_user).length is 0
+  _userIsEmpty  = () -> Object.keys(_exports.user).length is 0
 
   _setUser = (u) ->
-    assignKey = (k) -> _user[k] = u[k]
+    assignKey = (k) -> _exports.user[k] = u[k]
     assignKey key for key in Object.keys u
-    _user
+    _exports.user
 
   _setLoginToken = (token) -> $cookies.loginToken = token
   _clearLoginToken = () -> $cookieStore.remove 'loginToken'
@@ -41,6 +43,17 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       _reset()
       deferred.reject err
     .finally () -> _status.fetching = false
+    deferred.promise
+
+  _defineUserFromGoToken = (goToken) ->
+    deferred = $q.defer()
+    eeBack.goPOST goToken
+    .then (data) ->
+      _setUser data
+      if !!data.email then deferred.resolve(data) else deferred.reject(data)
+    .catch (err) ->
+      _reset()
+      deferred.reject err
     deferred.promise
 
   _createUserFromSignup = (email, password, storefront_meta, product_selection) ->
@@ -71,20 +84,36 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .finally () -> _status.landing = false
     deferred.promise
 
+  _createUserFromEmail = (email) ->
+    deferred = $q.defer()
+    _exports.confirming = true
+    if !email
+      deferred.reject 'Missing email'
+    else
+      eeBack.usersPOST email
+      .then (data) ->
+        _setUser data
+        deferred.resolve data
+      .catch (err) ->
+        _reset()
+        deferred.reject err
+      .finally () -> _exports.confirming = false
+    deferred.promise
 
-  _saveUser = () -> eeBack.usersPUT _user, $cookies.loginToken
+  _saveUser = () -> eeBack.usersPUT _exports.user, $cookies.loginToken
 
   ## EXPORTS
-  exports:
-    user: _user
+  exports: _exports
   fns:
-    logout:               () -> _reset()
-    hasToken:             () -> !!$cookies.loginToken
-    getToken:             () -> $cookies.loginToken
-    defineUserFromToken:  () -> _defineUserFromToken()
+    logout:                 () -> _reset()
+    hasToken:               () -> !!$cookies.loginToken
+    getToken:               () -> $cookies.loginToken
+    defineUserFromToken:    () -> _defineUserFromToken()
+    defineUserFromGoToken:  (token) -> _defineUserFromGoToken token
 
-    saveUser: ()  -> _saveUser()
+    createUserFromEmail: (email) -> _createUserFromEmail email
 
+    saveUser: () -> _saveUser()
     setUserIsSaved: (bool) -> _userIsSaved = bool
     userIsSaved: () -> _userIsSaved
     userIsntSaved: () -> !_userIsSaved

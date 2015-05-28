@@ -4,7 +4,7 @@ angular.module('builder.go').config ($stateProvider, $locationProvider) ->
 
   $stateProvider
     .state 'go',
-      url: '/go'
+      url: '/go/:token'
       views:
         top:
           controller: 'goCtrl as go'

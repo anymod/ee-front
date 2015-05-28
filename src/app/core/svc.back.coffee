@@ -2,14 +2,30 @@
 
 angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
 
+  _data =
+    requesting: false
+    requestingArray: []
+
   _handleError = (deferred, data, status) ->
     if status is 0 then deferred.reject 'Connection error' else deferred.reject data
 
+  _setRequesting = () -> _data.requesting = _data.requestingArray.length > 0
+
+  _startRequest = () ->
+    _data.requestingArray.push 'r'
+    _setRequesting()
+
+  _endRequest = () ->
+    _data.requestingArray.pop()
+    _setRequesting()
+
   _makeRequest = (req) ->
+    _startRequest()
     deferred = $q.defer()
     $http(req)
       .success (data, status) -> deferred.resolve data
       .error (data, status) -> _handleError deferred, data, status
+      .finally () -> _endRequest()
     deferred.promise
 
   _formQueryString = (query) ->
@@ -20,6 +36,8 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
     addQuery(key) for key in keys
     '?' + parts.join('&')
 
+  data: _data
+
   tokenPOST: (token) ->
     _makeRequest {
       method: 'POST'
@@ -27,13 +45,18 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
-  # tokenPOST: (token) -> _tokenPOST token
-
   authPOST: (email, password) ->
     _makeRequest {
       method: 'POST'
       url: eeBackUrl + 'auth'
       headers: authorization: 'Basic ' + email + ':' + password
+    }
+
+  goPOST: (token) ->
+    _makeRequest {
+      method: 'POST'
+      url: eeBackUrl + 'go'
+      data: { token: token }
     }
 
   passwordResetEmailPOST: (email) ->
@@ -52,16 +75,13 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       data: user
     }
 
-  usersPOST: (email, password, storefront_meta, signup) ->
+  usersPOST: (email) ->
     _makeRequest {
       method: 'POST'
       url: eeBackUrl + 'users'
       headers: {}
       data:
-        email:            email
-        password:         password
-        storefront_meta:  storefront_meta
-        signup:           signup
+        email: email
     }
 
   usersUpdatePasswordPUT: (password, token) ->

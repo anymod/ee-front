@@ -3,6 +3,7 @@
 angular.module('builder.auth').controller 'loginCtrl', ($state, eeAuth, eeModal) ->
   this.alert    = ''
   that          = this
+  if $state.params.exists then this.alert = 'Your account is active. Please sign in.'
 
   setBtnText    = (txt) -> that.btnText = txt
   resetBtnText  = ()    -> setBtnText 'Sign in'

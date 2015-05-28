@@ -10,13 +10,16 @@ angular.module('builder.landing').controller 'landingCtrl', ($state, eeDefiner, 
   this.data     = eeLanding.data
   this.fns      = eeLanding.fns
   this.authFns  = eeAuth.fns
+  this.authExp  = eeAuth.exports
   this.modalFns = eeModal.fns
 
-  this.save = () -> eeModal.fns.openSignupModal()
-
-  this.setTheme = (theme) ->
-    eeStorefront.fns.setTheme that.ee.meta, theme
-    $state.go 'try-storefront'
+  this.signup = () ->
+    eeAuth.fns.createUserFromEmail that.email
+    .then (user) -> $state.go 'go', token: user.go_token
+    .catch (err) ->
+      if err.message is 'Email format is invalid' then return that.error = 'That doesn\'t look like a valid email address. Please try again.'
+      if err.message is 'Account exists' then return $state.transitionTo 'login', { exists: true }
+      that.error = 'Problem signing up'
 
   eeLanding.fns.showState $state.current.name
 

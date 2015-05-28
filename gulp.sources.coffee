@@ -125,6 +125,10 @@ sources.builderModule = [
   './src/builder/go/go.module.coffee'
   './src/builder/go/go.route.coffee'
   './src/builder/go/go.controller.coffee'
+  # Module - create
+  './src/builder/create/create.module.coffee'
+  './src/builder/create/create.route.coffee'
+  './src/builder/create/create.controller.coffee'
   # Module - edit
   './src/builder/edit/edit.module.coffee'
   './src/builder/edit/edit.route.coffee'

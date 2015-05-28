@@ -20,6 +20,7 @@ angular.module 'eeBuilder', [
   'builder.contact'
   'builder.landing'
   'builder.go'
+  'builder.create'
   'builder.terms'
   'builder.storefront'
   'builder.catalog'

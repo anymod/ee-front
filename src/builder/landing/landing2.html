@@ -11,7 +11,7 @@
   </div>
   <div style="height: 350px" class="full-width">
     <img src="https://res.cloudinary.com/eeosk/image/upload/v1432580735/demo_store.png"
-        class="round-5 hover-pointer"
+        class="round-5 hover-pointer white-background"
         style="width: 300px; border: 3px solid lightgray;"
         ng-click="landing.modalFns.open('example')">
   </div>
@@ -20,11 +20,12 @@
       <h3 class="max-width-600 margin-0-auto font-weight-200" style="text-shadow: 0 1px 4px white">
         eeosk is a store builder with inventory: earn money by building and promoting your own online store in minutes.
       </h3>
-      <form id="top-signup" class="form-inline vert-20">
+      <form id="top-signup" class="form-inline vert-20" ng-submit="landing.signup()">
+        <h4 ng-bind="landing.error" class="font-weight-200"></h4>
         <div class="form-group full-width max-width-300">
-          <input type="text" class="form-control input-lg" style="width:100%" placeholder="Email address">
+          <input type="email" ng-model="landing.email" class="form-control input-lg" style="width:100%" placeholder="Email address" required>
         </div>
-        <button type="submit" class="btn btn-lg btn-primary" style="text-shadow: 0 1px 4px rgba(0,0,0,.5)">Sign up for Free</button>
+        <button type="submit" ng-disabled="landing.authExp.confirming" class="btn btn-lg btn-primary" style="text-shadow: 0 1px 4px rgba(0,0,0,.5)">Sign up for Free</button>
       </form>
       <h3 class="max-width-600 margin-0-auto font-weight-100" style="text-shadow: 0 1px 4px white">
         eeosk is free to use for as long as you want.
@@ -84,11 +85,12 @@
       <img src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_400/v1432578504/eeosk_blue.png" style="max-width: 400px; width: 100%;">
       <h1 class="vert-20 line-height-1 font-weight-100" style="font-size: 52px;">We're on a mission to enable independent sellers to compete and win.</h1>
       <div class="well">
-        <form id="bottom-signup" class="form-inline vert-10">
+        <form id="bottom-signup" class="form-inline vert-20" ng-submit="landing.signup()">
+          <h4 ng-bind="landing.error" class="font-weight-200"></h4>
           <div class="form-group full-width max-width-300">
-            <input type="text" class="form-control input-lg" style="width:100%" placeholder="Email address">
+            <input type="email" ng-model="landing.email" class="form-control input-lg" style="width:100%" placeholder="Email address" required>
           </div>
-          <button type="submit" class="btn btn-lg btn-primary" style="text-shadow: 0 1px 4px rgba(0,0,0,.5)">Sign up for Free</button>
+          <button type="submit" ng-disabled="landing.authExp.confirming" class="btn btn-lg btn-primary" style="text-shadow: 0 1px 4px rgba(0,0,0,.5)">Sign up for Free</button>
         </form>
         <h3 class="max-width-600 line-height-1 margin-0-auto font-weight-100" style="text-shadow: 0 1px 4px white">
           eeosk is free to use for as long as you want.
