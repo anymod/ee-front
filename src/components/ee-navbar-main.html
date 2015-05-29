@@ -1,8 +1,21 @@
-<nav class="navbar navbar-default main-navbar navbar-fixed-top round-0 no-side-border">
+<nav class="navbar navbar-fixed-top box-shadow round-0" id="navbar-top">
+  <div class="container-fluid">
+    <div class="margin-7">
+      <a ui-sref="landing" id="brand" class="inline-block">
+        <img src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_400/v1432578504/eeosk_blue.png" class="width-120"/>
+      </a>
+      &nbsp;&nbsp;
+      <div class="position-fixed text-center" style="top: 8px; left: 50%; width: 150px; margin-left: -75px;">
+        <div ng-click="catalog()" class="btn btn-info">Products</div>&nbsp;<a ui-sref="edit" class="btn btn-success">Edit</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- <nav class="navbar navbar-default main-navbar navbar-fixed-top round-0 no-side-border">
 
   <div class="container-fluid">
     <div class="vert-5">
-      <!-- main navbar -->
+      main navbar
       <div ng-show="state.indexOf('edit') < 0">
         <div class="pull-left">
           <a ui-sref="storefront" class="btn btn-sm btn-default" ng-class="{ active: state.indexOf('storefront') > -1 }">
@@ -38,20 +51,21 @@
               <li class="visible-xs"><a href ng-click="feedback()"><i class="fa fa-fw fa-comment-o"></i>&nbsp;&nbsp;Feedback</a></li>
               <li><a ui-sref="orders"><i class="fa fa-fw fa-list"></i>&nbsp;&nbsp;Orders</a></li>
               <li><a ui-sref="account"><i class="fa fa-fw fa-gear"></i>&nbsp;&nbsp;Account Settings</a></li>
-              <!-- TODO add payment settings and notification settings -->
+              TODO add payment settings and notification settings
               <li class="divider"></li>
               <li><a ui-sref="logout"><i class="fa fa-fw fa-sign-out"></i>&nbsp;&nbsp;Logout</a></li>
             </ul>
           </div>
         </div>
       </div>
-      <!-- /main navbar -->
-      <!-- save navbar -->
+      /main navbar
+      save navbar
       <div ng-hide="state.indexOf('edit') < 0">
         <ee-save></ee-save>&nbsp;
         <a ui-sref="storefront" class="btn btn-sm btn-default">Cancel</a>
       </div>
-      <!-- /save navbar -->
+      /save navbar
     </div>
   </div>
 </nav>
+ -->

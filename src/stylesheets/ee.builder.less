@@ -51,8 +51,10 @@
 @body-bg: @ee-light-light-gray;
 @text-color: #555459;
 
-.bg-info { background-color: @brand-info; color: white; }
-.bg-success { background-color: @brand-success; color: white; }
+.bg-info,
+.hover-bg-info:hover { background-color: @brand-info !important; color: white; }
+.bg-success,
+.hover-bg-success:hover { background-color: @brand-success !important; color: white; }
 
 /* @brand-danger: #ED5E5A; */
 
@@ -119,6 +121,9 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 html { overflow-x: hidden; }
 
@@ -203,7 +208,6 @@ html { overflow-x: hidden; }
 .no-shadow { box-shadow: none; -webkit-box-shadow: none; }
 .no-underline:hover { text-decoration: none; }
 .text-underline { text-decoration: underline; }
-.font-weight-100 { font-weight: 100 !important; }
 .font-weight-200 { font-weight: 200 !important; }
 .overflow-hidden { overflow: hidden !important; }
 .vertical-align-top { vertical-align: top; }
@@ -227,6 +231,7 @@ html { overflow-x: hidden; }
 .top-0 { top: 0 !important; }
 .left-300 { left: 300px !important; }
 .top-left-bottom-right-0 { top: 0; left: 0; bottom: 0; right: 0; }
+.vert-0 { margin-top: 0px; margin-bottom: 0px; }
 .vert-2 { margin-top: 2px; margin-bottom: 2px; }
 .vert-5 { margin-top: 5px; margin-bottom: 5px; }
 .vert-7 { margin-top: 7px; margin-bottom: 7px; }
@@ -296,6 +301,7 @@ html { overflow-x: hidden; }
 .line-height-1-5 { line-height: 1.5em; }
 .hover-pointer:hover { cursor: pointer; }
 .hover-blue-border:hover { border-color: @ee-blue !important; }
+.hover-trigger:hover .hover-shift { margin-left: 2rem; }
 .no-transition { transition: none; }
 
 .font-18 { font-size: 18px; }

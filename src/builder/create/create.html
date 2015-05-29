@@ -6,16 +6,55 @@
 
   <div class="max-width-600 margin-0-auto text-center">
 
-    <h3 class="vert-10 font-weight-100">Great! Let's get set up.</h3>
+    <h3 class="vert-10 font-weight-200">Great! Let's get set up.</h3>
 
     <div class="row well white-background box-shadow pad-0 overflow-hidden">
-      <div class="col-xs-4 font-weight-200 pad-15 bg-success">1. Choose products</div>
+      <div class="col-xs-4 font-weight-200 pad-15">1. Choose products</div>
       <div class="col-xs-4 font-weight-200 pad-15">2. Choose theme</div>
-      <div class="col-xs-4 font-weight-200 pad-15">3. Finishing touches</div>
+      <div class="col-xs-4 font-weight-200 pad-15 bg-success">3. Finishing touches</div>
+    </div>
+
+    <div class="max-width-600 margin-0-auto text-center">
+      <div class="well white-background box-shadow">
+        <h2 class="margin-0 font-weight-200">
+          Create login information
+        </h2>
+        <div class="max-width-300 full-width margin-0-auto">
+          <form ng-submit="create.complete()" class="vert-20">
+            <div class="alert alert-info" ng-show='create.alert' ng-bind="create.alert"></div>
+            <input type="text"
+                   ng-model="create.username"
+                   placeholder="Username"
+                   class="form-control input-lg vert-5"
+                   required
+                   autofocus>
+            <input type="password"
+                   ng-model="create.password"
+                   placeholder="Password"
+                   class="form-control input-lg vert-5"
+                   required>
+            <input type="password"
+                   ng-model="create.password_confirm"
+                   placeholder="Confirm Password"
+                   class="form-control input-lg vert-5"
+                   required>
+            <button class="btn btn-lg btn-primary btn-block"
+                    type="submit"
+                    ng-bind="create.btnText"
+                    ng-disabled="create.btnText != 'Finished'"></button>
+          </form>
+        </div>
+      </div>
+
+      <h4 class="vert-50 margin-bottom-0 text-muted font-weight-200">
+        Username should contain only letters, numbers, and dashes (-).
+        <br>
+        Password should be at least 8 characters long.
+      </h4>
     </div>
 
     <h4 class="vert-10 font-weight-200 text-info">We've pre-selected some of the top products for you. Add and remove whatever you want, and it will show up in your store automatically!</h4>
-    <h4 class="vert-10 font-weight-100">You can add and remove products later too!</h4>
+    <h4 class="vert-10 font-weight-200">You can add and remove products later too!</h4>
 
   </div>
 </div>
