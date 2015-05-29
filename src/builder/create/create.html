@@ -1,4 +1,4 @@
-<ee-navbar logo="blue" shadow="true" hide-signin="true"></ee-navbar>
+<ee-navbar logo="blue" shadow="true" fixed="true" hide-signin="true"></ee-navbar>
 
 <div class="pad-10 text-center">
   <span class="inline-block full-width vert-20"></span>
@@ -20,7 +20,19 @@
   </div>
 </div>
 
-<div class="pad-10 text-left text-center">
+<div ng-show="create.data.products.length > 0" class="pad-10 text-left text-center">
+
+  <pagination total-items="4000"
+              items-per-page="32"
+              ng-model="create.data.inputs.page"
+              max-size="5"
+              class="pagination-sm vert-10 margin-top-0 vertical-align-top"
+              previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+              boundary-links="true"
+              rotate="false"
+              ng-change="create.fns.update()">
+  </pagination>
+
   <div class="margin-0-auto" style="max-width: 920px;">
     <div ng-repeat="product in create.data.products" class="well text-center inline-block pad-5 margin-2 white-background box-shadow" style="width: 140px;">
       <div class="pad-10 text-left">

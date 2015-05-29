@@ -6,7 +6,7 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeDefiner, ee
   this.ee   = eeDefiner.exports
   this.data = eeCatalog.data
 
-  eeCatalog.fns.setCategory 'Home Decor'
+  eeCatalog.fns.setCategory 'Furniture'
   eeCatalog.fns.search()
 
   return

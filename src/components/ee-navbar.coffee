@@ -8,3 +8,4 @@ angular.module('ee-navbar').directive "eeNavbar", () ->
     shadow: '@'
     transparent: '@'
     hideSignin: '@'
+    fixed: '@'
