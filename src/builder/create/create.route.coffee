@@ -4,7 +4,7 @@ angular.module('builder.create').config ($stateProvider, $locationProvider) ->
 
   $stateProvider
     .state 'create',
-      url: '/create'
+      url: '/create/:token'
       views:
         top:
           controller: 'createCtrl as create'

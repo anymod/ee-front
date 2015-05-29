@@ -76,8 +76,7 @@ if process.env.NODE_ENV is 'test'
       headers: authorization: {}
     new Promise (resolve, reject) ->
       req.post {}, (err, res, body) ->
-        last_user_created   = body.user
-        last_token_created  = body.token
+        last_user_created = body
         if !!err then reject err else resolve body
 
   utils.users             = ()          -> sequelize.query 'SELECT * FROM "Users";'
@@ -86,14 +85,23 @@ if process.env.NODE_ENV is 'test'
   utils.user_by_username  = (username)  -> sequelize.query 'SELECT * FROM "Users" WHERE username = \'' + username + '\' LIMIT 1;'
   utils.confirm_user      = (email)     -> sequelize.query 'UPDATE "Users" SET confirmed = true, confirmed_at = created_at WHERE email = \'' + email + '\';'
   utils.complete_user     = (email)     -> sequelize.query 'UPDATE "Users" SET confirmed = true, confirmed_at = created_at, completed = true, completed_at = created_at WHERE email = \'' + email + '\';'
+  utils.jwt_from_email    = (email) ->
+    sequelize.query 'SELECT ee_uuid FROM "Users" WHERE email = \'' + email + '\';'
+    .then (res) ->
+      ee_uuid = res[0].ee_uuid
+      'Bearer ' + utils.jwt({ token: ee_uuid })
+    .catch (err) -> throw 'error in user_token_from_email'
 
   utils.create_admin = () ->
     utils.create_user utils.test_admin
     .then (body) ->
       scope.admin_user = body
       utils.complete_user body.email
-      sequelize.query 'UPDATE "Users" SET "admin"=true WHERE "email"=\'' + body.email + '\';'
-      body
+      sequelize.query 'UPDATE "Users" SET "admin"=true WHERE "email"= \'' + body.email + '\';'
+      utils.jwt_from_email body.email
+    .then (token) ->
+      scope.admin_token = token
+      scope.admin_user
     .catch (err) -> throw err
 
   utils.create_products = (n) ->
@@ -187,6 +195,9 @@ if process.env.NODE_ENV is 'test'
     .then (data) ->
       scope.user = data
       utils.complete_user data.email
+      utils.jwt_from_email data.email
+    .then (token) ->
+      scope.token = token
       utils.create_products(10)
     .then (products) ->
       scope.products = products
