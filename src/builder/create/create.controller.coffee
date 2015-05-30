@@ -8,7 +8,8 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeDefiner, ee
 
   this.btnText = 'Finished'
 
-  eeCatalog.fns.setCategory 'Furniture'
+  eeCatalog.fns.setCategory 'Home Decor'
+  
   eeCatalog.fns.search()
 
   return
