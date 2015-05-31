@@ -9,7 +9,7 @@
         <div class="width-300">
 
           <div ng-show="product.id || loadingProduct" name="product-focus" e2e-id="{{ product.id }}">
-            <div class="full-width inline-block" style="height: 47px;"></div>
+            <div class="section" style="height: 47px;"></div>
             <div class="margin-10">
               <span ng-show="loadingProduct" class="inline-block" style="height: 34px;">
                 <i class="fa fa-2x fa-circle-o-notch fa-spin text-info"></i>
@@ -98,7 +98,7 @@
 
           <div ng-hide="product.id || loadingProduct">
             <div class="pad-10 {{ $state.current.data.offscreenColor }}-background">
-              <div class="vert-20 full-width inline-block"></div>
+              <div class="vert-20 section"></div>
               <h2 class="margin-0 white-color" ng-bind="$state.current.data.offscreenCategory"></h2>
             </div>
             <form ng-submit="setSearch()" class="input-group round-0">
