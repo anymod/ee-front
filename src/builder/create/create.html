@@ -6,7 +6,7 @@
   <div ng-show="create.section > 1" ng-click="create.setSection(create.section - 1)" class="btn btn-default">
     <i class="fa fa-fw fa-long-arrow-left"></i>
   </div>&nbsp;
-  <div ng-show="create.section < 3" ng-click="create.setSection(create.section + 1)" class="btn btn-default">
+  <div ng-show="create.section < 3" ng-click="create.setSection(create.section + 1)" ng-class="{ 'btn-info': create.highlightNext }" class="btn btn-default">
     <span class="hidden-xs">Next&nbsp;</span><i class="fa fa-fw fa-long-arrow-right"></i>
   </div>
 </div>
@@ -92,7 +92,7 @@
           </div>
         </div>
 
-        <h4 class="vert-50 margin-bottom-0 text-muted font-weight-200">
+        <h4 class="vert-20 text-muted font-weight-200">
           Username should contain only letters, numbers, and dashes (-).
           <br>
           Password should be at least 8 characters long.

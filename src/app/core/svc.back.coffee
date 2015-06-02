@@ -100,6 +100,15 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       data: { email: email }
     }
 
+  usersCompletePUT: (data) ->
+    _makeRequest {
+      method: 'PUT'
+      url: eeBackUrl + 'users_complete'
+      headers: authorization: token
+      data: data
+    }
+
+
   usersStorefrontGET: (token) ->
     _makeRequest {
       method: 'GET'
