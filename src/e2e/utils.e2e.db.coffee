@@ -104,15 +104,15 @@ if process.env.NODE_ENV is 'test'
       scope.admin_user
     .catch (err) -> throw err
 
-  utils.create_products = (n) ->
+  utils.create_products = (n, category) ->
     createOps = []
-    createOp = (i) -> createOps.push(utils.create_product(i))
+    createOp = (i) -> createOps.push(utils.create_product(i, category))
     if typeof n is 'number' then _.times n, (i) -> createOp(i+1)
     if n instanceof Array then createOp(i) for i in n
 
     Promise.all(createOps)
 
-  utils.create_product = (i) ->
+  utils.create_product = (i, cat) ->
     supply_price = parseInt(Math.random()*100)*100 + 800
     ee_margin = 10
     random_color = () -> Math.random().toString(16).slice(2, 8)
@@ -123,9 +123,9 @@ if process.env.NODE_ENV is 'test'
     image_2 = 'http://placehold.it/' + h + 'x' + h + '.png/' + random_color() + '/fff'
     image_3 = 'http://placehold.it/' + h + 'x' + w + '.png/' + random_color() + '/fff'
     image_4 = 'http://placehold.it/' + w + 'x' + w + '.png/' + random_color() + '/fff'
-    categories = ["Kitchen", "Accessories", "Home Decor", "Health & Beauty", "Electronics", "General Merchandise"]
-    category = _.sample categories
-    search_term = _.sample ['Handmade', 'Green', 'Metal']
+    categories = ["Kitchen", "Furniture", "Home Decor", "Outdoor"]
+    category = cat || _.sample categories
+    search_term = _.sample(['Handmade', 'Green', 'Metal']) + ' ' + category
     req = request.defaults
       json: true
       uri: browser.apiUrl + '/v0/products'
