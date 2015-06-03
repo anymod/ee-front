@@ -1,25 +1,17 @@
 <div class="position-relative" ng-hide="storefront.ee.loading">
   <img ng-src="{{ storefront.ee.about.imgUrl }}" class="img-responsive full-width">
-  <div class="position-absolute hidden-xs"
-       style="top: 60px; width: 80%; left: 10%;">
+  <div class="max-width-900 margin-0-auto pad-20">
 
-    <h2 class="well white-space-pre"
+    <h2 class="well white-background box-shadow font-weight-200" style="white-space: pre-line;"
          ng-if="storefront.ee.about.headline"
          ng-bind="storefront.ee.about.headline">
     </h2>
 
     <br>
 
-    <div class="well white-space-pre"
+    <div class="well white-background box-shadow font-weight-200" style="white-space: pre-line;"
          ng-if="storefront.ee.about.content"
          ng-bind="storefront.ee.about.content">
     </div>
   </div>
-
-  <div class="pad-15 visible-xs">
-    <h3 class="margin-0 white-space-pre" ng-bind="storefront.ee.about.headline"></h3>
-    <br>
-    <p class="vert-2 white-space-pre" ng-bind="storefront.ee.about.content"></p>
-  </div>
-
 </div>

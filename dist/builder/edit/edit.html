@@ -48,9 +48,6 @@
     <div class="form-group vert-2">
       <label class="col-sm-3 control-label">
         Main image
-        <div ng-show="edit.ee.logged_in" ng-click="showUpload = !showUpload">
-          <div class="btn btn-sm btn-link pad-0">Upload</div>
-        </div>
       </label>
       <div class="col-sm-4">
         <div class="position-relative" dropdown>
@@ -71,7 +68,7 @@
             </li>
           </ul>
         </div>
-        <div ng-if="edit.ee.logged_in" ng-show="showUpload" class="vert-5 text-left">
+        <div ng-if="edit.ee.logged_in" class="vert-5 text-left">
           <a href="https://unsplash.com/grid" target="_blank" class="pull-right">
             <small>Free images <i class="fa fa-fw fa-external-link"></i></small>
           </a>
@@ -208,9 +205,6 @@
       <div class="form-group vert-2">
         <label class="col-sm-3 control-label">
           About image
-          <div ng-show="edit.ee.logged_in" ng-click="showAboutUpload = !showAboutUpload">
-            <div class="btn btn-sm btn-link pad-0">Upload</div>
-          </div>
         </label>
         <div class="col-sm-4">
           <div class="position-relative" dropdown>
@@ -225,7 +219,7 @@
               <img ng-repeat="theme in edit.data.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setAboutImage(theme.imgUrl)"/>
             </ul>
           </div>
-          <div ng-show="showAboutUpload" class="vert-5 text-left">
+          <div class="vert-5 text-left">
             <a href="https://unsplash.com/grid" target="_blank" class="pull-right">
               <small>Free images <i class="fa fa-fw fa-external-link"></i></small>
             </a>

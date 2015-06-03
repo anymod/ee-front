@@ -23,7 +23,7 @@ describe 'eeosk new.create', () ->
       scope.user = user[0]
       utils.create_products([21..97], 'Home Decor')
 
-  xdescribe 'going through the flow', () ->
+  describe 'going through the flow', () ->
 
     it 'should have proper messaging', () ->
       browser.get '/create/' + scope.user.confirmation_token
@@ -167,7 +167,7 @@ describe 'eeosk new.create', () ->
 
     it 'choose theme', () ->
       element(has.css 'i.fa-long-arrow-right').click()
-      browser.sleep 3000
+      # browser.sleep 3000
       element(has.cssContainingText '.col', 'Desk 2').element(has.css '.btn').click()
 
     it 'enter login information and submit', () ->
@@ -176,10 +176,37 @@ describe 'eeosk new.create', () ->
       element(has.model 'create.password').clear().sendKeys 'foobarbaz'
       element(has.model 'create.password_confirm').clear().sendKeys 'foobarbaz'
       element(has.css 'button[type="submit"]').click()
+      browser.getTitle().should.eventually.contain 'My store'
 
+    it 'should have the right store loaded', () ->
+      element(has.css '.carousel img').getAttribute('src').should.eventually.equal 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250486/desk2.jpg'
+      # TODO promise library to make this test less ugly
+      element.all(has.repeater 'product in storefront.ee.product_selection')
+      .then (elems) ->
+        scope.elems = elems
+        scope.elems.length.should.equal 5
+        scope.elems[0].element(has.css '.product-title').getText()
+      .then (text) ->
+        id = parseInt(text.split('(')[1].split(')')[0])
+        expect(scope.product_ids.indexOf(id)).to.be.above -1
+        scope.elems[1].element(has.css '.product-title').getText()
+      .then (text) ->
+        id = parseInt(text.split('(')[1].split(')')[0])
+        expect(scope.product_ids.indexOf(id)).to.be.above -1
+        scope.elems[2].element(has.css '.product-title').getText()
+      .then (text) ->
+        id = parseInt(text.split('(')[1].split(')')[0])
+        expect(scope.product_ids.indexOf(id)).to.be.above -1
+        scope.elems[3].element(has.css '.product-title').getText()
+      .then (text) ->
+        id = parseInt(text.split('(')[1].split(')')[0])
+        expect(scope.product_ids.indexOf(id)).to.be.above -1
+        scope.elems[4].element(has.css '.product-title').getText()
+      .then (text) ->
+        id = parseInt(text.split('(')[1].split(')')[0])
+        expect(scope.product_ids.indexOf(id)).to.be.above -1
 
-
-
+    ## TODO implement further create tests
     xit 'should redirect to signin if user already completed', () ->
     xit 'should redirect to "Check your email" if token expired', () ->
     xit 'should redirect to "Token not found" if token not found', () ->

@@ -1,6 +1,6 @@
 module = angular.module 'ee-save', []
 
-angular.module('ee-save').directive "eeSave", (eeDefiner, eeAuth, eeModal) ->
+angular.module('ee-save').directive "eeSave", ($state, eeDefiner, eeAuth, eeModal) ->
   templateUrl: 'components/ee-save.html'
   restrict: 'E'
   scope: {}
@@ -20,10 +20,10 @@ angular.module('ee-save').directive "eeSave", (eeDefiner, eeAuth, eeModal) ->
     scope.save = () ->
       setBtnText 'Saving'
       eeAuth.fns.saveUser()
-      .then     () ->
+      .then () ->
         scope.ee.unsaved = false
-        setBtnText 'Saved'
-      .catch    () ->
+        $state.go 'storefront'
+      .catch () ->
         scope.ee.unsaved = true
         setBtnText 'Error'
 

@@ -1,10 +1,9 @@
 'use strict'
 
-angular.module('builder.storefront').controller 'storefrontCtrl', (eeDefiner, eeModal) ->
+angular.module('builder.storefront').controller 'storefrontCtrl', ($state, eeDefiner, eeModal) ->
 
-  ## Setup
-  #  For shared views (carousel, products, about, footer)
   this.ee = eeDefiner.exports
   this.modalFns = eeModal.fns
+  this.state = $state.current.name
 
   return

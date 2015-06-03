@@ -1,14 +1,7 @@
 <div name="save"
-     class="btn btn-sm btn-default"
-     ng-if="ee.logged_in"
-     ng-class="{ 'btn-danger': ee.unsaved }"
+     class="btn"
+     ng-class="{ 'btn-info': ee.unsaved }"
      ng-disabled="!ee.unsaved"
      ng-click="save()">
   <i class="fa fa-save"></i>&nbsp;{{ btnText }}
-</div>
-<div name="save"
-     class="btn btn-sm btn-primary"
-     ng-if="!ee.logged_in"
-     ng-click="saveModal()">
-  <i class="fa fa-save"></i>&nbsp;Save
 </div>

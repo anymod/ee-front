@@ -31,7 +31,7 @@
 @ee-push-height: 60px;
 @ee-store-push-height: 80px;
 @ee-navbar-top-height: 0px;
-@ee-main-navbar-height: 40px;
+@ee-main-navbar-height: 49px;
 @ee-xxs-width: 480px;
 
 @offscreen-left-width: 300px;
@@ -167,6 +167,21 @@ html { overflow-x: hidden; }
   ul.dropdown-menu { left: auto; right: 0; }
 }
 .navbar-subheader { top: @ee-main-navbar-height; left: 0; right: 0; }
+.ee-navbar {
+  .storefront-buttons {
+    .position-fixed {
+      top: 8px;
+      left: 50%;
+      width: 150px;
+      margin-left: -75px;
+      @media (max-width: 767px) {
+        left: auto;
+        margin-left: 0;
+        right: 5px;
+      }
+    }
+  }
+}
 
 .white-background { background: white !important; }
 

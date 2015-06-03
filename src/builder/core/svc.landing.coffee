@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeLanding', ($rootScope, $location, $anchorScroll, $timeout, $modal) ->
+angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $modal) ->
 
   ## SETUP
   _userDefaults =
@@ -158,10 +158,7 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $location, $anc
   _hideExample = ()     -> _show.example.content = false
   _hidePopover = (name) -> _show.popover[name]   = false
 
-  _scrollTop = () ->
-    $location.hash 'body-top'
-    $anchorScroll()
-    $location.url $location.path()
+  _scrollTop = () -> $rootScope.scrollTo 'body-top'
 
   _landingState = () ->
     _showLanding()

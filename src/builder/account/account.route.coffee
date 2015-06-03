@@ -13,6 +13,6 @@ angular.module('builder.account').config ($stateProvider) ->
         templateUrl: 'builder/account/account.html'
     data:
       pageTitle: 'Account | eeosk'
-      padTop:    '82px'
+      padTop:    '50px'
 
   return

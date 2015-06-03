@@ -84,6 +84,28 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .finally () -> _status.landing = false
     deferred.promise
 
+  _completeNewUser = (data, token) ->
+    deferred = $q.defer()
+    _exports.completing = true
+    if !data.username or !data.password
+      deferred.reject 'Missing credentials'
+    else
+      eeBack.usersCompletePUT data, token
+      .then (data) ->
+        if !!data.user and !!data.token
+          _setLoginToken data.token
+          _setUser data.user
+          $rootScope.$emit 'definer:login'
+          deferred.resolve data.user
+        else
+          _reset()
+          deferred.reject data
+      .catch (err) ->
+        _reset()
+        deferred.reject err
+      .finally () -> _exports.completing = false
+    deferred.promise
+
   _createUserFromEmail = (email) ->
     deferred = $q.defer()
     _exports.confirming = true
@@ -112,6 +134,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
     defineUserFromGoToken:  (token) -> _defineUserFromGoToken token
 
     createUserFromEmail: (email) -> _createUserFromEmail email
+    completeNewUser: (data, token) -> _completeNewUser data, token
 
     saveUser: () -> _saveUser()
     setUserIsSaved: (bool) -> _userIsSaved = bool

@@ -34,7 +34,6 @@ angular.module 'eeBuilder', [
   'ee-terms-seller'
   'ee-terms-privacy'
   'ee-navbar'
-  'ee-navbar-main'
   'ee-save'
   'ee-product'
   'ee-order'

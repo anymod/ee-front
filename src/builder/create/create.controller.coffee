@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.create').controller 'createCtrl', ($state, eeBack, eeDefiner, eeCatalog, eeLanding) ->
+angular.module('builder.create').controller 'createCtrl', ($state, $rootScope, eeAuth, eeDefiner, eeCatalog, eeLanding) ->
 
   that = this
   that.ee           = eeDefiner.exports
@@ -15,6 +15,7 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeBack, eeDef
   that.setSection = (n) ->
     that.section = n
     that.highlightNext = false
+    $rootScope.scrollTo 'body-top'
   setBtnText    = (txt) -> that.btnText = txt
   resetBtnText  = ()    -> setBtnText 'Finished'
   resetBtnText()
@@ -47,15 +48,14 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeBack, eeDef
       theme: that.theme
       username: that.username
       password: that.password
-    # console.log 'data', data
-    eeBack.usersCompletePUT data, $state.params.token
-    .then (data) -> console.log data
+    eeAuth.fns.completeNewUser data, $state.params.token
+    .then (data) ->
+      $state.go 'storefront'
     .catch (err) ->
       alert = err.message || err || 'Problem logging in'
       if typeof alert is 'object' then alert = 'Problem logging in'
       that.alert = alert
     .finally () -> resetBtnText()
-
 
   eeCatalog.fns.setCategory 'Home Decor'
 

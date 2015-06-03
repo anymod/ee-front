@@ -1,4 +1,4 @@
-<ee-navbar logo="blue" shadow="true" fixed="true" hide-signin="true"></ee-navbar>
+<ee-navbar fixed="true"></ee-navbar>
 
 <div id="clickblock" class="position-fixed" style="left: 0; top: 0; width: 150px; height: 50px; z-index: 1035;"></div>
 
@@ -120,7 +120,7 @@
   <div class="margin-0-auto" style="max-width: 920px;">
     <div ng-repeat="product in create.data.products" class="well text-center inline-block pad-5 margin-2 white-background box-shadow" style="width: 140px;">
       <div class="pad-10 text-left">
-        <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}" class="full-width hover-pointer gray-border">
+        <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}" class="full-width gray-border">
         <div>
           <p ng-bind="product.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
           <h4 ng-bind="product.suggested_price | centToDollar"></h4>
@@ -154,5 +154,3 @@
 </div> <!-- /SECTION 2 -->
 
 <div class="section vert-50"></div>
-
-<!-- <pre ng-show="create.section == 1" ng-bind="create.data | json"></pre> -->

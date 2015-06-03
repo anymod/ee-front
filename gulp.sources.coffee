@@ -81,8 +81,6 @@ sources.appModule = [
   './src/app/core/svc.definer.coffee'
   # Product modal
   './src/app/product/product.modal.controller.coffee'
-  # Examples
-  './src/app/examples/examples.controller.coffee'
 ]
 sources.builderModule = [
   # Definitions
@@ -107,9 +105,6 @@ sources.builderModule = [
   # auth.reset
   './src/builder/auth.reset/auth.reset.route.coffee'
   './src/builder/auth.reset/auth.reset.controller.coffee'
-  # auth.signup
-  './src/builder/auth.signup/auth.signup.route.coffee'
-  './src/builder/auth.signup/auth.signup.controller.coffee'
   # Contact
   './src/builder/contact/contact.module.coffee'
   './src/builder/contact/contact.controller.coffee'
@@ -180,7 +175,6 @@ sources.builderDirective = [
   './src/components/ee-terms-seller.coffee'
   './src/components/ee-terms-privacy.coffee'
   './src/components/ee-navbar.coffee'
-  './src/components/ee-navbar-main.coffee'
   './src/components/ee-product.coffee'
   './src/components/ee-product-for-storefront.coffee'
   './src/components/ee-save.coffee'

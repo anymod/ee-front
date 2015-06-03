@@ -11,12 +11,13 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
   ]
   openStates = tryStates.concat [
     'landing'
+    'terms'
+    'privacy'
     'welcome'
     'login'
     'reset'
     'logout'
     'example'
-    'signup'
     'go'
     'create'
     'your-own-business'

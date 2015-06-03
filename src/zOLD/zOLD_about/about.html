@@ -24,7 +24,7 @@
       <div style="width: 25%; float: left;">
         <h3 class="vert-10">Choose a product</h3>
         <h5 class="line-height-1-5">Select a product from the trade catalog that you want to sell. You can choose products you like, that you think will have good margins, or that you think will sell well with your audience.</h5>
-        <div style="height: 82px; overflow: hidden;" ng-click="itemChosen = true">
+        <div style="height: 100px; overflow: hidden;" ng-click="itemChosen = true">
           <img ng-repeat="product in products"
                ng-src="https://s3.amazonaws.com/eeosk/products/{{ product.images[0] }}"
                ng-click="clickProd = !clickProd; $parent.baselinePrice = product.baselinePrice; $parent.sellerPrice = 1.10 * $parent.baselinePrice"
