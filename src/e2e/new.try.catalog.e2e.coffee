@@ -23,11 +23,11 @@ describe 'eeosk new.try.catalog', () ->
     browser.get '/try/products'
     browser.getTitle().should.eventually.contain 'Add products'
 
-  it 'should show 24 products per page', () ->
+  it 'should show 48 products per page', () ->
     element.all(has.repeater 'product in catalog.data.products')
     .then (products) ->
       scope.initialProducts = products
-      products.length.should.equal 24
+      products.length.should.equal 48
 
   it 'should show popover', () ->
     element(has.css '#ee-top-view').getText().should.eventually.contain 'Looking good!'
@@ -42,13 +42,13 @@ describe 'eeosk new.try.catalog', () ->
     element(has.css '.navbar-subheader [name="right-btn"]').click()
     element.all(has.repeater 'product in catalog.data.products')
     .then (products) ->
-      products.length.should.equal 24
+      products.length.should.equal 48
       testProductExclusion = (product) -> scope.initialProducts.indexOf(product).should.equal -1
       testProductExclusion product for product in products
       element(has.css '.navbar-subheader [name="left-btn"]').click()
       element.all(has.repeater 'product in catalog.data.products')
     .then (products) ->
-      products.length.should.equal 24
+      products.length.should.equal 48
       testProductInclusion = (product) -> scope.initialProducts.indexOf(product).should.not.equal -1
       # testProductInclusion product for product in products
 

@@ -57,6 +57,6 @@ angular.module('builder.create').controller 'createCtrl', ($state, $rootScope, e
       that.alert = alert
     .finally () -> resetBtnText()
 
-  eeCatalog.fns.setCategory 'Home Decor'
+  eeCatalog.fns.setCategory 'Home Accents'
 
   return

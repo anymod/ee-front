@@ -37,7 +37,7 @@ describe 'eeosk catalog', () ->
       scope.categories = ['All'].concat _.unique(_.pluck scope.products, 'category')
     .then () -> utils.create_products([21..150])
 
-  it 'should have 24 selectable products per page', () ->
+  it 'should have 48 selectable products per page', () ->
     browser.get '/catalog'
     browser                     .getTitle().should.eventually.equal 'Add products | eeosk'
     elem.rightBtn               .click()
@@ -45,7 +45,7 @@ describe 'eeosk catalog', () ->
     elem.rightBtn               .click()
     elem.products
     .then (product_array) ->
-      product_array             .length.should.equal 24
+      product_array             .length.should.equal 48
       elem.productSix           .getText().should.not.eventually.contain 'in my store'
 
   it 'should show product in offscreen when clicked', () ->

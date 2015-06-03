@@ -57,13 +57,13 @@ describe 'eeosk landing.catalog', () ->
     browser                   .get '/catalog'
     browser                   .getTitle().should.eventually.equal 'Add products | eeosk'
 
-  xit 'should have 24 selectable products per page', () ->
+  xit 'should have 48 selectable products per page', () ->
     elem.rightBtn             .click()
     elem.rightBtn             .click()
     elem.rightBtn             .click()
     elem.products
     .then (product_array) ->
-      product_array           .length.should.equal 24
+      product_array           .length.should.equal 48
       elem.productSix         .getText().should.not.eventually.contain 'in my store'
 
   xit 'should show product in modal when clicked', () ->
@@ -127,7 +127,7 @@ describe 'eeosk landing.catalog', () ->
       elem.searchBtn          .click()
       elem.products
     .then (product_array) ->
-      product_array           .length.should.equal 24
+      product_array           .length.should.equal 48
       elem.productSix         .click()
       elem.modal              .getText().should.eventually.contain 'Metal product'
       elem.closeModalBtn      .click()

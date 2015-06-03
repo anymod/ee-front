@@ -4,7 +4,7 @@ angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $
 
   ## SETUP
   _inputDefaults =
-    productsPerPage:  24
+    productsPerPage:  48
     page:             null
     search:           null
     searchLabel:      null
@@ -13,18 +13,12 @@ angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $
       max:            null
     category:         null
     categoryArray: [
-      'Accessories'
-      'Arts & Crafts'
       'Artwork'
       'Bed & Bath'
-      'Electronics'
       'Furniture'
-      'Health & Beauty'
-      'Home Decor'
-      'Jewelry'
+      'Home Accents'
       'Kitchen'
       'Outdoor'
-      'Pet Supplies'
     ]
     rangeArray: [
       { min: 0,     max: 2500   },

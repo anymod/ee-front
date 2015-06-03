@@ -123,7 +123,7 @@ if process.env.NODE_ENV is 'test'
     image_2 = 'http://placehold.it/' + h + 'x' + h + '.png/' + random_color() + '/fff'
     image_3 = 'http://placehold.it/' + h + 'x' + w + '.png/' + random_color() + '/fff'
     image_4 = 'http://placehold.it/' + w + 'x' + w + '.png/' + random_color() + '/fff'
-    categories = ["Kitchen", "Furniture", "Home Decor", "Outdoor"]
+    categories = ["Kitchen", "Furniture", "Home Accents", "Outdoor"]
     category = cat || _.sample categories
     search_term = _.sample(['Handmade', 'Green', 'Metal']) + ' ' + category
     req = request.defaults

@@ -12,7 +12,7 @@ angular.module('builder.example').controller 'exampleCtrl', (eeLanding) ->
 
   this.ee.meta =
     home:
-      name: 'Home Decor'
+      name: 'Home Accents'
       topBarBackgroundColor: '#83bec3'
       topBarColor: '#021709'
       carousel: [{
@@ -119,7 +119,7 @@ angular.module('builder.example').controller 'exampleCtrl', (eeLanding) ->
   this.ee.product_selection  = example_products
   this.ee.categories = [
     'All',
-    'Home Decor',
+    'Home Accents',
     'Furniture',
     'Kitchen',
     'Artwork'

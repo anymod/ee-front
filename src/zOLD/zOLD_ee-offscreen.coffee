@@ -90,7 +90,7 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCat
     scope.currentCategories = []
     scope.currentRanges = []
     scope.categories = [
-      'Home Decor',
+      'Home Accents',
       'Kitchen',
       # 'Apparel',
       'Accessories',

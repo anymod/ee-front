@@ -21,7 +21,7 @@ describe 'eeosk new.create', () ->
     .then (body) -> utils.user_by_email body.email
     .then (user) ->
       scope.user = user[0]
-      utils.create_products([21..97], 'Home Decor')
+      utils.create_products([21..97], 'Home Accents')
 
   describe 'going through the flow', () ->
 
@@ -103,10 +103,10 @@ describe 'eeosk new.create', () ->
 
     describe 'Choose products page', () ->
 
-      # TODO change to 96 products and check that all are from Home Decor
-      it 'should have 24 products from Home Decor', () ->
+      # TODO change to 96 products and check that all are from Home Accents
+      it 'should have 48 products from Home Accents', () ->
         element.all(has.repeater 'product in create.data.products')
-        .then (elems) -> elems.length.should.equal 24
+        .then (elems) -> elems.length.should.equal 48
 
     describe 'Choose theme page', () ->
 
