@@ -8,7 +8,7 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
       views:
         bottom:
           controller: 'landingCtrl as landing'
-          templateUrl: 'builder/landing/landing2.html'
+          templateUrl: 'builder/landing/landing.html'
         footer:
           controller: 'landingCtrl as landing'
           templateUrl: 'builder/landing/landing.footer.html'
@@ -39,7 +39,7 @@ angular.module('builder.landing').config ($stateProvider, $locationProvider) ->
           controller: 'landingCtrl as landing'
           templateUrl: 'builder/landing/landing.footer.html'
       data:
-        pageTitle:        'Welcome to eeosk | eeosk'
+        pageTitle:        'Welcome to eeosk'
         pageDescription:  'Create an online store in minutes.'
 
   return
