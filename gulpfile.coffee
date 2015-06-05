@@ -36,13 +36,6 @@ gulp.task 'html-dev', () ->
       css: 'ee-shared/stylesheets/ee.css'
       js: sources.builderJs(), { keepBlockTags: true }
     .pipe gulp.dest './src'
-    # Builder html
-    # gulp.src './src/builder.html'
-    #   .pipe gp.plumber()
-    #   .pipe gp.htmlReplace
-    #     css: 'stylesheets/ee.builder.css'
-    #     js: sources.builderJs(), { keepBlockTags: true }
-    #   .pipe gulp.dest './src'
 
 gulp.task 'html-prod', () ->
   gulp.src './src/builder.html'
@@ -58,34 +51,9 @@ gulp.task 'html-prod', () ->
   gulp.src './src/sitemap.xml'
     .pipe gulp.dest distPath
 
-  # # Builder html
-  # gulp.src './src/builder.html'
-  #   .pipe gp.plumber()
-  #   .pipe gp.replace /UA-55625421-2/g, 'UA-55625421-1'
-  #   .pipe gp.htmlReplace
-  #     css: 'ee.builder.css'
-  #     js: 'ee.builder.js'
-  #   .pipe gp.htmlmin htmlminOptions
-  #   .pipe gulp.dest distPath
-
 # ==========================
 # css tasks handled with copy-prod
 
-# gulp.task 'css-dev', () ->
-#   gulp.src './src/stylesheets/ee.builder.less' # ** force to same dir
-#     .pipe gp.sourcemaps.init()
-#     .pipe gp.less paths: './src/stylesheets/' # @import path
-#     # write sourcemap to separate file w/o source content to path relative to dest below
-#     .pipe gp.sourcemaps.write './', { includeContent: false, sourceRoot: '../' }
-#     .pipe gulp.dest './src/stylesheets'
-#
-# gulp.task 'css-prod', () ->
-#   gulp.src './src/stylesheets/ee.builder.less'
-#     .pipe gp.replace "../bower_components/bootstrap/fonts/", "./fonts/"
-#     .pipe gp.replace "../bower_components/font-awesome/fonts/", "./fonts/"
-#     .pipe gp.less paths: './src/stylesheets/' # @import path
-#     .pipe gp.minifyCss cache: true, keepSpecialComments: 0 # remove all
-#     .pipe gulp.dest distPath
 
 # ==========================
 # js tasks
@@ -109,24 +77,6 @@ copyToSrcJs = (url) ->
 
 gulp.task 'js-test',  () -> copyToSrcJs 'http://localhost:5555'
 gulp.task 'js-dev',   () -> copyToSrcJs 'http://localhost:5000'
-
-# gulp.task 'js-test', () ->
-#   gulp.src './src/**/*.coffee' # ** glob forces dest to same subdir
-#     .pipe gp.replace /@@eeBackUrl/g, 'http://localhost:5555'
-#     .pipe gp.plumber()
-#     .pipe gp.sourcemaps.init()
-#     .pipe gp.coffee()
-#     .pipe gp.sourcemaps.write './'
-#     .pipe gulp.dest './src/js'
-#
-# gulp.task 'js-dev', () ->
-#   gulp.src './src/**/*.coffee' # ** glob forces dest to same subdir
-#     .pipe gp.replace /@@eeBackUrl/g, 'http://localhost:5000'
-#     .pipe gp.plumber()
-#     .pipe gp.sourcemaps.init()
-#     .pipe gp.coffee()
-#     .pipe gp.sourcemaps.write './'
-#     .pipe gulp.dest './src/js'
 
 gulp.task 'js-prod', () ->
   # inline templates; no need for ngAnnotate
@@ -186,20 +136,6 @@ gulp.task "copy-prod", () ->
     .pipe gp.plumber()
     .pipe gp.changed distPath
     .pipe gulp.dest distPath + '/ee-shared/stylesheets'
-
-  # sameDirFiles = [
-  #
-  # ]
-  # gulp.src ['./src/img/**/*.*', './src/app/**/*.html', './src/builder/**/*.html'], base: './src'
-  #   .pipe gp.plumber()
-  #   .pipe gp.changed distPath
-  #   .pipe gulp.dest distPath
-  #
-  # gulp.src './src/ee-shared/fonts/*.*'
-  #   .pipe gp.plumber()
-  #   .pipe gp.changed distPath
-  #   .pipe gulp.dest distPath + '/ee-shared/fonts'
-
 
 # ==========================
 # protractors
