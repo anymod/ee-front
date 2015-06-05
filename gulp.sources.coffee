@@ -13,22 +13,10 @@ sources.builderJs = () ->
     .concat toJs(sources.builderModule)
     .concat toJs(sources.builderDirective)
 
-# sources.storeJs = () ->
-#   [].concat stripSrc(unmin(sources.storeVendorMin))
-#     .concat stripSrc(sources.storeVendorUnmin)
-#     .concat toJs(sources.appModule)
-#     .concat toJs(sources.storeModule)
-#     .concat toJs(sources.storeDirective)
-
 sources.builderModules = () ->
   [].concat sources.appModule
     .concat sources.builderModule
     .concat sources.builderDirective
-
-# sources.storeModules = () ->
-#   [].concat sources.appModule
-#     .concat sources.storeModule
-#     .concat sources.storeDirective
 
 ### VENDOR ###
 sources.builderVendorMin = [
@@ -51,19 +39,6 @@ sources.builderVendorUnmin = [
   './src/bower_components/cloudinary/js/jquery.fileupload.js'
   './src/bower_components/jquery.cloudinary.1.0.21.js'
 ]
-# sources.storeVendorMin = [
-#   './src/bower_components/angular/angular.min.js'
-#   './src/bower_components/angular-sanitize/angular-sanitize.min.js'
-#   './src/bower_components/angular-cookies/angular-cookies.min.js'
-#   './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
-#   './src/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
-#   './src/bower_components/angular-ui-router/release/angular-ui-router.min.js'
-#   './src/bower_components/angulartics/dist/angulartics.min.js'
-#   './src/bower_components/angulartics/dist/angulartics-ga.min.js'
-# ]
-# sources.storeVendorUnmin = [
-#
-# ]
 
 ### MODULE ###
 sources.appModule = [
