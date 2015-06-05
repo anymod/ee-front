@@ -13,22 +13,22 @@ sources.builderJs = () ->
     .concat toJs(sources.builderModule)
     .concat toJs(sources.builderDirective)
 
-sources.storeJs = () ->
-  [].concat stripSrc(unmin(sources.storeVendorMin))
-    .concat stripSrc(sources.storeVendorUnmin)
-    .concat toJs(sources.appModule)
-    .concat toJs(sources.storeModule)
-    .concat toJs(sources.storeDirective)
+# sources.storeJs = () ->
+#   [].concat stripSrc(unmin(sources.storeVendorMin))
+#     .concat stripSrc(sources.storeVendorUnmin)
+#     .concat toJs(sources.appModule)
+#     .concat toJs(sources.storeModule)
+#     .concat toJs(sources.storeDirective)
 
 sources.builderModules = () ->
   [].concat sources.appModule
     .concat sources.builderModule
     .concat sources.builderDirective
 
-sources.storeModules = () ->
-  [].concat sources.appModule
-    .concat sources.storeModule
-    .concat sources.storeDirective
+# sources.storeModules = () ->
+#   [].concat sources.appModule
+#     .concat sources.storeModule
+#     .concat sources.storeDirective
 
 ### VENDOR ###
 sources.builderVendorMin = [
@@ -51,36 +51,36 @@ sources.builderVendorUnmin = [
   './src/bower_components/cloudinary/js/jquery.fileupload.js'
   './src/bower_components/jquery.cloudinary.1.0.21.js'
 ]
-sources.storeVendorMin = [
-  './src/bower_components/angular/angular.min.js'
-  './src/bower_components/angular-sanitize/angular-sanitize.min.js'
-  './src/bower_components/angular-cookies/angular-cookies.min.js'
-  './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
-  './src/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
-  './src/bower_components/angular-ui-router/release/angular-ui-router.min.js'
-  './src/bower_components/angulartics/dist/angulartics.min.js'
-  './src/bower_components/angulartics/dist/angulartics-ga.min.js'
-]
-sources.storeVendorUnmin = [
-
-]
+# sources.storeVendorMin = [
+#   './src/bower_components/angular/angular.min.js'
+#   './src/bower_components/angular-sanitize/angular-sanitize.min.js'
+#   './src/bower_components/angular-cookies/angular-cookies.min.js'
+#   './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
+#   './src/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
+#   './src/bower_components/angular-ui-router/release/angular-ui-router.min.js'
+#   './src/bower_components/angulartics/dist/angulartics.min.js'
+#   './src/bower_components/angulartics/dist/angulartics-ga.min.js'
+# ]
+# sources.storeVendorUnmin = [
+#
+# ]
 
 ### MODULE ###
 sources.appModule = [
   # Definitions
-  './src/app/core/core.module.coffee'
-  './src/app/core/constants.coffee'
-  './src/app/core/filters.coffee'
-  './src/app/core/config.coffee'
-  './src/app/core/run.coffee'
+  './src/ee-shared/core/core.module.coffee'
+  './src/ee-shared/core/constants.coffee'
+  './src/ee-shared/core/filters.coffee'
+  './src/ee-shared/core/config.coffee'
+  './src/ee-shared/core/run.coffee'
   # Services
-  './src/app/core/svc.back.coffee'
-  './src/app/core/svc.storefront.coffee'
-  './src/app/core/svc.product.coffee'
-  './src/app/core/svc.modal.coffee'
-  './src/app/core/svc.definer.coffee'
+  './src/ee-shared/core/svc.back.coffee'
+  './src/ee-shared/core/svc.storefront.coffee'
+  './src/ee-shared/core/svc.product.coffee'
+  './src/ee-shared/core/svc.modal.coffee'
+  './src/ee-shared/core/svc.definer.coffee'
   # Product modal
-  './src/app/product/product.modal.controller.coffee'
+  './src/ee-shared/product/product.modal.controller.coffee'
 ]
 sources.builderModule = [
   # Definitions
@@ -154,44 +154,21 @@ sources.builderModule = [
   './src/builder/account/account.route.coffee'
   './src/builder/account/account.controller.coffee'
 ]
-sources.storeModule = [
-  # Definitions
-  './src/store/store.index.coffee'
-  './src/store/core/core.module.coffee'
-  './src/store/core/run.coffee'
-  './src/store/core/core.route.coffee'
-  # Services
-  './src/store/core/svc.auth.coffee'
-  './src/store/core/svc.cart.coffee'
-  './src/store/core/svc.landing.coffee'
-  # Module - store
-  './src/store/store.controller.coffee'
-  # Module - cart
-  './src/store/cart.controller.coffee'
-]
 
 ### DIRECTIVES ###
 sources.builderDirective = [
-  './src/components/ee-terms-seller.coffee'
-  './src/components/ee-terms-privacy.coffee'
-  './src/components/ee-navbar.coffee'
-  './src/components/ee-product.coffee'
-  './src/components/ee-product-for-storefront.coffee'
-  './src/components/ee-save.coffee'
-  './src/components/ee-shop-nav.coffee'
-  './src/components/ee-order.coffee'
-  './src/components/ee-cloudinary-upload.coffee'
-  './src/components/ee-image-preload.coffee'
-  './src/components/ee-storefront-header.coffee'
-  './src/components/ee-scroll-to-top.coffee'
-]
-sources.storeDirective = [
-  './src/components/ee-button-add-to-cart.coffee'
-  './src/components/ee-product.coffee'
-  './src/components/ee-product-for-storefront.coffee'
-  './src/components/ee-shop-nav.coffee'
-  './src/components/ee-storefront-header.coffee'
-  './src/components/ee-scroll-to-top.coffee'
+  './src/ee-shared/components/ee-terms-seller.coffee'
+  './src/ee-shared/components/ee-terms-privacy.coffee'
+  './src/ee-shared/components/ee-navbar.coffee'
+  './src/ee-shared/components/ee-product.coffee'
+  './src/ee-shared/components/ee-product-for-storefront.coffee'
+  './src/ee-shared/components/ee-save.coffee'
+  './src/ee-shared/components/ee-shop-nav.coffee'
+  './src/ee-shared/components/ee-order.coffee'
+  './src/ee-shared/components/ee-cloudinary-upload.coffee'
+  './src/ee-shared/components/ee-image-preload.coffee'
+  './src/ee-shared/components/ee-storefront-header.coffee'
+  './src/ee-shared/components/ee-scroll-to-top.coffee'
 ]
 
 module.exports = sources

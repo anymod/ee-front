@@ -8,16 +8,16 @@ angular.module('builder.storefront').config ($stateProvider) ->
       templateUrl: 'builder/storefront/storefront.header.html'
     top:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'app/storefront/storefront.carousel.html'
+      templateUrl: 'ee-shared/storefront/storefront.carousel.html'
     middle:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'app/storefront/storefront.products.html'
+      templateUrl: 'ee-shared/storefront/storefront.products.html'
     bottom:
       controller: 'storefrontCtrl as storefront'
       templateUrl: 'builder/storefront/storefront.add.html'
     footer:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'app/storefront/storefront.footer.html'
+      templateUrl: 'ee-shared/storefront/storefront.footer.html'
 
   shopViews =
     header: views.header
@@ -29,7 +29,7 @@ angular.module('builder.storefront').config ($stateProvider) ->
     header: views.header
     top:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'app/storefront/storefront.about.html'
+      templateUrl: 'ee-shared/storefront/storefront.about.html'
     footer: views.footer
 
   data =
