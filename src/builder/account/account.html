@@ -12,8 +12,8 @@
               <input type="text" ng-model="account.ee.user.username" class="form-control" placeholder="storename">
               <span class="input-group-addon">.eeosk.com</span>
             </div>
-            <a href="https://{{ account.ee.user.username }}.eeosk.com" target="_blank" class="inline-block vert-5 margin-top-0">
-              https://{{ account.ee.user.username }}.eeosk.com
+            <a href="http://{{ account.ee.user.username }}.eeosk.com" target="_blank" class="inline-block vert-5 margin-top-0">
+              http://{{ account.ee.user.username }}.eeosk.com
             </a>
             <!-- <div ng-show="username && username.length > 4">
               Your store will be available at
@@ -78,6 +78,24 @@
           </div>
         </div>
         <!-- /ACCOUNT paid to -->
+
+        <div class="form-group margin-0">
+          <div class="col-sm-offset-3 col-sm-5">
+            <hr class="vert-10">
+          </div>
+        </div>
+
+        <!-- ACCOUNT google analytics ID -->
+        <div class="form-group vert-5">
+          <label class="col-sm-3 control-label font-weight-200">Google Analytics ID</label>
+          <div class="col-sm-5">
+            <div class="input-group vert-5 margin-top-0">
+              <span class="input-group-addon"><i class="fa fa-fw fa-google"></i></span>
+              <input type="text" class="form-control" placeholder="UA-12345678-1" ng-model="account.ee.meta.ga_id">
+            </div>
+          </div>
+        </div>
+        <!-- /ACCOUNT google analytics ID -->
       </form>
     </div>
   </div> <!-- /well -->
