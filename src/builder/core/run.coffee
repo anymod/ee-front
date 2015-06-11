@@ -14,6 +14,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
     'terms'
     'privacy'
     'welcome'
+    'welcome_proposition'
     'login'
     'reset'
     'logout'

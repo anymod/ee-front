@@ -14,7 +14,7 @@ angular.module('builder.landing').controller 'landingCtrl', ($state, eeDefiner, 
   this.modalFns = eeModal.fns
 
   this.signup = () ->
-    eeAuth.fns.createUserFromEmail that.email
+    eeAuth.fns.createUserFromEmail that.email, eeDefiner.exports.welcomeProposition
     .then (user) -> $state.go 'go', token: user.go_token
     .catch (err) ->
       if err.message is 'Email format is invalid' then return that.error = 'That doesn\'t look like a valid email address. Please try again.'
@@ -22,5 +22,7 @@ angular.module('builder.landing').controller 'landingCtrl', ($state, eeDefiner, 
       that.error = 'Problem signing up'
 
   eeLanding.fns.showState $state.current.name
+
+  if $state.current.name is 'welcome_proposition' then eeDefiner.exports.welcomeProposition = $state.params.proposition
 
   return

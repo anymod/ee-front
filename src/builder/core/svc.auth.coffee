@@ -106,13 +106,13 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .finally () -> _exports.completing = false
     deferred.promise
 
-  _createUserFromEmail = (email) ->
+  _createUserFromEmail = (email, proposition) ->
     deferred = $q.defer()
     _exports.confirming = true
     if !email
       deferred.reject 'Missing email'
     else
-      eeBack.usersPOST email
+      eeBack.usersPOST email, proposition
       .then (data) ->
         _setUser data
         deferred.resolve data
@@ -133,7 +133,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
     defineUserFromToken:    () -> _defineUserFromToken()
     defineUserFromGoToken:  (token) -> _defineUserFromGoToken token
 
-    createUserFromEmail: (email) -> _createUserFromEmail email
+    createUserFromEmail: (email, proposition) -> _createUserFromEmail email, proposition
     completeNewUser: (data, token) -> _completeNewUser data, token
 
     saveUser: () -> _saveUser()
