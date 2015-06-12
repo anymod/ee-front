@@ -1,8 +1,10 @@
 'use strict'
 
-angular.module('builder.is').controller 'isCtrl', ($state, eeAuth) ->
+angular.module('builder.is').controller 'isCtrl', ($state, eeAuth, eeDefiner) ->
 
   that = this
+  this.authExp = eeAuth.exports
+  
   states = [
     'your-own-business'
     'easy-to-use'
@@ -22,7 +24,7 @@ angular.module('builder.is').controller 'isCtrl', ($state, eeAuth) ->
   this.previous = () -> increment -1
 
   this.signup = () ->
-    eeAuth.fns.createUserFromEmail that.email
+    eeAuth.fns.createUserFromEmail that.email, eeDefiner.exports.welcomeProposition
     .then (user) -> $state.go 'go', token: user.go_token
     .catch (err) ->
       if err.message is 'Email format is invalid' then return that.error = 'That doesn\'t look like a valid email address. Please try again.'
