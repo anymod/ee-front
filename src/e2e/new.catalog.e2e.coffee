@@ -14,13 +14,23 @@ describe 'eeosk new.catalog', () ->
 
   before (done) ->
     utils.reset_and_login(browser)
-    .then (res) ->
-      scope = res
-      scope.categories = ['All'].concat _.unique(_.pluck scope.products, 'category')
     .then () -> utils.create_products([21..150])
 
-  describe 'seeding', () ->
+  describe 'Logged in', () ->
 
-    it 'should seed', () ->
-      a = 1
-      a.should.equal 1
+    it 'should show catalog modal', () ->
+      browser.sleep 300
+      browser.get '/storefront'
+      browser.getTitle().should.eventually.contain 'My store'
+      element(has.cssContainingText '.navbar .btn', 'Products').click()
+
+    it 'should show 48 products per page', () ->
+      browser.sleep 300
+      element.all(has.repeater 'product in catalog.data.products')
+      .then (products) ->
+        scope.initialProducts = products
+        products.length.should.equal 48
+
+    it 'should create a selection', () ->
+      element(has.repeater('product in catalog.data.products').row(5)).click()
+      browser.sleep 3000
