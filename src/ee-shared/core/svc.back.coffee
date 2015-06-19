@@ -76,6 +76,7 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
     }
 
   usersPOST: (email, proposition) ->
+    console.log 'email, prop', email, proposition
     _makeRequest {
       method: 'POST'
       url: eeBackUrl + 'users'
@@ -127,6 +128,13 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
     _makeRequest {
       method: 'GET'
       url: eeBackUrl + 'products/' + id
+      headers: authorization: token
+    }
+
+  selectionsGET: (token, query) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'selections' + _formQueryString(query)
       headers: authorization: token
     }
 

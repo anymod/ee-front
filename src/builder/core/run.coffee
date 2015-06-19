@@ -3,13 +3,13 @@
 angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll, eeAuth) ->
   $rootScope.isBuilder = true
 
-  tryStates = [
-    'try-theme'
-    'try-storefront'
-    'try-edit'
-    'try-catalog'
-  ]
-  openStates = tryStates.concat [
+  # tryStates = [
+  #   'try-theme'
+  #   'try-storefront'
+  #   'try-edit'
+  #   'try-catalog'
+  # ]
+  openStates = [
     'landing'
     'terms'
     'privacy'
@@ -27,8 +27,8 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
     'beautiful-and-customizable'
   ]
 
-  isTry     = (state) -> tryStates.indexOf(state) > -1
-  isntTry   = (state) -> !isTry state
+  # isTry     = (state) -> tryStates.indexOf(state) > -1
+  # isntTry   = (state) -> !isTry state
   isOpen    = (state) -> openStates.indexOf(state) > -1
   needsAuth = (state) -> !isOpen state
 
@@ -43,9 +43,9 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
       return
 
     # redirect to logged in state if token and try- state
-    if loggedIn and isTry(toState.name) then return stopAndRedirectTo(toState.name.replace('try-', ''))
+    # if loggedIn and isTry(toState.name) then return stopAndRedirectTo(toState.name.replace('try-', ''))
     # redirect to try- state if going from try- state to another state that needs auth
-    if loggedOut and isTry(fromState.name) and isntTry(toState.name) and needsAuth(toState.name) then return stopAndRedirectTo('try-' + toState.name)
+    # if loggedOut and isTry(fromState.name) and isntTry(toState.name) and needsAuth(toState.name) then return stopAndRedirectTo('try-' + toState.name)
     # redirect to login if logged out and restricted
     if loggedOut and needsAuth(toState.name) then return stopAndRedirectTo('login')
     # redirect to storefront if logged in and unrestricted

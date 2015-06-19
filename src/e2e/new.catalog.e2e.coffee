@@ -20,7 +20,7 @@ describe 'eeosk new.catalog', () ->
 
     it 'should show catalog modal', () ->
       browser.sleep 300
-      browser.get '/storefront'
+      browser.get '/products'
       browser.getTitle().should.eventually.contain 'My store'
       element(has.cssContainingText '.navbar .btn', 'Products').click()
 

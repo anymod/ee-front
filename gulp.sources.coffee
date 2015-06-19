@@ -117,9 +117,19 @@ sources.builderModule = [
   './src/builder/storefront/storefront.route.coffee'
   './src/builder/storefront/storefront.controller.coffee'
   # Module - catalog
-  './src/builder/catalog/catalog.module.coffee'
-  './src/builder/catalog/catalog.route.coffee'
-  './src/builder/catalog/catalog.controller.coffee'
+  # './src/builder/catalog/catalog.module.coffee'
+  # './src/builder/catalog/catalog.route.coffee'
+  # './src/builder/catalog/catalog.controller.coffee'
+  # Module - products
+  './src/builder/products/products.module.coffee'
+  './src/builder/products/products.route.coffee'
+  './src/builder/products/products.controller.coffee'
+  './src/builder/products/product.view.controller.coffee'
+  # Module - selections
+  './src/builder/selections/selections.module.coffee'
+  './src/builder/selections/selections.route.coffee'
+  './src/builder/selections/selections.controller.coffee'
+  './src/builder/selections/selection.view.controller.coffee'
   # Module - orders
   './src/builder/orders/orders.module.coffee'
   './src/builder/orders/orders.route.coffee'

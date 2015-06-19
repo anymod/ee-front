@@ -1,0 +1,22 @@
+<!-- MAIN NAVBAR -->
+<ee-navbar fixed="true" back="true" transparent="true"></ee-navbar>
+<!-- /MAIN NAVBAR -->
+
+<div class="position-fixed text-left" style="left: 70px; right: 0; top: 7px; z-index: 1050;">
+  <div class="btn-group vertical-align-top">
+    <a ui-sref="products" ui-sref-active="active" class="btn btn-default">Catalog</a>
+    <a ui-sref="selections" ui-sref-active="active" class="btn btn-default">My store</a>
+  </div>
+  <h2 class="margin-0 inline-block vertical-align-top text-info hidden-xs">&nbsp;Products</h2>
+</div>
+
+<div class="position-fixed white-background text-center box-shadow" style="left: 0; right: 0; top: 0; height: 93px; padding-top: 50px; z-index: 1000;">
+  <div class="btn-group" style="width: 75px;">
+    <div class="btn btn-default" ng-click="catalog.fns.decrementPage()" name="left-btn" ng-class="{ disabled: catalog.data.inputs.page < 2 }">
+      <i class="fa fa-chevron-left"></i>
+    </div>
+    <div class="btn btn-default" ng-click="catalog.fns.incrementPage()" name="right-btn" ng-class="{ disabled: catalog.data.products.length < catalog.data.inputs.productsPerPage }">
+      <i class="fa fa-chevron-right"></i>
+    </div>
+  </div>
+</div>
