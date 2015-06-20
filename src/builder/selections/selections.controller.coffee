@@ -1,13 +1,12 @@
 'use strict'
 
-angular.module('builder.selections').controller 'selectionsCtrl', ($state, $stateParams, eeProduct, eeDefiner, eeCatalog) ->
+angular.module('builder.selections').controller 'selectionsCtrl', ($state, $stateParams, eeSelections, eeDefiner) ->
 
   this.ee = eeDefiner.exports
 
-  this.data       = eeCatalog.data
-  this.fns        = eeCatalog.fns
-  this.productFns = eeProduct.fns
+  this.data = eeSelections.data
+  this.fns  = eeSelections.fns
 
-  eeCatalog.fns.search()
+  if !this.data.selections or this.data.selections.length < 1 then eeSelections.fns.search()
 
   return

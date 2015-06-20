@@ -131,11 +131,12 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
-  selectionsGET: (token, query) ->
+  selectionsGET: (username, query) ->
+    query ||= {}
+    query.username = username
     _makeRequest {
       method: 'GET'
       url: eeBackUrl + 'selections' + _formQueryString(query)
-      headers: authorization: token
     }
 
   selectionsPOST: (token, attrs) ->

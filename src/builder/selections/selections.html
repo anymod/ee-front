@@ -1,71 +1,66 @@
 <!-- CATALOG products -->
 <div id="products" class="margin-15 margin-top-0 text-center position-relative min-height-600" ng-hide="selections.ee.loading">
 
-  <div class="margin-5 text-center">
-    <!-- <div class="inline-block">
-      <div class="btn btn-xs btn-default margin-2" ng-click="selections.data.hideFilterBtns = !selections.data.hideFilterBtns">
-        <i class="fa fa-caret-down" ng-hide="selections.data.hideFilterBtns"></i>
-        <i class="fa fa-caret-right" ng-show="selections.data.hideFilterBtns"></i>
+  <div class="margin-20">
+    <div class="row">
+      <div class="col col-sm-3 col-sm-offset-3 vert-5">
+        <div class="position-relative" dropdown>
+          <div class="btn btn-default btn-block" dropdown-toggle>
+            <span ng-bind="selections.data.inputs.collection"></span>
+            <span ng-hide="selections.data.inputs.collection">My Collections</span>
+            &nbsp;<span class="caret"></span>
+          </div>
+          <ul class="dropdown-menu full-width">
+            <li><a href ng-click="selections.fns.setCollection()">All</a></li>
+            <li ng-repeat="collection in selections.ee.collections" ng-class="{ active: collection == selections.data.inputs.collection }">
+              <a href ng-click="selections.fns.setCollection(collection)">{{ collection }}</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div> -->
-
-    <form class="margin-0-auto max-width-600" ng-submit="selections.fns.search()">
-      <div class="input-group">
-        <input type="text" ng-model="selections.data.inputs.search" class="form-control" placeholder="Search">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="submit" name="search-btn">
-            <span class="hidden-xs">Search</span>
-            <span class="visible-xs"><i class="fa fa-search"></i></span>
-          </button>
-        </span>
-      </div>
-    </form>
-
-    <div class="inline-block margin-5">
-      <div ng-repeat="category in selections.data.inputs.categoryArray"
-           ng-click="selections.fns.setCategory(category)"
-           class="btn btn-xs btn-default margin-2"
-           ng-class="{ 'btn-primary': category == selections.data.inputs.category }"
-           ng-hide="selections.data.hideFilterBtns && category != selections.data.inputs.category">
-        <span ng-show="category == selections.data.inputs.category"><i class="fa fa-fw fa-times"></i></span>{{ category }}
-      </div>
-      <br ng-hide="selections.data.hideFilterBtns">
-      <div ng-repeat="range in selections.data.inputs.rangeArray"
-           ng-click="selections.fns.setRange(range)"
-           class="btn btn-xs btn-default margin-2"
-           ng-class="{ 'btn-primary': range.min == selections.data.inputs.range.min && range.max == selections.data.inputs.range.max }"
-           ng-hide="selections.data.hideFilterBtns && range.min != selections.data.inputs.range.min">
-        <span ng-show="range.min == selections.data.inputs.range.min && range.max == selections.data.inputs.range.max"><i class="fa fa-fw fa-times"></i></span>{{ range | rangeToText }}
-      </div>
-      <br ng-hide="selections.data.hideFilterBtns">
-      <div class="btn btn-xs btn-primary margin-2" ng-show="selections.data.inputs.searchLabel" ng-click="selections.fns.clearSearch()">
-        <i class="fa fa-fw fa-times"></i>{{ selections.data.inputs.searchLabel }}
+      <div class="col col-sm-3 vert-5">
+        <form class="margin-0-auto max-width-600" ng-submit="selections.fns.search()">
+          <div class="input-group">
+            <input type="text" ng-model="selections.data.inputs.search" class="form-control" placeholder="Add a Collection">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit" name="search-btn">
+                <i class="fa fa-fw fa-plus"></i>
+              </button>
+            </span>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 
   <div class="margin-0-auto" style="max-width: 920px;">
-    <div ng-repeat="product in selections.data.products" class="well text-center inline-block pad-5 margin-2 white-background box-shadow" style="width: 140px;">
+    <div ng-repeat="selection in selections.data.selections" class="well text-center inline-block pad-5 margin-2 white-background box-shadow" style="width: 140px;">
       <div class="pad-10 text-left">
-        <a ui-sref="productView({ id: product.id })">
-          <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}" class="full-width gray-border">
+        <a ui-sref="selectionView({ id: selection.id })">
+          <img ng-src="{{ selection.image | thumbnail }}" class="full-width gray-border">
         </a>
         <div>
-          <p ng-bind="product.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
-          <h4 ng-bind="product.suggested_price | centToDollar"></h4>
+          <p ng-bind="selection.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
+          <h4 ng-bind="selection.selling_price | centToDollar"></h4>
         </div>
       </div>
       <div class="btn-group">
-        <button ng-hide="selections.selections.indexOf(product.id) > -1" class="btn btn-default font-weight-200" ng-click="selections.addProduct(product)"><i class="fa fa-fw fa-star"></i></button>
-        <button ui-sref="selectionView({ id: product.id })" class="btn btn-default"><i class="fa fa-pencil"></i></button>
+        <button ng-hide="selections.selections.indexOf(selection.id) > -1" class="btn btn-default" ng-class="{ 'btn-warning': selection.featured }" ng-click="selections.toggleFeatured(selection)"><i class="fa fa-fw fa-star"></i></button>
+        <button ui-sref="selectionView({ id: selection.id })" class="btn btn-default"><i class="fa fa-pencil"></i></button>
       </div>
-      <button class="btn btn-default btn-sm btn-block vert-10 margin-bottom-0 overflow-hidden">
-        {{ product.category }}
-      </button>
+      <!-- TODO add reordering -->
+      <!-- <button ng-click="selections.fns.setCollection(selection.collection)" class="btn btn-default btn-sm btn-block vert-10 margin-bottom-0 overflow-hidden">
+        {{ selection.collection }}
+      </button> -->
+      <div class="btn-group vert-10 margin-bottom-0">
+        <button class="btn btn-default"><i class="fa fa-chevron-left"></i></button>
+        <button class="btn btn-default"><i class="fa fa-tag"></i></button>
+        <button class="btn btn-default"><i class="fa fa-chevron-right"></i></button>
+      </div>
     </div>
 
     <div ng-show="!selections.data.searching && selections.data.selections.length <= 0">
-      <div class="pad-20">No results found</div>
+      <div class="pad-20">No selections</div>
     </div>
   </div>
 
