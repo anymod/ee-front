@@ -1,5 +1,5 @@
 <!-- CATALOG products -->
-<div id="products" class="margin-15 margin-top-0 text-center position-relative min-height-600" ng-hide="products.ee.loading">
+<div id="products" class="margin-15 text-center position-relative" ng-hide="products.ee.loading">
 
   <div class="margin-5 text-center">
     <!-- <div class="inline-block">
@@ -42,13 +42,27 @@
         <i class="fa fa-fw fa-times"></i>{{ products.data.inputs.searchLabel }}
       </div>
     </div>
+
+    <div class="margin-10" ng-hide="products.data.products.length <= 0">
+      <pagination total-items="products.data.count"
+        items-per-page="products.data.inputs.perPage"
+        ng-model="products.data.inputs.page"
+        max-size="5"
+        class="pagination-sm margin-0 vertical-align-top"
+        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+        boundary-links="true"
+        rotate="false"
+        ng-change="products.fns.update()">
+      </pagination>
+    </div>
+
   </div>
 
-  <div class="margin-0-auto" style="max-width: 920px;">
+  <div ng-hide="products.data.searching" class="margin-0-auto" style="max-width: 920px;">
     <div ng-repeat="product in products.data.products" class="well text-center inline-block pad-5 margin-2 white-background box-shadow" style="width: 140px;">
       <div class="pad-10 text-left">
         <a ui-sref="productView({ id: product.id })">
-          <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}" class="full-width gray-border">
+          <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}" class="full-width gray-border hover-success-border">
         </a>
         <div>
           <p ng-bind="product.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
@@ -66,12 +80,24 @@
     </div>
   </div>
 
-</div>
+  <div ng-hide="products.data.searching || products.data.count <= products.data.inputs.perPage" class="pad-20 vert-20">
+    <pagination total-items="products.data.count"
+      items-per-page="products.data.inputs.perPage"
+      ng-model="products.data.inputs.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="products.fns.update()">
+    </pagination>
+  </div>
 
-<div ng-show="products.data.searching" class="position-absolute top-left-bottom-right-0 text-center" style="z-index: 100;">
-  <div class="position-absolute full-width full-height white-background opacity-08"></div>
-  <h2 class="position-relative margin-20 pad-10">
-    <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>&nbsp;Loading
-  </h2>
 </div>
 <!-- /CATALOG products -->
+
+<div class="full-width text-center vert-20">
+  <h2 ng-show="products.data.searching" class="margin-0-auto">
+    <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>
+  </h2>
+</div>

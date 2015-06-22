@@ -3,7 +3,7 @@
 
   <div class="margin-20">
     <div class="row">
-      <div class="col col-sm-3 col-sm-offset-3 vert-5">
+      <div class="col col-sm-4 col-sm-offset-4 vert-5">
         <div class="position-relative" dropdown>
           <div class="btn btn-default btn-block" dropdown-toggle>
             <span ng-bind="selections.data.inputs.collection"></span>
@@ -18,10 +18,11 @@
           </ul>
         </div>
       </div>
-      <div class="col col-sm-3 vert-5">
+      <!-- TODO add / remove collections -->
+      <!-- <div class="col col-sm-3 vert-5">
         <form class="margin-0-auto max-width-600" ng-submit="selections.fns.search()">
           <div class="input-group">
-            <input type="text" ng-model="selections.data.inputs.search" class="form-control" placeholder="Add a Collection">
+            <input type="text" ng-model="selections.data.inputs.search" class="form-control" placeholder="Add a Collection" disabled>
             <span class="input-group-btn">
               <button class="btn btn-default" type="submit" name="search-btn">
                 <i class="fa fa-fw fa-plus"></i>
@@ -29,15 +30,29 @@
             </span>
           </div>
         </form>
-      </div>
+      </div> -->
     </div>
+
+    <div ng-hide="selections.data.count <= selections.data.inputs.perPage">
+      <pagination total-items="selections.data.count"
+        items-per-page="selections.data.inputs.perPage"
+        ng-model="selections.data.inputs.page"
+        max-size="5"
+        class="pagination-sm margin-0 vertical-align-top"
+        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+        boundary-links="true"
+        rotate="false"
+        ng-change="selections.fns.update()">
+      </pagination>
+    </div>
+
   </div>
 
   <div class="margin-0-auto" style="max-width: 920px;">
     <div ng-repeat="selection in selections.data.selections" class="well text-center inline-block pad-5 margin-2 white-background box-shadow" style="width: 140px;">
       <div class="pad-10 text-left">
         <a ui-sref="selectionView({ id: selection.id })">
-          <img ng-src="{{ selection.image | thumbnail }}" class="full-width gray-border">
+          <img ng-src="{{ selection.image | thumbnail }}" class="full-width gray-border hover-success-border">
         </a>
         <div>
           <p ng-bind="selection.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
@@ -52,11 +67,11 @@
       <!-- <button ng-click="selections.fns.setCollection(selection.collection)" class="btn btn-default btn-sm btn-block vert-10 margin-bottom-0 overflow-hidden">
         {{ selection.collection }}
       </button> -->
-      <div class="btn-group vert-10 margin-bottom-0">
+      <!-- <div class="btn-group vert-10 margin-bottom-0">
         <button class="btn btn-default"><i class="fa fa-chevron-left"></i></button>
         <button class="btn btn-default"><i class="fa fa-tag"></i></button>
         <button class="btn btn-default"><i class="fa fa-chevron-right"></i></button>
-      </div>
+      </div> -->
     </div>
 
     <div ng-show="!selections.data.searching && selections.data.selections.length <= 0">
@@ -69,7 +84,7 @@
 <div ng-show="selections.data.searching" class="position-absolute top-left-bottom-right-0 text-center" style="z-index: 100;">
   <div class="position-absolute full-width full-height white-background opacity-08"></div>
   <h2 class="position-relative margin-20 pad-10">
-    <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>&nbsp;Loading
+    <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>
   </h2>
 </div>
 <!-- /CATALOG products -->

@@ -4,7 +4,7 @@ angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $
 
   ## SETUP
   _inputDefaults =
-    productsPerPage:  48
+    perPage:  48
     page:             null
     search:           null
     searchLabel:      null
@@ -30,6 +30,7 @@ angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $
 
   ## PRIVATE EXPORT DEFAULTS
   _data =
+    count:          null
     products:       []
     inputs:         _inputDefaults
     searching:      false
@@ -51,11 +52,15 @@ angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $
     if !!_data.searching then return _data.searching
     _data.searching = deferred.promise
     eeBack.productsGET $cookies.loginToken, _formQuery()
-    .then (products) ->
+    .then (res) ->
+      { count, rows }   = res
+      _data.count       = count
+      _data.products    = rows
       _data.inputs.searchLabel = _data.inputs.search
-      _data.products = products
       deferred.resolve _data.products
-    .catch (err) -> deferred.reject err
+    .catch (err) ->
+      _data.count = null
+      deferred.reject err
     .finally () ->
       _data.searching = false
     deferred.promise
@@ -63,6 +68,7 @@ angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $
   ## EXPORTS
   data: _data
   fns:
+    update: () -> _runQuery()
     search: () ->
       _data.inputs.page = 1
       _runQuery()

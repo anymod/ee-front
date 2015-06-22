@@ -16,7 +16,7 @@ angular.module('builder.selections').config ($stateProvider) ->
       data:
         pageTitle:        'Products in my store | eeosk'
         pageDescription:  'Manage the products in your store.'
-        padTop:           '100px'
+        padTop:           '50px'
 
     .state 'selectionView',
       url: '/selections/:id'
@@ -30,6 +30,6 @@ angular.module('builder.selections').config ($stateProvider) ->
       data:
         pageTitle:        'Product in my store | eeosk'
         pageDescription:  'Manage the product in your store.'
-        padTop:           '100px'
+        padTop:           '50px'
 
   return

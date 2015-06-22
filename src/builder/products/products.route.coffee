@@ -16,7 +16,7 @@ angular.module('builder.products').config ($stateProvider) ->
       data:
         pageTitle:        'Add products | eeosk'
         pageDescription:  'Choose products to add to your store.'
-        padTop:           '100px'
+        padTop:           '50px'
 
     .state 'productView',
       url: '/products/:id'
@@ -30,6 +30,6 @@ angular.module('builder.products').config ($stateProvider) ->
       data:
         pageTitle:        'Add product | eeosk'
         pageDescription:  'Add to your store'
-        padTop:           '100px'
+        padTop:           '50px'
 
   return
