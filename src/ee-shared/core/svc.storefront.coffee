@@ -12,6 +12,7 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
   _reset = () ->
     _data.product_selection = []
     _data.product_ids       = []
+    _data.selection_map     = {}
     _data.categories        = ['All']
     _data.loading           = false
 
@@ -34,6 +35,9 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
     _data.categories = categories
     return
 
+  _mapSelection = (p_s) ->
+    _data.selection_map[p_s.product_id] = p_s.selection_id
+
   _defineData = (product_selection) ->
     if !!product_selection
       _data.product_selection.length = 0
@@ -42,10 +46,12 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
     defineIdAndCategory = (p_s) ->
       _addProductId   p_s.product_id, _data.product_ids
       _addCategory    p_s.category,   _data.categories
+      _mapSelection   p_s
 
     _data.product_ids.length = 0
     _data.categories.length  = 0
     _data.categories.push 'All'
+    _data.selection_map      = {}
     defineIdAndCategory p_s for p_s in _data.product_selection
     return
 
