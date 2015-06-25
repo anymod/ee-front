@@ -51,7 +51,7 @@ sources.appModule = [
   # Services
   './src/ee-shared/core/svc.back.coffee'
   './src/ee-shared/core/svc.storefront.coffee'
-  './src/ee-shared/core/svc.product.coffee'
+  './src/ee-shared/core/svc.selection.coffee'
   './src/ee-shared/core/svc.modal.coffee'
   './src/ee-shared/core/svc.definer.coffee'
   './src/ee-shared/core/svc.selections.coffee'
@@ -69,7 +69,7 @@ sources.builderModule = [
   './src/builder/core/svc.catalog.coffee'
   './src/builder/core/svc.landing.coffee'
   './src/builder/core/svc.orders.coffee'
-  './src/builder/core/svc.selection.coffee'
+  './src/builder/core/svc.product.coffee'
   # Module - auth
   './src/builder/auth/auth.module.coffee'
   # auth.login
@@ -147,6 +147,8 @@ sources.builderDirective = [
   './src/ee-shared/components/ee-terms-privacy.coffee'
   './src/ee-shared/components/ee-navbar.coffee'
   './src/ee-shared/components/ee-product.coffee'
+  './src/ee-shared/components/ee-selection-editor-card.coffee'
+  './src/ee-shared/components/ee-selection-card.coffee'
   './src/ee-shared/components/ee-product-for-storefront.coffee'
   './src/ee-shared/components/ee-save.coffee'
   './src/ee-shared/components/ee-shop-nav.coffee'

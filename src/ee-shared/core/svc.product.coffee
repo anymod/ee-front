@@ -43,7 +43,10 @@ angular.module('app.core').factory 'eeProduct', ($q, $timeout, eeAuth, eeBack, e
   _setProduct = (id) ->
     _data.product = {}
     _getProduct id
-    .then (data) -> _data.product = data
+    .then (data) ->
+      _data.product = data
+      _calcByMargin _data.margins.start_margin
+      console.log 'setProduct', _data
     .catch (err) -> _data.product = {}
 
   _calcPrice  = (base, margin)  -> parseInt(base / (1 - margin))
@@ -71,7 +74,6 @@ angular.module('app.core').factory 'eeProduct', ($q, $timeout, eeAuth, eeBack, e
     margin          = _calcMargin parseInt(_data.product.baseline_price), selling_price
     _calcByMargin margin
     return
-
 
   _openProductModal = (id, catalog) ->
     if !id then return

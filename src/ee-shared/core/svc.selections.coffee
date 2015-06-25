@@ -17,6 +17,7 @@ angular.module('app.core').factory 'eeSelections', ($rootScope, $q, eeBack, eeAu
     inputs:     _inputDefaults
     searching:  false
     creating:   false
+    updating:   false
     deleting:   false
     stale:      false
 
@@ -59,6 +60,7 @@ angular.module('app.core').factory 'eeSelections', ($rootScope, $q, eeBack, eeAu
     eeBack.selectionsPOST eeAuth.fns.getToken(), attrs
     .then (selection) ->
       _stale()
+      _data.selection = selection
       deferred.resolve _data.selection
     .catch (err) -> deferred.reject err
     .finally () -> _data.creating = false
@@ -66,16 +68,34 @@ angular.module('app.core').factory 'eeSelections', ($rootScope, $q, eeBack, eeAu
 
   _deleteSelection = (selection_id) ->
     deferred = $q.defer()
-    # if creating then avoid simultaneous calls to API
+    # if deleting then avoid simultaneous calls to API
     if !!_data.deleting then return _data.deleting
     _data.deleting = deferred.promise
     eeBack.selectionsDELETE eeAuth.fns.getToken(), selection_id
     .then (selection) ->
       _stale()
+      _data.selection = selection
       deferred.resolve _data.selection
     .catch (err) -> deferred.reject err
     .finally () -> _data.deleting = false
     deferred.promise
+
+  _updateSelection = (selection) ->
+    deferred = $q.defer()
+    eeBack.selectionsPUT eeAuth.fns.getToken(), selection
+    .then (sel) ->
+      _stale()
+      _data.selection = sel
+      deferred.resolve _data.selection
+    .catch (err) -> deferred.reject err
+    deferred.promise
+
+  _toggleFeatured = (selection) ->
+    selection.updating = true
+    selection.featured = !selection.featured
+    _updateSelection selection
+    .then (sel) -> selection.featured = sel.featured
+    .finally () -> selection.updating = false
 
   _stale = () ->
     _data.stale = true
@@ -108,3 +128,5 @@ angular.module('app.core').factory 'eeSelections', ($rootScope, $q, eeBack, eeAu
       _runQuery()
     createSelection: _createSelection
     deleteSelection: _deleteSelection
+    updateSelection: _updateSelection
+    toggleFeatured:  _toggleFeatured

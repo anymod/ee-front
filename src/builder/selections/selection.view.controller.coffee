@@ -1,23 +1,13 @@
 'use strict'
 
-angular.module('builder.selections').controller 'selectionViewCtrl', ($state, $stateParams, eeProduct) ->
+angular.module('builder.selections').controller 'selectionViewCtrl', ($state, $stateParams, eeSelection, eeProduct) ->
 
-  # product_id = $stateParams.id
-  #
-  # if !product_id then $state.go 'selections'
-  #
-  # this.data = eeProduct.data
-  #
-  # eeProduct.fns.setProduct product_id
+  selection_id = $stateParams.id
+  if !selection_id then $state.go 'selections'
 
-  # this.ee = eeDefiner.exports
-  #
-  # this.data       = eeCatalog.data
-  # this.fns        = eeCatalog.fns
-  # this.productFns = eeProduct.fns
-  # this.storeFns   = eeStorefront.fns
-  # this.feedback   = () -> eeModal.fns.open 'feedback'
-  #
-  # eeCatalog.fns.search()
+  this.selectionData  = eeSelection.data
+  this.productData    = eeProduct.data
+
+  eeSelection.fns.setSelectionFromId selection_id
 
   return

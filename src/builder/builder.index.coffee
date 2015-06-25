@@ -38,6 +38,8 @@ angular.module 'eeBuilder', [
   'ee-navbar'
   'ee-save'
   'ee-product'
+  'ee-selection-editor-card'
+  'ee-selection-card'
   'ee-order'
   'ee-cloudinaryUpload'
   'ee-image-preload'

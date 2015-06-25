@@ -1,0 +1,125 @@
+<!-- CATALOG products -->
+<div id="products" class="margin-15 text-center position-relative" ng-hide="products.ee.loading">
+
+  <div class="margin-5 text-center">
+    <!-- <div class="inline-block">
+      <div class="btn btn-xs btn-default margin-2" ng-click="products.data.hideFilterBtns = !products.data.hideFilterBtns">
+        <i class="fa fa-caret-down" ng-hide="products.data.hideFilterBtns"></i>
+        <i class="fa fa-caret-right" ng-show="products.data.hideFilterBtns"></i>
+      </div>
+    </div> -->
+
+    <form class="margin-0-auto max-width-600" ng-submit="products.fns.search()">
+      <div class="input-group">
+        <input type="text" ng-model="products.data.inputs.search" class="form-control" placeholder="Search">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="submit" name="search-btn">
+            <span class="hidden-xs">Search</span>
+            <span class="visible-xs"><i class="fa fa-search"></i></span>
+          </button>
+        </span>
+      </div>
+    </form>
+
+    <div class="inline-block margin-5">
+      <div ng-repeat="category in products.data.inputs.categoryArray"
+           ng-click="products.fns.setCategory(category)"
+           class="btn btn-xs btn-default margin-2"
+           ng-class="{ 'btn-primary': category == products.data.inputs.category }"
+           ng-hide="products.data.hideFilterBtns && category != products.data.inputs.category">
+        <span ng-show="category == products.data.inputs.category"><i class="fa fa-fw fa-times"></i></span>{{ category }}
+      </div>
+      <br ng-hide="products.data.hideFilterBtns">
+      <div ng-repeat="range in products.data.inputs.rangeArray"
+           ng-click="products.fns.setRange(range)"
+           class="btn btn-xs btn-default margin-2"
+           ng-class="{ 'btn-primary': range.min == products.data.inputs.range.min && range.max == products.data.inputs.range.max }"
+           ng-hide="products.data.hideFilterBtns && range.min != products.data.inputs.range.min">
+        <span ng-show="range.min == products.data.inputs.range.min && range.max == products.data.inputs.range.max"><i class="fa fa-fw fa-times"></i></span>{{ range | rangeToText }}
+      </div>
+      <br ng-hide="products.data.hideFilterBtns">
+      <div class="btn btn-xs btn-primary margin-2" ng-show="products.data.inputs.searchLabel" ng-click="products.fns.clearSearch()">
+        <i class="fa fa-fw fa-times"></i>{{ products.data.inputs.searchLabel }}
+      </div>
+    </div>
+
+    <div class="margin-10" ng-hide="products.data.products.length <= 0">
+      <pagination total-items="products.data.count"
+        items-per-page="products.data.inputs.perPage"
+        ng-model="products.data.inputs.page"
+        max-size="5"
+        class="pagination-sm margin-0 vertical-align-top"
+        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+        boundary-links="true"
+        rotate="false"
+        ng-change="products.fns.update()">
+      </pagination>
+    </div>
+
+  </div>
+
+  <div ng-hide="products.data.searching" class="margin-0-auto" style="max-width: 920px;">
+    <div ng-repeat="product in products.data.products" class="well text-center inline-block pad-5 margin-2 white-background box-shadow" style="width: 140px;">
+
+      <div ng-if="!products.inStorefront(product.id)">
+        <div class="pad-10 text-left">
+          <a ui-sref="productView({ id: product.id })">
+            <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}" class="full-width gray-border hover-success-border">
+          </a>
+          <div>
+            <p ng-bind="product.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
+            <h4 ng-bind="(product.baseline_price / (1 - .15)) | centToDollar"></h4>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button ng-hide="products.products.indexOf(product.id) > -1" class="btn btn-default font-weight-200" ng-click="products.selectionsFns.createSelection(product)">Add</button>
+          <button ui-sref="productView({ id: product.id })" class="btn btn-default"><i class="fa fa-pencil"></i></button>
+        </div>
+      </div>
+
+      <div ng-if="products.inStorefront(product.id)">
+        <div class="pad-10 text-left">
+          <a ui-sref="selectionView({ id: products.ee.selection_map[product.id] })">
+            <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}" class="full-width gray-border hover-success-border">
+          </a>
+          <div>
+            <p ng-bind="product.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
+            <h4><a ui-sref="selectionView({ id: products.ee.selection_map[product.id] })"><span class="label label-info">In store</span></a></h4>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button ng-hide="products.products.indexOf(product.id) > -1" class="btn btn-default font-weight-200" ng-click="products.selectionsFns.deleteSelection(products.ee.selection_map[product.id])">Remove</button>
+          <button ui-sref="selectionView({ id: products.ee.selection_map[product.id] })" class="btn btn-default"><i class="fa fa-pencil"></i></button>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div ng-show="!products.data.searching && products.data.products.length <= 0">
+      <div class="pad-20">No results found</div>
+    </div>
+  </div>
+
+  <div ng-hide="products.data.searching || products.data.count <= products.data.inputs.perPage" class="pad-20 vert-20">
+    <pagination total-items="products.data.count"
+      items-per-page="products.data.inputs.perPage"
+      ng-model="products.data.inputs.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="products.fns.update()">
+    </pagination>
+  </div>
+
+</div>
+<!-- /CATALOG products -->
+
+<div class="full-width text-center vert-20">
+  <h2 ng-show="products.data.searching" class="margin-0-auto">
+    <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>
+  </h2>
+</div>

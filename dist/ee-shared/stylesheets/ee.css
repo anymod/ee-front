@@ -8981,6 +8981,12 @@ html {
 .hover-blue-border:hover {
   border-color: #03a9f4 !important;
 }
+.hover-info-border:hover {
+  border-color: #6b5c84 !important;
+}
+.hover-success-border:hover {
+  border-color: #40a397 !important;
+}
 .hover-trigger:hover .hover-shift {
   margin-left: 2rem;
 }

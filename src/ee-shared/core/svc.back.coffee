@@ -139,6 +139,13 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       url: eeBackUrl + 'selections' + _formQueryString(query)
     }
 
+  selectionGET: (id, token) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'selections/' + id
+      headers: authorization: token
+    }
+
   selectionsPOST: (token, attrs) ->
     _makeRequest {
       method: 'POST'
@@ -147,12 +154,12 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       data: attrs
     }
 
-  selectionsPUT: (token, id, attrs) ->
+  selectionsPUT: (token, selection) ->
     _makeRequest {
       method: 'PUT'
-      url: eeBackUrl + 'selections/' + id
+      url: eeBackUrl + 'selections/' + selection.id
       headers: authorization: token
-      data: attrs
+      data: selection
     }
 
   selectionsDELETE: (token, id) ->

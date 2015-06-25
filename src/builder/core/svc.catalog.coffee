@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $location, $modal, eeBack, eeAuth) ->
+angular.module('builder.core').factory 'eeCatalog', ($rootScope, $q, eeBack, eeAuth, eeDefiner) ->
 
   ## SETUP
   _inputDefaults =
@@ -51,7 +51,7 @@ angular.module('builder.core').factory 'eeCatalog', ($rootScope, $cookies, $q, $
     # if searching then avoid simultaneous calls to API
     if !!_data.searching then return _data.searching
     _data.searching = deferred.promise
-    eeBack.productsGET $cookies.loginToken, _formQuery()
+    eeBack.productsGET eeAuth.fns.getToken(), _formQuery()
     .then (res) ->
       { count, rows }   = res
       _data.count       = count

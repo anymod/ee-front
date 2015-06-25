@@ -22,10 +22,10 @@ angular.module('builder.selections').config ($stateProvider) ->
       url: '/selections/:id'
       views:
         header:
-          controller: 'selectionViewCtrl as selections'
+          controller: 'selectionViewCtrl as selectionView'
           templateUrl: 'builder/selections/selection.view.header.html'
         top:
-          controller: 'selectionViewCtrl as selections'
+          controller: 'selectionViewCtrl as selectionView'
           templateUrl: 'builder/selections/selection.view.html'
       data:
         pageTitle:        'Product in my store | eeosk'
