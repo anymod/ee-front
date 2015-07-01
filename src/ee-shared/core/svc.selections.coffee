@@ -34,7 +34,7 @@ angular.module('app.core').factory 'eeSelections', ($rootScope, $q, eeBack, eeAu
     # if searching then avoid simultaneous calls to API
     if !!_data.searching then return _data.searching
     _data.searching = deferred.promise
-    eeBack.selectionsGET 'demoseller', _formQuery()
+    eeBack.selectionsGET eeAuth.fns.getToken(), _formQuery()
     .then (res) ->
       { count, rows }   = res
       _data.count       = count
@@ -52,6 +52,7 @@ angular.module('app.core').factory 'eeSelections', ($rootScope, $q, eeBack, eeAu
     deferred = $q.defer()
     # if creating then avoid simultaneous calls to API
     if !!_data.creating then return _data.creating
+    product.adding = true
     _data.creating = deferred.promise
     attrs =
       product_id: product.id
@@ -60,10 +61,13 @@ angular.module('app.core').factory 'eeSelections', ($rootScope, $q, eeBack, eeAu
     eeBack.selectionsPOST eeAuth.fns.getToken(), attrs
     .then (selection) ->
       _stale()
-      _data.selection = selection
+      _data.selection   = selection
+      product.added_as  = selection.id
       deferred.resolve _data.selection
     .catch (err) -> deferred.reject err
-    .finally () -> _data.creating = false
+    .finally () ->
+      product.adding  = false
+      _data.creating  = false
     deferred.promise
 
   _deleteSelection = (selection_id) ->

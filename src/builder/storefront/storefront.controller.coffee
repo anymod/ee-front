@@ -1,9 +1,11 @@
 'use strict'
 
-angular.module('builder.storefront').controller 'storefrontCtrl', ($state, eeDefiner, eeModal) ->
+angular.module('builder.storefront').controller 'storefrontCtrl', ($state, eeDefiner, eeStorefront) ->
 
-  this.ee = eeDefiner.exports
-  this.modalFns = eeModal.fns
-  this.state = $state.current.name
+  this.ee     = eeDefiner.exports
+  this.data   = eeStorefront.data
+  this.state  = $state.current.name
+
+  eeStorefront.fns.defineStorefrontFromToken $state.params.title
 
   return

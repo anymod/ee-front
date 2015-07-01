@@ -10,4 +10,12 @@ angular.module('builder.selections').controller 'selectionViewCtrl', ($state, $s
 
   eeSelection.fns.setSelectionFromId selection_id
 
+  this.delete = () ->
+    eeSelection.fns.deleteSelection selection_id
+    .then () -> $state.go 'selections'
+
+  this.save = () ->
+    eeSelection.fns.updateSelection eeSelection.data.selection
+    .then () -> $state.go 'selections'
+
   return

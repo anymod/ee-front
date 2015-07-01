@@ -38,23 +38,14 @@ angular.module('builder.storefront').config ($stateProvider) ->
     padTop:           '100px'
 
   $stateProvider
-    .state 'try-storefront',
-      url:      '/try/storefront'
-      views:    views
-      data:     data
 
     .state 'storefront',
       url:      '/storefront'
       views:    views
       data:     data
 
-    .state 'storefront-shop',
-      url:      '/storefront/shop'
-      views:    shopViews
-      data:     data
-
-    .state 'storefront-shop-category',
-      url:      '/storefront/shop/:category'
+    .state 'collection',
+      url:      '/storefront/shop/:title'
       views:    shopViews
       data:     data
 

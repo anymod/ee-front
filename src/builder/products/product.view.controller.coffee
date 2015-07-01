@@ -12,4 +12,8 @@ angular.module('builder.products').controller 'productViewCtrl', ($state, $state
   eeProduct.fns.setProduct product_id
   # .then (product) -> eeSelection.fns.setSelectionFromProduct product
 
+  this.create = () ->
+    eeSelection.fns.createSelection eeSelection.data.selection
+    .then () -> $state.go 'selections'
+
   return

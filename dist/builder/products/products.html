@@ -61,9 +61,12 @@
   <div ng-hide="products.data.searching" class="margin-0-auto" style="max-width: 920px;">
     <div ng-repeat="product in products.data.products" class="well text-center inline-block pad-5 margin-2 white-background box-shadow" style="width: 140px;">
 
-      <div ng-if="!products.inStorefront(product.id)">
+      <div>
         <div class="pad-10 text-left">
-          <a ui-sref="productView({ id: product.id })">
+          <a ng-if="!product.added_as" ui-sref="productView({ id: product.id })">
+            <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}" class="full-width gray-border hover-success-border">
+          </a>
+          <a ng-if="product.added_as" ui-sref="selectionView({ id: product.added_as })">
             <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}" class="full-width gray-border hover-success-border">
           </a>
           <div>
@@ -71,30 +74,15 @@
             <h4 ng-bind="(product.baseline_price / (1 - .15)) | centToDollar"></h4>
           </div>
         </div>
-        <div class="btn-group">
-          <button ng-hide="products.products.indexOf(product.id) > -1" class="btn btn-default font-weight-200" ng-click="products.selectionsFns.createSelection(product)">Add</button>
+        <div ng-if="!product.added_as" class="btn-group">
+          <button class="btn btn-default font-weight-200" ng-disabled="product.adding" ng-click="products.selectionsFns.createSelection(product)">Add</button>
           <button ui-sref="productView({ id: product.id })" class="btn btn-default"><i class="fa fa-pencil"></i></button>
         </div>
-      </div>
-
-      <div ng-if="products.inStorefront(product.id)">
-        <div class="pad-10 text-left">
-          <a ui-sref="selectionView({ id: products.ee.selection_map[product.id] })">
-            <img ng-src="{{ product.image_meta.main_image.url | thumbnail }}" class="full-width gray-border hover-success-border">
-          </a>
-          <div>
-            <p ng-bind="product.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
-            <h4><a ui-sref="selectionView({ id: products.ee.selection_map[product.id] })"><span class="label label-info">In store</span></a></h4>
-          </div>
-        </div>
-        <div class="btn-group">
-          <button ng-hide="products.products.indexOf(product.id) > -1" class="btn btn-default font-weight-200" ng-click="products.selectionsFns.deleteSelection(products.ee.selection_map[product.id])">Remove</button>
-          <button ui-sref="selectionView({ id: products.ee.selection_map[product.id] })" class="btn btn-default"><i class="fa fa-pencil"></i></button>
+        <div ng-if="product.added_as" class="btn-group">
+          <button ui-sref="selections" class="btn btn-info font-weight-200">In store</button>
+          <button ui-sref="selectionView({ id: product.added_as })" class="btn btn-default"><i class="fa fa-pencil"></i></button>
         </div>
       </div>
-
-
-
     </div>
 
     <div ng-show="!products.data.searching && products.data.products.length <= 0">

@@ -10,10 +10,14 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
   _data = {}
 
   _reset = () ->
-    _data.product_selection = []
+    _data.selections        = []
     _data.product_ids       = []
     _data.selection_map     = {}
     _data.categories        = ['All']
+    _data.meta              = {}
+    _data.collections       = {}
+    _data.collection_names  = ['Featured']
+    _data.count             = 0
     _data.loading           = false
 
   _reset()
@@ -23,7 +27,7 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
   _getProductSelection = (product) ->
     if !product?.id or !_inStorefront(product.id) then return false
     index = _data.product_ids.indexOf(product.id)
-    _data.product_selection[index]
+    _data.selections[index]
 
   _addProductSel  = (p_s, psArray)      -> if !!p_s and !!p_s.product_id then psArray.push p_s
   _addProductId   = (id, ids)           -> if !!id  and (ids.indexOf(id) < 0) then ids.push id
@@ -31,17 +35,23 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
 
   _setCategories  = () ->
     categories = ['All']
-    _addCategory(p_s.category, categories) for p_s in _data.product_selection
+    _addCategory(p_s.category, categories) for p_s in _data.selections
     _data.categories = categories
+    return
+
+  _setCollectionNames = () ->
+    _data.collection_names = ['featured']
+    if !_data.collections then return
+    (_data.collection_names.push coll unless coll is 'featured' or _data.collections[coll].length is 0) for coll in Object.keys(_data.collections)
     return
 
   _mapSelection = (p_s) ->
     _data.selection_map[p_s.product_id] = p_s.selection_id
 
-  _defineData = (product_selection) ->
-    if !!product_selection
-      _data.product_selection.length = 0
-      _addProductSel(p_s, _data.product_selection) for p_s in product_selection
+  _defineData = (selections) ->
+    if !!selections
+      _data.selections.length = 0
+      _addProductSel(selection, _data.selections) for selection in selections
 
     defineIdAndCategory = (p_s) ->
       _addProductId   p_s.product_id, _data.product_ids
@@ -52,24 +62,31 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
     _data.categories.length  = 0
     _data.categories.push 'All'
     _data.selection_map      = {}
-    defineIdAndCategory p_s for p_s in _data.product_selection
+    defineIdAndCategory p_s for p_s in _data.selections
     return
 
-  _storefrontIsEmpty = () -> _data.product_selection.length is 0
+  _storefrontIsEmpty = () -> _data.selections.length is 0
 
-  _defineStorefrontFromToken = () ->
+  _defineStorefrontFromToken = (collection) ->
     deferred = $q.defer()
 
-    if !!_status.fetching then return _status.fetching
+    if !!_data.loading then return _data.loading
     if !eeAuth.fns.getToken() then deferred.reject('Missing login credentials'); return deferred.promise
-    _status.fetching = deferred.promise
+    _data.loading = deferred.promise
 
-    eeBack.usersStorefrontGET eeAuth.fns.getToken()
+    console.log 'usersStorefrontGET', eeAuth.fns.getToken(), collection
+
+    eeBack.usersStorefrontGET eeAuth.fns.getToken(), collection
     .then (data) ->
-      _defineData data.product_selection
+      { storefront_meta, collections, count, selections } = data
+      _data.collections = collections
+      _data.selections  = selections
+      _data.count       = count
+      _data.meta        = storefront_meta
+      _setCollectionNames()
       deferred.resolve data
     .catch (err) -> deferred.reject err
-    .finally () -> _status.fetching = false
+    .finally () -> _data.loading = false
     deferred.promise
 
   _defineCustomerStore = () ->
@@ -86,7 +103,7 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
 
     eeBack.storefrontGET username
     .then (storefront) ->
-      _defineData storefront.product_selection
+      _defineData storefront.selections
       $rootScope.storeName = storefront.storefront_meta?.home?.name
       deferred.resolve storefront
     .catch (err) -> deferred.reject err
@@ -108,7 +125,7 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
       category:           product.category
       dummy_only:
         margin:           product.calculated.margin*100
-    _data.product_selection.push p_s
+    _data.selections.push p_s
 
   _addProduct = (product) ->
     eeBack.selectionsPOST(eeAuth.fns.getToken(), {
@@ -158,7 +175,7 @@ angular.module('app.core').factory 'eeStorefront', ($rootScope, $q, $location, e
 
     removeDummyProductSelection: (p_s) ->
       index = _data.product_ids.indexOf p_s.product_id
-      if index > -1 then _data.product_selection.splice index, 1
+      if index > -1 then _data.selections.splice index, 1
       _defineData()
 
     setTheme: (meta, theme) ->

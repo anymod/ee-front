@@ -76,7 +76,6 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
     }
 
   usersPOST: (email, proposition) ->
-    console.log 'email, prop', email, proposition
     _makeRequest {
       method: 'POST'
       url: eeBackUrl + 'users'
@@ -110,11 +109,20 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       data: data
     }
 
-  usersStorefrontGET: (token) ->
+  usersStorefrontGET: (token, collection) ->
+    path = 'storefront'
+    if collection then path += '/' + collection
     _makeRequest {
       method: 'GET'
-      url: eeBackUrl + 'users/storefront'
+      url: eeBackUrl + path
       headers: authorization: token
+    }
+
+  storefrontGET: (username) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'storefront/' + username + '/all'
+      headers: authorization: {}
     }
 
   productsGET: (token, query) ->
@@ -131,12 +139,11 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
-  selectionsGET: (username, query) ->
-    query ||= {}
-    query.username = username
+  selectionsGET: (token, query) ->
     _makeRequest {
       method: 'GET'
       url: eeBackUrl + 'selections' + _formQueryString(query)
+      headers: authorization: token
     }
 
   selectionGET: (id, token) ->
@@ -167,13 +174,6 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       method: 'DELETE'
       url: eeBackUrl + 'selections/' + id
       headers: authorization: token
-    }
-
-  storefrontGET: (username) ->
-    _makeRequest {
-      method: 'GET'
-      url: eeBackUrl + 'store/' + username + '/all'
-      headers: authorization: {}
     }
 
   ordersGET: (token) ->

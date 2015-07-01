@@ -155,7 +155,7 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
   storefrontGET: (username) ->
     _makeRequest {
       method: 'GET'
-      url: eeBackUrl + 'store/' + username + '/all'
+      url: eeBackUrl + 'storefront/' + username
       headers: authorization: {}
     }
 

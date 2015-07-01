@@ -7,6 +7,7 @@ angular.module('builder.edit').controller 'editCtrl', ($state, eeDefiner, eeModa
   this.show       = eeLanding.show
   this.data       = eeLanding.data
   this.fns        = eeLanding.fns
+  this.storefrontData = eeStorefront.data
 
   this.setCarouselImage = (imgUrl) -> eeDefiner.exports.carousel.imgUrl = imgUrl
   this.setAboutImage    = (imgUrl) -> eeDefiner.exports.about.imgUrl = imgUrl

@@ -3,6 +3,6 @@
 <!-- /MAIN NAVBAR -->
 
 <div class="position-fixed" style="left: 70px; right: 15px; top: 7px; z-index: 1050;">
-  <div class="btn btn-default">Save</div>
-  <div class="btn btn-danger pull-right">Remove from Store</div>
+  <div ng-click="selectionView.save()" ng-disabled="selectionView.selectionData.loading" class="btn btn-default">Save</div>
+  <div ng-click="selectionView.delete()" ng-disabled="selectionView.selectionData.deleting" class="btn btn-danger pull-right">Remove from Store</div>
 </div>

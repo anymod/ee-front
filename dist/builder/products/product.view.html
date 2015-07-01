@@ -1,65 +1,11 @@
 <div ng-hide="productView.productData.loading" class="full-width pad-20 text-center">
   <!-- SELECTION FORM -->
-  <div class="well white-background max-width-900 box-shadow margin-0-auto text-left">
-    <div class="form-horizontal">
-      <!-- Title -->
-      <div class="form-group vert-5">
-        <label class="col-sm-3 control-label font-weight-200">Title</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control" ng-model="productView.selectionData.selection.title" placeholder="Product title">
-        </div>
-      </div> <!-- /Title -->
-      <!-- Description -->
-      <div class="form-group vert-5">
-        <label class="col-sm-3 control-label font-weight-200">Description</label>
-        <div class="col-sm-6">
-          <textarea class="form-control full-width" rows=5 ng-model="productView.selectionData.selection.content" placeholder="Product description"></textarea>
-        </div>
-      </div> <!-- /Description -->
-      <!-- Price -->
-      <div class="form-group vert-5">
-        <label class="col-sm-3 control-label font-weight-200">Price</label>
-        <div class="col-sm-6">
-          <form class="vert-10 margin-top-0">
-            <div class="input-group pull-left" style="max-width: 170px;">
-              <span class="input-group-addon white-background"><i class="fa fa-fw fa-dollar"></i></span>
-              <input type="text" ng-model="productView.selectionData.calculated.selling_dollars" class="form-control inline-block text-right">
-              <span class="input-group-addon pad-5 white-background no-side-border">.</span>
-              <input type="text" ng-model="productView.selectionData.calculated.selling_cents" class="form-control inline-block" style="width: 50px;">
-            </div>
-            <button class="btn btn-link" type="submit">update</button>
-          </form>
-
-          <div class="text-muted">
-            <span ng-hide="productView.selectionData.calculated.margin == productView.selectionData.margins.start_margin">{{ productView.selectionData.calculated.margin * 100 | number:1 }}%&nbsp;margin.</span>
-            &nbsp;You earn&nbsp;<strong ng-bind="productView.selectionData.calculated.earnings | centToDollar"></strong>&nbsp;each sale.
-          </div>
-          <div class="vert-5 margin-top-0">
-            <div class="btn btn-xs btn-link" ng-click="productView.fns.calcByMargin(productView.selectionData.margins.max_margin)" style="padding-left: 0">Recommended</div>
-            <div class="btn btn-xs btn-link" ng-click="productView.fns.calcByMargin(productView.selectionData.margins.min_margin)">Min</div>
-            <div class="btn btn-xs btn-link" ng-click="productView.fns.calcByMargin(margin)" ng-repeat="margin in productView.selectionData.margins.margin_array">{{ margin*100 }}%</div>
-            <div class="btn btn-xs btn-link" ng-click="productView.fns.calcByMargin(productView.selectionData.margins.max_margin)">Max</div>
-          </div>
-        </div>
-      </div> <!-- /Price -->
-      <!-- Collection -->
-      <div class="form-group vert-5">
-        <label class="col-sm-3 control-label font-weight-200">Collection</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control" ng-model="productView.selectionData.selection.collection" placeholder="Product collection">
-        </div>
-      </div> <!-- /Collection -->
-      <!-- Featured -->
-      <div class="form-group vert-5">
-        <label class="col-sm-3 control-label font-weight-200">Featured</label>
-        <div class="col-sm-6">
-          <div class="checkbox">
-            <input type="checkbox" class="margin-0" ng-model="productView.selectionData.selection.featured">
-          </div>
-        </div>
-      </div> <!-- /Featured -->
-    </div>
-  </div> <!-- /SELECTION FORM -->
+  <ee-selection-editor-card
+    product-view="true"
+    selection="productView.selectionData.selection"
+    product="productView.productData.product">
+  </ee-selection-editor-card>
+  <!-- /SELECTION FORM -->
 
   <br>
 

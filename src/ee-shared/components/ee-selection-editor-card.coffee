@@ -2,14 +2,18 @@
 
 module = angular.module 'ee-selection-editor-card', []
 
-module.directive "eeSelectionEditorCard", () ->
+module.directive "eeSelectionEditorCard", (eeProduct) ->
   templateUrl: 'ee-shared/components/ee-selection-editor-card.html'
   restrict: 'E'
   scope:
-    selection:    '='
-    product:      '='
+    selection:      '='
+    product:        '='
+    selectionView:  '@'
+    productView:    '@'
   link: (scope, ele, attrs) ->
     scope.calculated =
+      max_price:          undefined
+      min_price:          undefined
       selling_cents:      undefined
       selling_dollars:    undefined
       earnings:           undefined
@@ -20,12 +24,27 @@ module.directive "eeSelectionEditorCard", () ->
       start_margin:       0.15
       margin_array:       [0.1, 0.2, 0.3]
 
-    _calculate = () ->
+    _setMaxAndMinPrice = () ->
+      if !scope.product or !scope.margins then return
+      scope.calculated.max_price = Math.floor(scope.product.baseline_price / (1 - scope.margins.max_margin))
+      scope.calculated.min_price = Math.ceil(scope.product.baseline_price / (1 - scope.margins.min_margin))
+
+    _setDollarsAndCents = () ->
       if !scope.selection.selling_price then return
       scope.calculated.selling_cents    = Math.abs(parseInt(scope.selection.selling_price % 100))
       scope.calculated.selling_dollars  = parseInt(parseInt(scope.selection.selling_price) - scope.calculated.selling_cents) / 100
-      scope.calculated.earnings         = scope.selection.selling_price - scope.product.baseline_price
-      scope.calculated.margin           = 1 - (scope.product.baseline_price / scope.selection.selling_price)
+      return
+
+    _setEarningsAndMargin = () ->
+      if !scope.product or !scope.margins then return
+      scope.calculated.earnings = scope.selection.selling_price - scope.product.baseline_price
+      scope.calculated.margin   = 1 - (scope.product.baseline_price / scope.selection.selling_price)
+      return
+
+    _calculate = () ->
+      _setMaxAndMinPrice()
+      _setDollarsAndCents()
+      _setEarningsAndMargin()
       return
 
     _calcByDollarsAndCents = () ->
@@ -37,13 +56,26 @@ module.directive "eeSelectionEditorCard", () ->
       _calculate()
       return
 
+    scope.setSellingPrice = (price) ->
+      scope.selection.selling_price = price
+      _calculate()
+
     scope.calcByMargin = (margin) ->
       if !margin then return
       scope.selection.selling_price = parseInt(scope.product.baseline_price / (1 - margin))
       _calculate()
       return
 
-    scope.$watch 'product', () ->
+    if scope.selectionView is 'true' then scope.$watch 'selection.product_id', (newVal) ->
+      if !!newVal
+        _setDollarsAndCents()
+        eeProduct.fns.setProduct newVal
+        .then (product) ->
+          scope.product = product
+          _setMaxAndMinPrice()
+          _setEarningsAndMargin()
+
+    if scope.productView is 'true' then scope.$watch 'product', () ->
       scope.selection =
         product_id:     scope.product.id
         title:          scope.product.title
@@ -56,8 +88,8 @@ module.directive "eeSelectionEditorCard", () ->
       _calculate()
       return
 
-    scope.$watchGroup ['calculated.selling_dollars', 'calculated.selling_cents'], () ->
-      _calcByDollarsAndCents()
+    scope.$watchGroup ['calculated.selling_dollars', 'calculated.selling_cents'], (newVal, oldVal) ->
+      if oldVal then _calcByDollarsAndCents()
       return
 
     return

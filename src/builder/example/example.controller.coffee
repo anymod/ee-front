@@ -1,8 +1,9 @@
 'use strict'
 
-angular.module('builder.example').controller 'exampleCtrl', (eeLanding) ->
+angular.module('builder.example').controller 'exampleCtrl', (eeLanding, eeStorefront) ->
 
   this.ee = {}
+  this.data = eeStorefront.data
 
   this.show = eeLanding.show
 
@@ -31,98 +32,98 @@ angular.module('builder.example').controller 'exampleCtrl', (eeLanding) ->
         pinterest:  'pinterest'
         instagram:  'instagram'
 
-  example_products = [
+  example_selections = [
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115333/hijrsxnoedec3uraxc51.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115333/hijrsxnoedec3uraxc51.jpg'
       title: 'Classy Ceramic Garden Stool Open- Work Green'
-      selling_price: 17000
+      selling_price: 17099
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115296/uwrh6viymxdsbzvownny.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115296/uwrh6viymxdsbzvownny.jpg'
       title: 'Mesmerizing Styled Glass Candle Holder'
-      selling_price: 4000
+      selling_price: 4099
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115310/liw9altlnsjdgi9iceyi.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115310/liw9altlnsjdgi9iceyi.jpg'
       title: 'Leather Mirror with Leather Finish and Brass Metallic Rivets'
-      selling_price: 15000
+      selling_price: 15099
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115317/td2znaggsqygklxzl9lx.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115317/td2znaggsqygklxzl9lx.jpg'
       title: 'The Beautiful Wood Real Leather Magazine Holder'
-      selling_price: 9000
+      selling_price: 9099
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115300/sfo5fpintcaaivn4qep7.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115300/sfo5fpintcaaivn4qep7.jpg'
       title: 'Metal Wall Clock (24" Diameter)'
-      selling_price: 5400
+      selling_price: 5499
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115315/qxacopwjbkfg212wyzcy.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115315/qxacopwjbkfg212wyzcy.jpg'
       title: 'Global worldly wood metal wall panel'
-      selling_price: 13500
+      selling_price: 13599
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115173/l60quadwge0cvcir7rft.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115173/l60quadwge0cvcir7rft.jpg'
       title: 'Manhattans Coppice Exclusive Basket Dresser'
-      selling_price: 22500
+      selling_price: 22599
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115173/vndcqkccfxy46tlaiqmh.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115173/vndcqkccfxy46tlaiqmh.jpg'
       title: 'Console with Additional Storage Capability and Brass Handles'
-      selling_price: 18000
+      selling_price: 18099
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115301/jhhn5wbenblqts2752ry.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115301/jhhn5wbenblqts2752ry.jpg'
       title: 'Artistic Stars Decorative Wall Art Furnishings'
-      selling_price: 3000
+      selling_price: 3099
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115302/oh9cgsiuotyo4gorqvrs.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115302/oh9cgsiuotyo4gorqvrs.jpg'
       title: 'Wall Accent Mirrors- Metal Mirror 35"W, 34"H'
-      selling_price: 10900
+      selling_price: 10999
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115300/u1d5tqq0jlpbhrqz0kba.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115300/u1d5tqq0jlpbhrqz0kba.jpg'
       title: 'A Pair of Poly Stone Sitting Labrador with Wooden Bookend'
-      selling_price: 29000
+      selling_price: 29099
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115332/b7kujwg6dqdnsosgx4yb.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115332/b7kujwg6dqdnsosgx4yb.jpg'
       title: 'Bulldog with Bow Tie in Resin'
       selling_price: 3899
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115296/bdes8xdnz2em7dy1dtxk.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115296/bdes8xdnz2em7dy1dtxk.jpg'
       title: 'Ceramic 16" Rooster in White Shade'
-      selling_price: 4800
+      selling_price: 4899
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115158/xgnhj4tes7m6shl3iqgb.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115158/xgnhj4tes7m6shl3iqgb.jpg'
       title: 'Adjustable Logan Metal Stool with Wood Seat'
-      selling_price: 8900
+      selling_price: 8999
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115614/ilkahrcliyf6tgja4hqr.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115614/ilkahrcliyf6tgja4hqr.jpg'
       title: 'Maxam® Chrome Heavy-Duty Professional Juicer'
-      selling_price: 6500
+      selling_price: 6499
     },
     {
-      image_meta: { main_image: url: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429114984/bcffxksjshooyqino7ys.jpg' }
+      image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429114984/bcffxksjshooyqino7ys.jpg'
       title: 'Dorado: Aristide Bruant dans son Cabaret (20 x 30 Framed Poster)'
-      selling_price: 7000
+      selling_price: 6999
     }
   ]
 
   ## For ngInclude partials
-  this.ee.carousel           = this.ee.meta?.home?.carousel[0]
-  this.ee.product_selection  = example_products
-  this.ee.categories = [
-    'All',
-    'Home Accents',
-    'Furniture',
-    'Kitchen',
-    'Artwork'
+  this.ee.carousel     = this.ee.meta?.home?.carousel[0]
+  this.data.selections = example_selections
+  this.data.collection_names = [
+    'featured',
+    'home_accents',
+    'furniture',
+    'kitchen',
+    'artwork'
   ]
 
   return

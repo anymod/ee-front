@@ -45,7 +45,7 @@ angular.module('store.core').config ($locationProvider, $stateProvider, $urlRout
       views:    shopViews
       data:     data
 
-    .state 'storefront-shop-category',
+    .state 'storefront-shop-collection',
       url:      '/shop/:category'
       views:    shopViews
       data:     data

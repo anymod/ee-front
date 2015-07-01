@@ -23,7 +23,8 @@ angular.module('app.core').factory 'eeSelection', ($rootScope, $cookies, $q, eeB
     #   start_margin:     0.15
     #   margin_array:     [0.1, 0.2, 0.3]
     _data.collections = ['Featured']
-    _data.loading = false
+    _data.loading   = false
+    _data.deleting  = false
 
   if !_data.margins then _reset()
 
@@ -43,6 +44,7 @@ angular.module('app.core').factory 'eeSelection', ($rootScope, $cookies, $q, eeB
 
   _setSelectionFromId = (id) ->
     deferred = $q.defer()
+    _data.selection = {}
     if !!_data.loading then return _data.loading
     if !id then deferred.reject('Missing selection ID'); return deferred.promise
     _data.loading = deferred.promise
@@ -66,35 +68,46 @@ angular.module('app.core').factory 'eeSelection', ($rootScope, $cookies, $q, eeB
   #     selling_price:  parseInt(product.baseline_price / (1 - _data.margins.start_margin))
   #   _calculate()
 
+  _createSelection = (selection) ->
+    deferred = $q.defer()
+    if !$cookies.loginToken then deferred.reject 'Missing login credentials'; return deferred.promise
+    _data.creating = deferred.promise
+    eeBack.selectionsPOST $cookies.loginToken, selection
+    .then (sel) ->
+      _addSelection sel.id
+      deferred.resolve sel
+    .catch (err) -> deferred.reject err
+    .finally () -> _data.creating = false
+    deferred.promise
+
+  _updateSelection = (selection) ->
+    deferred = $q.defer()
+    if !$cookies.loginToken then deferred.reject 'Missing login credentials'; return deferred.promise
+    _data.loading = deferred.promise
+    eeBack.selectionsPUT $cookies.loginToken, selection
+    .then (sel) ->
+      selection = sel
+      deferred.resolve sel
+    .catch (err) -> deferred.reject err
+    .finally () -> _data.loading = false
+    deferred.promise
+
+  _deleteSelection = (id) ->
+    deferred = $q.defer()
+    if !$cookies.loginToken then deferred.reject 'Missing login credentials'; return deferred.promise
+    _data.deleting = deferred.promise
+    eeBack.selectionsDELETE $cookies.loginToken, id
+    .then (data) ->
+      _removeSelection id
+      deferred.resolve data
+    .catch (err) -> deferred.reject err
+    .finally () -> _data.deleting = false
+    deferred.promise
+
   data: _data
   fns:
-    setSelectionFromId:       _setSelectionFromId
-    # setSelectionFromProduct:  _setSelectionFromProduct
-
-    createSelection: (product, margin) ->
-      deferred = $q.defer()
-      attrs =
-        supplier_id: product.supplier_id
-        product_id: product.id
-        margin: margin
-      if !$cookies.loginToken
-        deferred.reject 'Missing login credentials'
-      else
-        eeBack.selectionsPOST($cookies.loginToken, attrs)
-        .then (data) ->
-          _addSelection data.id
-          deferred.resolve data
-        .catch (err) -> deferred.reject err
-      deferred.promise
-
-    deleteSelection: (id) ->
-      deferred = $q.defer()
-      if !$cookies.loginToken
-        deferred.reject 'Missing login credentials'
-      else
-        eeBack.selectionsDELETE($cookies.loginToken, id)
-        .then (data) ->
-          _removeSelection id
-          deferred.resolve data
-        .catch (err) -> deferred.reject err
-      deferred.promise
+    createSelection:    _createSelection
+    updateSelection:    _updateSelection
+    deleteSelection:    _deleteSelection
+    setSelectionFromId: _setSelectionFromId
+    createSelectionFromProduct: (product) -> createSelection { product_id: product.id }

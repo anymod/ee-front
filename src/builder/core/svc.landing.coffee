@@ -147,7 +147,7 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
   _data =
     demoStores: _shuffleArray _demoStores
     signup:
-      product_selection: []
+      selections: []
 
   ## PRIVATE FUNCTIONS
   _reset = () -> _show = _showDefaults
@@ -192,7 +192,7 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
     hidePopover: (name) -> _hidePopover name
 
     selectProduct: (product, margin) ->
-      _data.signup.product_selection.push {
+      _data.signup.selections.push {
         product_id:         product.id
         selling_price:      parseInt(product.baseline_price * (100 + margin)/100)
         shipping_price:     product.availability_meta.ship_cost
@@ -201,7 +201,7 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
         content_meta:       product.content_meta
         image_meta:         product.image_meta
         availability_meta:  product.availability_meta
-        category:           product.category
+        collection:         product.category
       }
 
     openExampleModal: () ->

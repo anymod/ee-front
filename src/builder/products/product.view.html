@@ -1,6 +1,7 @@
 <div ng-hide="productView.productData.loading" class="full-width pad-20 text-center">
   <!-- SELECTION FORM -->
   <ee-selection-editor-card
+    product-view="true"
     selection="productView.selectionData.selection"
     product="productView.productData.product">
   </ee-selection-editor-card>
@@ -10,7 +11,7 @@
 
   <!-- PRODUCT PREVIEW -->
   <ee-selection-card
-    title="productView.selectionData.selection.title"
+    selection-title="productView.selectionData.selection.title"
     content="productView.selectionData.selection.content"
     price="productView.selectionData.selection.selling_price"
     main-image="{{ productView.productData.product.image_meta.main_image.url }}"

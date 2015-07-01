@@ -115,7 +115,7 @@
       <div class="col-sm-2">
         <div ng-show="!!edit.ee.meta.home.carousel[0].btnText">
           <select class="form-control" ng-model="edit.ee.meta.home.carousel[0].linkCategory">
-            <option ng-repeat="category in edit.ee.categories">{{ category }}</option>
+            <option ng-repeat="collection in edit.storefrontData.collection_names">{{ collection }}</option>
           </select>
         </div>
       </div>
