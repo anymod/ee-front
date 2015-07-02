@@ -137,7 +137,7 @@
             </a>
             <a ng-if="isStore" ui-sref="cart" class="position-relative" ng-style="{ color: meta.home.topBarColor }">
               <i class="fa fa-fw fa-lg fa-shopping-cart"></i>
-              <span ng-show="cart.calc_meta.count >= 1" ng-bind="cart.calc_meta.count"></span>
+              <strong ng-if="quantityArray && quantityArray.length > 0">{{ quantityArray.length }}</strong>
             </a>
 
             <ul class="dropdown-menu">

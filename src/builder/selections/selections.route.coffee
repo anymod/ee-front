@@ -14,7 +14,7 @@ angular.module('builder.selections').config ($stateProvider) ->
           controller: 'selectionsCtrl as selections'
           templateUrl: 'builder/selections/selections.html'
       data:
-        pageTitle:        'Products in my store | eeosk'
+        pageTitle:        'Products in your store | eeosk'
         pageDescription:  'Manage the products in your store.'
         padTop:           '50px'
 
@@ -28,7 +28,7 @@ angular.module('builder.selections').config ($stateProvider) ->
           controller: 'selectionViewCtrl as selectionView'
           templateUrl: 'builder/selections/selection.view.html'
       data:
-        pageTitle:        'Product in my store | eeosk'
+        pageTitle:        'Product in your store | eeosk'
         pageDescription:  'Manage the product in your store.'
         padTop:           '50px'
 

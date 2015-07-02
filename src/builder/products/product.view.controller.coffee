@@ -10,7 +10,6 @@ angular.module('builder.products').controller 'productViewCtrl', ($state, $state
   this.selectionData  = eeSelection.data
 
   eeProduct.fns.setProduct product_id
-  # .then (product) -> eeSelection.fns.setSelectionFromProduct product
 
   this.create = () ->
     eeSelection.fns.createSelection eeSelection.data.selection

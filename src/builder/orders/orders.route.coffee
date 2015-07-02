@@ -12,7 +12,7 @@ angular.module('builder.orders').config ($stateProvider) ->
         controller: 'ordersCtrl as orders'
         templateUrl: 'builder/orders/orders.html'
     data:
-      pageTitle: 'My orders | eeosk'
+      pageTitle: 'Your orders | eeosk'
       padTop:    '100px'
 
   return
