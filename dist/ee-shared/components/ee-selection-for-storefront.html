@@ -1,8 +1,11 @@
-<div ui-sref="selectionView({ id: selection.id })">
-  <img ng-src="{{ selection.image | thumbnail }}"
-       class="img-responsive full-width">
-  <div class="vert-5">
-    <span ng-bind="selection.title" class="selection-title"></span>
+<div class="selection margin-2">
+  <a ui-sref="selectionView({ id: selection.id, slug: (selection.title | urlText) })">
+    <img ng-src="{{ selection.image | thumbnail }}" class="img-responsive full-width">
+  </a>
+  <div class="vert-5 font-weight-200">
+    <a ui-sref="selectionView({ id: selection.id, slug: (selection.title | urlText) })"
+      ng-bind="selection.title" class="selection-title">
+    </a>
     <br>
     <strong ng-bind="selection.selling_price | centToDollar"></strong>
     &nbsp;
