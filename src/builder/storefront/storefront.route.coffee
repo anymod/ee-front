@@ -35,7 +35,7 @@ angular.module('builder.storefront').config ($stateProvider) ->
   data =
     pageTitle:        'Your store | eeosk'
     pageDescription:  'Preview and navigate your eeosk.'
-    padTop:           '100px'
+    padTop:           '124px'
 
   $stateProvider
 

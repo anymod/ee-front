@@ -1,0 +1,27 @@
+<!-- MAIN NAVBAR -->
+<ee-navbar fixed="true" back="true"></ee-navbar>
+<!-- /MAIN NAVBAR -->
+
+<div class="position-fixed text-left" style="left: 71px; right: 15px; top: 7px; z-index: 1050;">
+  <ee-save></ee-save>&nbsp;
+  <div class="btn-group vertical-align-top hidden-xs">
+    <a ui-sref="edit.topbar" ui-sref-active="active" class="btn btn-default">Top Bar</a>
+    <a ui-sref="edit.body" ui-sref-active="active" class="btn btn-default">Body</a>
+    <a ui-sref="edit.about" ui-sref-active="active" class="btn btn-default">About</a>
+    <a ui-sref="edit.blog" ui-sref-active="active" class="btn btn-default">Blog</a>
+    <a ui-sref="edit.seo" ui-sref-active="active" class="btn btn-default">SEO</a>
+  </div>
+  <h2 class="margin-0 inline-block vertical-align-top text-success hidden-xs">&nbsp;Edit</h2>
+  <div class="position-relative visible-xs-inline-block pull-right" dropdown>
+    <div class="btn btn-default" dropdown-toggle>
+      {{ $state.current.name.split('.')[1] | humanize }}&nbsp;<span class="caret"></span>
+    </div>
+    <ul class="dropdown-menu full-width">
+      <li ui-sref-active="active"><a ui-sref="edit.topbar">Top Bar</a></li>
+      <li ui-sref-active="active"><a ui-sref="edit.body">Body</a></li>
+      <li ui-sref-active="active"><a ui-sref="edit.about">About</a></li>
+      <li ui-sref-active="active"><a ui-sref="edit.blog">Blog</a></li>
+      <li ui-sref-active="active"><a ui-sref="edit.seo">SEO</a></li>
+    </ul>
+  </div>
+</div>

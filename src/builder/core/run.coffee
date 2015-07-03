@@ -42,14 +42,12 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
       # If redirect loop: $state.go causes this with child state, so use $location.path for storefront instead. See https://github.com/angular-ui/ui-router/issues/1169
       return
 
-    # redirect to logged in state if token and try- state
-    # if loggedIn and isTry(toState.name) then return stopAndRedirectTo(toState.name.replace('try-', ''))
-    # redirect to try- state if going from try- state to another state that needs auth
-    # if loggedOut and isTry(fromState.name) and isntTry(toState.name) and needsAuth(toState.name) then return stopAndRedirectTo('try-' + toState.name)
     # redirect to login if logged out and restricted
     if loggedOut and needsAuth(toState.name) then return stopAndRedirectTo('login')
     # redirect to storefront if logged in and unrestricted
     if loggedIn and isOpen(toState.name) and toState.name isnt 'logout' and toState.name isnt 'reset' then return stopAndRedirectTo('storefront')
+    # redirect to /edit/topbar from /edit
+    if toState.name is 'edit' then return stopAndRedirectTo('edit.topbar')
 
     return
 

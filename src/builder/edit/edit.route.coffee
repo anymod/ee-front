@@ -5,23 +5,38 @@ angular.module('builder.landing').config ($stateProvider) ->
   views =
     header:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'builder/storefront/storefront.header.html'
+      templateUrl: 'builder/edit/edit.header.html'
     top:
-      controller: 'storefrontCtrl as storefront'
-      templateUrl: 'ee-shared/storefront/storefront.carousel.html'
-    middle:
       controller: 'editCtrl as edit'
       templateUrl: 'builder/edit/edit.html'
+    middle:
+      controller: 'storefrontCtrl as storefront'
+      templateUrl: 'builder/edit/edit.preview.html'
 
   data =
     pageTitle:        'Edit your store | eeosk'
     pageDescription:  'Edit the look and feel of your online store.'
-    padTop:           '100px'
+    padTop:           '50px'
 
   $stateProvider
     .state 'edit',
-      url:      '/edit'
-      views:    views
-      data:     data
+      url:    '/edit'
+      views:  views
+      data:   data
+    .state 'edit.topbar',
+      url:    '/topbar'
+      views:  views
+    .state 'edit.body',
+      url:    '/body'
+      views:  views
+    .state 'edit.about',
+      url:    '/about'
+      views:  views
+    .state 'edit.blog',
+      url:    '/blog'
+      views:  views
+    .state 'edit.seo',
+      url:    '/seo'
+      views:  views
 
   return

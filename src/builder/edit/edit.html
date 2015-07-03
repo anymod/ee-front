@@ -1,263 +1,260 @@
-<!-- EDITOR -->
-<div class="full-width pad-10 min-height-600" ng-hide="edit.ee.loading">
-  <!-- POPOVER -->
-  <div class="row" ng-show="edit.show.popover.edit">
-    <div class="col-sm-offset-3 col-sm-6">
-      <div class="position-relative">
-        <div class="popover popover-primary top in inline-block full-width max-width-300" style="top: -80px;">
-          <div class="arrow" style="left: 25px;"></div>
-          <span class="btn btn-xs btn-primary pull-right margin-5" ng-click="edit.fns.hidePopover('edit')">close</span>
-          <div class="popover-title">Edit</div>
-          <div class="popover-content">Use the inputs below to edit your store.</div>
+<div class="container" ng-hide="edit.ee.loading">
+
+  <div class="max-width-900 margin-0-auto text-left">
+    <br>
+    <h4 class="font-weight-200">
+      <span ng-if="$state.current.name == 'edit.topbar'">Customize your top bar: a preview is shown below.</span>
+      <span ng-if="$state.current.name == 'edit.body'">Choose a main image and a headline for your store.</span>
+      <span ng-if="$state.current.name == 'edit.about'">Tell the world about your store. Your About section will show automatically.</span>
+      <span ng-if="$state.current.name == 'edit.blog'">Enter your blog url. Your Blog link will show automatically.</span>
+      <span ng-if="$state.current.name == 'edit.seo'">Add a title and description to show in search engine results.</span>
+    </h4>
+  </div>
+
+  <div class="well white-background max-width-900 box-shadow margin-0-auto text-left">
+    <div class="form-horizontal">
+      <!-- TOP BAR -->
+      <div ng-if="$state.current.name == 'edit.topbar'">
+        <!-- EDITOR title -->
+        <div class="form-group vert-5">
+          <label class="col-sm-4 control-label">Store title</label>
+          <div class="col-sm-3">
+            <input type="text" ng-model="edit.ee.meta.home.name" class="form-control" placeholder="Store Title (optional or later)">
+          </div>
+        </div>
+        <!-- /EDITOR title -->
+        <!-- EDITOR top bar colors -->
+        <div class="form-group vert-2">
+          <label class="col-sm-4 control-label">Top bar colors</label>
+          <div class="col-sm-2">
+            <div class="position-relative inline-block">
+              <div class="input-group" colorpicker colorpicker-parent="true"
+                   ng-model="edit.ee.meta.home.topBarBackgroundColor">
+                <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-paint-brush"></i></span>
+                <input name="topBarBackgroundColor"
+                       ng-model="edit.ee.meta.home.topBarBackgroundColor"
+                       class="form-control hover-pointer"
+                       ng-style="{ 'background-color': edit.ee.meta.home.topBarBackgroundColor, color: edit.ee.meta.home.topBarBackgroundColor }">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="position-relative inline-block">
+              <div class="input-group" colorpicker colorpicker-parent="true"
+                   ng-model="edit.ee.meta.home.topBarColor">
+                <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-font"></i></span>
+                <input name="topBarColor"
+                       ng-model="edit.ee.meta.home.topBarColor"
+                       class="form-control hover-pointer"
+                       ng-style="{ 'background-color': edit.ee.meta.home.topBarColor, color: edit.ee.meta.home.topBarColor }">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /EDITOR top bar colors -->
+        <!-- EDITOR top bar logo -->
+        <div class="form-group vert-5">
+          <label class="col-sm-4 control-label">Store logo</label>
+          <div class="col-sm-6">
+            <img ng-if="edit.ee.meta.logo" ng-src="{{ edit.ee.meta.logo }}" class="small-thumb img-circle pull-left" style="margin-right: 10px;" />
+            <div>
+              <a ng-if="edit.ee.meta.logo" href ng-click="edit.ee.meta.logo = null">remove logo</a>
+              <h5 class="margin-0">Upload an image&nbsp;<small>50x50px</small></h5>
+              <ee-cloudinary-upload meta="edit.ee.meta" attr-target="'logo'"></ee-cloudinary-upload>
+            </div>
+          </div>
+        </div>
+        <!-- /EDITOR top bar logo -->
+        <!-- EDITOR top bar social -->
+        <div class="form-group vert-5">
+          <label class="col-sm-4 control-label">Social Media</label>
+          <div class="col-sm-3">
+            <div class="input-group vert-5">
+              <span class="input-group-addon"><i class="fa fa-fw fa-facebook"></i></span>
+              <input type="text" class="form-control" placeholder="Facebook username" ng-model="edit.ee.meta.audience.social.facebook">
+              <span ng-if="edit.ee.meta.audience.social.facebook" class="input-group-addon white-background"><a href="http://facebook.com/{{ edit.ee.meta.audience.social.facebook }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+            </div>
+            <div class="input-group vert-5">
+              <span class="input-group-addon"><i class="fa fa-fw fa-pinterest"></i></span>
+              <input type="text" class="form-control" placeholder="Pinterest username" ng-model="edit.ee.meta.audience.social.pinterest">
+              <span ng-if="edit.ee.meta.audience.social.pinterest" class="input-group-addon white-background"><a href="http://pinterest.com/{{ edit.ee.meta.audience.social.pinterest }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+            </div>
+            <div class="input-group vert-5">
+              <span class="input-group-addon"><i class="fa fa-fw fa-twitter"></i></span>
+              <input type="text" class="form-control" placeholder="Twitter username" ng-model="edit.ee.meta.audience.social.twitter">
+              <span ng-if="edit.ee.meta.audience.social.twitter" class="input-group-addon white-background"><a href="http://twitter.com/{{ edit.ee.meta.audience.social.twitter }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+            </div>
+            <div class="input-group vert-5">
+              <span class="input-group-addon"><i class="fa fa-fw fa-instagram"></i></span>
+              <input type="text" class="form-control" placeholder="Instagram username" ng-model="edit.ee.meta.audience.social.instagram">
+              <span ng-if="edit.ee.meta.audience.social.instagram" class="input-group-addon white-background"><a href="http://instagram.com/{{ edit.ee.meta.audience.social.instagram }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group vert-5">
+          <label class="col-sm-4 control-label">Contact email</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+              <input type="text" class="form-control" placeholder="Email" ng-model="edit.ee.meta.audience.contact.email">
+              <span ng-if="edit.ee.meta.audience.contact.email" class="input-group-addon white-background"><a href="mailto:{{ edit.ee.meta.audience.contact.email }}" target="_blank"><i class="fa fa-send"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- /EDITOR top bar social -->
+      </div>
+      <!-- /TOP BAR -->
+
+      <!-- BODY -->
+      <div ng-if="$state.current.name == 'edit.body'">
+        <!-- EDITOR body image -->
+        <div class="form-group vert-2">
+          <label class="col-sm-4 control-label">
+            Image
+          </label>
+          <div class="col-sm-4">
+            <div class="position-relative" dropdown>
+              <div class="hover-pointer position-relative" dropdown-toggle>
+                <div class="btn btn-sm btn-default margin-5 position-absolute"
+                     name="mainImageToggle">
+                  <div class="fa fa-fw fa-chevron-down"></div>
+                </div>
+                <img ng-src="{{ edit.ee.meta.home.carousel[0].imgUrl }}" class="img-responsive full-width vert-2">
+              </div>
+              <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;">
+                <img ng-repeat="theme in edit.landingData.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setCarouselImage(theme.imgUrl)"/>
+                <li class="pad-10 text-left">
+                  <i class="fa fa-2x fa-info-circle text-muted vert-2 pull-left"></i>
+                  <div style="margin-left: 30px;">
+                    You can upload your own images too once you've logged in.
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="vert-5 text-left">
+              <a href="https://unsplash.com/grid" target="_blank" class="pull-right">
+                <small>Free images <i class="fa fa-fw fa-external-link"></i></small>
+              </a>
+              <h5 class="margin-0">Upload an image&nbsp;<small>1200x400px</small></h5>
+              <ee-cloudinary-upload meta="edit.ee.meta" attr-target="'body'"></ee-cloudinary-upload>
+            </div>
+          </div>
+        </div>
+        <!-- /EDITOR body image -->
+        <!-- EDITOR body info -->
+        <div class="form-group vert-5">
+          <label class="col-sm-4 control-label">Headline</label>
+          <div class="col-sm-3">
+            <input type="text" ng-model="edit.ee.meta.home.carousel[0].headline" class="form-control" placeholder="Headline">
+          </div>
+          <div class="col-sm-2">
+            <div class="btn-group btn-group-justified"
+                 ng-show="!!edit.ee.meta.home.carousel[0].headline || !!edit.ee.meta.home.carousel[0].byline || !!edit.ee.meta.home.carousel[0].btnText">
+              <div class="btn btn-default btn-sm" ng-model="edit.ee.meta.home.carousel[0].btnPosition" btn-radio="'left'"><i class="fa fa-align-left"></i></div>
+              <div class="btn btn-default btn-sm" ng-model="edit.ee.meta.home.carousel[0].btnPosition" btn-radio="'middle'"><i class="fa fa-align-center"></i></div>
+              <div class="btn btn-default btn-sm" ng-model="edit.ee.meta.home.carousel[0].btnPosition" btn-radio="'right'"><i class="fa fa-align-right"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group vert-5">
+          <label class="col-sm-4 control-label">Byline</label>
+          <div class="col-sm-3">
+            <input type="text" ng-model="edit.ee.meta.home.carousel[0].byline" class="form-control" placeholder="Byline">
+          </div>
+        </div>
+        <div class="form-group vert-5">
+          <label class="col-sm-4 control-label">Headline button</label>
+          <div class="col-sm-3">
+            <input type="text" ng-model="edit.ee.meta.home.carousel[0].btnText" class="form-control" placeholder="Button text">
+          </div>
+          <div class="col-sm-2">
+            <div ng-show="!!edit.ee.meta.home.carousel[0].btnText">
+              <select class="form-control" ng-model="edit.ee.meta.home.carousel[0].linkCategory">
+                <option ng-repeat="collection in edit.data.collection_names">{{ collection }}</option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
+      <!-- /BODY -->
+
+      <!-- ABOUT -->
+      <div ng-if="$state.current.name == 'edit.about'">
+        <div class="form-group vert-5">
+          <label class="col-sm-3 control-label">About headline</label>
+          <div class="col-sm-6">
+            <textarea class="form-control max-width-100-pct" rows="1" ng-model="edit.ee.meta.about.headline"></textarea>
+          </div>
+        </div>
+        <div class="form-group vert-5">
+          <label class="col-sm-3 control-label">About content</label>
+          <div class="col-sm-6">
+            <!-- TODO implement bold and italic -->
+            <!-- Use * and _ for <strong>*bold*</strong> and <em>_italic_</em> -->
+            <!-- <br> -->
+            <textarea class="form-control max-width-100-pct" rows="9" ng-model="edit.ee.meta.about.content"></textarea>
+          </div>
+        </div>
+        <div class="form-group vert-2">
+          <label class="col-sm-3 control-label">
+            About image
+          </label>
+          <div class="col-sm-4">
+            <div class="position-relative" dropdown>
+              <div class="hover-pointer position-relative" dropdown-toggle>
+                <div class="btn btn-sm btn-default margin-5 position-absolute"
+                     name="aboutImageToggle">
+                  <div class="fa fa-fw fa-chevron-down"></div>
+                </div>
+                <img ng-src="{{ edit.ee.meta.about.imgUrl }}" class="img-responsive full-width vert-2">
+              </div>
+              <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;">
+                <img ng-repeat="theme in edit.landingData.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setAboutImage(theme.imgUrl)"/>
+              </ul>
+            </div>
+            <div class="vert-5 text-left">
+              <a href="https://unsplash.com/grid" target="_blank" class="pull-right">
+                <small>Free images <i class="fa fa-fw fa-external-link"></i></small>
+              </a>
+              <h5 class="margin-0">Upload an image&nbsp;<small>1200x400px</small></h5>
+              <ee-cloudinary-upload meta="edit.ee.meta" attr-target="'about'"></ee-cloudinary-upload>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /ABOUT -->
+
+      <!-- BLOG -->
+      <div ng-if="$state.current.name == 'edit.blog'">
+        <div class="form-group vert-5">
+          <label class="col-sm-3 control-label">Blog</label>
+          <div class="col-sm-6">
+            <div class="input-group margin-0">
+              <span class="input-group-addon"><i class="fa fa-fw fa-link"></i></span>
+              <input type="text" class="form-control" placeholder="http://" ng-model="edit.ee.meta.blog.url">
+              <span ng-if="edit.ee.meta.blog.url" class="input-group-addon white-background"><a href="{{ edit.ee.meta.blog.url | addHttp }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /BLOG -->
+
+      <!-- SEO -->
+      <div ng-if="$state.current.name == 'edit.seo'">
+        <div class="form-group vert-5">
+          <label class="col-sm-3 control-label">Custom h1 tag</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="Enter your title for search engines" ng-model="edit.ee.meta.h1">
+          </div>
+        </div>
+        <div class="form-group vert-5">
+          <label class="col-sm-3 control-label">Custom meta description</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="Describe your store for search engines" ng-model="edit.ee.meta.description">
+          </div>
+        </div>
+      </div>
+      <!-- /SEO -->
     </div>
   </div>
-  <!-- /POPOVER -->
-  <form class="form-horizontal">
-    <!-- EDITOR top bar colors -->
-    <div class="form-group vert-2">
-      <label class="col-sm-3 control-label">Top bar colors</label>
-      <div class="col-sm-2">
-        <div class="position-relative inline-block">
-          <div class="input-group" colorpicker colorpicker-parent="true"
-               ng-model="edit.ee.meta.home.topBarBackgroundColor">
-            <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-paint-brush"></i></span>
-            <input name="topBarBackgroundColor"
-                   ng-model="edit.ee.meta.home.topBarBackgroundColor"
-                   class="form-control hover-pointer"
-                   ng-style="{ 'background-color': edit.ee.meta.home.topBarBackgroundColor, color: edit.ee.meta.home.topBarBackgroundColor }">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-2">
-        <div class="position-relative inline-block">
-          <div class="input-group" colorpicker colorpicker-parent="true"
-               ng-model="edit.ee.meta.home.topBarColor">
-            <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-font"></i></span>
-            <input name="topBarColor"
-                   ng-model="edit.ee.meta.home.topBarColor"
-                   class="form-control hover-pointer"
-                   ng-style="{ 'background-color': edit.ee.meta.home.topBarColor, color: edit.ee.meta.home.topBarColor }">
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /EDITOR top bar colors -->
-    <!-- EDITOR carousel image -->
-    <div class="form-group vert-2">
-      <label class="col-sm-3 control-label">
-        Main image
-      </label>
-      <div class="col-sm-4">
-        <div class="position-relative" dropdown>
-          <div class="hover-pointer position-relative" dropdown-toggle>
-            <div class="btn btn-sm btn-default margin-5 position-absolute"
-                 name="mainImageToggle">
-              <div class="fa fa-fw fa-chevron-down"></div>
-            </div>
-            <img ng-src="{{ edit.ee.meta.home.carousel[0].imgUrl }}" class="img-responsive full-width vert-2">
-          </div>
-          <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;">
-            <img ng-repeat="theme in edit.data.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setCarouselImage(theme.imgUrl)"/>
-            <li class="pad-10 text-left">
-              <i class="fa fa-2x fa-info-circle text-muted vert-2 pull-left"></i>
-              <div style="margin-left: 30px;">
-                You can upload your own images too once you've logged in.
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="vert-5 text-left">
-          <a href="https://unsplash.com/grid" target="_blank" class="pull-right">
-            <small>Free images <i class="fa fa-fw fa-external-link"></i></small>
-          </a>
-          <h5 class="margin-0">Upload an image&nbsp;<small>1200x400px</small></h5>
-          <ee-cloudinary-upload attr-target="'carousel'"></ee-cloudinary-upload>
-        </div>
-      </div>
-    </div>
-    <!-- /EDITOR carousel image -->
-    <!-- EDITOR title -->
-    <div class="form-group vert-5">
-      <label class="col-sm-3 control-label">Store title</label>
-      <div class="col-sm-3">
-        <input type="text" ng-model="edit.ee.meta.home.name" class="form-control" placeholder="Store Title (optional or later)">
-      </div>
-    </div>
-    <!-- /EDITOR title -->
-    <!-- EDITOR carousel info -->
-    <div class="form-group vert-5">
-      <label class="col-sm-3 control-label">Headline</label>
-      <div class="col-sm-3">
-        <input type="text" ng-model="edit.ee.meta.home.carousel[0].headline" class="form-control" placeholder="Headline">
-      </div>
-      <div class="col-sm-2">
-        <div class="btn-group btn-group-justified"
-             ng-show="!!edit.ee.meta.home.carousel[0].headline || !!edit.ee.meta.home.carousel[0].byline || !!edit.ee.meta.home.carousel[0].btnText">
-          <div class="btn btn-default btn-sm" ng-model="edit.ee.meta.home.carousel[0].btnPosition" btn-radio="'left'"><i class="fa fa-align-left"></i></div>
-          <div class="btn btn-default btn-sm" ng-model="edit.ee.meta.home.carousel[0].btnPosition" btn-radio="'middle'"><i class="fa fa-align-center"></i></div>
-          <div class="btn btn-default btn-sm" ng-model="edit.ee.meta.home.carousel[0].btnPosition" btn-radio="'right'"><i class="fa fa-align-right"></i></div>
-        </div>
-      </div>
-    </div>
-    <div class="form-group vert-5">
-      <label class="col-sm-3 control-label">Byline</label>
-      <div class="col-sm-3">
-        <input type="text" ng-model="edit.ee.meta.home.carousel[0].byline" class="form-control" placeholder="Byline">
-      </div>
-    </div>
-    <div class="form-group vert-5">
-      <label class="col-sm-3 control-label">Headline button</label>
-      <div class="col-sm-3">
-        <input type="text" ng-model="edit.ee.meta.home.carousel[0].btnText" class="form-control" placeholder="Button text">
-      </div>
-      <div class="col-sm-2">
-        <div ng-show="!!edit.ee.meta.home.carousel[0].btnText">
-          <select class="form-control" ng-model="edit.ee.meta.home.carousel[0].linkCategory">
-            <option ng-repeat="collection in edit.storefrontData.collection_names">{{ collection }}</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group margin-0">
-      <div class="col-sm-offset-3 col-sm-5">
-        <hr class="vert-10">
-      </div>
-    </div>
-
-    <div class="form-group vert-5">
-      <label class="col-sm-3 control-label">Custom h1 tag</label>
-      <div class="col-sm-5">
-        <input type="text" class="form-control" placeholder="Enter your title for search engines" ng-model="edit.ee.meta.h1">
-      </div>
-    </div>
-
-    <div class="form-group vert-5">
-      <label class="col-sm-3 control-label">Custom meta description</label>
-      <div class="col-sm-5">
-        <input type="text" class="form-control" placeholder="Describe your store for search engines" ng-model="edit.ee.meta.description">
-      </div>
-    </div>
-
-    <div class="form-group margin-0">
-      <div class="col-sm-offset-3 col-sm-5">
-        <hr class="vert-10">
-      </div>
-    </div>
-
-    <div class="form-group vert-5">
-      <div class="col-sm-offset-3 col-sm-5 font-weight-200">
-        Enter your blog url and a link will appear in your store's top navbar.
-      </div>
-    </div>
-    <div class="form-group vert-5">
-      <label class="col-sm-3 control-label">Blog</label>
-      <div class="col-sm-3">
-        <div class="input-group margin-0">
-          <span class="input-group-addon"><i class="fa fa-fw fa-link"></i></span>
-          <input type="text" class="form-control" placeholder="http://" ng-model="edit.ee.meta.blog.url">
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group margin-0">
-      <div class="col-sm-offset-3 col-sm-5">
-        <hr class="vert-10">
-      </div>
-    </div>
-
-    <div class="form-group vert-5">
-      <div class="col-sm-offset-3 col-sm-5 font-weight-200">
-        Enter your contact email or social media usernames and links will appear in your store's top navbar.
-      </div>
-    </div>
-    <div class="form-group vert-5">
-      <label class="col-sm-3 control-label">Contact email</label>
-      <div class="col-sm-3">
-        <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
-          <input type="text" class="form-control" placeholder="Email" ng-model="edit.ee.meta.audience.contact.email">
-        </div>
-      </div>
-    </div>
-    <div class="form-group vert-5">
-      <label class="col-sm-3 control-label">Social Media</label>
-      <div class="col-sm-3">
-        <div class="input-group vert-5 margin-top-0">
-          <span class="input-group-addon"><i class="fa fa-fw fa-facebook"></i></span>
-          <input type="text" class="form-control" placeholder="Facebook" ng-model="edit.ee.meta.audience.social.facebook">
-        </div>
-        <div class="input-group vert-5">
-          <span class="input-group-addon"><i class="fa fa-fw fa-pinterest"></i></span>
-          <input type="text" class="form-control" placeholder="Pinterest" ng-model="edit.ee.meta.audience.social.pinterest">
-        </div>
-        <div class="input-group vert-5">
-          <span class="input-group-addon"><i class="fa fa-fw fa-twitter"></i></span>
-          <input type="text" class="form-control" placeholder="Twitter" ng-model="edit.ee.meta.audience.social.twitter">
-        </div>
-        <div class="input-group vert-5 margin-bottom-0">
-          <span class="input-group-addon"><i class="fa fa-fw fa-instagram"></i></span>
-          <input type="text" class="form-control" placeholder="Instagram" ng-model="edit.ee.meta.audience.social.instagram">
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group margin-0">
-      <div class="col-sm-offset-3 col-sm-5">
-        <hr class="vert-10">
-      </div>
-    </div>
-
-    <div class="form-group vert-5">
-      <div class="col-sm-offset-3 col-sm-5 font-weight-200">
-        Add information about your store and an About section will appear in your store's top navbar.
-      </div>
-    </div>
-    <div class="form-group vert-5">
-      <label class="col-sm-3 control-label">About headline</label>
-      <div class="col-sm-5">
-        <textarea class="form-control max-width-100-pct" rows="1" ng-model="edit.ee.meta.about.headline"></textarea>
-      </div>
-    </div>
-    <div class="form-group vert-5">
-      <label class="col-sm-3 control-label">About content</label>
-      <div class="col-sm-5">
-        <!-- TODO implement bold and italic -->
-        <!-- Use * and _ for <strong>*bold*</strong> and <em>_italic_</em> -->
-        <!-- <br> -->
-        <textarea class="form-control max-width-100-pct" rows="9" ng-model="edit.ee.meta.about.content"></textarea>
-      </div>
-    </div>
-    <div class="form-group vert-2">
-      <label class="col-sm-3 control-label">
-        About image
-      </label>
-      <div class="col-sm-4">
-        <div class="position-relative" dropdown>
-          <div class="hover-pointer position-relative" dropdown-toggle>
-            <div class="btn btn-sm btn-default margin-5 position-absolute"
-                 name="aboutImageToggle">
-              <div class="fa fa-fw fa-chevron-down"></div>
-            </div>
-            <img ng-src="{{ edit.ee.meta.about.imgUrl }}" class="img-responsive full-width vert-2">
-          </div>
-          <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;">
-            <img ng-repeat="theme in edit.data.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setAboutImage(theme.imgUrl)"/>
-          </ul>
-        </div>
-        <div class="vert-5 text-left">
-          <a href="https://unsplash.com/grid" target="_blank" class="pull-right">
-            <small>Free images <i class="fa fa-fw fa-external-link"></i></small>
-          </a>
-          <h5 class="margin-0">Upload an image&nbsp;<small>1200x400px</small></h5>
-          <ee-cloudinary-upload attr-target="'about'"></ee-cloudinary-upload>
-        </div>
-      </div>
-    </div>
-    <!-- /EDITOR carousel info -->
-    <div class="section vert-50"></div>
-  </form>
 </div>
-<!-- /EDITOR -->

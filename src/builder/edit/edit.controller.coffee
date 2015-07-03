@@ -1,18 +1,14 @@
 'use strict'
 
-angular.module('builder.edit').controller 'editCtrl', ($state, eeDefiner, eeModal, eeLanding, eeStorefront) ->
+angular.module('builder.edit').controller 'editCtrl', (eeDefiner, eeLanding, eeStorefront) ->
 
-  this.ee = eeDefiner.exports
+  edit = this
 
-  this.show       = eeLanding.show
-  this.data       = eeLanding.data
-  this.fns        = eeLanding.fns
-  this.storefrontData = eeStorefront.data
+  edit.ee           = eeDefiner.exports
+  edit.data         = eeStorefront.data
+  edit.landingData  = eeLanding.data
 
-  this.setCarouselImage = (imgUrl) -> eeDefiner.exports.carousel.imgUrl = imgUrl
-  this.setAboutImage    = (imgUrl) -> eeDefiner.exports.about.imgUrl = imgUrl
-  this.save = () -> eeModal.fns.openSignupModal()
-
-  eeLanding.fns.showState $state.current.name
+  edit.setCarouselImage = (imgUrl) -> eeDefiner.exports.carousel.imgUrl = imgUrl
+  edit.setAboutImage    = (imgUrl) -> eeDefiner.exports.about.imgUrl = imgUrl
 
   return
