@@ -1,5 +1,5 @@
-<!-- CATALOG products -->
-<div id="products" class="margin-15 margin-top-0 text-center position-relative min-height-600" ng-hide="selections.ee.loading">
+<!-- SELECTIONS -->
+<div id="selections" class="margin-15 margin-top-0 text-center position-relative min-height-600" ng-hide="selections.ee.loading">
 
   <div class="margin-20">
     <div class="row">
@@ -12,7 +12,7 @@
           </div>
           <ul class="dropdown-menu full-width">
             <li><a href ng-click="selections.fns.setCollection()">All</a></li>
-            <li ng-repeat="collection in selections.ee.collections" ng-class="{ active: collection == selections.data.inputs.collection }">
+            <li ng-repeat="collection in selections.ee.collections.slice().reverse()" ng-class="{ active: collection == selections.data.inputs.collection }">
               <a href ng-click="selections.fns.setCollection(collection)">{{ collection | humanize }}</a>
             </li>
           </ul>
@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="btn-group">
-        <div ng-hide="selections.selections.indexOf(selection.id) > -1" class="btn btn-default" ng-class="{ 'btn-warning': selection.featured }" ng-click="selections.fns.toggleFeatured(selection)" ng-disabled="selection.updating"><i class="fa fa-fw fa-star"></i></div>
+        <div class="btn btn-default" ng-class="{ 'btn-warning': selection.featured }" ng-click="selections.fns.toggleFeatured(selection)" ng-disabled="selection.updating">Feature<span ng-if="selection.featured">d</span></div>
         <div ui-sref="selectionView({ id: selection.id })" class="btn btn-default"><i class="fa fa-pencil"></i></div>
       </div>
       <button ng-click="selections.fns.setCollection(selection.collection)" class="btn btn-default btn-sm btn-block vert-10 margin-bottom-0 overflow-hidden">
@@ -79,6 +79,19 @@
     </div>
   </div>
 
+  <div ng-hide="selections.data.searching || selections.data.count <= selections.data.inputs.perPage" class="pad-20 vert-20">
+    <pagination total-items="selections.data.count"
+      items-per-page="selections.data.inputs.perPage"
+      ng-model="selections.data.inputs.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="selections.fns.update()">
+    </pagination>
+  </div>
+
 </div>
 
 <div ng-show="selections.data.searching" class="position-absolute top-left-bottom-right-0 text-center" style="z-index: 100;">
@@ -87,4 +100,4 @@
     <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>
   </h2>
 </div>
-<!-- /CATALOG products -->
+<!-- /SELECTIONS -->
