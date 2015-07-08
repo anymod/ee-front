@@ -21,7 +21,7 @@ angular.module('builder.landing').controller 'landingCtrl', ($state, eeDefiner, 
       if err.message is 'Account exists' then return $state.transitionTo 'login', { exists: true }
       that.error = 'Problem signing up'
 
-  eeLanding.fns.showState $state.current.name
+  # eeLanding.fns.showState $state.current.name
 
   if $state.current.name is 'welcome_proposition' then eeDefiner.exports.welcomeProposition = $state.params.proposition
 

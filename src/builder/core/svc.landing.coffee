@@ -150,30 +150,30 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
       selections: []
 
   ## PRIVATE FUNCTIONS
-  _reset = () -> _show = _showDefaults
+  # _reset = () -> _show = _showDefaults
 
-  _showLanding = ()     -> _show.landing.content = true
-  _hideLanding = ()     -> _show.landing.content = false
-  _showExample = ()     -> _show.example.content = true
-  _hideExample = ()     -> _show.example.content = false
-  _hidePopover = (name) -> _show.popover[name]   = false
+  # _showLanding = ()     -> _show.landing.content = true
+  # _hideLanding = ()     -> _show.landing.content = false
+  # _showExample = ()     -> _show.example.content = true
+  # _hideExample = ()     -> _show.example.content = false
+  # _hidePopover = (name) -> _show.popover[name]   = false
 
-  _scrollTop = () -> $rootScope.scrollTo 'body-top'
+  # _scrollTop = () -> $rootScope.scrollTo 'body-top'
 
-  _landingState = () ->
-    _showLanding()
-    _hideExample()
-    _scrollTop()
-
-  _themeState = () ->
-    _hideLanding()
-    _hideExample()
-    _scrollTop()
-
-  _exampleState = () ->
-    _hideLanding()
-    _showExample()
-    _scrollTop()
+  # _landingState = () ->
+  #   _showLanding()
+  #   _hideExample()
+  #   _scrollTop()
+  #
+  # _themeState = () ->
+  #   _hideLanding()
+  #   _hideExample()
+  #   _scrollTop()
+  #
+  # _exampleState = () ->
+  #   _hideLanding()
+  #   _showExample()
+  #   _scrollTop()
 
   ## EXPORTS
   show: _show
@@ -182,27 +182,27 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
   landingUser: _userDefaults
 
   fns:
-    reset:        () -> _reset()
-    showState:    (name) ->
-      if name is 'landing'    then $timeout _landingState,  100
-      if name is 'welcome'    then $timeout _landingState,  100
-      if name is 'try-theme'  then $timeout _themeState,    200
-      if name is 'example'    then $timeout _exampleState,  200
+    # reset:        () -> _reset()
+    # showState:    (name) ->
+    #   if name is 'landing'    then $timeout _landingState,  100
+    #   if name is 'welcome'    then $timeout _landingState,  100
+    #   if name is 'try-theme'  then $timeout _themeState,    200
+    #   if name is 'example'    then $timeout _exampleState,  200
 
-    hidePopover: (name) -> _hidePopover name
+    # hidePopover: (name) -> _hidePopover name
 
-    selectProduct: (product, margin) ->
-      _data.signup.selections.push {
-        product_id:         product.id
-        selling_price:      parseInt(product.baseline_price * (100 + margin)/100)
-        shipping_price:     product.availability_meta.ship_cost
-        title:              product.title
-        content:            product.content
-        content_meta:       product.content_meta
-        image_meta:         product.image_meta
-        availability_meta:  product.availability_meta
-        collection:         product.category
-      }
+    # selectProduct: (product, margin) ->
+    #   _data.signup.selections.push {
+    #     product_id:         product.id
+    #     selling_price:      parseInt(product.baseline_price * (100 + margin)/100)
+    #     shipping_price:     product.availability_meta.ship_cost
+    #     title:              product.title
+    #     content:            product.content
+    #     content_meta:       product.content_meta
+    #     image_meta:         product.image_meta
+    #     availability_meta:  product.availability_meta
+    #     collection:         product.category
+    #   }
 
     openExampleModal: () ->
       $modal.open({
