@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="btn-group">
-        <div class="btn btn-default" ng-class="{ 'btn-warning': selection.featured }" ng-click="selections.fns.toggleFeatured(selection)" ng-disabled="selection.updating">Feature<span ng-if="selection.featured">d</span></div>
+        <div class="btn btn-default font-weight-200" ng-class="{ 'btn-warning': selection.featured }" ng-click="selections.fns.toggleFeatured(selection)" ng-disabled="selection.updating">Feature<span ng-if="selection.featured">d</span></div>
         <div ui-sref="selectionView({ id: selection.id })" class="btn btn-default"><i class="fa fa-pencil"></i></div>
       </div>
       <button ng-click="selections.fns.setCollection(selection.collection)" class="btn btn-default btn-sm btn-block vert-10 margin-bottom-0 overflow-hidden">

@@ -167,12 +167,11 @@
           <div class="col-sm-3">
             <input type="text" ng-model="edit.ee.meta.home.carousel[0].btnText" class="form-control" placeholder="Button text">
           </div>
-          <div class="col-sm-2">
-            <div ng-show="!!edit.ee.meta.home.carousel[0].btnText">
-              <select class="form-control" ng-model="edit.ee.meta.home.carousel[0].linkCategory">
-                <option ng-repeat="collection in edit.data.collection_names">{{ collection }}</option>
-              </select>
-            </div>
+          <div class="col-sm-2" ng-show="!!edit.ee.meta.home.carousel[0].btnText">
+            <select class="form-control" ng-model="edit.ee.meta.home.carousel[0].linkCategory">
+              <option ng-repeat="collection in edit.data.collection_names">{{ collection }}</option>
+            </select>
+            <small class="inline-block line-height-1 vert-5 margin-bottom-0">choose what collection the headline button will link to</small>
           </div>
         </div>
       </div>
