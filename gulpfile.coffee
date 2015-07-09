@@ -48,7 +48,7 @@ gulp.task 'html-prod', () ->
     .pipe gp.htmlmin htmlminOptions
     .pipe gulp.dest distPath
 
-  gulp.src './src/sitemap.xml'
+  gulp.src ['./src/sitemap.xml', './src/robots.txt']
     .pipe gulp.dest distPath
 
 # ==========================
