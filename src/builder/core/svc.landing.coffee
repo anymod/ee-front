@@ -6,10 +6,10 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
   _userDefaults =
     storefront_meta:
       home:
-        name: ''
+        name: 'Example'
         topBarBackgroundColor: '#dbd6ff'
         topBarColor: '#021709'
-        carousel: [{ imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250403/desk1.jpg' }]
+        # carousel: [{ imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250403/desk1.jpg' }]
       blog: { url: 'https://eeosk.com' }
       about: { headline: 'eeosk' }
       audience:
@@ -19,12 +19,12 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
           twitter:    'twitter'
           instagram:  'instagram'
 
-  _showDefaults =
-    landing: content: true
-    example: content: false
-    popover:
-      edit:     true
-      catalog:  true
+  # _showDefaults =
+  #   landing: content: true
+  #   example: content: false
+  #   popover:
+  #     edit:     true
+  #     catalog:  true
 
   _demoStores = [
     {
@@ -130,6 +130,92 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
     }
   ]
 
+  _themes = [
+    {
+      topBarBackgroundColor: '#414141'
+      topBarColor: '#FFFFFF'
+    },
+    {
+      topBarBackgroundColor: '#FFFFFF'
+      topBarColor: '#555555'
+    },
+    # Dark
+    {
+      topBarBackgroundColor: '#630000'
+      topBarColor: '#FFFFFF'
+    },
+    {
+      topBarBackgroundColor: '#632910'
+      topBarColor: '#FFC6A5'
+    },
+    {
+      topBarBackgroundColor: '#184A18'
+      topBarColor: '#FF92D6'
+    },
+    {
+      topBarBackgroundColor: '#08215A'
+      topBarColor: '#E0E0E0'
+    },
+    {
+      topBarBackgroundColor: '#4A0042'
+      topBarColor: '#FFFF9C'
+    },
+    # Regular
+    {
+      topBarBackgroundColor: '#FF6342'
+      topBarColor: '#FFFFFF'
+    },
+    {
+      topBarBackgroundColor: '#FF9C4A'
+      topBarColor: '#840000'
+    },
+    {
+      topBarBackgroundColor: '#FFFF42'
+      topBarColor: '#555555'
+    },
+    {
+      topBarBackgroundColor: '#52B552'
+      topBarColor: '#FFFFFF'
+    },
+    {
+      topBarBackgroundColor: '#63C6DE'
+      topBarColor: '#FFFF9C'
+    },
+    {
+      topBarBackgroundColor: '#9C7BBD'
+      topBarColor: '#AD0000'
+    },
+    {
+      topBarBackgroundColor: '#DE5AAD'
+      topBarColor: '#FFFFFF'
+    },
+    # Light
+    {
+      topBarBackgroundColor: '#FFE7C6'
+      topBarColor: '#D66321'
+    },
+    {
+      topBarBackgroundColor: '#F7FFCE'
+      topBarColor: '#3152A5'
+    },
+    {
+      topBarBackgroundColor: '#C6E7DE'
+      topBarColor: '#FF3118'
+    },
+    {
+      topBarBackgroundColor: '#C6EFF7'
+      topBarColor: '#103910'
+    },
+    {
+      topBarBackgroundColor: '#C6B5DE'
+      topBarColor: '#333333'
+    },
+    {
+      topBarBackgroundColor: '#F7BDDE'
+      topBarColor: '#08215A'
+    }
+  ]
+
   # Fisher–Yates shuffle algorithm
   _shuffleArray = (array) ->
     if !array then return
@@ -143,67 +229,21 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
     array
 
   ## PRIVATE EXPORT DEFAULTS
-  _show = _showDefaults
+  # _show = _showDefaults
   _data =
     demoStores: _shuffleArray _demoStores
+    meta: _userDefaults.storefront_meta
     signup:
       selections: []
 
-  ## PRIVATE FUNCTIONS
-  # _reset = () -> _show = _showDefaults
-
-  # _showLanding = ()     -> _show.landing.content = true
-  # _hideLanding = ()     -> _show.landing.content = false
-  # _showExample = ()     -> _show.example.content = true
-  # _hideExample = ()     -> _show.example.content = false
-  # _hidePopover = (name) -> _show.popover[name]   = false
-
-  # _scrollTop = () -> $rootScope.scrollTo 'body-top'
-
-  # _landingState = () ->
-  #   _showLanding()
-  #   _hideExample()
-  #   _scrollTop()
-  #
-  # _themeState = () ->
-  #   _hideLanding()
-  #   _hideExample()
-  #   _scrollTop()
-  #
-  # _exampleState = () ->
-  #   _hideLanding()
-  #   _showExample()
-  #   _scrollTop()
-
   ## EXPORTS
-  show: _show
-  data: _data
+  # show:   _show
+  data:   _data
+  themes: _themes
 
   landingUser: _userDefaults
 
   fns:
-    # reset:        () -> _reset()
-    # showState:    (name) ->
-    #   if name is 'landing'    then $timeout _landingState,  100
-    #   if name is 'welcome'    then $timeout _landingState,  100
-    #   if name is 'try-theme'  then $timeout _themeState,    200
-    #   if name is 'example'    then $timeout _exampleState,  200
-
-    # hidePopover: (name) -> _hidePopover name
-
-    # selectProduct: (product, margin) ->
-    #   _data.signup.selections.push {
-    #     product_id:         product.id
-    #     selling_price:      parseInt(product.baseline_price * (100 + margin)/100)
-    #     shipping_price:     product.availability_meta.ship_cost
-    #     title:              product.title
-    #     content:            product.content
-    #     content_meta:       product.content_meta
-    #     image_meta:         product.image_meta
-    #     availability_meta:  product.availability_meta
-    #     collection:         product.category
-    #   }
-
     openExampleModal: () ->
       $modal.open({
         templateUrl: 'builder/example/example.modal.html'

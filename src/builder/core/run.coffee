@@ -21,6 +21,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
     'example'
     'go'
     'create'
+    'create-finishing'
     'your-own-business'
     'easy-to-use'
     'everything-you-need'
