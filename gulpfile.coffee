@@ -106,10 +106,11 @@ gulp.task 'js-prod', () ->
     .pipe gp.concat 'ee.builder.js'
     .pipe gulp.dest distPath
 
-gulp.task 'html-stage', () ->
+gulp.task 'js-stage', () ->
   gulp.src distPath + '/ee.builder.js'
     .pipe gp.plumber()
-    .pipe gp.replace /https:\/\/api\.eeosk\.com/g, 'https://ee-back-staging.herokuapp.com'
+    .pipe gp.replace /api\.eeosk\.com/g, 'ee-back-staging.herokuapp.com'
+    .pipe gulp.dest distPath
 
 
 # ==========================
@@ -216,4 +217,4 @@ gulp.task 'dev', ['watch-dev', 'server-dev'], () -> return
 
 gulp.task 'prod', ['js-prod', 'html-prod', 'copy-prod', 'server-prod'], () -> return
 
-gulp.task 'stage', ['js-prod', 'html-prod', 'copy-prod', 'html-stage'], () -> return
+gulp.task 'stage', ['js-stage'], () -> return
