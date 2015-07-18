@@ -107,7 +107,7 @@ gulp.task 'js-prod', () ->
     .pipe gulp.dest distPath
 
 gulp.task 'html-stage', () ->
-  gulp.src distPath + 'ee.builder.js'
+  gulp.src distPath + '/ee.builder.js'
     .pipe gp.plumber()
     .pipe gp.replace /https:\/\/api\.eeosk\.com/g, 'https://ee-back-staging.herokuapp.com'
 
