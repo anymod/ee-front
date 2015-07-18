@@ -106,6 +106,12 @@ gulp.task 'js-prod', () ->
     .pipe gp.concat 'ee.builder.js'
     .pipe gulp.dest distPath
 
+gulp.task 'html-stage', () ->
+  gulp.src distPath + 'ee.builder.js'
+    .pipe gp.plumber()
+    .pipe gp.replace /https:\/\/api\.eeosk\.com/g, 'https://ee-back-staging.herokuapp.com'
+
+
 # ==========================
 # other tasks
 # copy non-compiled files
@@ -209,3 +215,5 @@ gulp.task 'dev', ['watch-dev', 'server-dev'], () -> return
 # gulp.task 'prod-test', ['pre-prod-test', 'protractor-prod']
 
 gulp.task 'prod', ['js-prod', 'html-prod', 'copy-prod', 'server-prod'], () -> return
+
+gulp.task 'stage', ['js-prod', 'html-prod', 'copy-prod', 'html-stage'], () -> return

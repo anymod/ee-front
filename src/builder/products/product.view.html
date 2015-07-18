@@ -16,7 +16,9 @@
     price="productView.selectionData.selection.selling_price"
     main-image="{{ productView.productData.product.image_meta.main_image.url }}"
     details="productView.productData.product"
-    disabled="true">
+    disabled="true"
+    out-of-stock="productView.productData.product.out_of_stock"
+    discontinued="productView.productData.product.discontinued">
   </ee-selection-card>
   <!-- /PRODUCT PREVIEW -->
 </div>
