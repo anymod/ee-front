@@ -220,15 +220,12 @@ gulp.task 'watch-test', () ->
 # ===========================
 # runners
 
-gulp.task 'test', ['js-test', 'html-dev', 'server-test', 'watch-test'], () -> return
-
 # gulp.task 'dev', ['watch-dev', 'server-dev'], () -> return
-gulp.task 'dev', (cb) -> runSequence 'server-dev', 'js-dev', 'watch-dev', cb
-#
-# gulp.task 'prod-test', ['pre-prod-test', 'protractor-prod']
-
 # gulp.task 'prod', ['js-prod', 'html-prod', 'copy-prod', 'server-prod'], () -> return
+# gulp.task 'prod-test', ['pre-prod-test', 'protractor-prod']
+# gulp.task 'stage', ['js-stage'], () -> return
 
+gulp.task 'test', ['js-test', 'html-dev', 'server-test', 'watch-test'], () -> return
+gulp.task 'dev', (cb) -> runSequence 'server-dev', 'js-dev', 'watch-dev', cb
 gulp.task 'prod', (cb) -> runSequence 'js-prod', 'html-prod', 'copy-prod', 'server-prod', cb
-
-gulp.task 'stage', ['js-stage'], () -> return
+gulp.task 'stage', (cb) -> runSequence 'js-prod', 'html-prod', 'copy-prod', 'js-stage', cb
