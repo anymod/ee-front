@@ -6,6 +6,7 @@ gp    = do require "gulp-load-plugins"
 
 streamqueue = require 'streamqueue'
 combine     = require 'stream-combiner'
+runSequence = require 'run-sequence'
 protractor  = require('gulp-protractor').protractor
 
 sources     = require './gulp.sources'
@@ -29,13 +30,16 @@ htmlminOptions =
 ## ==========================
 ## html tasks
 
-gulp.task 'html-dev', () ->
+copyDevHtml = () ->
+  console.log 'updated ./src/builder.html'
   gulp.src './src/builder.html'
     .pipe gp.plumber()
     .pipe gp.htmlReplace
       css: 'ee-shared/stylesheets/ee.css'
       js: sources.builderJs(), { keepBlockTags: true }
     .pipe gulp.dest './src'
+
+gulp.task 'html-dev', () -> copyDevHtml()
 
 gulp.task 'html-prod', () ->
   gulp.src './src/builder.html'
@@ -69,6 +73,17 @@ copyToSrcJs = (url) ->
 
   gulp.src ['./src/**/constants.coffee'] # ** glob forces dest to same subdir
     .pipe gp.replace /@@eeBackUrl/g, url
+    .pipe gp.plumber()
+    .pipe gp.sourcemaps.init()
+    .pipe gp.coffee()
+    .pipe gp.sourcemaps.write './'
+    .pipe gulp.dest './src/js'
+
+copySingleToSrcJs = (path, url) ->
+  split = path.split('/')
+  file = split[split.length - 1]
+  console.log 'copied ./src/**/' + file + ' to ./src/js/**/' + file
+  gulp.src './src/**/' + file
     .pipe gp.plumber()
     .pipe gp.sourcemaps.init()
     .pipe gp.coffee()
@@ -189,10 +204,12 @@ gulp.task 'server-prod', () -> spawn 'foreman', ['start'], stdio: 'inherit'
 # watchers
 
 gulp.task 'watch-dev', () ->
-  gulp.src './src/**/*.coffee'
-    .pipe gp.watch { emit: 'one', name: 'js' }, ['js-dev']
-  gulp.src './src/**/*.html'
-    .pipe gp.watch { emit: 'one', name: 'html' }, ['html-dev']
+  gulp.watch './src/**/*.coffee', (obj) -> copySingleToSrcJs obj.path, 'http://localhost:5000'
+  gulp.watch './src/builder.html',   (obj) -> copyDevHtml()
+  # gulp.src './src/**/*.coffee'
+  #   .pipe gp.watch { emit: 'one', name: 'js' }, ['js-dev']
+  # gulp.src './src/**/*.html'
+  #   .pipe gp.watch { emit: 'one', name: 'html' }, ['html-dev']
 
 gulp.task 'watch-test', () ->
   gulp.src './src/**/*.coffee'
@@ -205,16 +222,13 @@ gulp.task 'watch-test', () ->
 
 gulp.task 'test', ['js-test', 'html-dev', 'server-test', 'watch-test'], () -> return
 
-gulp.task 'dev', ['watch-dev', 'server-dev'], () -> return
-
-# gulp.task 'pre-prod-test', ['css-prod', 'html-prod', 'copy-prod', 'js-prod', 'server-prod'], () ->
-#   gulp.src './dist/ee.builder.js'
-#     .pipe gp.replace /https:\/\/api\.eeosk\.com/g, 'http://localhost:5555'
-#     .pipe gulp.dest distPath
-#   return
+# gulp.task 'dev', ['watch-dev', 'server-dev'], () -> return
+gulp.task 'dev', (cb) -> runSequence 'server-dev', 'js-dev', 'watch-dev', cb
 #
 # gulp.task 'prod-test', ['pre-prod-test', 'protractor-prod']
 
-gulp.task 'prod', ['js-prod', 'html-prod', 'copy-prod', 'server-prod'], () -> return
+# gulp.task 'prod', ['js-prod', 'html-prod', 'copy-prod', 'server-prod'], () -> return
+
+gulp.task 'prod', (cb) -> runSequence 'js-prod', 'html-prod', 'copy-prod', 'server-prod', cb
 
 gulp.task 'stage', ['js-stage'], () -> return
