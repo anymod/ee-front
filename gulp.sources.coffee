@@ -108,6 +108,10 @@ sources.builderModule = [
   './src/builder/edit/edit.module.coffee'
   './src/builder/edit/edit.route.coffee'
   './src/builder/edit/edit.controller.coffee'
+  # Module - promote
+  './src/builder/promote/promote.module.coffee'
+  './src/builder/promote/promote.route.coffee'
+  './src/builder/promote/promote.controller.coffee'
   # Module - terms
   './src/builder/terms/terms.module.coffee'
   './src/builder/terms/terms.route.coffee'
@@ -117,10 +121,6 @@ sources.builderModule = [
   './src/builder/storefront/storefront.module.coffee'
   './src/builder/storefront/storefront.route.coffee'
   './src/builder/storefront/storefront.controller.coffee'
-  # Module - catalog
-  # './src/builder/catalog/catalog.module.coffee'
-  # './src/builder/catalog/catalog.route.coffee'
-  # './src/builder/catalog/catalog.controller.coffee'
   # Module - products
   './src/builder/products/products.module.coffee'
   './src/builder/products/products.route.coffee'
@@ -131,6 +131,11 @@ sources.builderModule = [
   './src/builder/selections/selections.route.coffee'
   './src/builder/selections/selections.controller.coffee'
   './src/builder/selections/selection.view.controller.coffee'
+  # Module - collections
+  './src/builder/collections/collections.module.coffee'
+  './src/builder/collections/collections.route.coffee'
+  './src/builder/collections/collections.controller.coffee'
+  './src/builder/collections/collection.view.controller.coffee'
   # Module - orders
   './src/builder/orders/orders.module.coffee'
   './src/builder/orders/orders.route.coffee'
@@ -145,7 +150,7 @@ sources.builderModule = [
 sources.builderDirective = [
   './src/ee-shared/components/ee-terms-seller.coffee'
   './src/ee-shared/components/ee-terms-privacy.coffee'
-  './src/ee-shared/components/ee-navbar.coffee'
+  './src/ee-shared/components/ee-builder-navbar.coffee'
   # './src/ee-shared/components/ee-product.coffee'
   './src/ee-shared/components/ee-selection-editor-card.coffee'
   './src/ee-shared/components/ee-selection-card.coffee'

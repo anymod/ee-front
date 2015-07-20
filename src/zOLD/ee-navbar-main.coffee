@@ -1,7 +1,7 @@
-angular.module 'ee-navbar-main', []
+angular.module 'ee-builder-navbar-main', []
 
-angular.module('ee-navbar-main').directive "eeNavbarMain", ($state, $window, eeDefiner, eeModal) ->
-  templateUrl: 'components/ee-navbar-main.html'
+angular.module('ee-builder-navbar-main').directive "eeNavbarMain", ($state, $window, eeDefiner, eeModal) ->
+  templateUrl: 'components/ee-builder-navbar-main.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attrs) ->

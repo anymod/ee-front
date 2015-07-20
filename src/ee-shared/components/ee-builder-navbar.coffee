@@ -1,7 +1,7 @@
-angular.module 'ee-navbar', []
+angular.module 'ee-builder-navbar', []
 
-angular.module('ee-navbar').directive "eeNavbar", (eeDefiner, eeModal) ->
-  templateUrl: 'ee-shared/components/ee-navbar.html'
+angular.module('ee-builder-navbar').directive "eeBuilderNavbar", (eeDefiner, eeModal) ->
+  templateUrl: 'ee-shared/components/ee-builder-navbar.html'
   restrict: 'E'
   scope:
     transparent: '@'
@@ -10,6 +10,7 @@ angular.module('ee-navbar').directive "eeNavbar", (eeDefiner, eeModal) ->
     storefront: '@'
     product: '@'
     selection: '@'
+    collection: '@'
     save: '@'
     dropdown: '@'
     back: '@'

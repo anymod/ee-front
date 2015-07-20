@@ -28,13 +28,12 @@ angular.module('builder.create').controller 'createCtrl', ($state, $rootScope, e
   #   create.products.splice(index, 1) if index > -1
 
   ## Section 2
-  create.theme = {}
   create.setTheme = (theme, set) ->
     create.meta.themeSet = set
-    create.theme.topBarBackgroundColor      = theme.topBarBackgroundColor
-    create.theme.topBarColor                = theme.topBarColor
-    create.meta.home.topBarBackgroundColor  = create.theme.topBarBackgroundColor
-    create.meta.home.topBarColor            = create.theme.topBarColor
+    create.landingData.theme.topBarBackgroundColor = theme.topBarBackgroundColor
+    create.landingData.theme.topBarColor           = theme.topBarColor
+    create.meta.home.topBarBackgroundColor  = create.landingData.theme.topBarBackgroundColor
+    create.meta.home.topBarColor            = create.landingData.theme.topBarColor
 
   create.setTheme create.themes[0]
 
@@ -45,9 +44,10 @@ angular.module('builder.create').controller 'createCtrl', ($state, $rootScope, e
     setBtnText 'Sending...'
     data =
       products: create.products
-      theme: create.theme
+      theme: create.landingData.theme
       username: create.username
       password: create.password
+    console.log 'data', data
     eeAuth.fns.completeNewUser data, $state.params.token
     .then (data) ->
       $state.go 'storefront'

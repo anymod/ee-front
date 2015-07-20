@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.landing').config ($stateProvider) ->
+angular.module('builder.edit').config ($stateProvider) ->
 
   views =
     header:

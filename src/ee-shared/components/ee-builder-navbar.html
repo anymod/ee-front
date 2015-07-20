@@ -3,6 +3,7 @@
   storefront:  when true show buttons on storefront page
   product:     when true show buttons on product page
   selection:   when true show buttons on selection page
+  selection:   when true show buttons on collection page
   edit:        when true show buttons on edit page
   dropdown:    when true show dropdown instead of logo
   back:        when true show back button instead of logo
@@ -10,7 +11,7 @@
   fixed:       when true fix navbar to top of page
 //-->
 
-<nav class="navbar ee-navbar round-0" id="navbar-top" ng-class="{ 'navbar-transparent': transparent, 'box-shadow': !transparent, 'navbar-fixed-top': fixed, 'navbar-absolute-top': !fixed }">
+<nav class="navbar ee-builder-navbar round-0" id="navbar-top" ng-class="{ 'navbar-transparent': transparent, 'box-shadow': !transparent, 'navbar-fixed-top': fixed, 'navbar-absolute-top': !fixed }">
   <div class="container-fluid">
     <div class="margin-7">
 
@@ -70,7 +71,7 @@
       <!-- storefront: buttons on storefront page -->
       <div ng-if="storefront" class="storefront-buttons">
         <div class="position-fixed text-center">
-          <div ui-sref="products" class="btn btn-info">Products</div>&nbsp;<a ui-sref="edit" class="btn btn-success">Edit</a>
+          <a ui-sref="collections" class="btn btn-info">Collections</a>&nbsp;<a ui-sref="edit" class="btn btn-success">Look & Feel</a>&nbsp;<a ui-sref="promote" class="btn btn-primary">Promote</a>
         </div>
         <a class="btn btn-link pull-right hidden-xs" href="https://{{ ee.user.username }}.eeosk.com" target="_blank">
           Live&nbsp;<i class="fa fa-fw fa-external-link"></i>

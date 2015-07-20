@@ -27,15 +27,17 @@ angular.module 'eeBuilder', [
   # 'builder.catalog'
   'builder.products'
   'builder.selections'
+  'builder.collections'
   'builder.orders'
   'builder.account'
   'builder.example'
   'builder.edit'
+  'builder.promote'
 
   # custom
   'ee-terms-seller'
   'ee-terms-privacy'
-  'ee-navbar'
+  'ee-builder-navbar'
   'ee-save'
   # 'ee-product'
   'ee-selection-editor-card'

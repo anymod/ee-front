@@ -19,7 +19,6 @@ app             = express()
 
 # builder is tool for building storefront; store is actual storefront
 builder         = express()
-# store           = express()
 
 forceSsl = (req, res, next) ->
   if req.headers['x-forwarded-proto'] isnt 'https'
