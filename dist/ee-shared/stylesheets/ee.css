@@ -8558,14 +8558,14 @@ html {
   left: 0;
   right: 0;
 }
-.ee-navbar .storefront-buttons .position-fixed {
+.ee-builder-navbar .storefront-buttons .position-fixed {
   top: 8px;
   left: 50%;
-  width: 150px;
-  margin-left: -75px;
+  width: 300px;
+  margin-left: -150px;
 }
 @media (max-width: 767px) {
-  .ee-navbar .storefront-buttons .position-fixed {
+  .ee-builder-navbar .storefront-buttons .position-fixed {
     left: auto;
     margin-left: 0;
     right: 5px;
