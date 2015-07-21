@@ -233,7 +233,7 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
   _data =
     demoStores: _shuffleArray _demoStores
     meta: _userDefaults.storefront_meta
-    theme: _themes[0]
+    theme: angular.copy(_themes[0])
     signup:
       selections: []
 

@@ -14,27 +14,42 @@
       <!-- SOCIAL -->
       <div ng-if="$state.current.name == 'promote.social'">
         <!-- EDITOR top bar social -->
-        <div class="form-group vert-5">
-          <label class="col-sm-4 control-label">Social Media</label>
+        <div class="form-group vert-2">
+          <label class="col-sm-4 control-label">Facebook</label>
           <div class="col-sm-3">
-            <div class="input-group vert-5">
+            <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-fw fa-facebook"></i></span>
-              <input type="text" class="form-control" placeholder="Facebook username" ng-model="promote.ee.meta.audience.social.facebook">
+              <input type="text" class="form-control" placeholder="username" ng-model="promote.ee.meta.audience.social.facebook">
               <span ng-if="promote.ee.meta.audience.social.facebook" class="input-group-addon white-background"><a href="http://facebook.com/{{ promote.ee.meta.audience.social.facebook }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
             </div>
-            <div class="input-group vert-5">
+          </div>
+        </div>
+        <div class="form-group vert-2">
+          <label class="col-sm-4 control-label">Pinterest</label>
+          <div class="col-sm-3">
+            <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-fw fa-pinterest"></i></span>
-              <input type="text" class="form-control" placeholder="Pinterest username" ng-model="promote.ee.meta.audience.social.pinterest">
+              <input type="text" class="form-control" placeholder="username" ng-model="promote.ee.meta.audience.social.pinterest">
               <span ng-if="promote.ee.meta.audience.social.pinterest" class="input-group-addon white-background"><a href="http://pinterest.com/{{ promote.ee.meta.audience.social.pinterest }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
             </div>
-            <div class="input-group vert-5">
+          </div>
+        </div>
+        <div class="form-group vert-2">
+          <label class="col-sm-4 control-label">Twitter</label>
+          <div class="col-sm-3">
+            <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-fw fa-twitter"></i></span>
-              <input type="text" class="form-control" placeholder="Twitter username" ng-model="promote.ee.meta.audience.social.twitter">
+              <input type="text" class="form-control" placeholder="username" ng-model="promote.ee.meta.audience.social.twitter">
               <span ng-if="promote.ee.meta.audience.social.twitter" class="input-group-addon white-background"><a href="http://twitter.com/{{ promote.ee.meta.audience.social.twitter }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
             </div>
-            <div class="input-group vert-5">
+          </div>
+        </div>
+        <div class="form-group vert-2">
+          <label class="col-sm-4 control-label">Instagram</label>
+          <div class="col-sm-3">
+            <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-fw fa-instagram"></i></span>
-              <input type="text" class="form-control" placeholder="Instagram username" ng-model="promote.ee.meta.audience.social.instagram">
+              <input type="text" class="form-control" placeholder="username" ng-model="promote.ee.meta.audience.social.instagram">
               <span ng-if="promote.ee.meta.audience.social.instagram" class="input-group-addon white-background"><a href="http://instagram.com/{{ promote.ee.meta.audience.social.instagram }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
             </div>
           </div>
@@ -55,10 +70,10 @@
 
       <!-- BLOG -->
       <div ng-if="$state.current.name == 'promote.blog'">
-        <div class="form-group vert-5">
+        <div class="form-group vert-10">
           <label class="col-sm-3 control-label">Blog</label>
           <div class="col-sm-6">
-            <div class="input-group margin-0">
+            <div class="input-group vert-10">
               <span class="input-group-addon"><i class="fa fa-fw fa-link"></i></span>
               <input type="text" class="form-control" placeholder="http://" ng-model="promote.ee.meta.blog.url">
               <span ng-if="promote.ee.meta.blog.url" class="input-group-addon white-background"><a href="{{ promote.ee.meta.blog.url | addHttp }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
