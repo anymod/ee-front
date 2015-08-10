@@ -122,7 +122,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .finally () -> _exports.confirming = false
     deferred.promise
 
-  _saveUser = () -> eeBack.usersPUT _exports.user, $cookies.loginToken
+  # _saveUser = () -> eeBack.usersPUT _exports.user, $cookies.loginToken
 
   ## EXPORTS
   exports: _exports
@@ -136,7 +136,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
     createUserFromEmail: (email, proposition) -> _createUserFromEmail email, proposition
     completeNewUser: (data, token) -> _completeNewUser data, token
 
-    saveUser: () -> _saveUser()
+    # saveUser: () -> _saveUser()
     setUserIsSaved: (bool) -> _userIsSaved = bool
     userIsSaved: () -> _userIsSaved
     userIsntSaved: () -> !_userIsSaved

@@ -67,6 +67,13 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       data: { email: email }
     }
 
+  usersGET: (token) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'users'
+      headers: authorization: token
+    }
+
   usersPUT: (user, token) ->
     _makeRequest {
       method: 'PUT'
@@ -136,6 +143,27 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
     _makeRequest {
       method: 'GET'
       url: eeBackUrl + 'products/' + id
+      headers: authorization: token
+    }
+
+  ownCollectionsGET: (token, query) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'collections' + _formQueryString(query)
+      headers: authorization: token
+    }
+
+  collectionGET: (id, token) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'collections/' + id
+      headers: authorization: token
+    }
+
+  publicCollectionsGET: (token, query) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'collections/public' + _formQueryString(query)
       headers: authorization: token
     }
 

@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.landing').controller 'landingCtrl', ($state, eeDefiner, eeAuth, eeModal, eeLanding, eeStorefront) ->
+angular.module('builder.landing').controller 'landingCtrl', ($state, eeDefiner, eeAuth, eeModal, eeLanding) ->
 
   that = this
 

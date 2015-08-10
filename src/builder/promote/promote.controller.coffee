@@ -1,11 +1,10 @@
 'use strict'
 
-angular.module('builder.promote').controller 'promoteCtrl', (eeDefiner, eeLanding, eeStorefront) ->
+angular.module('builder.promote').controller 'promoteCtrl', (eeDefiner, eeLanding) ->
 
   promote = this
 
   promote.ee           = eeDefiner.exports
-  promote.data         = eeStorefront.data
   promote.landingData  = eeLanding.data
 
   promote.setCarouselImage = (imgUrl) -> eeDefiner.exports.carousel.imgUrl = imgUrl

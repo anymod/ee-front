@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeDefiner', ($rootScope, eeAuth, eeStorefront, eeLanding) ->
+angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLanding, eeUser, eeStoreProduct, eeCollections) ->
 
   ## SETUP
   _isBuilder = $rootScope.isBuilder
@@ -9,7 +9,8 @@ angular.module('app.core').factory 'eeDefiner', ($rootScope, eeAuth, eeStorefron
   _loggedOut = !_loggedIn
 
   _exports =
-    user:           {}
+    User:           eeUser.data
+    Collections:    eeCollections.data
     meta:           {}
     carousel:       {}
     about:          {}
@@ -17,11 +18,15 @@ angular.module('app.core').factory 'eeDefiner', ($rootScope, eeAuth, eeStorefron
     product_ids:    []
     selection_map:  {}
     categories:     ['All']
-    collections:    ['Featured']
     logged_in:      _loggedIn
     loading:        {}
     blocked:        {}
     unsaved:        false
+
+  # TODO base exports on other modules
+  # _exports.user           = eeUser.data
+  # _exports.storeProducts  = eeStoreProduct.data
+  # _exports.collections    = eeCollection.data
 
   ## PRIVATE FUNCTIONS
   _collectionsArray = (collections) ->
@@ -39,7 +44,6 @@ angular.module('app.core').factory 'eeDefiner', ($rootScope, eeAuth, eeStorefron
     _exports.product_ids    = data.product_ids
     _exports.selection_map  = data.selection_map
     _exports.categories     = data.categories
-    _exports.collections    = _collectionsArray user.collections
     _exports.logged_in      = eeAuth.fns.hasToken()
 
   _defineLoggedIn = () ->
@@ -48,8 +52,13 @@ angular.module('app.core').factory 'eeDefiner', ($rootScope, eeAuth, eeStorefron
     _exports.loading    = true
     _exports.blocked    = false
     eeAuth.fns.defineUserFromToken()
-    .then     () -> eeStorefront.fns.defineStorefrontFromToken()
-    .then     () -> _fillExportData eeAuth.exports.user, eeStorefront.data
+    # TODO define user, storeProducts, and collections as needed
+    # eeUser.fns.defineUser()
+    # eeStoreProduct.fns.defineStoreProducts()
+    # eeCollection.fns.defineCollections()
+
+    # .then     () -> eeStorefront.fns.defineStorefrontFromToken()
+    # .then     () -> _fillExportData eeAuth.exports.user, eeStorefront.data
     .catch (err) -> return # console.error err
     .finally  () -> _exports.loading = false
 
@@ -58,20 +67,20 @@ angular.module('app.core').factory 'eeDefiner', ($rootScope, eeAuth, eeStorefron
     _exports.logged_in  = false
     _exports.loading    = false
     _exports.blocked    = true
-    _fillExportData {}, eeStorefront.data
+    # _fillExportData {}, eeStorefront.data
 
-  _defineCustomerStore = () ->
-    console.info '_defineCustomerStore'
-    _exports.logged_in  = false
-    _exports.loading    = true
-    _exports.blocked    = false
-    eeStorefront.fns.defineCustomerStore()
-    .then  (res) -> _fillExportData res, eeStorefront.data
-    .catch (err) -> console.error err
-    .finally  () -> _exports.loading = false
+  # _defineCustomerStore = () ->
+  #   console.info '_defineCustomerStore'
+  #   _exports.logged_in  = false
+  #   _exports.loading    = true
+  #   _exports.blocked    = false
+  #   eeStorefront.fns.defineCustomerStore()
+  #   .then  (res) -> _fillExportData res, eeStorefront.data
+  #   .catch (err) -> console.error err
+  #   .finally  () -> _exports.loading = false
 
   ## DEFINITION LOGIC
-  if _isStore                   then _defineCustomerStore()
+  # if _isStore                   then _defineCustomerStore()
   if _isBuilder and _loggedIn   then _defineLoggedIn()
   if _isBuilder and _loggedOut  then _defineLanding()
 

@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.selections').controller 'selectionsCtrl', ($state, $stateParams, eeSelections, eeDefiner, eeStorefront) ->
+angular.module('builder.selections').controller 'selectionsCtrl', ($state, $stateParams, eeSelections, eeDefiner) ->
 
   this.ee = eeDefiner.exports
 

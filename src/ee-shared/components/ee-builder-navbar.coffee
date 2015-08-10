@@ -1,21 +1,23 @@
 angular.module 'ee-builder-navbar', []
 
-angular.module('ee-builder-navbar').directive "eeBuilderNavbar", (eeDefiner, eeModal) ->
+angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, eeDefiner, eeModal) ->
   templateUrl: 'ee-shared/components/ee-builder-navbar.html'
   restrict: 'E'
   scope:
+    logo: '@'
+    dropdown: '@'
+    home: '@'
+    save: '@'
+    back: '@'
+    storefront: '@'
+    selection: '@'
+    collection: '@'
     transparent: '@'
     fixed: '@'
     signin: '@'
-    storefront: '@'
-    product: '@'
-    selection: '@'
-    collection: '@'
-    save: '@'
-    dropdown: '@'
-    back: '@'
   link: (scope, ele, attrs) ->
-    scope.ee        = eeDefiner.exports
-    scope.feedback  = () -> eeModal.fns.open 'feedback'
-    scope.catalog   = eeModal.fns.openCatalogModal
+    scope.ee          = eeDefiner.exports
+    scope.feedback    = () -> eeModal.fns.open 'feedback'
+    scope.historyBack = () -> $window?.history?.back()
+    scope.catalog     = eeModal.fns.openCatalogModal
     return

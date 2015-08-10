@@ -1,14 +1,19 @@
 'use strict'
 
-angular.module('builder.storefront').controller 'storefrontCtrl', ($state, eeDefiner, eeStorefront, eeModal) ->
+angular.module('builder.storefront').controller 'storefrontCtrl', ($state, eeDefiner, eeUser, eeCollection, eeCollections) ->
 
   storefront = this
 
   storefront.ee       = eeDefiner.exports
-  storefront.data     = eeStorefront.data
   storefront.state    = $state.current.name
-  storefront.modalFns = eeModal.fns
 
-  eeStorefront.fns.defineStorefrontFromToken $state.params.title
+  # TODO populate user, storeProducts, collections, etc
+  eeUser.fns.defineUser()
+  .then () ->
+    return unless storefront.ee?.User?.user?.storefront_meta?
+    storefront.ee.meta      = storefront.ee.User.user.storefront_meta
+    storefront.ee.carousel  = storefront.ee.User.user.storefront_meta.home.carousel[0]
+
+  eeCollections.fns.defineOwnCollections()
 
   return

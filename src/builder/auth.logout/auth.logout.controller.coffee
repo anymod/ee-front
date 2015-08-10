@@ -1,7 +1,6 @@
 'use strict'
 
-angular.module('builder.auth').controller 'logoutCtrl', ($state, eeAuth, eeStorefront, eeCatalog, eeSelection, eeOrders) ->
-  eeStorefront.fns.logout()
+angular.module('builder.auth').controller 'logoutCtrl', ($state, eeAuth) ->
   ## TODO re-implement reset functions (or equivalent)
   # eeCatalog.reset()
   # eeSelection.reset()

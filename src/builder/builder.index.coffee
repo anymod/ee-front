@@ -42,7 +42,7 @@ angular.module 'eeBuilder', [
   # 'ee-product'
   'ee-selection-editor-card'
   'ee-selection-for-storefront'
-  'ee-shop-nav'
+  'ee-collection-nav'
   'ee-selection-card'
   'ee-order'
   'ee-cloudinaryUpload'

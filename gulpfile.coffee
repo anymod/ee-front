@@ -62,8 +62,7 @@ gulp.task 'html-prod', () ->
 # ==========================
 # js tasks
 
-copyToSrcJs = (url) ->
-
+copyToSrcJs = () ->
   gulp.src ['./src/**/!(constants.coffee)*.coffee'] # ** glob forces dest to same subdir
     .pipe gp.plumber()
     .pipe gp.sourcemaps.init()
@@ -71,6 +70,7 @@ copyToSrcJs = (url) ->
     .pipe gp.sourcemaps.write './'
     .pipe gulp.dest './src/js'
 
+copyConstantToSrcJs = (url) ->
   gulp.src ['./src/**/constants.coffee'] # ** glob forces dest to same subdir
     .pipe gp.replace /@@eeBackUrl/g, url
     .pipe gp.plumber()
@@ -90,8 +90,13 @@ copySingleToSrcJs = (path, url) ->
     .pipe gp.sourcemaps.write './'
     .pipe gulp.dest './src/js'
 
-gulp.task 'js-test',  () -> copyToSrcJs 'http://localhost:5555'
-gulp.task 'js-dev',   () -> copyToSrcJs 'http://localhost:5000'
+gulp.task 'js-test',  () ->
+  copyToSrcJs()
+  copyConstantToSrcJs 'http://localhost:5555'
+
+gulp.task 'js-dev',   () ->
+  copyToSrcJs()
+  copyConstantToSrcJs 'http://localhost:5000'
 
 gulp.task 'js-prod', () ->
   # inline templates; no need for ngAnnotate
@@ -205,7 +210,8 @@ gulp.task 'server-prod', () -> spawn 'foreman', ['start'], stdio: 'inherit'
 
 gulp.task 'watch-dev', () ->
   gulp.watch './src/**/*.coffee', (obj) -> copySingleToSrcJs obj.path, 'http://localhost:5000'
-  gulp.watch './src/builder.html',   (obj) -> copyDevHtml()
+  gulp.watch './src/**/constants.coffee', (obj) -> copyConstantToSrcJs 'http://localhost:5000'
+  gulp.watch './src/builder.html', (obj) -> copyDevHtml()
   # gulp.src './src/**/*.coffee'
   #   .pipe gp.watch { emit: 'one', name: 'js' }, ['js-dev']
   # gulp.src './src/**/*.html'

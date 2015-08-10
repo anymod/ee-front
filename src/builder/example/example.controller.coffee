@@ -1,11 +1,8 @@
 'use strict'
 
-angular.module('builder.example').controller 'exampleCtrl', (eeLanding, eeStorefront) ->
+angular.module('builder.example').controller 'exampleCtrl', (eeLanding) ->
 
   this.ee = {}
-  this.data = eeStorefront.data
-
-  this.show = eeLanding.show
 
   this.openExampleModal = () ->
     eeLanding.fns.openExampleModal()
@@ -117,13 +114,14 @@ angular.module('builder.example').controller 'exampleCtrl', (eeLanding, eeStoref
 
   ## For ngInclude partials
   this.ee.carousel     = this.ee.meta?.home?.carousel[0]
-  this.data.selections = example_selections
-  this.data.collection_names = [
-    'featured',
-    'home_accents',
-    'furniture',
-    'kitchen',
-    'artwork'
-  ]
+  this.data =
+    selections: example_selections
+    collection_names: [
+      'featured',
+      'home_accents',
+      'furniture',
+      'kitchen',
+      'artwork'
+    ]
 
   return

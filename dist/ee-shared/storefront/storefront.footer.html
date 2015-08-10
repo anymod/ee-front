@@ -30,9 +30,9 @@
       <div class="col col-sm-2" ng-if="storefront">
         <ul class="nav nav-pills nav-stacked nav-compact">
           <li class="disabled">Collections</li>
-          <ee-shop-nav collections="storefront.data.collection_names"
+          <ee-collection-nav collections="storefront.data.collection_names"
                        class="nav nav-pills nav-stacked nav-compact">
-          </ee-shop-nav>
+          </ee-collection-nav>
         </ul>
       </div>
       <div class="col col-sm-2" ng-if="!!storefront.data.meta.audience.social.facebook || !!storefront.data.meta.audience.social.pinterest || !!storefront.data.meta.audience.social.twitter || !!storefront.data.meta.audience.social.instagram || !!storefront.data.meta.audience.contact.email">

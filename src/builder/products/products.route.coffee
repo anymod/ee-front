@@ -4,19 +4,19 @@ angular.module('builder.products').config ($stateProvider) ->
 
   $stateProvider
 
-    .state 'products',
-      url: '/products'
-      views:
-        header:
-          controller: 'productsCtrl as products'
-          templateUrl: 'builder/products/products.header.html'
-        top:
-          controller: 'productsCtrl as products'
-          templateUrl: 'builder/products/products.html'
-      data:
-        pageTitle:        'Add products | eeosk'
-        pageDescription:  'Choose products to add to your store.'
-        padTop:           '50px'
+    # .state 'products',
+    #   url: '/products'
+    #   views:
+    #     header:
+    #       controller: 'productsCtrl as products'
+    #       templateUrl: 'builder/products/products.header.html'
+    #     top:
+    #       controller: 'productsCtrl as products'
+    #       templateUrl: 'builder/products/products.html'
+    #   data:
+    #     pageTitle:        'Add products | eeosk'
+    #     pageDescription:  'Choose products to add to your store.'
+    #     padTop:           '50px'
 
     .state 'productView',
       url: '/products/:id'

@@ -19,7 +19,7 @@ angular.module('builder.auth').controller 'loginCtrl', ($state, eeAuth, eeModal)
     .catch (err) ->
       resetBtnText()
       alert = err.message || err || 'Problem logging in'
-      if typeof alert is 'object' then alert = 'Problem logging in'
+      if typeof alert is 'object' or alert.length > 200 then alert = 'Problem logging in'
       that.alert = alert
 
   this.signup = () -> eeModal.fns.open 'signup'

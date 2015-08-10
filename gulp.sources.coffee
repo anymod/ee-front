@@ -50,14 +50,15 @@ sources.appModule = [
   './src/ee-shared/core/run.coffee'
   # Services
   './src/ee-shared/core/svc.back.coffee'
-  './src/ee-shared/core/svc.storefront.coffee'
-  './src/ee-shared/core/svc.selection.coffee'
+  './src/ee-shared/core/svc.definer.coffee'
+  # './src/ee-shared/core/svc.storefront.coffee'
+  # './src/ee-shared/core/svc.selection.coffee'
+  # './src/ee-shared/core/svc.selections.coffee'
   './src/ee-shared/core/svc.modal.coffee'
   './src/ee-shared/core/svc.definer.coffee'
-  './src/ee-shared/core/svc.selections.coffee'
-  './src/ee-shared/core/svc.collections.coffee'
+  # './src/ee-shared/core/svc.collections.coffee'
   # Product modal
-  './src/ee-shared/product/product.modal.controller.coffee'
+  # './src/ee-shared/product/product.modal.controller.coffee'
 ]
 sources.builderModule = [
   # Definitions
@@ -66,11 +67,16 @@ sources.builderModule = [
   './src/builder/core/run.coffee'
   # Services
   './src/builder/core/svc.auth.coffee'
+  './src/builder/core/svc.definer.coffee'
   './src/builder/core/svc.cart.coffee'
   './src/builder/core/svc.catalog.coffee'
   './src/builder/core/svc.landing.coffee'
   './src/builder/core/svc.orders.coffee'
   './src/builder/core/svc.product.coffee'
+  './src/builder/core/svc.storeproduct.coffee'
+  './src/builder/core/svc.user.coffee'
+  './src/builder/core/svc.collection.coffee'
+  './src/builder/core/svc.collections.coffee'
   # Module - auth
   './src/builder/auth/auth.module.coffee'
   # auth.login
@@ -157,7 +163,7 @@ sources.builderDirective = [
   './src/ee-shared/components/ee-selection-card.coffee'
   './src/ee-shared/components/ee-selection-for-storefront.coffee'
   './src/ee-shared/components/ee-save.coffee'
-  './src/ee-shared/components/ee-shop-nav.coffee'
+  './src/ee-shared/components/ee-collection-nav.coffee'
   './src/ee-shared/components/ee-order.coffee'
   './src/ee-shared/components/ee-cloudinary-upload.coffee'
   './src/ee-shared/components/ee-image-preload.coffee'

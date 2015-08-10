@@ -1,1 +1,8 @@
-collection.view.header.html
+<!-- MAIN NAVBAR -->
+<ee-builder-navbar fixed="true" collection="true"></ee-builder-navbar>
+<!-- /MAIN NAVBAR -->
+
+<div class="position-fixed" style="left: 70px; right: 15px; top: 7px; z-index: 1050;">
+  <div ng-click="collectionView.save()" ng-disabled="collectionView.data.reading" class="btn btn-default">Save</div>
+  <div ng-click="collectionView.delete()" ng-disabled="collectionView.data.destroying" class="btn btn-default pull-right">Remove Collection</div>
+</div>

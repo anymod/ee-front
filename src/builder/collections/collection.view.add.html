@@ -1,0 +1,13 @@
+<div class="container text-center vert-20">
+  <!-- Navigation -->
+  <div class="full-width margin-0-auto max-width-600">
+    <h3 class="vert-20 font-weight-200">Add Products</h3>
+    <div class="well white-background box-shadow pad-0 overflow-hidden">
+      <div class="row margin-0">
+        <div ui-sref="collectionView({ id: collectionView.id })" ng-class="{ 'bg-info':collectionView.state == 'collectionView' }" class="col-xs-6 font-weight-200 pad-15 hover-pointer">Details</div>
+        <div ui-sref="collectionViewAdd({ id: collectionView.id })" ng-class="{ 'bg-info':collectionView.state == 'collectionViewAdd' }" class="col-xs-6 font-weight-200 pad-15 hover-pointer">Add Products</div>
+      </div>
+    </div>
+  </div>
+  <!-- /Navigation -->
+</div>

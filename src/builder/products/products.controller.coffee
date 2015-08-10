@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.products').controller 'productsCtrl', (eeDefiner, eeProduct, eeStorefront, eeCatalog, eeSelections) ->
+angular.module('builder.products').controller 'productsCtrl', (eeDefiner, eeProduct, eeCatalog) ->
 
   products = this
 
@@ -9,8 +9,7 @@ angular.module('builder.products').controller 'productsCtrl', (eeDefiner, eeProd
   this.data           = eeCatalog.data
   this.fns            = eeCatalog.fns
   this.productFns     = eeProduct.fns
-  this.storeFns       = eeStorefront.fns
-  this.selectionsFns  = eeSelections.fns
+  # this.selectionsFns  = eeSelections.fns
 
   if !this.data.products or this.data.products.length < 1 then eeCatalog.fns.search()
 

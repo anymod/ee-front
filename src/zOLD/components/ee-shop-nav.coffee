@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('ee-product').directive "eeShopNav", ($state) ->
-  templateUrl: 'components/ee-shop-nav.html'
+angular.module('ee-product').directive "eeCollectionNav", ($state) ->
+  templateUrl: 'components/ee-collection-nav.html'
   restrict: 'E'
   replace: true
   scope:

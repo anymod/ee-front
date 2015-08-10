@@ -1,0 +1,5 @@
+<ul>
+  <li ng-repeat="collection in collections" ng-class="{ active: (collection.title | urlText) == $state.params.title }" >
+    <a ui-sref="collectionView({ id: collection.id, title: '{{ collection.title | urlText }}' })">{{ collection.title | humanize }}</a>
+  </li>
+</ul>

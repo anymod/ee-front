@@ -1,8 +1,18 @@
 'use strict'
 
-angular.module('builder.collections').controller 'collectionViewCtrl', ($state, $stateParamss) ->
+angular.module('builder.collections').controller 'collectionViewCtrl', ($state, $stateParams, eeDefiner, eeCollection) ->
 
-  collection_id = $stateParams.id
-  if !collection_id then $state.go 'collections'
+  collectionView = this
+
+  collectionView.data   = eeCollection.data
+  collectionView.id     = $stateParams.id
+  collectionView.state  = $state.current.name
+  if !collectionView.id then $state.go 'collections'
+
+  eeCollection.fns.defineCollection collectionView.id
+
+  # TODO show products along with collection
+  # eeProducts.fns.clear()
+  # eeProducts.fns.defineForCollection collection_id
 
   return

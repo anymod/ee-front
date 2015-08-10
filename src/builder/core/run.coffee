@@ -11,6 +11,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
   # ]
   openStates = [
     'landing'
+    'faq'
     'terms'
     'privacy'
     'welcome'

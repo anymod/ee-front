@@ -1,14 +1,14 @@
 'use strict'
 
-angular.module('builder.edit').controller 'editCtrl', (eeDefiner, eeLanding, eeStorefront) ->
+angular.module('builder.edit').controller 'editCtrl', (eeDefiner, eeUser, eeLanding) ->
 
   edit = this
 
   edit.ee           = eeDefiner.exports
-  edit.data         = eeStorefront.data
+  # edit.data         = eeStorefront.data
   edit.landingData  = eeLanding.data
 
-  edit.setCarouselImage = (imgUrl) -> eeDefiner.exports.carousel.imgUrl = imgUrl
-  edit.setAboutImage    = (imgUrl) -> eeDefiner.exports.about.imgUrl = imgUrl
+  edit.setCarouselImage = (imgUrl) -> eeUser.fns.setCarouselImage imgUrl
+  edit.setAboutImage    = (imgUrl) -> eeUser.fns.setAboutImage imgUrl
 
   return

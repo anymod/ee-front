@@ -1,18 +1,19 @@
 'use strict'
 
-angular.module('builder.products').controller 'productViewCtrl', ($state, $stateParams, eeProduct, eeSelection) ->
+angular.module('builder.products').controller 'productViewCtrl', ($state, $stateParams, eeProduct) ->
+
+  productView = this
 
   product_id = $stateParams.id
   if !product_id then $state.go 'products'
 
-  this.productFns     = eeProduct.fns
-  this.productData    = eeProduct.data
-  this.selectionData  = eeSelection.data
+  productView.data = eeProduct.data
+  # this.selectionData  = eeSelection.data
 
   eeProduct.fns.setProduct product_id
 
-  this.create = () ->
-    eeSelection.fns.createSelection eeSelection.data.selection
-    .then () -> $state.go 'selections'
+  # product.create = () ->
+    # eeSelection.fns.createSelection eeSelection.data.selection
+    # .then () -> $state.go 'selections'
 
   return

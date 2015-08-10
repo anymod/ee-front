@@ -1,13 +1,21 @@
-<div class="container" ng-hide="promote.ee.loading">
-
-  <div class="max-width-900 margin-0-auto text-left">
-    <br>
+<!-- Message -->
+<div class="container text-center vert-20 margin-bottom-0">
+  <div class="margin-0-auto max-width-600 pad-10 pad-top-0">
+    <h1 class="vert-10 font-weight-200 text-primary">
+      <span ng-if="$state.current.name == 'promote.blog'">Add your blog</span>
+      <span ng-if="$state.current.name == 'promote.social'">Add your social media & email</span>
+      <span ng-if="$state.current.name == 'promote.seo'">Enhance your SEO</span>
+    </h1>
     <h4 class="font-weight-200">
-      <span ng-if="$state.current.name == 'promote.blog'">Enter your blog url. Your Blog link will show automatically.</span>
-      <span ng-if="$state.current.name == 'promote.social'">Add your social media accounts. They will show automatically in your store's top bar.</span>
+      <span ng-if="$state.current.name == 'promote.blog'">Your blog link will show automatically in your store's top bar.</span>
+      <span ng-if="$state.current.name == 'promote.social'">Your accounts will show automatically in your store's top bar.</span>
       <span ng-if="$state.current.name == 'promote.seo'">Add a title and description to show in search engine results.</span>
     </h4>
   </div>
+</div>
+<!-- Message -->
+
+<div class="container" ng-hide="promote.ee.loading">
 
   <div class="well white-background max-width-900 box-shadow margin-0-auto text-left">
     <div class="form-horizontal">
