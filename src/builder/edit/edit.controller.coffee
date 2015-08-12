@@ -5,7 +5,6 @@ angular.module('builder.edit').controller 'editCtrl', (eeDefiner, eeUser, eeLand
   edit = this
 
   edit.ee           = eeDefiner.exports
-  # edit.data         = eeStorefront.data
   edit.landingData  = eeLanding.data
 
   edit.setCarouselImage = (imgUrl) -> eeUser.fns.setCarouselImage imgUrl

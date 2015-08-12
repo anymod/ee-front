@@ -8981,6 +8981,9 @@ html {
 .min-height-600 {
   min-height: 600px;
 }
+.min-height-900 {
+  min-height: 900px;
+}
 .height-0 {
   height: 0px !important;
 }

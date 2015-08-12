@@ -153,10 +153,32 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
-  collectionGET: (id, token) ->
+  collectionGET: (id, token, query) ->
     _makeRequest {
       method: 'GET'
-      url: eeBackUrl + 'collections/' + id
+      url: eeBackUrl + 'collections/' + id + _formQueryString(query)
+      headers: authorization: token
+    }
+
+  collectionPUT: (token, collection) ->
+    _makeRequest {
+      method: 'PUT'
+      url: eeBackUrl + 'collections/' + collection.id
+      headers: authorization: token
+      data: collection
+    }
+
+  collectionAddProduct: (collection_id, product_id, token) ->
+    _makeRequest {
+      method: 'PUT'
+      url: eeBackUrl + 'collections/' + collection_id + '/add/' + product_id
+      headers: authorization: token
+    }
+
+  collectionRemoveProduct: (collection_id, product_id, token) ->
+    _makeRequest {
+      method: 'PUT'
+      url: eeBackUrl + 'collections/' + collection_id + '/remove/' + product_id
       headers: authorization: token
     }
 

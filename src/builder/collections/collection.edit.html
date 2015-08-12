@@ -1,0 +1,109 @@
+<div class="container text-center vert-20">
+  <!-- Navigation -->
+  <div class="full-width margin-0-auto max-width-600">
+    <h3 class="vert-20 font-weight-200">
+      {{ collection.data.collection.title || 'Details' }}
+      <small ng-if="!collection.data.reading && collection.data.count">({{ collection.data.count }} items)</small>
+    </h3>
+    <div class="well white-background box-shadow pad-0 overflow-hidden">
+      <div class="row margin-0">
+        <div ui-sref="collectionEdit({ id: collection.id })" ng-class="{ 'bg-info':collection.state == 'collectionEdit' }" class="col-xs-6 font-weight-200 pad-15 hover-pointer">Details</div>
+        <div ui-sref="collectionAdd({ id: collection.id })" ng-class="{ 'bg-info':collection.state == 'collectionAdd' }" class="col-xs-6 font-weight-200 pad-15 hover-pointer">Add Products</div>
+      </div>
+    </div>
+  </div>
+  <!-- /Navigation -->
+</div>
+
+<div ng-hide="collection.data.reading" class="container text-center vert-20">
+  <!-- FORM -->
+  <div class="margin-0-auto max-width-900 pad-10 pad-top-0">
+    <div class="well white-background box-shadow">
+      <form class="form-horizontal text-left" ng-submit="collection.fns.updateCollection()">
+        <!-- Save -->
+        <div class="form-group vert-5">
+          <label class="col-sm-3 control-label font-weight-200">Save collection</label>
+          <div class="col-sm-4 col-md-3">
+            <button class="btn btn-default" type="submit"><i class="fa fa-fw fa-save"></i>&nbsp;Save</button>
+          </div>
+        </div>
+        <!-- /Save -->
+        <!-- Link title -->
+        <div class="form-group vert-5">
+          <label class="col-sm-3 control-label font-weight-200">Collection link title</label>
+          <div class="col-sm-4 col-md-3">
+            <input type="text" ng-model="collection.data.collection.title" class="form-control" placeholder="Collection Title (required)">
+          </div>
+        </div>
+        <!-- /Link title -->
+        <!-- Show on home -->
+        <div class="form-group vert-5">
+          <div class="col-sm-6 col-sm-offset-3">
+            <label class="checkbox hover-pointer">
+              <input type="checkbox" class="margin-0" style="margin-top: 3px !important;" ng-model="collection.data.collection.in_carousel">
+              <span style="margin-left: 20px;">Show this collection on your home page</span>
+            </label>
+          </div>
+        </div>
+        <!-- /Show on home -->
+
+        <div ng-show="collection.data.collection.in_carousel">
+          <!-- Banner -->
+          <div class="form-group vert-10">
+            <label class="col-sm-3 control-label font-weight-200">Home page image</label>
+            <div class="col-sm-9">
+              <img ng-src="{{ collection.data.collection.banner }}" class="full-width gray-border"/>
+              <h5 class="margin-0">Upload an image&nbsp;<small>800x470px</small></h5>
+              <ee-cloudinary-upload meta="collection.data.collection" attr-target="'collection'"></ee-cloudinary-upload>
+            </div>
+          </div>
+          <!-- /Banner -->
+          <!-- Headline -->
+          <div class="form-group vert-5">
+            <label class="col-sm-3 control-label font-weight-200">Home page headline</label>
+            <div class="col-sm-4">
+              <input type="text" ng-model="collection.data.collection.headline" class="form-control" placeholder="Collection Title (required)">
+            </div>
+          </div>
+          <!-- /Headline -->
+        </form>
+      </div>
+    </div>
+    <h4 class="vert-10 font-weight-200 text-muted">Edit product titles, prices, and descriptions below.</h4>
+  </div>
+  <!-- FORM -->
+
+  <div class="full-width text-center margin-0">
+    <pagination total-items="collection.data.count"
+                items-per-page="collection.data.perPage"
+                ng-model="collection.data.page"
+                max-size="5"
+                class="pagination-sm margin-0 vertical-align-top"
+                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+                boundary-links="true"
+                rotate="false"
+                ng-change="collection.update()">
+    </pagination>
+  </div>
+
+  <div class="vert-20 text-left">
+    <div ng-repeat="storeProduct in collection.data.storeProducts">
+      <ee-storeproduct-editor-card store-product="storeProduct"></ee-storeproduct-editor-card>
+    </div>
+  </div>
+
+  <div class="full-width text-center margin-0">
+    <pagination total-items="collection.data.count"
+                items-per-page="collection.data.perPage"
+                ng-model="collection.data.page"
+                max-size="5"
+                class="pagination-sm margin-0 vertical-align-top"
+                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+                boundary-links="true"
+                rotate="false"
+                ng-change="collection.update()">
+    </pagination>
+  </div>
+</div>
+
+<ee-loading loading="collection.data.reading"></ee-loading>

@@ -1,12 +1,12 @@
 <!--
+  logo:        when true show logo
+  dropdown:    when true show dropdown instead of logo
+  home:        when true show home button instead of logo
+  back:        when true show back button instead of logo
   signin:      when true show sign in button
   storefront:  when true show buttons on storefront page
-  product:     when true show buttons on product page
   selection:   when true show buttons on selection page
-  selection:   when true show buttons on collection page
-  edit:        when true show buttons on edit page
-  dropdown:    when true show dropdown instead of logo
-  back:        when true show back button instead of logo
+  collection:  when true show buttons on collection page
   transparent: when true show transparent background with white logo and no box-shadow
   fixed:       when true fix navbar to top of page
 //-->
@@ -17,7 +17,7 @@
 
       <!-- LOGO -->
       <!-- normal logo -->
-      <a ng-hide="dropdown || back || product || selection" ui-sref="landing" id="brand" class="pull-left">
+      <a ng-if="logo" ui-sref="landing" id="logo" class="pull-left">
         <img ng-show="transparent" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_150/v1432656685/eeosk_white.png" class="width-120"/>
         <img ng-hide="transparent" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_400/v1432578504/eeosk_blue.png" class="width-120"/>
       </a> <!-- /normal logo -->
@@ -40,20 +40,20 @@
         </div>
       </div> <!-- /dropdown -->
 
-      <!-- back: back instead of logo -->
-      <a ng-if="back" ui-sref="storefront" id="back" class="btn btn-default pull-left">
+      <!-- home: home instead of logo -->
+      <a ng-if="home" ui-sref="storefront" id="home" class="btn btn-default pull-left">
         <i class="fa fa-fw fa-home"></i>
+      </a> <!-- /home -->
+
+      <!-- back: back instead of logo -->
+      <a ng-if="back" ng-click="historyBack()" id="back" class="btn btn-default pull-left">
+        <i class="fa fa-fw fa-long-arrow-left"></i>
       </a> <!-- /back -->
 
-      <!-- product: back to catalog instead of logo -->
-      <a ng-if="product" ui-sref="products" id="products" class="btn btn-default pull-left">
+      <!-- collection: back to store instead of logo -->
+      <a ng-if="collection" ui-sref="collections" id="collections" class="btn btn-default pull-left">
         <i class="fa fa-fw fa-long-arrow-left"></i>
-      </a> <!-- /product -->
-
-      <!-- product: back to store instead of logo -->
-      <a ng-if="selection" ui-sref="selections" id="selections" class="btn btn-default pull-left">
-        <i class="fa fa-fw fa-long-arrow-left"></i>
-      </a> <!-- /product -->
+      </a> <!-- /collection -->
 
       <!-- /LOGO -->
 
@@ -71,7 +71,9 @@
       <!-- storefront: buttons on storefront page -->
       <div ng-if="storefront" class="storefront-buttons">
         <div class="position-fixed text-center">
-          <a ui-sref="collections" class="btn btn-info">Collections</a>&nbsp;<a ui-sref="edit" class="btn btn-success">Look & Feel</a>&nbsp;<a ui-sref="promote" class="btn btn-primary">Promote</a>
+          <a ui-sref="collections" class="btn btn-info">Collections</a>&nbsp;
+          <a ui-sref="promotions" class="btn btn-primary">Promotions</a>&nbsp;
+          <a ui-sref="edit" class="btn btn-success">Edit Store</a>
         </div>
         <a class="btn btn-link pull-right hidden-xs" href="https://{{ ee.user.username }}.eeosk.com" target="_blank">
           Live&nbsp;<i class="fa fa-fw fa-external-link"></i>

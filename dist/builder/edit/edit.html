@@ -1,7 +1,10 @@
-<div class="container" ng-hide="edit.ee.loading">
-
-  <div class="max-width-900 margin-0-auto text-left">
-    <br>
+<!-- Message -->
+<div class="container text-center vert-20 margin-bottom-0">
+  <div class="margin-0-auto max-width-600 pad-10 pad-top-0">
+    <h1 class="vert-10 font-weight-200 text-success">
+      <span ng-if="$state.current.name == 'edit.topbar'">Edit your top bar</span>
+      <span ng-if="$state.current.name == 'edit.about'">Edit your about section</span>
+    </h1>
     <h4 class="font-weight-200">
       <span ng-if="$state.current.name == 'edit.topbar'">Customize your top bar: a preview is shown below.</span>
       <span ng-if="$state.current.name == 'edit.body'">Choose a main image and a headline for your store.</span>
@@ -10,6 +13,10 @@
       <span ng-if="$state.current.name == 'edit.seo'">Add a title and description to show in search engine results.</span>
     </h4>
   </div>
+</div>
+<!-- Message -->
+
+<div class="container" ng-hide="edit.ee.loading">
 
   <div class="well white-background max-width-900 box-shadow margin-0-auto text-left">
     <div class="form-horizontal">

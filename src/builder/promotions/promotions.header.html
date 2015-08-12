@@ -1,0 +1,22 @@
+<!-- MAIN NAVBAR -->
+<ee-builder-navbar fixed="true" home="true"></ee-builder-navbar>
+<!-- /MAIN NAVBAR -->
+
+<div class="position-fixed text-left" style="left: 71px; right: 15px; top: 7px; z-index: 1050;">
+  <ee-save></ee-save>&nbsp;
+  <div class="btn-group vertical-align-top hidden-xs">
+    <a ui-sref="promotions.blog" ui-sref-active="active" class="btn btn-default">Blog</a>
+    <a ui-sref="promotions.social" ui-sref-active="active" class="btn btn-default">Social</a>
+    <a ui-sref="promotions.seo" ui-sref-active="active" class="btn btn-default">SEO</a>
+  </div>
+  <div class="position-relative visible-xs-inline-block pull-right" dropdown>
+    <div class="btn btn-default" dropdown-toggle>
+      {{ $state.current.name.split('.')[1] | humanize }}&nbsp;<span class="caret"></span>
+    </div>
+    <ul class="dropdown-menu full-width">
+      <li ui-sref-active="active"><a ui-sref="promotions.blog">Blog</a></li>
+      <li ui-sref-active="active"><a ui-sref="promotions.social">Social</a></li>
+      <li ui-sref-active="active"><a ui-sref="promotions.seo">SEO</a></li>
+    </ul>
+  </div>
+</div>

@@ -16,6 +16,13 @@ angular.module('app.core').filter 'centToDollar', ($filter) ->
 angular.module('app.core').filter 'thumbnail', () ->
   (url) ->
     if !!url and url.indexOf("image/upload") > -1
+      url.split("image/upload").join('image/upload/c_pad,w_80,h_80')
+    else
+      url
+
+angular.module('app.core').filter 'midsize', () ->
+  (url) ->
+    if !!url and url.indexOf("image/upload") > -1
       url.split("image/upload").join('image/upload/c_pad,w_250,h_250')
     else
       url

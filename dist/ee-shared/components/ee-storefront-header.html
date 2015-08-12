@@ -8,7 +8,7 @@
        ng-hide="loading"
        ng-style="{ 'background-color': meta.home.topBarBackgroundColor }">
 
-    <div class="container" name="store-navbar">
+    <div ng-class="fluid ? 'container-fluid' : 'container'" name="store-navbar">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle pad-20 collapsed" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">

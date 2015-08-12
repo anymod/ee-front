@@ -50,15 +50,7 @@ sources.appModule = [
   './src/ee-shared/core/run.coffee'
   # Services
   './src/ee-shared/core/svc.back.coffee'
-  './src/ee-shared/core/svc.definer.coffee'
-  # './src/ee-shared/core/svc.storefront.coffee'
-  # './src/ee-shared/core/svc.selection.coffee'
-  # './src/ee-shared/core/svc.selections.coffee'
   './src/ee-shared/core/svc.modal.coffee'
-  './src/ee-shared/core/svc.definer.coffee'
-  # './src/ee-shared/core/svc.collections.coffee'
-  # Product modal
-  # './src/ee-shared/product/product.modal.controller.coffee'
 ]
 sources.builderModule = [
   # Definitions
@@ -115,10 +107,10 @@ sources.builderModule = [
   './src/builder/edit/edit.module.coffee'
   './src/builder/edit/edit.route.coffee'
   './src/builder/edit/edit.controller.coffee'
-  # Module - promote
-  './src/builder/promote/promote.module.coffee'
-  './src/builder/promote/promote.route.coffee'
-  './src/builder/promote/promote.controller.coffee'
+  # Module - promotions
+  './src/builder/promotions/promotions.module.coffee'
+  './src/builder/promotions/promotions.route.coffee'
+  './src/builder/promotions/promotions.controller.coffee'
   # Module - terms
   './src/builder/terms/terms.module.coffee'
   './src/builder/terms/terms.route.coffee'
@@ -141,8 +133,8 @@ sources.builderModule = [
   # Module - collections
   './src/builder/collections/collections.module.coffee'
   './src/builder/collections/collections.route.coffee'
+  './src/builder/collections/collection.controller.coffee'
   './src/builder/collections/collections.controller.coffee'
-  './src/builder/collections/collection.view.controller.coffee'
   # Module - orders
   './src/builder/orders/orders.module.coffee'
   './src/builder/orders/orders.route.coffee'
@@ -158,11 +150,13 @@ sources.builderDirective = [
   './src/ee-shared/components/ee-terms-seller.coffee'
   './src/ee-shared/components/ee-terms-privacy.coffee'
   './src/ee-shared/components/ee-builder-navbar.coffee'
-  # './src/ee-shared/components/ee-product.coffee'
-  './src/ee-shared/components/ee-selection-editor-card.coffee'
+  './src/ee-shared/components/ee-storeproduct-editor-card.coffee'
+  './src/ee-shared/components/ee-product-images.coffee'
   './src/ee-shared/components/ee-selection-card.coffee'
   './src/ee-shared/components/ee-selection-for-storefront.coffee'
+  './src/ee-shared/components/ee-collection-card.coffee'
   './src/ee-shared/components/ee-save.coffee'
+  './src/ee-shared/components/ee-loading.coffee'
   './src/ee-shared/components/ee-collection-nav.coffee'
   './src/ee-shared/components/ee-order.coffee'
   './src/ee-shared/components/ee-cloudinary-upload.coffee'

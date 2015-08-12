@@ -44,7 +44,7 @@ angular.module('builder.storefront').config ($stateProvider) ->
       views:    views
       data:     data
 
-    .state 'collection',
+    .state 'storefront-shop',
       url:      '/storefront/shop/:title'
       views:    shopViews
       data:     data

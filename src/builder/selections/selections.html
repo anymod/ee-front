@@ -52,7 +52,7 @@
     <div ng-repeat="selection in selections.data.selections" class="well text-center inline-block pad-5 margin-2 white-background box-shadow" style="width: 140px;">
       <div class="pad-10 text-left">
         <a ui-sref="selectionView({ id: selection.id })">
-          <img ng-src="{{ selection.image | thumbnail }}" class="full-width gray-border hover-success-border">
+          <img ng-src="{{ selection.image | midsize }}" class="full-width gray-border hover-success-border">
         </a>
         <div>
           <p ng-bind="selection.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
@@ -94,10 +94,5 @@
 
 </div>
 
-<div ng-show="selections.data.searching" class="position-absolute top-left-bottom-right-0 text-center" style="z-index: 100;">
-  <div class="position-absolute full-width full-height white-background opacity-08"></div>
-  <h2 class="position-relative margin-20 pad-10">
-    <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>
-  </h2>
-</div>
+<ee-loading loading="selections.data.searching"></ee-loading>
 <!-- /SELECTIONS -->

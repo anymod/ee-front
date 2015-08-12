@@ -7,6 +7,7 @@ module.directive "eeStorefrontHeader", ($rootScope, $state, eeCart) ->
   scope:
     meta:           '='
     blocked:        '='
+    fluid:          '@'
     loading:        '='
     collections:    '='
     quantityArray:  '='

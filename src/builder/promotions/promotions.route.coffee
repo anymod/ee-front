@@ -1,17 +1,17 @@
 'use strict'
 
-angular.module('builder.promote').config ($stateProvider) ->
+angular.module('builder.promotions').config ($stateProvider) ->
 
   views =
     header:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'builder/promote/promote.header.html'
+      templateUrl: 'builder/promotions/promotions.header.html'
     top:
-      controller: 'promoteCtrl as promote'
-      templateUrl: 'builder/promote/promote.html'
+      controller: 'promotionsCtrl as promotions'
+      templateUrl: 'builder/promotions/promotions.html'
     # middle:
     #   controller: 'storefrontCtrl as storefront'
-    #   templateUrl: 'builder/promote/promote.preview.html'
+    #   templateUrl: 'builder/promotions/promotions.preview.html'
 
   data =
     pageTitle:        'Promote your store | eeosk'
@@ -19,23 +19,23 @@ angular.module('builder.promote').config ($stateProvider) ->
     padTop:           '50px'
 
   $stateProvider
-    .state 'promote',
-      url:    '/promote'
+    .state 'promotions',
+      url:    '/promotions'
       views:  views
       data:   data
-    .state 'promote.social',
+    .state 'promotions.social',
       url:    '/social'
       views:  views
-    .state 'promote.body',
+    .state 'promotions.body',
       url:    '/body'
       views:  views
-    .state 'promote.about',
+    .state 'promotions.about',
       url:    '/about'
       views:  views
-    .state 'promote.blog',
+    .state 'promotions.blog',
       url:    '/blog'
       views:  views
-    .state 'promote.seo',
+    .state 'promotions.seo',
       url:    '/seo'
       views:  views
 

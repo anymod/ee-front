@@ -1,8 +1,4 @@
-<div ng-show="!!storefront.ee.loading" class="section text-center" name="loading-navbar">
-  <h2 class="font-weight-200">
-    <i class="fa fa-fw fa-circle-o-notch fa-spin"></i>
-  </h2>
-</div>
+<ee-loading loading="storefront.ee.loading"></ee-loading>
 
 <div class="featured" ng-hide="storefront.ee.loading">
   <div ng-show="storefront.data.selections.length > 0" class="container">
@@ -10,7 +6,7 @@
     <div class="row">
       <div class="col col-sm-9 col-md-10 col-lg-9 position-inherit">
         <h4 class="margin-0">{{ $state.params.title || 'Featured' | humanize }}</h4>
-        <h2 ng-show="storefront.data.loading"><i class="fa fa-fw fa-spin fa-circle-o-notch text-info"></i></h2>
+        <ee-loading loading="storefront.data.loading"></ee-loading>
         <div ng-hide="storefront.data.loading" class="full-width text-center vert-20 overflow-hidden">
           <div ng-repeat="selection in storefront.data.selections" class="product-container text-left inline-block width-250 vertical-align-top">
             <ee-selection-for-storefront selection="selection"></ee-selection-for-storefront>

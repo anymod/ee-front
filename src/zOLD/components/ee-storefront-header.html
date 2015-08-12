@@ -7,12 +7,7 @@
        class="navbar navbar-default navbar-rgba-colors no-side-border margin-0 round-0"
        ng-style="{ 'background-color': meta.home.topBarBackgroundColor }">
 
-    <div ng-show="loading" class="container-fluid" name="loading-navbar">
-      <h2 class="inline-block pull-left" style="margin: 7px 7px 0 0">
-        <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>
-      </h2>
-      <a href class="navbar-brand">Loading</a>
-    </div>
+    <ee-loading loading="loading"></ee-loading>
 
     <div ng-hide="loading" class="container-fluid" name="store-navbar">
       <!-- Brand and toggle get grouped for better mobile display -->

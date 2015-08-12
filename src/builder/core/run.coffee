@@ -50,8 +50,8 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
     if loggedIn and isOpen(toState.name) and toState.name isnt 'logout' and toState.name isnt 'reset' then return stopAndRedirectTo('storefront')
     # redirect to /edit/topbar from /edit
     if toState.name is 'edit' then return stopAndRedirectTo('edit.topbar')
-    # redirect to /promote/social from /promote
-    if toState.name is 'promote' then return stopAndRedirectTo('promote.blog')
+    # redirect to /promotions/social from /promotions
+    if toState.name is 'promotions' then return stopAndRedirectTo('promotions.blog')
 
     return
 

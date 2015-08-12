@@ -1,0 +1,64 @@
+<div class="well white-background box-shadow">
+  <div class="row">
+    <div class="col col-sm-4">
+      <ee-product-images product="storeProduct"></ee-product-images>
+    </div>
+    <div class="col col-sm-8">
+      <div class="form-horizontal text-left">
+        <!-- Save -->
+        <div ng-if="false" class="form-group vert-5">
+          <div class="col-sm-10 col-sm-offset-2">
+            <div class="btn btn-info"><i class="fa fa-fw fa-save"></i>&nbsp;Save</div>
+          </div>
+        </div>
+        <!-- /Save -->
+        <!-- Title -->
+        <div class="form-group vert-5">
+          <label class="col-sm-2 control-label font-weight-200">Title</label>
+          <div class="col-sm-10">
+            <input type="text" ng-model="storeProduct.title" class="form-control" placeholder="Product Title (required)">
+            <a href="https://www.google.com/search?q={{ storeProduct.title | pluses }}" target="_blank" class="btn btn-xs btn-link pad-left-0">Search this title on google</a>
+          </div>
+        </div>
+        <!-- /Title -->
+        <!-- Price -->
+        <div class="form-group vert-5">
+          <label class="col-sm-2 control-label font-weight-200">Price</label>
+          <div class="col-sm-6">
+            <div class="vert-10 margin-top-0">
+              <div class="input-group" style="max-width: 170px;">
+                <span class="input-group-addon white-background"><i class="fa fa-fw fa-dollar"></i></span>
+                <input type="text" ng-model="calculated.selling_dollars" class="form-control inline-block text-right">
+                <span class="input-group-addon pad-5 white-background no-side-border">.</span>
+                <input type="text" ng-model="calculated.selling_cents" class="form-control inline-block" style="width: 50px;">
+              </div>
+            </div>
+            <div ng-showz="product.baseline_price && calculated.margin">
+              <div ng-show="calculated.margin > margins.max_margin || calculated.margin < margins.min_margin" class="text-info">
+                Price is out of range
+              </div>
+              <div ng-hide="calculated.margin > margins.max_margin || calculated.margin < margins.min_margin" class="text-muted">
+                {{ calculated.margin * 100 | number:1 }}%&nbsp;margin. You earn&nbsp;<strong ng-bind="calculated.earnings | centToDollar"></strong>&nbsp;each sale.
+              </div>
+              <div class="vert-5 margin-top-0">
+                <div class="btn btn-xs btn-link pad-left-0" ng-click="calcByMargin(margins.start_margin)">Recommended</div>
+                <div class="btn btn-xs btn-link" ng-click="setSellingPrice(calculated.min_price)">Min</div>
+                <div class="btn btn-xs btn-link" ng-click="calcByMargin(margin)" ng-repeat="margin in margins.margin_array">{{ margin*100 }}%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Price -->
+        <!-- Description -->
+        <div class="form-group vert-5">
+          <label class="col-sm-2 control-label font-weight-200">Description</label>
+          <div class="col-sm-10">
+            <textarea type="text" ng-model="storeProduct.content" class="form-control full-width" rows=5 placeholder="Product Description"></textarea>
+          </div>
+        </div>
+        <!-- /Description -->
+        <div class="btn btn-link pull-right">Remove</div>
+      </div>
+    </div>
+  </div>
+</div>

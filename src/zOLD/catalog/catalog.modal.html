@@ -62,18 +62,13 @@
       </div>
     </div>
 
-    <div ng-show="catalog.data.searching" class="position-absolute top-left-bottom-right-0" style="z-index: 100;">
-      <div class="position-absolute full-width full-height white-background opacity-08" style="z-index: 0;"></div>
-      <h2 class="position-relative margin-20 pad-10">
-        <i class="fa fa-fw fa-circle-o-notch fa-spin text-info"></i>&nbsp;Loading
-      </h2>
-    </div>
+    <ee-loading loading="catalog.data.searching"></ee-loading>
 
     <div class="vert-10" ng-class="{ 'opacity-08': catalog.data.searching }">
       <span ng-repeat="product in catalog.data.products" class="position-relative">
         <a href ng-click="catalog.productFns.openProductModal(product.id, true)"
             class="thumb margin-2 hover-pointer gray-border"
-            style="background-color: white; background-image: url('{{ product.image_meta.main_image.url | thumbnail }}')">
+            style="background-color: white; background-image: url('{{ product.image_meta.main_image.url | midsize }}')">
           <div ng-show="catalog.storeFns.inStorefront(product.id)" class="label label-primary">in <span class="hidden-xs">my </span>store</div>
         </a>
       </span>

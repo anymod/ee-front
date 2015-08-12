@@ -3,23 +3,24 @@
 angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
 
   ## SETUP
-  _inputDefaults =
-    perPage:  24
-    page:             null
-    search:           null
-    searchLabel:      null
-    collection:       null
+  # none
 
   ## PRIVATE EXPORT DEFAULTS
   _data =
-    creating:     false
-    reading:      false
-    updating:     false
-    destroying:   false
-    count:        null
-    stale:        false
-    inputs:       _inputDefaults
-    collections:  []
+    creating:       false
+    reading:        false
+    updating:       false
+    destroying:     false
+    count:          null
+    page:           null
+    perPage:        24
+    collections:    []
+    public:
+      reading:      false
+      count:        null
+      page:         null
+      perPage:      24
+      collections:  []
 
   _dummies = [
     {
@@ -163,28 +164,32 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
       product_ids: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33]
     }
   ]
-  # _data.collections = _dummies
 
   ## PRIVATE FUNCTIONS
+
+  _resetCollections = () ->
+    _data.collections = {}
+    _data.public.collections = {}
 
   _readPublicCollections = () ->
     deferred  = $q.defer()
     token     = eeAuth.fns.getToken()
-    if _data.reading then return _data.reading
+    if _data.public.reading then return _data.public.reading
     if !token then deferred.reject('Missing token'); return deferred.promise
-    _data.reading = deferred.promise
+    _data.public.reading = deferred.promise
     eeBack.publicCollectionsGET token
     .then (res) ->
-      _data.collections = res.rows
-      _data.count       = res.count
-    .finally () -> _data.reading = false
+      _data.public.collections = _dummies # res.rows
+      _data.public.count       = res.count
+    .finally () -> _data.public.reading = false
 
   _readOwnCollections = () ->
     deferred  = $q.defer()
     token     = eeAuth.fns.getToken()
-    if _data.reading then return _data.reading
+    if _data.reading and _data.collectionsType is 'own' then return _data.reading
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.reading = deferred.promise
+    _data.collectionsType = 'own'
     eeBack.ownCollectionsGET token
     .then (res) ->
       _data.collections = res.rows
@@ -193,7 +198,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
     .finally () -> _data.reading = false
 
   _definePublicCollections = (force) ->
-    $q.when(if !_data.collections or _data.collections.length is 0 or force then _readPublicCollections() else _data.collections)
+    $q.when(if !_data.public.collections or _data.public.collections.length is 0 or force then _readPublicCollections() else _data.public.collections)
 
   _defineOwnCollections = (force) ->
     $q.when(if !_data.collections or _data.collections.length is 0 or force then _readOwnCollections() else _data.collections)
@@ -201,5 +206,6 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
   ## EXPORTS
   data: _data
   fns:
+    resetCollections:         _resetCollections
     definePublicCollections:  _definePublicCollections
     defineOwnCollections:     _defineOwnCollections

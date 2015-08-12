@@ -18,7 +18,7 @@
       <div class="row margin-0" ng-repeat="cart_entry in cart.data.entries">
         <div class="vert-10">
           <div class="col col-sm-2 col-xs-3">
-            <img ng-src="{{ cart_entry.product.image_meta.main_image.url | thumbnail }}" class="full-width" />
+            <img ng-src="{{ cart_entry.product.image_meta.main_image.url | midsize }}" class="full-width" />
           </div>
           <div class="col col-xs-4">
             <h4 ng-bind="cart_entry.product.title" class="margin-0"></h4>

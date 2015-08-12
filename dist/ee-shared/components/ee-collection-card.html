@@ -1,0 +1,16 @@
+<div class="well white-background box-shadow">
+  <a ui-sref="collectionEdit({ id: collection.id })" class="hover-pointer">
+    <span class="btn btn-link pad-left-0">{{ collection.title | humanize }}</span>
+    <img ng-src="{{ collection.banner }}" class="full-width img-responsive gray-border" />
+  </a>
+  <h3 class="vert-10 font-weight-200">{{ collection.headline }}</h3>
+  <!-- <span>{{ collection.product_ids.length }} items</span> -->
+  <!-- <a class="btn btn-default">Add to store</a> -->
+  <a ui-sref="collectionEdit({ id: collection.id })" class="btn btn-default">Edit</a>
+  <a ui-sref="collection({ id: collection.id })" class="btn btn-link">View</a>
+  <!-- <h4 class="margin-0 font-weight-200">{{ collection.min_price | centToDollar }} to {{ collection.max_price | centToDollar }} / item</h4>
+  <h5 class="vert-5 margin-0 text-muted font-weight-200">{{ collection.avg_price | centToDollar }} avg price</h5>
+  <div class="vert-10">
+    <h4 class="vert-2 font-weight-200"><span class="label label-info">{{ collection.max_sale }}%</span> max markdown <i class="fa fa-fw fa-info-circle text-muted"></i></h3>
+  </div> -->
+</div> <!-- /well -->
