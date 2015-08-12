@@ -171,6 +171,17 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
     _data.collections = {}
     _data.public.collections = {}
 
+  _createCollection = () ->
+    deferred  = $q.defer()
+    token     = eeAuth.fns.getToken()
+    if _data.creating then return _data.creating
+    if !token then deferred.reject('Missing token'); return deferred.promise
+    _data.creating = deferred.promise
+    eeBack.collectionsPOST token
+    .then (res) -> res
+    .catch (err) -> console.error err
+    .finally () -> _data.creating = false
+
   _readPublicCollections = () ->
     deferred  = $q.defer()
     token     = eeAuth.fns.getToken()
@@ -186,10 +197,9 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
   _readOwnCollections = () ->
     deferred  = $q.defer()
     token     = eeAuth.fns.getToken()
-    if _data.reading and _data.collectionsType is 'own' then return _data.reading
+    if _data.reading then return _data.reading
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.reading = deferred.promise
-    _data.collectionsType = 'own'
     eeBack.ownCollectionsGET token
     .then (res) ->
       _data.collections = res.rows
@@ -207,5 +217,6 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
   data: _data
   fns:
     resetCollections:         _resetCollections
+    createCollection:         _createCollection
     definePublicCollections:  _definePublicCollections
     defineOwnCollections:     _defineOwnCollections

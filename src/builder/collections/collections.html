@@ -2,6 +2,8 @@
 <div class="container text-center vert-20 margin-bottom-0">
   <div class="margin-0-auto max-width-600 pad-10 pad-top-0">
     <h1 class="vert-10 font-weight-200 text-info">Your collections</h1>
+    <div class="btn btn-default" ng-click="collections.create()">Create a new collection</div>
+    <a ui-sref="collectionsAdd" ui-sref-active="active" class="btn btn-default">Browse collection catalog</a>
   </div>
 </div>
 
@@ -26,11 +28,9 @@
     </pagination>
   </div>
 
-  <div class="vert-20 text-left">
-    <div class="row">
-      <div class="col col-sm-6" ng-repeat="collection in collections.ee.Collections.collections">
-        <ee-collection-card collection="collection"></ee-collection-card>
-      </div>
+  <div class="vert-20 text-center">
+    <div ng-repeat="collection in collections.ee.Collections.collections" class="inline-block">
+      <ee-collection-card collection="collection"></ee-collection-card>
     </div>
   </div>
 

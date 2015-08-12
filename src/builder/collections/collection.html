@@ -15,7 +15,8 @@
         <hr>
 
         <div class="margin-10">
-          <pagination total-items="collection.data.count"
+          <pagination ng-if="collection.data.count > collection.data.perPage"
+            total-items="collection.data.count"
             items-per-page="collection.data.perPage"
             ng-model="collection.data.page"
             max-size="5"
@@ -35,7 +36,8 @@
         </div>
 
         <div class="pad-20 vert-20">
-          <pagination total-items="collection.data.count"
+          <pagination ng-if="collection.data.count > collection.data.perPage"
+            total-items="collection.data.count"
             items-per-page="collection.data.perPage"
             ng-model="collection.data.page"
             max-size="5"
