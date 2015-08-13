@@ -10,7 +10,7 @@ angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, eeDef
     save: '@'
     back: '@'
     storefront: '@'
-    selection: '@'
+    storeproduct: '@'
     collection: '@'
     transparent: '@'
     fixed: '@'

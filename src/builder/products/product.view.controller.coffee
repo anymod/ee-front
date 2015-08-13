@@ -8,12 +8,6 @@ angular.module('builder.products').controller 'productViewCtrl', ($state, $state
   if !product_id then $state.go 'products'
 
   productView.data = eeProduct.data
-  # this.selectionData  = eeSelection.data
-
   eeProduct.fns.setProduct product_id
-
-  # product.create = () ->
-    # eeSelection.fns.createSelection eeSelection.data.selection
-    # .then () -> $state.go 'selections'
 
   return

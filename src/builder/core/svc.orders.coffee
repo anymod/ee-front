@@ -7,7 +7,7 @@ angular.module('builder.core').factory 'eeOrders', ($cookies, $q, eeBack, $http)
   _ordersIsEmpty = () -> (Object.keys(_orders).length is 0)
 
   dummyOrder = (storefront) ->
-    if storefront?.product_selection?.length > 0
+    if storefront?.storeproducts?.length > 0
       orders = []
       createOrder = (product) ->
         order =
@@ -20,7 +20,7 @@ angular.module('builder.core').factory 'eeOrders', ($cookies, $q, eeBack, $http)
           disbursementStatus: 'pending'
           product_snapshot: image_meta: main_image: url: product.image_meta.main_image.url
         orders.push order
-      createOrder(product) for product in storefront.product_selection
+      createOrder(product) for product in storefront.storeproducts
       orders
 
   reset: () -> return

@@ -203,42 +203,42 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
-  selectionsGET: (token, query) ->
-    _makeRequest {
-      method: 'GET'
-      url: eeBackUrl + 'selections' + _formQueryString(query)
-      headers: authorization: token
-    }
-
-  selectionGET: (id, token) ->
-    _makeRequest {
-      method: 'GET'
-      url: eeBackUrl + 'selections/' + id
-      headers: authorization: token
-    }
-
-  selectionsPOST: (token, attrs) ->
-    _makeRequest {
-      method: 'POST'
-      url: eeBackUrl + 'selections'
-      headers: authorization: token
-      data: attrs
-    }
-
-  selectionsPUT: (token, selection) ->
-    _makeRequest {
-      method: 'PUT'
-      url: eeBackUrl + 'selections/' + selection.id
-      headers: authorization: token
-      data: selection
-    }
-
-  selectionsDELETE: (token, id) ->
-    _makeRequest {
-      method: 'DELETE'
-      url: eeBackUrl + 'selections/' + id
-      headers: authorization: token
-    }
+  # selectionsGET: (token, query) ->
+  #   _makeRequest {
+  #     method: 'GET'
+  #     url: eeBackUrl + 'selections' + _formQueryString(query)
+  #     headers: authorization: token
+  #   }
+  #
+  # selectionGET: (id, token) ->
+  #   _makeRequest {
+  #     method: 'GET'
+  #     url: eeBackUrl + 'selections/' + id
+  #     headers: authorization: token
+  #   }
+  #
+  # selectionsPOST: (token, attrs) ->
+  #   _makeRequest {
+  #     method: 'POST'
+  #     url: eeBackUrl + 'selections'
+  #     headers: authorization: token
+  #     data: attrs
+  #   }
+  #
+  # selectionsPUT: (token, selection) ->
+  #   _makeRequest {
+  #     method: 'PUT'
+  #     url: eeBackUrl + 'selections/' + selection.id
+  #     headers: authorization: token
+  #     data: selection
+  #   }
+  #
+  # selectionsDELETE: (token, id) ->
+  #   _makeRequest {
+  #     method: 'DELETE'
+  #     url: eeBackUrl + 'selections/' + id
+  #     headers: authorization: token
+  #   }
 
   ordersGET: (token) ->
     _makeRequest {

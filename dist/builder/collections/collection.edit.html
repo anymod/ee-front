@@ -22,9 +22,11 @@
       <form class="form-horizontal text-left" ng-submit="collection.fns.updateCollection()">
         <!-- Save -->
         <div class="form-group vert-5">
-          <label class="col-sm-3 control-label font-weight-200">Save collection</label>
-          <div class="col-sm-4 col-md-3">
-            <button class="btn btn-default" type="submit"><i class="fa fa-fw fa-save"></i>&nbsp;Save</button>
+          <div class="col-sm-offset-3 col-sm-4 col-md-3">
+            <button class="btn btn-default" type="submit" ng-disabled="collection.data.updating || collection.data.save_status == 'Saved'" ng-class="{ 'btn-success': collection.data.save_status == 'Save' }">
+              <i class="fa fa-fw fa-save"></i>&nbsp;{{ collection.data.save_status }}
+            </button>
+            <!-- <a ui-sref="collection({ id: collection.id })" class="btn btn-default pull-right">View</a> -->
           </div>
         </div>
         <!-- /Save -->

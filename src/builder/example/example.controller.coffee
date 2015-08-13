@@ -1,12 +1,8 @@
 'use strict'
 
-angular.module('builder.example').controller 'exampleCtrl', (eeLanding) ->
+angular.module('builder.example').controller 'exampleCtrl', () ->
 
   this.ee = {}
-
-  this.openExampleModal = () ->
-    eeLanding.fns.openExampleModal()
-    return
 
   this.ee.meta =
     home:
@@ -29,7 +25,7 @@ angular.module('builder.example').controller 'exampleCtrl', (eeLanding) ->
         pinterest:  'pinterest'
         instagram:  'instagram'
 
-  example_selections = [
+  example_storeproducts = [
     {
       image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115333/hijrsxnoedec3uraxc51.jpg'
       title: 'Classy Ceramic Garden Stool Open- Work Green'
@@ -115,13 +111,6 @@ angular.module('builder.example').controller 'exampleCtrl', (eeLanding) ->
   ## For ngInclude partials
   this.ee.carousel     = this.ee.meta?.home?.carousel[0]
   this.data =
-    selections: example_selections
-    collection_names: [
-      'featured',
-      'home_accents',
-      'furniture',
-      'kitchen',
-      'artwork'
-    ]
+    storeProducts: example_storeproducts
 
   return

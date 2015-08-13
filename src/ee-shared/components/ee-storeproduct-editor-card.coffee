@@ -6,9 +6,9 @@ module.directive "eeStoreproductEditorCard", (eeProduct) ->
   templateUrl: 'ee-shared/components/ee-storeproduct-editor-card.html'
   restrict: 'E'
   scope:
-    storeProduct:   '='
-    selectionView:  '@'
-    productView:    '@'
+    storeProduct:     '='
+    storeproductView: '@'
+    productView:      '@'
   link: (scope, ele, attrs) ->
     scope.calculated =
       max_price:          undefined

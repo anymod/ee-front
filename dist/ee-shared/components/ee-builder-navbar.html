@@ -1,14 +1,14 @@
 <!--
-  logo:        when true show logo
-  dropdown:    when true show dropdown instead of logo
-  home:        when true show home button instead of logo
-  back:        when true show back button instead of logo
-  signin:      when true show sign in button
-  storefront:  when true show buttons on storefront page
-  selection:   when true show buttons on selection page
-  collection:  when true show buttons on collection page
-  transparent: when true show transparent background with white logo and no box-shadow
-  fixed:       when true fix navbar to top of page
+  logo:         when true show logo
+  dropdown:     when true show dropdown instead of logo
+  home:         when true show home button instead of logo
+  back:         when true show back button instead of logo
+  signin:       when true show sign in button
+  storefront:   when true show buttons on storefront page
+  storeproduct: when true show buttons on storeproduct page
+  collection:   when true show buttons on collection page
+  transparent:  when true show transparent background with white logo and no box-shadow
+  fixed:        when true fix navbar to top of page
 //-->
 
 <nav class="navbar ee-builder-navbar round-0" id="navbar-top" ng-class="{ 'navbar-transparent': transparent, 'box-shadow': !transparent, 'navbar-fixed-top': fixed, 'navbar-absolute-top': !fixed }">
@@ -31,6 +31,9 @@
           </div>
           <ul class="dropdown-menu" style="top: 37px; left: -5px;">
             <li class="visible-xs"><a href="https://{{ ee.user.username }}.eeosk.com" target="_blank"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-external-link"></i>&nbsp;&nbsp;Live</h4></a></li>
+            <li class="visible-xs bg-info"><a ui-sref="collections"><h4 class="vert-5 white-color"><i class="fa fa-fw fa-cubes"></i>&nbsp;&nbsp;Collections</h4></a></li>
+            <!-- <li class="visible-xs bg-primary"><a ui-sref="promotions"><h4 class="vert-5 white-color"><i class="fa fa-fw fa-bullhorn"></i>&nbsp;&nbsp;Promotions</h4></a></li> -->
+            <li class="visible-xs bg-success"><a ui-sref="edit"><h4 class="vert-5 white-color"><i class="fa fa-fw fa-pencil"></i>&nbsp;&nbsp;Edit Store</h4></a></li>
             <li><a href ng-click="feedback()"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-comment-o"></i>&nbsp;&nbsp;Feedback</h4></a></li>
             <li><a ui-sref="orders"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-list"></i>&nbsp;&nbsp;Orders</h4></a></li>
             <li><a ui-sref="account"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-gear"></i>&nbsp;&nbsp;Account Settings</h4></a></li>
@@ -69,7 +72,7 @@
       </div> <!-- /signin -->
 
       <!-- storefront: buttons on storefront page -->
-      <div ng-if="storefront" class="storefront-buttons">
+      <div ng-if="storefront" class="storefront-buttons hidden-xs">
         <div class="position-fixed text-center">
           <a ui-sref="collections" class="btn btn-info">Collections</a>&nbsp;
           <!-- <a ui-sref="promotions" class="btn btn-primary">Promotions</a>&nbsp; -->

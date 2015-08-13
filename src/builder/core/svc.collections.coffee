@@ -33,7 +33,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
       avg_price: 7888
       avg_earnings: 671
       max_sale: 25
-      selection_images: [
+      product_images: [
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1433891015/rvsmsaz5szbqwdjjulva.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1433891094/hpvkacccur0hsyxxqa6w.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1433891109/o3nqomb4gnr06ku4xcja.jpg',
@@ -53,7 +53,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
       avg_price: 10282
       avg_earnings: 1239
       max_sale: 20
-      selection_images: [
+      product_images: [
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115063/c5smhguzidlq0edp0hkl.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115066/bzzfimkhntulfg2d8tc5.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115088/dfqbo0nwlb2zao5sxyxz.jpg',
@@ -73,7 +73,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
       avg_price: 11423
       avg_earnings: 1442
       max_sale: 33
-      selection_images: [
+      product_images: [
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115002/avseisxqbkyb4rj3qflx.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115004/oeeorcegmq1ouigksdik.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115009/sxlj3cziot82csxy96ks.jpg',
@@ -93,7 +93,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
       avg_price: 8875
       avg_earnings: 981
       max_sale: 25
-      selection_images: [
+      product_images: [
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115276/kozoqbnvdsb4jcojep0n.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115621/b16fmnjuafl5nz52uhya.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1433891036/hfcrlb2ztpotuifdeyxt.jpg',
@@ -113,7 +113,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
       avg_price: 3999
       avg_earnings: 811
       max_sale: 33
-      selection_images: [
+      product_images: [
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115271/rydpfgsabx8hj8ec2grf.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115271/e7m0q8hqcpvchwtnsxok.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115271/vj7bf01uinmjkydxisxw.jpg',
@@ -133,7 +133,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
       avg_price: 928
       avg_earnings: 213
       max_sale: 10
-      selection_images: [
+      product_images: [
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115618/ofiqzxf5kpxslmpr0aph.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1433891213/yhdt8ghbcs33lxm5tb7l.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115610/f55oakqbp0f9ukjsarfp.jpg',
@@ -153,7 +153,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
       avg_price: 4291
       avg_earnings: 921
       max_sale: 15
-      selection_images: [
+      product_images: [
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115321/i95jpntagm0pwbbrvvjh.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115322/x1va1hei1xg5m5hexuv2.jpg',
         'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_70,h_70/v1429115320/rwmc0zaml6uqxdig2ko7.jpg',

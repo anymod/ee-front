@@ -61,18 +61,6 @@ angular.module('builder.core').factory 'eeProduct', ($q, eeAuth, eeBack) ->
   #   _calcByMargin margin
   #   return
 
-  # _openProductModal = (id, catalog) ->
-  #   if !id then return
-  #   _reset()
-  #   _getProduct id
-  #   .then (product) ->
-  #     p_s = eeStorefront.fns.getProductSelection product
-  #     margin = if !!p_s then _calcMargin(product.baseline_price, p_s.selling_price) else _data.margins.start_margin
-  #     _data.product = product
-  #     _calcByMargin margin
-  #     if catalog then eeModal.fns.openCatalogProductModal() else eeModal.fns.openProductModal()
-  #   .catch (err) -> console.error err
-
   ## EXPORTS
   data: _data
   fns:

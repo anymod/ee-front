@@ -11,12 +11,11 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
   _exports =
     User:           eeUser.data
     Collections:    eeCollections.data
+    StoreProducts:  eeStoreProduct.data
     meta:           {}
     carousel:       {}
     about:          {}
-    selections:     []
     product_ids:    []
-    selection_map:  {}
     categories:     ['All']
     logged_in:      _loggedIn
     loading:        {}
@@ -40,9 +39,7 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
     _exports.meta           = user.storefront_meta
     _exports.carousel       = user.storefront_meta?.home?.carousel[0]
     _exports.about          = user.storefront_meta?.about
-    _exports.selections     = data.selections
     _exports.product_ids    = data.product_ids
-    _exports.selection_map  = data.selection_map
     _exports.categories     = data.categories
     _exports.logged_in      = eeAuth.fns.hasToken()
 
@@ -86,7 +83,6 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
 
   $rootScope.$on 'definer:login',     () -> _defineLoggedIn()
   $rootScope.$on 'definer:logout',    () -> _defineLanding()
-  # $rootScope.$on 'selections:stale',  () -> _defineLoggedIn()
 
   ## EXPORTS
   exports: _exports

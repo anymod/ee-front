@@ -56,8 +56,8 @@
           <img ng-src="{{ collection.banner }}" class="full-width img-responsive gray-border" />
         </div>
         <div class="col col-sm-3">
-          <img ng-repeat="img in collection.selection_images" ng-src="{{ img }}" class="gray-border" style="height: 70px; width: 70px;" />
-          <p class="vert-5"><a href ng-click="shown = !shown">{{ collection.title | humanize }} - {{ collection.selection_ids.length }} items</a></p>
+          <img ng-repeat="img in collection.storeproduct_images" ng-src="{{ img }}" class="gray-border" style="height: 70px; width: 70px;" />
+          <p class="vert-5"><a href ng-click="shown = !shown">{{ collection.title | humanize }} - {{ collection.storeproduct_ids.length }} items</a></p>
         </div>
         <div class="col col-sm-5">
           <h4 class="margin-0 font-weight-200">{{ collection.min_price | centToDollar }} to {{ collection.max_price | centToDollar }} / item</h4>
@@ -70,7 +70,7 @@
       </div>
 
       <div ng-if="shown">
-        <div ng-repeat="img in collection.selection_images" class="inline-block">
+        <div ng-repeat="img in collection.storeproduct_images" class="inline-block">
           <img ng-src="{{ img }}" class="gray-border" style="height: 70px; width: 70px;" />
           <br/>
           $44.99

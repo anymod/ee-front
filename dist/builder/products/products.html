@@ -59,8 +59,8 @@
           <a ng-if="!product.added" ui-sref="productView({ id: product.id })">
             <img ng-src="{{ product.image | midsize }}" class="full-width gray-border hover-success-border">
           </a>
-          <!-- TODO handle selectionView -->
-          <a ng-if="product.added" ui-sref="selectionView({ id: product.added_as })">
+          <!-- TODO handle storeproductView -->
+          <a ng-if="product.added" ui-sref="storeproductView({ id: product.added_as })">
             <img ng-src="{{ product.image | midsize }}" class="full-width gray-border hover-success-border">
           </a>
           <div>

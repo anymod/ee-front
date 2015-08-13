@@ -235,7 +235,7 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
     meta: _userDefaults.storefront_meta
     theme: angular.copy(_themes[0])
     signup:
-      selections: []
+      storeproducts: []
 
   ## EXPORTS
   # show:   _show
@@ -243,11 +243,3 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
   themes: _themes
 
   landingUser: _userDefaults
-
-  fns:
-    openExampleModal: () ->
-      $modal.open({
-        templateUrl: 'builder/example/example.modal.html'
-        backdropClass: 'white-background opacity-08'
-        size: 'sm'
-      })
