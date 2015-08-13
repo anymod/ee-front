@@ -14,8 +14,7 @@
     <a ng-bind="storefront.ee.carousel.btnText" ng-show="storefront.ee.carousel.btnText" ui-sref="collection({ title: storefront.ee.carousel.linkCategory })" class="btn btn-default"></a>
   </div>
 </div> -->
-
-<div class="container">
+<div ng-if="storefront.ee.Collections.collections.length > 0" class="container">
   <div class="row vert-20">
     <div class="col col-sm-2">
       <h4 class="margin-0">Collections</h4>
@@ -26,7 +25,7 @@
     <div class="col col-sm-10">
       <div style="max-width: 800px; max-height: 470px;" class="margin-0-auto">
         <carousel interval="5000" no-wrap="noWrapSlides">
-          <slide ng-repeat="collection in storefront.ee.Collections.collections" active="collection.active">
+          <slide ng-repeat="collection in storefront.ee.Collections.collections | in_carousel" active="collection.active">
             <a ui-sref="collection({ id: collection.id })">
               <img ng-src="{{ collection.banner }}" style="margin:auto;">
               <div class="carousel-caption">
@@ -39,10 +38,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-<pre>
-  {{ storefront.ee.Collections | json }}
-</pre>

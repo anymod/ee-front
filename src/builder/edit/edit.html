@@ -4,12 +4,15 @@
     <h1 class="vert-10 font-weight-200 text-success">
       <span ng-if="$state.current.name == 'edit.topbar'">Edit your top bar</span>
       <span ng-if="$state.current.name == 'edit.about'">Edit your about section</span>
+      <span ng-if="$state.current.name == 'edit.blog'">Add your blog</span>
+      <span ng-if="$state.current.name == 'edit.social'">Add your social media & email</span>
+      <span ng-if="$state.current.name == 'edit.seo'">Enhance your SEO</span>
     </h1>
     <h4 class="font-weight-200">
       <span ng-if="$state.current.name == 'edit.topbar'">Customize your top bar: a preview is shown below.</span>
-      <span ng-if="$state.current.name == 'edit.body'">Choose a main image and a headline for your store.</span>
       <span ng-if="$state.current.name == 'edit.about'">Tell the world about your store. Your About section will show automatically.</span>
-      <span ng-if="$state.current.name == 'edit.blog'">Enter your blog url. Your Blog link will show automatically.</span>
+      <span ng-if="$state.current.name == 'edit.blog'">Your blog link will show automatically in your store's top bar.</span>
+      <span ng-if="$state.current.name == 'edit.social'">Your accounts will show automatically in your store's top bar.</span>
       <span ng-if="$state.current.name == 'edit.seo'">Add a title and description to show in search engine results.</span>
     </h4>
   </div>
@@ -188,12 +191,69 @@
       </div>
       <!-- /ABOUT -->
 
+      <!-- SOCIAL -->
+      <div ng-if="$state.current.name == 'edit.social'">
+        <!-- EDITOR top bar social -->
+        <div class="form-group vert-2">
+          <label class="col-sm-4 control-label">Facebook</label>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-fw fa-facebook"></i></span>
+              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.meta.audience.social.facebook">
+              <span ng-if="edit.ee.meta.audience.social.facebook" class="input-group-addon white-background"><a href="http://facebook.com/{{ edit.ee.meta.audience.social.facebook }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group vert-2">
+          <label class="col-sm-4 control-label">Pinterest</label>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-fw fa-pinterest"></i></span>
+              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.meta.audience.social.pinterest">
+              <span ng-if="edit.ee.meta.audience.social.pinterest" class="input-group-addon white-background"><a href="http://pinterest.com/{{ edit.ee.meta.audience.social.pinterest }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group vert-2">
+          <label class="col-sm-4 control-label">Twitter</label>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-fw fa-twitter"></i></span>
+              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.meta.audience.social.twitter">
+              <span ng-if="edit.ee.meta.audience.social.twitter" class="input-group-addon white-background"><a href="http://twitter.com/{{ edit.ee.meta.audience.social.twitter }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group vert-2">
+          <label class="col-sm-4 control-label">Instagram</label>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-fw fa-instagram"></i></span>
+              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.meta.audience.social.instagram">
+              <span ng-if="edit.ee.meta.audience.social.instagram" class="input-group-addon white-background"><a href="http://instagram.com/{{ edit.ee.meta.audience.social.instagram }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group vert-5">
+          <label class="col-sm-4 control-label">Contact email</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+              <input type="text" class="form-control" placeholder="Email" ng-model="edit.ee.meta.audience.contact.email">
+              <span ng-if="edit.ee.meta.audience.contact.email" class="input-group-addon white-background"><a href="mailto:{{ edit.ee.meta.audience.contact.email }}" target="_blank"><i class="fa fa-send"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- /EDITOR top bar social -->
+      </div>
+      <!-- /SOCIAL -->
+
       <!-- BLOG -->
       <div ng-if="$state.current.name == 'edit.blog'">
         <div class="form-group vert-5">
           <label class="col-sm-3 control-label">Blog</label>
           <div class="col-sm-6">
-            <div class="input-group margin-0">
+            <div class="input-group vert-2">
               <span class="input-group-addon"><i class="fa fa-fw fa-link"></i></span>
               <input type="text" class="form-control" placeholder="http://" ng-model="edit.ee.meta.blog.url">
               <span ng-if="edit.ee.meta.blog.url" class="input-group-addon white-background"><a href="{{ edit.ee.meta.blog.url | addHttp }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
@@ -222,3 +282,5 @@
     </div>
   </div>
 </div>
+
+<ee-loading loading="edit.ee.loading"></ee-loading>

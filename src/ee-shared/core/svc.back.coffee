@@ -161,6 +161,13 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       data: collection
     }
 
+  collectionDELETE: (id, token) ->
+    _makeRequest {
+      method: 'DELETE'
+      url: eeBackUrl + 'collections/' + id
+      headers: authorization: token
+    }
+
   collectionAddProduct: (collection_id, product_id, token) ->
     _makeRequest {
       method: 'PUT'

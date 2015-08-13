@@ -1,5 +1,3 @@
-<ee-loading loading="!!storefront.ee.loading"></ee-loading>
-
 <div class="featured" ng-hide="storefront.ee.loading">
   <div ng-show="storefront.data.selections.length > 0" class="container">
     <div class="full-width pad-10"></div>
@@ -27,8 +25,6 @@
       </div>
     </div>
   </div>
+</div>
 
-  <div ng-if="isStore" ng-show="storefront.ee.selections.length <= 0" class="pad-10">
-    <h2 class="full-width text-center">Coming soon</h2>
-  </div>
-</div> <!-- /featured -->
+<ee-loading loading="storefront.ee.loading"></ee-loading>

@@ -39,7 +39,6 @@ angular.module('builder.core').factory 'eeCollection', ($q, eeAuth, eeBack) ->
       _data.count         = count
       _data.collection    = collection
       _data.storeProducts = storeProducts
-    .catch (err) -> console.error err
     .finally () -> _data.reading = false
 
   _updateCollection = () ->
@@ -50,15 +49,23 @@ angular.module('builder.core').factory 'eeCollection', ($q, eeAuth, eeBack) ->
     _data.updating = deferred.promise
     eeBack.collectionPUT token, _data.collection
     .then (collection) -> _data.collection = collection
-    .catch (err) -> console.error err
     .finally () -> _data.updating = false
+
+  _destroyCollection = () ->
+    deferred  = $q.defer()
+    token     = eeAuth.fns.getToken()
+    if _data.destroying then return _data.destroying
+    if !token then deferred.reject('Missing token'); return deferred.promise
+    _data.destroying = deferred.promise
+    eeBack.collectionDELETE _data.collection.id, token
+    .then (res) -> res
+    .finally () -> _data.destroying = false
 
   _addProduct = (product) ->
     deferred  = $q.defer()
     product.updating = deferred.promise
     eeBack.collectionAddProduct _data.collection?.id, product.id, eeAuth.fns.getToken()
     .then () -> product.added = true
-    .catch (err) -> console.error err
     .finally () -> product.updating = false
 
   _removeProduct = (product) ->
@@ -66,14 +73,13 @@ angular.module('builder.core').factory 'eeCollection', ($q, eeAuth, eeBack) ->
     product.updating = deferred.promise
     eeBack.collectionRemoveProduct _data.collection?.id, product.id, eeAuth.fns.getToken()
     .then () -> product.added = false
-    .catch (err) -> console.error err
     .finally () -> product.updating = false
-
 
   ## EXPORTS
   data: _data
   fns:
-    defineCollection: _defineCollection
-    updateCollection: _updateCollection
-    addProduct:       _addProduct
-    removeProduct:    _removeProduct
+    defineCollection:   _defineCollection
+    updateCollection:   _updateCollection
+    destroyCollection:  _destroyCollection
+    addProduct:         _addProduct
+    removeProduct:      _removeProduct

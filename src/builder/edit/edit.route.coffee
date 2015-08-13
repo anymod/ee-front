@@ -26,8 +26,8 @@ angular.module('builder.edit').config ($stateProvider) ->
     .state 'edit.topbar',
       url:    '/topbar'
       views:  views
-    .state 'edit.body',
-      url:    '/body'
+    .state 'edit.social',
+      url:    '/social'
       views:  views
     .state 'edit.about',
       url:    '/about'

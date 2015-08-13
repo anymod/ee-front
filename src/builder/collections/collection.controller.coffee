@@ -11,7 +11,7 @@ angular.module('builder.collections').controller 'collectionCtrl', ($state, $sta
   collection.state  = $state.current.name
   if !collection.id then $state.go 'collectionsAdd'
 
-  eeCollection.fns.defineCollection collection.id
+  eeCollection.fns.defineCollection(collection.id).catch (err) -> $state.go 'collections'
   eeUser.fns.defineUser()
   eeCollections.fns.defineOwnCollections()
 
@@ -20,5 +20,6 @@ angular.module('builder.collections').controller 'collectionCtrl', ($state, $sta
   # eeProducts.fns.defineForCollection collection_id
 
   collection.update = () -> eeCollection.fns.defineCollection collection.id
+  collection.delete = () -> eeCollection.fns.destroyCollection(collection.id).then () -> $state.go 'collections'
 
   return
