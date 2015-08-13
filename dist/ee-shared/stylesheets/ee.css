@@ -8506,6 +8506,43 @@ colorpicker-preview {
   overflow-y: scroll;
   overflow-x: hidden;
 }
+.carousel {
+  margin-bottom: 60px;
+}
+.carousel-inner {
+  padding-bottom: 60px;
+}
+.carousel-control {
+  bottom: 60px;
+}
+.carousel-indicators {
+  bottom: 16px !important;
+  right: 5px !important;
+  left: inherit !important;
+  text-align: right;
+}
+.carousel-indicators li {
+  border: 1px solid #0286c2 !important;
+  background-color: #fcfcfc !important;
+}
+.carousel-indicators .active {
+  background-color: #0286c2 !important;
+}
+.carousel-caption {
+  left: 0;
+  right: 0;
+  bottom: -60px;
+  height: 60px;
+  padding: 0 3px;
+  color: #474747;
+  text-shadow: none;
+  text-align: left;
+}
+.carousel-caption h4 {
+  font-weight: 200;
+  font-size: 24px;
+  line-height: 24px;
+}
 [ng\:cloak],
 [ng-cloak],
 .ng-cloak {

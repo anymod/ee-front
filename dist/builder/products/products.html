@@ -56,10 +56,11 @@
 
       <div>
         <div class="pad-10 text-left">
-          <a ng-if="!product.added_as" ui-sref="productView({ id: product.id })">
+          <a ng-if="!product.added" ui-sref="productView({ id: product.id })">
             <img ng-src="{{ product.image | midsize }}" class="full-width gray-border hover-success-border">
           </a>
-          <a ng-if="product.added_as" ui-sref="selectionView({ id: product.added_as })">
+          <!-- TODO handle selectionView -->
+          <a ng-if="product.added" ui-sref="selectionView({ id: product.added_as })">
             <img ng-src="{{ product.image | midsize }}" class="full-width gray-border hover-success-border">
           </a>
           <div>
@@ -67,8 +68,8 @@
             <h4 ng-bind="(product.baseline_price / (1 - .15)) | centToDollar"></h4>
           </div>
         </div>
-        <button ng-if="!product.added_as" class="btn btn-default font-weight-200" ng-disabled="product.adding" ng-click="products.selectionsFns.createSelection(product)">Add</button>
-        <button ng-if="product.added_as" class="btn btn-info font-weight-200">In store</button>
+        <button ng-if="!product.added" class="btn btn-default font-weight-200" ng-disabled="product.updating" ng-click="products.collectionFns.addProduct(product)">Add</button>
+        <button ng-if="product.added" class="btn btn-info font-weight-200">Added</button>
       </div>
     </div>
 
