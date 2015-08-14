@@ -24,7 +24,6 @@ angular.module 'eeBuilder', [
   'builder.create'
   'builder.terms'
   'builder.storefront'
-  # 'builder.catalog'
   'builder.products'
   # 'builder.storeproduct'
   'builder.collections'

@@ -73,14 +73,14 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     deferred  = $q.defer()
     product.updating = deferred.promise
     eeBack.collectionAddProduct _data.collection?.id, product.id, eeAuth.fns.getToken()
-    .then () -> product.added = true
+    .then (storeProduct) -> product.storeProductId = storeProduct.id
     .finally () -> product.updating = false
 
   _removeProduct = (product) ->
     deferred  = $q.defer()
     product.updating = deferred.promise
     eeBack.collectionRemoveProduct _data.collection?.id, product.id, eeAuth.fns.getToken()
-    .then () -> product.added = false
+    .then () -> product.storeProductId = null
     .finally () -> product.updating = false
 
   $rootScope.$watch () ->

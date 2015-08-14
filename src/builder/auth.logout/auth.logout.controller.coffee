@@ -2,7 +2,7 @@
 
 angular.module('builder.auth').controller 'logoutCtrl', ($state, eeAuth) ->
   ## TODO re-implement reset functions (or equivalent)
-  # eeCatalog.reset()
+  # eeProducts.reset()
   # eeOrders.reset()
   eeAuth.fns.logout()
   return

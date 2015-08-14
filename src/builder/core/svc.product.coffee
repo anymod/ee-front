@@ -10,21 +10,21 @@ angular.module('builder.core').factory 'eeProduct', ($q, eeAuth, eeBack) ->
 
   _reset = () ->
     _data.product = {}
-    _data.loading = false
+    _data.reading = false
 
   _reset()
 
   ## PRIVATE FUNCTIONS
   _getProduct = (id) ->
     deferred = $q.defer()
-    if !!_data.loading then return _data.loading
+    if !!_data.reading then return _data.reading
     if !id then deferred.reject('Missing product ID'); return deferred.promise
     _data.product = {}
-    _data.loading = deferred.promise
+    _data.reading = deferred.promise
     eeBack.productGET id, eeAuth.fns.getToken()
     .then (data) -> deferred.resolve data
     .catch (err) -> deferred.reject err
-    .finally () -> _data.loading = false
+    .finally () -> _data.reading = false
     deferred.promise
 
   _setProduct = (id) ->

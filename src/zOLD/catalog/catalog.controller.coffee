@@ -4,11 +4,11 @@
 #
 #   this.ee = eeDefiner.exports
 #
-#   this.data       = eeCatalog.data
-#   this.fns        = eeCatalog.fns
+#   this.data       = eeProducts.data
+#   this.fns        = eeProducts.fns
 #   this.productFns = eeProduct.fns
 #   this.feedback   = () -> eeModal.fns.open 'feedback'
 #
-#   if !this.data.products or this.data.products.length < 1 then eeCatalog.fns.search()
+#   if !this.data.products or this.data.products.length < 1 then eeProducts.fns.search()
 #
 #   return

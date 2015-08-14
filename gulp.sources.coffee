@@ -61,14 +61,14 @@ sources.builderModule = [
   './src/builder/core/svc.auth.coffee'
   './src/builder/core/svc.definer.coffee'
   './src/builder/core/svc.cart.coffee'
-  './src/builder/core/svc.catalog.coffee'
-  './src/builder/core/svc.landing.coffee'
-  './src/builder/core/svc.orders.coffee'
-  './src/builder/core/svc.product.coffee'
-  './src/builder/core/svc.storeproduct.coffee'
   './src/builder/core/svc.user.coffee'
+  './src/builder/core/svc.landing.coffee'
+  './src/builder/core/svc.product.coffee'
+  './src/builder/core/svc.products.coffee'
+  './src/builder/core/svc.storeproduct.coffee'
   './src/builder/core/svc.collection.coffee'
   './src/builder/core/svc.collections.coffee'
+  './src/builder/core/svc.orders.coffee'
   # Module - auth
   './src/builder/auth/auth.module.coffee'
   # auth.login
@@ -124,7 +124,7 @@ sources.builderModule = [
   './src/builder/products/products.module.coffee'
   './src/builder/products/products.route.coffee'
   './src/builder/products/products.controller.coffee'
-  './src/builder/products/product.view.controller.coffee'
+  './src/builder/products/product.controller.coffee'
   # # Module - selections
   # './src/builder/selections/selections.module.coffee'
   # './src/builder/selections/selections.route.coffee'

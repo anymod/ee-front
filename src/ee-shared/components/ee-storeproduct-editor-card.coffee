@@ -7,8 +7,6 @@ module.directive "eeStoreproductEditorCard", (eeProduct) ->
   restrict: 'E'
   scope:
     storeProduct:     '='
-    storeproductView: '@'
-    productView:      '@'
   link: (scope, ele, attrs) ->
     scope.calculated =
       max_price:          undefined

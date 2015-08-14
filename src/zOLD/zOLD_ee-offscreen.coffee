@@ -82,7 +82,7 @@ angular.module('ee-offscreen').directive "eeOffscreenStorefrontAudience", () ->
     return
 
 ## Catalog
-angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCatalog) ->
+angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeProducts) ->
   templateUrl: 'builder/catalog/catalog.offscreen.html'
   restrict: 'E'
   scope: {}
@@ -106,19 +106,19 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCat
       { min: 20000, max: null   }
     ]
 
-    scope.query = eeCatalog.getQuery()
+    scope.query = eeProducts.getQuery()
     scope.$on 'catalog:query:updated', () ->
-      scope.query = eeCatalog.getQuery()
+      scope.query = eeProducts.getQuery()
 
     scope.categoryIsCurrent = (category) -> scope.currentCategories.indexOf(category) > -1
 
     scope.toggleCurrentCategory = (category) ->
       index = scope.currentCategories.indexOf category
       if index > -1 then scope.currentCategories.splice(index, 1) else scope.currentCategories.push category
-      eeCatalog.addQuery 'categories', scope.currentCategories.join(',')
-      eeCatalog.addQuery 'page', 1
-      # eeCatalog.logQuery()
-      eeCatalog.search()
+      eeProducts.addQuery 'categories', scope.currentCategories.join(',')
+      eeProducts.addQuery 'page', 1
+      # eeProducts.logQuery()
+      eeProducts.search()
 
     fillCurrentRanges = (min, max) ->
       scope.currentRanges = []
@@ -128,11 +128,11 @@ angular.module('ee-offscreen').directive "eeOffscreenCatalog", ($location, eeCat
       pushRange r for r in scope.ranges
 
     setMinMax = (min, max) ->
-      eeCatalog.addQuery 'min', min
-      eeCatalog.addQuery 'max', max
-      eeCatalog.addQuery 'page', 1
-      # eeCatalog.logQuery()
-      eeCatalog.search()
+      eeProducts.addQuery 'min', min
+      eeProducts.addQuery 'max', max
+      eeProducts.addQuery 'page', 1
+      # eeProducts.logQuery()
+      eeProducts.search()
 
     translateRanges = () ->
       [mins, maxs] = [[],[]]

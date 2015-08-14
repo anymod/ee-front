@@ -13,26 +13,16 @@ angular.module('app.core').filter 'centToDollar', ($filter) ->
     currencyFilter = $filter('currency')
     currencyFilter Math.floor(cents)/100
 
-angular.module('app.core').filter 'thumbnail', () ->
-  (url) ->
-    if !!url and url.indexOf("image/upload") > -1
-      url.split("image/upload").join('image/upload/c_pad,w_80,h_80')
-    else
-      url
+resizeCloudinaryImageTo = (url, w, h) ->
+  if !!url and url.indexOf("image/upload") > -1
+    url.split("image/upload").join('image/upload/c_pad,w_' + w + ',h_' + h)
+  else
+    url
 
-angular.module('app.core').filter 'midsize', () ->
-  (url) ->
-    if !!url and url.indexOf("image/upload") > -1
-      url.split("image/upload").join('image/upload/c_pad,w_250,h_250')
-    else
-      url
-
-angular.module('app.core').filter 'mainImg', () ->
-  (url) ->
-    if !!url and url.indexOf("image/upload") > -1
-      url.split("image/upload").join('image/upload/c_limit,w_500,h_500')
-    else
-      url
+angular.module('app.core').filter 'thumbnail',  () -> (url) -> resizeCloudinaryImageTo url, 80, 80
+angular.module('app.core').filter 'small',      () -> (url) -> resizeCloudinaryImageTo url, 120, 120
+angular.module('app.core').filter 'midsize',    () -> (url) -> resizeCloudinaryImageTo url, 250, 250
+angular.module('app.core').filter 'mainImg',    () -> (url) -> resizeCloudinaryImageTo url, 500, 500
 
 angular.module('app.core').filter 'scaledDownBackground', () ->
   (url) ->

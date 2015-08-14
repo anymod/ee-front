@@ -12,6 +12,8 @@ angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, eeDef
     storefront: '@'
     storeproduct: '@'
     collection: '@'
+    product: '@'
+    collectionId: '@'
     transparent: '@'
     fixed: '@'
     signin: '@'

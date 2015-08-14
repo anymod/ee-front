@@ -1,12 +1,12 @@
 'use strict'
 
-angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($scope, $rootScope, $location, user, eeAuth, eeCatalog, eeSelection, eeStorefront) ->
+angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($scope, $rootScope, $location, user, eeAuth, eeProducts, eeSelection, eeStorefront) ->
   ## Setup definitions
   $scope.user = user
   # Search
-  $scope.categoryArray      = eeCatalog.categoryArray
-  $scope.rangeArray         = eeCatalog.rangeArray
-  $scope.margin_array        = eeCatalog.margin_array
+  $scope.categoryArray      = eeProducts.categoryArray
+  $scope.rangeArray         = eeProducts.rangeArray
+  $scope.margin_array        = eeProducts.margin_array
   # Offscreen product
   basePrice                 = null
   $scope.currentPrice       = null
@@ -33,22 +33,22 @@ angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($
   # Generate searches
   $scope.setCategory  = (category) ->
     $scope.category = if category is $scope.category then null else category
-    eeCatalog.setCategory $scope.category
+    eeProducts.setCategory $scope.category
   $scope.setRange = (range) ->
     if range.min is $scope.min and range.max is $scope.max then range = {}
     $scope.min = range.min
     $scope.max = range.max
-    eeCatalog.setRange range
+    eeProducts.setRange range
   $scope.setSearch = () ->
-    eeCatalog.setSearchTerm $scope.search
+    eeProducts.setSearchTerm $scope.search
 
   # Offscreen product
   setProduct          = (prod) -> $scope.product = prod
   clearProduct        = () -> setProduct {}
-  $scope.update       = (newMargin) -> eeCatalog.setCurrents $scope, basePrice, newMargin
+  $scope.update       = (newMargin) -> eeProducts.setCurrents $scope, basePrice, newMargin
   $scope.setFocusImg  = (img) -> $scope.focusImg = img
   initializeProduct   = (prod) ->
-    productInStorefront = eeCatalog.getProductSelection()[prod.id]
+    productInStorefront = eeProducts.getProductSelection()[prod.id]
     setProduct prod
     basePrice = $scope.product.baseline_price
     $scope.setFocusImg prod.image_meta.main_image
@@ -57,12 +57,12 @@ angular.module('builder.catalog').controller 'builder.catalog.offscreenCtrl', ($
       $scope.currentProfit  = productInStorefront.selling_price - basePrice
       $scope.currentMargin  = Math.round((1 - (basePrice / productInStorefront.selling_price)) * 1000) / 1000
     else
-      $scope.update eeCatalog.start_margin
+      $scope.update eeProducts.start_margin
 
   ## Focus product
   $scope.$on 'product:focus', (e, id) ->
     $scope.loadingProduct = true
-    eeCatalog.getProduct id
+    eeProducts.getProduct id
     .then (product) -> initializeProduct product
     .catch (err) -> console.error 'Error loading product', err
     .finally () -> $scope.loadingProduct = false
