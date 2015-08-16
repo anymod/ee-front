@@ -9162,7 +9162,13 @@ img.loading {
 .product-row:hover {
   background: #eceff1;
 }
+.product-well {
+  width: 180px;
+}
 @media (max-width: 767px) {
+  .product-well {
+    width: 139px;
+  }
   .product-preview-thumb img {
     float: left;
   }

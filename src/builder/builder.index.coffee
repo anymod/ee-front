@@ -45,6 +45,7 @@ angular.module 'eeBuilder', [
   'ee-product-images'
   'ee-collection-nav'
   'ee-collection-card'
+  'ee-collection-editor-card'
   'ee-order'
   'ee-cloudinaryUpload'
   'ee-image-preload'

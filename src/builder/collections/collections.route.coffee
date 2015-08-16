@@ -60,21 +60,4 @@ angular.module('builder.collections').config ($stateProvider) ->
         pageDescription:  'Manage your collection.'
         padTop:           '50px'
 
-    .state 'collectionAdd',
-      url: '/collections/:id/add'
-      views:
-        header:
-          controller: 'collectionCtrl as collection'
-          templateUrl: 'builder/collections/collection.header.html'
-        top:
-          controller: 'collectionCtrl as collection'
-          templateUrl: 'builder/collections/collection.add.html'
-        middle:
-          controller: 'productsCtrl as products'
-          templateUrl: 'builder/products/products.html'
-      data:
-        pageTitle:        'Collection in your store | eeosk'
-        pageDescription:  'Add products to your collection.'
-        padTop:           '50px'
-
   return

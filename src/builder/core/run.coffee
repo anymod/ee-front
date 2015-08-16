@@ -3,12 +3,6 @@
 angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll, eeAuth) ->
   $rootScope.isBuilder = true
 
-  # tryStates = [
-  #   'try-theme'
-  #   'try-storefront'
-  #   'try-edit'
-  #   'try-catalog'
-  # ]
   openStates = [
     'landing'
     'faq'
@@ -29,8 +23,6 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
     'beautiful-and-customizable'
   ]
 
-  # isTry     = (state) -> tryStates.indexOf(state) > -1
-  # isntTry   = (state) -> !isTry state
   isOpen    = (state) -> openStates.indexOf(state) > -1
   needsAuth = (state) -> !isOpen state
 

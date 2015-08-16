@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.products').controller 'productsCtrl', (eeDefiner, eeProducts, eeCollection) ->
+angular.module('builder.products').controller 'productsCtrl', (eeDefiner, eeProducts, eeCollection, eeCollections) ->
 
   products = this
 
@@ -8,9 +8,11 @@ angular.module('builder.products').controller 'productsCtrl', (eeDefiner, eeProd
 
   products.data           = eeProducts.data
   products.fns            = eeProducts.fns
-  products.collectionData = eeCollection.data
   products.collectionFns  = eeCollection.fns
+  products.collectionsFns = eeCollections.fns
 
   if !products.data.products or products.data.products.length < 1 then eeProducts.fns.search()
+
+  eeCollections.fns.defineOwnCollections()
 
   return

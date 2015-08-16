@@ -5,6 +5,7 @@
   back:         when true show back button instead of logo
   signin:       when true show sign in button
   storefront:   when true show buttons on storefront page
+  product:      when true show buttons on product page
   storeproduct: when true show buttons on storeproduct page
   collection:   when true show buttons on collection page
   transparent:  when true show transparent background with white logo and no box-shadow
@@ -59,7 +60,7 @@
       </a> <!-- /collection -->
 
       <!-- product: back to products instead of logo -->
-      <a ng-if="product" ui-sref="collectionsEdit({ id: collectionId })" class="btn btn-default pull-left">
+      <a ng-if="product" ui-sref="products" class="btn btn-default pull-left">
         <i class="fa fa-fw fa-long-arrow-left"></i>
       </a> <!-- /product -->
 

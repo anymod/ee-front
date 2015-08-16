@@ -11,8 +11,6 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     reading:        false
     updating:       false
     destroying:     false
-    save_status:    'Saved'
-    save_bool:      false
     page:           1
     count:          null
     collection:     {}
@@ -49,14 +47,8 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     if _data.updating then return _data.updating
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.updating = deferred.promise
-    _data.save_status = 'Saving'
     eeBack.collectionPUT token, _data.collection
-    .then (collection) ->
-      _data.collection  = collection
-      _data.unsaved     = false
-      _data.save_status = 'Saved'
-      _data.save_bool   = true
-    .catch (err) -> _data.save_status = 'Problem saving'
+    .then (collection) -> _data.collection  = collection
     .finally () -> _data.updating = false
 
   _destroyCollection = () ->
@@ -69,36 +61,9 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     .then (res) -> res
     .finally () -> _data.destroying = false
 
-  _addProduct = (product) ->
-    deferred  = $q.defer()
-    product.updating = deferred.promise
-    eeBack.collectionAddProduct _data.collection?.id, product.id, eeAuth.fns.getToken()
-    .then (storeProduct) -> product.storeProductId = storeProduct.id
-    .finally () -> product.updating = false
-
-  _removeProduct = (product) ->
-    deferred  = $q.defer()
-    product.updating = deferred.promise
-    eeBack.collectionRemoveProduct _data.collection?.id, product.id, eeAuth.fns.getToken()
-    .then () -> product.storeProductId = null
-    .finally () -> product.updating = false
-
-  $rootScope.$watch () ->
-    return _data.collection
-  , (newVal, oldVal) ->
-    if oldVal and oldVal.id
-      if _data.save_status is 'Saved' and !_data.save_bool
-        _data.save_bool = true
-        _data.save_status = 'Save'
-      else
-        _data.save_bool = false
-  , true
-
   ## EXPORTS
   data: _data
   fns:
     defineCollection:   _defineCollection
     updateCollection:   _updateCollection
     destroyCollection:  _destroyCollection
-    addProduct:         _addProduct
-    removeProduct:      _removeProduct

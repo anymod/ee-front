@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
+angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth, eeBack) ->
 
   ## SETUP
   # none
@@ -213,6 +213,26 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
   _defineOwnCollections = (force) ->
     $q.when(if !_data.collections or _data.collections.length is 0 or force then _readOwnCollections() else _data.collections)
 
+  _addProduct = (collection_id, product) ->
+    deferred  = $q.defer()
+    product.updating = deferred.promise
+    eeBack.collectionAddProduct collection_id, product.id, eeAuth.fns.getToken()
+    .then (storeProduct) ->
+      product.storeProductId = storeProduct.id
+      $rootScope.$broadcast 'added:product', product
+    .catch (err) -> if err and err.message then product.err = err.message
+    .finally () -> product.updating = false
+
+  _removeProduct = (collection_id, product) ->
+    deferred  = $q.defer()
+    product.updating = deferred.promise
+    eeBack.collectionRemoveProduct collection_id, product.id, eeAuth.fns.getToken()
+    .then () ->
+      product.storeProductId = null
+      $rootScope.$broadcast 'removed:product', product
+    .catch (err) -> if err and err.message then product.err = err.message
+    .finally () -> product.updating = false
+
   ## EXPORTS
   data: _data
   fns:
@@ -220,3 +240,5 @@ angular.module('builder.core').factory 'eeCollections', ($q, eeAuth, eeBack) ->
     createCollection:         _createCollection
     definePublicCollections:  _definePublicCollections
     defineOwnCollections:     _defineOwnCollections
+    addProduct:               _addProduct
+    removeProduct:            _removeProduct

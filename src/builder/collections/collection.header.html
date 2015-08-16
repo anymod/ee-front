@@ -4,7 +4,6 @@
 
 <div class="position-fixed text-left" style="left: 70px; right: 15px; top: 7px; z-index: 1050;">
   <a ng-if="collection.state != 'collections'" ui-sref="collections" ui-sref-active="active" class="btn btn-default">Your collections</a>
-  <div ng-if="collection.state == 'collectionEdit'" ng-click="collection.delete()" ng-disabled="collection.data.destroying" class="btn btn-default pull-right">Remove<span class="hidden-xs"> collection</span></div>
 </div>
 
 <!-- STORE navbar -->

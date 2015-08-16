@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, eeAuth, eeDefiner) ->
+angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, eeAuth, eeDefiner, eeModal) ->
 
   ## SETUP
   _inputDefaults =
@@ -48,7 +48,6 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
 
   _runQuery = () ->
     deferred = $q.defer()
-    # if searching then avoid simultaneous calls to API
     if !!_data.searching then return _data.searching
     _data.searching = deferred.promise
     eeBack.productsGET eeAuth.fns.getToken(), _formQuery()
@@ -64,6 +63,22 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
     .finally () ->
       _data.searching = false
     deferred.promise
+
+  _addProductModal = (product) ->
+    product.err = null
+    _data.productToAdd = {}
+    _data.productToAdd = product
+    eeModal.fns.open('addProduct')
+
+  ## MESSAGING
+  $rootScope.$on 'reset:products', () -> _data.products = []
+
+  $rootScope.$on 'added:product', (e, data) ->
+    (if data.id is product.id then product.storeProductId = data.storeProductId) for product in _data.products
+    eeModal.fns.close('addProduct')
+
+  $rootScope.$on 'removed:product', (e, data) ->
+    (if data.id is product.id then product.storeProductId = null) for product in _data.products
 
   ## EXPORTS
   data: _data
@@ -96,3 +111,4 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
         _data.inputs.range.min = range.min
         _data.inputs.range.max = range.max
       _runQuery()
+    addProductModal: _addProductModal

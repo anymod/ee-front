@@ -3,7 +3,6 @@
 <!-- /MAIN NAVBAR -->
 
 <div class="position-fixed text-left" style="left: 70px; right: 15px; top: 7px; z-index: 1050;">
-  <div class="btn-group vertical-align-top">
-    <a ng-if="collections.state != 'collections'" ui-sref="collections" ui-sref-active="active" class="btn btn-default">Your collections</a>
-  </div>
+  <a ng-if="collections.state != 'collections'" ui-sref="collections" ui-sref-active="active" class="btn btn-default">Your collections</a>
+  <div ng-if="collections.state == 'collections'" class="btn btn-info pull-right" ng-click="collections.create()" ng-disabled="collections.ee.Collections.creating">Create new collection</div>
 </div>

@@ -1,7 +1,13 @@
 <!-- CATALOG products -->
-<div id="products" class="margin-15 text-center position-relative" ng-hide="products.ee.loading">
+<div id="products" class="container text-center vert-20">
 
-  <div class="margin-5 text-center">
+  <!-- HEADING -->
+  <div class="full-width margin-0-auto max-width-600">
+    <h2 class="text-info vert-20 font-weight-200">Add products to your store</h2>
+  </div>
+  <!-- /HEADING -->
+
+  <div ng-hide="products.ee.loading" class="margin-5 text-center">
     <form class="margin-0-auto max-width-600" ng-submit="products.fns.search()">
       <div class="input-group">
         <input type="text" ng-model="products.data.inputs.search" class="form-control" placeholder="Search">
@@ -51,16 +57,11 @@
 
   </div>
 
-  <div ng-hide="products.data.searching" class="margin-0-auto" style="max-width: 920px;">
-    <div ng-repeat="product in products.data.products" class="well text-center inline-block pad-5 margin-2 white-background box-shadow" style="width: 140px;">
-
+  <div ng-hide="products.data.searching || products.ee.loading" class="margin-0-auto">
+    <div ng-repeat="product in products.data.products" class="well product-well text-center inline-block pad-5 margin-2 white-background box-shadow">
       <div>
         <div class="pad-10 text-left">
-          <a ng-if="!product.storeProductId" ui-sref="product({ id: products.collectionData.collection.id, productId: product.id })">
-            <img ng-src="{{ product.image | small }}" class="full-width gray-border hover-success-border">
-          </a>
-          <!-- TODO handle storeproduct view -->
-          <a ng-if="product.storeProductId" ui-sref="storeproduct({ id: product.storeProductId })">
+          <a ui-sref="product({ id: product.id })">
             <img ng-src="{{ product.image | small }}" class="full-width gray-border hover-success-border">
           </a>
           <div>
@@ -68,8 +69,8 @@
             <h4 ng-bind="product.regular_price | centToDollar"></h4>
           </div>
         </div>
-        <button ng-if="!product.storeProductId" class="btn btn-default font-weight-200" ng-disabled="product.updating" ng-click="products.collectionFns.addProduct(product)">Add</button>
-        <button ng-if="product.storeProductId" class="btn btn-info font-weight-200">Added</button>
+        <button class="btn btn-default font-weight-200" ng-disabled="product.updating" ng-click="products.fns.addProductModal(product)">Add</button>
+        <i ng-if="product.storeProductId" class="fa fa-fw fa-check text-success"></i>
       </div>
     </div>
 
