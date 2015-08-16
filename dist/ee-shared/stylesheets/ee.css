@@ -8485,6 +8485,9 @@ colorpicker-preview {
   transition: none !important;
   transform: none !important;
 }
+body.modal-open {
+  overflow: visible;
+}
 .full-modal .modal-dialog.modal-lg {
   position: fixed;
   margin: 0;
