@@ -1,0 +1,47 @@
+<!-- Message -->
+<ee-builder-section-heading ng-hide="collection.data.reading" heading="Products in {{ collection.data.collection.title || 'Unnamed' }}" heading-class="text-info" subheading="({{ collection.data.count }} items)"></ee-builder-section-heading>
+<!-- !Message -->
+
+<div ng-hide="collection.data.reading" class="container text-center vert-20 margin-top-0">
+  <a ui-sref="collectionEdit({ id: collection.id })" class="btn btn-default">Edit collection details</a>
+
+  <!-- PRODUCTS -->
+  <div class="full-width text-center margin-0">
+
+    <pagination ng-if="collection.data.count > collection.data.perPage"
+      total-items="collection.data.count"
+      items-per-page="collection.data.perPage"
+      ng-model="collection.data.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="collection.update()">
+    </pagination>
+  </div>
+
+  <div class="vert-20 text-left">
+    <div ng-repeat="storeProduct in collection.data.storeProducts">
+      <ee-storeproduct-editor-card store-product="storeProduct" collection="collection.data.collection"></ee-storeproduct-editor-card>
+    </div>
+  </div>
+
+  <div class="full-width text-center margin-0">
+    <pagination ng-if="collection.data.count > collection.data.perPage"
+      total-items="collection.data.count"
+      items-per-page="collection.data.perPage"
+      ng-model="collection.data.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="collection.update()">
+    </pagination>
+  </div>
+  <!-- /PRODUCTS -->
+
+</div>
+
+<ee-loading loading="collection.data.reading"></ee-loading>

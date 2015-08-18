@@ -1,22 +1,9 @@
 <!-- Message -->
-<div class="container text-center vert-20 margin-bottom-0">
-  <div class="margin-0-auto max-width-600 pad-10 pad-top-0">
-    <h1 class="vert-10 font-weight-200 text-success">
-      <span ng-if="$state.current.name == 'edit.topbar'">Edit your top bar</span>
-      <span ng-if="$state.current.name == 'edit.about'">Edit your about section</span>
-      <span ng-if="$state.current.name == 'edit.blog'">Add your blog</span>
-      <span ng-if="$state.current.name == 'edit.social'">Add your social media & email</span>
-      <span ng-if="$state.current.name == 'edit.seo'">Enhance your SEO</span>
-    </h1>
-    <h4 class="font-weight-200">
-      <span ng-if="$state.current.name == 'edit.topbar'">Customize your top bar: a preview is shown below.</span>
-      <span ng-if="$state.current.name == 'edit.about'">Tell the world about your store. Your About section will show automatically.</span>
-      <span ng-if="$state.current.name == 'edit.blog'">Your blog link will show automatically in your store's top bar.</span>
-      <span ng-if="$state.current.name == 'edit.social'">Your accounts will show automatically in your store's top bar.</span>
-      <span ng-if="$state.current.name == 'edit.seo'">Add a title and description to show in search engine results.</span>
-    </h4>
-  </div>
-</div>
+<ee-builder-section-heading ng-if="$state.current.name == 'edit.topbar'" heading="Edit your top bar" heading-class="text-success" subheading="Customize your top bar: a preview is shown below."></ee-builder-section-heading>
+<ee-builder-section-heading ng-if="$state.current.name == 'edit.about'" heading="Edit your about section" heading-class="text-success" subheading="Tell the world about your store. Your About section will show automatically."></ee-builder-section-heading>
+<ee-builder-section-heading ng-if="$state.current.name == 'edit.blog'" heading="Add your blog" heading-class="text-success" subheading="Your blog link will show automatically in your store's top bar."></ee-builder-section-heading>
+<ee-builder-section-heading ng-if="$state.current.name == 'edit.social'" heading="Add your social media & email" heading-class="text-success" subheading="Your accounts will show automatically in your store's top bar."></ee-builder-section-heading>
+<ee-builder-section-heading ng-if="$state.current.name == 'edit.seo'" heading="Enhance your SEO" heading-class="text-success" subheading="Add a title and description to show in search engine results."></ee-builder-section-heading>
 <!-- Message -->
 
 <div class="container" ng-hide="edit.ee.loading">

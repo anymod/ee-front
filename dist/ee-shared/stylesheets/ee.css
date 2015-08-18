@@ -9236,6 +9236,12 @@ img.small-thumb {
     padding: 10px 12px 12px 12px;
   }
 }
+.navbar-addition {
+  left: 60px;
+  right: 15px;
+  top: 7px;
+  z-index: 1050;
+}
 img.media-object {
   width: auto;
   height: auto;

@@ -4,19 +4,19 @@ angular.module('builder.collections').config ($stateProvider) ->
 
   $stateProvider
 
-    .state 'collectionsAdd',
-      url: '/collections/add'
-      views:
-        header:
-          controller: 'collectionsCtrl as collections'
-          templateUrl: 'builder/collections/collections.header.html'
-        top:
-          controller: 'collectionsCtrl as collections'
-          templateUrl: 'builder/collections/collections.add.html'
-      data:
-        pageTitle:        'Collections in your store | eeosk'
-        pageDescription:  'Manage the collections in your store.'
-        padTop:           '50px'
+    # .state 'collectionsAdd',
+    #   url: '/collections/add'
+    #   views:
+    #     header:
+    #       controller: 'collectionsCtrl as collections'
+    #       templateUrl: 'builder/collections/collections.header.html'
+    #     top:
+    #       controller: 'collectionsCtrl as collections'
+    #       templateUrl: 'builder/collections/collections.add.html'
+    #   data:
+    #     pageTitle:        'Collections in your store | eeosk'
+    #     pageDescription:  'Manage the collections in your store.'
+    #     padTop:           '50px'
 
     .state 'collections',
       url: '/collections'
@@ -57,6 +57,20 @@ angular.module('builder.collections').config ($stateProvider) ->
           templateUrl: 'builder/collections/collection.edit.html'
       data:
         pageTitle:        'Collection in your store | eeosk'
+        pageDescription:  'Manage your collection.'
+        padTop:           '50px'
+
+    .state 'collectionProducts',
+      url: '/collections/:id/products'
+      views:
+        header:
+          controller: 'collectionCtrl as collection'
+          templateUrl: 'builder/collections/collection.header.html'
+        top:
+          controller: 'collectionCtrl as collection'
+          templateUrl: 'builder/collections/collection.products.html'
+      data:
+        pageTitle:        'Products in your collection | eeosk'
         pageDescription:  'Manage your collection.'
         padTop:           '50px'
 

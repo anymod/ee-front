@@ -1,14 +1,17 @@
-<div class="well white-background box-shadow">
+<div class="well white-background box-shadow" ng-hide="storeProduct.removed">
   <div class="row">
     <div class="col col-sm-4">
       <ee-product-images product="storeProduct"></ee-product-images>
     </div>
     <div class="col col-sm-8">
-      <div class="form-horizontal text-left">
+      <form class="form-horizontal text-left" ng-submit="updateStoreProduct()">
         <!-- Save -->
-        <div ng-if="false" class="form-group vert-5">
-          <div class="col-sm-10 col-sm-offset-2">
-            <div class="btn btn-info"><i class="fa fa-fw fa-save"></i>&nbsp;Save</div>
+        <div class="form-group vert-5">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn-default" type="submit" ng-disabled="save_status == 'Saved' || save_status == 'Removing'" ng-class="{ 'btn-success': save_status == 'Save' }">
+              <i class="fa fa-fw fa-save"></i>&nbsp;{{ save_status }}
+            </button>
+            <div ng-click="removeStoreProduct()" ng-disabled="save_status == 'Removing'" class="btn btn-default pull-right"><i class="fa fa-trash"></i></div>
           </div>
         </div>
         <!-- /Save -->
@@ -55,8 +58,7 @@
           </div>
         </div>
         <!-- /Description -->
-        <div class="btn btn-link pull-right">Remove</div>
-      </div>
+      </form>
     </div>
   </div>
 </div>

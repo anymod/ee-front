@@ -1,65 +1,27 @@
-<div ng-hide="collection.data.reading" class="container text-center vert-20">
-  <!-- HEADING -->
-  <div class="full-width margin-0-auto max-width-600">
-    <div class="vert-20">
-      <h2 class="text-info font-weight-200">
-        {{ collection.data.collection.title || 'Unnamed (add title below)' }}
-        <small ng-if="!collection.data.reading && collection.data.count">({{ collection.data.count }} items)</small>
-      </h2>
-      <a ui-sref="products" class="btn btn-default">Add products</a>
-    </div>
-    <!-- <div class="well white-background box-shadow pad-0 overflow-hidden">
-      <div class="row margin-0">
-        <div ui-sref="collectionEdit({ id: collection.id })" ng-class="{ 'bg-info':collection.state == 'collectionEdit' }" class="col-xs-6 font-weight-200 pad-15 hover-pointer">Details</div>
-        <div ui-sref="collectionAdd({ id: collection.id })" ng-class="{ 'bg-info':collection.state == 'collectionAdd' }" class="col-xs-6 font-weight-200 pad-15 hover-pointer">Add Products</div>
-      </div>
-    </div> -->
-  </div>
-  <!-- /HEADING -->
+<!-- Message -->
+<ee-builder-section-heading ng-hide="collection.data.reading" heading="{{ collection.data.collection.title || 'Unnamed (add title below)' }}" heading-class="text-info" subheading="({{ collection.data.count }} items)"></ee-builder-section-heading>
+<!-- !Message -->
+
+<div ng-hide="collection.data.reading" class="container text-center vert-20 margin-top-0">
 
   <!-- FORM -->
   <div class="margin-0-auto max-width-900 pad-10 pad-top-0">
     <ee-collection-editor-card collection="collection.data.collection"></ee-collection-editor-card>
     <h4 class="vert-10 font-weight-200 text-muted">
-      <span ng-if="collection.data.count > 0">Edit product titles, prices, and descriptions below.</span>
-      <span ng-if="!collection.data.count || collection.data.count <= 0"><a ui-sref="collectionAdd({ id: collection.id })">Add products</a> to your collection and they will show here.</span>
+      <span ng-if="collection.data.count > 0">The products shown below are in this collection.</span>
+      <span ng-if="!collection.data.count || collection.data.count <= 0">Add products to your collection and they will show here.</span>
     </h4>
+    <a ng-if="collection.data.count > 0" ui-sref="collectionProducts({ id: collection.id })" class="btn btn-default">Edit products</a>
+    <a ui-sref="products" class="btn btn-default">Add products</a>
   </div>
   <!-- FORM -->
 
-  <div class="full-width text-center margin-0">
-    <pagination ng-if="collection.data.count > collection.data.perPage"
-      total-items="collection.data.count"
-      items-per-page="collection.data.perPage"
-      ng-model="collection.data.page"
-      max-size="5"
-      class="pagination-sm margin-0 vertical-align-top"
-      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-      boundary-links="true"
-      rotate="false"
-      ng-change="collection.update()">
-    </pagination>
+  <!-- PRODUCTS -->
+  <div class="vert-20 text-center">
+    <ee-storeproducts-in-collection data="collection.data"></ee-storeproducts-in-collection>
   </div>
+  <!-- /PRODUCTS -->
 
-  <div class="vert-20 text-left">
-    <div ng-repeat="storeProduct in collection.data.storeProducts">
-      <ee-storeproduct-editor-card store-product="storeProduct"></ee-storeproduct-editor-card>
-    </div>
-  </div>
-
-  <div class="full-width text-center margin-0">
-    <pagination ng-if="collection.data.count > collection.data.perPage"
-      total-items="collection.data.count"
-      items-per-page="collection.data.perPage"
-      ng-model="collection.data.page"
-      max-size="5"
-      class="pagination-sm margin-0 vertical-align-top"
-      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-      boundary-links="true"
-      rotate="false"
-      ng-change="collection.update()">
-    </pagination>
-  </div>
 </div>
 
 <ee-loading loading="collection.data.reading"></ee-loading>

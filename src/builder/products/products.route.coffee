@@ -5,7 +5,7 @@ angular.module('builder.products').config ($stateProvider) ->
   $stateProvider
 
     .state 'product',
-      url: '/products/:id'
+      url: '/products/add/:id'
       views:
         header:
           controller: 'productCtrl as product'
@@ -19,7 +19,7 @@ angular.module('builder.products').config ($stateProvider) ->
         padTop:           '50px'
 
     .state 'products',
-      url: '/products'
+      url: '/products/add'
       views:
         header:
           controller: 'productsCtrl as products'

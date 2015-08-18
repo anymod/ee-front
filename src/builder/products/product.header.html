@@ -2,7 +2,7 @@
 <ee-builder-navbar fixed="true" product="true"></ee-builder-navbar>
 <!-- /MAIN NAVBAR -->
 
-<div class="position-fixed text-left" style="left: 70px; right: 70px; top: 7px; z-index: 1050;">
+<div class="position-fixed text-left navbar-addition">
   <div ng-click="product.productsFns.addProductModal(product.data.product)" ng-disabled="product.data.reading || product.adding" class="btn btn-info">Add to a collection</div>
   <i ng-if="product.data.product.storeProductId" class="fa fa-fw fa-check text-success"></i>
 </div>

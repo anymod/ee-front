@@ -1,13 +1,9 @@
 <!-- Message -->
-<div class="container text-center vert-20 margin-bottom-0">
-  <div class="margin-0-auto max-width-600 pad-10 pad-top-0">
-    <h1 class="vert-10 font-weight-200 text-info">Your collections</h1>
-    <a ui-sref="collectionsAdd" class="btn btn-default vert-2">Add collections</a>
-    <a ui-sref="products" class="btn btn-default vert-2">Add products</a>
-  </div>
-</div>
+<ee-builder-section-heading heading="Your collections" heading-class="text-info" subheading="The collections in your store are shown below."></ee-builder-section-heading>
+<!-- !Message -->
 
-<div ng-hide="collections.ee.Collections.reading" class="container vert-50 margin-top-0">
+<div ng-hide="collections.ee.Collections.reading" class="container text-center vert-50 margin-top-0">
+  <a ui-sref="collectionsAdd" class="btn btn-default vert-2">Add collections from catalog</a>
   <!-- <div class="vert-10 text-center">
     <div class="btn btn-sm btn-default">Newest&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
     <div class="btn btn-sm btn-default">Max markdown&nbsp;&nbsp;<i class="fa fa-sort"></i></div>

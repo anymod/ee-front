@@ -2,12 +2,16 @@
 
 module = angular.module 'ee-storeproduct-editor-card', []
 
-module.directive "eeStoreproductEditorCard", (eeProduct) ->
+module.directive "eeStoreproductEditorCard", ($window, eeCollection, eeCollections, eeStoreProducts) ->
   templateUrl: 'ee-shared/components/ee-storeproduct-editor-card.html'
   restrict: 'E'
   scope:
-    storeProduct:     '='
+    storeProduct: '='
+    collection:   '='
   link: (scope, ele, attrs) ->
+    scope.save_status = 'Saved'
+    scope.save_bool   = false
+
     scope.calculated =
       max_price:          undefined
       min_price:          undefined
@@ -70,5 +74,42 @@ module.directive "eeStoreproductEditorCard", (eeProduct) ->
     scope.$watchGroup ['calculated.selling_dollars', 'calculated.selling_cents'], (newVal, oldVal) ->
       if oldVal then _calcByDollarsAndCents()
       return
+
+    scope.updateStoreProduct = () ->
+      scope.save_status = 'Saving'
+      eeStoreProducts.fns.updateStoreProduct scope.storeProduct
+      .then () ->
+        scope.save_status = 'Saved'
+        scope.save_bool   = true
+      .catch (err) -> scope.save_status = 'Problem saving'
+
+    scope.removeStoreProduct = () ->
+      if scope.collection and scope.collection.id
+        removeStoreProduct = $window.confirm 'Remove this from your collection?'
+        if removeStoreProduct
+          scope.save_status = 'Removing'
+          eeCollections.fns.removeProduct scope.collection.id, { id: scope.storeProduct.product_id }
+          .then () -> scope.storeProduct.removed = true
+          .catch (err) -> scope.save_status = 'Problem removing'
+      else
+        deleteStoreProduct = $window.confirm 'Remove this from your store?'
+        if deleteStoreProduct
+          scope.save_status = 'Removing'
+          eeStoreProducts.fns.destroyStoreProduct scope.storeProduct
+          .then () -> scope.storeProduct.removed = true
+          .catch (err) -> scope.save_status = 'Problem removing'
+
+    n = 0
+    scope.$watch () ->
+      return scope.storeProduct
+    , (newVal, oldVal) ->
+      if oldVal and oldVal.id
+        if scope.save_status is 'Saved' and !scope.save_bool and n > 0
+          scope.save_bool = true
+          scope.save_status = 'Save'
+        else
+          n += 1
+          scope.save_bool = false
+    , true
 
     return

@@ -4,7 +4,7 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
 
   ## SETUP
   _inputDefaults =
-    perPage:  48
+    perPage:          48
     page:             null
     search:           null
     searchLabel:      null

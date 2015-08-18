@@ -203,6 +203,29 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
+  storeProductsGET: (token, query) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'storeProducts' + _formQueryString(query)
+      headers: authorization: token
+    }
+
+  storeProductsPUT: (data, token) ->
+    _makeRequest {
+      method: 'PUT'
+      url: eeBackUrl + 'storeProducts/' + data.id
+      headers: authorization: token
+      data: data
+    }
+
+  storeProductsDELETE: (id, token) ->
+    _makeRequest {
+      method: 'DELETE'
+      url: eeBackUrl + 'storeProducts/' + id
+      headers: authorization: token
+    }
+
+
   # selectionsGET: (token, query) ->
   #   _makeRequest {
   #     method: 'GET'

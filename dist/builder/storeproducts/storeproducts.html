@@ -1,0 +1,48 @@
+<!-- Message -->
+<ee-builder-section-heading heading="Your products" heading-class="text-info" subheading="All the products in your store are shown below."></ee-builder-section-heading>
+<!-- !Message -->
+
+<!-- STOREPRODUCTS -->
+<div ng-hide="storeproducts.data.reading" class="container text-center vert-20 margin-top-0">
+  <div class="vert-20 margin-top-0">
+    <a ui-sref="products" class="btn btn-default vert-2">Add products from catalog</a>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="full-width text-center margin-0">
+    <pagination ng-if="storeproducts.data.count > storeproducts.data.perPage"
+      total-items="storeproducts.data.count"
+      items-per-page="storeproducts.data.perPage"
+      ng-model="storeproducts.data.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="storeproducts.update()">
+    </pagination>
+  </div>
+
+  <div class="vert-20 text-left">
+    <div ng-repeat="storeProduct in storeproducts.data.storeProducts">
+      <ee-storeproduct-editor-card store-product="storeProduct"></ee-storeproduct-editor-card>
+    </div>
+  </div>
+
+  <div class="full-width text-center margin-0">
+    <pagination ng-if="storeproducts.data.count > storeproducts.data.perPage"
+      total-items="storeproducts.data.count"
+      items-per-page="storeproducts.data.perPage"
+      ng-model="storeproducts.data.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="storeproducts.update()">
+    </pagination>
+  </div>
+  <!-- /PRODUCTS -->
+</div>
+
+<ee-loading loading="storeproducts.data.reading"></ee-loading>

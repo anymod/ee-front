@@ -7,7 +7,7 @@
   storefront:   when true show buttons on storefront page
   product:      when true show buttons on product page
   storeproduct: when true show buttons on storeproduct page
-  collection:   when true show buttons on collection page
+  collections:  when true show buttons for collections navigation
   transparent:  when true show transparent background with white logo and no box-shadow
   fixed:        when true fix navbar to top of page
 //-->
@@ -46,22 +46,23 @@
 
       <!-- home: home instead of logo -->
       <a ng-if="home" ui-sref="storefront" id="home" class="btn btn-default pull-left">
-        <i class="fa fa-fw fa-home"></i>
+        <i class="fa fa-home"></i>
       </a> <!-- /home -->
 
       <!-- back: back instead of logo -->
       <a ng-if="back" ng-click="historyBack()" id="back" class="btn btn-default pull-left">
-        <i class="fa fa-fw fa-long-arrow-left"></i>
+        <i class="fa fa-long-arrow-left"></i>
       </a> <!-- /back -->
 
-      <!-- collection: back to store instead of logo -->
-      <a ng-if="collection" ui-sref="collections" id="collections" class="btn btn-default pull-left">
-        <i class="fa fa-fw fa-long-arrow-left"></i>
-      </a> <!-- /collection -->
+      <!-- collections: navigation for your collections and your products -->
+      <div ng-if="collections" class="position-fixed text-left navbar-addition">
+        <a ng-if="state != 'collections'" ui-sref="collections" class="btn btn-default">Your collections</a>
+        <a ng-if="state != 'storeproducts'" ui-sref="storeproducts" class="btn btn-default">Your products</a>
+      </div> <!-- /collections -->
 
       <!-- product: back to products instead of logo -->
       <a ng-if="product" ui-sref="products" class="btn btn-default pull-left">
-        <i class="fa fa-fw fa-long-arrow-left"></i>
+        <i class="fa fa-long-arrow-left"></i>
       </a> <!-- /product -->
 
       <!-- /LOGO -->

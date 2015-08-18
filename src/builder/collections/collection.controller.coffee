@@ -19,6 +19,6 @@ angular.module('builder.collections').controller 'collectionCtrl', ($state, $sta
   # eeProducts.fns.clear()
   # eeProducts.fns.defineForCollection collection_id
 
-  # collection.update = () -> eeCollection.fns.defineCollection collection.id
+  collection.update = () -> eeCollection.fns.defineCollection collection.id
 
   return
