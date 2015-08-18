@@ -11,14 +11,10 @@ angular.module('builder.collections').controller 'collectionCtrl', ($state, $sta
   collection.state  = $state.current.name
   if !collection.id then $state.go 'collectionsAdd'
 
-  eeCollection.fns.defineCollection(collection.id).catch (err) -> $state.go 'collections'
+  eeCollection.fns.search(collection.id).catch (err) -> $state.go 'collections'
   eeUser.fns.defineUser()
   eeCollections.fns.defineOwnCollections()
 
-  # TODO show products along with collection
-  # eeProducts.fns.clear()
-  # eeProducts.fns.defineForCollection collection_id
-
-  collection.update = () -> eeCollection.fns.defineCollection collection.id
+  collection.update = () -> eeCollection.fns.update collection.id
 
   return

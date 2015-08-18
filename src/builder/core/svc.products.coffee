@@ -77,8 +77,8 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
     (if data.id is product.id then product.storeProductId = data.storeProductId) for product in _data.products
     eeModal.fns.close('addProduct')
 
-  $rootScope.$on 'removed:product', (e, data) ->
-    (if data.id is product.id then product.storeProductId = null) for product in _data.products
+  # $rootScope.$on 'removed:storeproduct', (e, data) ->
+  #   (if data.id is storeproduct.product_id then product.storeProductId = null) for product in _data.products
 
   ## EXPORTS
   data: _data

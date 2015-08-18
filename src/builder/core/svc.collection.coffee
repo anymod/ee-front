@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, eeBack) ->
+angular.module('builder.core').factory 'eeCollection', ($q, eeAuth, eeBack) ->
 
   ## SETUP
   # none
@@ -14,7 +14,6 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     page:           1
     count:          null
     collection:     {}
-    products:       []
     storeProducts:  []
 
   ## PRIVATE FUNCTIONS
@@ -48,7 +47,7 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.updating = deferred.promise
     eeBack.collectionPUT token, _data.collection
-    .then (collection) -> _data.collection  = collection
+    .then (collection) -> _data.collection = collection
     .finally () -> _data.updating = false
 
   _destroyCollection = () ->
@@ -64,6 +63,9 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
   ## EXPORTS
   data: _data
   fns:
-    defineCollection:   _defineCollection
+    update: _defineCollection
+    search: (id) ->
+      _data.page = 1
+      _defineCollection id
     updateCollection:   _updateCollection
     destroyCollection:  _destroyCollection

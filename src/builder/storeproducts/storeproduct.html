@@ -1,0 +1,5 @@
+<div ng-hide="storeproduct.data.reading" class="container text-center vert-20">
+  <ee-storeproduct-editor-card ng-if="storeproduct.data.storeproduct.id" store-product="storeproduct.data.storeproduct"></ee-storeproduct-editor-card>
+</div>
+
+<ee-loading loading="storeproduct.data.reading"></ee-loading>

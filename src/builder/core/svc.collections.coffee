@@ -190,8 +190,9 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     _data.public.reading = deferred.promise
     eeBack.publicCollectionsGET token
     .then (res) ->
-      _data.public.collections = _dummies # res.rows
-      _data.public.count       = res.count
+      _data.page                = 1
+      _data.public.collections  = _dummies # res.rows
+      _data.public.count        = res.count
     .finally () -> _data.public.reading = false
 
   _readOwnCollections = () ->
@@ -202,6 +203,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     _data.reading = deferred.promise
     eeBack.ownCollectionsGET token
     .then (res) ->
+      _data.page        = 1
       _data.collections = res.rows
       _data.count       = res.count
     .catch (err) -> console.error err
@@ -220,18 +222,16 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     .then (storeProduct) ->
       product.storeProductId = storeProduct.id
       $rootScope.$broadcast 'added:product', product
-    .catch (err) -> if err and err.message then product.err = err.message
+    .catch (err) -> if err and err.message then product.err = err.message; throw err
     .finally () -> product.updating = false
 
-  _removeProduct = (collection_id, product) ->
+  _removeProduct = (collection_id, storeproduct) ->
     deferred  = $q.defer()
-    product.updating = deferred.promise
-    eeBack.collectionRemoveProduct collection_id, product.id, eeAuth.fns.getToken()
-    .then () ->
-      product.storeProductId = null
-      $rootScope.$broadcast 'removed:product', product
-    .catch (err) -> if err and err.message then product.err = err.message
-    .finally () -> product.updating = false
+    storeproduct.updating = deferred.promise
+    eeBack.collectionRemoveProduct collection_id, storeproduct.product_id, eeAuth.fns.getToken()
+    .then () -> storeproduct.removed = true
+    .catch (err) -> if err and err.message then storeproduct.err = err.message; throw err
+    .finally () -> storeproduct.updating = false
 
   ## EXPORTS
   data: _data

@@ -88,8 +88,7 @@ module.directive "eeStoreproductEditorCard", ($window, eeCollection, eeCollectio
         removeStoreProduct = $window.confirm 'Remove this from your collection?'
         if removeStoreProduct
           scope.save_status = 'Removing'
-          eeCollections.fns.removeProduct scope.collection.id, { id: scope.storeProduct.product_id }
-          .then () -> scope.storeProduct.removed = true
+          eeCollections.fns.removeProduct scope.collection.id, scope.storeProduct
           .catch (err) -> scope.save_status = 'Problem removing'
       else
         deleteStoreProduct = $window.confirm 'Remove this from your store?'

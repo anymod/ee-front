@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.storeproducts').controller 'storeproductsCtrl', (eeDefiner, eeStoreProducts) ->
+angular.module('builder.storeproducts').controller 'storeproductsCtrl', (eeDefiner, eeStoreProducts, eeCollections) ->
 
   storeproducts = this
 
@@ -8,6 +8,7 @@ angular.module('builder.storeproducts').controller 'storeproductsCtrl', (eeDefin
   storeproducts.data  = eeStoreProducts.data
 
   if !storeproducts.data.storeproducts or storeproducts.data.storeproducts.length < 1 then eeStoreProducts.fns.search()
+  eeCollections.fns.defineOwnCollections()
 
   storeproducts.update = () -> eeStoreProducts.fns.update()
 

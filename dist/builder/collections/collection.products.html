@@ -3,7 +3,11 @@
 <!-- !Message -->
 
 <div ng-hide="collection.data.reading" class="container text-center vert-20 margin-top-0">
-  <a ui-sref="collectionEdit({ id: collection.id })" class="btn btn-default">Edit collection details</a>
+
+  <div class="vert-20 margin-top-0">
+    <a ui-sref="collectionEdit({ id: collection.id })" class="btn btn-default vert-2">Edit collection details</a>
+    <a ui-sref="products" class="btn btn-default vert-2">Add products</a>
+  </div>
 
   <!-- PRODUCTS -->
   <div class="full-width text-center margin-0">

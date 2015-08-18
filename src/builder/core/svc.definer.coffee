@@ -52,7 +52,6 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
     # TODO define user, storeProducts, and collections as needed
     # eeUser.fns.defineUser()
     # eeStoreProduct.fns.defineStoreProducts()
-    # eeCollection.fns.defineCollections()
 
     # .then     () -> eeStorefront.fns.defineStorefrontFromToken()
     # .then     () -> _fillExportData eeAuth.exports.user, eeStorefront.data

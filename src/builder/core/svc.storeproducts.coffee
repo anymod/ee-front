@@ -51,9 +51,11 @@ angular.module('builder.core').factory 'eeStoreProducts', ($q, eeAuth, eeBack) -
     deferred = $q.defer()
     storeProduct.destroying = deferred.promise
     eeBack.storeProductsDELETE storeProduct.id, eeAuth.fns.getToken()
-    .then (res) -> storeProduct = res
+    .then (res) ->
+      storeProduct = res
+      storeProduct.deleted = true
     .catch (err) -> if err and err.message then storeProduct.err = err.message
-    .finally () -> storeProduct.deleted = true
+    .finally () -> storeProduct.destroying = false
 
   ## EXPORTS
   data: _data

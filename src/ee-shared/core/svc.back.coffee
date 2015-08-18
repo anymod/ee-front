@@ -203,6 +203,13 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
+  storeProductGET: (id, token) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'storeProducts/' + id
+      headers: authorization: token
+    }
+
   storeProductsGET: (token, query) ->
     _makeRequest {
       method: 'GET'
