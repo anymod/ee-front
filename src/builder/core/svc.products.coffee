@@ -30,11 +30,11 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
 
   ## PRIVATE EXPORT DEFAULTS
   _data =
-    count:          null
-    products:       []
-    inputs:         _inputDefaults
-    searching:      false
-    hideFilterBtns: false
+    count:      null
+    products:   []
+    inputs:     _inputDefaults
+    searching:  false
+    lastCollectionAddedTo: null
 
   ## PRIVATE FUNCTIONS
   _formQuery = () ->
@@ -73,8 +73,9 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
   ## MESSAGING
   $rootScope.$on 'reset:products', () -> _data.products = []
 
-  $rootScope.$on 'added:product', (e, data) ->
-    (if data.id is product.id then product.storeProductId = data.storeProductId) for product in _data.products
+  $rootScope.$on 'added:product', (e, product, collection_id) ->
+    _data.lastCollectionAddedTo = collection_id
+    (if product.id is prod.id then prod.storeProductId = product.storeProductId) for prod in _data.products
     eeModal.fns.close('addProduct')
 
   # $rootScope.$on 'removed:storeproduct', (e, data) ->

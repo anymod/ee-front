@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeCollection', ($q, eeAuth, eeBack) ->
+angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, eeBack) ->
 
   ## SETUP
   # none
@@ -47,7 +47,9 @@ angular.module('builder.core').factory 'eeCollection', ($q, eeAuth, eeBack) ->
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.updating = deferred.promise
     eeBack.collectionPUT token, _data.collection
-    .then (collection) -> _data.collection = collection
+    .then (collection) ->
+      $rootScope.$broadcast 'sync:collections', collection
+      _data.collection = collection
     .finally () -> _data.updating = false
 
   _destroyCollection = () ->
@@ -57,7 +59,9 @@ angular.module('builder.core').factory 'eeCollection', ($q, eeAuth, eeBack) ->
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.destroying = deferred.promise
     eeBack.collectionDELETE _data.collection.id, token
-    .then (res) -> res
+    .then (res) ->
+      $rootScope.$broadcast 'remove:collections', _data.collection.id
+      res
     .finally () -> _data.destroying = false
 
   ## EXPORTS

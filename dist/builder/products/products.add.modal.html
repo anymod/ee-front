@@ -20,13 +20,20 @@
         </div>
       </div>
       <div class="col col-sm-6">
-        <div class="list-group">
-          <a href
+        <div ng-if="products.data.lastCollectionAddedTo" class="list-group vert-10 margin-top-0">
+          <a href class="list-group-item box-shadow"
             ng-repeat="collection in products.ee.Collections.collections"
-            ng-if="collection.title"
+            ng-if="collection.title && collection.id == products.data.lastCollectionAddedTo"
             ng-bind="collection.title"
-            ng-click="products.collectionsFns.addProduct(collection.id, products.data.productToAdd)"
-            class="list-group-item">
+            ng-click="products.collectionsFns.addProduct(collection.id, products.data.productToAdd)">
+          </a>
+        </div>
+        <div class="list-group gray-border box-shadow" style="max-height: 275px; overflow-y: scroll;">
+          <a href class="list-group-item"
+            ng-repeat="collection in products.ee.Collections.collections"
+            ng-if="collection.title && collection.id != products.data.lastCollectionAddedTo"
+            ng-bind="collection.title"
+            ng-click="products.collectionsFns.addProduct(collection.id, products.data.productToAdd)">
           </a>
         </div>
         <div class="alert alert-info" ng-if="products.data.productToAdd.err" ng-bind="products.data.productToAdd.err"></div>

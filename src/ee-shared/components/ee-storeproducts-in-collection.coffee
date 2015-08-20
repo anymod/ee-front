@@ -9,5 +9,5 @@ angular.module('ee-storeproducts-in-collection').directive "eeStoreproductsInCol
     data:       '='
     showTitle:  '@'
   link: (scope, ele, attr) ->
-    scope.update = () -> eeCollection.fns.defineCollection scope.data.collection.id
+    scope.update = () -> eeCollection.fns.update scope.data.collection.id
     return

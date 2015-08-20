@@ -178,7 +178,9 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.creating = deferred.promise
     eeBack.collectionsPOST token
-    .then (res) -> res
+    .then (collection) ->
+      $rootScope.$broadcast 'sync:collections', collection
+      collection
     .catch (err) -> console.error err
     .finally () -> _data.creating = false
 
@@ -221,7 +223,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     eeBack.collectionAddProduct collection_id, product.id, eeAuth.fns.getToken()
     .then (storeProduct) ->
       product.storeProductId = storeProduct.id
-      $rootScope.$broadcast 'added:product', product
+      $rootScope.$broadcast 'added:product', product, collection_id
     .catch (err) -> if err and err.message then product.err = err.message; throw err
     .finally () -> product.updating = false
 
@@ -232,6 +234,21 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     .then () -> storeproduct.removed = true
     .catch (err) -> if err and err.message then storeproduct.err = err.message; throw err
     .finally () -> storeproduct.updating = false
+
+  $rootScope.$on 'sync:collections', (e, collection) ->
+    in_set = false
+    sync = (coll) ->
+      if coll.id is collection.id
+        in_set = true
+        coll.title        = collection.title
+        coll.banner       = collection.banner
+        coll.headline     = collection.headline
+        coll.in_carousel  = collection.in_carousel
+    sync coll for coll in _data.collections
+    _data.collections.push collection unless in_set
+
+  $rootScope.$on 'remove:collections', (e, id) ->
+    (if coll.id is id then coll = {}) for coll in _data.collections
 
   ## EXPORTS
   data: _data

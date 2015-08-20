@@ -22,19 +22,17 @@
       <div ng-repeat="category in products.data.inputs.categoryArray"
            ng-click="products.fns.setCategory(category)"
            class="btn btn-xs btn-default margin-2"
-           ng-class="{ 'btn-primary': category == products.data.inputs.category }"
-           ng-hide="products.data.hideFilterBtns && category != products.data.inputs.category">
+           ng-class="{ 'btn-primary': category == products.data.inputs.category }">
         <span ng-show="category == products.data.inputs.category"><i class="fa fa-fw fa-times"></i></span>{{ category }}
       </div>
-      <br ng-hide="products.data.hideFilterBtns">
+      <br>
       <div ng-repeat="range in products.data.inputs.rangeArray"
            ng-click="products.fns.setRange(range)"
            class="btn btn-xs btn-default margin-2"
-           ng-class="{ 'btn-primary': range.min == products.data.inputs.range.min && range.max == products.data.inputs.range.max }"
-           ng-hide="products.data.hideFilterBtns && range.min != products.data.inputs.range.min">
+           ng-class="{ 'btn-primary': range.min == products.data.inputs.range.min && range.max == products.data.inputs.range.max }">
         <span ng-show="range.min == products.data.inputs.range.min && range.max == products.data.inputs.range.max"><i class="fa fa-fw fa-times"></i></span>{{ range | rangeToText }}
       </div>
-      <br ng-hide="products.data.hideFilterBtns">
+      <br>
       <div class="btn btn-xs btn-primary margin-2" ng-show="products.data.inputs.searchLabel" ng-click="products.fns.clearSearch()">
         <i class="fa fa-fw fa-times"></i>{{ products.data.inputs.searchLabel }}
       </div>
