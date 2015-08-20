@@ -65,9 +65,15 @@ angular.module('app.core').factory 'eeModal', ($modal) ->
 
   ## EXPORTS
   fns:
-
     open:   (name) -> _open name
     close:  (name) -> _close name
+
+    openCollectionsModal: (collections) ->
+      _modals.collections = $modal.open({
+        templateUrl:    'ee-shared/storefront/storefront.collections.modal.html'
+        backdropClass:  _backdropClass
+        controller: ($scope) -> $scope.collections = collections
+      })
 
     # openLoginModal:         () -> _open 'login'
     # openSignupModal:        () -> _open 'signup'

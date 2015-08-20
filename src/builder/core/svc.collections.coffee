@@ -15,6 +15,9 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     page:           null
     perPage:        24
     collections:    []
+    firstTenCollections: []
+    afterTenCollections: []
+    carouselCollections: []
     public:
       reading:      false
       count:        null
@@ -168,8 +171,19 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
   ## PRIVATE FUNCTIONS
 
   _resetCollections = () ->
-    _data.collections = {}
-    _data.public.collections = {}
+    _data.collections = []
+    _data.firstTenCollections = []
+    _data.public.collections = []
+
+  _setFirstTenCollections = () ->
+    _data.firstTenCollections = []
+    _data.afterTenCollections = []
+    _data.carouselCollections = []
+    setCollection = (coll) ->
+      return unless coll.title
+      if _data.firstTenCollections?.length < 10 then _data.firstTenCollections.push coll else _data.afterTenCollections.push coll
+      if _data.carouselCollections?.length < 10 and coll.in_carousel and coll.banner.indexOf('placehold.it') is -1 then _data.carouselCollections.push coll
+    setCollection collection for collection in _data.collections
 
   _createCollection = () ->
     deferred  = $q.defer()
@@ -208,6 +222,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
       _data.page        = 1
       _data.collections = res.rows
       _data.count       = res.count
+      _setFirstTenCollections()
     .catch (err) -> console.error err
     .finally () -> _data.reading = false
 
@@ -246,9 +261,11 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
         coll.in_carousel  = collection.in_carousel
     sync coll for coll in _data.collections
     _data.collections.push collection unless in_set
+    _setFirstTenCollections()
 
   $rootScope.$on 'remove:collections', (e, id) ->
     (if coll.id is id then coll = {}) for coll in _data.collections
+    _setFirstTenCollections()
 
   ## EXPORTS
   data: _data

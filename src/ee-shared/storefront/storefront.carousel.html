@@ -19,17 +19,22 @@
     <div class="col col-sm-2">
       <h4 class="margin-0">Collections</h4>
       <hr>
-      <ee-collection-nav ng-show="storefront" collections="storefront.ee.Collections.collections" class="nav nav-pills nav-stacked nav-compact"></ee-collection-nav>
+      <ee-collection-nav ng-show="storefront" collections="storefront.ee.Collections.firstTenCollections" class="nav nav-pills nav-stacked nav-compact"></ee-collection-nav>
+      <ul ng-if="storefront.ee.Collections.afterTenCollections.length > 0" class="nav nav-pills nav-stacked nav-compact">
+        <li>
+          <a href ng-click="storefront.openCollectionsModal()">More collections</a>
+        </li>
+      </ul>
       <br>
     </div>
     <div class="col col-sm-10">
       <div style="max-width: 800px; max-height: 470px;" class="margin-0-auto">
         <carousel interval="5000" no-wrap="noWrapSlides">
-          <slide ng-repeat="collection in storefront.ee.Collections.collections | in_carousel" active="collection.active">
+          <slide ng-repeat="collection in storefront.ee.Collections.carouselCollections" active="collection.active">
             <a ui-sref="collection({ id: collection.id })">
               <img ng-src="{{ collection.banner }}" style="margin:auto;">
               <div class="carousel-caption">
-                <h4>{{ collection.headline }}</h4>
+                <h4>{{ collection.headline || collection.title }}</h4>
               </div>
             </a>
           </slide>
