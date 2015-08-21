@@ -9249,7 +9249,7 @@ img.media-object {
   max-height: 64px;
 }
 .nav-compact li > a {
-  padding: 5px;
+  padding: 1px 5px;
 }
 .input-group .btn:last-child {
   border-radius: 0 3px 3px 0;

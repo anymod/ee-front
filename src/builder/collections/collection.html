@@ -1,19 +1,18 @@
 <div ng-hide="collection.data.reading" class="container vert-20">
 
-  <div ng-show="collection.data.storeProducts.length > 0">
-    <div class="full-width pad-10"></div>
-    <div class="row">
-      <div class="col col-sm-3 col-md-2 col-lg-3">
-        <h4 class="margin-0">Collections</h4>
-        <hr>
-        <ee-collection-nav collections="collection.ee.Collections.collections" class="nav nav-pills nav-stacked nav-compact"></ee-collection-nav>
-        <br>
-      </div>
+  <div class="row">
+    <div class="col col-sm-3 col-md-2 col-lg-3">
+      <h4 class="margin-5 font-weight-200">Collections</h4>
+      <hr>
+      <ee-collection-nav collections="collection.ee.Collections.collections" class="nav nav-pills nav-stacked nav-compact"></ee-collection-nav>
+      <br>
+    </div>
 
-      <div class="col col-sm-9 col-md-10 col-lg-9 position-inherit text-center">
-        <h4 class="margin-0 text-left">{{ collection.data.collection.title }}</h4>
-        <hr>
+    <div class="col col-sm-9 col-md-10 col-lg-9 position-inherit">
+      <h4 class="margin-5 font-weight-200">{{ collection.data.collection.title }}</h4>
+      <hr>
 
+      <div ng-if="collection.data.storeProducts.length > 0" class="text-center">
         <div class="margin-10">
           <pagination ng-if="collection.data.count > collection.data.perPage"
             total-items="collection.data.count"
@@ -48,13 +47,15 @@
             ng-change="collection.update()">
           </pagination>
         </div>
-
-        <div ng-show="collection.ee.storeProducts.length <= 0" class="pad-10">
-          <h2 class="full-width text-center">Coming soon</h2>
-        </div>
       </div>
+
+      <div ng-if="collection.data.storeProducts.length <= 0">
+        <h4 class="margin-5 font-weight-200">This collection is coming soon</h4>
+      </div>
+
     </div>
   </div>
+
 </div>
 
 <ee-loading loading="collection.data.reading"></ee-loading>

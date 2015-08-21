@@ -29,12 +29,15 @@
       <div collapse="navCollapsed" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           <li ng-class="{ active: state == 'storefront' }"><a ui-sref="storefront" ng-click="navCollapsed = true" ng-style="{ color: meta.home.topBarColor }">Home</a></li>
-          <li ng-class="{ active: state == 'collection' }" class="dropdown" dropdown>
+          <li>
+            <a href ng-click="openCollectionsModal()" ng-style="{ color: meta.home.topBarColor }">Collections</a>
+          </li>
+          <!-- <li ng-class="{ active: state == 'collection' }" class="dropdown" dropdown>
             <a href class="dropdown-toggle" ng-style="{ color: meta.home.topBarColor }" dropdown-toggle>
               Shop <span class="caret"></span>
             </a>
             <ee-collection-nav ng-show="collections" collections="collections" class="dropdown-menu"></ee-collection-nav>
-          </li>
+          </li> -->
 
           <li ng-show="!!meta.blog.url">
             <a href="{{ meta.blog.url | addHttp }}" target="_blank" ng-style="{ color: meta.home.topBarColor }">Blog</a>
