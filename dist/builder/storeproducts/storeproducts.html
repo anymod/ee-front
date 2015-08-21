@@ -3,20 +3,19 @@
 <!-- !Message -->
 
 <!-- STOREPRODUCTS -->
-<div ng-hide="storeproducts.data.reading" class="container text-center vert-20 margin-top-0">
+<div ng-hide="storeproducts.data.reading" class="container text-center">
 
-  <div class="vert-20 margin-top-0">
+  <div class="vert-20 margin-top-0" ng-if="storeproducts.ee.Collections.collections.length > 0">
     <div class="position-relative inline-block vert-2" dropdown>
       <div class="btn btn-default" dropdown-toggle>
-        Products in your collections&nbsp;<span class="caret"></span>
+        In collections&nbsp;<span class="caret"></span>
       </div>
-      <ul class="dropdown-menu full-width">
+      <ul class="dropdown-menu">
         <li ng-repeat="collection in storeproducts.ee.Collections.collections" ng-if="collection.title">
           <a ui-sref="collectionProducts({ id: collection.id })">{{ collection.title }}</a>
         </li>
       </ul>
     </div>
-    <a ui-sref="products" class="btn btn-default vert-2">Add products</a>
   </div>
 
   <!-- PRODUCTS -->

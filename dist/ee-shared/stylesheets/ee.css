@@ -8634,6 +8634,28 @@ html {
     right: 5px;
   }
 }
+.ee-builder-subnav {
+  top: 50px !important;
+  max-height: 50px;
+  z-index: 1020;
+  overflow: hidden;
+  font-weight: bold;
+}
+.ee-builder-subnav .builder-subnav-btn-info,
+.ee-builder-subnav .builder-subnav-btn-success {
+  display: inline-block;
+  width: 19%;
+  line-height: 14px;
+  color: #AFAFAF;
+}
+.ee-builder-subnav .builder-subnav-btn-info.active,
+.ee-builder-subnav .builder-subnav-btn-info:hover {
+  color: #6b5c84;
+}
+.ee-builder-subnav .builder-subnav-btn-success.active,
+.ee-builder-subnav .builder-subnav-btn-success:hover {
+  color: #40a397;
+}
 .store-navbar {
   min-height: 75px;
 }

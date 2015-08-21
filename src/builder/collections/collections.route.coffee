@@ -16,7 +16,7 @@ angular.module('builder.collections').config ($stateProvider) ->
       data:
         pageTitle:        'Collections in your store | eeosk'
         pageDescription:  'Manage the collections in your store.'
-        padTop:           '50px'
+        padTop:           '100px'
 
     .state 'collections',
       url: '/collections'
@@ -30,7 +30,7 @@ angular.module('builder.collections').config ($stateProvider) ->
       data:
         pageTitle:        'Collections in your store | eeosk'
         pageDescription:  'Manage the collections in your store.'
-        padTop:           '50px'
+        padTop:           '100px'
 
     .state 'collection',
       url: '/collections/:id'
@@ -58,7 +58,7 @@ angular.module('builder.collections').config ($stateProvider) ->
       data:
         pageTitle:        'Collection in your store | eeosk'
         pageDescription:  'Manage your collection.'
-        padTop:           '50px'
+        padTop:           '100px'
 
     .state 'collectionProducts',
       url: '/collections/:id/products'
@@ -72,6 +72,6 @@ angular.module('builder.collections').config ($stateProvider) ->
       data:
         pageTitle:        'Products in your collection | eeosk'
         pageDescription:  'Manage your collection.'
-        padTop:           '50px'
+        padTop:           '100px'
 
   return

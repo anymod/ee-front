@@ -16,7 +16,7 @@ angular.module('builder.edit').config ($stateProvider) ->
   data =
     pageTitle:        'Edit your store | eeosk'
     pageDescription:  'Edit the look and feel of your online store.'
-    padTop:           '50px'
+    padTop:           '100px'
 
   $stateProvider
     .state 'edit',
