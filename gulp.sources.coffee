@@ -140,6 +140,7 @@ sources.builderModule = [
   './src/builder/collections/collections.module.coffee'
   './src/builder/collections/collections.route.coffee'
   './src/builder/collections/collection.controller.coffee'
+  './src/builder/collections/collection.featured.controller.coffee'
   './src/builder/collections/collections.controller.coffee'
   # Module - orders
   './src/builder/orders/orders.module.coffee'

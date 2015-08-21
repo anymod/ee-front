@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.collections').controller 'collectionCtrl', ($state, $stateParams, $scope, eeDefiner, eeUser, eeCollection, eeCollections) ->
+angular.module('builder.collections').controller 'collectionCtrl', ($state, $stateParams, eeDefiner, eeUser, eeCollection, eeCollections) ->
 
   collection = this
 

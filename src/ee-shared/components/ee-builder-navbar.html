@@ -98,7 +98,7 @@
   </div>
 </nav>
 
-<nav ng-if="collectionNav" class="navbar navbar-fixed-top ee-builder-subnav box-shadow round-0 text-center">
+<nav ng-if="collectionNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav box-shadow round-0 text-center">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
     <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="collections">Your<br><small>Collections</small></a>
     <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="storeproducts">Your<br><small>Products</small></a>
@@ -108,7 +108,7 @@
   </div>
 </nav>
 
-<nav ng-if="editNav" class="navbar navbar-fixed-top ee-builder-subnav box-shadow round-0 text-center">
+<nav ng-if="editNav == 'true'" class="navbar navbar-fixed-top ee-builder-subnav box-shadow round-0 text-center">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
     <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.topbar">Top Bar<br><small>Navigation</small></a>
     <a class="builder-subnav-btn-success vert-8 no-underline" ui-sref-active="active" ui-sref="edit.about">About<br><small>Section</small></a>

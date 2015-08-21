@@ -46,6 +46,20 @@ angular.module('builder.collections').config ($stateProvider) ->
         pageDescription:  'Manage your collection.'
         padTop:           '124px'
 
+    .state 'featured',
+      url: '/featured'
+      views:
+        header:
+          controller: 'featuredCtrl as collection'
+          templateUrl: 'builder/collections/collection.header.html'
+        top:
+          controller: 'featuredCtrl as featured'
+          templateUrl: 'builder/collections/collection.featured.html'
+      data:
+        pageTitle:        'Featured products in your store | eeosk'
+        pageDescription:  'Manage your featured products.'
+        padTop:           '124px'
+
     .state 'collectionEdit',
       url: '/collections/:id/edit'
       views:
