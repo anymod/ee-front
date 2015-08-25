@@ -24,9 +24,9 @@
             <td>Item</td>
             <td ng-bind="product.content_meta.item_name"></td>
           </tr>
-          <tr ng-if="details.shipping_price">
+          <tr ng-if="product.shipping_price">
             <td>Shipping Cost</td>
-            <td ng-bind="details.shipping_price | centToDollar"></td>
+            <td ng-bind="product.shipping_price | centToDollar"></td>
           </tr>
           <tr ng-if="product.content_meta.brand_name">
             <td>Brand Name</td>
