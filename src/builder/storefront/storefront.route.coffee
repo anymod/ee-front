@@ -11,19 +11,13 @@ angular.module('builder.storefront').config ($stateProvider) ->
       templateUrl: 'ee-shared/storefront/storefront.carousel.html'
     middle:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'ee-shared/storefront/storefront.products.html'
+      templateUrl: 'ee-shared/storefront/storefront.featured.html'
     bottom:
       controller: 'storefrontCtrl as storefront'
       templateUrl: 'builder/storefront/storefront.add.html'
     footer:
       controller: 'storefrontCtrl as storefront'
       templateUrl: 'ee-shared/storefront/storefront.footer.html'
-
-  shopViews =
-    header: views.header
-    top:    views.middle
-    middle: views.bottom
-    footer: views.footer
 
   aboutViews =
     header: views.header
@@ -42,11 +36,6 @@ angular.module('builder.storefront').config ($stateProvider) ->
     .state 'storefront',
       url:      '/storefront'
       views:    views
-      data:     data
-
-    .state 'storefront-shop',
-      url:      '/storefront/shop/:title'
-      views:    shopViews
       data:     data
 
     .state 'storefront-about',

@@ -1,6 +1,6 @@
 <div ng-if="storefront.ee.Collections.collections.length > 0" class="container">
-  <div class="row vert-20">
-    <div class="col col-sm-2">
+  <div class="row vert-20 margin-bottom-0">
+    <div class="col col-sm-2 hidden-xs">
       <h4 class="margin-5 margin-top-0 font-weight-200">Collections</h4>
       <ee-collection-nav ng-show="storefront" collections="storefront.ee.Collections.firstTenCollections" class="nav nav-pills nav-stacked nav-compact"></ee-collection-nav>
       <ul ng-if="storefront.ee.Collections.afterTenCollections.length > 0" class="nav nav-pills nav-stacked nav-compact">
@@ -23,6 +23,7 @@
           </slide>
         </carousel>
       </div>
+      <div class="btn btn-default btn-lg btn-block visible-xs vert-20" ng-click="storefront.openCollectionsModal()">All collections</div>
     </div>
   </div>
 </div>

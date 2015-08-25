@@ -33,7 +33,7 @@ angular.module('builder.collections').config ($stateProvider) ->
         padTop:           '100px'
 
     .state 'collection',
-      url: '/collections/:id'
+      url: '/collections/:id/:title'
       views:
         header:
           controller: 'storefrontCtrl as storefront'

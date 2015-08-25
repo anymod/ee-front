@@ -15,14 +15,14 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     page:             null
     perPage:          24
     collections:      []
-    featured:
-      reading:        false
-      updating:       false
-      count:          null
-      page:           null
-      perPage:        48
-      collection:     {}
-      storeProducts:  []
+    # featured:
+    #   reading:        false
+    #   updating:       false
+    #   count:          null
+    #   page:           null
+    #   perPage:        48
+    #   collection:     {}
+    #   storeProducts:  []
     firstTenCollections: []
     afterTenCollections: []
     carouselCollections: []
