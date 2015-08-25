@@ -36,8 +36,8 @@ angular.module('builder.collections').config ($stateProvider) ->
       url: '/collections/:id'
       views:
         header:
-          controller: 'collectionCtrl as collection'
-          templateUrl: 'builder/collections/collection.header.html'
+          controller: 'storefrontCtrl as storefront'
+          templateUrl: 'builder/storefront/storefront.header.html'
         top:
           controller: 'collectionCtrl as collection'
           templateUrl: 'builder/collections/collection.html'

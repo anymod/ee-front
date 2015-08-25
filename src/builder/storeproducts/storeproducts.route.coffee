@@ -8,11 +8,24 @@ angular.module('builder.storeproducts').config ($stateProvider) ->
       url: '/products/:id'
       views:
         header:
+          controller: 'storefrontCtrl as storefront'
+          templateUrl: 'builder/storefront/storefront.header.html'
+        top:
+          controller: 'storeproductCtrl as storeproduct'
+          templateUrl: 'builder/storeproducts/storeproduct.html'
+      data:
+        pageTitle:        'Your product | eeosk'
+        padTop:           '124px'
+
+    .state 'storeproductEdit',
+      url: '/products/:id/edit'
+      views:
+        header:
           controller: 'storeproductCtrl as storeproduct'
           templateUrl: 'builder/storeproducts/storeproduct.header.html'
         top:
           controller: 'storeproductCtrl as storeproduct'
-          templateUrl: 'builder/storeproducts/storeproduct.html'
+          templateUrl: 'builder/storeproducts/storeproduct.edit.html'
       data:
         pageTitle:        'Your product | eeosk'
         padTop:           '100px'

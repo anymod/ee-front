@@ -7,12 +7,7 @@ angular.module('builder.storeproducts').controller 'storeproductsCtrl', ($state,
   storeproducts.ee    = eeDefiner.exports
   storeproducts.state = $state.current.name
 
-  if storeproducts.state is 'featured'
-    storeproducts.featureToggle = true
-    eeStoreProducts.fns.featured()
-  else
-    storeproducts.featureToggle = false
-    eeStoreProducts.fns.search()
+  if storeproducts.state is 'featured' then eeStoreProducts.fns.featured() else eeStoreProducts.fns.search()
 
   eeCollections.fns.defineOwnCollections()
 
