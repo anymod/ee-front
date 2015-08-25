@@ -10,4 +10,5 @@ module.directive "eeProductImages", () ->
   link: (scope, ele, attrs) ->
     scope.setMainImage = (url) -> scope.mainImage = url
     if scope.product?.image then scope.setMainImage scope.product.image
+    console.log scope.product
     return
