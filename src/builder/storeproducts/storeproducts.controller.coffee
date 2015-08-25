@@ -1,13 +1,19 @@
 'use strict'
 
-angular.module('builder.storeproducts').controller 'storeproductsCtrl', (eeDefiner, eeStoreProducts, eeCollections) ->
+angular.module('builder.storeproducts').controller 'storeproductsCtrl', ($state, eeDefiner, eeStoreProducts, eeCollections) ->
 
   storeproducts = this
 
   storeproducts.ee    = eeDefiner.exports
-  storeproducts.data  = eeStoreProducts.data
+  storeproducts.state = $state.current.name
 
-  if !storeproducts.data.storeproducts or storeproducts.data.storeproducts.length < 1 then eeStoreProducts.fns.search()
+  if storeproducts.state is 'featured'
+    storeproducts.featureToggle = true
+    eeStoreProducts.fns.featured()
+  else
+    storeproducts.featureToggle = false
+    eeStoreProducts.fns.search()
+
   eeCollections.fns.defineOwnCollections()
 
   storeproducts.update = () -> eeStoreProducts.fns.update()

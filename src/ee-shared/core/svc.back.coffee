@@ -196,6 +196,13 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
+  featuredCollectionGET: (token, query) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'collections/featured' + _formQueryString(query)
+      headers: authorization: token
+    }
+
   publicCollectionsGET: (token, query) ->
     _makeRequest {
       method: 'GET'

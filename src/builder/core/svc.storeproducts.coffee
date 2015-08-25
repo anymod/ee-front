@@ -14,11 +14,14 @@ angular.module('builder.core').factory 'eeStoreProducts', ($q, eeAuth, eeBack) -
     count:          null
     page:           null
     perPage:        48
+    featured:       null
     storeProducts:  []
 
   ## PRIVATE FUNCTIONS
   _formQuery = () ->
     query = {}
+    if _data.featured is true  then query.featured = true
+    if _data.featured is false then query.featured = false
     if _data.page then query.page = _data.page
     query
 
@@ -44,7 +47,9 @@ angular.module('builder.core').factory 'eeStoreProducts', ($q, eeAuth, eeBack) -
     storeProduct.updating = deferred.promise
     eeBack.storeProductsPUT storeProduct, eeAuth.fns.getToken()
     .then (res) -> storeProduct = res
-    .catch (err) -> if err and err.message then storeProduct.err = err.message
+    .catch (err) ->
+      if err and err.message then storeProduct.err = err.message
+      throw err
     .finally () -> storeProduct.updating = false
 
   _destroyStoreProduct = (storeProduct) ->
@@ -54,7 +59,9 @@ angular.module('builder.core').factory 'eeStoreProducts', ($q, eeAuth, eeBack) -
     .then (res) ->
       storeProduct = res
       storeProduct.deleted = true
-    .catch (err) -> if err and err.message then storeProduct.err = err.message
+    .catch (err) ->
+      if err and err.message then storeProduct.err = err.message
+      throw err
     .finally () -> storeProduct.destroying = false
 
   ## EXPORTS
@@ -64,5 +71,14 @@ angular.module('builder.core').factory 'eeStoreProducts', ($q, eeAuth, eeBack) -
     destroyStoreProduct:  _destroyStoreProduct
     update: () -> _runQuery()
     search: () ->
+      _data.featured = null
+      _data.page = 1
+      _runQuery()
+    featured: () ->
+      _data.featured = true
+      _data.page = 1
+      _runQuery()
+    nonfeatured: () ->
+      _data.featured = false
       _data.page = 1
       _runQuery()

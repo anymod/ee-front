@@ -45,4 +45,12 @@
 
 </div>
 
+<ee-empty-message
+  ng-if="!collections.ee.Collections.reading && collections.ee.Collections.collections.length <= 0"
+  main-message="Start your store"
+  btn-message="Add collections"
+  btn-sref="collectionsAdd"
+  sub-message="When you add collections to your store, they will show here.">
+</ee-empty-message>
+
 <ee-loading loading="collections.ee.Collections.reading"></ee-loading>

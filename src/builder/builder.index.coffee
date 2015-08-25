@@ -53,5 +53,6 @@ angular.module 'eeBuilder', [
   'ee-image-preload'
   'ee-storefront-header'
   'ee-scroll-to-top'
+  'ee-empty-message'
   # 'ee.templates' # commented out during build step for inline templates
 ]

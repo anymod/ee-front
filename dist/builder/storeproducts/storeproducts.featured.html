@@ -1,23 +1,9 @@
 <!-- Message -->
-<ee-builder-section-heading heading="Your products" heading-class="text-info" subheading="All the products in your store are shown below."></ee-builder-section-heading>
+<ee-builder-section-heading heading="Your featured products" heading-class="text-info" subheading="Featured products are displayed in the 'Featured' section of your store."></ee-builder-section-heading>
 <!-- !Message -->
 
-<!-- STOREPRODUCTS -->
-<div ng-hide="storeproducts.ee.StoreProducts.reading" class="container text-center">
-
-  <div class="vert-20 margin-top-0" ng-if="storeproducts.ee.Collections.collections.length > 0">
-    <div class="position-relative inline-block vert-2" dropdown>
-      <div class="btn btn-default" dropdown-toggle>
-        In collections&nbsp;<span class="caret"></span>
-      </div>
-      <ul class="dropdown-menu">
-        <li ng-repeat="collection in storeproducts.ee.Collections.collections" ng-if="collection.title">
-          <a ui-sref="collectionProducts({ id: collection.id })">{{ collection.title }}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
+<!-- FEATURED STOREPRODUCTS -->
+<div ng-hide="storeproducts.ee.StoreProducts.reading || storeproducts.ee.StoreProducts.storeProducts.length <= 0" class="container text-center">
   <!-- PRODUCTS -->
   <div class="full-width text-center margin-0">
     <pagination ng-if="storeproducts.ee.StoreProducts.count > storeproducts.ee.StoreProducts.perPage"
@@ -56,13 +42,14 @@
 
   <div class="full-width inline-block vert-20"></div>
 </div>
+<!-- /FEATURED STOREPRODUCTS -->
 
 <ee-empty-message
   ng-if="!storeproducts.ee.StoreProducts.reading && storeproducts.ee.StoreProducts.storeProducts.length <= 0"
-  main-message="Start your store"
-  btn-message="Add products"
-  btn-sref="products"
-  sub-message="When you add products to your store, they will show here.">
+  main-message="No featured products"
+  btn-message="Feature products"
+  btn-sref="storeproducts"
+  sub-message="When you feature products in your store, you can edit them here.">
 </ee-empty-message>
 
 <ee-loading loading="storeproducts.ee.StoreProducts.reading"></ee-loading>

@@ -12,6 +12,7 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     updating:       false
     destroying:     false
     page:           1
+    perPage:        48
     count:          null
     collection:     {}
     storeProducts:  []

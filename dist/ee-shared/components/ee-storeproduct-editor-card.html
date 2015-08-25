@@ -1,17 +1,47 @@
 <div class="well white-background box-shadow" ng-hide="storeProduct.removed">
-  <div class="row">
-    <div class="col col-sm-4">
+
+  <!-- COMPACT -->
+  <div class="row" ng-show="!expanded">
+    <div class="col col-sm-7 hover-pointer" ng-click="expand()">
+      <div class="media">
+        <div class="media-left">
+          <a href>
+            <img class="media-object" ng-src="{{ storeProduct.image | thumbnail }}">
+          </a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading margin-0 font-weight-200">
+            <a href>{{ storeProduct.title }} <i class="fa fa-fw fa-pencil"></i></a>
+          </h4>
+          <div>
+            {{ storeProduct.selling_price | centToDollar }}
+            <div class="btn btn-link btn-xs"><i class="fa fa-fw fa-pencil"></i>&nbsp;edit</div>
+          </div>
+          <div class="text-muted">You earn <span ng-bind="calculated.earnings | centToDollar"></span> each sale.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col col-sm-5 text-right">
+      <div ng-if="storeProduct.featured" class="btn btn-info" ng-click="unfeature()" ng-disabled="save_status == 'Saving'"><i class="fa fa-times"></i>&nbsp;&nbsp;Featured</div>
+      <div ng-if="!storeProduct.featured" class="btn btn-default" ng-click="feature()" ng-disabled="save_status == 'Saving'">Add to featured</div>
+      <div ng-click="removeStoreProduct()" ng-disabled="save_status == 'Removing'" class="btn btn-default"><i class="fa fa-trash"></i></div>
+    </div>
+  </div>
+  <!-- COMPACT -->
+
+  <!-- EDITOR CARD -->
+  <div class="row" ng-show="expanded">
+    <div class="col col-sm-3">
       <ee-product-images product="storeProduct"></ee-product-images>
     </div>
-    <div class="col col-sm-8">
+    <div class="col col-sm-9">
       <form class="form-horizontal text-left" ng-submit="updateStoreProduct()">
         <!-- Save -->
         <div class="form-group vert-5">
           <div class="col-sm-offset-2 col-sm-10">
-            <button class="btn btn-default" type="submit" ng-disabled="save_status == 'Saved' || save_status == 'Removing'" ng-class="{ 'btn-success': save_status == 'Save' }">
+            <button class="btn btn-default" type="submit" ng-disabled="save_status == 'Saving'" ng-class="{ 'btn-success': saved != true }">
               <i class="fa fa-fw fa-save"></i>&nbsp;{{ save_status }}
             </button>
-            <div ng-click="removeStoreProduct()" ng-disabled="save_status == 'Removing'" class="btn btn-default pull-right"><i class="fa fa-trash"></i></div>
           </div>
         </div>
         <!-- /Save -->
@@ -27,7 +57,7 @@
         <!-- Price -->
         <div class="form-group vert-5">
           <label class="col-sm-2 control-label font-weight-200">Price</label>
-          <div class="col-sm-6">
+          <div class="col-sm-10">
             <div class="vert-10 margin-top-0">
               <div class="input-group" style="max-width: 170px;">
                 <span class="input-group-addon white-background"><i class="fa fa-fw fa-dollar"></i></span>
@@ -61,4 +91,6 @@
       </form>
     </div>
   </div>
+  <!-- /EDITOR CARD -->
+
 </div>

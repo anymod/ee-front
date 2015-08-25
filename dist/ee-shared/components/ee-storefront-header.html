@@ -29,7 +29,7 @@
       <div collapse="navCollapsed" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           <li ng-class="{ active: state == 'storefront' }"><a ui-sref="storefront" ng-click="navCollapsed = true" ng-style="{ color: meta.home.topBarColor }">Home</a></li>
-          <li>
+          <li ng-if="collections.length > 0">
             <a href ng-click="openCollectionsModal()" ng-style="{ color: meta.home.topBarColor }">Collections</a>
           </li>
           <!-- <li ng-class="{ active: state == 'collection' }" class="dropdown" dropdown>

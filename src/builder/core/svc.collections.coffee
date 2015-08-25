@@ -7,23 +7,31 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
 
   ## PRIVATE EXPORT DEFAULTS
   _data =
-    creating:       false
-    reading:        false
-    updating:       false
-    destroying:     false
-    count:          null
-    page:           null
-    perPage:        24
-    collections:    []
+    creating:         false
+    reading:          false
+    updating:         false
+    destroying:       false
+    count:            null
+    page:             null
+    perPage:          24
+    collections:      []
+    featured:
+      reading:        false
+      updating:       false
+      count:          null
+      page:           null
+      perPage:        48
+      collection:     {}
+      storeProducts:  []
     firstTenCollections: []
     afterTenCollections: []
     carouselCollections: []
     public:
-      reading:      false
-      count:        null
-      page:         null
-      perPage:      24
-      collections:  []
+      reading:        false
+      count:          null
+      page:           null
+      perPage:        24
+      collections:    []
 
   _dummies = [
     {
@@ -225,6 +233,23 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
       _setFirstTenCollections()
     .catch (err) -> console.error err
     .finally () -> _data.reading = false
+
+  # _readFeaturedCollection = () ->
+  #   deferred  = $q.defer()
+  #   token     = eeAuth.fns.getToken()
+  #   if _data.featured.reading then return _data.featured.reading
+  #   if !token then deferred.reject('Missing token'); return deferred.promise
+  #   _data.featured.reading = deferred.promise
+  #   eeBack.featuredCollectionGET token
+  #   .then (res) ->
+  #     { page, count, perPage, collection, storeProducts } = res
+  #     _data.featured.page          = page
+  #     _data.featured.perPage       = perPage
+  #     _data.featured.count         = count
+  #     _data.featured.collection    = collection
+  #     _data.featured.storeProducts = storeProducts
+  #   .catch (err) -> console.error err
+  #   .finally () -> _data.featured.reading = false
 
   _definePublicCollections = (force) ->
     $q.when(if !_data.public.collections or _data.public.collections.length is 0 or force then _readPublicCollections() else _data.public.collections)

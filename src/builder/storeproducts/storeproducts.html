@@ -3,7 +3,7 @@
 <!-- !Message -->
 
 <!-- STOREPRODUCTS -->
-<div ng-hide="storeproducts.data.reading" class="container text-center">
+<div ng-hide="storeproducts.ee.StoreProducts.reading" class="container text-center">
 
   <div class="vert-20 margin-top-0" ng-if="storeproducts.ee.Collections.collections.length > 0">
     <div class="position-relative inline-block vert-2" dropdown>
@@ -20,10 +20,10 @@
 
   <!-- PRODUCTS -->
   <div class="full-width text-center margin-0">
-    <pagination ng-if="storeproducts.data.count > storeproducts.data.perPage"
-      total-items="storeproducts.data.count"
-      items-per-page="storeproducts.data.perPage"
-      ng-model="storeproducts.data.page"
+    <pagination ng-if="storeproducts.ee.StoreProducts.count > storeproducts.ee.StoreProducts.perPage"
+      total-items="storeproducts.ee.StoreProducts.count"
+      items-per-page="storeproducts.ee.StoreProducts.perPage"
+      ng-model="storeproducts.ee.StoreProducts.page"
       max-size="5"
       class="pagination-sm margin-0 vertical-align-top"
       previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
@@ -34,16 +34,16 @@
   </div>
 
   <div class="vert-20 text-left">
-    <div ng-repeat="storeProduct in storeproducts.data.storeProducts">
-      <ee-storeproduct-editor-card store-product="storeProduct"></ee-storeproduct-editor-card>
+    <div ng-repeat="storeProduct in storeproducts.ee.StoreProducts.storeProducts">
+      <ee-storeproduct-editor-card store-product="storeProduct" feature-toggle="storeproducts.featureToggle"></ee-storeproduct-editor-card>
     </div>
   </div>
 
   <div class="full-width text-center margin-0">
-    <pagination ng-if="storeproducts.data.count > storeproducts.data.perPage"
-      total-items="storeproducts.data.count"
-      items-per-page="storeproducts.data.perPage"
-      ng-model="storeproducts.data.page"
+    <pagination ng-if="storeproducts.ee.StoreProducts.count > storeproducts.ee.StoreProducts.perPage"
+      total-items="storeproducts.ee.StoreProducts.count"
+      items-per-page="storeproducts.ee.StoreProducts.perPage"
+      ng-model="storeproducts.ee.StoreProducts.page"
       max-size="5"
       class="pagination-sm margin-0 vertical-align-top"
       previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
@@ -53,6 +53,16 @@
     </pagination>
   </div>
   <!-- /PRODUCTS -->
+
+  <div class="full-width inline-block vert-20"></div>
 </div>
 
-<ee-loading loading="storeproducts.data.reading"></ee-loading>
+<ee-empty-message
+  ng-if="!storeproducts.ee.StoreProducts.reading && storeproducts.ee.StoreProducts.storeProducts.length <= 0"
+  main-message="Start your store"
+  btn-message="Add products"
+  btn-sref="products"
+  sub-message="When you add products to your store, they will show here.">
+</ee-empty-message>
+
+<ee-loading loading="storeproducts.ee.StoreProducts.reading"></ee-loading>

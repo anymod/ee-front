@@ -6,11 +6,12 @@ module.directive "eeStoreproductEditorCard", ($window, eeCollection, eeCollectio
   templateUrl: 'ee-shared/components/ee-storeproduct-editor-card.html'
   restrict: 'E'
   scope:
-    storeProduct: '='
-    collection:   '='
+    storeProduct:   '='
+    collection:     '='
+    featureToggle:  '='
   link: (scope, ele, attrs) ->
-    scope.save_status = 'Saved'
-    scope.save_bool   = false
+    scope.save_status = 'Save'
+    scope.saved       = true
 
     scope.calculated =
       max_price:          undefined
@@ -79,8 +80,9 @@ module.directive "eeStoreproductEditorCard", ($window, eeCollection, eeCollectio
       scope.save_status = 'Saving'
       eeStoreProducts.fns.updateStoreProduct scope.storeProduct
       .then () ->
-        scope.save_status = 'Saved'
-        scope.save_bool   = true
+        scope.save_status = 'Save'
+        scope.expanded    = false
+        scope.saved       = true
       .catch (err) -> scope.save_status = 'Problem saving'
 
     scope.removeStoreProduct = () ->
@@ -98,17 +100,22 @@ module.directive "eeStoreproductEditorCard", ($window, eeCollection, eeCollectio
           .then () -> scope.storeProduct.removed = true
           .catch (err) -> scope.save_status = 'Problem removing'
 
-    n = 0
-    scope.$watch () ->
-      return scope.storeProduct
-    , (newVal, oldVal) ->
-      if oldVal and oldVal.id
-        if scope.save_status is 'Saved' and !scope.save_bool and n > 0
-          scope.save_bool = true
-          scope.save_status = 'Save'
-        else
-          n += 1
-          scope.save_bool = false
-    , true
+    scope.feature = () ->
+      scope.storeProduct.featured = true
+      scope.updateStoreProduct()
+
+    scope.unfeature = () ->
+      scope.storeProduct.featured = false
+      scope.updateStoreProduct()
+
+    scope.expand = () ->
+      scope.expanded = true
+      n = 0
+      scope.$watch () ->
+        return scope.storeProduct
+      , (newVal, oldVal) ->
+        if oldVal and oldVal.id and n > 0 then scope.saved = false
+        if n is 0 then n += 1
+      , true
 
     return

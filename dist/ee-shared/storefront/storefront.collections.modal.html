@@ -7,4 +7,6 @@
   <div style="max-height: 350px; overflow-y: scroll;">
     <ee-collection-nav collections="collections" class="nav nav-pills nav-stacked nav-compact" ng-click="$close()"></ee-collection-nav>
   </div>
+
+  <h2 ng-if="!collections || collections.length <= 0" class="font-weight-200">No collections</h2>
 </div>

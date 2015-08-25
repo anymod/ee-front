@@ -140,7 +140,7 @@ sources.builderModule = [
   './src/builder/collections/collections.module.coffee'
   './src/builder/collections/collections.route.coffee'
   './src/builder/collections/collection.controller.coffee'
-  './src/builder/collections/collection.featured.controller.coffee'
+  # './src/builder/collections/collection.featured.controller.coffee'
   './src/builder/collections/collections.controller.coffee'
   # Module - orders
   './src/builder/orders/orders.module.coffee'
@@ -154,6 +154,7 @@ sources.builderModule = [
 
 ### DIRECTIVES ###
 sources.builderDirective = [
+  # TODO remove seller & privacy directives
   './src/ee-shared/components/ee-terms-seller.coffee'
   './src/ee-shared/components/ee-terms-privacy.coffee'
   './src/ee-shared/components/ee-builder-navbar.coffee'
@@ -173,6 +174,7 @@ sources.builderDirective = [
   './src/ee-shared/components/ee-image-preload.coffee'
   './src/ee-shared/components/ee-storefront-header.coffee'
   './src/ee-shared/components/ee-scroll-to-top.coffee'
+  './src/ee-shared/components/ee-empty-message.coffee'
 ]
 
 module.exports = sources
