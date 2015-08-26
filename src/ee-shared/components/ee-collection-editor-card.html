@@ -21,10 +21,11 @@
     <!-- /Link title -->
     <!-- Show on home -->
     <div class="form-group vert-5">
-      <div class="col-sm-6 col-sm-offset-3">
+      <label class="col-sm-3 control-label font-weight-200">Show image on home page</label>
+      <div class="col-sm-9">
         <label class="checkbox hover-pointer">
           <input type="checkbox" class="margin-0" style="margin-top: 3px !important;" ng-model="collection.in_carousel">
-          <span style="margin-left: 20px;">Show this collection on your home page</span>
+          <span ng-if="collection.in_carousel && collection.banner.indexOf('placehold.it') > -1" style="margin-left: 20px;">(Upload an image to show on home page)</span>
         </label>
       </div>
     </div>
@@ -32,10 +33,10 @@
     <!-- Banner -->
     <div class="form-group vert-10">
       <label class="col-sm-3 control-label font-weight-200">Home page image</label>
-      <div class="col-sm-9">
-        <img ng-src="{{ collection.banner }}" class="full-width gray-border"/>
-        <h5 class="margin-0">Upload an image&nbsp;<small>800x470px</small></h5>
+      <div class="col-sm-6">
+        <img ng-src="{{ collection.banner }}" class="full-width gray-border" ng-hide="collection.banner.indexOf('placehold.it') > -1"/>
         <ee-cloudinary-upload meta="collection" attr-target="'collection'"></ee-cloudinary-upload>
+        <em>Upload an image (800x470px)</em>
       </div>
     </div>
     <!-- /Banner -->
@@ -47,5 +48,13 @@
       </div>
     </div>
     <!-- /Headline -->
+
+    <!-- Message -->
+    <div class="form-group vert-5">
+      <div class="col-sm-offset-3 col-sm-4">
+        <h4 ng-if="save_status != 'Saved'" class="text-success">Don't forget to save!</h4>
+      </div>
+    </div>
+    <!-- /Message -->
   </form>
 </div>

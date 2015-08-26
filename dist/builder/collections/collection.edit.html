@@ -9,7 +9,7 @@
     <ee-collection-editor-card collection="collection.data.collection"></ee-collection-editor-card>
     <h4 class="vert-10 font-weight-200 text-muted">
       <span ng-if="collection.data.count > 0">The products shown below are in this collection.</span>
-      <span ng-if="!collection.data.count || collection.data.count <= 0">Add products to your collection and they will show here.</span>
+      <span ng-if="!collection.data.count || collection.data.count <= 0"><a ui-sref="products">Add products</a> to your collection and they will show here.</span>
     </h4>
     <a ng-if="collection.data.count > 0" ui-sref="collectionProducts({ id: collection.id })" class="btn btn-default">Edit products</a>
   </div>
