@@ -68,7 +68,7 @@ angular.module('builder.collections').config ($stateProvider) ->
           templateUrl: 'builder/storefront/storefront.header.html'
         top:
           controller: 'collectionCtrl as collection'
-          templateUrl: 'builder/collections/collection.html'
+          templateUrl: 'ee-shared/storefront/storefront.collection.html'
       data:
         pageTitle:        'Collection in your store | eeosk'
         pageDescription:  'Manage your collection.'

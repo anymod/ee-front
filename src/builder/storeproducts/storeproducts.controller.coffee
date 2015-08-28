@@ -9,7 +9,7 @@ angular.module('builder.storeproducts').controller 'storeproductsCtrl', ($state,
 
   if storeproducts.state is 'featured' then eeStoreProducts.fns.featured() else eeStoreProducts.fns.search()
 
-  eeCollections.fns.defineOwnCollections()
+  eeCollections.fns.search()
 
   storeproducts.update = () -> eeStoreProducts.fns.update()
 

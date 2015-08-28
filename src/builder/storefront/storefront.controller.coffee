@@ -15,7 +15,7 @@ angular.module('builder.storefront').controller 'storefrontCtrl', ($state, eeDef
     storefront.ee.meta      = storefront.ee.User.user.storefront_meta
     storefront.ee.carousel  = storefront.ee.User.user.storefront_meta.home.carousel[0]
 
-  eeCollections.fns.defineOwnCollections()
+  eeCollections.fns.defineNavCollections()
   eeStoreProducts.fns.featured()
 
   return

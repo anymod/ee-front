@@ -2,28 +2,30 @@
 <ee-builder-section-heading heading="Add collections to your store" heading-class="text-info" subheading="Choose collections below to add to your store."></ee-builder-section-heading>
 <!-- !Message -->
 
-<div ng-hide="collections.ee.Collections.public.reading" class="container vert-50 margin-top-0">
-  <div class="vert-10 text-center">
+<div ng-hide="collections.ee.Collections.reading" class="container vert-50 margin-top-0">
+  <!-- TODO implement sorting -->
+  <!-- <div class="vert-10 text-center">
     <div class="btn btn-sm btn-default">Newest&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
     <div class="btn btn-sm btn-default">Max markdown&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
     <div class="btn btn-sm btn-default">Avg price&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
-  </div>
+  </div> -->
 
   <div class="full-width text-center margin-0">
-    <pagination total-items="collections.ee.Collections.public.count"
-                items-per-page="collections.ee.Collections.public.perPage"
-                ng-model="collections.ee.Collections.public.page"
-                max-size="5"
-                class="pagination-sm margin-0 vertical-align-top"
-                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-                boundary-links="true"
-                rotate="false"
-                ng-change="collections.ee.Collections.fns.update()">
+    <pagination ng-if="collections.ee.Collections.count > collections.ee.Collections.perPage"
+      total-items="collections.ee.Collections.count"
+      items-per-page="collections.ee.Collections.perPage"
+      ng-model="collections.ee.Collections.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="collections.update()">
     </pagination>
   </div>
 
   <div class="vert-20 text-left">
-    <div ng-repeat="collection in collections.ee.Collections.public.collections" class="well white-background box-shadow">
+    <div ng-repeat="collection in collections.ee.Collections.collections" class="well white-background box-shadow">
       <div class="row">
         <div class="col col-xs-12">
           <h3 class="margin-top-0 font-weight-200"><div class="btn btn-default">Add to store</div>&nbsp;&nbsp;{{ collection.headline }}</h3>
@@ -57,18 +59,19 @@
   </div>
 
   <div class="full-width text-center margin-0">
-    <pagination total-items="collections.ee.Collections.public.count"
-                items-per-page="collections.ee.Collections.public.perPage"
-                ng-model="collections.ee.Collections.public.page"
-                max-size="5"
-                class="pagination-sm margin-0 vertical-align-top"
-                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-                boundary-links="true"
-                rotate="false"
-                ng-change="collections.ee.Collections.fns.update()">
+    <pagination ng-if="collections.ee.Collections.count > collections.ee.Collections.perPage"
+      total-items="collections.ee.Collections.count"
+      items-per-page="collections.ee.Collections.perPage"
+      ng-model="collections.ee.Collections.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="collections.update()">
     </pagination>
   </div>
 
 </div>
 
-<ee-loading loading="collections.ee.Collections.public.reading"></ee-loading>
+<ee-loading loading="collections.ee.Collections.reading"></ee-loading>

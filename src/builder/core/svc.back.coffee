@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
+angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
 
   _data =
     requesting: false
@@ -153,12 +153,12 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
-  collectionPUT: (token, collection) ->
+  collectionPUT: (data, token) ->
     _makeRequest {
       method: 'PUT'
-      url: eeBackUrl + 'collections/' + collection.id
+      url: eeBackUrl + 'collections/' + data.id
       headers: authorization: token
-      data: collection
+      data: data
     }
 
   collectionDELETE: (id, token) ->
@@ -189,24 +189,17 @@ angular.module('app.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
-  ownCollectionsGET: (token, query) ->
+  collectionsGET: (token, query) ->
     _makeRequest {
       method: 'GET'
       url: eeBackUrl + 'collections' + _formQueryString(query)
       headers: authorization: token
     }
 
-  featuredCollectionGET: (token, query) ->
+  collectionsNavGET: (token) ->
     _makeRequest {
       method: 'GET'
-      url: eeBackUrl + 'collections/featured' + _formQueryString(query)
-      headers: authorization: token
-    }
-
-  publicCollectionsGET: (token, query) ->
-    _makeRequest {
-      method: 'GET'
-      url: eeBackUrl + 'collections/public' + _formQueryString(query)
+      url: eeBackUrl + 'collections/nav'
       headers: authorization: token
     }
 

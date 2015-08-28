@@ -3,43 +3,38 @@
 <!-- !Message -->
 
 <div ng-hide="collections.ee.Collections.reading" class="container text-center vert-50 margin-top-0">
-  <!-- <div class="vert-10 text-center">
-    <div class="btn btn-sm btn-default">Newest&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
-    <div class="btn btn-sm btn-default">Max markdown&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
-    <div class="btn btn-sm btn-default">Avg price&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
-  </div> -->
 
   <div class="full-width text-center margin-0">
-    <pagination total-items="collections.ee.Collections.count"
-                items-per-page="collections.ee.Collections.perPage"
-                ng-model="collections.ee.Collections.page"
-                max-size="5"
-                class="pagination-sm margin-0 vertical-align-top"
-                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-                boundary-links="true"
-                rotate="false"
-                ng-change="collections.ee.Collections.fns.update()"
-                ng-if="collections.ee.Collections.count > collections.ee.Collections.perPage">
+    <pagination ng-if="collections.ee.Collections.count > collections.ee.Collections.perPage"
+      total-items="collections.ee.Collections.count"
+      items-per-page="collections.ee.Collections.perPage"
+      ng-model="collections.ee.Collections.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="collections.update()">
     </pagination>
   </div>
 
   <div class="vert-20 text-center">
     <div ng-repeat="collection in collections.ee.Collections.collections" class="inline-block">
-      <ee-collection-card collection="collection"></ee-collection-card>
+      <ee-collection-editor-card collection="collection"></ee-collection-editor-card>
     </div>
   </div>
 
   <div class="full-width text-center margin-0">
-    <pagination total-items="collections.ee.Collections.count"
-                items-per-page="collections.ee.Collections.perPage"
-                ng-model="collections.ee.Collections.page"
-                max-size="5"
-                class="pagination-sm margin-0 vertical-align-top"
-                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-                boundary-links="true"
-                rotate="false"
-                ng-change="collections.ee.Collections.fns.update()"
-                ng-if="collections.ee.Collections.count > collections.ee.Collections.perPage">
+    <pagination ng-if="collections.ee.Collections.count > collections.ee.Collections.perPage"
+      total-items="collections.ee.Collections.count"
+      items-per-page="collections.ee.Collections.perPage"
+      ng-model="collections.ee.Collections.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="collections.update()">
     </pagination>
   </div>
 

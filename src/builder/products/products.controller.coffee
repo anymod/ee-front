@@ -13,6 +13,6 @@ angular.module('builder.products').controller 'productsCtrl', (eeDefiner, eeProd
 
   if !products.data.products or products.data.products.length < 1 then eeProducts.fns.search()
 
-  eeCollections.fns.defineOwnCollections()
+  eeCollections.fns.search()
 
   return

@@ -4,18 +4,18 @@ angular.module('builder.storeproducts').config ($stateProvider) ->
 
   $stateProvider
 
-    .state 'storeproduct',
-      url: '/products/:id'
+    .state 'storeproducts',
+      url: '/products'
       views:
         header:
-          controller: 'storefrontCtrl as storefront'
-          templateUrl: 'builder/storefront/storefront.header.html'
+          controller: 'storeproductsCtrl as storeproducts'
+          templateUrl: 'builder/storeproducts/storeproducts.header.html'
         top:
-          controller: 'storeproductCtrl as storeproduct'
-          templateUrl: 'builder/storeproducts/storeproduct.html'
+          controller: 'storeproductsCtrl as storeproducts'
+          templateUrl: 'builder/storeproducts/storeproducts.html'
       data:
-        pageTitle:        'Your product | eeosk'
-        padTop:           '124px'
+        pageTitle:        'Product in your store | eeosk'
+        padTop:           '100px'
 
     .state 'storeproductEdit',
       url: '/products/:id/edit'
@@ -30,18 +30,18 @@ angular.module('builder.storeproducts').config ($stateProvider) ->
         pageTitle:        'Your product | eeosk'
         padTop:           '100px'
 
-    .state 'storeproducts',
-      url: '/products'
+    .state 'storeproduct',
+      url: '/products/:id/:title'
       views:
         header:
-          controller: 'storeproductsCtrl as storeproducts'
-          templateUrl: 'builder/storeproducts/storeproducts.header.html'
+          controller: 'storefrontCtrl as storefront'
+          templateUrl: 'builder/storefront/storefront.header.html'
         top:
-          controller: 'storeproductsCtrl as storeproducts'
-          templateUrl: 'builder/storeproducts/storeproducts.html'
+          controller: 'storeproductCtrl as storeproduct'
+          templateUrl: 'ee-shared/storefront/storefront.product.html'
       data:
-        pageTitle:        'Product in your store | eeosk'
-        padTop:           '100px'
+        pageTitle:        'Your product | eeosk'
+        padTop:           '124px'
 
     .state 'featured',
       url: '/featured'

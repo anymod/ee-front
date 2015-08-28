@@ -8553,6 +8553,11 @@ body.modal-open {
   .carousel-indicators {
     display: none;
   }
+  .carousel-control .glyphicon {
+    padding: 8px;
+    margin-top: -8px;
+    background: #474747;
+  }
 }
 [ng\:cloak],
 [ng-cloak],
@@ -8675,6 +8680,20 @@ html {
   line-height: 30px;
   padding: 19px 10px;
   height: 73px;
+}
+@media (max-width: 767px) {
+  .store-navbar .navbar-nav > li > a {
+    padding: 20px;
+    font-size: 26px;
+    font-weight: 200;
+  }
+  .store-navbar .store-title {
+    font-size: 26px;
+  }
+  .store-navbar .store-title div {
+    max-width: 220px;
+    overflow: hidden;
+  }
 }
 .white-background {
   background: white !important;
@@ -8962,7 +8981,7 @@ html {
   padding-left: 20px;
 }
 .pad-top-0 {
-  padding-top: 0px;
+  padding-top: 0px !important;
 }
 .pad-top-50 {
   padding-top: 50px;
@@ -9024,11 +9043,14 @@ html {
 .max-width-80 {
   max-width: 80px;
 }
+.max-width-200 {
+  max-width: 200px !important;
+}
 .max-width-300 {
-  max-width: 300px;
+  max-width: 300px !important;
 }
 .max-width-400 {
-  max-width: 400px;
+  max-width: 400px !important;
 }
 .max-width-600 {
   max-width: 600px;

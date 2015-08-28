@@ -49,7 +49,6 @@ sources.appModule = [
   './src/ee-shared/core/config.coffee'
   './src/ee-shared/core/run.coffee'
   # Services
-  './src/ee-shared/core/svc.back.coffee'
   './src/ee-shared/core/svc.modal.coffee'
 ]
 sources.builderModule = [
@@ -59,6 +58,7 @@ sources.builderModule = [
   './src/builder/core/run.coffee'
   # Services
   './src/builder/core/svc.auth.coffee'
+  './src/builder/core/svc.back.coffee'
   './src/builder/core/svc.definer.coffee'
   './src/builder/core/svc.cart.coffee'
   './src/builder/core/svc.user.coffee'
