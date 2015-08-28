@@ -32,6 +32,10 @@ angular.module('builder.example').controller 'exampleCtrl', () ->
         { id: 6, title: 'Kitchen Furniture' }
         { id: 7, title: 'Wood Grains' }
         { id: 8, title: 'Outdoor Fun' }
+        { id: 9, title: 'Cooking Tools' }
+        { id: 10, title: 'Gifts' }
+        { id: 11, title: 'Patio Furniture' }
+        { id: 12, title: 'Mirrors' }
       ]
       carousel: [
         { id: 2, title: 'Southern charm: style for your home', banner: 'https://res.cloudinary.com/eeosk/image/upload/v1440603589/banner/lowoyisi8p6edgktgawy.jpg', in_carousel: true }
