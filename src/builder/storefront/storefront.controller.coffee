@@ -6,7 +6,7 @@ angular.module('builder.storefront').controller 'storefrontCtrl', ($state, eeDef
 
   storefront.ee       = eeDefiner.exports
   storefront.state    = $state.current.name
-  storefront.openCollectionsModal = () -> eeModal.fns.openCollectionsModal(eeCollections.data.collections)
+  storefront.openCollectionsModal = () -> eeModal.fns.openCollectionsModal(eeCollections.data.nav.alphabetical)
   storefront.storeProductsUpdate  = () -> eeStoreProducts.fns.update()
 
   eeUser.fns.defineUser()
