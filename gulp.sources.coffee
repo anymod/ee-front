@@ -164,6 +164,7 @@ sources.builderDirective = [
   './src/ee-shared/components/ee-storeproducts-in-collection.coffee'
   './src/ee-shared/components/ee-product-images.coffee'
   './src/ee-shared/components/ee-collection-card.coffee'
+  './src/ee-shared/components/ee-collection-add-card.coffee'
   './src/ee-shared/components/ee-collection-editor-card.coffee'
   './src/ee-shared/components/ee-save.coffee'
   './src/ee-shared/components/ee-loading.coffee'

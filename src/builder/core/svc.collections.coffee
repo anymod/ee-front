@@ -85,6 +85,25 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
       throw err
     .finally () -> collection.destroying = false
 
+  _readPublicCollection = (collection, page) ->
+    page ||= 1
+    deferred = $q.defer()
+    collection.reading = deferred.promise
+    eeBack.collectionPublicGET collection.id, eeAuth.fns.getToken(), { page: page }
+    .then (res) ->
+      { count, page, perPage, coll, products } = res
+      console.log 'res', res
+      # collection          = res.coll
+      collection.count    = res.count
+      collection.page     = res.page
+      collection.perPage  = res.perPage
+      collection.products = res.products
+    .catch (err) ->
+      if err and err.message then collection.err = err.message
+      throw err
+    .finally () -> collection.reading = false
+
+
   # _readPublicCollections = () ->
   #   deferred  = $q.defer()
   #   token     = eeAuth.fns.getToken()
@@ -166,6 +185,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     createCollection:     _createCollection
     updateCollection:     _updateCollection
     destroyCollection:    _destroyCollection
+    readPublicCollection: _readPublicCollection
     addProduct:           _addProduct
     removeProduct:        _removeProduct
     defineNavCollections: _defineNavCollections

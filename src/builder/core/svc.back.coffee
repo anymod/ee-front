@@ -153,6 +153,13 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
+  collectionPublicGET: (id, token, query) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'collections/' + id + '/public' + _formQueryString(query)
+      headers: authorization: token
+    }
+
   collectionPUT: (data, token) ->
     _makeRequest {
       method: 'PUT'
