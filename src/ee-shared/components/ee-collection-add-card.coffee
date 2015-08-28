@@ -14,6 +14,7 @@ module.directive "eeCollectionAddCard", ($state, $window, eeCollections) ->
     scope.products    = []
 
     scope.getProducts = () ->
+      return if scope.products.length > 0
       eeCollections.fns.readPublicCollection scope.collection, scope.page
 
     # scope.updateCollection = () ->
