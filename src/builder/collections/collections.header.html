@@ -3,5 +3,5 @@
 <!-- /MAIN NAVBAR -->
 
 <div class="position-fixed text-left" style="top: 7px; right: 15px; width: 120px; z-index: 1050;">
-  <div ng-if="collections.state == 'collections'" class="btn btn-info pull-right" ng-click="collections.create()" ng-disabled="collections.ee.Collections.creating">New collection</div>
+  <div ng-if="collections.state == 'collections' || collections.state == 'collectionsAdd'" class="btn btn-info pull-right" ng-click="collections.create()" ng-disabled="collections.ee.Collections.creating">New collection</div>
 </div>

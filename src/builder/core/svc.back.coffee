@@ -189,7 +189,7 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
-  collectionsPOST: (token) ->
+  collectionPOST: (token) ->
     _makeRequest {
       method: 'POST'
       url: eeBackUrl + 'collections'
