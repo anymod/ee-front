@@ -9,11 +9,11 @@
           <label class="col-sm-3 control-label font-weight-200">Store URL</label>
           <div class="col-sm-5">
             <div class="input-group">
-              <input type="text" ng-model="account.ee.user.username" class="form-control" placeholder="storename">
+              <input type="text" ng-model="account.ee.User.user.username" class="form-control" placeholder="storename">
               <span class="input-group-addon">.eeosk.com</span>
             </div>
-            <a href="http://{{ account.ee.user.username }}.eeosk.com" target="_blank" class="inline-block vert-5 margin-top-0">
-              http://{{ account.ee.user.username }}.eeosk.com
+            <a href="http://{{ account.ee.User.user.username }}.eeosk.com" target="_blank" class="inline-block vert-5 margin-top-0">
+              http://{{ account.ee.User.user.username }}.eeosk.com
             </a>
             <!-- <div ng-show="username && username.length > 4">
               Your store will be available at
@@ -42,7 +42,7 @@
           <div class="col-sm-5">
             <div class="input-group margin-0">
               <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
-              <input disabled type="email" class="form-control" ng-model="account.ee.user.email" placeholder="Enter your email">
+              <input disabled type="email" class="form-control" ng-model="account.ee.User.user.email" placeholder="Enter your email">
             </div>
           </div>
         </div>
