@@ -44,6 +44,10 @@
     </pagination>
   </div>
 
+  <div ng-if="collections.ee.Collections.count < 1" class="full-width text-center margin-0">
+    No collections found
+  </div>
+
 </div>
 
 <ee-loading loading="collections.ee.Collections.reading"></ee-loading>

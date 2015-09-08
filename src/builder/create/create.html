@@ -30,7 +30,8 @@
   <!-- Message -->
 </div>
 
-<div class="container vert-50 margin-top-0">
+<div ng-hide="create.ee.Collections.reading" class="container vert-50 margin-top-0">
+  <!-- TODO implement sorting -->
   <!-- <div class="vert-10 text-center">
     <div class="btn btn-sm btn-default">Newest&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
     <div class="btn btn-sm btn-default">Max markdown&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
@@ -38,66 +39,39 @@
   </div> -->
 
   <div class="full-width text-center margin-0">
-    <pagination total-items="users.data.inputs.count"
-                items-per-page="users.data.inputs.perPage"
-                ng-model="users.data.inputs.page"
-                max-size="5"
-                class="pagination-sm margin-0 vertical-align-top"
-                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-                boundary-links="true"
-                rotate="false"
-                ng-change="users.fns.update()">
+    <pagination ng-if="create.ee.Collections.count > create.ee.Collections.perPage"
+      total-items="create.ee.Collections.count"
+      items-per-page="create.ee.Collections.perPage"
+      ng-model="create.ee.Collections.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="create.update()">
     </pagination>
   </div>
 
   <div class="vert-20 text-left">
-    <div ng-repeat="collection in create.data.collections" class="well white-background box-shadow">
-      <div class="row">
-        <div class="col col-xs-12">
-          <h3 class="margin-top-0 font-weight-200"><div class="btn btn-default">Add to store</div>&nbsp;&nbsp;{{ collection.headline }}</h3>
-        </div>
-        <div class="col col-sm-4">
-          <img ng-src="{{ collection.banner }}" class="full-width img-responsive gray-border" />
-        </div>
-        <div class="col col-sm-3">
-          <img ng-repeat="img in collection.storeproduct_images" ng-src="{{ img }}" class="gray-border" style="height: 70px; width: 70px;" />
-          <p class="vert-5"><a href ng-click="shown = !shown">{{ collection.title | humanize }} - {{ collection.storeproduct_ids.length }} items</a></p>
-        </div>
-        <div class="col col-sm-5">
-          <h4 class="margin-0 font-weight-200">{{ collection.min_price | centToDollar }} to {{ collection.max_price | centToDollar }} / item</h4>
-          <h5 class="vert-5 margin-0 text-muted font-weight-200">{{ collection.avg_price | centToDollar }} avg price</h5>
-          <div class="vert-10">
-            <!-- <h3 class="margin-0">{{ collection.avg_earnings | centToDollar }} <small>avg earnings / item sold</small></h3> -->
-            <h4 class="vert-2 font-weight-200"><span class="label label-info">{{ collection.max_sale }}%</span> max markdown <i class="fa fa-fw fa-info-circle text-muted"></i></h3>
-          </div>
-        </div>
-      </div>
-
-      <div ng-if="shown">
-        <div ng-repeat="img in collection.storeproduct_images" class="inline-block">
-          <img ng-src="{{ img }}" class="gray-border" style="height: 70px; width: 70px;" />
-          <br/>
-          $44.99
-        </div>
-      </div>
-
-    </div> <!-- /well -->
+    <div ng-repeat="collection in create.ee.Collections.collections" class="inline-block">
+      <ee-collection-add-card collection="collection"></ee-collection-add-card>
+    </div>
   </div>
 
   <div class="full-width text-center margin-0">
-    <pagination total-items="users.data.inputs.count"
-                items-per-page="users.data.inputs.perPage"
-                ng-model="users.data.inputs.page"
-                max-size="5"
-                class="pagination-sm margin-0 vertical-align-top"
-                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-                boundary-links="true"
-                rotate="false"
-                ng-change="users.fns.update()">
+    <pagination ng-if="create.ee.Collections.count > create.ee.Collections.perPage"
+      total-items="create.ee.Collections.count"
+      items-per-page="create.ee.Collections.perPage"
+      ng-model="create.ee.Collections.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="create.update()">
     </pagination>
   </div>
 
 </div>
 
-
-<div class="section vert-50"></div>
+<ee-loading loading="create.ee.Collections.reading"></ee-loading>

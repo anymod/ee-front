@@ -1,15 +1,14 @@
 'use strict'
 
-angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeCollections, eeLanding, eeModal) ->
+angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeDefiner, eeCollections, eeLanding, eeModal) ->
 
   create = this
-  create.data         = eeCollections.data
+
+  create.ee           = eeDefiner.exports
   create.landingData  = eeLanding.data
   create.themes       = eeLanding.themes
   create.meta         = eeLanding.data.meta
   create.modalFns     = eeModal.fns
-
-  ## TODO Confirm or redirect
 
   create.alert          = ''
   create.highlightNext  = false
@@ -33,7 +32,7 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeCol
     setBtnText 'Sending...'
     data =
       products: create.products
-      theme: create.landingData.theme
+      theme:    create.landingData.theme
       username: create.username
       password: create.password
     eeAuth.fns.completeNewUser data, $state.params.token
@@ -47,6 +46,14 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeCol
 
   # new
 
-  create.collections = create.data.dummies
+  create.update = () -> eeCollections.fns.update({ signup: true })
+
+  ## TODO Confirm or redirect
+
+  eeAuth.fns.setUserFromCreateToken()
+  .then () ->
+    if !create.ee.Collections.collections or create.ee.Collections.collections.length < 1
+      eeCollections.fns.searchPublic({ signup: true })
+  .catch (err) -> $state.go 'login'
 
   return

@@ -20,7 +20,7 @@
     </div>
     <div class="col col-sm-4 text-right">
       <div ng-if="collection.added" class="btn btn-success" ng-click="removeFromStore()" ng-disabled="save_status == 'Adding'"><i class="fa fa-check"></i>&nbsp;&nbsp;Added</div>
-      <div ng-if="!collection.added" class="btn btn-default" ng-click="addToStore()" ng-disabled="save_status == 'Adding'">Add to Store</div>
+      <div ng-if="!collection.added" class="btn btn-default" ng-click="cloneCollection()" ng-disabled="save_status == 'Adding'">Add to Store</div>
     </div>
   </div>
   <!-- COMPACT -->
@@ -42,7 +42,7 @@
       </div>
     </div>
     <div ng-show="collection.products" class="pad-20 max-width-600 margin-0-auto">
-      <div class="btn btn-success btn-lg btn-block">
+      <div class="btn btn-success btn-lg btn-block" ng-click="cloneCollection()">
         Add the collection '{{ collection.title }}' to your store
       </div>
     </div>

@@ -17,30 +17,12 @@ module.directive "eeCollectionAddCard", ($state, $window, eeCollections) ->
       return if scope.products.length > 0
       eeCollections.fns.readPublicCollection scope.collection, scope.page
 
-    # scope.updateCollection = () ->
-    #   scope.save_status = 'Saving'
-    #   eeCollections.fns.updateCollection scope.collection
-    #   .then () ->
-    #     scope.save_status = 'Saved'
-    #     scope.saved       = true
-    #   .catch (err) -> scope.save_status = 'Problem saving'
-    #
-    # scope.deleteCollection = () ->
-    #   deleteCollection = $window.confirm 'Remove this from your store?'
-    #   if deleteCollection
-    #     scope.save_status = 'Removing'
-    #     eeCollections.fns.destroyCollection scope.collection
-    #     .then () ->
-    #       scope.collection.removed = true
-    #       $state.go 'collections'
-    #     .catch (err) -> scope.save_status = 'Problem removing'
-    #
-    # scope.addToCarousel = () ->
-    #   scope.collection.in_carousel = true
-    #   scope.updateCollection()
-    #
-    # scope.removeFromCarousel = () ->
-    #   scope.collection.in_carousel = false
-    #   scope.updateCollection()
+    scope.cloneCollection = () ->
+      scope.save_status = 'Adding'
+      eeCollections.fns.cloneCollection scope.collection
+      .then () ->
+        scope.save_status       = 'Added'
+        scope.collection.added  = true
+      .catch (err) -> scope.save_status = 'Problem saving'
 
     return

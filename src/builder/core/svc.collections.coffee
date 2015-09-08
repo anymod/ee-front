@@ -28,11 +28,13 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     if _data.public then query.public = _data.public
     query
 
-  _runQuery = () ->
-    deferred = $q.defer()
+  _runQuery = (opts) ->
+    deferred  = $q.defer()
+    opts    ||= {}
+    token = if opts.signup then eeAuth.fns.getConfirmationToken() else eeAuth.fns.getToken()
     if !!_data.reading then return _data.reading
     _data.reading = deferred.promise
-    eeBack.collectionsGET eeAuth.fns.getToken(), _formQuery()
+    eeBack.collectionsGET token, _formQuery()
     .then (res) ->
       { count, rows }   = res
       _data.count       = count
@@ -63,6 +65,21 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     .catch (err) -> console.error err
     .finally () -> _data.creating = false
 
+  _cloneCollection = (collection) ->
+    deferred  = $q.defer()
+    token     = eeAuth.fns.getToken() || eeAuth.fns.getConfirmationToken()
+    if collection.cloning then return collection.cloning
+    if !token then deferred.reject('Missing token'); return deferred.promise
+    collection.cloning = deferred.promise
+    eeBack.collectionClonePOST collection.id, token
+    .then (new_collection) ->
+      $rootScope.$broadcast 'sync:collections', new_collection
+      new_collection
+    .catch (err) ->
+      if err and err.message then collection.err = err.message
+      throw err
+    .finally () -> collection.cloning = false
+
   _updateCollection = (collection) ->
     deferred  = $q.defer()
     collection.updating = deferred.promise
@@ -92,7 +109,6 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     eeBack.collectionPublicGET collection.id, eeAuth.fns.getToken(), { page: page }
     .then (res) ->
       { count, page, perPage, coll, products } = res
-      console.log 'res', res
       # collection          = res.coll
       collection.count    = res.count
       collection.page     = res.page
@@ -102,20 +118,6 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
       if err and err.message then collection.err = err.message
       throw err
     .finally () -> collection.reading = false
-
-
-  # _readPublicCollections = () ->
-  #   deferred  = $q.defer()
-  #   token     = eeAuth.fns.getToken()
-  #   if _data.public.reading then return _data.public.reading
-  #   if !token then deferred.reject('Missing token'); return deferred.promise
-  #   _data.public.reading = deferred.promise
-  #   eeBack.collectionsGET token
-  #   .then (res) ->
-  #     _data.page                = 1
-  #     _data.public.collections  = res.rows
-  #     _data.public.count        = res.count
-  #   .finally () -> _data.public.reading = false
 
   _readNavCollections = () ->
     deferred  = $q.defer()
@@ -171,20 +173,21 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
   ## EXPORTS
   data: _data
   fns:
-    update: () -> _runQuery()
-    search: () ->
+    update: _runQuery
+    search: (opts) ->
       _data.public = null
       _data.page = 1
-      _runQuery()
-    searchPublic: () ->
+      _runQuery opts
+    searchPublic: (opts) ->
       _data.public = true
       _data.page = 1
-      _runQuery()
+      _runQuery opts
 
     resetCollections:     _resetCollections
     createCollection:     _createCollection
     updateCollection:     _updateCollection
     destroyCollection:    _destroyCollection
+    cloneCollection:      _cloneCollection
     readPublicCollection: _readPublicCollection
     addProduct:           _addProduct
     removeProduct:        _removeProduct

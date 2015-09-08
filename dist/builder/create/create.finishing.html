@@ -24,6 +24,7 @@
       <ee-storefront-header class="text-left"
                             meta="create.meta"
                             blocked="true"
+                            fluid="true"
                             style="left:0; right:0; top: 0; z-index: 2;">
       </ee-storefront-header>
       <!-- /STORE navbar -->
@@ -52,27 +53,30 @@
           Enter a username and password so that you can sign in and edit your store in the future.
         </p>
         <form ng-submit="create.complete()" class="vert-20">
-          <div class="alert alert-info" ng-show='create.alert' ng-bind="create.alert"></div>
-          <input type="text"
-                 ng-model="create.username"
-                 placeholder="Username"
-                 class="form-control input-lg vert-5"
-                 required
-                 autofocus>
-          <input type="password"
-                 ng-model="create.password"
-                 placeholder="Password"
-                 class="form-control input-lg vert-5"
-                 required>
-          <input type="password"
-                 ng-model="create.password_confirm"
-                 placeholder="Confirm Password"
-                 class="form-control input-lg vert-5"
-                 required>
-          <button class="btn btn-lg btn-primary btn-block"
-                  type="submit"
-                  ng-bind="create.btnText"
-                  ng-disabled="create.btnText != 'Finished'"></button>
+          <div class="alert alert-info" ng-show="create.alert" ng-bind="create.alert"></div>
+          <a ui-sref="login" ng-show="create.alert == 'Account exists'" class="btn btn-lg btn-success btn-block vert-20 margin-top-0">Sign in</a>
+          <span ng-hide="create.alert == 'Account exists'">
+            <input type="text"
+                   ng-model="create.username"
+                   placeholder="Username"
+                   class="form-control input-lg vert-5"
+                   required
+                   autofocus>
+            <input type="password"
+                   ng-model="create.password"
+                   placeholder="Password"
+                   class="form-control input-lg vert-5"
+                   required>
+            <input type="password"
+                   ng-model="create.password_confirm"
+                   placeholder="Confirm Password"
+                   class="form-control input-lg vert-5"
+                   required>
+            <button class="btn btn-lg btn-primary btn-block"
+                    type="submit"
+                    ng-bind="create.btnText"
+                    ng-disabled="create.btnText != 'Finished'"></button>
+          </span>
         </form>
       </div>
     </div>

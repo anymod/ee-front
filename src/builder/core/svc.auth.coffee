@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieStore, $q, eeBack) ->
+angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $cookies, $cookieStore, $q, eeBack) ->
 
   ## SETUP
   _status = {}
@@ -20,11 +20,15 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
     assignKey key for key in Object.keys u
     _exports.user
 
+  _setConfirmationToken = (token) -> $cookies.confirmationToken = token
+  _clearConfirmationToken = () -> $cookieStore.remove 'confirmationToken'
+
   _setLoginToken = (token) -> $cookies.loginToken = token
   _clearLoginToken = () -> $cookieStore.remove 'loginToken'
 
   _reset = () ->
     _clearLoginToken()
+    _clearConfirmationToken()
     _setUser {}
     $rootScope.$emit 'definer:logout'
 
@@ -122,7 +126,25 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
       .finally () -> _exports.confirming = false
     deferred.promise
 
-  # _saveUser = () -> eeBack.usersPUT _exports.user, $cookies.loginToken
+  _setUserFromCreateToken = () ->
+    token = $stateParams.token
+    deferred = $q.defer()
+    if !token
+      _reset()
+      deferred.reject 'Missing login credentials'
+    else
+      eeBack.createTokenPOST token
+      .then (data) ->
+        if data.token
+          _setConfirmationToken data.token
+          deferred.resolve data.token
+        else
+          _reset()
+          deferred.reject data
+      .catch (err) ->
+        _reset()
+        deferred.reject err
+    deferred.promise
 
   ## EXPORTS
   exports: _exports
@@ -130,11 +152,13 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $cookies, $cookieS
     logout:                 () -> _reset()
     hasToken:               () -> !!$cookies.loginToken
     getToken:               () -> $cookies.loginToken
-    defineUserFromToken:    () -> _defineUserFromToken()
-    defineUserFromGoToken:  (token) -> _defineUserFromGoToken token
+    getConfirmationToken:   () -> $cookies.confirmationToken
+    defineUserFromToken:    _defineUserFromToken
+    defineUserFromGoToken:  _defineUserFromGoToken
+    setUserFromCreateToken: _setUserFromCreateToken
 
-    createUserFromEmail: (email, proposition) -> _createUserFromEmail email, proposition
-    completeNewUser: (data, token) -> _completeNewUser data, token
+    createUserFromEmail:    _createUserFromEmail
+    completeNewUser:        _completeNewUser
 
     # saveUser: () -> _saveUser()
     setUserIsSaved: (bool) -> _userIsSaved = bool

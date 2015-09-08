@@ -59,6 +59,13 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       data: { token: token }
     }
 
+  createTokenPOST: (token) ->
+    _makeRequest {
+      method: 'POST'
+      url: eeBackUrl + 'create'
+      data: { token: token }
+    }
+
   passwordResetEmailPOST: (email) ->
     _makeRequest {
       method: 'POST'
@@ -143,6 +150,13 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
     _makeRequest {
       method: 'GET'
       url: eeBackUrl + 'products/' + id
+      headers: authorization: token
+    }
+
+  collectionClonePOST: (id, token) ->
+    _makeRequest {
+      method: 'POST'
+      url: eeBackUrl + 'collections/clone/' + id
       headers: authorization: token
     }
 
