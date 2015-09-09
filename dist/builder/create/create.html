@@ -3,24 +3,12 @@
 </div>
 
 <div class="container text-center vert-20">
-  <!-- Navigation -->
-  <!-- <div class="inline-block full-width vert-20"></div>
-  <div class="full-width margin-0-auto max-width-600">
-    <h3 class="vert-10 font-weight-200">Great! Let's get set up.</h3>
-    <div class="well white-background box-shadow pad-0 overflow-hidden">
-      <div class="row margin-0">
-        <div ui-sref="create({ token: $state.params.token })" ui-sref-active="bg-success" class="col-xs-6 font-weight-200 pad-15 hover-pointer">1. Choose Collections</div>
-        <div ui-sref="create-finishing({ token: $state.params.token })" ui-sref-active="bg-success" class="col-xs-6 font-weight-200 pad-15 hover-pointer">2. Finishing Touches</div>
-      </div>
-    </div>
-  </div> -->
-  <!-- /Navigation -->
   <!-- Message -->
   <div class="margin-0-auto max-width-600 pad-10 pad-top-0">
     <div class="well white-background box-shadow">
       <div class="max-width-300 margin-0-auto">
         <h3 class="margin-0 font-weight-200">
-          Choose a few collections to get your store started
+          Add a few collections to get your store started
         </h3>
       </div>
       <p class="vert-10 font-weight-200">You can edit these and make your own collections once you're set up.</p>
@@ -53,7 +41,7 @@
   </div>
 
   <div class="vert-20 text-left">
-    <div ng-repeat="collection in create.ee.Collections.collections" class="inline-block">
+    <div ng-repeat="collection in create.ee.Collections.collections">
       <ee-collection-add-card collection="collection"></ee-collection-add-card>
     </div>
   </div>

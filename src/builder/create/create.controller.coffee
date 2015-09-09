@@ -10,8 +10,7 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeDef
   create.meta         = eeLanding.data.meta
   create.modalFns     = eeModal.fns
 
-  create.alert          = ''
-  create.highlightNext  = false
+  create.alert  = ''
   setBtnText    = (txt) -> create.btnText = txt
   resetBtnText  = ()    -> setBtnText 'Finished'
   resetBtnText()
@@ -19,10 +18,10 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeDef
   ## Section 2
   create.setTheme = (theme, set) ->
     create.meta.themeSet = set
-    create.landingData.theme.topBarBackgroundColor = theme.topBarBackgroundColor
-    create.landingData.theme.topBarColor           = theme.topBarColor
-    create.meta.home.topBarBackgroundColor  = create.landingData.theme.topBarBackgroundColor
-    create.meta.home.topBarColor            = create.landingData.theme.topBarColor
+    create.landingData.theme.topBarBackgroundColor  = theme.topBarBackgroundColor
+    create.landingData.theme.topBarColor            = theme.topBarColor
+    create.meta.home.topBarBackgroundColor          = create.landingData.theme.topBarBackgroundColor
+    create.meta.home.topBarColor                    = create.landingData.theme.topBarColor
 
   create.setTheme create.landingData.theme
 
@@ -31,13 +30,11 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeDef
     create.alert = ''
     setBtnText 'Sending...'
     data =
-      products: create.products
       theme:    create.landingData.theme
       username: create.username
       password: create.password
     eeAuth.fns.completeNewUser data, $state.params.token
-    .then (data) ->
-      $state.go 'storefront'
+    .then (data) -> $state.go 'storefront'
     .catch (err) ->
       alert = err.message || err || 'Problem logging in'
       if typeof alert is 'object' then alert = 'Problem logging in'
