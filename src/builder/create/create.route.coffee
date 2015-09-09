@@ -13,7 +13,7 @@ angular.module('builder.create').config ($stateProvider, $locationProvider) ->
           templateUrl: 'builder/create/create.html'
       data:
         pageTitle: 'Create your store'
-        padTop: '50px'
+        padTop: '200px'
 
     .state 'create-finishing',
       url: '/create/:token/finishing'
@@ -25,4 +25,4 @@ angular.module('builder.create').config ($stateProvider, $locationProvider) ->
           templateUrl: 'builder/create/create.finishing.html'
       data:
         pageTitle: 'Create your store'
-        padTop: '50px'
+        padTop: '200px'
