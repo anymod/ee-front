@@ -72,9 +72,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     if !token then deferred.reject('Missing token'); return deferred.promise
     collection.cloning = deferred.promise
     eeBack.collectionClonePOST collection.id, token
-    .then (new_collection) ->
-      $rootScope.$broadcast 'sync:collections', new_collection
-      new_collection
+    .then (new_collection) -> new_collection
     .catch (err) ->
       if err and err.message then collection.err = err.message
       throw err

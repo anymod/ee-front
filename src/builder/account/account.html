@@ -1,6 +1,6 @@
 <!-- ACCOUNT -->
-<div class="max-width-900 margin-0-auto pad-20">
-  <div class="well white-background box-shadow" ng-hide="account.ee.loading">
+<div class="max-width-900 margin-0-auto pad-20" ng-hide="account.ee.User.reading">
+  <div class="well white-background box-shadow">
     <div class="max-width-600 margin-0-auto">
       <h2 class="text-center font-weight-200">Account</h2>
       <form class="form-horizontal vert-20">
@@ -112,3 +112,5 @@
 </div>
 
 <!-- /ACCOUNT -->
+
+<ee-loading loading="account.ee.User.reading"></ee-loading>

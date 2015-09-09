@@ -1,4 +1,4 @@
-<div class="catalog-orders pad-20" ng-hide="orders.ee.loading" style="overflow-x: scroll">
+<div class="catalog-orders pad-20" ng-hide="orders.ee.User.reading" style="overflow-x: scroll">
   <h2 class="margin-0">Orders</h2>
 
   <div class="vert-20">
@@ -62,5 +62,7 @@
         </td>
       </tr>
     </tbody>
-  </div>
+  </table>
 </div>
+
+<ee-loading loading="orders.ee.User.reading"></ee-loading>
