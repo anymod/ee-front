@@ -21,6 +21,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
     'easy-to-use'
     'everything-you-need'
     'beautiful-and-customizable'
+    'foothill'
   ]
 
   isOpen    = (state) -> openStates.indexOf(state) > -1

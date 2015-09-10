@@ -1,0 +1,25 @@
+<ee-builder-navbar fixed="true" logo="true"></ee-builder-navbar>
+
+<div class="container text-center vert-50 margin-top-0">
+
+  <div class="well white-background box-shadow vert-20">
+    <iframe src="//www.slideshare.net/slideshow/embed_code/key/HNpEt7lrClqEed"
+      width="700"
+      height="585"
+      frameborder="0"
+      marginwidth="0"
+      marginheight="0"
+      scrolling="no"
+      style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen>
+    </iframe>
+  </div>
+
+  <form id="top-signup" class="form-inline vert-20" ng-submit="landing.signup()">
+    <h4 ng-bind="landing.error" class="font-weight-200"></h4>
+    <div class="form-group full-width max-width-300">
+      <input type="email" ng-model="landing.email" class="form-control input-lg" style="width:100%" placeholder="Email address" required>
+    </div>
+    <button type="submit" ng-disabled="landing.authExp.confirming" class="btn btn-lg btn-primary" style="text-shadow: 0 1px 4px rgba(0,0,0,.5)">Sign up for Free</button>
+  </form>
+
+</div>
