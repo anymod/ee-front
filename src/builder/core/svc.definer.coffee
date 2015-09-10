@@ -23,6 +23,11 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
     unsaved:        false
 
   ## PRIVATE FUNCTIONS
+  _resetData = () ->
+    eeUser.data           = {}
+    eeCollections.data    = {}
+    eeStoreProducts.data  = {}
+
   _collectionsArray = (collections) ->
     collections ||= {}
     array = []
@@ -44,12 +49,6 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
     _exports.loading    = true
     _exports.blocked    = false
     eeAuth.fns.defineUserFromToken()
-    # TODO define user, storeProducts, and collections as needed
-    # eeUser.fns.defineUser()
-    # eeStoreProduct.fns.defineStoreProducts()
-
-    # .then     () -> eeStorefront.fns.defineStorefrontFromToken()
-    # .then     () -> _fillExportData eeAuth.exports.user, eeStorefront.data
     .catch (err) -> return # console.error err
     .finally  () -> _exports.loading = false
 
@@ -58,20 +57,9 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
     _exports.logged_in  = false
     _exports.loading    = false
     _exports.blocked    = true
-    # _fillExportData {}, eeStorefront.data
-
-  # _defineCustomerStore = () ->
-  #   console.info '_defineCustomerStore'
-  #   _exports.logged_in  = false
-  #   _exports.loading    = true
-  #   _exports.blocked    = false
-  #   eeStorefront.fns.defineCustomerStore()
-  #   .then  (res) -> _fillExportData res, eeStorefront.data
-  #   .catch (err) -> console.error err
-  #   .finally  () -> _exports.loading = false
+    _resetData()
 
   ## DEFINITION LOGIC
-  # if _isStore                   then _defineCustomerStore()
   if _isBuilder and _loggedIn   then _defineLoggedIn()
   if _isBuilder and _loggedOut  then _defineLanding()
 

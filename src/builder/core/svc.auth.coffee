@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $cookies, $cookieStore, $q, eeBack) ->
+angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $cookies, $cookieStore, $q, $window, eeBack) ->
 
   ## SETUP
   _status = {}
@@ -31,6 +31,12 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
     _clearConfirmationToken()
     _setUser {}
     $rootScope.$emit 'definer:logout'
+
+  _logout = () ->
+    _reset()
+    protocol  = $window.location.protocol
+    host      = $window.location.href.split('//')[1].split('/')[0]
+    $window.location.assign(protocol + '//' + host + '/logout')
 
   _defineUserFromToken = () ->
     deferred = $q.defer()
@@ -149,7 +155,8 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
   ## EXPORTS
   exports: _exports
   fns:
-    logout:                 () -> _reset()
+    logout: _logout
+    reset:  _reset
     hasToken:               () -> !!$cookies.loginToken
     getToken:               () -> $cookies.loginToken
     getConfirmationToken:   () -> $cookies.confirmationToken
