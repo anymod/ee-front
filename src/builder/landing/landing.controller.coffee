@@ -2,27 +2,30 @@
 
 angular.module('builder.landing').controller 'landingCtrl', ($state, eeDefiner, eeAuth, eeModal, eeLanding) ->
 
-  that = this
+  landing = this
 
-  this.ee = eeDefiner.exports
+  landing.ee = eeDefiner.exports
 
-  this.show     = eeLanding.show
-  this.data     = eeLanding.data
-  this.fns      = eeLanding.fns
-  this.authFns  = eeAuth.fns
-  this.authExp  = eeAuth.exports
-  this.modalFns = eeModal.fns
+  landing.show     = eeLanding.show
+  landing.data     = eeLanding.data
+  landing.fns      = eeLanding.fns
+  landing.authFns  = eeAuth.fns
+  landing.authExp  = eeAuth.exports
+  landing.modalFns = eeModal.fns
 
-  this.signup = () ->
-    eeAuth.fns.createUserFromEmail that.email, eeDefiner.exports.welcomeProposition
+  landing.signup = () ->
+    eeAuth.fns.createUserFromEmail landing.email, eeDefiner.exports.welcomeProposition
     .then (user) -> $state.go 'go', token: user.go_token
     .catch (err) ->
-      if err.message is 'Email format is invalid' then return that.error = 'That doesn\'t look like a valid email address. Please try again.'
+      if err.message is 'Email format is invalid' then return landing.error = 'That doesn\'t look like a valid email address. Please try again.'
       if err.message is 'Account exists' then return $state.transitionTo 'login', { exists: true }
-      that.error = 'Problem signing up'
+      landing.error = 'Problem signing up'
 
   # eeLanding.fns.showState $state.current.name
 
   if $state.current.name is 'welcome_proposition' then eeDefiner.exports.welcomeProposition = $state.params.proposition
+  if $state.current.name is 'foothill'
+    if eeAuth.fns.hasToken() then landing.hideSignup = true
+    eeDefiner.exports.welcomeProposition = 'foothill'
 
   return
