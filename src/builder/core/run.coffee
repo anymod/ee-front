@@ -5,14 +5,9 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
 
   openStates = [
     'landing'
-    'faq'
-    'terms'
-    'privacy'
     'welcome'
     'welcome_proposition'
     'login'
-    'reset'
-    'logout'
     'example'
     'go'
     'create'
@@ -21,11 +16,20 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
     'easy-to-use'
     'everything-you-need'
     'beautiful-and-customizable'
+  ]
+
+  dualStates = [
+    'faq'
+    'terms'
+    'privacy'
+    'logout'
+    'reset'
     'foothill'
   ]
 
   isOpen    = (state) -> openStates.indexOf(state) > -1
-  needsAuth = (state) -> !isOpen state
+  isDual    = (state) -> dualStates.indexOf(state) > -1
+  needsAuth = (state) -> !isOpen(state) && !isDual(state)
 
   $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
     loggedIn  = eeAuth.fns.hasToken()
@@ -40,7 +44,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, $anchorScroll
     # redirect to login if logged out and restricted
     if loggedOut and needsAuth(toState.name) then return stopAndRedirectTo('login')
     # redirect to storefront if logged in and unrestricted
-    if loggedIn and isOpen(toState.name) and toState.name isnt 'logout' and toState.name isnt 'reset' then return stopAndRedirectTo('storefront')
+    if loggedIn and isOpen(toState.name) and !isDual(toState.name) then return stopAndRedirectTo('storefront')
     # redirect to /edit/topbar from /edit
     if toState.name is 'edit' then return stopAndRedirectTo('edit.topbar')
     # redirect to /promotions/social from /promotions
