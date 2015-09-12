@@ -168,6 +168,7 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
     }
 
   collectionPublicGET: (id, token, query) ->
+    console.log token
     _makeRequest {
       method: 'GET'
       url: eeBackUrl + 'collections/' + id + '/public' + _formQueryString(query)

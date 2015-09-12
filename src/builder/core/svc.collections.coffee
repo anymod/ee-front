@@ -104,7 +104,8 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     page ||= 1
     deferred = $q.defer()
     collection.reading = deferred.promise
-    eeBack.collectionPublicGET collection.id, eeAuth.fns.getToken(), { page: page }
+    token = if eeAuth.fns.getToken() then eeAuth.fns.getToken() else eeAuth.fns.getConfirmationToken()
+    eeBack.collectionPublicGET collection.id, token, { page: page }
     .then (res) ->
       { count, page, perPage, coll, products } = res
       # collection          = res.coll
