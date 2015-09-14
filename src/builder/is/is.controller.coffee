@@ -4,11 +4,11 @@ angular.module('builder.is').controller 'isCtrl', ($state, eeAuth, eeDefiner) ->
 
   that = this
   this.authExp = eeAuth.exports
-  
+
   states = [
     'your-own-business'
-    'easy-to-use'
     'beautiful-and-customizable'
+    'easy-to-use'
     'everything-you-need'
   ]
   length = states.length
