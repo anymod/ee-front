@@ -55,5 +55,6 @@ angular.module 'eeBuilder', [
   'ee-storefront-header'
   'ee-scroll-to-top'
   'ee-empty-message'
+  'ee-zendesk'
   # 'ee.templates' # commented out during build step for inline templates
 ]
