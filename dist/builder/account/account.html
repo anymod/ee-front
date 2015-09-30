@@ -72,13 +72,13 @@
           <div class="col-sm-5">
             <div class="input-group vert-5 margin-top-0">
               <span class="input-group-addon"><i class="fa fa-fw fa-paypal"></i></span>
-              <input type="text" class="form-control" placeholder="PayPal email" ng-model="account.ee.meta.earnings_accounts.paypal">
+              <input type="text" class="form-control" placeholder="PayPal email" ng-model="account.ee.User.user.storefront_meta.earnings_accounts.paypal">
             </div>
-            <p ng-hide="account.ee.meta.earnings_accounts.paypal" class="margin-0">
+            <p ng-hide="account.ee.User.user.storefront_meta.earnings_accounts.paypal" class="margin-0">
               Enter your paypal email address to receive payment
             </p>
-            <p ng-show="account.ee.meta.earnings_accounts.paypal" class="margin-0">
-              Earnings will be paid via PayPal to <strong ng-bind="account.ee.meta.earnings_accounts.paypal"></strong>
+            <p ng-show="account.ee.User.user.storefront_meta.earnings_accounts.paypal" class="margin-0">
+              Earnings will be paid via PayPal to <strong ng-bind="account.ee.User.user.storefront_meta.earnings_accounts.paypal"></strong>
             </p>
             <small>(more options coming soon)</small>
           </div>
@@ -97,7 +97,7 @@
           <div class="col-sm-5">
             <div class="input-group vert-5 margin-top-0">
               <span class="input-group-addon"><i class="fa fa-fw fa-google"></i></span>
-              <input type="text" class="form-control" placeholder="UA-12345678-1" ng-model="account.ee.meta.ga_id">
+              <input type="text" class="form-control" placeholder="UA-12345678-1" ng-model="account.ee.User.user.storefront_meta.tracking.ga_id">
             </div>
           </div>
         </div>

@@ -255,13 +255,19 @@
         <div class="form-group vert-5">
           <label class="col-sm-3 control-label">Custom h1 tag</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" placeholder="Enter your title for search engines" ng-model="edit.ee.meta.h1">
+            <input type="text" class="form-control" placeholder="Enter your title for search engines" ng-model="edit.ee.meta.seo.h1">
           </div>
         </div>
         <div class="form-group vert-5">
           <label class="col-sm-3 control-label">Custom meta description</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" placeholder="Describe your store for search engines" ng-model="edit.ee.meta.description">
+            <input type="text" class="form-control" placeholder="Describe your store for search engines" ng-model="edit.ee.meta.seo.description">
+          </div>
+        </div>
+        <div class="form-group vert-5">
+          <label class="col-sm-3 control-label">Custom meta code</label>
+          <div class="col-sm-6">
+            <textarea class="form-control" placeholder='<meta name="mytag" content="mycontent"/>' ng-model="edit.ee.meta.seo.code" rows=4></textarea>
           </div>
         </div>
       </div>
