@@ -13,6 +13,6 @@ angular.module('builder.orders').config ($stateProvider) ->
         templateUrl: 'builder/orders/orders.html'
     data:
       pageTitle: 'Your orders | eeosk'
-      padTop:    '124px'
+      padTop:    '100px'
 
   return

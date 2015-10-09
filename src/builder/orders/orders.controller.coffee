@@ -1,15 +1,13 @@
 'use strict'
 
-angular.module('builder.orders').controller 'ordersCtrl', (eeDefiner, eeUser) ->
+angular.module('builder.orders').controller 'ordersCtrl', (eeDefiner, eeUser, eeOrders) ->
 
   orders = this
 
-  orders.ee = eeDefiner.exports
-
-  orders.fns    = {}
-  orders.data   = {}
-  orders.orders = []
+  orders.ee   = eeDefiner.exports
+  orders.data = eeOrders.data
 
   eeUser.fns.defineUser()
+  eeOrders.fns.search()
 
   return
