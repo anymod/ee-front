@@ -44,7 +44,7 @@
           </h4>
         </td>
         <td colspan="3">
-          <div ng-repeat="storeProduct in order.storeproducts_snapshot"><a ui-sref="storeproduct({ id: storeProduct.id })" ng-bind="storeProduct.title"></div>
+          <div ng-repeat="storeProduct in order.storeproducts_snapshot"><a ui-sref="storeproduct({ id: storeProduct.id })" ng-bind="storeProduct.title | truncate:27"></div>
         </td>
         <td>
           <div ng-repeat="storeProduct in order.storeproducts_snapshot">{{ storeProduct.selling_price | centToDollar }}</div>
