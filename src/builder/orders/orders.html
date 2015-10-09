@@ -1,4 +1,4 @@
-<div class="container vert-20" ng-hide="orders.ee.User.reading || orders.data.orders.searching" style="overflow-x: scroll;">
+<div class="container vert-20" ng-hide="orders.ee.User.reading || orders.data.searching" style="overflow-x: scroll;">
 
   <table class="table table-hover white-background box-shadow gray-border round-5">
     <thead>
@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-show="orders.data.orders.length <= 0">
+      <tr ng-if="orders.data.orders.length <= 0">
         <td colspan="11">
           <div class="pad-20 vert-10">
             <h3 class="margin-0">No orders yet.</h3>
@@ -24,7 +24,7 @@
           </div>
         </td>
       </tr>
-      <tr ng-show="orders.data.orders.length <= 0">
+      <tr ng-if="orders.data.orders.length <= 0">
         <td>51008-911294</td>
         <td>3 days ago</td>
         <td><h4 class="margin-0"><span class="label label-success">shipped</span></h4></td>
@@ -64,4 +64,4 @@
 
 </div>
 
-<ee-loading loading="orders.ee.User.reading || orders.data.orders.searching"></ee-loading>
+<ee-loading loading="orders.ee.User.reading || orders.data.searching"></ee-loading>
