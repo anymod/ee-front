@@ -107,12 +107,12 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     token = if eeAuth.fns.getToken() then eeAuth.fns.getToken() else eeAuth.fns.getConfirmationToken()
     eeBack.collectionPublicGET collection.id, token, { page: page }
     .then (res) ->
-      { count, page, perPage, coll, products } = res
+      { count, page, perPage, coll, templates } = res
       # collection          = res.coll
-      collection.count    = res.count
-      collection.page     = res.page
-      collection.perPage  = res.perPage
-      collection.products = res.products
+      collection.count      = res.count
+      collection.page       = res.page
+      collection.perPage    = res.perPage
+      collection.templates  = res.templates
     .catch (err) ->
       if err and err.message then collection.err = err.message
       throw err
@@ -134,20 +134,20 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
   _defineNavCollections = (force) ->
     $q.when(if !_data.nav.carousel or !_data.nav.alphabetical or _data.nav.alphabetical.length is 0 or _data.nav.carousel.length is 0 or force then _readNavCollections() else _data.nav)
 
-  _addProduct = (collection_id, product) ->
+  _addTemplate = (collection_id, template) ->
     deferred  = $q.defer()
-    product.updating = deferred.promise
-    eeBack.collectionAddProduct collection_id, product.id, eeAuth.fns.getToken()
+    template.updating = deferred.promise
+    eeBack.collectionAddTemplate collection_id, template.id, eeAuth.fns.getToken()
     .then (storeProduct) ->
-      product.storeProductId = storeProduct.id
-      $rootScope.$broadcast 'added:product', product, collection_id
-    .catch (err) -> if err and err.message then product.err = err.message; throw err
-    .finally () -> product.updating = false
+      template.storeProductId = storeProduct.id
+      $rootScope.$broadcast 'added:template', template, collection_id
+    .catch (err) -> if err and err.message then template.err = err.message; throw err
+    .finally () -> template.updating = false
 
-  _removeProduct = (collection_id, storeproduct) ->
+  _removeTemplate = (collection_id, storeproduct) ->
     deferred  = $q.defer()
     storeproduct.updating = deferred.promise
-    eeBack.collectionRemoveProduct collection_id, storeproduct.product_id, eeAuth.fns.getToken()
+    eeBack.collectionRemoveTemplate collection_id, storeproduct.template_id, eeAuth.fns.getToken()
     .then () -> storeproduct.removed = true
     .catch (err) -> if err and err.message then storeproduct.err = err.message; throw err
     .finally () -> storeproduct.updating = false
@@ -188,6 +188,6 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     destroyCollection:    _destroyCollection
     cloneCollection:      _cloneCollection
     readPublicCollection: _readPublicCollection
-    addProduct:           _addProduct
-    removeProduct:        _removeProduct
+    addTemplate:          _addTemplate
+    removeTemplate:       _removeTemplate
     defineNavCollections: _defineNavCollections

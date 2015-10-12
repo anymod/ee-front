@@ -72,4 +72,4 @@ angular.module('builder.core').factory 'eeOrders', ($cookies, $q, eeBack, eeAuth
     #     _data.inputs.range.min = range.min
     #     _data.inputs.range.max = range.max
     #   _runQuery()
-    # addProductModal: _addProductModal
+    # addTemplateModal: _addTemplateModal

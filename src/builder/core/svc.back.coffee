@@ -139,17 +139,17 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: {}
     }
 
-  productsGET: (token, query) ->
+  templatesGET: (token, query) ->
     _makeRequest {
       method: 'GET'
-      url: eeBackUrl + 'products' + _formQueryString(query)
+      url: eeBackUrl + 'templates' + _formQueryString(query)
       headers: authorization: token
     }
 
-  productGET: (id, token) ->
+  templateGET: (id, token) ->
     _makeRequest {
       method: 'GET'
-      url: eeBackUrl + 'products/' + id
+      url: eeBackUrl + 'templates/' + id
       headers: authorization: token
     }
 
@@ -190,17 +190,17 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
-  collectionAddProduct: (collection_id, product_id, token) ->
+  collectionAddTemplate: (collection_id, template_id, token) ->
     _makeRequest {
       method: 'PUT'
-      url: eeBackUrl + 'collections/' + collection_id + '/add/' + product_id
+      url: eeBackUrl + 'collections/' + collection_id + '/add/' + template_id
       headers: authorization: token
     }
 
-  collectionRemoveProduct: (collection_id, product_id, token) ->
+  collectionRemoveTemplate: (collection_id, template_id, token) ->
     _makeRequest {
       method: 'PUT'
-      url: eeBackUrl + 'collections/' + collection_id + '/remove/' + product_id
+      url: eeBackUrl + 'collections/' + collection_id + '/remove/' + template_id
       headers: authorization: token
     }
 

@@ -63,8 +63,8 @@ sources.builderModule = [
   './src/builder/core/svc.cart.coffee'
   './src/builder/core/svc.user.coffee'
   './src/builder/core/svc.landing.coffee'
-  './src/builder/core/svc.product.coffee'
-  './src/builder/core/svc.products.coffee'
+  './src/builder/core/svc.template.coffee'
+  './src/builder/core/svc.templates.coffee'
   './src/builder/core/svc.storeproduct.coffee'
   './src/builder/core/svc.storeproducts.coffee'
   './src/builder/core/svc.collection.coffee'
@@ -121,11 +121,11 @@ sources.builderModule = [
   './src/builder/storefront/storefront.module.coffee'
   './src/builder/storefront/storefront.route.coffee'
   './src/builder/storefront/storefront.controller.coffee'
-  # Module - products
-  './src/builder/products/products.module.coffee'
-  './src/builder/products/products.route.coffee'
-  './src/builder/products/products.controller.coffee'
-  './src/builder/products/product.controller.coffee'
+  # Module - templates
+  './src/builder/templates/templates.module.coffee'
+  './src/builder/templates/templates.route.coffee'
+  './src/builder/templates/templates.controller.coffee'
+  './src/builder/templates/template.controller.coffee'
   # Module - storeproducts
   './src/builder/storeproducts/storeproducts.module.coffee'
   './src/builder/storeproducts/storeproducts.route.coffee'

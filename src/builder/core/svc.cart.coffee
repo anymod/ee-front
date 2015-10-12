@@ -9,37 +9,37 @@ angular.module('builder.core').factory 'eeCart', ($rootScope) ->
 
   ## PRIVATE FUNCTIONS
   _calcMeta = (cart) ->
-    count           = 0
-    product_total   = 0
-    shipping_total  = 0
-    tax_total       = 0
-    grand_total     = 0
+    count             = 0
+    cumulative_price  = 0
+    shipping_total    = 0
+    tax_total         = 0
+    grand_total       = 0
     addToTotals = (entry) ->
-      product_total   += parseInt(parseInt(entry.product.selling_price) * parseInt(entry.quantity))
-      shipping_total  += parseInt(parseInt(entry.product.shipping_price) * parseInt(entry.quantity))
-      count           += parseInt(entry.quantity)
+      cumulative_price  += parseInt(parseInt(entry.template.selling_price) * parseInt(entry.quantity))
+      shipping_total    += parseInt(parseInt(entry.template.shipping_price) * parseInt(entry.quantity))
+      count             += parseInt(entry.quantity)
     addToTotals(cart_entry) for cart_entry in cart.entries
-    grand_total = product_total + shipping_total + tax_total
+    grand_total = cumulative_price + shipping_total + tax_total
     cart.calc_meta =
-      count:          count
-      product_total:  product_total
-      shipping_total: shipping_total
-      tax_total:      tax_total
-      grand_total:    grand_total
+      count:            count
+      cumulative_price: cumulative_price
+      shipping_total:   shipping_total
+      tax_total:        tax_total
+      grand_total:      grand_total
     $rootScope.$broadcast 'cart:updated', _cart
     return
 
   ## EXPORTS
   count: () -> 0
-  products: () -> []
+  templates: () -> []
 
-  addProduct: (product) ->
+  addTemplate: (template) ->
     increment = false
     addOrIncrement = (storeproduct_id, entry) ->
-      if !!storeproduct_id && entry.product.storeproduct_id is storeproduct_id
+      if !!storeproduct_id && entry.template.storeproduct_id is storeproduct_id
         entry.quantity += 1
         increment = true
-    addOrIncrement(product.storeproduct_id, entry) for entry in _cart.entries
-    if increment is false then _cart.entries.push { product: product, quantity: 1 }
+    addOrIncrement(template.storeproduct_id, entry) for entry in _cart.entries
+    if increment is false then _cart.entries.push { template: template, quantity: 1 }
     _calcMeta _cart
     return

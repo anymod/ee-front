@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, eeAuth, eeDefiner, eeModal) ->
+angular.module('builder.core').factory 'eeTemplates', ($rootScope, $q, eeBack, eeAuth, eeDefiner, eeModal) ->
 
   ## SETUP
   _inputDefaults =
@@ -31,7 +31,7 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
   ## PRIVATE EXPORT DEFAULTS
   _data =
     count:      null
-    products:   []
+    templates:  []
     inputs:     _inputDefaults
     searching:  false
     lastCollectionAddedTo: null
@@ -50,13 +50,13 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
     deferred = $q.defer()
     if !!_data.searching then return _data.searching
     _data.searching = deferred.promise
-    eeBack.productsGET eeAuth.fns.getToken(), _formQuery()
+    eeBack.templatesGET eeAuth.fns.getToken(), _formQuery()
     .then (res) ->
-      { count, rows }   = res
-      _data.count       = count
-      _data.products    = rows
+      { count, rows } = res
+      _data.count     = count
+      _data.templates = rows
       _data.inputs.searchLabel = _data.inputs.search
-      deferred.resolve _data.products
+      deferred.resolve _data.templates
     .catch (err) ->
       _data.count = null
       deferred.reject err
@@ -64,22 +64,22 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
       _data.searching = false
     deferred.promise
 
-  _addProductModal = (product) ->
-    product.err = null
-    _data.productToAdd = {}
-    _data.productToAdd = product
-    eeModal.fns.open('addProduct')
+  _addTemplateModal = (template) ->
+    template.err = null
+    _data.templateToAdd = {}
+    _data.templateToAdd = template
+    eeModal.fns.open('addTemplate')
 
   ## MESSAGING
-  $rootScope.$on 'reset:products', () -> _data.products = []
+  $rootScope.$on 'reset:templates', () -> _data.templates = []
 
-  $rootScope.$on 'added:product', (e, product, collection_id) ->
+  $rootScope.$on 'added:template', (e, template, collection_id) ->
     _data.lastCollectionAddedTo = collection_id
-    (if product.id is prod.id then prod.storeProductId = product.storeProductId) for prod in _data.products
-    eeModal.fns.close('addProduct')
+    (if template.id is prod.id then prod.storeProductId = template.storeProductId) for prod in _data.templates
+    eeModal.fns.close('addTemplate')
 
   # $rootScope.$on 'removed:storeproduct', (e, data) ->
-  #   (if data.id is storeproduct.product_id then product.storeProductId = null) for product in _data.products
+  #   (if data.id is storeproduct.template_id then template.storeProductId = null) for template in _data.templates
 
   ## EXPORTS
   data: _data
@@ -112,4 +112,4 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
         _data.inputs.range.min = range.min
         _data.inputs.range.max = range.max
       _runQuery()
-    addProductModal: _addProductModal
+    addTemplateModal: _addTemplateModal

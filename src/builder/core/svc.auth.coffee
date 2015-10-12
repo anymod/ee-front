@@ -66,17 +66,17 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
       deferred.reject err
     deferred.promise
 
-  # _createUserFromSignup = (email, password, storefront_meta, product_ids) ->
+  # _createUserFromSignup = (email, password, storefront_meta, template_ids) ->
   #   deferred = $q.defer()
   #   if !email or !password
   #     _reset()
   #     deferred.reject 'Missing signup credentials'
   #   else
-  #     signup = { product_selection: [] }
+  #     signup = { template_selection: [] }
   #     addToSignup = (p_s) ->
   #       margin = p_s.dummy_only?.margin
-  #       signup.product_selection.push { product_id: p_s.product_id, supplier_id: p_s.supplier_id, margin: margin }
-  #     addToSignup p_s for p_s in product_selection
+  #       signup.template_selection.push { template_id: p_s.template_id, supplier_id: p_s.supplier_id, margin: margin }
+  #     addToSignup p_s for p_s in template_selection
   #
   #     eeBack.usersPOST(email, password, storefront_meta, signup)
   #     .then (data) ->
@@ -194,8 +194,8 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
         .finally () -> _status.landing = false
       deferred.promise
 
-    # createUserFromSignup: (email, password, storefront_meta, product_ids) ->
-    #   _createUserFromSignup email, password, storefront_meta, product_ids
+    # createUserFromSignup: (email, password, storefront_meta, template_ids) ->
+    #   _createUserFromSignup email, password, storefront_meta, template_ids
 
     sendPasswordResetEmail: (email) ->
       deferred = $q.defer()
