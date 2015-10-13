@@ -46,7 +46,7 @@ angular.module('builder.collections').config ($stateProvider) ->
         pageDescription:  'Manage your collection.'
         padTop:           '100px'
 
-    .state 'collectionProducts',
+    .state 'collectionTemplates',
       url: '/collections/:id/products'
       views:
         header:

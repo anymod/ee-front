@@ -46,7 +46,7 @@ angular.module('builder.auth').controller 'resetCtrl', ($location, eeAuth) ->
       .catch (err) ->
         resetBtnText()
         if !!err.message and err.message.indexOf('JSON') >= 0
-          that.alert = 'Link is invalid or expired.  Please generate another link below.'
+          that.alert = 'Link is invalid or expired.  Please generate another link.'
           that.show.email     = false
           that.show.password  = true
           that.show.login     = false
