@@ -65,11 +65,13 @@ sources.builderModule = [
   './src/builder/core/svc.landing.coffee'
   './src/builder/core/svc.template.coffee'
   './src/builder/core/svc.templates.coffee'
+  './src/builder/core/svc.products.coffee'
   './src/builder/core/svc.storeproduct.coffee'
   './src/builder/core/svc.storeproducts.coffee'
   './src/builder/core/svc.collection.coffee'
   './src/builder/core/svc.collections.coffee'
   './src/builder/core/svc.orders.coffee'
+  './src/builder/core/svc.elasticsearch.coffee'
   # Module - auth
   './src/builder/auth/auth.module.coffee'
   # auth.login
@@ -121,6 +123,11 @@ sources.builderModule = [
   './src/builder/storefront/storefront.module.coffee'
   './src/builder/storefront/storefront.route.coffee'
   './src/builder/storefront/storefront.controller.coffee'
+  # Module - products
+  './src/builder/products/products.module.coffee'
+  './src/builder/products/products.route.coffee'
+  './src/builder/products/products.controller.coffee'
+  # './src/builder/products/product.controller.coffee'
   # Module - templates
   './src/builder/templates/templates.module.coffee'
   './src/builder/templates/templates.route.coffee'

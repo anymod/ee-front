@@ -18,18 +18,18 @@ angular.module('builder.templates').config ($stateProvider) ->
         pageDescription:  'Add to your store'
         padTop:           '100px'
 
-    .state 'templates',
-      url: '/products/add'
-      views:
-        header:
-          controller: 'templatesCtrl as templates'
-          templateUrl: 'builder/templates/templates.header.html'
-        top:
-          controller: 'templatesCtrl as templates'
-          templateUrl: 'builder/templates/templates.html'
-      data:
-        pageTitle:        'Collection in your store | eeosk'
-        pageDescription:  'Add products to your collections.'
-        padTop:           '100px'
+    # .state 'templates',
+    #   url: '/products/add'
+    #   views:
+    #     header:
+    #       controller: 'templatesCtrl as templates'
+    #       templateUrl: 'builder/templates/templates.header.html'
+    #     top:
+    #       controller: 'templatesCtrl as templates'
+    #       templateUrl: 'builder/templates/templates.html'
+    #   data:
+    #     pageTitle:        'Collection in your store | eeosk'
+    #     pageDescription:  'Add products to your collections.'
+    #     padTop:           '100px'
 
   return
