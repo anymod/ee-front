@@ -8,7 +8,6 @@ angular.module('builder.templates').controller 'templatesCtrl', (eeDefiner, eeTe
 
   templates.data           = eeTemplates.data
   templates.fns            = eeTemplates.fns
-  templates.collectionFns  = eeCollection.fns
   templates.collectionsFns = eeCollections.fns
 
   if !templates.data.templates or templates.data.templates.length < 1 then eeTemplates.fns.search()

@@ -5,7 +5,7 @@
   back:           when true show back button instead of logo
   signin:         when true show sign in button
   storefront:     when true show buttons on storefront page
-  template:       when true show buttons on template page
+  product:        when true show buttons on product page
   storeproduct:   when true show buttons on storeproduct page
   collections:    when true show buttons for collections navigation
   transparent:    when true show transparent background with white logo and no box-shadow
@@ -57,10 +57,10 @@
         <i class="fa fa-fw fa-long-arrow-left"></i>
       </a> <!-- /back -->
 
-      <!-- template: back to templates instead of logo -->
-      <a ng-if="template" ui-sref="templates" class="btn btn-default pull-left">
+      <!-- product: back to products instead of logo -->
+      <a ng-if="product" ui-sref="productsAdd" class="btn btn-default pull-left">
         <i class="fa fa-fw fa-long-arrow-left"></i>
-      </a> <!-- /template -->
+      </a> <!-- /product -->
 
       <!-- /LOGO -->
 

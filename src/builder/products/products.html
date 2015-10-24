@@ -6,37 +6,35 @@
 <div id="products" class="container text-center vert-20 margin-top-0">
 
   <div ng-hide="products.ee.loading" class="margin-5 text-center">
+    <!-- Search -->
     <form class="margin-0-auto max-width-600" ng-submit="products.fns.search()">
-      <div class="input-group">
-        <input type="text" ng-model="products.data.inputs.search" class="form-control" placeholder="Search">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="submit" name="search-btn">
-            <span class="hidden-xs">Search</span>
-            <span class="visible-xs"><i class="fa fa-search"></i></span>
+      <div ng-class="{ 'input-group input-group-lg': products.data.inputs.searchLabel }">
+        <input type="text" ng-model="products.data.inputs.search" class="form-control input-lg" placeholder="Search for products">
+        <span ng-if="products.data.inputs.searchLabel" class="input-group-btn">
+          <input type="submit" class="hidden"/>
+          <button class="btn btn-default" type="button" ng-click="products.fns.clearSearch()">
+            <i class="fa fa-times text-muted"></i>
           </button>
         </span>
       </div>
     </form>
+    <!-- /Search -->
 
+    <!-- Filters -->
     <div class="inline-block margin-5">
-      <div ng-repeat="category in products.data.inputs.categoryArray"
-           ng-click="products.fns.setCategory(category)"
-           class="btn btn-xs btn-default margin-2"
-           ng-class="{ 'btn-primary': category == products.data.inputs.category }">
-        <span ng-show="category == products.data.inputs.category"><i class="fa fa-fw fa-times"></i></span>{{ category }}
-      </div>
+      <label ng-repeat="category in products.data.inputs.categoryArray"
+           class="btn btn-xs btn-default margin-2">
+        <input type="checkbox" ng-click="products.fns.toggleCategory(category)">&nbsp;{{ category.title }}
+      </label>
       <br>
       <div ng-repeat="range in products.data.inputs.rangeArray"
            ng-click="products.fns.setRange(range)"
            class="btn btn-xs btn-default margin-2"
-           ng-class="{ 'btn-primary': range.min == products.data.inputs.range.min && range.max == products.data.inputs.range.max }">
+           ng-class="{ 'btn-info': range.min == products.data.inputs.range.min && range.max == products.data.inputs.range.max }">
         <span ng-show="range.min == products.data.inputs.range.min && range.max == products.data.inputs.range.max"><i class="fa fa-fw fa-times"></i></span>{{ range | rangeToText }}
       </div>
-      <br>
-      <div class="btn btn-xs btn-primary margin-2" ng-show="products.data.inputs.searchLabel" ng-click="products.fns.clearSearch()">
-        <i class="fa fa-fw fa-times"></i>{{ products.data.inputs.searchLabel }}
-      </div>
     </div>
+    <!-- /Filters -->
 
     <div class="margin-10" ng-hide="products.data.products.length <= 0">
       <pagination total-items="products.data.count"
@@ -54,28 +52,29 @@
   </div>
 
   <div ng-hide="products.data.searching || products.ee.loading" class="margin-0-auto">
+    <!-- Results -->
     <div ng-repeat="product in products.data.products" class="well product-well text-center inline-block pad-5 margin-2 white-background box-shadow">
       <div>
         <div class="pad-10 text-left">
-          <a ui-sref="product({ id: product.id })">
-            <img ng-src="{{ product._source.image | small }}" class="full-width gray-border hover-success-border">
-          </a>
+          <img ng-src="{{ product._source.image | small }}" class="full-width gray-border hover-success-border hover-pointer" ng-click="products.fns.addProductModal(product)">
           <div>
             <p ng-bind-html="product.highlight.title || product._source.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
             <div class="vert-10">
-              <h4 class="inline-block vert-0" ng-bind="product._source.regular_prices[0] | centToDollar"></h4>
-              <h5 class="inline-block vert-0 text-muted font-weight-200" ng-if="product._source.msrps[0]">&nbsp;<s>{{ product._source.msrps[0] | centToDollar }}</s></h5>
+              <h4 class="inline-block vert-0" ng-bind="product._source.regular_prices | priceRange"></h4>
+              <h5 class="inline-block vert-0 text-muted font-weight-200" ng-if="product._source.msrps">&nbsp;<s>{{ product._source.msrps | priceRange }}</s></h5>
             </div>
           </div>
         </div>
-        <button class="btn btn-default font-weight-200" ng-disabled="product.updating" ng-click="products.fns.addproductModal(product)">Add</button>
-        <i ng-if="product.storeProductId" class="fa fa-fw fa-check text-success"></i>
+        <div class="btn btn-default font-weight-200" ng-disabled="product.updating" ng-click="products.fns.addProductModal(product)">
+          Add to collection <i ng-if="product.storeProductId" class="fa fa-fw fa-check text-success"></i>
+        </div>
+        <div class="btn btn-sm btn-link" ng-click="products.fns.searchWithTerm(product._source.title)">more like this</div>
       </div>
     </div>
-
     <div ng-show="!products.data.searching && products.es.hits.hits.length <= 0">
       <div class="pad-20">No results found</div>
     </div>
+    <!-- /Results -->
   </div>
 
   <div ng-hide="products.data.searching || products.data.count <= products.data.inputs.perPage" class="pad-20 vert-20">
@@ -95,3 +94,5 @@
 <!-- /Products -->
 
 <ee-loading loading="products.data.searching"></ee-loading>
+
+<div class="inline-block full-width min-height-600" ng-show="products.data.searching"></div>

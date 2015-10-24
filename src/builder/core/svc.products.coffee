@@ -13,12 +13,12 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
       max:            null
     category:         null
     categoryArray: [
-      'Artwork'
-      'Bed & Bath'
-      'Furniture'
-      'Home Accents'
-      'Kitchen'
-      'Outdoor'
+      { id: 1, title: 'Artwork' },
+      { id: 2, title: 'Bed & Bath' },
+      { id: 3, title: 'Furniture' },
+      { id: 4, title: 'Home Accents' },
+      { id: 5, title: 'Kitchen' },
+      { id: 6, title: 'Outdoor' }
     ]
     rangeArray: [
       { min: 0,     max: 2500   },
@@ -30,10 +30,11 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
 
   ## PRIVATE EXPORT DEFAULTS
   _data =
-    count:      null
-    products:   []
-    inputs:     _inputDefaults
-    searching:  false
+    count:        null
+    products:     []
+    category_ids: []
+    inputs:       _inputDefaults
+    searching:    false
     lastCollectionAddedTo: null
 
   ## PRIVATE FUNCTIONS
@@ -44,7 +45,7 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
     if _data.inputs.range.min then query.min_price  = _data.inputs.range.min
     if _data.inputs.range.max then query.max_price  = _data.inputs.range.max
     if _data.inputs.search    then query.search     = _data.inputs.search
-    if _data.inputs.category  then query.categories = [ _data.inputs.category ] else query.categories = []
+    if _data.category_ids.length > 0 then query.category_ids = _data.category_ids
     query
 
   _runQuery = () ->
@@ -54,7 +55,6 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
     eeElasticsearch.fns.searchProducts eeAuth.fns.getToken(), _formQuery()
     .then (res) ->
       { hits, total } = res.hits
-      console.log 'res', res
       _data.count    = total
       _data.products = hits
       _data.inputs.searchLabel = _data.inputs.search
@@ -66,11 +66,25 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
       _data.searching = false
     deferred.promise
 
+  _searchWithTerm = (term) ->
+    _data.inputs.search = term
+    _data.inputs.page = 1
+    _runQuery()
+
+  _addCategory = (category) ->
+    _data.category_ids.push category.id
+
+  _removeCategory = (category) ->
+    new_category_ids = []
+    (if cat_id isnt category.id then new_category_ids.push cat_id) for cat_id in _data.category_ids
+    _data.category_ids = new_category_ids
+
   _addProductModal = (product) ->
     product.err = null
     _data.productToAdd = {}
     _data.productToAdd = product
-    eeModal.fns.open('addProduct')
+    eeModal.fns.open 'addProduct'
+    return
 
   ## MESSAGING
   # $rootScope.$on 'reset:products', () -> _data.products = []
@@ -84,22 +98,18 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
   data: _data
   fns:
     update: () -> _runQuery()
-    search: () ->
-      _data.inputs.page = 1
-      _runQuery()
-    clearSearch: () ->
-      _data.inputs.search = ''
-      _data.inputs.page = 1
-      _runQuery()
+    search: () -> _searchWithTerm()
+    clearSearch: () -> _searchWithTerm ''
+    searchWithTerm: (term) -> _searchWithTerm term
     # incrementPage: () ->
     #   _data.inputs.page = if _data.inputs.page < 1 then 2 else _data.inputs.page + 1
     #   _runQuery()
     # decrementPage: () ->
     #   _data.inputs.page = if _data.inputs.page < 2 then 1 else _data.inputs.page - 1
     #   _runQuery()
-    setCategory: (category) ->
+    toggleCategory: (category) ->
       _data.inputs.page = 1
-      _data.inputs.category = if _data.inputs.category is category then null else category
+      if _data.category_ids.indexOf(category.id) < 0 then _addCategory(category) else _removeCategory(category)
       _runQuery()
     setRange: (range) ->
       range = range || {}

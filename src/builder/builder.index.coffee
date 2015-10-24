@@ -41,7 +41,7 @@ angular.module 'eeBuilder', [
   'ee-builder-section-heading'
   'ee-save'
   'ee-loading'
-  'ee-storeproduct-card'
+  'ee-product-card'
   'ee-storeproduct-editor-card'
   'ee-storeproduct-for-storefront'
   'ee-storeproducts-in-collection'

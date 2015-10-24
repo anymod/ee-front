@@ -12,7 +12,8 @@
   <meta name="description" content="Choose inventory from a catalog of products and let eeosk manage overhead and shipping." ng-bind="$state.current.data.pageDescription">
 
   <base href="/">
-  <link rel="shortcut icon" href="img/eeosk_e_128x128.png" type="image/x-icon">
+  <!-- TODO re-add ios icon via cloudinary -->
+  <!-- <link rel="shortcut icon" href="img/eeosk_e_128x128.png" type="image/x-icon"> -->
 
   <!-- Do not edit inside of build block; it is auto-generated -->
   <!-- build:css -->
@@ -63,6 +64,7 @@
   <script src="js/builder/core/svc.landing.js"></script>
   <script src="js/builder/core/svc.template.js"></script>
   <script src="js/builder/core/svc.templates.js"></script>
+  <script src="js/builder/core/svc.product.js"></script>
   <script src="js/builder/core/svc.products.js"></script>
   <script src="js/builder/core/svc.storeproduct.js"></script>
   <script src="js/builder/core/svc.storeproducts.js"></script>
@@ -110,6 +112,7 @@
   <script src="js/builder/products/products.module.js"></script>
   <script src="js/builder/products/products.route.js"></script>
   <script src="js/builder/products/products.controller.js"></script>
+  <script src="js/builder/products/product.controller.js"></script>
   <script src="js/builder/templates/templates.module.js"></script>
   <script src="js/builder/templates/templates.route.js"></script>
   <script src="js/builder/templates/templates.controller.js"></script>
@@ -132,7 +135,7 @@
   <script src="js/ee-shared/components/ee-terms-privacy.js"></script>
   <script src="js/ee-shared/components/ee-builder-navbar.js"></script>
   <script src="js/ee-shared/components/ee-builder-section-heading.js"></script>
-  <script src="js/ee-shared/components/ee-storeproduct-card.js"></script>
+  <script src="js/ee-shared/components/ee-product-card.js"></script>
   <script src="js/ee-shared/components/ee-storeproduct-editor-card.js"></script>
   <script src="js/ee-shared/components/ee-storeproduct-for-storefront.js"></script>
   <script src="js/ee-shared/components/ee-storeproducts-in-collection.js"></script>
