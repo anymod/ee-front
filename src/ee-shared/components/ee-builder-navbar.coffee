@@ -10,7 +10,6 @@ angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, $stat
     save: '@'
     back: '@'
     storefront: '@'
-    storeproduct: '@'
     collections: '@'
     product: '@'
     collectionId: '@'

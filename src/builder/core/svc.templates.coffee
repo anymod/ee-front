@@ -75,11 +75,11 @@ angular.module('builder.core').factory 'eeTemplates', ($rootScope, $q, eeBack, e
 
   $rootScope.$on 'added:template', (e, template, collection_id) ->
     _data.lastCollectionAddedTo = collection_id
-    (if template.id is prod.id then prod.storeProductId = template.storeProductId) for prod in _data.templates
+    (if template.id is prod.id then prod.productId = template.productId) for prod in _data.templates
     eeModal.fns.close('addTemplate')
 
-  # $rootScope.$on 'removed:storeproduct', (e, data) ->
-  #   (if data.id is storeproduct.template_id then template.storeProductId = null) for template in _data.templates
+  # $rootScope.$on 'removed:product', (e, data) ->
+  #   (if data.id is product.template_id then template.productId = null) for template in _data.templates
 
   ## EXPORTS
   data: _data

@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLanding, eeUser, eeStoreProducts, eeCollections) ->
+angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLanding, eeUser, eeProducts, eeCollections) ->
 
   ## SETUP
   _isBuilder = $rootScope.isBuilder
@@ -11,7 +11,7 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
   _exports =
     User:           eeUser.data
     Collections:    eeCollections.data
-    StoreProducts:  eeStoreProducts.data
+    products:  eeProducts.data
     meta:           {}
     carousel:       {}
     about:          {}
@@ -26,7 +26,7 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
   _resetData = () ->
     eeUser.data           = {}
     eeCollections.data    = {}
-    eeStoreProducts.data  = {}
+    eeProducts.data  = {}
 
   _collectionsArray = (collections) ->
     collections ||= {}

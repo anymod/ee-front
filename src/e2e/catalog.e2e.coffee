@@ -29,7 +29,7 @@ describe 'eeosk catalog', () ->
       removeBtn:                element byAttr.cssContainingText('#ee-offscreen .btn-danger', 'Remove from my store')
       leftBtn:                  element byAttr.name 'left-btn'
       rightBtn:                 element byAttr.name 'right-btn'
-      storeProducts:            element.all byAttr.repeater('product in storefront.product_selection')
+      products:                 element.all byAttr.repeater('product in storefront.product_selection')
 
     utils.reset_and_login(browser)
     .then (res) ->
@@ -118,8 +118,8 @@ describe 'eeosk catalog', () ->
       text                      .should.contain scope.product.content
 
   it 'should have functional "See in store" button', () ->
-    elem.seeInStoreBtn        .click()
-    elem.storeProducts        .getText()
+    elem.seeInStoreBtn.click()
+    elem.products.getText()
     .then (text) ->
       allText = text.join(' | ')
       allText                   .should.contain scope.product.title

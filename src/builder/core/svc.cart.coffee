@@ -35,11 +35,11 @@ angular.module('builder.core').factory 'eeCart', ($rootScope) ->
 
   addTemplate: (template) ->
     increment = false
-    addOrIncrement = (storeproduct_id, entry) ->
-      if !!storeproduct_id && entry.template.storeproduct_id is storeproduct_id
+    addOrIncrement = (product_id, entry) ->
+      if !!product_id && entry.template.product_id is product_id
         entry.quantity += 1
         increment = true
-    addOrIncrement(template.storeproduct_id, entry) for entry in _cart.entries
+    addOrIncrement(template.product_id, entry) for entry in _cart.entries
     if increment is false then _cart.entries.push { template: template, quantity: 1 }
     _calcMeta _cart
     return

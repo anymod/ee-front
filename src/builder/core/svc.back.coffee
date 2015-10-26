@@ -139,20 +139,6 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: {}
     }
 
-  productsGET: (token, query) ->
-    _makeRequest {
-      method: 'GET'
-      url: eeBackUrl + 'products' + _formQueryString(query)
-      headers: authorization: token
-    }
-
-  productGET: (id, token) ->
-    _makeRequest {
-      method: 'GET'
-      url: eeBackUrl + 'products/' + id
-      headers: authorization: token
-    }
-
   collectionClonePOST: (id, token) ->
     _makeRequest {
       method: 'POST'
@@ -225,32 +211,32 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
-  storeProductGET: (id, token) ->
+  productsGET: (token, query) ->
     _makeRequest {
       method: 'GET'
-      url: eeBackUrl + 'storeProducts/' + id
+      url: eeBackUrl + 'products' + _formQueryString(query)
       headers: authorization: token
     }
 
-  storeProductsGET: (token, query) ->
+  productGET: (id, token) ->
     _makeRequest {
       method: 'GET'
-      url: eeBackUrl + 'storeProducts' + _formQueryString(query)
+      url: eeBackUrl + 'products/' + id
       headers: authorization: token
     }
 
-  storeProductsPUT: (data, token) ->
+  productsPUT: (data, token) ->
     _makeRequest {
       method: 'PUT'
-      url: eeBackUrl + 'storeProducts/' + data.id
+      url: eeBackUrl + 'products/' + data.id
       headers: authorization: token
       data: data
     }
 
-  storeProductsDELETE: (id, token) ->
+  productsDELETE: (id, token) ->
     _makeRequest {
       method: 'DELETE'
-      url: eeBackUrl + 'storeProducts/' + id
+      url: eeBackUrl + 'products/' + id
       headers: authorization: token
     }
 

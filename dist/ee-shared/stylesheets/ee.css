@@ -9632,10 +9632,10 @@ nav {
 .storefront-carousel .right .well {
   text-align: left;
 }
-.storeproduct a.storeproduct-title {
+.product a.product-title {
   color: #0286c2;
 }
-.storeproduct a.storeproduct-title:hover {
+.product a.product-title:hover {
   color: #03a9f4;
 }
 @media (max-width: 600px) {

@@ -91,7 +91,7 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
   #
   # $rootScope.$on 'added:product', (e, product, collection_id) ->
   #   _data.lastCollectionAddedTo = collection_id
-  #   (if product.id is prod.id then prod.storeProductId = product.storeProductId) for prod in _data.products
+  #   (if product.id is prod.id then prod.productId = product.productId) for prod in _data.products
   #   eeModal.fns.close('addProduct')
 
   ## EXPORTS

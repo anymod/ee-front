@@ -41,8 +41,8 @@ angular.module('builder.example').controller 'exampleCtrl', () ->
         { id: 2, title: 'Southern charm: style for your home', banner: 'https://res.cloudinary.com/eeosk/image/upload/v1440603589/banner/lowoyisi8p6edgktgawy.jpg', in_carousel: true }
       ]
 
-  storefront.ee.StoreProducts =
-    storeProducts: [
+  storefront.ee.products =
+    products: [
       {
         image: 'https://res.cloudinary.com/eeosk/image/upload/c_pad,w_150,h_150/v1429115333/hijrsxnoedec3uraxc51.jpg'
         title: 'Classy Ceramic Garden Stool Open- Work Green'

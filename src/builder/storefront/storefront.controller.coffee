@@ -1,13 +1,13 @@
 'use strict'
 
-angular.module('builder.storefront').controller 'storefrontCtrl', ($state, eeDefiner, eeUser, eeCollection, eeCollections, eeStoreProducts, eeModal) ->
+angular.module('builder.storefront').controller 'storefrontCtrl', ($state, eeDefiner, eeUser, eeCollection, eeCollections, eeProducts, eeModal) ->
 
   storefront = this
 
   storefront.ee       = eeDefiner.exports
   storefront.state    = $state.current.name
   storefront.openCollectionsModal = () -> eeModal.fns.openCollectionsModal(eeCollections.data.nav.alphabetical)
-  storefront.storeProductsUpdate  = () -> eeStoreProducts.fns.update()
+  storefront.productsUpdate  = () -> eeProducts.fns.update()
 
   eeUser.fns.defineUser()
   .then () ->
@@ -16,6 +16,6 @@ angular.module('builder.storefront').controller 'storefrontCtrl', ($state, eeDef
     storefront.ee.carousel  = storefront.ee.User.user.storefront_meta.home.carousel[0]
 
   eeCollections.fns.defineNavCollections()
-  eeStoreProducts.fns.featured()
+  eeProducts.fns.featured()
 
   return

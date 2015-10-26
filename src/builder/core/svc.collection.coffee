@@ -15,7 +15,7 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     perPage:        48
     count:          null
     collection:     {}
-    storeProducts:  []
+    products:   []
 
   ## PRIVATE FUNCTIONS
   _formQuery = () ->
@@ -33,12 +33,12 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     _data.reading = deferred.promise
     eeBack.collectionGET id, token, _formQuery()
     .then (res) ->
-      { page, count, perPage, collection, storeProducts } = res
-      _data.page          = page
-      _data.perPage       = perPage
-      _data.count         = count
-      _data.collection    = collection
-      _data.storeProducts = storeProducts
+      { page, count, perPage, collection, products } = res
+      _data.page        = page
+      _data.perPage     = perPage
+      _data.count       = count
+      _data.collection  = collection
+      _data.products    = products
     .finally () -> _data.reading = false
 
   _updateCollection = () ->

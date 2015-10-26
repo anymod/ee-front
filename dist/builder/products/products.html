@@ -66,12 +66,12 @@
           </div>
         </div>
         <div class="btn btn-default font-weight-200" ng-disabled="product.updating" ng-click="products.fns.addProductModal(product)">
-          Add to collection <i ng-if="product.storeProductId" class="fa fa-fw fa-check text-success"></i>
+          Add to collection <i ng-if="product.productId" class="fa fa-fw fa-check text-success"></i>
         </div>
-        <div class="btn btn-sm btn-link" ng-click="products.fns.searchWithTerm(product._source.title)">more like this</div>
+        <div class="btn btn-sm btn-link" ng-click="products.fns.searchWithTerm(product._source.title); scrollTo('body-top');">more like this</div>
       </div>
     </div>
-    <div ng-show="!products.data.searching && products.es.hits.hits.length <= 0">
+    <div ng-show="!products.data.searching && products.data.products.length <= 0">
       <div class="pad-20">No results found</div>
     </div>
     <!-- /Results -->

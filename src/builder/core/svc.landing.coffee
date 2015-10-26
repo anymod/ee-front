@@ -235,7 +235,7 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
     meta: _userDefaults.storefront_meta
     theme: angular.copy(_themes[0])
     signup:
-      storeproducts: []
+      products: []
 
   ## EXPORTS
   # show:   _show
