@@ -97,8 +97,8 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
   ## EXPORTS
   data: _data
   fns:
-    update: () -> _runQuery()
-    search: () -> _searchWithTerm()
+    update: _runQuery
+    search: _searchWithTerm
     clearSearch: () -> _searchWithTerm ''
     searchWithTerm: (term) -> _searchWithTerm term
     # incrementPage: () ->
