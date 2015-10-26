@@ -9311,10 +9311,6 @@ img.media-object {
 .nav-compact li > a {
   padding: 1px 5px;
 }
-.input-group .btn:last-child {
-  border-radius: 0 3px 3px 0;
-  text-align: left;
-}
 .input-group-plain .input-group-addon {
   background: none;
 }

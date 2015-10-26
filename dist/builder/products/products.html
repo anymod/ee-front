@@ -6,22 +6,19 @@
 <div id="products" class="container text-center vert-20 margin-top-0">
 
   <div ng-hide="products.ee.loading" class="margin-5 text-center">
-    <!-- Search bar -->
+    <!-- Search -->
     <form class="margin-0-auto max-width-600" ng-submit="products.fns.search()">
-      <div class="input-group input-group-lg">
-        <input type="text" ng-model="products.data.inputs.search" class="form-control" placeholder="Search for products">
-        <span class="input-group-btn">
-          <button ng-if="products.data.inputs.searchLabel" class="btn btn-default" type="button" ng-click="products.fns.clearSearch()">
+      <div ng-class="{ 'input-group input-group-lg': products.data.inputs.searchLabel }">
+        <input type="text" ng-model="products.data.inputs.search" class="form-control input-lg" placeholder="Search for products">
+        <span ng-if="products.data.inputs.searchLabel" class="input-group-btn">
+          <input type="submit" class="hidden"/>
+          <button class="btn btn-default" type="button" ng-click="products.fns.clearSearch()">
             <i class="fa fa-times text-muted"></i>
-          </button>
-          <button class="btn btn-default" type="submit" name="search-btn">
-            <span class="hidden-xs">Search</span>
-            <span class="visible-xs"><i class="fa fa-search"></i></span>
           </button>
         </span>
       </div>
     </form>
-    <!-- /Search bar -->
+    <!-- /Search -->
 
     <!-- Filters -->
     <div class="inline-block margin-5">
@@ -59,9 +56,7 @@
     <div ng-repeat="product in products.data.products" class="well product-well text-center inline-block pad-5 margin-2 white-background box-shadow">
       <div>
         <div class="pad-10 text-left">
-          <a ui-sref="productAdd({ id: product._id })">
-            <img ng-src="{{ product._source.image | small }}" class="full-width gray-border hover-success-border">
-          </a>
+          <img ng-src="{{ product._source.image | small }}" class="full-width gray-border hover-success-border hover-pointer" ng-click="products.fns.addProductModal(product)">
           <div>
             <p ng-bind-html="product.highlight.title || product._source.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
             <div class="vert-10">
@@ -70,8 +65,10 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-default font-weight-200" ng-disabled="product.updating" ng-click="products.fns.addproductModal(product)">Add</button>
-        <i ng-if="product.storeProductId" class="fa fa-fw fa-check text-success"></i>
+        <div class="btn btn-default font-weight-200" ng-disabled="product.updating" ng-click="products.fns.addProductModal(product)">
+          Add to collection <i ng-if="product.storeProductId" class="fa fa-fw fa-check text-success"></i>
+        </div>
+        <div class="btn btn-sm btn-link" ng-click="products.fns.searchWithTerm(product._source.title)">more like this</div>
       </div>
     </div>
     <div ng-show="!products.data.searching && products.es.hits.hits.length <= 0">
@@ -97,3 +94,5 @@
 <!-- /Products -->
 
 <ee-loading loading="products.data.searching"></ee-loading>
+
+<div class="inline-block full-width min-height-600" ng-show="products.data.searching"></div>
