@@ -7,7 +7,7 @@
 
   <div ng-hide="products.ee.loading" class="margin-5 text-center">
     <!-- Search -->
-    <form class="margin-0-auto max-width-600" ng-submit="products.fns.search()">
+    <form class="margin-0-auto max-width-600" ng-submit="products.fns.search(products.data.inputs.search)">
       <div ng-class="{ 'input-group input-group-lg': products.data.inputs.searchLabel }">
         <input type="text" ng-model="products.data.inputs.search" class="form-control input-lg" placeholder="Search for products">
         <span ng-if="products.data.inputs.searchLabel" class="input-group-btn">
