@@ -1,0 +1,55 @@
+<!-- Message -->
+<ee-builder-section-heading heading="Your featured products" heading-class="text-info" subheading="Displayed in the 'Featured products' section on your home page."></ee-builder-section-heading>
+<!-- !Message -->
+
+<!-- FEATURED STOREPRODUCTS -->
+<div ng-hide="storeproducts.ee.StoreProducts.reading || storeproducts.ee.StoreProducts.storeProducts.length <= 0" class="container text-center">
+  <!-- PRODUCTS -->
+  <div class="full-width text-center margin-0">
+    <pagination ng-if="storeproducts.ee.StoreProducts.count > storeproducts.ee.StoreProducts.perPage"
+      total-items="storeproducts.ee.StoreProducts.count"
+      items-per-page="storeproducts.ee.StoreProducts.perPage"
+      ng-model="storeproducts.ee.StoreProducts.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="storeproducts.update()">
+    </pagination>
+  </div>
+
+  <div class="vert-20 text-left">
+    <div ng-repeat="storeProduct in storeproducts.ee.StoreProducts.storeProducts">
+      <ee-product-editor-card store-product="storeProduct"></ee-product-editor-card>
+    </div>
+  </div>
+
+  <div class="full-width text-center margin-0">
+    <pagination ng-if="storeproducts.ee.StoreProducts.count > storeproducts.ee.StoreProducts.perPage"
+      total-items="storeproducts.ee.StoreProducts.count"
+      items-per-page="storeproducts.ee.StoreProducts.perPage"
+      ng-model="storeproducts.ee.StoreProducts.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="storeproducts.update()">
+    </pagination>
+  </div>
+  <!-- /PRODUCTS -->
+
+  <div class="full-width inline-block vert-20"></div>
+</div>
+<!-- /FEATURED STOREPRODUCTS -->
+
+<ee-empty-message
+  ng-if="!storeproducts.ee.StoreProducts.reading && storeproducts.ee.StoreProducts.storeProducts.length <= 0"
+  main-message="No featured products"
+  btn-message="Feature products"
+  btn-sref="storeproducts"
+  sub-message="When you feature products in your store, you can edit them here.">
+</ee-empty-message>
+
+<ee-loading loading="storeproducts.ee.StoreProducts.reading"></ee-loading>

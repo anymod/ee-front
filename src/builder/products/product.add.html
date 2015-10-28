@@ -1,0 +1,14 @@
+<div ng-hide="product.data.reading" class="full-width pad-20 text-center">
+  <!-- PRODUCT PREVIEW -->
+  <ee-product-card
+    ng-if="product.data.product.id"
+    product="product.data.product"
+    skus="product.data.product.skus"
+    customization="product.data.product.customization"
+    disabled="true">
+  </ee-product-card>
+  <!-- /PRODUCT PREVIEW -->
+
+</div>
+
+<ee-loading loading="product.data.reading"></ee-loading>

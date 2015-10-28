@@ -56,19 +56,19 @@
     <div ng-repeat="product in products.data.products" class="well product-well text-center inline-block pad-5 margin-2 white-background box-shadow">
       <div>
         <div class="pad-10 text-left">
-          <img ng-src="{{ product._source.image | small }}" class="full-width gray-border hover-success-border hover-pointer" ng-click="products.fns.addProductModal(product)">
+          <img ng-src="{{ product.image | small }}" class="full-width gray-border hover-success-border hover-pointer" ng-click="products.fns.addProductModal(product)">
           <div>
-            <p ng-bind-html="product.highlight.title || product._source.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
+            <p ng-bind-html="product.highlight.title || product.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
             <div class="vert-10">
-              <h4 class="inline-block vert-0" ng-bind="product._source.regular_prices | priceRange"></h4>
-              <h5 class="inline-block vert-0 text-muted font-weight-200" ng-if="product._source.msrps">&nbsp;<s>{{ product._source.msrps | priceRange }}</s></h5>
+              <h4 class="inline-block vert-0" ng-bind="product.regular_prices | priceRange"></h4>
+              <h5 class="inline-block vert-0 text-muted font-weight-200" ng-if="product.msrps">&nbsp;<s>{{ product.msrps | priceRange }}</s></h5>
             </div>
           </div>
         </div>
         <div class="btn btn-default font-weight-200" ng-disabled="product.updating" ng-click="products.fns.addProductModal(product)">
           Add to collection <i ng-if="product.productId" class="fa fa-fw fa-check text-success"></i>
         </div>
-        <div class="btn btn-sm btn-link" ng-click="products.fns.searchWithTerm(product._source.title); scrollTo('body-top');">more like this</div>
+        <div class="btn btn-sm btn-link" ng-click="products.fns.searchWithTerm(product.title); scrollTo('body-top');">more like this</div>
       </div>
     </div>
     <div ng-show="!products.data.searching && products.data.products.length <= 0">

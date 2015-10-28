@@ -15,12 +15,8 @@ serveStatic = require 'serve-static'
 bodyParser  = require 'body-parser'
 compression = require 'compression'
 
-# Parent app
 app = express()
 app.use compression()
-
-# builder is tool for building storefront
-builder = express()
 
 forceSsl = (req, res, next) ->
   if req.headers['x-forwarded-proto'] isnt 'https'
@@ -54,6 +50,10 @@ if process.env.NODE_ENV is 'production'
   app.use morgan 'common'
 else
   app.use morgan 'dev'
+
+app.all '/favicon.ico', (req, res, next) ->
+  res.redirect 'https://res.cloudinary.com/eeosk/image/upload/v1445982443/favicon.ico'
+  return
 
 app.use bodyParser.urlencoded({ extended: true })
 app.use bodyParser.json()

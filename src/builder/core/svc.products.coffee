@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, eeAuth, eeDefiner, eeModal, eeElasticsearch) ->
+angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, eeAuth, eeModal, eeElasticsearch) ->
 
   ## SETUP
   _inputDefaults =
@@ -30,95 +30,114 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
 
   ## PRIVATE EXPORT DEFAULTS
   _data =
-    count:        null
-    products:     []
-    category_ids: []
-    inputs:       _inputDefaults
-    searching:    false
-    lastCollectionAddedTo: null
+    featured:
+      count:        null
+      products:     []
+      inputs:       angular.copy _inputDefaults
+      reading:    false
+    categories:
+      count:        null
+      products:     []
+      inputs:       angular.copy _inputDefaults
+      reading:    false
+    search:
+      count:        null
+      products:     []
+      category_ids: []
+      inputs:       angular.copy _inputDefaults
+      reading:    false
+      lastCollectionAddedTo: null
 
   ## PRIVATE FUNCTIONS
-  _formQuery = () ->
+  _clearSection = (section) ->
+    _data[section].products = []
+    _data[section].count    = 0
+
+  _formQuery = (section) ->
     query = {}
-    query.size = _data.inputs.perPage
-    if _data.inputs.page      then query.page       = _data.inputs.page
-    if _data.inputs.range.min then query.min_price  = _data.inputs.range.min
-    if _data.inputs.range.max then query.max_price  = _data.inputs.range.max
-    if _data.inputs.search    then query.search     = _data.inputs.search
-    if _data.category_ids.length > 0 then query.category_ids = _data.category_ids
+    query.size = _data[section].inputs.perPage
+    if section is 'featured'            then query.feat       = 'true'
+    # if section is 'categories'          then query.cust       = 'true'
+    if _data[section].inputs.page       then query.page       = _data[section].inputs.page
+    if _data[section].inputs.range.min  then query.min_price  = _data[section].inputs.range.min
+    if _data[section].inputs.range.max  then query.max_price  = _data[section].inputs.range.max
+    if _data[section].inputs.search     then query.search     = _data[section].inputs.search
+    if _data[section].category_ids?.length > 0 then query.category_ids = _data[section].category_ids
     query
 
-  _runQuery = () ->
-    deferred = $q.defer()
-    if !!_data.searching then return _data.searching
-    _data.searching = deferred.promise
-    eeElasticsearch.fns.searchProducts eeAuth.fns.getToken(), _formQuery()
+  _runQuery = (section, queryPromise) ->
+    if !!_data[section].reading then return
+    _data[section].reading = true
+    queryPromise
     .then (res) ->
-      { hits, total } = res.hits
-      _data.count    = total
-      _data.products = hits
-      _data.inputs.searchLabel = _data.inputs.search
-      deferred.resolve _data.products
-    .catch (err) ->
-      _data.count = null
-      deferred.reject err
-    .finally () ->
-      _data.searching = false
-    deferred.promise
+      { rows, count, took } = res
+      _data[section].products = rows
+      _data[section].count    = count
+      _data[section].took     = took
+      _data[section].inputs.searchLabel = _data[section].inputs.search
+    .catch (err) -> _data[section].count = null
+    .finally () -> _data[section].reading = false
+
+  _runSection = (section) ->
+    switch section
+      when 'featured'   then _runQuery 'featured',   eeBack.fns.searchFeatured(eeAuth.fns.getToken(), _formQuery('featured'))
+      when 'categories' then _runQuery 'categories', eeElasticsearch.fns.searchProducts(eeAuth.fns.getToken(), _formQuery('categories'))
+      when 'search'     then _runQuery 'search',     eeElasticsearch.fns.searchProducts(eeAuth.fns.getToken(), _formQuery('search'))
 
   _searchWithTerm = (term) ->
-    _data.inputs.search = term
-    _data.inputs.page = 1
-    _runQuery()
+    _data.search.inputs.search = term
+    _data.search.inputs.page = 1
+    _runSection 'search'
 
   _addCategory = (category) ->
-    _data.category_ids.push category.id
+    _data.search.category_ids.push category.id
 
   _removeCategory = (category) ->
     new_category_ids = []
-    (if cat_id isnt category.id then new_category_ids.push cat_id) for cat_id in _data.category_ids
-    _data.category_ids = new_category_ids
+    (if cat_id isnt category.id then new_category_ids.push cat_id) for cat_id in _data.search.category_ids
+    _data.search.category_ids = new_category_ids
 
   _addProductModal = (product) ->
     product.err = null
-    _data.productToAdd = {}
-    _data.productToAdd = product
+    _data.search.productToAdd = {}
+    _data.search.productToAdd = product
     eeModal.fns.open 'addProduct'
     return
 
   ## MESSAGING
-  # $rootScope.$on 'reset:products', () -> _data.products = []
+  # $rootScope.$on 'reset:products', () -> _data.search.products = []
   #
   # $rootScope.$on 'added:product', (e, product, collection_id) ->
-  #   _data.lastCollectionAddedTo = collection_id
-  #   (if product.id is prod.id then prod.productId = product.productId) for prod in _data.products
+  #   _data.search.lastCollectionAddedTo = collection_id
+  #   (if product.id is prod.id then prod.productId = product.productId) for prod in _data.search.products
   #   eeModal.fns.close('addProduct')
 
   ## EXPORTS
   data: _data
   fns:
-    update: _runQuery
+    runSection: _runSection
     search: _searchWithTerm
     clearSearch: () -> _searchWithTerm ''
-    searchWithTerm: (term) -> _searchWithTerm term
-    # incrementPage: () ->
-    #   _data.inputs.page = if _data.inputs.page < 1 then 2 else _data.inputs.page + 1
-    #   _runQuery()
-    # decrementPage: () ->
-    #   _data.inputs.page = if _data.inputs.page < 2 then 1 else _data.inputs.page - 1
-    #   _runQuery()
     toggleCategory: (category) ->
-      _data.inputs.page = 1
-      if _data.category_ids.indexOf(category.id) < 0 then _addCategory(category) else _removeCategory(category)
-      _runQuery()
+      _data.search.inputs.page = 1
+      if _data.search.category_ids.indexOf(category.id) < 0 then _addCategory(category) else _removeCategory(category)
+      _runSection 'search'
     setRange: (range) ->
       range = range || {}
-      _data.inputs.page = 1
-      if _data.inputs.range.min is range.min and _data.inputs.range.max is range.max
-        _data.inputs.range.min = null
-        _data.inputs.range.max = null
+      _data.search.inputs.page = 1
+      if _data.search.inputs.range.min is range.min and _data.search.inputs.range.max is range.max
+        _data.search.inputs.range.min = null
+        _data.search.inputs.range.max = null
       else
-        _data.inputs.range.min = range.min
-        _data.inputs.range.max = range.max
-      _runQuery()
+        _data.search.inputs.range.min = range.min
+        _data.search.inputs.range.max = range.max
+      _runSection 'search'
     addProductModal: _addProductModal
+
+    featured: () ->
+      _clearSection 'featured'
+      console.log '/featured'
+      # _data.featured = true
+      # _data.page = 1
+      # _runSection 'featured'
+      {}

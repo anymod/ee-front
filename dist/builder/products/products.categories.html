@@ -1,0 +1,68 @@
+<!-- Message -->
+<ee-builder-section-heading heading="Your product categories" heading-class="text-info" subheading="Choose which categories are in your store."></ee-builder-section-heading>
+<!-- !Message -->
+
+<!-- STOREPRODUCTS -->
+<div ng-hide="storeproducts.ee.StoreProducts.reading" class="container text-center">
+
+  <div class="vert-20 margin-top-0" ng-if="storeproducts.ee.Collections.collections.length > 0">
+    <div class="position-relative inline-block vert-2" dropdown>
+      <div class="btn btn-default" dropdown-toggle>
+        In collections&nbsp;<span class="caret"></span>
+      </div>
+      <ul class="dropdown-menu">
+        <li ng-repeat="collection in storeproducts.ee.Collections.collections" ng-if="collection.title">
+          <a ui-sref="collectionTemplates({ id: collection.id })">{{ collection.title }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="full-width text-center margin-0">
+    <pagination ng-if="storeproducts.ee.StoreProducts.count > storeproducts.ee.StoreProducts.perPage"
+      total-items="storeproducts.ee.StoreProducts.count"
+      items-per-page="storeproducts.ee.StoreProducts.perPage"
+      ng-model="storeproducts.ee.StoreProducts.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="storeproducts.update()">
+    </pagination>
+  </div>
+
+  <div class="vert-20 text-left">
+    <div ng-repeat="storeProduct in storeproducts.ee.StoreProducts.storeProducts">
+      <ee-product-editor-card store-product="storeProduct"></ee-product-editor-card>
+    </div>
+  </div>
+
+  <div class="full-width text-center margin-0">
+    <pagination ng-if="storeproducts.ee.StoreProducts.count > storeproducts.ee.StoreProducts.perPage"
+      total-items="storeproducts.ee.StoreProducts.count"
+      items-per-page="storeproducts.ee.StoreProducts.perPage"
+      ng-model="storeproducts.ee.StoreProducts.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="storeproducts.update()">
+    </pagination>
+  </div>
+  <!-- /PRODUCTS -->
+
+  <div class="full-width inline-block vert-20"></div>
+</div>
+
+<ee-empty-message
+  ng-if="!storeproducts.ee.StoreProducts.reading && storeproducts.ee.StoreProducts.storeProducts.length <= 0"
+  main-message="Start your store"
+  btn-message="Add products"
+  btn-sref="templates"
+  sub-message="When you add products to your store, they will show here.">
+</ee-empty-message>
+
+<ee-loading loading="storeproducts.ee.StoreProducts.reading"></ee-loading>

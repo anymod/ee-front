@@ -2,7 +2,7 @@
 
 angular.module('builder.templates').config ($stateProvider) ->
 
-  $stateProvider
+  # $stateProvider
 
     # .state 'product',
     #   url: '/products/add/:id'

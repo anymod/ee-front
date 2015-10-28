@@ -7,7 +7,7 @@ angular.module('builder.products').controller 'productCtrl', ($state, $statePara
   product.id    = $stateParams.id
   product.data  = eeProduct.data
   product.fns   = eeProducts.fns
-  if !product.id then $state.go 'products'
+  if !product.id then $state.go 'productsAdd'
 
   eeProduct.fns.setProduct product.id
 

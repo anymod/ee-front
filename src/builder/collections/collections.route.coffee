@@ -14,8 +14,8 @@ angular.module('builder.collections').config ($stateProvider) ->
           controller: 'collectionsCtrl as collections'
           templateUrl: 'builder/collections/collections.add.html'
       data:
-        pageTitle:        'Collections in your store | eeosk'
-        pageDescription:  'Manage the collections in your store.'
+        pageTitle:        'Add collections | eeosk'
+        pageDescription:  'Add collections to your store.'
         padTop:           '100px'
 
     .state 'collections',
@@ -28,7 +28,7 @@ angular.module('builder.collections').config ($stateProvider) ->
           controller: 'collectionsCtrl as collections'
           templateUrl: 'builder/collections/collections.html'
       data:
-        pageTitle:        'Collections in your store | eeosk'
+        pageTitle:        'Your collections | eeosk'
         pageDescription:  'Manage the collections in your store.'
         padTop:           '100px'
 

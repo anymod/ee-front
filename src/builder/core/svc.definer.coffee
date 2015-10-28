@@ -11,7 +11,7 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
   _exports =
     User:           eeUser.data
     Collections:    eeCollections.data
-    products:  eeProducts.data
+    Products:       eeProducts.data
     meta:           {}
     carousel:       {}
     about:          {}
