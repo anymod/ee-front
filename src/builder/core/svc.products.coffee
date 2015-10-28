@@ -4,14 +4,15 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
 
   ## SETUP
   _inputDefaults =
-    perPage:          48
-    page:             null
-    search:           null
-    searchLabel:      null
+    perPage:      48
+    page:         null
+    search:       null
+    searchLabel:  null
     range:
-      min:            null
-      max:            null
-    category:         null
+      min:        null
+      max:        null
+    category:     null
+    order:        { order: null, title: 'Most relevant' }
     categoryArray: [
       { id: 1, title: 'Artwork' },
       { id: 2, title: 'Bed & Bath' },
@@ -27,25 +28,31 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
       { min: 10000, max: 20000  },
       { min: 20000, max: null   }
     ]
+    orderArray: [
+      { order: null,          title: 'Most relevant' },
+      { order: 'price ASC',   title: 'Price, low to high',  use: true },
+      { order: 'price DESC',  title: 'Price, high to low',  use: true },
+      { order: 'title ASC',   title: 'A to Z',              use: true },
+      { order: 'title DESC',  title: 'Z to A',              use: true }
+    ]
 
   ## PRIVATE EXPORT DEFAULTS
   _data =
     featured:
-      count:        null
-      products:     []
-      inputs:       angular.copy _inputDefaults
-      reading:    false
+      count:    null
+      products: []
+      inputs:   angular.copy _inputDefaults
+      reading:  false
     categories:
-      count:        null
-      products:     []
-      inputs:       angular.copy _inputDefaults
-      reading:    false
+      count:    null
+      products: []
+      inputs:   angular.copy _inputDefaults
+      reading:  false
     search:
-      count:        null
-      products:     []
-      category_ids: []
-      inputs:       angular.copy _inputDefaults
-      reading:    false
+      count:    null
+      products: []
+      inputs:   angular.copy _inputDefaults
+      reading:  false
       lastCollectionAddedTo: null
 
   ## PRIVATE FUNCTIONS
@@ -56,13 +63,13 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
   _formQuery = (section) ->
     query = {}
     query.size = _data[section].inputs.perPage
-    if section is 'featured'            then query.feat       = 'true'
-    # if section is 'categories'          then query.cust       = 'true'
-    if _data[section].inputs.page       then query.page       = _data[section].inputs.page
-    if _data[section].inputs.range.min  then query.min_price  = _data[section].inputs.range.min
-    if _data[section].inputs.range.max  then query.max_price  = _data[section].inputs.range.max
-    if _data[section].inputs.search     then query.search     = _data[section].inputs.search
-    if _data[section].category_ids?.length > 0 then query.category_ids = _data[section].category_ids
+    if section is 'featured'            then query.feat         = 'true'
+    if _data[section].inputs.page       then query.page         = _data[section].inputs.page
+    if _data[section].inputs.search     then query.search       = _data[section].inputs.search
+    if _data[section].inputs.range.min  then query.min_price    = _data[section].inputs.range.min
+    if _data[section].inputs.range.max  then query.max_price    = _data[section].inputs.range.max
+    if _data[section].inputs.order.use  then query.order        = _data[section].inputs.order.order
+    if _data[section].inputs.category   then query.category_ids = [_data[section].inputs.category.id]
     query
 
   _runQuery = (section, queryPromise) ->
@@ -85,17 +92,17 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
       when 'search'     then _runQuery 'search',     eeElasticsearch.fns.searchProducts(eeAuth.fns.getToken(), _formQuery('search'))
 
   _searchWithTerm = (term) ->
+    _data.search.inputs.order = _data.search.inputs.orderArray[0]
     _data.search.inputs.search = term
     _data.search.inputs.page = 1
     _runSection 'search'
 
-  _addCategory = (category) ->
-    _data.search.category_ids.push category.id
+  # _setCategory = (category) -> _data.search.category_id = category.id
 
-  _removeCategory = (category) ->
-    new_category_ids = []
-    (if cat_id isnt category.id then new_category_ids.push cat_id) for cat_id in _data.search.category_ids
-    _data.search.category_ids = new_category_ids
+  # _removeCategory = (category) ->
+  #   new_category_ids = []
+  #   (if cat_id isnt category.id then new_category_ids.push cat_id) for cat_id in _data.search.category_ids
+  #   _data.search.category_ids = new_category_ids
 
   _addProductModal = (product) ->
     product.err = null
@@ -118,10 +125,20 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
     runSection: _runSection
     search: _searchWithTerm
     clearSearch: () -> _searchWithTerm ''
-    toggleCategory: (category) ->
-      _data.search.inputs.page = 1
-      if _data.search.category_ids.indexOf(category.id) < 0 then _addCategory(category) else _removeCategory(category)
+    setCategory: (category) ->
+      _data.search.inputs.page      = 1
+      _data.search.inputs.category  = category
       _runSection 'search'
+    setOrder: (order) ->
+      _data.search.inputs.search  = if !order?.order then _data.search.inputs.searchLabel else null
+      _data.search.inputs.page    = 1
+      _data.search.inputs.order   = order
+      _runSection 'search'
+
+    # toggleCategory: (category) ->
+    #   _data.search.inputs.page = 1
+    #   if _data.search.category_ids.indexOf(category.id) < 0 then _addCategory(category) else _removeCategory(category)
+    #   _runSection 'search'
     setRange: (range) ->
       range = range || {}
       _data.search.inputs.page = 1
