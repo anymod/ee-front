@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.products').controller 'productsCtrl', ($state, eeAuth, eeDefiner, eeUser, eeProducts, eeCollections) ->
+angular.module('builder.products').controller 'productsCtrl', ($state, eeAuth, eeDefiner, eeUser, eeProducts, eeCollections, eeCategorizations) ->
 
   products = this
 
@@ -10,9 +10,8 @@ angular.module('builder.products').controller 'productsCtrl', ($state, eeAuth, e
 
   switch $state.current.name
     when 'products'
-      if !products?.ee?.Products?.search?.products or products.ee.Products.search.products.length is 0 then eeProducts.fns.runSection('search')
+      eeProducts.fns.runSection 'search'
       eeCollections.fns.search()
-    # when 'categories'
     #   if !products?.ee?.Products?.categories?.products or products.ee.Products.categories.products.length is 0 then eeProducts.fns.runSection('categories')
     # when 'featured'
     #   if !products?.ee?.Products?.featured?.products or products.ee.Products.featured.products.length is 0 then eeProducts.fns.runSection('featured')

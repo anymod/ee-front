@@ -23,13 +23,14 @@ angular.module('builder.core').factory 'eeUser', ($q, eeAuth, eeBack) ->
     .then (user) -> _data.user = user
     .finally () -> _data.reading = false
 
-  _updateUser = () ->
+  _updateUser = (payload) ->
     deferred  = $q.defer()
     token     = eeAuth.fns.getToken()
     if _data.updating then return _data.updating
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.updating = deferred.promise
-    eeBack.usersPUT _data.user, token
+    console.log 'payload', payload
+    eeBack.usersPUT (payload || _data.user), token
     .then (user) -> _data.user = user
     .finally () -> _data.updating = false
 

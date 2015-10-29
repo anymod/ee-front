@@ -2,68 +2,19 @@
 <ee-builder-section-heading heading="Your product categories" heading-class="text-info" subheading="Choose which categories are in your store."></ee-builder-section-heading>
 <!-- !Message -->
 
-<div ng-hide="products.ee.Products.categories.reading" class="container text-center">
+<div ng-hide="products.ee.loading" class="container text-center">
 
-  <div class="vert-20 margin-top-0" ng-if="products.ee.Collections.collections.length > 0">
-    <div class="position-relative inline-block vert-2" dropdown>
-      <div class="btn btn-default" dropdown-toggle>
-        In collections&nbsp;<span class="caret"></span>
-      </div>
-      <ul class="dropdown-menu">
-        <li ng-repeat="collection in products.ee.Collections.collections" ng-if="collection.title">
-          <a ui-sref="collectionTemplates({ id: collection.id })">{{ collection.title }}</a>
-        </li>
-      </ul>
+  <!-- CATEGORIES -->
+  <div class="margin-0-auto max-width-300">
+    <div class="list-group text-left">
+      <a href class="list-group-item" ng-repeat="category in products.ee.Products.search.inputs.categoryArray">
+        <input type="checkbox" ng-checked="products.ee.User.user.categorization_ids.indexOf(category.id) > -1" /> {{ category.title }}
+      </a>
     </div>
   </div>
+  <!-- /CATEGORIES -->
 
-  <!-- PRODUCTS -->
-  <div class="full-width text-center margin-0">
-    <pagination ng-if="products.ee.Products.categories.count > products.ee.Products.categories.inputs.perPage"
-      total-items="products.ee.Products.categories.count"
-      items-per-page="products.ee.Products.categories.inputs.perPage"
-      ng-model="products.ee.Products.categories.inputs.page"
-      max-size="5"
-      class="pagination-sm margin-0 vertical-align-top"
-      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-      boundary-links="true"
-      rotate="false"
-      ng-change="products.fns.runSection('categories')">
-    </pagination>
-  </div>
-
-  <div class="vert-20 text-left">
-    <div ng-repeat="product in products.ee.Products.categories.products">
-      <ee-product-editor-card product="product"></ee-product-editor-card>
-    </div>
-  </div>
-
-  <div class="full-width text-center margin-0">
-    <pagination ng-if="products.ee.Products.categories.count > products.ee.Products.categories.inputs.perPage"
-      total-items="products.ee.Products.categories.count"
-      items-per-page="products.ee.Products.categories.inputs.perPage"
-      ng-model="products.ee.Products.categories.inputs.page"
-      max-size="5"
-      class="pagination-sm margin-0 vertical-align-top"
-      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-      boundary-links="true"
-      rotate="false"
-      ng-change="products.fns.runSection('categories')">
-    </pagination>
-  </div>
-  <!-- /PRODUCTS -->
-
-  <div class="full-width inline-block vert-20"></div>
+  <pre class="text-left">{{ products.ee.User.user.categorization_ids | json }}</pre>
 </div>
 
-<ee-empty-message
-  ng-if="!products.ee.Products.categories.reading && products.ee.Products.categories.products.length <= 0"
-  main-message="Start your store"
-  btn-message="Add products"
-  btn-sref="templates"
-  sub-message="When you add products to your store, they will show here.">
-</ee-empty-message>
-
-<ee-loading loading="products.ee.Products.categories.reading"></ee-loading>
-
-<pre>{{ products.ee.Products.categories | json }}</pre>
+<ee-loading loading="products.ee.loading"></ee-loading>

@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLanding, eeUser, eeProducts, eeCollections) ->
+angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLanding, eeUser, eeProducts, eeCollections, eeCategorizations) ->
 
   ## SETUP
   _isBuilder = $rootScope.isBuilder
@@ -9,18 +9,19 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
   _loggedOut = !_loggedIn
 
   _exports =
-    User:           eeUser.data
-    Collections:    eeCollections.data
-    Products:       eeProducts.data
-    meta:           {}
-    carousel:       {}
-    about:          {}
-    template_ids:   []
-    categories:     ['All']
-    logged_in:      _loggedIn
-    loading:        {}
-    blocked:        {}
-    unsaved:        false
+    User:             eeUser.data
+    Products:         eeProducts.data
+    Collections:      eeCollections.data
+    Categorizations:  eeCategorizations.data
+    meta:             {}
+    carousel:         {}
+    about:            {}
+    template_ids:     []
+    categories:       ['All']
+    logged_in:        _loggedIn
+    loading:          {}
+    blocked:          {}
+    unsaved:          false
 
   ## PRIVATE FUNCTIONS
   _resetData = () ->

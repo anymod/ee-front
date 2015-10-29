@@ -211,6 +211,13 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       headers: authorization: token
     }
 
+  categorizationsGET: (token) ->
+    _makeRequest {
+      method: 'GET'
+      url: eeBackUrl + 'categorizations'
+      headers: authorization: token
+    }
+
   productsGET: (token, query) ->
     _makeRequest {
       method: 'GET'

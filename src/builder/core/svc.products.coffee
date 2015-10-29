@@ -43,11 +43,6 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
       products: []
       inputs:   angular.copy _inputDefaults
       reading:  false
-    categories:
-      count:    null
-      products: []
-      inputs:   angular.copy _inputDefaults
-      reading:  false
     search:
       count:    null
       products: []
@@ -88,7 +83,6 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
   _runSection = (section) ->
     switch section
       when 'featured'   then _runQuery 'featured',   eeBack.fns.searchFeatured(eeAuth.fns.getToken(), _formQuery('featured'))
-      when 'categories' then _runQuery 'categories', eeElasticsearch.fns.searchProducts(eeAuth.fns.getToken(), _formQuery('categories'))
       when 'search'     then _runQuery 'search',     eeElasticsearch.fns.searchProducts(eeAuth.fns.getToken(), _formQuery('search'))
 
   _searchWithTerm = (term) ->
@@ -134,11 +128,6 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
       _data.search.inputs.page    = 1
       _data.search.inputs.order   = order
       _runSection 'search'
-
-    # toggleCategory: (category) ->
-    #   _data.search.inputs.page = 1
-    #   if _data.search.category_ids.indexOf(category.id) < 0 then _addCategory(category) else _removeCategory(category)
-    #   _runSection 'search'
     setRange: (range) ->
       range = range || {}
       _data.search.inputs.page = 1

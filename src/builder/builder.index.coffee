@@ -27,6 +27,7 @@ angular.module 'eeBuilder', [
   'builder.products'
   'builder.templates'
   'builder.collections'
+  'builder.categorizations'
   'builder.orders'
   'builder.account'
   'builder.example'

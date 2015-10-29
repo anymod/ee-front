@@ -71,6 +71,7 @@ sources.builderModule = [
   # './src/builder/core/svc.storeproducts.coffee'
   './src/builder/core/svc.collection.coffee'
   './src/builder/core/svc.collections.coffee'
+  './src/builder/core/svc.categorizations.coffee'
   './src/builder/core/svc.orders.coffee'
   './src/builder/core/svc.elasticsearch.coffee'
   # Module - auth
@@ -149,6 +150,10 @@ sources.builderModule = [
   './src/builder/collections/collections.route.coffee'
   './src/builder/collections/collection.controller.coffee'
   './src/builder/collections/collections.controller.coffee'
+  # Module - categorizations
+  './src/builder/categorizations/categorizations.module.coffee'
+  './src/builder/categorizations/categorizations.route.coffee'
+  './src/builder/categorizations/categorizations.controller.coffee'
   # Module - orders
   './src/builder/orders/orders.module.coffee'
   './src/builder/orders/orders.route.coffee'
