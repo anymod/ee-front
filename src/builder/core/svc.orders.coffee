@@ -27,7 +27,7 @@ angular.module('builder.core').factory 'eeOrders', ($cookies, $q, eeBack, eeAuth
     deferred = $q.defer()
     if !!_data.searching then return _data.searching
     _data.searching = deferred.promise
-    eeBack.ordersGET eeAuth.fns.getToken(), _formQuery()
+    eeBack.fns.ordersGET eeAuth.fns.getToken(), _formQuery()
     .then (res) ->
       { count, rows }   = res
       _data.count       = count

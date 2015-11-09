@@ -25,7 +25,7 @@
             ng-repeat="collection in products.ee.Collections.collections"
             ng-if="collection.title && collection.id == products.ee.Products.search.lastCollectionAddedTo"
             ng-bind="collection.title"
-            ng-click="products.collectionsFns.addProduct(collection.id, products.ee.Products.search.productToAdd)">
+            ng-click="products.collectionsFns.addProduct(collection, products.ee.Products.search.productToAdd)">
           </a>
         </div>
         <div class="list-group gray-border box-shadow" style="max-height: 275px; overflow-y: scroll;">
@@ -33,7 +33,7 @@
             ng-repeat="collection in products.ee.Collections.collections"
             ng-if="collection.title && collection.id != products.ee.Products.search.lastCollectionAddedTo"
             ng-bind="collection.title"
-            ng-click="products.collectionsFns.addProduct(collection.id, products.ee.Products.search.productToAdd)">
+            ng-click="products.collectionsFns.addProduct(collection, products.ee.Products.search.productToAdd)">
           </a>
         </div>
         <div class="alert alert-info" ng-if="products.ee.Products.search.productToAdd.err" ng-bind="products.ee.Products.search.productToAdd.err"></div>

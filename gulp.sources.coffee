@@ -72,8 +72,8 @@ sources.builderModule = [
   './src/builder/core/svc.collection.coffee'
   './src/builder/core/svc.collections.coffee'
   './src/builder/core/svc.categorizations.coffee'
+  './src/builder/core/svc.customization.coffee'
   './src/builder/core/svc.orders.coffee'
-  './src/builder/core/svc.elasticsearch.coffee'
   # Module - auth
   './src/builder/auth/auth.module.coffee'
   # auth.login
@@ -130,6 +130,7 @@ sources.builderModule = [
   './src/builder/products/products.route.coffee'
   './src/builder/products/products.controller.coffee'
   './src/builder/products/product.controller.coffee'
+  './src/builder/products/product.modal.controller.coffee'
   # Module - templates
   './src/builder/templates/templates.module.coffee'
   './src/builder/templates/templates.route.coffee'
@@ -171,11 +172,13 @@ sources.builderDirective = [
   './src/ee-shared/components/ee-terms-privacy.coffee'
   './src/ee-shared/components/ee-builder-navbar.coffee'
   './src/ee-shared/components/ee-builder-section-heading.coffee'
+  './src/ee-shared/components/ee-product-builder-buttons.coffee'
   './src/ee-shared/components/ee-product-card.coffee'
-  './src/ee-shared/components/ee-product-editor-card.coffee'
+  './src/ee-shared/components/ee-product-for-builder.coffee'
   './src/ee-shared/components/ee-product-for-store.coffee'
   './src/ee-shared/components/ee-products-in-collection.coffee'
   './src/ee-shared/components/ee-product-images.coffee'
+  './src/ee-shared/components/ee-price-editor.coffee'
   './src/ee-shared/components/ee-collection-card.coffee'
   './src/ee-shared/components/ee-collection-add-card.coffee'
   './src/ee-shared/components/ee-collection-editor-card.coffee'

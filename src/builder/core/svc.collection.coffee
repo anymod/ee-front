@@ -31,14 +31,14 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.collection = {}
     _data.reading = deferred.promise
-    eeBack.collectionGET id, token, _formQuery()
+    eeBack.fns.collectionGET id, token, _formQuery()
     .then (res) ->
-      { page, count, perPage, collection, products } = res
+      { collection, rows, count, page, perPage } = res
       _data.page        = page
       _data.perPage     = perPage
       _data.count       = count
       _data.collection  = collection
-      _data.products    = products
+      _data.products    = rows
     .finally () -> _data.reading = false
 
   _updateCollection = () ->
@@ -47,7 +47,7 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     if _data.updating then return _data.updating
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.updating = deferred.promise
-    eeBack.collectionPUT token, _data.collection
+    eeBack.fns.collectionPUT token, _data.collection
     .then (collection) ->
       $rootScope.$broadcast 'sync:collections', collection
       _data.collection = collection
@@ -59,7 +59,7 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     if _data.destroying then return _data.destroying
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.destroying = deferred.promise
-    eeBack.collectionDELETE _data.collection.id, token
+    eeBack.fns.collectionDELETE _data.collection.id, token
     .then (res) ->
       $rootScope.$broadcast 'remove:collections', _data.collection.id
       res

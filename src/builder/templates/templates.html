@@ -20,14 +20,14 @@
 
     <div class="inline-block margin-5">
       <div ng-repeat="category in templates.data.inputs.categoryArray"
-           ng-click="templates.fns.setCategory(category)"
+           ng-click="templates.fns.setCategory(category, 'search')"
            class="btn btn-xs btn-default margin-2"
            ng-class="{ 'btn-primary': category == templates.data.inputs.category }">
         <span ng-show="category == templates.data.inputs.category"><i class="fa fa-fw fa-times"></i></span>{{ category }}
       </div>
       <br>
       <div ng-repeat="range in templates.data.inputs.rangeArray"
-           ng-click="templates.fns.setRange(range)"
+           ng-click="templates.fns.setRange(range, 'search')"
            class="btn btn-xs btn-default margin-2"
            ng-class="{ 'btn-primary': range.min == templates.data.inputs.range.min && range.max == templates.data.inputs.range.max }">
         <span ng-show="range.min == templates.data.inputs.range.min && range.max == templates.data.inputs.range.max"><i class="fa fa-fw fa-times"></i></span>{{ range | rangeToText }}

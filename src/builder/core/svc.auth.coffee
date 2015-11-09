@@ -45,7 +45,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
     if !$cookies.loginToken then deferred.reject('Missing login credentials'); return deferred.promise
     _status.fetching = deferred.promise
 
-    eeBack.tokenPOST $cookies.loginToken
+    eeBack.fns.tokenPOST $cookies.loginToken
     .then (data) ->
       _setUser data
       if !!data.email then deferred.resolve(data) else deferred.reject(data)
@@ -57,7 +57,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
 
   _defineUserFromGoToken = (goToken) ->
     deferred = $q.defer()
-    eeBack.goPOST goToken
+    eeBack.fns.goPOST goToken
     .then (data) ->
       _setUser data
       if !!data.email then deferred.resolve(data) else deferred.reject(data)
@@ -78,7 +78,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
   #       signup.template_selection.push { template_id: p_s.template_id, supplier_id: p_s.supplier_id, margin: margin }
   #     addToSignup p_s for p_s in template_selection
   #
-  #     eeBack.usersPOST(email, password, storefront_meta, signup)
+  #     eeBack.fns.usersPOST(email, password, storefront_meta, signup)
   #     .then (data) ->
   #       if !!data.user and !!data.token
   #         _setLoginToken data.token
@@ -100,7 +100,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
     if !data.username or !data.password
       deferred.reject 'Missing credentials'
     else
-      eeBack.usersCompletePUT data, token
+      eeBack.fns.usersCompletePUT data, token
       .then (data) ->
         if !!data.user and !!data.token
           _setLoginToken data.token
@@ -122,7 +122,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
     if !email
       deferred.reject 'Missing email'
     else
-      eeBack.usersPOST email, proposition
+      eeBack.fns.usersPOST email, proposition
       .then (data) ->
         _setUser data
         deferred.resolve data
@@ -139,7 +139,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
       _reset()
       deferred.reject 'Missing login credentials'
     else
-      eeBack.createTokenPOST token
+      eeBack.fns.createTokenPOST token
       .then (data) ->
         if data.token
           _setConfirmationToken data.token
@@ -178,7 +178,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
         _reset()
         deferred.reject 'Missing login credentials'
       else
-        eeBack.authPOST(email, password)
+        eeBack.fns.authPOST(email, password)
         .then (data) ->
           if !!data.user and !!data.token
             _setLoginToken data.token
@@ -202,7 +202,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
       if !email
         deferred.reject 'Missing email'
       else
-        eeBack.passwordResetEmailPOST(email)
+        eeBack.fns.passwordResetEmailPOST(email)
         .then (data) -> deferred.resolve data
         .catch (err) -> deferred.reject err
       deferred.promise
@@ -213,7 +213,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
         deferred.reject 'Missing password or token'
       else
         token = 'Bearer ' + token
-        eeBack.usersUpdatePasswordPUT password, token
+        eeBack.fns.usersUpdatePasswordPUT password, token
         .then (data) -> deferred.resolve data
         .catch (err) -> deferred.reject err
       deferred.promise

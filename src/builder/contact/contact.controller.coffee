@@ -16,7 +16,7 @@ angular.module('builder.contact').controller 'contactCtrl', (eeBack) ->
 
   this.submit = () ->
     setBtnText 'Sending'
-    eeBack.contactPOST that.name, that.email, that.message
+    eeBack.fns.contactPOST that.name, that.email, that.message
     .then (res) -> that.success = true
     .catch (err) ->
       alert = err.message || err || 'Problem sending'

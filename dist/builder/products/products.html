@@ -32,7 +32,7 @@
             <li ng-repeat="category in products.ee.Products.search.inputs.categoryArray">
               <a href
                 ng-if="products.ee.User.user.categorization_ids.indexOf(category.id) > -1"
-                ng-click="products.fns.setCategory(category)"
+                ng-click="products.fns.setCategory(category, 'search')"
                 ng-bind="category.title"></a>
             </li>
             <li role="separator" class="divider"></li>
@@ -40,9 +40,9 @@
           </ul>
         </div>
         <div ng-if="products.ee.Products.search.inputs.category.id"
-            ng-click="products.fns.setCategory()"
+            ng-click="products.fns.setCategory(null, 'search')"
             class="btn btn-info btn-sm">
-          <i class="fa fa-times"></i>&nbsp;{{ products.ee.Products.search.inputs.category.title }}
+          {{ products.ee.Products.search.inputs.category.title }}&nbsp;<i class="fa fa-times"></i>
         </div>
         <!-- /category -->
         <!-- price -->
@@ -52,43 +52,40 @@
           </button>
           <ul class="dropdown-menu">
             <li ng-repeat="range in products.ee.Products.search.inputs.rangeArray">
-              <a href ng-click="products.fns.setRange(range)" ng-bind="range | rangeToText"></a>
+              <a href ng-click="products.fns.setRange(range, 'search')" ng-bind="range | rangeToText"></a>
             </li>
           </ul>
         </div>
         <div ng-if="products.ee.Products.search.inputs.range.min || products.ee.Products.search.inputs.range.max"
-            ng-click="products.fns.setRange()"
+            ng-click="products.fns.setRange(null, 'search')"
             class="btn btn-info btn-sm">
-          <i class="fa fa-times"></i>&nbsp;{{ { min: products.ee.Products.search.inputs.range.min, max: products.ee.Products.search.inputs.range.max } | rangeToText }}
+          {{ { min: products.ee.Products.search.inputs.range.min, max: products.ee.Products.search.inputs.range.max } | rangeToText }}&nbsp;<i class="fa fa-times"></i>
         </div>
         <!-- /price -->
 
-        <!-- <label ng-repeat="category in products.ee.Products.search.inputs.categoryArray"
-             class="btn btn-xs btn-default margin-2">
-          <input type="checkbox" ng-click="products.fns.toggleCategory(category)" ng-checked="products.ee.Products.search.category_ids.indexOf(category.id) > -1">&nbsp;{{ category.title }}
-        </label> -->
-        <!-- <br> -->
-        <!-- <div ng-repeat="range in products.ee.Products.search.inputs.rangeArray"
-             ng-click="products.fns.setRange(range)"
-             class="btn btn-xs btn-default margin-2"
-             ng-class="{ 'btn-info': range.min == products.ee.Products.search.inputs.range.min && range.max == products.ee.Products.search.inputs.range.max }">
-          <span ng-show="range.min == products.ee.Products.search.inputs.range.min && range.max == products.ee.Products.search.inputs.range.max"><i class="fa fa-fw fa-times"></i></span>{{ range | rangeToText }}
-        </div> -->
 
-        <!-- sort order -->
+
+
         <div class="pull-right">
+          <!-- featured -->
+          <div ng-click="products.fns.toggleFeatured('search')" class="btn btn-default btn-sm" ng-class="{ 'btn-info' : products.ee.Products.search.inputs.featured }">
+            Featured<span ng-if="products.ee.Products.search.inputs.featured">&nbsp;<i class="fa fa-times"></i></span>
+          </div>
+          <!-- /featured -->
+
+          <!-- sort order -->
           <div class="btn-group btn-group-sm" dropdown>
             <button type="button" class="btn btn-default dropdown-toggle" ng-class="{ 'btn-success' : products.ee.Products.search.inputs.order.order }" dropdown-toggle>
               {{ products.ee.Products.search.inputs.order.title }}&nbsp;&nbsp;<span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
               <li ng-repeat="order in products.ee.Products.search.inputs.orderArray">
-                <a href ng-click="products.fns.setOrder(order)" ng-bind="order.title"></a>
+                <a href ng-click="products.fns.setOrder(order, 'search')" ng-bind="order.title"></a>
               </li>
             </ul>
           </div>
+          <!-- /sort order -->
         </div>
-        <!-- /sort order -->
 
       </div>
     </div>
@@ -111,26 +108,7 @@
 
   <div ng-hide="products.ee.Products.search.reading || products.ee.loading" class="margin-0-auto">
     <!-- Results -->
-    <div ng-repeat="product in products.ee.Products.search.products" class="well product-well text-center inline-block pad-5 margin-2 white-background box-shadow">
-      <div>
-        <div class="pad-10 text-left">
-          <img ng-src="{{ product.image | small }}" class="full-width gray-border hover-success-border hover-pointer" ng-click="products.fns.addProductModal(product)">
-          <div>
-            <p ng-bind-html="product.highlight.title || product.title" class="font-weight-200" style="max-height: 50px; overflow: hidden;"></p>
-            <div class="vert-10">
-              <h4 class="inline-block vert-0" ng-bind="product.regular_prices | priceRange"></h4>
-              <h5 class="inline-block vert-0 text-muted font-weight-200" ng-if="product.msrps">&nbsp;<s>{{ product.msrps | priceRange }}</s></h5>
-            </div>
-          </div>
-        </div>
-        <div class="btn btn-group btn-group-sm pad-0">
-          <div class="btn btn-default font-weight-200">Feature</div>
-          <div class="btn btn-default font-weight-200">Edit</div>
-          <div class="btn btn-default font-weight-200" ng-click="products.fns.addProductModal(product)">Add</div>
-        </div>
-        <div class="btn btn-sm btn-link" ng-click="products.fns.search(product.title); scrollTo('body-top');">more like this</div>
-      </div>
-    </div>
+    <ee-product-for-builder ng-repeat="product in products.ee.Products.search.products" product="product"></ee-product-for-builder>
     <div ng-show="!products.ee.Products.search.reading && products.ee.Products.search.products.length <= 0">
       <div class="pad-20">No results found</div>
     </div>

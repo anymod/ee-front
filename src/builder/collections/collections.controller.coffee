@@ -14,7 +14,7 @@ angular.module('builder.collections').controller 'collectionsCtrl', ($state, eeD
 
   collections.create = () ->
     eeCollections.fns.createCollection()
-    .then (res) -> $state.go 'collectionEdit', id: res.id
+    .then (res) -> $state.go 'collectionEdit', id: res.collection.id
 
   collections.update = () -> eeCollections.fns.update()
 

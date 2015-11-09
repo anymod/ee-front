@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.products').controller 'productCtrl', ($state, $stateParams, eeProduct, eeProducts) ->
+angular.module('builder.products').controller 'productCtrl', ($state, $stateParams, eeProduct, eeProducts, eeCollections) ->
 
   product = this
 
@@ -9,6 +9,7 @@ angular.module('builder.products').controller 'productCtrl', ($state, $statePara
   product.fns   = eeProducts.fns
   if !product.id then $state.go 'products'
 
-  eeProduct.fns.setProduct product.id
+  eeProduct.fns.setProduct { id: product.id }
+  eeCollections.fns.search()
 
   return

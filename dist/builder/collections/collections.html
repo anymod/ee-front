@@ -2,9 +2,11 @@
 <ee-builder-section-heading heading="Your product collections" heading-class="text-info" subheading="The collections in your store are shown below."></ee-builder-section-heading>
 <!-- !Message -->
 
-<div class="full-width text-center" style="margin-top: -15px;"><a href>Create a new collection</a></div>
+<div class="full-width text-center" style="margin-top: -15px;">
+  <a href ng-click="collections.create()">Create a new collection</a>
+</div>
 
-<div ng-hide="collections.ee.Collections.reading" class="container text-center vert-50 margin-top-0">
+<div ng-hide="collections.ee.Collections.reading || collections.ee.Collections.creating" class="container text-center vert-50 margin-top-0">
 
   <div class="full-width text-center margin-0">
     <pagination ng-if="collections.ee.Collections.count > collections.ee.Collections.perPage"
@@ -50,4 +52,4 @@
   sub-message="When you add collections to your store, they will show here.">
 </ee-empty-message>
 
-<ee-loading loading="collections.ee.Collections.reading"></ee-loading>
+<ee-loading loading="collections.ee.Collections.reading || collections.ee.Collections.creating"></ee-loading>

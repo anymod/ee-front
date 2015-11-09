@@ -34,7 +34,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     token = if opts.signup then eeAuth.fns.getConfirmationToken() else eeAuth.fns.getToken()
     if !!_data.reading then return _data.reading
     _data.reading = deferred.promise
-    eeBack.collectionsGET token, _formQuery()
+    eeBack.fns.collectionsGET token, _formQuery()
     .then (res) ->
       { count, rows }   = res
       _data.count       = count
@@ -58,7 +58,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     if _data.creating then return _data.creating
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.creating = deferred.promise
-    eeBack.collectionPOST token
+    eeBack.fns.collectionPOST token
     .then (collection) ->
       $rootScope.$broadcast 'sync:collections', collection
       collection
@@ -71,7 +71,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     if collection.cloning then return collection.cloning
     if !token then deferred.reject('Missing token'); return deferred.promise
     collection.cloning = deferred.promise
-    eeBack.collectionClonePOST collection.id, token
+    eeBack.fns.collectionClonePOST collection.id, token
     .then (new_collection) -> new_collection
     .catch (err) ->
       if err and err.message then collection.err = err.message
@@ -81,7 +81,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
   _updateCollection = (collection) ->
     deferred  = $q.defer()
     collection.updating = deferred.promise
-    eeBack.collectionPUT collection, eeAuth.fns.getToken()
+    eeBack.fns.collectionPUT collection, eeAuth.fns.getToken()
     .then (res) -> collection = res
     .catch (err) ->
       if err and err.message then collection.err = err.message
@@ -91,7 +91,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
   _destroyCollection = (collection) ->
     deferred = $q.defer()
     collection.destroying = deferred.promise
-    eeBack.collectionDELETE collection.id, eeAuth.fns.getToken()
+    eeBack.fns.collectionDELETE collection.id, eeAuth.fns.getToken()
     .then (res) ->
       collection = res
       collection.deleted = true
@@ -105,7 +105,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     deferred = $q.defer()
     collection.reading = deferred.promise
     token = if eeAuth.fns.getToken() then eeAuth.fns.getToken() else eeAuth.fns.getConfirmationToken()
-    eeBack.collectionPublicGET collection.id, token, { page: page }
+    eeBack.fns.collectionPublicGET collection.id, token, { page: page }
     .then (res) ->
       { count, page, perPage, coll, products } = res
       # collection          = res.coll
@@ -124,7 +124,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     if _data.nav.reading then return _data.nav.reading
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.nav.reading = deferred.promise
-    eeBack.collectionsNavGET token
+    eeBack.fns.collectionsNavGET token
     .then (res) ->
       _data.nav.carousel      = res.carousel
       _data.nav.alphabetical  = res.alphabetical
@@ -134,21 +134,26 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
   _defineNavCollections = (force) ->
     $q.when(if !_data.nav.carousel or !_data.nav.alphabetical or _data.nav.alphabetical.length is 0 or _data.nav.carousel.length is 0 or force then _readNavCollections() else _data.nav)
 
-  _addProduct = (collection_id, product) ->
-    deferred  = $q.defer()
-    product.updating = deferred.promise
-    eeBack.collectionAddProduct collection_id, product._id, eeAuth.fns.getToken()
-    .then (product) ->
-      product.productId = product.id
-      $rootScope.$broadcast 'added:product', product, collection_id
+  _addProduct = (collection, product, products) ->
+    if product.updating then return
+    product.updating = true
+    product.added = false
+    eeBack.fns.collectionAddProduct collection.id, product.id, eeAuth.fns.getToken()
+    .then (res) ->
+      product.added = true
+      collection = res.collection
+      $rootScope.$broadcast 'added:product', product, res.collection
     .catch (err) -> if err and err.message then product.err = err.message; throw err
     .finally () -> product.updating = false
 
-  _removeProduct = (collection_id, product) ->
-    deferred  = $q.defer()
-    product.updating = deferred.promise
-    eeBack.collectionRemoveProduct collection_id, product.product_id, eeAuth.fns.getToken()
-    .then () -> product.removed = true
+  _removeProduct = (collection, product, products) ->
+    if product.updating then return
+    product.updating = true
+    product.removed = false
+    eeBack.fns.collectionRemoveProduct collection.id, product.id, eeAuth.fns.getToken()
+    .then (res) ->
+      product.removed = true
+      collection      = res.collection
     .catch (err) -> if err and err.message then product.err = err.message; throw err
     .finally () -> product.updating = false
 

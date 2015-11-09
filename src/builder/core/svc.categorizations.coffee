@@ -15,7 +15,7 @@ angular.module('builder.core').factory 'eeCategorizations', (eeBack, eeAuth, eeU
   _getCategorizations = () ->
     if !!_data.reading then return
     _data.reading = true
-    eeBack.categorizationsGET eeAuth.fns.getToken()
+    eeBack.fns.categorizationsGET eeAuth.fns.getToken()
     .then (res) ->
       { rows, count } = res
       _data.count = count

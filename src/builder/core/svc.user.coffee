@@ -19,7 +19,7 @@ angular.module('builder.core').factory 'eeUser', ($q, eeAuth, eeBack) ->
     if _data.reading then return _data.reading
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.reading = deferred.promise
-    eeBack.usersGET token
+    eeBack.fns.usersGET token
     .then (user) -> _data.user = user
     .finally () -> _data.reading = false
 
@@ -29,8 +29,7 @@ angular.module('builder.core').factory 'eeUser', ($q, eeAuth, eeBack) ->
     if _data.updating then return _data.updating
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.updating = deferred.promise
-    console.log 'payload', payload
-    eeBack.usersPUT (payload || _data.user), token
+    eeBack.fns.usersPUT (payload || _data.user), token
     .then (user) -> _data.user = user
     .finally () -> _data.updating = false
 

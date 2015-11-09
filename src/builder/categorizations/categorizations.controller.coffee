@@ -8,6 +8,6 @@ angular.module('builder.categorizations').controller 'categorizationsCtrl', (eeD
   categorizations.fns = eeCategorizations.fns
 
   eeCategorizations.fns.getCategorizations()
-  eeUser.fns.defineUser()
+  eeUser.fns.defineUser true
 
   return

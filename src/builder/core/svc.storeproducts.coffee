@@ -29,7 +29,7 @@
 #     deferred = $q.defer()
 #     if !!_data.reading then return _data.reading
 #     _data.reading = deferred.promise
-#     eeBack.storeProductsGET eeAuth.fns.getToken(), _formQuery()
+#     eeBack.fns.storeProductsGET eeAuth.fns.getToken(), _formQuery()
 #     .then (res) ->
 #       { count, rows }     = res
 #       _data.count         = count
@@ -45,7 +45,7 @@
 #   _updateStoreProduct = (storeProduct) ->
 #     deferred  = $q.defer()
 #     storeProduct.updating = deferred.promise
-#     eeBack.storeProductsPUT storeProduct, eeAuth.fns.getToken()
+#     eeBack.fns.storeProductsPUT storeProduct, eeAuth.fns.getToken()
 #     .then (res) -> storeProduct = res
 #     .catch (err) ->
 #       if err and err.message then storeProduct.err = err.message
@@ -55,7 +55,7 @@
 #   _destroyStoreProduct = (storeProduct) ->
 #     deferred = $q.defer()
 #     storeProduct.destroying = deferred.promise
-#     eeBack.storeProductsDELETE storeProduct.id, eeAuth.fns.getToken()
+#     eeBack.fns.storeProductsDELETE storeProduct.id, eeAuth.fns.getToken()
 #     .then (res) ->
 #       storeProduct = res
 #       storeProduct.deleted = true

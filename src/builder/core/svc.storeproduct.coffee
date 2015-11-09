@@ -21,7 +21,7 @@
 #     if !id then deferred.reject('Missing storeproduct ID'); return deferred.promise
 #     _data.storeproduct = {}
 #     _data.reading = deferred.promise
-#     eeBack.storeProductGET id, eeAuth.fns.getToken()
+#     eeBack.fns.storeProductGET id, eeAuth.fns.getToken()
 #     .then (data) -> deferred.resolve data
 #     .catch (err) -> deferred.reject err
 #     .finally () -> _data.reading = false

@@ -25,9 +25,9 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
 
   ## PRIVATE FUNCTIONS
   _resetData = () ->
-    eeUser.data           = {}
-    eeCollections.data    = {}
-    eeProducts.data  = {}
+    eeUser.data         = {}
+    eeCollections.data  = {}
+    eeProducts.data     = {}
 
   _collectionsArray = (collections) ->
     collections ||= {}

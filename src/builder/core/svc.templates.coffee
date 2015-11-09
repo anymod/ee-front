@@ -50,7 +50,7 @@ angular.module('builder.core').factory 'eeTemplates', ($rootScope, $q, eeBack, e
     deferred = $q.defer()
     if !!_data.searching then return _data.searching
     _data.searching = deferred.promise
-    eeBack.templatesGET eeAuth.fns.getToken(), _formQuery()
+    eeBack.fns.templatesGET eeAuth.fns.getToken(), _formQuery()
     .then (res) ->
       { count, rows } = res
       _data.count     = count

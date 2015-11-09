@@ -24,10 +24,11 @@
     </pagination>
   </div>
 
-  <div class="vert-20 text-left">
-    <div ng-repeat="product in collection.data.products">
-      <ee-product-editor-card product="product" collection="collection.data.collection"></ee-product-editor-card>
-    </div>
+  <div class="vert-20 text-center">
+    <ee-product-for-builder ng-repeat="product in collection.data.products" product="product" collection="collection.data.collection"></ee-product-for-builder>
+    <a ui-sref="products" ng-if="collection.data.products.length < 1" class="btn btn-link">
+      Add products
+    </a>
   </div>
 
   <div class="full-width text-center margin-0">
