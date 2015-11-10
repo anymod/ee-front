@@ -107,12 +107,12 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     token = if eeAuth.fns.getToken() then eeAuth.fns.getToken() else eeAuth.fns.getConfirmationToken()
     eeBack.fns.collectionPublicGET collection.id, token, { page: page }
     .then (res) ->
-      { count, page, perPage, coll, products } = res
+      { count, page, perPage, coll, rows } = res
       # collection          = res.coll
       collection.count     = res.count
       collection.page      = res.page
       collection.perPage   = res.perPage
-      collection.products  = res.products
+      collection.products  = res.rows
     .catch (err) ->
       if err and err.message then collection.err = err.message
       throw err
