@@ -44,13 +44,13 @@
           </h4>
         </td>
         <td colspan="3">
-          <div ng-repeat="sku in order.storeproducts_snapshot"><a ui-sref="product({ id: sku.product_id, title: (sku.selection_text | urlText) })" ng-bind="sku.selection_text | truncate:27"></div>
+          <div ng-repeat="sku in order.skus_snapshot"><a ui-sref="product({ id: sku.product_id, title: (sku.selection_text | urlText) })" ng-bind="sku.selection_text | truncate:27"></div>
         </td>
         <td>
-          <div ng-repeat="sku in order.storeproducts_snapshot">{{ sku.price | centToDollar }}</div>
+          <div ng-repeat="sku in order.skus_snapshot">{{ sku.price | centToDollar }}</div>
         </td>
         <td>
-          <div ng-repeat="sku in order.storeproducts_snapshot">{{ (sku.price - sku.baseline_price) | centToDollar }}</div>
+          <div ng-repeat="sku in order.skus_snapshot">{{ (sku.price - sku.baseline_price) | centToDollar }}</div>
         </td>
         <td>
           <h4 class="margin-0">
