@@ -20,7 +20,7 @@ sources.builderModules = () ->
 
 ### VENDOR ###
 sources.builderVendorMin = [
-  # TODO remove once cloudinary jQuery upload is gone
+  # TODO remove once cloudinary jQuery upload & zoom.js are gone
   './src/bower_components/jquery/dist/jquery.min.js'
   './src/bower_components/angular/angular.min.js'
   './src/bower_components/angular-sanitize/angular-sanitize.min.js'
@@ -32,12 +32,15 @@ sources.builderVendorMin = [
   './src/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
   './src/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js'
   './src/bower_components/angular-scroll/angular-scroll.min.js'
+  './src/bower_components/zoom.js/dist/zoom.min.js'
 ]
 sources.builderVendorUnmin = [
   './src/bower_components/cloudinary/js/jquery.ui.widget.js'
   './src/bower_components/cloudinary/js/jquery.iframe-transport.js'
   './src/bower_components/cloudinary/js/jquery.fileupload.js'
   './src/bower_components/jquery.cloudinary.1.0.21.js'
+  # TODO remove once zoom.js gone
+  './src/bower_components/bootstrap/js/transition.js'
 ]
 
 ### MODULE ###
