@@ -23,6 +23,7 @@ angular.module 'eeBuilder', [
   'builder.is'
   'builder.create'
   'builder.terms'
+  'builder.dashboard'
   'builder.storefront'
   'builder.products'
   'builder.templates'

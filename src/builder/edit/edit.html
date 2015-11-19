@@ -59,78 +59,13 @@
               <h5 class="margin-0">Upload an image&nbsp;<small>50x50px</small></h5>
               <ee-cloudinary-upload meta="edit.ee.meta" attr-target="'logo'"></ee-cloudinary-upload>
             </div>
+            <ee-save class="inline-block vert-5"></ee-save>
           </div>
         </div>
         <!-- /EDITOR top bar logo -->
 
       </div>
       <!-- /TOP BAR -->
-
-      <!-- BODY -->
-      <div ng-if="$state.current.name == 'edit.body'">
-        <!-- EDITOR body image -->
-        <div class="form-group vert-2">
-          <label class="col-sm-4 control-label">
-            Image
-          </label>
-          <div class="col-sm-4">
-            <div class="position-relative" dropdown>
-              <div class="hover-pointer position-relative" dropdown-toggle>
-                <div class="btn btn-sm btn-default margin-5 position-absolute"
-                     name="mainImageToggle">
-                  <div class="fa fa-fw fa-chevron-down"></div>
-                </div>
-                <img ng-src="{{ edit.ee.meta.home.carousel[0].imgUrl }}" class="img-responsive full-width vert-2">
-              </div>
-              <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;">
-                <img ng-repeat="theme in edit.landingData.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setCarouselImage(theme.imgUrl)"/>
-              </ul>
-            </div>
-            <div class="vert-5 text-left">
-              <a href="https://unsplash.com/grid" target="_blank" class="pull-right">
-                <small>Free images <i class="fa fa-fw fa-external-link"></i></small>
-              </a>
-              <h5 class="margin-0">Upload an image&nbsp;<small>1200x400px</small></h5>
-              <ee-cloudinary-upload meta="edit.ee.meta" attr-target="'body'"></ee-cloudinary-upload>
-            </div>
-          </div>
-        </div>
-        <!-- /EDITOR body image -->
-        <!-- EDITOR body info -->
-        <div class="form-group vert-5">
-          <label class="col-sm-4 control-label">Headline</label>
-          <div class="col-sm-3">
-            <input type="text" ng-model="edit.ee.meta.home.carousel[0].headline" class="form-control" placeholder="Headline">
-          </div>
-          <div class="col-sm-2">
-            <div class="btn-group btn-group-justified"
-                 ng-show="!!edit.ee.meta.home.carousel[0].headline || !!edit.ee.meta.home.carousel[0].byline || !!edit.ee.meta.home.carousel[0].btnText">
-              <div class="btn btn-default btn-sm" ng-model="edit.ee.meta.home.carousel[0].btnPosition" btn-radio="'left'"><i class="fa fa-align-left"></i></div>
-              <div class="btn btn-default btn-sm" ng-model="edit.ee.meta.home.carousel[0].btnPosition" btn-radio="'middle'"><i class="fa fa-align-center"></i></div>
-              <div class="btn btn-default btn-sm" ng-model="edit.ee.meta.home.carousel[0].btnPosition" btn-radio="'right'"><i class="fa fa-align-right"></i></div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group vert-5">
-          <label class="col-sm-4 control-label">Byline</label>
-          <div class="col-sm-3">
-            <input type="text" ng-model="edit.ee.meta.home.carousel[0].byline" class="form-control" placeholder="Byline">
-          </div>
-        </div>
-        <div class="form-group vert-5">
-          <label class="col-sm-4 control-label">Headline button</label>
-          <div class="col-sm-3">
-            <input type="text" ng-model="edit.ee.meta.home.carousel[0].btnText" class="form-control" placeholder="Button text">
-          </div>
-          <div class="col-sm-2" ng-show="!!edit.ee.meta.home.carousel[0].btnText">
-            <select class="form-control" ng-model="edit.ee.meta.home.carousel[0].linkCategory">
-              <option ng-repeat="collection in edit.data.collection_names">{{ collection }}</option>
-            </select>
-            <small class="inline-block line-height-1 vert-5 margin-bottom-0">choose what collection the headline button will link to</small>
-          </div>
-        </div>
-      </div>
-      <!-- /BODY -->
 
       <!-- ABOUT -->
       <div ng-if="$state.current.name == 'edit.about'">
@@ -173,6 +108,7 @@
               <h5 class="margin-0">Upload an image&nbsp;<small>1200x400px</small></h5>
               <ee-cloudinary-upload meta="edit.ee.meta" attr-target="'about'"></ee-cloudinary-upload>
             </div>
+            <ee-save class="inline-block vert-5"></ee-save>
           </div>
         </div>
       </div>
@@ -229,6 +165,7 @@
               <input type="text" class="form-control" placeholder="Email" ng-model="edit.ee.meta.audience.contact.email">
               <span ng-if="edit.ee.meta.audience.contact.email" class="input-group-addon white-background"><a href="mailto:{{ edit.ee.meta.audience.contact.email }}" target="_blank"><i class="fa fa-send"></i></a>
             </div>
+            <ee-save class="inline-block vert-5"></ee-save>
           </div>
         </div>
         <!-- /EDITOR top bar social -->
@@ -245,6 +182,7 @@
               <input type="text" class="form-control" placeholder="http://" ng-model="edit.ee.meta.blog.url">
               <span ng-if="edit.ee.meta.blog.url" class="input-group-addon white-background"><a href="{{ edit.ee.meta.blog.url | addHttp }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
             </div>
+            <ee-save class="inline-block vert-5"></ee-save>
           </div>
         </div>
       </div>
@@ -268,11 +206,14 @@
           <label class="col-sm-3 control-label">Custom meta code</label>
           <div class="col-sm-6">
             <textarea class="form-control" placeholder='<meta name="mytag" content="mycontent">' ng-model="edit.ee.meta.seo.code" rows=4></textarea>
+            <ee-save class="inline-block vert-5"></ee-save>
           </div>
         </div>
       </div>
       <!-- /SEO -->
+
     </div>
+
   </div>
 </div>
 

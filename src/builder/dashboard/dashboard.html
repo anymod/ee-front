@@ -1,0 +1,86 @@
+<div ng-hide="dashboard.ee.User.reading">
+  <!-- Main nav -->
+  <div class="position-relative box-shadow">
+    <nav class="navbar navbar-default navbar-rgba-colors border-none box-shadow margin-0 round-0"
+        style="z-index: 5;"
+        ng-style="{ 'background-color': dashboard.ee.meta.home.topBarBackgroundColor }">
+      <!-- Buttons -->
+      <div class="inline-block full-width pad-10">
+        <div class="pull-right">
+          <a ui-sref="edit" class="btn btn-default">Edit Store</a>
+        </div>
+      </div>
+      <!-- /Buttons -->
+      <!-- Logo -->
+      <div class="text-center">
+        <div class="store-title inline-block hover-pointer font-weight-200 pad-0 vert-15 margin-top-0"
+           ng-style="{ color: dashboard.ee.meta.home.topBarColor }">
+          <img ng-if="dashboard.ee.meta.logo" ng-src="{{ dashboard.ee.meta.logo }}" class="small-thumb img-circle margin-right-4" />
+          <div class="inline-block height-50" style="height: 50px; padding: 5px 0; font-size: 28px; vertical-align: middle;" ng-bind="dashboard.ee.meta.home.name"></div>
+        </div>
+      </div>
+      <!-- /Logo -->
+      <!-- Link -->
+      <div class="text-center vert-15">
+        <div class="btn btn-default" style="padding: 5px 20px; border-radius: 20px">
+          {{ dashboard.ee.User.user.domain }}
+        </div>
+      </div>
+      <!-- /Link -->
+    </nav>
+  </div>
+  <!-- /Main nav -->
+
+  <nav class="navbar ee-builder-subnav box-shadow round-0 margin-0 text-center" style="top: 0 !important;">
+    <div class="max-width-600 margin-0-auto pad-2 position-relative">
+      <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="products">Your<br><small>Products</small></a>
+      <!-- <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="categories">Your<br><small>Categories</small></a> -->
+      <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="collections">Your<br><small>Collections</small></a>
+      <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="collectionsAdd">Add<br><small>Collections</small></a>
+    </div>
+  </nav>
+
+  <!-- Products -->
+  <div class="container text-center vert-20 margin-top-0" ng-hide="dashboard.ee.Products.search.products.length <= 0">
+    <div class="vert-20">
+      <div class="margin-10">
+        <pagination total-items="dashboard.ee.Products.search.count"
+          items-per-page="dashboard.ee.Products.search.inputs.perPage"
+          ng-model="dashboard.ee.Products.search.inputs.page"
+          max-size="5"
+          class="pagination-sm margin-0 vertical-align-top"
+          previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+          boundary-links="true"
+          rotate="false"
+          ng-change="products.fns.runSection('search')">
+        </pagination>
+      </div>
+
+      <div ng-hide="dashboard.ee.Products.search.reading || dashboard.ee.loading" class="margin-0-auto">
+        <!-- Results -->
+        <ee-product-for-builder ng-repeat="product in dashboard.ee.Products.search.products" product="product"></ee-product-for-builder>
+        <div ng-show="!dashboard.ee.Products.search.reading && dashboard.ee.Products.search.products.length <= 0">
+          <div class="pad-20">No results found</div>
+        </div>
+        <!-- /Results -->
+      </div>
+
+      <div ng-hide="dashboard.ee.Products.search.reading || dashboard.ee.Products.search.count <= dashboard.ee.Products.search.inputs.perPage" class="pad-20 vert-20">
+        <pagination total-items="dashboard.ee.Products.search.count"
+          items-per-page="dashboard.ee.Products.search.inputs.perPage"
+          ng-model="dashboard.ee.Products.search.inputs.page"
+          max-size="5"
+          class="pagination-sm margin-0 vertical-align-top"
+          previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+          boundary-links="true"
+          rotate="false"
+          ng-change="products.fns.runSection('search')">
+        </pagination>
+      </div>
+    </div>
+  </div>
+  <!-- /Products -->
+
+</div>
+
+<ee-loading loading="dashboard.ee.User.reading"></ee-loading>

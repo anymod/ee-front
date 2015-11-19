@@ -1,21 +1,17 @@
-<div ng-hide="storefront.ee.loading || $state.current.name == 'edit.seo'" class="container vert-20">
+<div ng-hide="storefront.ee.loading" ng-if="$state.current.name == 'edit.topbar' || $state.current.name == 'edit.about'" class="container vert-20">
   <div class="well white-background box-shadow margin-0-auto text-left">
     <!-- TODO make clickable via ng-click="storefront.modalFns.open('themes')" -->
     <div class="position-relative" style="min-height: 75px;">
       <!-- STORE navbar -->
-      <ee-storefront-header class="position-absolute"
-                            meta="storefront.ee.meta"
+      <ee-storefront-header meta="storefront.ee.meta"
                             fluid="true"
-                            collections = "storefront.data.collection_names"
+                            blocked="true"
                             ng-hide="storefront.ee.loading"
                             style="left:0; right:0; top: 0; z-index: 2;">
       </ee-storefront-header>
       <!-- /STORE navbar -->
-      <!-- STORE carousel -->
-      <div ng-if="$state.current.name == 'edit.body'" ng-include="'ee-shared/storefront/storefront.carousel.html'" style="padding-top: 74px;"></div>
-      <!-- /STORE carousel -->
       <!-- STORE about -->
-      <div ng-if="$state.current.name == 'edit.about'" ng-include="'ee-shared/storefront/storefront.about.html'" style="padding-top: 74px;"></div>
+      <div ng-if="$state.current.name == 'edit.about'" ng-include="'ee-shared/storefront/storefront.about.html'"></div>
       <!-- /STORE about -->
     </div>
   </div>

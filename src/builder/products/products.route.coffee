@@ -30,7 +30,7 @@ angular.module('builder.products').config ($stateProvider) ->
       data:
         pageTitle:        'Add products | eeosk'
         pageDescription:  'Add products to your store.'
-        padTop:           '100px'
+        padTop:           '120px'
 
     # Single product
 
@@ -46,7 +46,7 @@ angular.module('builder.products').config ($stateProvider) ->
       data:
         pageTitle:        'Add product | eeosk'
         pageDescription:  'Add to your store'
-        padTop:           '100px'
+        padTop:           '120px'
 
     .state 'product',
       url: '/products/:id/:title'
@@ -59,6 +59,6 @@ angular.module('builder.products').config ($stateProvider) ->
           templateUrl: 'ee-shared/storefront/storefront.product.html'
       data:
         pageTitle:        'Your product | eeosk'
-        padTop:           '124px'
+        padTop:           '120px'
 
   return

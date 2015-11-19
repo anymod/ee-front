@@ -8517,6 +8517,7 @@ body.modal-open {
 }
 .carousel-control {
   bottom: 60px;
+  background: none !important;
 }
 .carousel-indicators {
   bottom: 16px !important;
@@ -8611,9 +8612,9 @@ html {
   color: white;
 }
 .main-navbar {
-  height: 50px;
-  min-height: 50px;
-  max-height: 50px;
+  height: 60px;
+  min-height: 60px;
+  max-height: 60px;
 }
 .main-navbar ul.nav {
   display: inline-block !important;
@@ -8630,9 +8631,12 @@ html {
   right: 0;
 }
 .navbar-subheader {
-  top: 50px;
+  top: 60px;
   left: 0;
   right: 0;
+}
+.ee-builder-navbar {
+  min-height: 60px;
 }
 .ee-builder-navbar .storefront-buttons .position-fixed {
   top: 8px;
@@ -8648,7 +8652,7 @@ html {
   }
 }
 .ee-builder-subnav {
-  top: 50px !important;
+  top: 60px !important;
   max-height: 50px;
   z-index: 1020;
   overflow: hidden;
@@ -8694,6 +8698,25 @@ html {
     max-width: 220px;
     overflow: hidden;
   }
+}
+.supranav {
+  height: 30px;
+  max-height: 30px;
+  background: #fcfcfc;
+}
+.slid-up .supranav {
+  margin-top: -30px;
+}
+.scrollnav {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 38px;
+  z-index: 3000;
+  margin-top: -65px;
+}
+.show-scrollnav .scrollnav {
+  margin-top: 0;
 }
 .white-background {
   background: white !important;
@@ -8906,6 +8929,10 @@ html {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.vert-25 {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
 .vert-50 {
   margin-top: 50px;
   margin-bottom: 50px;
@@ -9029,10 +9056,10 @@ html {
   border-right: none;
 }
 .box-shadow {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19), 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 .box-shadow-2 {
-  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 .height-auto {
   height: auto;
@@ -9045,6 +9072,9 @@ html {
 }
 .full-width {
   width: 100%;
+}
+.full-width-important {
+  width: 100% !important;
 }
 .min-width-40 {
   min-width: 40px;
@@ -9305,11 +9335,6 @@ img.small-thumb {
 }
 .store-title {
   padding: 10px 12px 12px 0px;
-}
-@media (max-width: 767px) {
-  .store-title {
-    padding: 10px 12px 12px 12px;
-  }
 }
 .navbar-addition {
   left: 70px;
@@ -9664,10 +9689,26 @@ a.product:focus .product-title {
   border-radius: 2px;
   margin: 3px;
   transition: all 0.2s ease-in-out;
+  max-width: 225px;
 }
 .product-container:hover,
 .product-container:focus {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.19), 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+@media (max-width: 480px) {
+  .product-container {
+    max-width: 100%;
+  }
+}
+@media (min-width: 481px) and (max-width: 767px) {
+  .product-container {
+    max-width: 212px;
+  }
+}
+@media (min-width: 1200px) {
+  .product-container {
+    max-width: 260px;
+  }
 }
 @media (max-width: 600px) {
   ee-collection-editor-card .media-left,
@@ -9707,7 +9748,7 @@ img[data-action="zoom"] {
 .zoom-img,
 .zoom-img-wrap {
   position: relative;
-  z-index: 666;
+  z-index: 650;
   -webkit-transition: all 300ms;
   -o-transition: all 300ms;
   transition: all 300ms;
@@ -9718,7 +9759,7 @@ img.zoom-img {
   cursor: -moz-zoom-out;
 }
 .zoom-overlay {
-  z-index: 420;
+  z-index: 400;
   background: #fff;
   position: fixed;
   top: 0;
@@ -9739,9 +9780,6 @@ img.zoom-img {
 .zoom-overlay-open,
 .zoom-overlay-transitioning {
   cursor: default;
-}
-.zoom-overlay-open .zoom-img-wrap {
-  margin-top: 20px;
 }
 
 /*# sourceMappingURL=ee.css.map */

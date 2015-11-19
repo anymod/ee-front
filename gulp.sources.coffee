@@ -124,6 +124,10 @@ sources.builderModule = [
   './src/builder/terms/terms.route.coffee'
   './src/builder/terms/terms.controller.coffee'
   './src/builder/terms/terms.modal.controller.coffee'
+  # Module - dashboard
+  './src/builder/dashboard/dashboard.module.coffee'
+  './src/builder/dashboard/dashboard.route.coffee'
+  './src/builder/dashboard/dashboard.controller.coffee'
   # Module - storefront
   './src/builder/storefront/storefront.module.coffee'
   './src/builder/storefront/storefront.route.coffee'
@@ -139,16 +143,6 @@ sources.builderModule = [
   './src/builder/templates/templates.route.coffee'
   './src/builder/templates/templates.controller.coffee'
   './src/builder/templates/template.controller.coffee'
-  # Module - storeproducts
-  # './src/builder/storeproducts/storeproducts.module.coffee'
-  # './src/builder/storeproducts/storeproducts.route.coffee'
-  # './src/builder/storeproducts/storeproduct.controller.coffee'
-  # './src/builder/storeproducts/storeproducts.controller.coffee'
-  # # Module - selections
-  # './src/builder/selections/selections.module.coffee'
-  # './src/builder/selections/selections.route.coffee'
-  # './src/builder/selections/selections.controller.coffee'
-  # './src/builder/selections/selection.view.controller.coffee'
   # Module - collections
   './src/builder/collections/collections.module.coffee'
   './src/builder/collections/collections.route.coffee'
