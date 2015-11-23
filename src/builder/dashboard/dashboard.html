@@ -1,7 +1,7 @@
 <div ng-hide="dashboard.ee.User.reading">
   <!-- Main nav -->
   <div class="position-relative box-shadow">
-    <nav class="navbar navbar-default navbar-rgba-colors border-none box-shadow margin-0 round-0"
+    <nav class="navbar navbar-rgba-colors border-none box-shadow margin-0 round-0"
         style="z-index: 5;"
         ng-style="{ 'background-color': dashboard.ee.meta.home.topBarBackgroundColor }">
       <!-- Buttons -->
@@ -11,22 +11,33 @@
         </div>
       </div>
       <!-- /Buttons -->
-      <!-- Logo -->
+      <!-- Logo and title -->
       <div class="text-center">
-        <div class="store-title inline-block hover-pointer font-weight-200 pad-0 vert-15 margin-top-0"
-           ng-style="{ color: dashboard.ee.meta.home.topBarColor }">
-          <img ng-if="dashboard.ee.meta.logo" ng-src="{{ dashboard.ee.meta.logo }}" class="small-thumb img-circle margin-right-4" />
-          <div class="inline-block height-50" style="height: 50px; padding: 5px 0; font-size: 28px; vertical-align: middle;" ng-bind="dashboard.ee.meta.home.name"></div>
+        <div class="store-title inline-block hover-pointer font-weight-200 pad-0"
+            ng-style="{ color: dashboard.ee.meta.home.topBarColor }"
+            ui-sref="edit.topbar">
+          <!-- Logo -->
+          <ee-storefront-logo meta="dashboard.ee.meta" sref="edit"></ee-storefront-logo>
+          <!-- /Logo -->
+          <!-- Title -->
+          <div ng-if="dashboard.ee.meta.home.name" class="inline-block height-50" style="height: 50px; padding: 5px 0; font-size: 28px; vertical-align: middle;" ng-bind="dashboard.ee.meta.home.name"></div>
+          <div ng-if="!dashboard.ee.meta.home.name" class="btn btn-default">Add a store title</div>
+          <!-- /Title -->
         </div>
       </div>
-      <!-- /Logo -->
-      <!-- Link -->
+      <!-- /Logo and title -->
+      <!-- Domain -->
       <div class="text-center vert-15">
-        <div class="btn btn-default" style="padding: 5px 20px; border-radius: 20px">
-          {{ dashboard.ee.User.user.domain }}
-        </div>
+        <a ng-if="dashboard.ee.User.user.domain" href="http://{{ dashboard.ee.User.user.domain }}" class="btn btn-success" style="padding: 5px 20px;" target="_blank">
+          <span ng-bind="dashboard.ee.User.user.domain"></span>
+        </a>
+        <a ng-if="!dashboard.ee.User.user.domain" href="https://{{ dashboard.ee.User.user.username }}.eeosk.com" class="btn btn-success" style="padding: 5px 20px;" target="_blank">
+          https://{{ dashboard.ee.User.user.username }}.eeosk.com&nbsp;<i class="fa fa-fw fa-external-link"></i>
+        </a>
+        <br>
+        <a ui-sref="account" class="btn btn-sm btn-link">change store URL</a>
       </div>
-      <!-- /Link -->
+      <!-- /Domain -->
     </nav>
   </div>
   <!-- /Main nav -->

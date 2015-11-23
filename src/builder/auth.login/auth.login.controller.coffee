@@ -13,7 +13,7 @@ angular.module('builder.auth').controller 'loginCtrl', ($state, eeAuth) ->
     that.alert = ''
     setBtnText 'Sending...'
     eeAuth.fns.setUserFromCredentials that.email, that.password
-    .then () -> $state.go 'storefront'
+    .then () -> $state.go 'dashboard'
     .catch (err) ->
       resetBtnText()
       alert = err.message || err || 'Problem logging in'

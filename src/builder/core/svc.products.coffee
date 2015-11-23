@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, eeAuth, eeModal) ->
+angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, $state, eeBack, eeAuth, eeModal) ->
 
   ## SETUP
   _inputDefaults =
@@ -73,6 +73,7 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, eeBack, ee
   _runQuery = (section, queryPromise) ->
     if _data[section].reading then return
     _data[section].reading = true
+    if section is 'search' and _data[section]?.inputs?.search and $state.current.name isnt 'products' then $state.go 'products'
     queryPromise
     .then (res) ->
       { rows, count, took } = res
