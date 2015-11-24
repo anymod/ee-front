@@ -1,4 +1,4 @@
-<ee-storefront-header meta="edit.ee.meta"
+<ee-storefront-header meta="edit.ee.User.user.storefront_meta"
                       fluid="true"
                       blocked="true"
                       ng-hide="edit.ee.loading"
@@ -8,8 +8,8 @@
 <!-- Message -->
 <ee-builder-section-heading ng-if="$state.current.name == 'edit.topbar'" heading="Edit your top bar" heading-class="text-success" subheading="A preview is shown above."></ee-builder-section-heading>
 <ee-builder-section-heading ng-if="$state.current.name == 'edit.about'" heading="Edit your about section" heading-class="text-success" subheading="Your About section will show automatically. A preview is shown below."></ee-builder-section-heading>
-<ee-builder-section-heading ng-if="$state.current.name == 'edit.blog'" heading="Add your blog" heading-class="text-success" subheading="Your link will show automatically at the top of your store."></ee-builder-section-heading>
-<ee-builder-section-heading ng-if="$state.current.name == 'edit.social'" heading="Add your social media & email" heading-class="text-success" subheading="Your accounts will show automatically at the top of your store."></ee-builder-section-heading>
+<ee-builder-section-heading ng-if="$state.current.name == 'edit.blog'" heading="Add your blog" heading-class="text-success" subheading="Your link will show automatically at the top of your store's home page."></ee-builder-section-heading>
+<ee-builder-section-heading ng-if="$state.current.name == 'edit.social'" heading="Add your social media & email" heading-class="text-success" subheading="Your accounts will show automatically at the top of your store's home page."></ee-builder-section-heading>
 <ee-builder-section-heading ng-if="$state.current.name == 'edit.seo'" heading="Enhance your SEO" heading-class="text-success" subheading="Add a title and description to show in search engine results."></ee-builder-section-heading>
 <!-- Message -->
 
@@ -23,7 +23,7 @@
         <div class="form-group vert-5">
           <label class="col-sm-4 control-label">Store title</label>
           <div class="col-sm-3">
-            <input type="text" ng-model="edit.ee.meta.home.name" class="form-control" placeholder="Store title">
+            <input type="text" ng-model="edit.ee.User.user.storefront_meta.home.name" class="form-control" placeholder="Store title">
           </div>
         </div>
         <!-- /EDITOR title -->
@@ -33,24 +33,24 @@
           <div class="col-sm-2">
             <div class="position-relative inline-block">
               <div class="input-group" colorpicker colorpicker-parent="true"
-                   ng-model="edit.ee.meta.home.topBarBackgroundColor">
+                   ng-model="edit.ee.User.user.storefront_meta.home.topBarBackgroundColor">
                 <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-paint-brush"></i></span>
                 <input name="topBarBackgroundColor"
-                       ng-model="edit.ee.meta.home.topBarBackgroundColor"
+                       ng-model="edit.ee.User.user.storefront_meta.home.topBarBackgroundColor"
                        class="form-control hover-pointer"
-                       ng-style="{ 'background-color': edit.ee.meta.home.topBarBackgroundColor, color: edit.ee.meta.home.topBarBackgroundColor }">
+                       ng-style="{ 'background-color': edit.ee.User.user.storefront_meta.home.topBarBackgroundColor, color: edit.ee.User.user.storefront_meta.home.topBarBackgroundColor }">
               </div>
             </div>
           </div>
           <div class="col-sm-2">
             <div class="position-relative inline-block">
               <div class="input-group" colorpicker colorpicker-parent="true"
-                   ng-model="edit.ee.meta.home.topBarColor">
+                   ng-model="edit.ee.User.user.storefront_meta.home.topBarColor">
                 <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-font"></i></span>
                 <input name="topBarColor"
-                       ng-model="edit.ee.meta.home.topBarColor"
+                       ng-model="edit.ee.User.user.storefront_meta.home.topBarColor"
                        class="form-control hover-pointer"
-                       ng-style="{ 'background-color': edit.ee.meta.home.topBarColor, color: edit.ee.meta.home.topBarColor }">
+                       ng-style="{ 'background-color': edit.ee.User.user.storefront_meta.home.topBarColor, color: edit.ee.User.user.storefront_meta.home.topBarColor }">
               </div>
             </div>
           </div>
@@ -60,19 +60,15 @@
         <div class="form-group vert-5">
           <label class="col-sm-4 control-label">Store logo</label>
           <div class="col-sm-6">
-            <img ng-if="edit.ee.meta.logo" ng-src="{{ edit.ee.meta.logo }}" class="small-thumb img-circle pull-left" style="margin-right: 10px;" />
+            <ee-storefront-logo meta="edit.ee.User.user.storefront_meta" blocked="true"></ee-storefront-logo>
+            <div ng-if="edit.ee.User.user.storefront_meta.logo" class="btn btn-sm btn-link" ng-click="edit.ee.User.user.storefront_meta.logo = null">Remove logo</div>
             <div>
-              <a ng-if="edit.ee.meta.logo" href ng-click="edit.ee.meta.logo = null">remove logo</a>
-              <span ng-if="!edit.ee.meta.logo" class="fa-stack fa-2x gray-border white-background" style="border-radius: 50%;">
-                <i class="fa fa-circle fa-stack-2x white-color"></i>
-                <i class="fa fa-briefcase fa-stack-1x text-info"></i>
-              </span>
               <h4 class="margin-0">
                 <span class="font-weight-200">Upload any square image</span>
                 <br>
-                <small>Logo will be resized to 50x50px</small>
+                <small>Logo will be resized to 60x60px</small>
               </h4>
-              <ee-cloudinary-upload meta="edit.ee.meta" attr-target="'logo'"></ee-cloudinary-upload>
+              <ee-cloudinary-upload meta="edit.ee.User.user.storefront_meta" attr-target="'logo'"></ee-cloudinary-upload>
             </div>
             <ee-save class="inline-block vert-5"></ee-save>
           </div>
@@ -87,7 +83,7 @@
         <div class="form-group vert-5">
           <label class="col-sm-3 control-label">About headline</label>
           <div class="col-sm-6">
-            <textarea class="form-control max-width-100-pct" rows="1" ng-model="edit.ee.meta.about.headline"></textarea>
+            <textarea class="form-control max-width-100-pct" rows="1" ng-model="edit.ee.User.user.storefront_meta.about.headline"></textarea>
           </div>
         </div>
         <div class="form-group vert-5">
@@ -98,7 +94,7 @@
             <!-- <br> -->
             <textarea class="form-control max-width-100-pct"
               rows="9"
-              ng-model="edit.ee.meta.about.content"
+              ng-model="edit.ee.User.user.storefront_meta.about.content"
               placeholder="Tell the world about your store">
             </textarea>
           </div>
@@ -114,7 +110,7 @@
                      name="aboutImageToggle">
                   <div class="fa fa-fw fa-chevron-down"></div>
                 </div>
-                <img ng-src="{{ edit.ee.meta.about.imgUrl }}" class="img-responsive full-width vert-2">
+                <img ng-src="{{ edit.ee.User.user.storefront_meta.about.imgUrl }}" class="img-responsive full-width vert-2">
               </div>
               <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;">
                 <img ng-repeat="theme in edit.landingData.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setAboutImage(theme.imgUrl)"/>
@@ -125,7 +121,7 @@
                 <small>Free images <i class="fa fa-fw fa-external-link"></i></small>
               </a>
               <h5 class="margin-0">Upload an image&nbsp;<small>1200x400px</small></h5>
-              <ee-cloudinary-upload meta="edit.ee.meta" attr-target="'about'"></ee-cloudinary-upload>
+              <ee-cloudinary-upload meta="edit.ee.User.user.storefront_meta" attr-target="'about'"></ee-cloudinary-upload>
             </div>
             <ee-save class="inline-block vert-5"></ee-save>
           </div>
@@ -141,8 +137,8 @@
           <div class="col-sm-3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-fw fa-facebook"></i></span>
-              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.meta.audience.social.facebook">
-              <span ng-if="edit.ee.meta.audience.social.facebook" class="input-group-addon white-background"><a href="http://facebook.com/{{ edit.ee.meta.audience.social.facebook }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.facebook">
+              <span ng-if="edit.ee.User.user.storefront_meta.audience.social.facebook" class="input-group-addon white-background"><a href="http://facebook.com/{{ edit.ee.User.user.storefront_meta.audience.social.facebook }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
             </div>
           </div>
         </div>
@@ -151,8 +147,8 @@
           <div class="col-sm-3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-fw fa-pinterest"></i></span>
-              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.meta.audience.social.pinterest">
-              <span ng-if="edit.ee.meta.audience.social.pinterest" class="input-group-addon white-background"><a href="http://pinterest.com/{{ edit.ee.meta.audience.social.pinterest }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.pinterest">
+              <span ng-if="edit.ee.User.user.storefront_meta.audience.social.pinterest" class="input-group-addon white-background"><a href="http://pinterest.com/{{ edit.ee.User.user.storefront_meta.audience.social.pinterest }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
             </div>
           </div>
         </div>
@@ -161,8 +157,8 @@
           <div class="col-sm-3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-fw fa-twitter"></i></span>
-              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.meta.audience.social.twitter">
-              <span ng-if="edit.ee.meta.audience.social.twitter" class="input-group-addon white-background"><a href="http://twitter.com/{{ edit.ee.meta.audience.social.twitter }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.twitter">
+              <span ng-if="edit.ee.User.user.storefront_meta.audience.social.twitter" class="input-group-addon white-background"><a href="http://twitter.com/{{ edit.ee.User.user.storefront_meta.audience.social.twitter }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
             </div>
           </div>
         </div>
@@ -171,8 +167,8 @@
           <div class="col-sm-3">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-fw fa-instagram"></i></span>
-              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.meta.audience.social.instagram">
-              <span ng-if="edit.ee.meta.audience.social.instagram" class="input-group-addon white-background"><a href="http://instagram.com/{{ edit.ee.meta.audience.social.instagram }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.instagram">
+              <span ng-if="edit.ee.User.user.storefront_meta.audience.social.instagram" class="input-group-addon white-background"><a href="http://instagram.com/{{ edit.ee.User.user.storefront_meta.audience.social.instagram }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
             </div>
           </div>
         </div>
@@ -181,8 +177,8 @@
           <div class="col-sm-4">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
-              <input type="text" class="form-control" placeholder="Email" ng-model="edit.ee.meta.audience.contact.email">
-              <span ng-if="edit.ee.meta.audience.contact.email" class="input-group-addon white-background"><a href="mailto:{{ edit.ee.meta.audience.contact.email }}" target="_blank"><i class="fa fa-send"></i></a>
+              <input type="text" class="form-control" placeholder="Email" ng-model="edit.ee.User.user.storefront_meta.audience.contact.email">
+              <span ng-if="edit.ee.User.user.storefront_meta.audience.contact.email" class="input-group-addon white-background"><a href="mailto:{{ edit.ee.User.user.storefront_meta.audience.contact.email }}" target="_blank"><i class="fa fa-send"></i></a>
             </div>
             <ee-save class="inline-block vert-5"></ee-save>
           </div>
@@ -198,8 +194,8 @@
           <div class="col-sm-6">
             <div class="input-group vert-2">
               <span class="input-group-addon"><i class="fa fa-fw fa-link"></i></span>
-              <input type="text" class="form-control" placeholder="http://" ng-model="edit.ee.meta.blog.url">
-              <span ng-if="edit.ee.meta.blog.url" class="input-group-addon white-background"><a href="{{ edit.ee.meta.blog.url | addHttp }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+              <input type="text" class="form-control" placeholder="http://" ng-model="edit.ee.User.user.storefront_meta.blog.url">
+              <span ng-if="edit.ee.User.user.storefront_meta.blog.url" class="input-group-addon white-background"><a href="{{ edit.ee.User.user.storefront_meta.blog.url | addHttp }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
             </div>
             <ee-save class="inline-block vert-5"></ee-save>
           </div>
@@ -212,19 +208,19 @@
         <div class="form-group vert-5">
           <label class="col-sm-3 control-label">Custom h1 tag</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" placeholder="Enter your title for search engines" ng-model="edit.ee.meta.seo.h1">
+            <input type="text" class="form-control" placeholder="Enter your title for search engines" ng-model="edit.ee.User.user.storefront_meta.seo.h1">
           </div>
         </div>
         <div class="form-group vert-5">
           <label class="col-sm-3 control-label">Custom meta description</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" placeholder="Describe your store for search engines" ng-model="edit.ee.meta.seo.description">
+            <input type="text" class="form-control" placeholder="Describe your store for search engines" ng-model="edit.ee.User.user.storefront_meta.seo.description">
           </div>
         </div>
         <div class="form-group vert-5">
           <label class="col-sm-3 control-label">Custom meta code</label>
           <div class="col-sm-6">
-            <textarea class="form-control" placeholder='<meta name="mytag" content="mycontent">' ng-model="edit.ee.meta.seo.code" rows=4></textarea>
+            <textarea class="form-control" placeholder='<meta name="mytag" content="mycontent">' ng-model="edit.ee.User.user.storefront_meta.seo.code" rows=4></textarea>
             <ee-save class="inline-block vert-5"></ee-save>
           </div>
         </div>

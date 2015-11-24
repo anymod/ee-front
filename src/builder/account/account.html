@@ -102,6 +102,16 @@
           </div>
         </div>
         <!-- /ACCOUNT google analytics ID -->
+
+        <!-- SAVE -->
+        <div class="form-group vert-5">
+          <div class="col-sm-5 col-sm-offset-3">
+            <alert ng-if="account.ee.User.err.message" ng-bind="account.ee.User.err.message" type="info" close="closeAlert($index)"></alert>
+            <ee-save></ee-save>
+          </div>
+        </div>
+
+        <!-- /SAVE -->
       </form>
     </div>
   </div> <!-- /well -->

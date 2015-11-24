@@ -16,7 +16,7 @@ angular.module('builder.collections').config ($stateProvider) ->
       data:
         pageTitle:        'Add collections | eeosk'
         pageDescription:  'Add collections to your store.'
-        padTop:           '100px'
+        padTop:           '110px'
 
     .state 'collections',
       url: '/collections'
@@ -30,7 +30,7 @@ angular.module('builder.collections').config ($stateProvider) ->
       data:
         pageTitle:        'Your collections | eeosk'
         pageDescription:  'Manage the collections in your store.'
-        padTop:           '100px'
+        padTop:           '110px'
 
     .state 'collectionEdit',
       url: '/collections/:id/edit'
@@ -44,34 +44,34 @@ angular.module('builder.collections').config ($stateProvider) ->
       data:
         pageTitle:        'Collection in your store | eeosk'
         pageDescription:  'Manage your collection.'
-        padTop:           '100px'
+        padTop:           '110px'
 
-    .state 'collectionTemplates',
-      url: '/collections/:id/products'
-      views:
-        header:
-          controller: 'collectionCtrl as collection'
-          templateUrl: 'builder/collections/collection.header.html'
-        top:
-          controller: 'collectionCtrl as collection'
-          templateUrl: 'builder/collections/collection.products.html'
-      data:
-        pageTitle:        'Products in your collection | eeosk'
-        pageDescription:  'Manage your collection.'
-        padTop:           '100px'
+    # .state 'collectionTemplates',
+    #   url: '/collections/:id/products'
+    #   views:
+    #     header:
+    #       controller: 'collectionCtrl as collection'
+    #       templateUrl: 'builder/collections/collection.header.html'
+    #     top:
+    #       controller: 'collectionCtrl as collection'
+    #       templateUrl: 'builder/collections/collection.products.html'
+    #   data:
+    #     pageTitle:        'Products in your collection | eeosk'
+    #     pageDescription:  'Manage your collection.'
+    #     padTop:           '110px'
 
-    .state 'collection',
-      url: '/collections/:id/:title'
-      views:
-        header:
-          controller: 'storefrontCtrl as storefront'
-          templateUrl: 'builder/storefront/storefront.header.html'
-        top:
-          controller: 'collectionCtrl as collection'
-          templateUrl: 'ee-shared/storefront/storefront.collection.html'
-      data:
-        pageTitle:        'Collection in your store | eeosk'
-        pageDescription:  'Manage your collection.'
-        padTop:           '124px'
+    # .state 'collection',
+    #   url: '/collections/:id/:title'
+    #   views:
+    #     header:
+    #       controller: 'storefrontCtrl as storefront'
+    #       templateUrl: 'builder/storefront/storefront.header.html'
+    #     top:
+    #       controller: 'collectionCtrl as collection'
+    #       templateUrl: 'ee-shared/storefront/storefront.collection.html'
+    #   data:
+    #     pageTitle:        'Collection in your store | eeosk'
+    #     pageDescription:  'Manage your collection.'
+    #     padTop:           '124px'
 
   return

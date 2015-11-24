@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.products').controller 'productsCtrl', ($state, eeDefiner, eeUser, eeProducts, eeCollections) ->
+angular.module('builder.products').controller 'productsCtrl', ($state, eeDefiner, eeProducts, eeCollections) ->
 
   products = this
 
@@ -11,7 +11,5 @@ angular.module('builder.products').controller 'productsCtrl', ($state, eeDefiner
   switch $state.current.name
     when 'products'
       eeProducts.fns.runSection 'search'
-
-  eeUser.fns.defineUser()
 
   return

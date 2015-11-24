@@ -42,16 +42,28 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     .finally () -> _data.reading = false
 
   _updateCollection = () ->
-    deferred  = $q.defer()
-    token     = eeAuth.fns.getToken()
-    if _data.updating then return _data.updating
-    if !token then deferred.reject('Missing token'); return deferred.promise
-    _data.updating = deferred.promise
-    eeBack.fns.collectionPUT token, _data.collection
-    .then (collection) ->
-      $rootScope.$broadcast 'sync:collections', collection
-      _data.collection = collection
-    .finally () -> _data.updating = false
+    _data.collection.updating = true
+    eeBack.fns.collectionPUT _data.collection, eeAuth.fns.getToken()
+    .then (res) ->
+      { collection, rows, count, page, perPage } = res
+      _data.page        = page
+      _data.perPage     = perPage
+      _data.count       = count
+      _data.collection  = collection
+      _data.products    = rows
+    .finally () -> _data.collection.updating = false
+
+  # _updateCollection = () ->
+  #   deferred  = $q.defer()
+  #   token     = eeAuth.fns.getToken()
+  #   if _data.updating then return _data.updating
+  #   if !token then deferred.reject('Missing token'); return deferred.promise
+  #   _data.updating = deferred.promise
+  #   eeBack.fns.collectionPUT token, _data.collection
+  #   .then (collection) ->
+  #     $rootScope.$broadcast 'sync:collections', collection
+  #     _data.collection = collection
+  #   .finally () -> _data.updating = false
 
   _destroyCollection = () ->
     deferred  = $q.defer()

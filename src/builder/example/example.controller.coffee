@@ -6,7 +6,7 @@ angular.module('builder.example').controller 'exampleCtrl', () ->
 
   storefront.ee = {}
 
-  storefront.ee.meta =
+  storefront.ee.User.user.storefront_meta =
     home:
       name: 'Home Accents'
       topBarBackgroundColor: '#83bec3'

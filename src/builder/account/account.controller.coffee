@@ -1,11 +1,9 @@
 'use strict'
 
-angular.module('builder.account').controller 'accountCtrl', (eeDefiner, eeUser) ->
+angular.module('builder.account').controller 'accountCtrl', (eeDefiner) ->
 
   account = this
 
   account.ee = eeDefiner.exports
 
-  eeUser.fns.defineUser()
-  
   return

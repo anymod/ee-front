@@ -2,7 +2,7 @@
 <ee-builder-section-heading heading="Add collections to your store" heading-class="text-info" subheading="Choose collections below to add to your store."></ee-builder-section-heading>
 <!-- !Message -->
 
-<div ng-hide="collections.ee.Collections.reading" class="container vert-50 margin-top-0">
+<div ng-hide="collections.ee.Collections.reading" class="container text-center vert-50 margin-top-0">
   <!-- TODO implement sorting -->
   <!-- <div class="vert-10 text-center">
     <div class="btn btn-sm btn-default">Newest&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
@@ -24,10 +24,12 @@
     </pagination>
   </div>
 
-  <div class="vert-20 text-left">
-    <div ng-repeat="collection in collections.ee.Collections.collections">
-      <ee-collection-add-card collection="collection"></ee-collection-add-card>
-    </div>
+  <div class="row vert-20">
+    <ee-collection-for-builder
+      ng-repeat="collection in collections.ee.Collections.collections"
+      collection="collection"
+      modal="true">
+    </ee-collection-for-builder>
   </div>
 
   <div class="full-width text-center margin-0">

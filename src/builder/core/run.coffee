@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').run ($rootScope, $state, $location, eeAuth) ->
+angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeUser) ->
   $rootScope.isBuilder = true
 
   openStates = [
@@ -26,6 +26,8 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth) ->
     'reset'
     'foothill'
   ]
+
+  eeUser.fns.defineUser()
 
   isOpen    = (state) -> openStates.indexOf(state) > -1
   isDual    = (state) -> dualStates.indexOf(state) > -1

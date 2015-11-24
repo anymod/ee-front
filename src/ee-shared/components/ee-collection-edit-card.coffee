@@ -2,7 +2,7 @@
 
 module = angular.module 'ee-collection-edit-card', []
 
-module.directive "eeCollectionCard", () ->
+module.directive "eeCollectionEditCard", () ->
   templateUrl: 'ee-shared/components/ee-collection-edit-card.html'
   restrict: 'E'
   scope:

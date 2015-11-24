@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.categorizations').controller 'categorizationsCtrl', (eeDefiner, eeUser, eeCategorizations) ->
+angular.module('builder.categorizations').controller 'categorizationsCtrl', (eeDefiner, eeCategorizations) ->
 
   categorizations = this
 
@@ -8,6 +8,5 @@ angular.module('builder.categorizations').controller 'categorizationsCtrl', (eeD
   categorizations.fns = eeCategorizations.fns
 
   eeCategorizations.fns.getCategorizations()
-  eeUser.fns.defineUser true
 
   return

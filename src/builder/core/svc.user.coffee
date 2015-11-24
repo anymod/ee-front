@@ -14,31 +14,26 @@ angular.module('builder.core').factory 'eeUser', ($q, eeAuth, eeBack) ->
 
   ## PRIVATE FUNCTIONS
   _readUser = () ->
-    deferred  = $q.defer()
-    token     = eeAuth.fns.getToken()
-    if _data.reading then return _data.reading
-    if !token then deferred.reject('Missing token'); return deferred.promise
-    _data.reading = deferred.promise
-    eeBack.fns.usersGET token
+    if _data.reading then return
+    _data.err = null
+    _data.reading = true
+    eeBack.fns.usersGET eeAuth.fns.getToken()
     .then (user) -> _data.user = user
     .finally () -> _data.reading = false
 
   _updateUser = (payload) ->
-    deferred  = $q.defer()
-    token     = eeAuth.fns.getToken()
-    if _data.updating then return _data.updating
-    if !token then deferred.reject('Missing token'); return deferred.promise
-    _data.updating = deferred.promise
-    eeBack.fns.usersPUT (payload || _data.user), token
+    if _data.updating then return
+    _data.err = null
+    _data.updating = true
+    eeBack.fns.usersPUT (payload || _data.user), eeAuth.fns.getToken()
     .then (user) -> _data.user = user
+    .catch (err) ->
+      _data.err = err
+      throw err
     .finally () -> _data.updating = false
 
   _defineUser = (force) ->
     $q.when(if !_data.user or force then _readUser() else _data.user)
-
-  _setCarouselImage = (image) ->
-    return unless _data.user?.storefront_meta?.home?.carousel[0]
-    _data.user.storefront_meta.home?.carousel[0].imgUrl = image
 
   _setAboutImage = (image) ->
     return unless _data.user?.storefront_meta?.about
@@ -49,6 +44,4 @@ angular.module('builder.core').factory 'eeUser', ($q, eeAuth, eeBack) ->
   fns:
     defineUser: _defineUser
     updateUser: _updateUser
-
-    setCarouselImage: _setCarouselImage
-    setAboutImage:    _setAboutImage
+    setAboutImage: _setAboutImage

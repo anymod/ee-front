@@ -91,7 +91,7 @@ describe 'eeosk new.try.edit', () ->
 
   it 'should adjust store title', () ->
     scope.title = 'Test Store Title'
-    element(has.model 'edit.ee.meta.home.name').sendKeys scope.title
+    element(has.model 'edit.ee.User.user.storefront_meta.home.name').sendKeys scope.title
     element(has.css '[name="store-navbar"] .navbar-brand').getText().should.eventually.contain scope.title
 
   xit 'should not allow click on navbar', () ->
