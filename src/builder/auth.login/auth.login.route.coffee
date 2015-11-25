@@ -11,6 +11,7 @@ angular.module('builder.auth').config ($stateProvider) ->
           templateUrl: 'builder/auth.login/auth.login.html'
       data:
         pageTitle: 'Sign in | eeosk'
+        padTop: '60px'
       params: exists: false
 
   return

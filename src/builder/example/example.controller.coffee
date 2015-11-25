@@ -6,20 +6,22 @@ angular.module('builder.example').controller 'exampleCtrl', () ->
 
   storefront.ee = {}
 
-  storefront.ee.User.user.storefront_meta =
-    home:
-      name: 'Home Accents'
-      topBarBackgroundColor: '#83bec3'
-      topBarColor: '#021709'
-    logo: 'https://res.cloudinary.com/eeosk/image/upload/v1436286705/storefront_logo/ef71mlcgxb4woms4fzfc.jpg'
-    blog: { url: 'http://eeosk.com' }
-    about: { headline: 'foobar' }
-    audience:
-      social:
-        facebook:   'facebook'
-        twitter:    'twitter'
-        pinterest:  'pinterest'
-        instagram:  'instagram'
+  storefront.ee.User =
+    user:
+      storefront_meta:
+        home:
+          name: 'Home Accents'
+          topBarBackgroundColor: '#83bec3'
+          topBarColor: '#021709'
+        logo: 'https://res.cloudinary.com/eeosk/image/upload/v1436286705/storefront_logo/ef71mlcgxb4woms4fzfc.jpg'
+        blog: { url: 'http://eeosk.com' }
+        about: { headline: 'foobar' }
+        audience:
+          social:
+            facebook:   'facebook'
+            twitter:    'twitter'
+            pinterest:  'pinterest'
+            instagram:  'instagram'
 
   ## For ngInclude partials
   storefront.ee.Collections =

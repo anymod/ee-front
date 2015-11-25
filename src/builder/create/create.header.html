@@ -1,12 +1,12 @@
-<ee-builder-navbar fixed="true" logo="true"></ee-builder-navbar>
+<ee-builder-navbar fixed="true" logo="true" no-shadow="true"></ee-builder-navbar>
 <div id="clickblock" class="position-fixed" style="left: 0; top: 0; width: 150px; height: 50px; z-index: 1035;"></div>
 
-<div class="position-fixed white-background box-shadow text-center" style="top: 50px; left: 0; right: 0; min-height: 140px;">
+<div class="position-fixed white-background box-shadow text-center" style="top: 40px; left: 0; right: 0; min-height: 140px; z-index: 2;">
   <div class="container">
     <!-- Navigation -->
     <div class="full-width margin-0-auto max-width-600">
       <h3 class="vert-20 font-weight-200">Great! Let's get set up.</h3>
-      <div class="well white-background box-shadow pad-0 overflow-hidden">
+      <div class="well white-background pad-0 overflow-hidden">
         <div class="row margin-0">
           <div ui-sref="create({ token: $state.params.token })" ui-sref-active="bg-success" class="col-xs-6 font-weight-200 pad-15 hover-pointer">1. Choose Collections</div>
           <div ui-sref="create-finishing({ token: $state.params.token })" ui-sref-active="bg-success" class="col-xs-6 font-weight-200 pad-15 hover-pointer">2. Finishing Touches</div>

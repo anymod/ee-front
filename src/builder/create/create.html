@@ -2,7 +2,7 @@
   <a ui-sref="create({ token: $state.params.token })" class="btn btn-info">Next&nbsp;<i class="fa fa-fw fa-long-arrow-right"></i></a>
 </div>
 
-<div class="container text-center vert-20">
+<div class="container text-center vert-20 margin-bottom-0">
   <!-- Message -->
   <div class="margin-0-auto max-width-600 pad-10 pad-top-0">
     <div class="well white-background box-shadow">
@@ -18,7 +18,7 @@
   <!-- Message -->
 </div>
 
-<div ng-hide="create.ee.Collections.reading" class="container vert-50 margin-top-0">
+<div ng-hide="create.ee.Collections.reading" class="container text-center vert-50 margin-top-0">
   <!-- TODO implement sorting -->
   <!-- <div class="vert-10 text-center">
     <div class="btn btn-sm btn-default">Newest&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
@@ -40,10 +40,12 @@
     </pagination>
   </div>
 
-  <div class="vert-20 text-left">
-    <div ng-repeat="collection in create.ee.Collections.collections">
-      <ee-collection-add-card collection="collection"></ee-collection-add-card>
-    </div>
+  <div class="row vert-20">
+    <ee-collection-for-builder
+      ng-repeat="collection in create.ee.Collections.collections"
+      collection="collection"
+      modal="true">
+    </ee-collection-for-builder>
   </div>
 
   <div class="full-width text-center margin-0">

@@ -27,8 +27,6 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeUse
     'foothill'
   ]
 
-  eeUser.fns.defineUser()
-
   isOpen    = (state) -> openStates.indexOf(state) > -1
   isDual    = (state) -> dualStates.indexOf(state) > -1
   needsAuth = (state) -> !isOpen(state) && !isDual(state)
@@ -36,6 +34,8 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeUse
   $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
     loggedIn  = eeAuth.fns.hasToken()
     loggedOut = !loggedIn
+
+    if loggedIn then eeUser.fns.defineUser()
 
     stopAndRedirectTo = (state) ->
       event.preventDefault()

@@ -11,5 +11,6 @@ angular.module('builder.auth').config ($stateProvider) ->
           templateUrl: 'builder/auth.reset/auth.reset.html'
       data:
         pageTitle: 'Reset your password | eeosk'
+        padTop: '60px'
 
   return

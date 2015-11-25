@@ -152,7 +152,7 @@
 <!-- /Main nav -->
 
 <!-- Search subnav -->
-<div class="position-relative visible-xs" style="z-index: 6;">
+<div ng-hide="blocked" class="position-relative visible-xs" style="z-index: 6;">
   <form class="form-group input-group full-width margin-0" ng-submit="search()">
     <input type="text" class="form-control full-width-important round-0" placeholder="Search" ng-model="query">
     <span class="input-group-btn round-0">
