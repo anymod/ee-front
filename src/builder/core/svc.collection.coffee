@@ -24,14 +24,10 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     if _data.search  then query.search = _data.search
     query
 
-  _defineCollection = (id) ->
-    deferred  = $q.defer()
-    token     = eeAuth.fns.getToken()
-    if _data.reading then return _data.reading
-    if !token then deferred.reject('Missing token'); return deferred.promise
-    _data.collection = {}
-    _data.reading = deferred.promise
-    eeBack.fns.collectionGET id, token, _formQuery()
+  _defineCollection = (id, reset) ->
+    _data.reading = true
+    if reset then _data.collection = {}
+    eeBack.fns.collectionGET id, eeAuth.fns.getToken(), _formQuery()
     .then (res) ->
       { collection, rows, count, page, perPage } = res
       _data.page        = page
@@ -83,6 +79,6 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
     update: _defineCollection
     search: (id) ->
       _data.page = 1
-      _defineCollection id
+      _defineCollection id, true
     updateCollection:   _updateCollection
     destroyCollection:  _destroyCollection

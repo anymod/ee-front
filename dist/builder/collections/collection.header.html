@@ -1,12 +1,3 @@
 <!-- MAIN NAVBAR -->
-<ee-builder-navbar fixed="true" home="true" products-nav="{{ collection.state != 'collection' }}" search="true" live="true"></ee-builder-navbar>
+<ee-builder-navbar fixed="true" home="true" products-nav="true" search="true" live="true"></ee-builder-navbar>
 <!-- /MAIN NAVBAR -->
-
-<!-- STORE navbar -->
-<ee-storefront-header ng-if="collection.state == 'collection'"
-  class="position-fixed navbar-subheader"
-  meta="collection.ee.User.user.storefront_meta"
-  collections = "collection.ee.Collections.collections"
-  ng-hide="collection.ee.User.reading">
-</ee-storefront-header>
-<!-- /STORE navbar -->

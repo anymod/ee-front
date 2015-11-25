@@ -30,6 +30,7 @@
       <div class="text-center vert-15">
         <ee-builder-live-button
           ng-if="dashboard.ee.User.user"
+          message="target"
           user="dashboard.ee.User.user">
         </ee-builder-live-button>
         <br>
@@ -61,7 +62,7 @@
           previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
           boundary-links="true"
           rotate="false"
-          ng-change="products.fns.runSection('search')">
+          ng-change="dashboard.paginate()">
         </pagination>
       </div>
 
@@ -83,7 +84,7 @@
           previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
           boundary-links="true"
           rotate="false"
-          ng-change="products.fns.runSection('search')">
+          ng-change="dashboard.paginate()">
         </pagination>
       </div>
     </div>
@@ -92,4 +93,4 @@
 
 </div>
 
-<ee-loading loading="dashboard.ee.User.reading"></ee-loading>
+<ee-loading loading="dashboard.ee.User.reading || dashboard.ee.Products.search.reading"></ee-loading>

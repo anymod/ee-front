@@ -13,9 +13,9 @@ angular.module('builder.dashboard').config ($stateProvider) ->
         top:
           controller: 'dashboardCtrl as dashboard'
           templateUrl: 'builder/dashboard/dashboard.html'
-        footer:
-          controller: 'storefrontCtrl as storefront'
-          templateUrl: 'ee-shared/storefront/storefront.footer.html'
+        # footer:
+        #   controller: 'storefrontCtrl as storefront'
+        #   templateUrl: 'ee-shared/storefront/storefront.footer.html'
       data:
         pageTitle:        'Your store | eeosk'
         pageDescription:  'Preview and navigate your eeosk.'

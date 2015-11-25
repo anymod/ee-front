@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth, eeBack) ->
+angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, $window, eeAuth, eeBack, eeModal) ->
 
   ## SETUP
   # none
@@ -66,21 +66,20 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     .finally () -> _data.creating = false
 
   _cloneCollection = (collection) ->
-    deferred  = $q.defer()
-    token     = eeAuth.fns.getToken() || eeAuth.fns.getConfirmationToken()
+    token = eeAuth.fns.getToken() || eeAuth.fns.getConfirmationToken()
     if collection.cloning then return collection.cloning
-    if !token then deferred.reject('Missing token'); return deferred.promise
-    collection.cloning = deferred.promise
+    collection.cloning = true
     eeBack.fns.collectionClonePOST collection.id, token
-    .then (new_collection) -> new_collection
+    .then (new_collection) ->
+      collection.cloned = new_collection
+      new_collection
     .catch (err) ->
       if err and err.message then collection.err = err.message
       throw err
     .finally () -> collection.cloning = false
 
   _updateCollection = (collection) ->
-    deferred  = $q.defer()
-    collection.updating = deferred.promise
+    collection.updating = true
     eeBack.fns.collectionPUT collection, eeAuth.fns.getToken()
     .then (res) -> collection = res
     .catch (err) ->
@@ -89,16 +88,13 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     .finally () -> collection.updating = false
 
   _destroyCollection = (collection) ->
-    deferred = $q.defer()
-    collection.destroying = deferred.promise
-    eeBack.fns.collectionDELETE collection.id, eeAuth.fns.getToken()
-    .then (res) ->
-      collection = res
-      collection.deleted = true
-    .catch (err) ->
-      if err and err.message then collection.err = err.message
-      throw err
-    .finally () -> collection.destroying = false
+    destroy = $window.confirm 'Remove this from your store?'
+    if destroy
+      collection.destroying = true
+      eeBack.fns.collectionDELETE collection.id, eeAuth.fns.getToken()
+      .then (res) -> collection.destroyed = true
+      .catch (err) -> if err and err.message then collection.err = err.message
+      .finally () -> collection.destroying = false
 
   _readPublicCollection = (collection, page) ->
     page ||= 1
@@ -157,6 +153,21 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     .catch (err) -> if err and err.message then product.err = err.message; throw err
     .finally () -> product.updating = false
 
+  _openProductsModal = (collection) ->
+    collection.err = null
+    eeModal.fns.openCollectionProductsModal collection
+    return
+
+  _toggleAddToStore = (collection) ->
+    if collection.added
+      _destroyCollection collection.cloned
+      .then () -> collection.added = false
+    else
+      _cloneCollection collection
+      .then (res) ->
+        collection.cloned = res.collection
+        collection.added = true
+
   $rootScope.$on 'sync:collections', (e, collection) ->
     in_set = false
     sync = (coll) ->
@@ -192,7 +203,9 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, eeAuth,
     updateCollection:     _updateCollection
     destroyCollection:    _destroyCollection
     cloneCollection:      _cloneCollection
+    toggleAddToStore:     _toggleAddToStore
     readPublicCollection: _readPublicCollection
     addProduct:           _addProduct
     removeProduct:        _removeProduct
     defineNavCollections: _defineNavCollections
+    openProductsModal:    _openProductsModal

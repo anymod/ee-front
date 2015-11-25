@@ -1,4 +1,4 @@
-<div ng-hide="collection.data.reading">
+<div ng-hide="collection.data.reading && !collection.data.collection.id">
   <!-- Main nav -->
   <div class="position-relative box-shadow">
     <nav class="navbar navbar-rgba-colors border-none box-shadow margin-0 round-0" style="z-index: 5;">
@@ -38,6 +38,7 @@
           </div>
           <div class="col col-sm-7">
             <ee-builder-live-button
+              ng-if="collection.data.collection.title"
               user="collection.ee.User.user"
               message="{{ collection.data.collection.title }}"
               btn-class="inline-block vert-2">
@@ -63,15 +64,3 @@
 </div>
 
 <ee-loading loading="collection.data.reading"></ee-loading>
-
-
-
-<div ng-hide="collection.data.reading" class="container text-center vert-20">
-
-  <!-- PRODUCTS -->
-  <div class="vert-20 text-center">
-    <ee-products-in-collection data="collection.data"></ee-products-in-collection>
-  </div>
-  <!-- /PRODUCTS -->
-
-</div>

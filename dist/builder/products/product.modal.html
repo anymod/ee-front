@@ -69,13 +69,17 @@
                 ng-click="modal.collectionsFns.addProduct(collection, modal.product)">
               </a>
             </div>
-            <div class="list-group gray-border box-shadow" style="max-height: 275px; overflow-y: scroll;">
+            <div ng-if="modal.ee.Collections.collections.length > 0" class="list-group gray-border box-shadow" style="max-height: 275px; overflow-y: scroll;">
               <a href class="list-group-item"
                 ng-repeat="collection in modal.ee.Collections.collections"
                 ng-if="collection.title && collection.id != modal.ee.Products.search.lastCollectionAddedTo"
                 ng-bind="collection.title"
                 ng-click="modal.collectionsFns.addProduct(collection, modal.product)">
               </a>
+            </div>
+            <div ng-if="modal.ee.Collections.collections.length <= 0">
+              <p class="vert-5">You do not have any collections in your store</p>
+              <a ui-sref="collectionsAdd" class="btn btn-sm btn-default" ng-click="$close()">Add a collection</a>
             </div>
             <div class="alert alert-info" ng-if="modal.product.err" ng-bind="modal.product.err"></div>
           </div>

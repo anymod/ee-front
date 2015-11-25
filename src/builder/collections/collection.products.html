@@ -1,12 +1,4 @@
-<!-- Message -->
-<ee-builder-section-heading ng-hide="collection.data.reading" heading="Products in {{ collection.data.collection.title || 'Unnamed' }}" heading-class="text-info" subheading="({{ collection.data.count }} items)"></ee-builder-section-heading>
-<!-- !Message -->
-
-<div ng-hide="collection.data.reading" class="container text-center vert-20 margin-top-0">
-
-  <div class="vert-20 margin-top-0">
-    <a ui-sref="collectionEdit({ id: collection.id })" class="btn btn-default vert-2">Edit collection details</a>
-  </div>
+<div ng-hide="collection.data.reading" class="container text-center vert-20">
 
   <!-- PRODUCTS -->
   <div class="full-width text-center margin-0">
@@ -25,7 +17,11 @@
   </div>
 
   <div class="vert-20 text-center">
-    <ee-product-for-builder ng-repeat="product in collection.data.products" product="product" collection="collection.data.collection"></ee-product-for-builder>
+    <ee-product-for-builder
+      ng-repeat="product in collection.data.products"
+      product="product"
+      collection="collection.data.collection">
+    </ee-product-for-builder>
     <a ui-sref="products" ng-if="collection.data.products.length < 1" class="btn btn-link">
       Add products
     </a>
@@ -47,5 +43,3 @@
   <!-- /PRODUCTS -->
 
 </div>
-
-<ee-loading loading="collection.data.reading"></ee-loading>

@@ -1,0 +1,27 @@
+<div class="modal-header pad-10">
+  <a class="close pad-5" ng-click="$close()">&times;</a>
+  <div class="btn btn-default font-weight-200" ng-click="modal.collectionsFns.toggleAddToStore(modal.collection)">
+    <span ng-if="!modal.collection.added">Add to store</span>
+    <span ng-if="modal.collection.added"><i class="fa fa-fw fa-times"></i>&nbsp;In store</span>
+  </div>
+</div>
+
+<div class="modal-body" ng-class="{ 'opacity-05': modal.collection.cloning }" ng-hide="modal.reading">
+  <div class="full-width text-center">
+    <h4 class="font-weight-200 text-info vert-20 margin-top-0" ng-bind="modal.collection.headline"></h4>
+    <ee-product-for-builder
+      ng-repeat="product in modal.products"
+      product="product"
+      hide-buttons="true">
+    </ee-product-for-builder>
+  </div>
+  <div class="vert-20">
+    <h4 class="font-weight-200">You can edit this collection and add or remove products when you add this collection to your store.</h4>
+    <div class="btn btn-default" ng-click="modal.collectionsFns.toggleAddToStore(modal.collection)">
+      <span ng-if="!modal.collection.added">Add to store</span>
+      <span ng-if="modal.collection.added"><i class="fa fa-fw fa-times"></i>&nbsp;In store</span>
+    </div>
+  </div>
+</div>
+
+<ee-loading loading="modal.reading"></ee-loading>

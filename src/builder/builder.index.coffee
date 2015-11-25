@@ -26,7 +26,7 @@ angular.module 'eeBuilder', [
   'builder.dashboard'
   'builder.storefront'
   'builder.products'
-  'builder.templates'
+  # 'builder.templates'
   'builder.collections'
   'builder.categorizations'
   'builder.orders'

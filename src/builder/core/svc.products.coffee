@@ -73,7 +73,6 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, $state, ee
   _runQuery = (section, queryPromise) ->
     if _data[section].reading then return
     _data[section].reading = true
-    if section is 'search' and _data[section]?.inputs?.search and $state.current.name isnt 'products' then $state.go 'products'
     queryPromise
     .then (res) ->
       { rows, count, took } = res
@@ -91,7 +90,7 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, $state, ee
       when 'search'     then promise = eeBack.fns.productsGET(eeAuth.fns.getToken(), _formQuery('search'))
     _runQuery section, promise
 
-  _searchWithTerm = (term) ->
+  _search = (term) ->
     _data.search.inputs.order = _data.search.inputs.orderArray[0]
     _data.search.inputs.search = term
     _data.search.inputs.page = 1
@@ -103,25 +102,21 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, $state, ee
     return
 
   ## MESSAGING
-  # $rootScope.$on 'reset:products', () -> _data.search.products = []
-  #
   $rootScope.$on 'added:product', (e, product, collection) ->
     _data.search.lastCollectionAddedTo = collection.id
-    # (if product.id is prod.id then prod.productId = product.productId) for prod in _data.search.products
-    # eeModal.fns.close('addProduct')
 
   ## EXPORTS
   data: _data
   fns:
     runSection: _runSection
-    search: _searchWithTerm
+    search: _search
     featured: () ->
       section = 'storefront'
       _clearSection section
       _data[section].inputs.page      = 1
       _data[section].inputs.featured  = true
       _runSection section
-    clearSearch: () -> _searchWithTerm ''
+    clearSearch: () -> _search ''
     setCategory: (category, section) ->
       _data[section].inputs.page      = 1
       _data[section].inputs.category  = category

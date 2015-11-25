@@ -139,15 +139,16 @@ sources.builderModule = [
   './src/builder/products/product.controller.coffee'
   './src/builder/products/product.modal.controller.coffee'
   # Module - templates
-  './src/builder/templates/templates.module.coffee'
-  './src/builder/templates/templates.route.coffee'
-  './src/builder/templates/templates.controller.coffee'
-  './src/builder/templates/template.controller.coffee'
+  # './src/builder/templates/templates.module.coffee'
+  # './src/builder/templates/templates.route.coffee'
+  # './src/builder/templates/templates.controller.coffee'
+  # './src/builder/templates/template.controller.coffee'
   # Module - collections
   './src/builder/collections/collections.module.coffee'
   './src/builder/collections/collections.route.coffee'
-  './src/builder/collections/collection.controller.coffee'
   './src/builder/collections/collections.controller.coffee'
+  './src/builder/collections/collection.controller.coffee'
+  './src/builder/collections/collection.products.modal.controller.coffee'
   # Module - categorizations
   './src/builder/categorizations/categorizations.module.coffee'
   './src/builder/categorizations/categorizations.route.coffee'
