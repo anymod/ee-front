@@ -33,6 +33,7 @@ sources.builderVendorMin = [
   './src/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js'
   './src/bower_components/angular-scroll/angular-scroll.min.js'
   './src/bower_components/zoom.js/dist/zoom.min.js'
+  './src/bower_components/keen-js/dist/keen.min.js'
 ]
 sources.builderVendorUnmin = [
   './src/bower_components/cloudinary/js/jquery.ui.widget.js'

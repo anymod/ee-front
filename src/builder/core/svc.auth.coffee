@@ -66,34 +66,6 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
       deferred.reject err
     deferred.promise
 
-  # _createUserFromSignup = (email, password, storefront_meta, template_ids) ->
-  #   deferred = $q.defer()
-  #   if !email or !password
-  #     _reset()
-  #     deferred.reject 'Missing signup credentials'
-  #   else
-  #     signup = { template_selection: [] }
-  #     addToSignup = (p_s) ->
-  #       margin = p_s.dummy_only?.margin
-  #       signup.template_selection.push { template_id: p_s.template_id, supplier_id: p_s.supplier_id, margin: margin }
-  #     addToSignup p_s for p_s in template_selection
-  #
-  #     eeBack.fns.usersPOST(email, password, storefront_meta, signup)
-  #     .then (data) ->
-  #       if !!data.user and !!data.token
-  #         _setLoginToken data.token
-  #         _setUser data.user
-  #         $rootScope.$emit 'definer:login'
-  #         deferred.resolve data.user
-  #       else
-  #         _reset()
-  #         deferred.reject data
-  #     .catch (err) ->
-  #       _reset()
-  #       deferred.reject err
-  #     .finally () -> _status.landing = false
-  #   deferred.promise
-
   _completeNewUser = (data, token) ->
     deferred = $q.defer()
     _exports.completing = true
@@ -181,6 +153,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
         eeBack.fns.authPOST(email, password)
         .then (data) ->
           if !!data.user and !!data.token
+            console.log 'data.user', data.user
             _setLoginToken data.token
             _setUser data.user
             $rootScope.$emit 'definer:login'
