@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').run ($rootScope, $state, $location, $stateParams, eeAuth, eeUser) ->
+angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeUser) ->
   $rootScope.isBuilder = true
 
   ## Keen.js
@@ -63,24 +63,18 @@ angular.module('builder.core').run ($rootScope, $state, $location, $stateParams,
 
     return
 
-  # Keen.ready () ->
-  $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
-    tracking =
-      # user:
-      url:        $location.absUrl()
-      path:       $location.path()
-      toState:    toState?.name
-      toParams:   toParams
-      fromState:  fromState?.name
-      fromParams: fromParams
+  if eeAuth.fns.hasToken()
+    $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
+      keenio =
+        user:       eeAuth.fns.getKeen()
+        url:        $location.absUrl()
+        path:       $location.path()
+        toState:    toState?.name
+        toParams:   toParams
+        fromState:  fromState?.name
+        fromParams: fromParams
 
-    user = eeAuth.exports.user
-    console.log user
-    # keen.addEvent 'tracking_ping', tracking, (err, res) ->
-    #   if err then console.log 'err', err
-    #   if res then console.log 'res', res
-    #   console.log tracking
-
-    return
+      if keenio.user then keen.addEvent 'builder', keenio, (err, res) -> return
+      return
 
   return
