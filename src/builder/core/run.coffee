@@ -63,8 +63,8 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeUse
 
     return
 
-  if eeAuth.fns.hasToken()
-    $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
+  $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
+    if eeAuth.fns.hasToken()
       keenio =
         user:       eeAuth.fns.getKeen()
         url:        $location.absUrl()
@@ -75,6 +75,6 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeUse
         fromParams: fromParams
 
       if keenio.user then keen.addEvent 'builder', keenio, (err, res) -> return
-      return
+    return
 
   return
