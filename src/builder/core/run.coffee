@@ -74,7 +74,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeUse
         fromState:  fromState?.name
         fromParams: fromParams
 
-      if keenio.user then keen.addEvent 'builder', keenio, (err, res) -> return
+      if $location.host() isnt 'localhost' and keenio.user then keen.addEvent 'builder', keenio, (err, res) -> return
     return
 
   return
