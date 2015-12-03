@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeUser) ->
+angular.module('builder.core').run ($rootScope, $state, $location, $cookies, eeAuth, eeUser) ->
   $rootScope.isBuilder = true
 
   ## Keen.js
@@ -67,12 +67,15 @@ angular.module('builder.core').run ($rootScope, $state, $location, eeAuth, eeUse
     if eeAuth.fns.hasToken()
       keenio =
         user:       eeAuth.fns.getKeen()
+        username:   eeAuth.fns.getUsername()
         url:        $location.absUrl()
         path:       $location.path()
         toState:    toState?.name
         toParams:   toParams
         fromState:  fromState?.name
         fromParams: fromParams
+        _ga:        $cookies._ga
+        _gat:       $cookies._gat
 
       if $location.host() isnt 'localhost' and keenio.user then keen.addEvent 'builder', keenio, (err, res) -> return
     return

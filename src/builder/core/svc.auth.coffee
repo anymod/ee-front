@@ -29,9 +29,13 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
   _setKeen = (user) -> $cookies.keen = user.tr_uuid
   _clearKeen = () -> $cookieStore.remove 'keen'
 
+  _setUsername = (user) -> $cookies.username = user.username
+  _clearUsername = () -> $cookieStore.remove 'username'
+
   _reset = () ->
     _clearLoginToken()
     _clearKeen()
+    _clearUsername()
     _clearConfirmationToken()
     _setUser {}
     $rootScope.$emit 'definer:logout'
@@ -81,6 +85,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
         if !!data.user and !!data.token
           _setLoginToken data.token
           _setKeen data.user
+          _setUsername data.user
           _setUser data.user
           $rootScope.$emit 'definer:login'
           deferred.resolve data.user
@@ -138,6 +143,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
     getToken:               () -> $cookies.loginToken
     getConfirmationToken:   () -> $cookies.confirmationToken
     getKeen:                () -> $cookies.keen
+    getUsername:            () -> $cookies.username
     defineUserFromToken:    _defineUserFromToken
     defineUserFromGoToken:  _defineUserFromGoToken
     setUserFromCreateToken: _setUserFromCreateToken
@@ -161,6 +167,7 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
           if !!data.user and !!data.token
             _setLoginToken data.token
             _setKeen data.user
+            _setUsername data.user
             _setUser data.user
             $rootScope.$emit 'definer:login'
             deferred.resolve data.user
