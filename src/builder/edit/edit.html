@@ -133,54 +133,45 @@
       <div ng-if="$state.current.name == 'edit.social'">
         <!-- EDITOR top bar social -->
         <div class="form-group vert-2">
-          <label class="col-sm-4 control-label">Facebook</label>
-          <div class="col-sm-3">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-fw fa-facebook"></i></span>
-              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.facebook">
-              <span ng-if="edit.ee.User.user.storefront_meta.audience.social.facebook" class="input-group-addon white-background"><a href="http://facebook.com/{{ edit.ee.User.user.storefront_meta.audience.social.facebook }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
-            </div>
+          <label class="col-sm-4 control-label"><i class="fa fa-fw fa-lg fa-facebook text-facebook"></i></label>
+          <div class="col-sm-8">
+            https://facebook.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 115px" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.facebook">
+            <span ng-if="edit.ee.User.user.storefront_meta.audience.social.facebook"><a href="https://facebook.com/{{ edit.ee.User.user.storefront_meta.audience.social.facebook }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
           </div>
         </div>
         <div class="form-group vert-2">
-          <label class="col-sm-4 control-label">Pinterest</label>
-          <div class="col-sm-3">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-fw fa-pinterest"></i></span>
-              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.pinterest">
-              <span ng-if="edit.ee.User.user.storefront_meta.audience.social.pinterest" class="input-group-addon white-background"><a href="http://pinterest.com/{{ edit.ee.User.user.storefront_meta.audience.social.pinterest }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
-            </div>
+          <label class="col-sm-4 control-label"><i class="fa fa-fw fa-lg fa-pinterest text-pinterest"></i></label>
+          <div class="col-sm-8">
+            https://pinterest.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 119px" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.pinterest">
+            <span ng-if="edit.ee.User.user.storefront_meta.audience.social.pinterest"><a href="https://pinterest.com/{{ edit.ee.User.user.storefront_meta.audience.social.pinterest }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
           </div>
         </div>
         <div class="form-group vert-2">
-          <label class="col-sm-4 control-label">Twitter</label>
-          <div class="col-sm-3">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-fw fa-twitter"></i></span>
-              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.twitter">
-              <span ng-if="edit.ee.User.user.storefront_meta.audience.social.twitter" class="input-group-addon white-background"><a href="http://twitter.com/{{ edit.ee.User.user.storefront_meta.audience.social.twitter }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
-            </div>
+          <label class="col-sm-4 control-label"><i class="fa fa-fw fa-lg fa-twitter text-twitter"></i></label>
+          <div class="col-sm-8">
+            https://twitter.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 136px" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.twitter">
+            <span ng-if="edit.ee.User.user.storefront_meta.audience.social.twitter"><a href="https://twitter.com/{{ edit.ee.User.user.storefront_meta.audience.social.twitter }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
           </div>
         </div>
         <div class="form-group vert-2">
-          <label class="col-sm-4 control-label">Instagram</label>
-          <div class="col-sm-3">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-fw fa-instagram"></i></span>
-              <input type="text" class="form-control" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.instagram">
-              <span ng-if="edit.ee.User.user.storefront_meta.audience.social.instagram" class="input-group-addon white-background"><a href="http://instagram.com/{{ edit.ee.User.user.storefront_meta.audience.social.instagram }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
-            </div>
+          <label class="col-sm-4 control-label"><i class="fa fa-fw fa-lg fa-instagram text-instagram"></i></label>
+          <div class="col-sm-8">
+            https://instagram.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 112px" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.instagram">
+            <span ng-if="edit.ee.User.user.storefront_meta.audience.social.instagram"><a href="https://instagram.com/{{ edit.ee.User.user.storefront_meta.audience.social.instagram }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
           </div>
         </div>
         <div class="form-group vert-5">
-          <label class="col-sm-4 control-label">Contact email</label>
-          <div class="col-sm-4">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
-              <input type="text" class="form-control" placeholder="Email" ng-model="edit.ee.User.user.storefront_meta.audience.contact.email">
-              <span ng-if="edit.ee.User.user.storefront_meta.audience.contact.email" class="input-group-addon white-background"><a href="mailto:{{ edit.ee.User.user.storefront_meta.audience.contact.email }}" target="_blank"><i class="fa fa-send"></i></a>
-            </div>
-            <ee-save class="inline-block vert-5"></ee-save>
+          <label class="col-sm-4 control-label"><i class="fa fa-fw fa-lg fa-envelope text-muted"></i></label>
+          <div class="col-sm-8">
+            Contact email
+            <br>
+            <input type="text" class="form-control" style="max-width: 255px" placeholder="Email address" ng-model="edit.ee.User.user.storefront_meta.audience.contact.email">
+            <span ng-if="edit.ee.User.user.storefront_meta.audience.contact.email"><a href="mailto:{{ edit.ee.User.user.storefront_meta.audience.contact.email }}" target="_blank"><i class="fa fa-send"></i></a>
+          </div>
+        </div>
+        <div class="form-group vert-5">
+          <div class="col-sm-8 col-sm-offset-4">
+            <ee-save></ee-save>
           </div>
         </div>
         <!-- /EDITOR top bar social -->

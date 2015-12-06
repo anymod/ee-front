@@ -7,6 +7,6 @@ angular.module('builder.edit').controller 'editCtrl', (eeDefiner, eeUser, eeLand
   edit.ee           = eeDefiner.exports
   edit.landingData  = eeLanding.data
 
-  edit.setAboutImage    = (imgUrl) -> eeUser.fns.setAboutImage imgUrl
+  edit.setAboutImage  = (imgUrl) -> eeUser.fns.setAboutImage imgUrl
 
   return
