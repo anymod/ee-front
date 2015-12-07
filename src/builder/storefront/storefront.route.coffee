@@ -3,18 +3,15 @@
 angular.module('builder.storefront').config ($stateProvider) ->
 
   views =
-    header:
-      controller: 'storefrontCtrl as storefront'
-      templateUrl: 'builder/storefront/storefront.header.html'
     top:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'ee-shared/storefront/storefront.carousel.html'
+      templateUrl: 'builder/storefront/storefront.header.html'
     middle:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'ee-shared/storefront/storefront.featured.html'
+      templateUrl: 'ee-shared/storefront/storefront.carousel.html'
     bottom:
       controller: 'storefrontCtrl as storefront'
-      templateUrl: 'builder/storefront/storefront.add.html'
+      templateUrl: 'ee-shared/storefront/storefront.featured.html'
     footer:
       controller: 'storefrontCtrl as storefront'
       templateUrl: 'ee-shared/storefront/storefront.footer.html'
@@ -29,7 +26,7 @@ angular.module('builder.storefront').config ($stateProvider) ->
   data =
     pageTitle:        'Your store | eeosk'
     pageDescription:  'Preview and navigate your eeosk.'
-    padTop:           '124px'
+    padTop:           '0'
 
   $stateProvider
 
@@ -38,9 +35,9 @@ angular.module('builder.storefront').config ($stateProvider) ->
       views:    views
       data:     data
 
-    .state 'storefront-about',
-      url:      '/storefront/about'
-      views:    aboutViews
-      data:     data
+    # .state 'storefront-about',
+    #   url:      '/storefront/about'
+    #   views:    aboutViews
+    #   data:     data
 
   return
