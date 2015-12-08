@@ -8674,9 +8674,9 @@ html {
   color: #40a397;
 }
 .store-navbar {
-  height: 75px;
-  min-height: 75px;
-  max-height: 75px;
+  height: 90px;
+  min-height: 90px;
+  max-height: 90px;
   overflow: hidden;
 }
 .store-navbar .navbar-nav > li > a {
@@ -9000,17 +9000,20 @@ html {
 .pad-50 {
   padding: 50px;
 }
-.pad-right-20 {
-  padding-right: 20px;
+.pad-right-0 {
+  padding-right: 0px !important;
 }
 .pad-left-0 {
-  padding-left: 0px;
-}
-.pad-left-20 {
-  padding-left: 20px;
+  padding-left: 0px !important;
 }
 .pad-top-0 {
   padding-top: 0px !important;
+}
+.pad-right-20 {
+  padding-right: 20px;
+}
+.pad-left-20 {
+  padding-left: 20px;
 }
 .pad-top-50 {
   padding-top: 50px;
@@ -9332,9 +9335,6 @@ img.small-thumb {
 .navbar-rgba-colors .navbar-toggle:focus {
   opacity: 1;
   background: rgba(255, 255, 255, 0.1) !important;
-}
-.store-title ee-storefront-logo {
-  padding: 14px 0;
 }
 .store-title .title-text {
   line-height: 1em;

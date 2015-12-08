@@ -1,13 +1,14 @@
 <!-- MAIN NAVBAR -->
-<ee-builder-navbar fixed="true" storefront="true" dropdown="true"></ee-builder-navbar>
+<!-- <ee-builder-navbar fixed="true" storefront="true" dropdown="true"></ee-builder-navbar> -->
 <!-- /MAIN NAVBAR -->
 
 <!-- STORE navbar -->
-<ee-storefront-header class="position-fixed navbar-subheader"
-                      meta="storefront.ee.User.user.storefront_meta"
-                      collections = "storefront.ee.Collections.nav.alphabetical"
-                      ng-hide="storefront.ee.User.reading"
-                      blocked="storefront.ee.blocked">
+<ee-storefront-header
+  class="navbar-static"
+  meta="storefront.ee.User.user.storefront_meta"
+  collections = "storefront.ee.Collections.nav.alphabetical"
+  ng-hide="storefront.ee.User.reading"
+  blocked="storefront.ee.blocked">
 </ee-storefront-header>
 <!-- /STORE navbar -->
 
