@@ -1,30 +1,7 @@
-<!-- Top supranav -->
-<div class="container supranav transition-200 margin-bottom-0"
-  ng-if="showSupranav && (meta.blog.url || meta.audience.social.facebook || meta.audience.social.pinterest || meta.audience.social.twitter || meta.audience.social.instagram)">
-  <div class="position-relative vert-5 text-right">
-    <!-- social -->
-    <a ng-repeat="site in ['facebook', 'pinterest', 'twitter', 'instagram']"
-      ng-if="meta.audience.social[site]"
-      href="http://{{ site }}.com/{{ meta.audience.social[site] }}"
-      target="_blank"
-      class="no-underline">
-      <i class="fa fa-fw fa-lg fa-{{ site }} text-{{ site }}"></i>
-    </a>
-    <!-- /social -->
-    <!-- blog -->
-    <a ng-if="meta.blog.url" href="{{ meta.blog.url | addHttp }}" target="_blank" class="text-muted" style="margin: 0 8px 0 3px;">blog</a>
-    <!-- /blog -->
-    <!-- help -->
-    <!-- <a href class="text-muted"></i>help</a> -->
-    <!-- /help -->
-  </div>
-</div>
-<!-- /Top supranav -->
-
 <!-- Main nav -->
 <div class="position-relative" style="z-index: 5;">
   <!-- blocker -->
-  <div ng-show="blocked" class="navbar position-absolute" style="z-index: 2005; top: 0; left: 0; right: 0; height: 77px;"></div>
+  <div ng-show="blocked" class="navbar position-absolute" style="z-index: 2005; top: 0; left: 0; right: 0; height: 81px;"></div>
   <!-- /blocker -->
 
   <nav id="navtop"
@@ -35,7 +12,7 @@
 
       <div class="row position-relative margin-bottom-0">
 
-        <div class="brand-area position-absolute" style="backgroundz: red; top: 0; left: 0; width: 274px; height: 74px; padding: 7px;">
+        <div class="brand-area position-absolute" style="backgroundz: red; top: 0; left: 0; width: 274px; height: 80px; padding: 7px;">
           <!-- Logo -->
           <div ui-sref="storefront"
              class="store-title inline-block hover-pointer font-weight-200 margin-0">
@@ -44,7 +21,7 @@
           </div>
           <!-- /Logo -->
         </div>
-        <div class="activity-area position-absolute" style="backgroundz: blue; top: 0; left: 274px; right: 0; height: 74px; padding: 7px 7px 0 0;">
+        <div class="activity-area position-absolute" style="backgroundz: blue; top: 0; left: 274px; right: 0; height: 80px; padding: 7px 7px 0 0;">
           <div>
             <!-- Search -->
             <form class="form-group input-group margin-0" ng-submit="search()">
@@ -55,10 +32,16 @@
             </form>
             <!-- /Search -->
           </div>
-          <div class="full-width text-right pad-5" style="padding-bottom: 0;">
-            <i class="fa fa-lg fa-fw fa-pinterest text-pinterest"></i>
-            <span>&nbsp;blog&nbsp;</span>
-            <i class="fa fa-2x fa-fw fa-shopping-cart vertical-align-top"></i> cart
+          <div class="full-width text-right pad-5 vert-5 vertical-align-middle">
+            <!-- <i class="fa fa-lg fa-fw fa-pinterest text-pinterest"></i> -->
+            <!-- <span>&nbsp;blog&nbsp;</span> -->
+            <a ui-sref="cart">
+              <span ng-if="quantityArray && quantityArray.length > 0" class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-stack-1x white-color"><strong ng-bind="quantityArray.length"></strong></i>
+              </span>
+              <i ng-if="!quantityArray || quantityArray.length < 1" class="fa fa-2x fa-fw fa-shopping-cart vertical-align-middle" style="margin-right: 3px;"></i>cart
+            </a>
           </div>
         </div>
 

@@ -51,14 +51,14 @@ angular.module('builder.products').config ($stateProvider) ->
     .state 'product',
       url: '/products/:id/:title'
       views:
-        header:
+        top:
           controller: 'storefrontCtrl as storefront'
           templateUrl: 'builder/storefront/storefront.header.html'
-        top:
+        header:
           controller: 'productCtrl as product'
           templateUrl: 'ee-shared/storefront/storefront.product.html'
       data:
         pageTitle:        'Your product | eeosk'
-        padTop:           '120px'
+        padTop:           '0'
 
   return

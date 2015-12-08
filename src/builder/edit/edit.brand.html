@@ -1,0 +1,23 @@
+<div class="container vert-20" ng-init="imgText= 'Stylish Rustic';imgRGB = 'AC0000'; imgTextSize = 35; imgTextX = 0; imgTextY = 0;">
+  <form class="max-width-300">
+    <input type="text" class="form-control" ng-model="imgText">
+    <input type="text" class="form-control" ng-model="imgRGB">
+    <input type="number" class="form-control" ng-model="imgTextSize">
+    <hr>
+    X
+    <input type="number" class="form-control" ng-model="imgTextX">
+    Y
+    <input type="number" class="form-control" ng-model="imgTextY">
+    <select class="form-control" ng-model="edit.imgTextFamily">
+      <option ng-repeat="font in edit.fonts" value="{{ font.id }}" ng-bind="font.name"></option>
+    </select>
+  </form>
+  <!-- <img ng-if="imgText" ng-src="https://res.cloudinary.com/eeosk/image/upload/w_260,h_60,o_30/l_text:Arial_35_bold:{{ imgText }},co_blue/v1449364279/banner/ovegcptvunqn5jyorbub.jpg"> -->
+  <img ng-if="imgText" ng-src="https://res.cloudinary.com/eeosk/image/upload/w_260,h_60,o_0/g_north_west,x_{{ imgTextX }},y_{{ imgTextY }},w_260,h_60,c_fit,l_text:{{ edit.imgTextFamily }}_{{ imgTextSize }}_right:{{ imgText }},co_rgb:{{ imgRGB }}/v1448047783/storefront_home/ytmfvbcstlhcbb0a9q6b.jpg" class="gray-border">
+  <br>
+  {{ edit.fonts.length }}
+  <div ng-repeat="font in edit.fonts" class="vert-5">
+    <img ng-src="https://res.cloudinary.com/eeosk/image/upload/w_260,h_30,o_0/g_west,w_260,h_30,c_fit,l_text:{{ font.name }}_25:Brand Name Text,co_rgb:444444/v1448047783/storefront_home/ytmfvbcstlhcbb0a9q6b.jpg" alt="{{ font.name }}">
+    {{ font.name }}
+  </div>
+</div>

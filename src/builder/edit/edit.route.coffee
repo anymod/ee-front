@@ -26,6 +26,16 @@ angular.module('builder.edit').config ($stateProvider) ->
     .state 'edit.topbar',
       url:    '/topbar'
       views:  views
+    .state 'editbrand',
+      url:    '/brand'
+      views:
+        header:
+          controller: 'storefrontCtrl as storefront'
+          templateUrl: 'builder/edit/edit.header.html'
+        top:
+          controller: 'editCtrl as edit'
+          templateUrl: 'builder/edit/edit.brand.html'
+      data:   data
     .state 'edit.social',
       url:    '/social'
       views:  views
