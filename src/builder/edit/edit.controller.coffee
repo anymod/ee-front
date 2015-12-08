@@ -751,4 +751,16 @@ angular.module('builder.edit').controller 'editCtrl', (eeDefiner, eeUser, eeLand
   edit.fonts.push({ id: name, name: name }) for name in fontNames
   edit.imgTextFamily = edit.fonts[0].name
 
+
+  padZero = (str) -> ('0' + str).slice(-2)
+  n = 5
+  edit.vals = []
+  for i in [0..n]
+    for j in [0..n]
+      for k in [0..n]
+        r = padZero((i * 51).toString(16))
+        g = padZero((j * 51).toString(16))
+        b = padZero((k * 51).toString(16))
+        edit.vals.push('#' + r + g + b)
+
   return

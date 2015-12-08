@@ -59,6 +59,7 @@ angular.module 'eeBuilder', [
   'ee-image-preload'
   'ee-storefront-header'
   'ee-storefront-logo'
+  'ee-storefront-brand'
   'ee-scroll-to-top'
   'ee-empty-message'
   'ee-zendesk'

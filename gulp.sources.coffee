@@ -190,6 +190,7 @@ sources.builderDirective = [
   './src/ee-shared/components/ee-image-preload.coffee'
   './src/ee-shared/components/ee-storefront-header.coffee'
   './src/ee-shared/components/ee-storefront-logo.coffee'
+  './src/ee-shared/components/ee-storefront-brand.coffee'
   './src/ee-shared/components/ee-scroll-to-top.coffee'
   './src/ee-shared/components/ee-empty-message.coffee'
   './src/ee-shared/components/ee-zendesk.coffee'
