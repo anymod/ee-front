@@ -1,9 +1,13 @@
-<div class="container vert-20" ng-init="imgText= 'Stylish Rustic';imgRGB = 'AC0000'; imgTextSize = 35; imgTextX = 0; imgTextY = 0;">
+<div class="container vert-20" ng-init="imgText= 'Stylish Rustic'; imgRGB = '0033CC'; imgTextSize = 35; imgTextX = 0; imgTextY = 0;">
   <div class="full-width vert-10">
     <img ng-if="imgText" ng-src="https://res.cloudinary.com/eeosk/image/upload/w_260,h_60,o_0/g_north_west,x_{{ imgTextX }},y_{{ imgTextY }},w_260,h_60,c_fit,l_text:{{ edit.imgTextFamily }}_{{ imgTextSize }}_right:{{ imgText }},co_rgb:{{ imgRGB }}/v1448047783/storefront_home/ytmfvbcstlhcbb0a9q6b.jpg">
   </div>
 
-  <div style="width:236px;">
+  <div>
+    <ee-hex-colorpicker hex-model="imgRGB">Foo</ee-hex-colorpicker>
+  </div>
+
+  <!-- <div style="width:236px;">
     <img style="margin-right:2px;" src="http://www.w3schools.com/tags/colormap.gif" usemap="#colormap" alt="colormap">
     <map id="colormap" name="colormap" style="cursor:pointer">
       <area shape="poly" coords="63,0,72,4,72,15,63,19,54,15,54,4" ng-click="imgRGB = '003366'; posX = '53px'; posY = '-200px'">
@@ -138,7 +142,7 @@
       style="width: 21px; height: 21px; top: -20px; left: 90px; background-image: url(http://www.w3schools.com/tags/selectedcolor.gif);"
       ng-style="{ top: posY, left: posX }">
     </div>
-  </div>
+  </div> -->
 
   <!-- <div class="full-width vert-10">
     <div style="width: 200px; min-height: 20px;" class="gray-border">

@@ -63,5 +63,6 @@ angular.module 'eeBuilder', [
   'ee-scroll-to-top'
   'ee-empty-message'
   'ee-zendesk'
+  'ee-hex-colorpicker'
   # 'ee.templates' # commented out during build step for inline templates
 ]
