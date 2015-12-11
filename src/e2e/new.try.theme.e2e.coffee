@@ -48,7 +48,7 @@ describe 'eeosk new.try.theme', () ->
     element(has.model 'edit.ee.User.user.storefront_meta.home.topBarColor').getAttribute('value')
     .then (value) ->
       scope.color.should.contain utils.hex_to_rgb(value)
-      element(has.model 'edit.ee.User.user.storefront_meta.home.topBarBackgroundColor').getAttribute('value')
+      element(has.model 'edit.ee.User.user.storefront_meta.brand.color.primary').getAttribute('value')
     .then (value) ->
       scope.backgroundColor.should.contain utils.hex_to_rgb(value)
       element(has.css '#ee-middle-view [dropdown-toggle] > img').getAttribute('ng-src')

@@ -150,7 +150,7 @@
 <!-- Categories subnav -->
 <div class="position-relative" ng-ifz="showSubnav">
   <nav class="navbar navbar-default margin-0 round-0 no-side-border"
-    ng-style="{ 'background-color': meta.home.topBarBackgroundColor }">
+    ng-style="{ 'background-color': meta.brand.color.primary }">
     <div class="container">
       <ul class="nav navbar-nav">
         <li ng-repeat="category in [{ id: 1, title: 'Home Accents'}, { id: 2, title: 'Artwork' }]">
@@ -181,7 +181,7 @@
 <div class="position-fixed full-width scrollnav transition-400">
   <nav class="navbar navbar-form navbar-default navbar-rgba-colors border-none box-shadow-2 margin-0 round-0"
        ng-hide="loading"
-       ng-style="{ 'background-color': meta.home.topBarBackgroundColor }">
+       ng-style="{ 'background-color': meta.brand.color.primary }">
     <div ng-class="fluid ? 'container-fluid' : 'container'" name="store-navbar">
       <!-- Search -->
       <div class="row margin-bottom-0">

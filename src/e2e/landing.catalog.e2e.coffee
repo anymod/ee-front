@@ -177,7 +177,7 @@ describe 'eeosk landing.catalog', () ->
     browser                   .waitForAngular()
     element(byAttr.css('#ee-bottom-view input[name="storefront_meta.home.topBarColor"]')).click()
     elem.body                 .click()
-    element(byAttr.css('#ee-bottom-view input[name="storefront_meta.home.topBarBackgroundColor"]')).click()
+    element(byAttr.css('#ee-bottom-view input[name="storefront_meta.brand.color.primary"]')).click()
     elem.body                 .click()
     browser.sleep 5000
     browser                   .navigate().back()

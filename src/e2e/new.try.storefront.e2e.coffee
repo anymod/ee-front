@@ -29,7 +29,7 @@ describe 'eeosk new.try.storefront', () ->
       topBarBackgroundColor: 'rgb(219, 214, 255)'
       mainImageSrc: 'v1425250403/desk1.jpg'
     element(has.css '[name="store-navbar"] ul:first-child > li:first-child a').getAttribute('style').should.eventually.contain theme.topBarColor
-    element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain theme.topBarBackgroundColor
+    element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain theme.primary
     element(has.css '.carousel > img').getAttribute('src').should.eventually.contain theme.mainImageSrc
 
   describe 'by clicking a top navbar button', () ->

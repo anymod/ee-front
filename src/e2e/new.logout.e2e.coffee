@@ -34,7 +34,7 @@ describe 'eeosk new.logout', () ->
       browser.sleep 400
       element(has.repeater('theme in landing.data.demoStores').row(1)).click()
       element(has.css '[name="store-navbar"] .navbar-brand').getText().should.eventually.equal ''
-      element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.not.eventually.contain utils.hex_to_rgb(scope.user.storefront_meta.home.topBarBackgroundColor)
+      element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.not.eventually.contain utils.hex_to_rgb(scope.user.storefront_meta.brand.color.primary)
 
   it 'should not persist storefront information into try sections after logout, especially without hard refresh', () ->
     element(has.cssContainingText '#ee-header .btn', 'Preview').click()

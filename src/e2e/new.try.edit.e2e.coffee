@@ -34,7 +34,7 @@ describe 'eeosk new.try.edit', () ->
       topBarBackgroundColor: 'rgb(219, 214, 255)'
       mainImageSrc: 'v1425250403/desk1.jpg'
     element(has.css '[name="store-navbar"] ul:first-child > li:first-child a').getAttribute('style').should.eventually.contain theme.topBarColor
-    element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain theme.topBarBackgroundColor
+    element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain theme.primary
     element(has.css '.carousel > img').getAttribute('src').should.eventually.contain theme.mainImageSrc
 
   it 'should navigate to "Add Products" with the button below', () ->
@@ -66,9 +66,9 @@ describe 'eeosk new.try.edit', () ->
     element(has.css '.colorpicker-visible colorpicker-saturation').click()
     element(has.css 'input[name="topBarBackgroundColor"]').getAttribute('value')
     .then (color) ->
-      scope.topBarBackgroundColor = color
+      scope.primary = color
       color.should.not.equal '#dbd6ff'
-      element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain utils.hex_to_rgb(scope.topBarBackgroundColor)
+      element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain utils.hex_to_rgb(scope.primary)
 
   it 'should adjust top bar text color', () ->
     element(has.css 'input[name="topBarColor"]').getAttribute('value').should.eventually.equal '#021709'
@@ -107,7 +107,7 @@ describe 'eeosk new.try.edit', () ->
     browser.getCurrentUrl().should.eventually.equal 'http://localhost:3333/storefront'
     browser.navigate().refresh()
     browser.getTitle().should.eventually.contain 'My store'
-    element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain utils.hex_to_rgb(scope.topBarBackgroundColor)
+    element(has.css 'ee-storefront-header .navbar-rgba-colors').getAttribute('style').should.eventually.contain utils.hex_to_rgb(scope.primary)
     element(has.css '[name="store-navbar"] ul:first-child > li:first-child a').getAttribute('style').should.eventually.contain utils.hex_to_rgb(scope.topBarColor)
     element(has.css '.carousel > img').getAttribute('src').should.eventually.contain scope.mainImageUrl
     element(has.css '[name="store-navbar"] .navbar-brand').getText().should.eventually.contain scope.title

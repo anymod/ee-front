@@ -194,7 +194,7 @@ sources.builderDirective = [
   './src/ee-shared/components/ee-scroll-to-top.coffee'
   './src/ee-shared/components/ee-empty-message.coffee'
   './src/ee-shared/components/ee-zendesk.coffee'
-  './src/ee-shared/components/ee-hex-colorpicker.coffee'
+  './src/ee-shared/components/ee-web-colorpicker.coffee'
 ]
 
 module.exports = sources

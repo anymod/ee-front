@@ -18,9 +18,9 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeDef
   ## Section 2
   create.setTheme = (theme, set) ->
     create.meta.themeSet = set
-    create.landingData.theme.topBarBackgroundColor  = theme.topBarBackgroundColor
+    create.landingData.theme.primary  = theme.primary
     create.landingData.theme.topBarColor            = theme.topBarColor
-    create.meta.home.topBarBackgroundColor          = create.landingData.theme.topBarBackgroundColor
+    create.meta.brand.color.primary          = create.landingData.theme.primary
     create.meta.home.topBarColor                    = create.landingData.theme.topBarColor
 
   create.setTheme create.landingData.theme

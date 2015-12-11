@@ -26,7 +26,7 @@ describe 'eeosk landing.try', () ->
       addProductsBtn:         bottom.element byAttr.cssContainingText '.btn', 'Add Products'
       navbarBrand:            bottom.element byAttr.css  '.navbar .navbar-header .navbar-brand'
       navbar:                 bottom.element byAttr.css  '.navbar.navbar-rgba-colors'
-      topBarBackgroundColor:  bottom.element byAttr.name 'storefront_meta.home.topBarBackgroundColor'
+      topBarBackgroundColor:  bottom.element byAttr.name 'storefront_meta.brand.color.primary'
       topBarColor:            bottom.element byAttr.name 'storefront_meta.home.topBarColor'
       mainImageToggle:        bottom.element byAttr.name 'mainImageToggle'
       mainImageFive:          bottom.element byAttr.repeater('imgUrl in landing.data.defaultImages').row(4)
@@ -62,9 +62,9 @@ describe 'eeosk landing.try', () ->
     elem.topBarColor          .clear().sendKeys newVal.topBarColor
     elem.body                 .click()
     elem.form                 .getText().should.eventually.contain 'Click to change your store\'s top bar font color'
-    elem.topBarBackgroundColor.click()
+    elem.primary.click()
     elem.form                 .getText().should.not.eventually.contain 'Click to change your store\'s top bar font color'
-    elem.topBarBackgroundColor.clear().sendKeys newVal.topBarBackgroundColor
+    elem.primary.clear().sendKeys newVal.primary
     elem.body                 .click()
     elem.navbarBrand          .getAttribute('style').should.eventually.contain 'color: rgb(255, 255, 255)'
     elem.navbar               .getAttribute('style').should.eventually.contain 'background-color: rgb(19, 93, 161)'

@@ -749,6 +749,6 @@ angular.module('builder.edit').controller 'editCtrl', (eeDefiner, eeUser, eeLand
   ]
   edit.fonts = []
   edit.fonts.push({ id: name, name: name }) for name in fontNames
-  edit.imgTextFamily = edit.fonts[0].name
+  # edit.imgTextFamily = edit.fonts[0].name
 
   return

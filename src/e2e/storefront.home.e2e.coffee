@@ -36,7 +36,7 @@ describe 'eeosk storefront.home', () ->
       carouselWellA:          element byAttr.css  '.carousel .well a'
 
       topBarColor:            offscreen.element byAttr.name 'storefront_meta.home.topBarColor'
-      topBarBackgroundColor:  offscreen.element byAttr.name 'storefront_meta.home.topBarBackgroundColor'
+      topBarBackgroundColor:  offscreen.element byAttr.name 'storefront_meta.brand.color.primary'
       name:                   offscreen.element byAttr.model 'user.storefront_meta.home.name'
       carouselHeadline:       offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].headline'
       carouselByline:         offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].byline'
@@ -69,11 +69,11 @@ describe 'eeosk storefront.home', () ->
 
   it 'should reflect changes to the navbar colors', () ->
     topBarRgb             =   utils.hex_to_rgb scope.user.storefront_meta.home.topBarColor
-    topBarBackgroundRgb   =   utils.hex_to_rgb scope.user.storefront_meta.home.topBarBackgroundColor
+    topBarBackgroundRgb   =   utils.hex_to_rgb scope.user.storefront_meta.brand.color.primary
     elem.navbarBrand          .getAttribute('style').should.eventually.contain topBarRgb
     elem.navbar               .getAttribute('style').should.eventually.contain topBarBackgroundRgb
     elem.topBarColor          .clear().sendKeys newVal.topBarColor
-    elem.topBarBackgroundColor.clear().sendKeys newVal.topBarBackgroundColor
+    elem.primary.clear().sendKeys newVal.primary
     elem.navbarBrand          .getAttribute('style').should.eventually.contain 'color: rgb(0, 0, 0)'
     elem.navbar               .getAttribute('style').should.eventually.contain 'background-color: rgb(255, 255, 255)'
 

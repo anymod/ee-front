@@ -35,7 +35,10 @@ angular.module('builder.edit').config ($stateProvider) ->
         top:
           controller: 'editCtrl as edit'
           templateUrl: 'builder/edit/edit.brand.html'
-      data:   data
+      data:
+        pageTitle:        'Edit your store | eeosk'
+        pageDescription:  'Edit the look and feel of your online store.'
+        padTop:           '108px'
     .state 'edit.social',
       url:    '/social'
       views:  views
