@@ -8797,6 +8797,9 @@ html {
 .gray-border {
   border: 1px solid #eceff1 !important;
 }
+.border-bottom-gray {
+  border-bottom: 1px solid #eceff1 !important;
+}
 .dark-gray-border {
   border: 1px solid #474747 !important;
 }
@@ -8988,6 +8991,9 @@ html {
 .pad-5 {
   padding: 5px;
 }
+.pad-7 {
+  padding: 7px;
+}
 .pad-10 {
   padding: 10px;
 }
@@ -9171,6 +9177,9 @@ html {
 .inline-block {
   display: inline-block;
 }
+.line-height-08 {
+  line-height: 0.8em;
+}
 .line-height-1 {
   line-height: 1em;
 }
@@ -9242,6 +9251,21 @@ html {
   .jumbotron p {
     font-size: 18px;
   }
+}
+.brand-area,
+.activity-area {
+  top: 0;
+  height: 80px;
+}
+.brand-area {
+  width: 274px;
+  left: 0;
+  padding: 7px;
+}
+.activity-area {
+  left: 274px;
+  right: 0;
+  padding: 7px 7px 0 0;
 }
 img.loading {
   width: 100%;

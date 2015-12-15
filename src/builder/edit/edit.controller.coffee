@@ -9,19 +9,6 @@ angular.module('builder.edit').controller 'editCtrl', ($state, $window, eeDefine
 
   edit.setAboutImage  = (imgUrl) -> eeUser.fns.setAboutImage imgUrl
 
-  # if $state.current.name is 'editbrand'
-  #   position = $window.pageYOffset
-  #   ele = angular.element(document.querySelector('#preview'))
-  #   spacer = angular.element(document.querySelector('#spacer'))
-  #   trigger = 55
-  #   angular.element($window).bind 'scroll', (e, a, b) ->
-  #     if $window.pageYOffset > trigger
-  #       ele.addClass('editbrand-stick').removeClass 'position-relative'
-  #       spacer.show()
-  #     else
-  #       ele.addClass('position-relative').removeClass 'editbrand-stick'
-  #       spacer.hide()
-
   fontNames = [
     # Normal
     'Amaranth'

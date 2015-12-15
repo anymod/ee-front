@@ -1,126 +1,131 @@
 <div ng-hide="edit.ee.loading">
   <!-- preview -->
-  <div class="container">
-    <div class="well pad-5 vert-10 margin-bottom-0 white-background">
-      <div class="position-relative">
-        <ee-storefront-header
-          blocked="true"
-          fluid="true"
-          meta="edit.ee.User.user.storefront_meta"
-          ng-hide="edit.ee.loading">
-        </ee-storefront-header>
-        <div class="position-absolute top-left-bottom-right-0 hover-pointer text-center pad-20"
-          style="z-index: 1061; background: rgba(180,180,180,0.5);"
-          ng-style="{ opacity: overlay ? 1 : 0 }"
-          ng-click="overlay = !overlay">
-          <div class="vert-10">
-            <div class="well full-width max-width-300 margin-0-auto pad-5" style="background: rgba(255,255,255,0.85)">
-              <div class="pull-right"><i class="fa fa-fw fa-times"></i></div>
-              <div class="pull-left"><i class="fa fa-fw"></i></div>
-              <div class="inline-block vert-10">
-                This area is a preview<br>of your store's top bar
-              </div>
-            </div>
-          </div>
-        </div>
+  <div ng-click="showPreview = false"
+      class="position-fixed transition-400"
+      style="left: 0; right: 0; z-index: 3000"
+      ng-style="{ top: showPreview ? '0px' : '-250px' }">
+    <ee-storefront-header
+      blocked="true"
+      meta="edit.ee.User.user.storefront_meta"
+      ng-hide="edit.ee.loading">
+    </ee-storefront-header>
+    <div class="container">
+      <div class="inline-block full-width text-center border-bottom-gray white-background pad-10 pad-top-0">
+        <i class="fa fa-fw fa-caret-up"></i>
+        <small>This is a preview of your store's top bar (click to close).</small>
+        <i class="fa fa-fw fa-caret-up"></i>
       </div>
-      <div class="vert-5 margin-bottom-0">
-        <ee-save></ee-save>
-      </div>
+    </div>
+    <div class="position-absolute top-left-bottom-right-0 hover-pointer text-center pad-20"
+      style="z-index: 1061;">
     </div>
   </div>
-
   <!-- /preview -->
 
-  <!-- <div id="spacer" class="full-width inline-block" style="height: 142px; display: none;"></div> -->
+  <div class="container vert-20 margin-top-0">
+    <div class="full-width transition-400" ng-style="{ height: showPreview ? '50px' : '0px' }"></div>
+    <ee-builder-section-heading heading="Edit your branding" heading-class="text-success" subheading="Design your brand's logo, style, and colors below."></ee-builder-section-heading>
 
-  <div class="container vert-20" ng-click="overlay = false">
-    <div class="row margin-top-0">
-      <!-- title -->
-      <div class="col-sm-6 text-center">
-        <div class="full-width margin-0-auto text-left" style="max-width: 320px;">
-          <div class="vert-10 margin-top-0">
-            &nbsp;Store name
-            <input type="text" class="form-control input-lg" ng-model="edit.ee.User.user.storefront_meta.name" class="Store Name">
-          </div>
-
-          <div class="vert-5 margin-bottom-0">
-            &nbsp;Brand colors
-            <div class="margin-0-auto" style="width: 354px;">
-              <div ee-web-colorpicker class="text-left"
-                dab-primary="edit.ee.User.user.storefront_meta.brand.color.primary"
-                dab-secondary="edit.ee.User.user.storefront_meta.brand.color.secondary"
-                dab-tertiary="edit.ee.User.user.storefront_meta.brand.color.tertiary">
-              </div>
+    <div class="well white-background box-shadow">
+      <div class="row vert-5">
+        <div class="col-sm-6">
+          <div class="full-width margin-0-auto text-left" style="max-width: 320px;">
+            <div class="btn btn-default" ng-click="showPreview = !showPreview">
+              Preview branding<span ng-if="showPreview">&nbsp;<i class="fa fa-times"></i></span>
             </div>
+            <ee-save></ee-save>
           </div>
-
-          <div class="vert-10 margin-top-0">
-            &nbsp;Logo background image
-            <div ng-if="edit.ee.User.user.storefront_meta.brand.image.logo">
-              <img ng-src="{{ edit.ee.User.user.storefront_meta.brand.image.logo }}" class="vert-2"/>
-              <div class="btn btn-link pad-left-0 vert-2" ng-click="edit.ee.User.user.storefront_meta.brand.image.logo = null">Remove image</div>
-              <br>
-              <label class="font-weight-200">
-                <input type="checkbox" ng-model="edit.ee.User.user.storefront_meta.brand.image.round" />
-                Round image in logo
-              </label>
-            </div>
-            <ee-cloudinary-upload meta="edit.ee.User.user.storefront_meta" attr-target="'logo'"></ee-cloudinary-upload>
-            <br>
-          </div>
-
-          <div class="vert-10">
-            &nbsp;Move & size
-            <form class="full-width inline-block vertical-align-top">
-              <div class="row" ng-if="edit.ee.User.user.storefront_meta.brand.image.logo">
-                <div class="col-xs-6">
-                  <i class="fa fa-fw fa-image"></i><i class="fa fa-fw fa-arrows-h"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.image.x"></span>)
-                  <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.image.x" min=0 max=200 step=1>
-                </div>
-                <div class="col-xs-6">
-                  <i class="fa fa-fw fa-image"></i><i class="fa fa-fw fa-arrows-v"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.image.y"></span>)
-                  <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.image.y" min=0 max=36 step=1>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-6">
-                  <i class="fa fa-fw fa-font"></i><i class="fa fa-fw fa-arrows-h"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.text.x"></span>)
-                  <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.text.x" min=0 max=100 step=1>
-                </div>
-                <div class="col-xs-6">
-                  <i class="fa fa-fw fa-font"></i><i class="fa fa-fw fa-arrows-v"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.text.y"></span>)
-                  <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.text.y" min=0 max=36 step=1>
-                </div>
-              </div>
-              <i class="fa fa-font" style="vertical-align: bottom;"></i><i class="fa fa-lg fa-font" style="vertical-align: bottom;"></i> (<span ng-bind=" edit.ee.User.user.storefront_meta.brand.text.size"></span>)</small>
-              <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.text.size" min=20 max=50 step=1>
-            </form>
-          </div>
-          <br>
         </div>
       </div>
-      <!-- /title -->
-      <!-- colors -->
-      <div class="col-sm-6 text-center">
-        <div class="full-width margin-0-auto text-left" style="max-width: 320px;">
-          <div class="vert-10 margin-top-0">
-            &nbsp;Logo font
-            <div class="inline-block vertical-align-top gray-border vert-10 margin-top-0" style="height: 360px; overflow-y: scroll;">
-              <div ng-repeat="font in edit.fonts" class="pad-5 gray-border">
-                <label class="hover-pointer">
-                  <input type="radio" ng-model="edit.ee.User.user.storefront_meta.brand.text.family" value="{{ font.name }}" style="width: 25px;">
-                  <img ng-src="https://res.cloudinary.com/eeosk/image/upload/w_260,h_30,o_0/g_west,w_260,h_30,c_fit,l_text:{{ font.name }}_25:Brand Name Text,co_rgb:444444/v1448047783/storefront_home/ytmfvbcstlhcbb0a9q6b.jpg" alt="{{ font.name }}">
-                  <br>
-                  <small style="margin-left: 28px;" ng-bind="font.name"></small>
+
+      <div class="row margin-top-0" ng-click="showPreview = true">
+        <!-- title -->
+        <div class="col-sm-6 text-center">
+          <div class="full-width margin-0-auto text-left" style="max-width: 320px;">
+            <div class="vert-10 margin-top-0">
+              &nbsp;Store name
+              <input type="text" class="form-control input-lg" ng-model="edit.ee.User.user.storefront_meta.name" class="Store Name">
+            </div>
+
+            <div class="vert-5 margin-bottom-0">
+              &nbsp;Brand colors
+              <div class="margin-0-auto" style="width: 354px;">
+                <div ee-web-colorpicker class="text-left"
+                  dab-primary="edit.ee.User.user.storefront_meta.brand.color.primary"
+                  dab-secondary="edit.ee.User.user.storefront_meta.brand.color.secondary"
+                  dab-tertiary="edit.ee.User.user.storefront_meta.brand.color.tertiary">
+                </div>
+              </div>
+            </div>
+
+            <div class="vert-10 margin-top-0">
+              &nbsp;Logo background image
+              <div ng-if="edit.ee.User.user.storefront_meta.brand.image.logo">
+                <img ng-src="{{ edit.ee.User.user.storefront_meta.brand.image.logo }}" class="vert-2"/>
+                <div class="btn btn-link pad-left-0 vert-2" ng-click="edit.ee.User.user.storefront_meta.brand.image.logo = null">Remove image</div>
+                <br>
+                <label class="font-weight-200">
+                  <input type="checkbox" ng-model="edit.ee.User.user.storefront_meta.brand.image.round" />
+                  Round image in logo
                 </label>
               </div>
+              <ee-cloudinary-upload meta="edit.ee.User.user.storefront_meta" attr-target="'logo'"></ee-cloudinary-upload>
+              <br>
+            </div>
+
+            <div class="vert-10">
+              &nbsp;Move & size
+              <form class="full-width inline-block vertical-align-top">
+                <div class="row" ng-if="edit.ee.User.user.storefront_meta.brand.image.logo">
+                  <div class="col-xs-6">
+                    <i class="fa fa-fw fa-image"></i><i class="fa fa-fw fa-arrows-h"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.image.x"></span>)
+                    <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.image.x" min=0 max=200 step=1>
+                  </div>
+                  <div class="col-xs-6">
+                    <i class="fa fa-fw fa-image"></i><i class="fa fa-fw fa-arrows-v"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.image.y"></span>)
+                    <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.image.y" min=0 max=36 step=1>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="fa fa-fw fa-font"></i><i class="fa fa-fw fa-arrows-h"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.text.x"></span>)
+                    <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.text.x" min=0 max=100 step=1>
+                  </div>
+                  <div class="col-xs-6">
+                    <i class="fa fa-fw fa-font"></i><i class="fa fa-fw fa-arrows-v"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.text.y"></span>)
+                    <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.text.y" min=0 max=36 step=1>
+                  </div>
+                </div>
+                <i class="fa fa-font" style="vertical-align: bottom;"></i><i class="fa fa-lg fa-font" style="vertical-align: bottom;"></i> (<span ng-bind=" edit.ee.User.user.storefront_meta.brand.text.size"></span>)</small>
+                <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.text.size" min=20 max=50 step=1>
+              </form>
+            </div>
+            <br>
+          </div>
+        </div>
+        <!-- /title -->
+        <!-- colors -->
+        <div class="col-sm-6 text-center">
+          <div class="full-width margin-0-auto text-left" style="max-width: 320px;">
+            <div class="vert-10 margin-top-0">
+              &nbsp;Logo font
+              <div class="inline-block vertical-align-top gray-border vert-10 margin-top-0" style="height: 360px; overflow-y: scroll;">
+                <div ng-repeat="font in edit.fonts" class="pad-5 gray-border">
+                  <label class="hover-pointer">
+                    <input type="radio" ng-model="edit.ee.User.user.storefront_meta.brand.text.family" value="{{ font.name }}" style="width: 25px;">
+                    <img ng-src="https://res.cloudinary.com/eeosk/image/upload/w_260,h_30,o_0/g_west,w_260,h_30,c_fit,l_text:{{ font.name }}_25:Brand Name Text,co_rgb:444444/v1448047783/storefront_home/ytmfvbcstlhcbb0a9q6b.jpg" alt="{{ font.name }}">
+                    <br>
+                    <small style="margin-left: 28px;" ng-bind="font.name"></small>
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <!-- /colors -->
       </div>
-      <!-- /colors -->
     </div>
+
   </div>
 </div>
 

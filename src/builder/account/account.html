@@ -12,7 +12,7 @@
               <input type="text" ng-model="account.ee.User.user.username" class="form-control" placeholder="storename">
               <span class="input-group-addon">.eeosk.com</span>
             </div>
-            <a href="http://{{ account.ee.User.user.username }}.eeosk.com" target="_blank" class="inline-block vert-5 margin-top-0">
+            <a ng-if="account.ee.User.user.username" href="http://{{ account.ee.User.user.username }}.eeosk.com" target="_blank" class="inline-block vert-5 margin-top-0">
               http://{{ account.ee.User.user.username }}.eeosk.com
             </a>
             <!-- <div ng-show="username && username.length > 4">
@@ -26,6 +26,7 @@
           <label class="col-sm-3 control-label font-weight-200">Custom URL</label>
           <div class="col-sm-5">
             <input disabled type="text" class="form-control" placeholder="https://example.com (coming soon)">
+            <a href="mailto:support@eeosk.com" target="_blank">Contact us</a> if you'd like to set up a custom URL.
           </div>
         </div>
         <!-- /ACCOUNT store url -->

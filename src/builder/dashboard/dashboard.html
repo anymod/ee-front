@@ -5,12 +5,13 @@
       <!-- Logo -->
       <ee-storefront-logo
         ng-if="dashboard.ee.User.user.storefront_meta.name || dashboard.ee.User.user.storefront_meta.brand.image.logo"
-        class="pad-10 round-5 vert-5 margin-top-0"
+        class="pad-10 vert-5 margin-top-0"
         blocked="true"
-        ng-style="{ border: '1px solid ' + dashboard.ee.User.user.storefront_meta.brand.color.secondary }"
         meta="dashboard.ee.User.user.storefront_meta" ui-sref="editbrand">
       </ee-storefront-logo>
-      <div ng-if="!dashboard.ee.User.user.storefront_meta.name && !dashboard.ee.User.user.storefront_meta.brand.image.logo" class="btn btn-default" ui-sref="editbrand">Add a store title</div>
+      <div ng-if="!dashboard.ee.User.user.storefront_meta.name && !dashboard.ee.User.user.storefront_meta.brand.image.logo" class="btn btn-default" ui-sref="editbrand">
+        Add a logo
+      </div>
       <!-- /Logo -->
       <!-- Domain -->
       <div>
@@ -31,6 +32,7 @@
         ng-style="{ 'background-color': dashboard.ee.User.user.storefront_meta.brand.color.secondary }">
       <!-- Buttons -->
       <div class="pull-right">
+        <a ui-sref="edit" class="btn btn-sm btn-default">Edit store</a>
         <a ui-sref="account" class="btn btn-sm btn-default">Change store URL</a>
       </div>
       <!-- /Buttons -->

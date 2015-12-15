@@ -10,12 +10,15 @@ module.directive "eeStorefrontLogo", () ->
   link: (scope, ele, attrs) ->
 
     setBackgroundPath = () ->
-      'g_north_west,c_fit,w_260,h_60,o_0'
+      # 'g_north_west,c_fit,w_260,h_60,o_0'
+      'g_north_west,c_fit,w_20,h_60,o_0'
 
     setTextPath = () ->
-      p = 'g_north_west,c_fit,l_text:' + (scope.meta.brand.text.family || 'Amaranth') + '_' + (scope.meta.brand.text.size || 30) + '_left:' + (scope.meta.name || '') + ',co_rgb:' + scope.meta.brand.color.primary.replace(/\#/g,'') + ','
-      for letter in ['w','h','o','x','y']
-        if scope.meta.brand.text[letter] then p += letter + '_' + scope.meta.brand.text[letter] + ','
+      p = ''
+      if scope.meta?.name? and scope.meta.name isnt ''
+        p = 'g_north_west,c_fit,l_text:' + (scope.meta.brand.text.family || 'Amaranth') + '_' + (scope.meta.brand.text.size || 30) + '_left:' + (scope.meta.name || '') + ',co_rgb:' + scope.meta.brand.color.primary.replace(/\#/g,'') + ','
+        for letter in ['w','h','o','x','y']
+          if scope.meta.brand.text[letter] then p += letter + '_' + scope.meta.brand.text[letter] + ','
       p
 
     setImagePath = () ->

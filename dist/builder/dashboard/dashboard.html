@@ -1,54 +1,44 @@
 <div ng-hide="dashboard.ee.User.reading">
   <!-- Main nav -->
-  <div class="position-relative box-shadow">
-    <nav class="navbar navbar-rgba-colors border-none box-shadow margin-0 round-0"
-        style="z-index: 5;"
-        ng-style="{ 'background-color': dashboard.ee.User.user.storefront_meta.brand.color.primary }">
-      <!-- Buttons -->
-      <div class="inline-block full-width pad-10">
-        <div class="pull-right">
-          <a ui-sref="edit" class="btn btn-default">Edit Store</a>
-        </div>
+  <div class="position-relative vert-5">
+    <div class="white-background position-relative text-center vert-10">
+      <!-- Logo -->
+      <ee-storefront-logo
+        ng-if="dashboard.ee.User.user.storefront_meta.name || dashboard.ee.User.user.storefront_meta.brand.image.logo"
+        class="pad-10 vert-5 margin-top-0"
+        blocked="true"
+        meta="dashboard.ee.User.user.storefront_meta" ui-sref="editbrand">
+      </ee-storefront-logo>
+      <div ng-if="!dashboard.ee.User.user.storefront_meta.name && !dashboard.ee.User.user.storefront_meta.brand.image.logo" class="btn btn-default" ui-sref="editbrand">
+        Add a logo
       </div>
-      <!-- /Buttons -->
-      <!-- Logo and title -->
-      <div class="text-center">
-        <div class="store-title inline-block hover-pointer font-weight-200 pad-0 text-left"
-            ng-style="{ color: dashboard.ee.User.user.storefront_meta.brand.color.secondary }"
-            ui-sref="edit.topbar">
-          <!-- Logo -->
-          <ee-storefront-logo meta="dashboard.ee.User.user.storefront_meta" sref="edit"></ee-storefront-logo>
-          <!-- /Logo -->
-          <!-- Title -->
-          <div ng-if="dashboard.ee.User.user.storefront_meta.name" class="title-text inline-block" ng-bind="dashboard.ee.User.user.storefront_meta.name"></div>
-          <div ng-if="!dashboard.ee.User.user.storefront_meta.name" class="btn btn-default">Add a store title</div>
-          <!-- /Title -->
-        </div>
-      </div>
-      <!-- /Logo and title -->
+      <!-- /Logo -->
       <!-- Domain -->
-      <div class="text-center vert-15">
-        <ee-builder-live-button
-          ng-if="dashboard.ee.User.user"
-          message="target"
-          user="dashboard.ee.User.user">
-        </ee-builder-live-button>
-        <br>
-        <a ui-sref="account" class="btn btn-sm btn-link">change store URL</a>
+      <div>
+        <div class="inline-block vert-10">
+          Your store is live at
+          <br>
+          <ee-builder-live-button
+            ng-if="dashboard.ee.User.user"
+            message="target"
+            user="dashboard.ee.User.user">
+          </ee-builder-live-button>
+        </div>
       </div>
       <!-- /Domain -->
+    </div>
+    <nav class="navbar navbar-rgba-colors border-none box-shadow margin-0 round-0 pad-7"
+        style="z-index: 5;"
+        ng-style="{ 'background-color': dashboard.ee.User.user.storefront_meta.brand.color.secondary }">
+      <!-- Buttons -->
+      <div class="pull-right">
+        <a ui-sref="edit" class="btn btn-sm btn-default">Edit store</a>
+        <a ui-sref="account" class="btn btn-sm btn-default">Change store URL</a>
+      </div>
+      <!-- /Buttons -->
     </nav>
   </div>
   <!-- /Main nav -->
-
-  <nav class="navbar ee-builder-subnav box-shadow round-0 margin-0 text-center" style="top: 0 !important;">
-    <div class="max-width-600 margin-0-auto pad-2 position-relative">
-      <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="products">Your<br><small>Products</small></a>
-      <!-- <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="categories">Your<br><small>Categories</small></a> -->
-      <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="collections">Your<br><small>Collections</small></a>
-      <a class="builder-subnav-btn-info vert-8 no-underline" ui-sref-active="active" ui-sref="collectionsAdd">Add<br><small>Collections</small></a>
-    </div>
-  </nav>
 
   <!-- Products -->
   <div class="container text-center vert-20 margin-top-0" ng-hide="dashboard.ee.Products.search.products.length <= 0">
