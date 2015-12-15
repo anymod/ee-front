@@ -52,7 +52,7 @@ else
   app.use morgan 'dev'
 
 app.all '/favicon.ico', (req, res, next) ->
-  res.redirect 'https://res.cloudinary.com/eeosk/image/upload/v1445982443/favicon.ico'
+  res.redirect 'https://res.cloudinary.com/eeosk/image/upload/v1450206151/favicon_e.ico'
   return
 
 app.use bodyParser.urlencoded({ extended: true })

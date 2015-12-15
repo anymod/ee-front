@@ -30,10 +30,10 @@
       <div class="row vert-5">
         <div class="col-sm-6">
           <div class="full-width margin-0-auto text-left" style="max-width: 320px;">
-            <div class="btn btn-default" ng-click="showPreview = !showPreview">
-              Preview branding<span ng-if="showPreview">&nbsp;<i class="fa fa-times"></i></span>
+            <div class="btn btn-default" ng-click="showPreview = !showPreview" ng-class="{ active: showPreview }">
+              Preview branding
             </div>
-            <ee-save></ee-save>
+            <ee-save ng-click="showPreview = false"></ee-save>
           </div>
         </div>
       </div>
