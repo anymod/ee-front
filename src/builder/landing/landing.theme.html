@@ -7,7 +7,7 @@
       <div ng-repeat="theme in landing.data.demoStores" ng-click="landing.setTheme(theme)" class="col col-sm-6">
         <div class="vert-10 hover-pointer gray-border hover-blue-border">
           <div class="inline-block full-width text-left pad-5"
-               style="background-color: {{ theme.topBarBackgroundColor }}; color: {{ theme.topBarColor }};">
+               style="background-color: {{ theme.secondary }}; color: {{ theme.tertiary }};">
             &nbsp;{{ theme.name }}
           </div>
           <img ng-src="{{ theme.imgUrl | scaledDownBackground }}" class="full-width" />

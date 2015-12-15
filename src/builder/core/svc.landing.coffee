@@ -5,11 +5,17 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
   ## SETUP
   _userDefaults =
     storefront_meta:
-      home:
-        name: 'Example'
-        topBarBackgroundColor: '#dbd6ff'
-        topBarColor: '#021709'
-        # carousel: [{ imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250403/desk1.jpg' }]
+      name: 'Example'
+      brand:
+        text:
+          x: 0
+          y: 6
+          family: 'Amaranth'
+          size: 28
+        color:
+          primary: '#dbd6ff'
+          secondary: '#dbd6ff'
+          tertiary: '#021709'
       blog: { url: 'https://eeosk.com' }
       about: { headline: 'eeosk' }
       audience:
@@ -30,189 +36,229 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
     {
       name: 'Book'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425249778/book_.jpg'
-      topBarBackgroundColor: '#fafce8'
-      topBarColor: '#321b01'
+      primary: '#fafce8'
+      secondary: '#fafce8'
+      tertiary: '#321b01'
     },{
       name: 'Brick'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425249925/brick.jpg'
-      topBarBackgroundColor: '#824b4b'
-      topBarColor: '#ffffff'
+      primary: '#824b4b'
+      secondary: '#824b4b'
+      tertiary: '#ffffff'
     },{
       name: 'Bridge'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250980/brdge.jpg'
-      topBarBackgroundColor: '#e5cdb3'
-      topBarColor: '#1f1e1e'
+      primary: '#e5cdb3'
+      secondary: '#e5cdb3'
+      tertiary: '#1f1e1e'
     },{
       name: 'City'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250064/city_.jpg'
-      topBarBackgroundColor: '#fffae0'
-      topBarColor: '#000000'
+      primary: '#fffae0'
+      secondary: '#fffae0'
+      tertiary: '#000000'
     },{
       name: 'Coffee'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250130/cffee.jpg'
-      topBarBackgroundColor: '#c98a4f'
-      topBarColor: '#960000'
+      primary: '#c98a4f'
+      secondary: '#c98a4f'
+      tertiary: '#960000'
     },{
       name: 'Concert'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250164/cncrt.jpg'
-      topBarBackgroundColor: '#000000'
-      topBarColor: '#dbf1ff'
+      primary: '#000000'
+      secondary: '#000000'
+      tertiary: '#dbf1ff'
     },{
       name: 'Desert'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_south,h_400,w_1200/v1425250332/dsert.jpg'
-      topBarBackgroundColor: '#701600'
-      topBarColor: '#ffffff'
+      primary: '#701600'
+      secondary: '#701600'
+      tertiary: '#ffffff'
     },{
       name: 'Desk'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250403/desk1.jpg'
-      topBarBackgroundColor: '#dad8d8'
-      topBarColor: '#3d3d3d'
+      primary: '#dad8d8'
+      secondary: '#dad8d8'
+      tertiary: '#3d3d3d'
     },{
       name: 'Desk 2'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250486/desk2.jpg'
-      topBarBackgroundColor: '#321706'
-      topBarColor: '#ffffff'
+      primary: '#321706'
+      secondary: '#321706'
+      tertiary: '#ffffff'
     },{
       name: 'Drops'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250531/drops.jpg'
-      topBarBackgroundColor: '#291e34'
-      topBarColor: '#ffffff'
+      primary: '#291e34'
+      secondary: '#291e34'
+      tertiary: '#ffffff'
     },{
       name: 'Ferns'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_north,h_400,w_1200/v1425250561/ferns.jpg'
-      topBarBackgroundColor: '#123a2d'
-      topBarColor: '#f1eadf'
+      primary: '#123a2d'
+      secondary: '#123a2d'
+      tertiary: '#f1eadf'
     },{
       name: 'Fish'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250595/fish_.jpg'
-      topBarBackgroundColor: '#eefcfb'
-      topBarColor: '#001a33'
+      primary: '#eefcfb'
+      secondary: '#eefcfb'
+      tertiary: '#001a33'
     },{
       name: 'Golden Light'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_center,h_400,w_1200/v1425250656/gldnl.jpg'
-      topBarBackgroundColor: '#291205'
-      topBarColor: '#fffdd6'
+      primary: '#291205'
+      secondary: '#291205'
+      tertiary: '#fffdd6'
     },{
       name: 'Open Road'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425250720/oroad.jpg'
-      topBarBackgroundColor: '#1a1e23'
-      topBarColor: '#ffffff'
+      primary: '#1a1e23'
+      secondary: '#1a1e23'
+      tertiary: '#ffffff'
     },{
       name: 'Oranges'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425251056/orngs.jpg'
-      topBarBackgroundColor: '#add8ff'
-      topBarColor: '#b34b05'
+      primary: '#add8ff'
+      secondary: '#add8ff'
+      tertiary: '#b34b05'
     },{
       name: 'Purple Flowers'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425251082/prplf.jpg'
-      topBarBackgroundColor: '#ebb8ff'
-      topBarColor: '#000000'
+      primary: '#ebb8ff'
+      secondary: '#ebb8ff'
+      tertiary: '#000000'
     },{
       name: 'Raspberries'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_north,h_400,w_1200/v1425251100/raspb.jpg'
-      topBarBackgroundColor: '#ffffff'
-      topBarColor: '#000000'
+      primary: '#ffffff'
+      secondary: '#ffffff'
+      tertiary: '#000000'
     },{
       name: 'Speeding Cars'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,g_north,h_400,w_1200/v1425251183/spdcr.jpg'
-      topBarBackgroundColor: '#242323'
-      topBarColor: '#e6d5d1'
+      primary: '#242323'
+      secondary: '#242323'
+      tertiary: '#e6d5d1'
     },{
       name: 'Times Square'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425251208/tmsqr.jpg'
-      topBarBackgroundColor: '#de423a'
-      topBarColor: '#f2f3f1'
+      primary: '#de423a'
+      secondary: '#de423a'
+      tertiary: '#f2f3f1'
     },{
       name: 'Water and Sailboat'
       imgUrl: 'https://res.cloudinary.com/eeosk/image/upload/c_fill,h_400,w_1200/v1425251226/wslbt.jpg'
-      topBarBackgroundColor: '#a80000'
-      topBarColor: '#ffffff'
+      primary: '#a80000'
+      secondary: '#a80000'
+      tertiary: '#ffffff'
     }
   ]
 
   _themes = [
     {
-      topBarBackgroundColor: '#414141'
-      topBarColor: '#FFFFFF'
+      primary: '#414141'
+      secondary: '#414141'
+      tertiary: '#FFFFFF'
     },
     {
-      topBarBackgroundColor: '#FFFFFF'
-      topBarColor: '#555555'
+      primary: '#FFFFFF'
+      secondary: '#FFFFFF'
+      tertiary: '#555555'
     },
     # Dark
     {
-      topBarBackgroundColor: '#630000'
-      topBarColor: '#FFFFFF'
+      primary: '#630000'
+      secondary: '#630000'
+      tertiary: '#FFFFFF'
     },
     {
-      topBarBackgroundColor: '#632910'
-      topBarColor: '#FFC6A5'
+      primary: '#632910'
+      secondary: '#632910'
+      tertiary: '#FFC6A5'
     },
     {
-      topBarBackgroundColor: '#184A18'
-      topBarColor: '#FF92D6'
+      primary: '#184A18'
+      secondary: '#184A18'
+      tertiary: '#FF92D6'
     },
     {
-      topBarBackgroundColor: '#08215A'
-      topBarColor: '#E0E0E0'
+      primary: '#08215A'
+      secondary: '#08215A'
+      tertiary: '#E0E0E0'
     },
     {
-      topBarBackgroundColor: '#4A0042'
-      topBarColor: '#FFFF9C'
+      primary: '#4A0042'
+      secondary: '#4A0042'
+      tertiary: '#FFFF9C'
     },
     # Regular
     {
-      topBarBackgroundColor: '#FF6342'
-      topBarColor: '#FFFFFF'
+      primary: '#FF6342'
+      secondary: '#FF6342'
+      tertiary: '#FFFFFF'
     },
     {
-      topBarBackgroundColor: '#FF9C4A'
-      topBarColor: '#840000'
+      primary: '#FF9C4A'
+      secondary: '#FF9C4A'
+      tertiary: '#840000'
     },
     {
-      topBarBackgroundColor: '#FFFF42'
-      topBarColor: '#555555'
+      primary: '#FFFF42'
+      secondary: '#FFFF42'
+      tertiary: '#555555'
     },
     {
-      topBarBackgroundColor: '#52B552'
-      topBarColor: '#FFFFFF'
+      primary: '#52B552'
+      secondary: '#52B552'
+      tertiary: '#FFFFFF'
     },
     {
-      topBarBackgroundColor: '#63C6DE'
-      topBarColor: '#FFFF9C'
+      primary: '#63C6DE'
+      secondary: '#63C6DE'
+      tertiary: '#FFFF9C'
     },
     {
-      topBarBackgroundColor: '#9C7BBD'
-      topBarColor: '#AD0000'
+      primary: '#9C7BBD'
+      secondary: '#9C7BBD'
+      tertiary: '#AD0000'
     },
     {
-      topBarBackgroundColor: '#DE5AAD'
-      topBarColor: '#FFFFFF'
+      primary: '#DE5AAD'
+      secondary: '#DE5AAD'
+      tertiary: '#FFFFFF'
     },
     # Light
     {
-      topBarBackgroundColor: '#FFE7C6'
-      topBarColor: '#D66321'
+      primary: '#FFE7C6'
+      secondary: '#FFE7C6'
+      tertiary: '#D66321'
     },
     {
-      topBarBackgroundColor: '#F7FFCE'
-      topBarColor: '#3152A5'
+      primary: '#F7FFCE'
+      secondary: '#F7FFCE'
+      tertiary: '#3152A5'
     },
     {
-      topBarBackgroundColor: '#C6E7DE'
-      topBarColor: '#FF3118'
+      primary: '#C6E7DE'
+      secondary: '#C6E7DE'
+      tertiary: '#FF3118'
     },
     {
-      topBarBackgroundColor: '#C6EFF7'
-      topBarColor: '#103910'
+      primary: '#C6EFF7'
+      secondary: '#C6EFF7'
+      tertiary: '#103910'
     },
     {
-      topBarBackgroundColor: '#C6B5DE'
-      topBarColor: '#333333'
+      primary: '#C6B5DE'
+      secondary: '#C6B5DE'
+      tertiary: '#333333'
     },
     {
-      topBarBackgroundColor: '#F7BDDE'
-      topBarColor: '#08215A'
+      primary: '#F7BDDE'
+      secondary: '#F7BDDE'
+      tertiary: '#08215A'
     }
   ]
 

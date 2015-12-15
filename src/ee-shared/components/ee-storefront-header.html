@@ -12,17 +12,12 @@
 
       <div class="row position-relative margin-bottom-0">
 
-        <div class="brand-area position-absolute" style="top: 0; left: 0; width: 274px; height: 80px; padding: 7px;">
+        <div class="brand-area position-absolute">
           <!-- Logo -->
-          <div ui-sref="storefront" class="store-title inline-block hover-pointer font-weight-200 margin-0">
-            <img ng-if="meta.home.name" ng-src="https://res.cloudinary.com/eeosk/image/upload/w_260,h_60,o_0/g_north_west,x_{{ meta.brand.text.x }},y_{{ meta.brand.text.y }},w_260,h_60,c_fit,l_text:{{ meta.brand.text.family }}_{{ meta.brand.text.size }}_right:{{ meta.home.name }},co_rgb:{{ meta.brand.color.primary | removeHash }}/v1448047783/storefront_home/ytmfvbcstlhcbb0a9q6b.jpg">
-
-            <!-- <ee-storefront-logo meta="meta" sref="storefront"></ee-storefront-logo>
-            <div ng-if="meta.home.name" class="title-text inline-block" ng-bind="meta.home.name"></div> -->
-          </div>
+          <ee-storefront-logo ng-if="meta" meta="meta"></ee-storefront-logo>
           <!-- /Logo -->
         </div>
-        <div class="activity-area position-absolute" style="top: 0; left: 274px; right: 0; height: 80px; padding: 7px 7px 0 0;">
+        <div class="activity-area position-absolute">
           <div>
             <!-- Search -->
             <form class="form-group input-group margin-0" ng-submit="search()">
@@ -56,14 +51,14 @@
 <!-- Categories subnav -->
 <div class="position-relative" ng-ifz="showSubnav">
   <nav class="navbar navbar-default margin-0 round-0 no-side-border"
-    ng-style="{ 'background-color': meta.brand.color.primary }">
+    ng-style="{ 'background-color': meta.brand.color.secondary }">
     <div class="container">
       <ul class="nav navbar-nav">
         <li ng-repeat="category in [{ id: 1, title: 'Home Accents'}, { id: 2, title: 'Artwork' }]">
           <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
             class="pad-left-0"
             ng-bind="category.title"
-            ng-style="{ color: meta.home.topBarColor }">
+            ng-style="{ color: meta.brand.color.tertiary }">
           </a>
         </li>
       </ul>

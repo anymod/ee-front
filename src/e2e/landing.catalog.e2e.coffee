@@ -175,7 +175,7 @@ describe 'eeosk landing.catalog', () ->
     browser                   .get '/'
     elem.tryBtn               .click()
     browser                   .waitForAngular()
-    element(byAttr.css('#ee-bottom-view input[name="storefront_meta.home.topBarColor"]')).click()
+    element(byAttr.css('#ee-bottom-view input[name="storefront_meta.brand.color.secondary"]')).click()
     elem.body                 .click()
     element(byAttr.css('#ee-bottom-view input[name="storefront_meta.brand.color.primary"]')).click()
     elem.body                 .click()

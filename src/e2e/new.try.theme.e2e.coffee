@@ -45,7 +45,7 @@ describe 'eeosk new.try.theme', () ->
   it 'should populate the try models with image and color when clicked', () ->
     element(has.cssContainingText '#ee-header .btn', 'Edit').click()
     browser.getTitle().should.eventually.contain 'Try it out'
-    element(has.model 'edit.ee.User.user.storefront_meta.home.topBarColor').getAttribute('value')
+    element(has.model 'edit.ee.User.user.storefront_meta.brand.color.secondary').getAttribute('value')
     .then (value) ->
       scope.color.should.contain utils.hex_to_rgb(value)
       element(has.model 'edit.ee.User.user.storefront_meta.brand.color.primary').getAttribute('value')

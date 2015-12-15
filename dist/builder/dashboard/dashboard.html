@@ -14,14 +14,14 @@
       <!-- Logo and title -->
       <div class="text-center">
         <div class="store-title inline-block hover-pointer font-weight-200 pad-0 text-left"
-            ng-style="{ color: dashboard.ee.User.user.storefront_meta.home.topBarColor }"
+            ng-style="{ color: dashboard.ee.User.user.storefront_meta.brand.color.secondary }"
             ui-sref="edit.topbar">
           <!-- Logo -->
           <ee-storefront-logo meta="dashboard.ee.User.user.storefront_meta" sref="edit"></ee-storefront-logo>
           <!-- /Logo -->
           <!-- Title -->
-          <div ng-if="dashboard.ee.User.user.storefront_meta.home.name" class="title-text inline-block" ng-bind="dashboard.ee.User.user.storefront_meta.home.name"></div>
-          <div ng-if="!dashboard.ee.User.user.storefront_meta.home.name" class="btn btn-default">Add a store title</div>
+          <div ng-if="dashboard.ee.User.user.storefront_meta.name" class="title-text inline-block" ng-bind="dashboard.ee.User.user.storefront_meta.name"></div>
+          <div ng-if="!dashboard.ee.User.user.storefront_meta.name" class="btn btn-default">Add a store title</div>
           <!-- /Title -->
         </div>
       </div>

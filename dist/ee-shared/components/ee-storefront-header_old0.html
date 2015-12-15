@@ -39,7 +39,7 @@
           <div ui-sref="storefront"
              class="store-title inline-block hover-pointer font-weight-200 margin-0">
             <ee-storefront-logo meta="meta" sref="storefront"></ee-storefront-logo>
-            <div ng-if="meta.home.name" class="title-text inline-block" ng-bind="meta.home.name"></div>
+            <div ng-if="meta.name" class="title-text inline-block" ng-bind="meta.name"></div>
           </div>
         </div>
         <!-- /Logo -->
@@ -157,7 +157,7 @@
           <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
             class="pad-left-0"
             ng-bind="category.title"
-            ng-style="{ color: meta.home.topBarColor }">
+            ng-style="{ color: meta.brand.color.tertiary }">
           </a>
         </li>
       </ul>

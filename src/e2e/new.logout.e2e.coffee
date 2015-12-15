@@ -23,7 +23,7 @@ describe 'eeosk new.logout', () ->
       token.value.should.contain scope.token.replace(/ /, '%20')
 
   it 'should not persist user information into try sections after logout, especially without hard refresh', () ->
-    element(has.css '[name="store-navbar"] .navbar-brand').getText().should.eventually.contain scope.user.storefront_meta.home.name
+    element(has.css '[name="store-navbar"] .navbar-brand').getText().should.eventually.contain scope.user.storefront_meta.name
     element.all(has.repeater 'product in storefront.ee.product_selection')
     .then (products) ->
       products.length.should.equal 10

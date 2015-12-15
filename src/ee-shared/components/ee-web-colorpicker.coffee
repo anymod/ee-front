@@ -4,12 +4,36 @@ angular.module('ee-web-colorpicker').directive 'eeWebColorpicker', () ->
     templateUrl: 'ee-shared/components/ee-web-colorpicker.html'
     restrict: 'EA'
     scope:
-      dabModel: '='
+      dabPrimary: '='
+      dabSecondary: '='
+      dabTertiary: '='
     link: (scope, ele, attrs) ->
 
+      scope.compress = true
+
+      setDabFor = (rank) ->
+        scope.selected = null
+        for row in scope.rows
+          for color in row.colors
+            if rank is 1 and color is scope.dabPrimary then scope.selectColor color
+            if rank is 2 and color is scope.dabSecondary then scope.selectColor color
+            if rank is 3 and color is scope.dabTertiary then scope.selectColor color
+
+      clearRank = () ->
+        scope.rank = null
+        scope.compress = true
+
+      scope.setRank = (rank) ->
+        if scope.rank is rank and scope.compress is false then return clearRank()
+        scope.rank = rank
+        setDabFor rank
+        scope.compress = false
+
       scope.selectColor = (color) ->
-        scope.dabModel = color
-        scope.compress = !scope.compress
+        scope.selected = color
+        if scope.rank is 1 then scope.dabPrimary = color
+        if scope.rank is 2 then scope.dabSecondary = color
+        if scope.rank is 3 then scope.dabTertiary = color
 
       scope.rows = [
         { offset: 3,    colors: ['#003366', '#336699', '#3366CC', '#003399', '#000099', '#0000CC', '#000066'] },
@@ -28,9 +52,5 @@ angular.module('ee-web-colorpicker').directive 'eeWebColorpicker', () ->
         { colors: [] },
         { offset: 1.5,  colors: ['#E6E6E6', '#CCCCCC', '#B3B3B3', '#999999', '#808080', '#666666', '#4C4C4C', '#333333', '#191919', '#000000'] }
       ]
-
-      for row in scope.rows
-        for color in row.colors
-          if color is scope.dabModel then scope.selectColor color
 
       return

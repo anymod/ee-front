@@ -26,23 +26,23 @@ describe 'eeosk landing.try', () ->
       addProductsBtn:         bottom.element byAttr.cssContainingText '.btn', 'Add Products'
       navbarBrand:            bottom.element byAttr.css  '.navbar .navbar-header .navbar-brand'
       navbar:                 bottom.element byAttr.css  '.navbar.navbar-rgba-colors'
-      topBarBackgroundColor:  bottom.element byAttr.name 'storefront_meta.brand.color.primary'
-      topBarColor:            bottom.element byAttr.name 'storefront_meta.home.topBarColor'
+      primary:  bottom.element byAttr.name 'storefront_meta.brand.color.primary'
+      tertiary:            bottom.element byAttr.name 'storefront_meta.brand.color.secondary'
       mainImageToggle:        bottom.element byAttr.name 'mainImageToggle'
       mainImageFive:          bottom.element byAttr.repeater('imgUrl in landing.data.defaultImages').row(4)
       carouselImage:          bottom.element byAttr.css  '#ee-bottom-view .carousel > img'
-      name:                   bottom.element byAttr.model 'landing.storefront.storefront_meta.home.name'
+      name:                   bottom.element byAttr.model 'landing.storefront.storefront_meta.name'
       modalTitle:             element byAttr.css '.modal'
 
     oldVal =
-      topBarColor:            '#021709'
-      topBarBackgroundColor:  '#dbd6ff'
+      tertiary:            '#021709'
+      primary:  '#dbd6ff'
       topBarRgb:              utils.hex_to_rgb '#021709'
       topBarBackgroundRgb:    utils.hex_to_rgb '#dbd6ff'
 
     newVal =
-      topBarColor:            '#135da1'
-      topBarBackgroundColor:  '#ffffff'
+      tertiary:            '#135da1'
+      primary:  '#ffffff'
       topBarRgb:              utils.hex_to_rgb '#135da1'
       topBarBackgroundRgb:    utils.hex_to_rgb '#ffffff'
       name:                   'New Name'
@@ -57,9 +57,9 @@ describe 'eeosk landing.try', () ->
   it 'should progress through top bar color selection', () ->
     elem.navbarBrand          .getAttribute('style').should.eventually.contain oldVal.topBarRgb
     elem.navbar               .getAttribute('style').should.eventually.contain oldVal.topBarBackgroundRgb
-    elem.topBarColor          .click()
+    elem.tertiary          .click()
     elem.form                 .getText().should.not.eventually.contain 'Click to change your store\'s top bar color'
-    elem.topBarColor          .clear().sendKeys newVal.topBarColor
+    elem.tertiary          .clear().sendKeys newVal.tertiary
     elem.body                 .click()
     elem.form                 .getText().should.eventually.contain 'Click to change your store\'s top bar font color'
     elem.primary.click()

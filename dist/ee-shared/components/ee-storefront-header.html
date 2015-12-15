@@ -15,10 +15,10 @@
         <div class="brand-area position-absolute" style="top: 0; left: 0; width: 274px; height: 80px; padding: 7px;">
           <!-- Logo -->
           <div ui-sref="storefront" class="store-title inline-block hover-pointer font-weight-200 margin-0">
-            <img ng-if="meta.home.name" ng-src="https://res.cloudinary.com/eeosk/image/upload/w_260,h_60,o_0/g_north_west,x_{{ meta.brand.text.x }},y_{{ meta.brand.text.y }},w_260,h_60,c_fit,l_text:{{ meta.brand.text.family }}_{{ meta.brand.text.size }}_right:{{ meta.home.name }},co_rgb:{{ meta.brand.color.primary | removeHash }}/v1448047783/storefront_home/ytmfvbcstlhcbb0a9q6b.jpg">
+            <img ng-if="meta.name" ng-src="https://res.cloudinary.com/eeosk/image/upload/w_260,h_60,o_0/g_north_west,x_{{ meta.brand.text.x }},y_{{ meta.brand.text.y }},w_260,h_60,c_fit,l_text:{{ meta.brand.text.family }}_{{ meta.brand.text.size }}_right:{{ meta.name }},co_rgb:{{ meta.brand.color.primary | removeHash }}/v1448047783/storefront_home/ytmfvbcstlhcbb0a9q6b.jpg">
 
             <!-- <ee-storefront-logo meta="meta" sref="storefront"></ee-storefront-logo>
-            <div ng-if="meta.home.name" class="title-text inline-block" ng-bind="meta.home.name"></div> -->
+            <div ng-if="meta.name" class="title-text inline-block" ng-bind="meta.name"></div> -->
           </div>
           <!-- /Logo -->
         </div>
@@ -63,7 +63,7 @@
           <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
             class="pad-left-0"
             ng-bind="category.title"
-            ng-style="{ color: meta.home.topBarColor }">
+            ng-style="{ color: meta.brand.color.tertiary }">
           </a>
         </li>
       </ul>

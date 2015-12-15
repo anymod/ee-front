@@ -25,8 +25,8 @@ utils.test_user =
   storefront_meta:
     home:
       name: 'Test User Store'
-      topBarColor: '#000444'
-      topBarBackgroundColor: '#FFCC42'
+      tertiary: '#000444'
+      primary: '#FFCC42'
 
 utils.random_user =
   username:       random_string_const

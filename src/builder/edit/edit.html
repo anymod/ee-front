@@ -24,7 +24,7 @@
         <div class="form-group vert-5">
           <label class="col-sm-4 control-label">Store title</label>
           <div class="col-sm-3">
-            <input type="text" ng-model="edit.ee.User.user.storefront_meta.home.name" class="form-control" placeholder="Store title">
+            <input type="text" ng-model="edit.ee.User.user.storefront_meta.name" class="form-control" placeholder="Store title">
           </div>
         </div>
         <!-- /EDITOR title -->
@@ -36,22 +36,22 @@
               <div class="input-group" colorpicker colorpicker-parent="true"
                    ng-model="edit.ee.User.user.storefront_meta.brand.color.primary">
                 <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-paint-brush"></i></span>
-                <input name="topBarBackgroundColor"
-                       ng-model="edit.ee.User.user.storefront_meta.brand.color.primary"
-                       class="form-control hover-pointer"
-                       ng-style="{ 'background-color': edit.ee.User.user.storefront_meta.brand.color.primary, color: edit.ee.User.user.storefront_meta.brand.color.primary }">
+                <input name="primary"
+                  ng-model="edit.ee.User.user.storefront_meta.brand.color.primary"
+                  class="form-control hover-pointer"
+                  ng-style="{ 'background-color': edit.ee.User.user.storefront_meta.brand.color.primary, color: edit.ee.User.user.storefront_meta.brand.color.primary }">
               </div>
             </div>
           </div>
           <div class="col-sm-2">
             <div class="position-relative inline-block">
               <div class="input-group" colorpicker colorpicker-parent="true"
-                   ng-model="edit.ee.User.user.storefront_meta.home.topBarColor">
+                   ng-model="edit.ee.User.user.storefront_meta.brand.color.secondary">
                 <span class="input-group-addon white-background hover-pointer"><i class="fa fa-fw fa-font"></i></span>
-                <input name="topBarColor"
-                       ng-model="edit.ee.User.user.storefront_meta.home.topBarColor"
-                       class="form-control hover-pointer"
-                       ng-style="{ 'background-color': edit.ee.User.user.storefront_meta.home.topBarColor, color: edit.ee.User.user.storefront_meta.home.topBarColor }">
+                <input name="tertiary"
+                  ng-model="edit.ee.User.user.storefront_meta.brand.color.tertiary"
+                  class="form-control hover-pointer"
+                  ng-style="{ 'background-color': edit.ee.User.user.storefront_meta.brand.color.tertiary, color: edit.ee.User.user.storefront_meta.brand.color.tertiary }">
               </div>
             </div>
           </div>

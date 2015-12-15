@@ -19,6 +19,6 @@ angular.module('builder.dashboard').config ($stateProvider) ->
       data:
         pageTitle:        'Your store | eeosk'
         pageDescription:  'Preview and navigate your eeosk.'
-        padTop:           '60px'
+        padTop:           '112px'
 
   return

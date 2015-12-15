@@ -9,10 +9,14 @@
 
   <div class="row vert-20 margin-top-0 text-center">
     <div class="col-sm-6">
-      <input type="text" class="form-control input-lg inline-block max-width-300" ng-model="edit.ee.User.user.storefront_meta.home.name" class="Store Name">
       <ee-save></ee-save>
+      <input type="text" class="form-control input-lg inline-block max-width-300" ng-model="edit.ee.User.user.storefront_meta.name" class="Store Name">
       <div style="width: 354px;" class="margin-0-auto">
-        <div ee-web-colorpicker dab-model="edit.ee.User.user.storefront_meta.brand.color.primary" class="text-left vert-20"></div>
+        <div ee-web-colorpicker class="text-left vert-5"
+          dab-primary="edit.ee.User.user.storefront_meta.brand.color.primary"
+          dab-secondary="edit.ee.User.user.storefront_meta.brand.color.secondary"
+          dab-tertiary="edit.ee.User.user.storefront_meta.brand.color.tertiary">
+        </div>
       </div>
     </div>
     <div class="col-sm-6">

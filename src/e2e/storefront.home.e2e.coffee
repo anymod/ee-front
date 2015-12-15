@@ -35,18 +35,14 @@ describe 'eeosk storefront.home', () ->
       carouselWellP:          element byAttr.css  '.carousel .well p'
       carouselWellA:          element byAttr.css  '.carousel .well a'
 
-      topBarColor:            offscreen.element byAttr.name 'storefront_meta.home.topBarColor'
-      topBarBackgroundColor:  offscreen.element byAttr.name 'storefront_meta.brand.color.primary'
-      name:                   offscreen.element byAttr.model 'user.storefront_meta.home.name'
-      carouselHeadline:       offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].headline'
-      carouselByline:         offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].byline'
-      carouselBtnText:        offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].btnText'
+      tertiary:            offscreen.element byAttr.name 'storefront_meta.brand.color.secondary'
+      primary:  offscreen.element byAttr.name 'storefront_meta.brand.color.primary'
+      name:                   offscreen.element byAttr.model 'user.storefront_meta.name'
       carouselBtnPosition:    offscreen.element byAttr.css '#ee-offscreen-child .btn-group'
-      carouselLinkCategory:   offscreen.element byAttr.model 'user.storefront_meta.home.carousel[0].linkCategory'
 
     newVal =
-      topBarColor:            '#FFF'
-      topBarBackgroundColor:  '#000000'
+      tertiary:            '#FFF'
+      primary:  '#000000'
       name:                   'New Name'
       carouselHeadline:       'New Headline'
       carouselByline:         'New Byline'
@@ -68,11 +64,11 @@ describe 'eeosk storefront.home', () ->
     elem.navbarBrand          .getText().should.eventually.equal newVal.name
 
   it 'should reflect changes to the navbar colors', () ->
-    topBarRgb             =   utils.hex_to_rgb scope.user.storefront_meta.home.topBarColor
+    topBarRgb             =   utils.hex_to_rgb scope.user.storefront_meta.brand.color.secondary
     topBarBackgroundRgb   =   utils.hex_to_rgb scope.user.storefront_meta.brand.color.primary
     elem.navbarBrand          .getAttribute('style').should.eventually.contain topBarRgb
     elem.navbar               .getAttribute('style').should.eventually.contain topBarBackgroundRgb
-    elem.topBarColor          .clear().sendKeys newVal.topBarColor
+    elem.tertiary          .clear().sendKeys newVal.tertiary
     elem.primary.clear().sendKeys newVal.primary
     elem.navbarBrand          .getAttribute('style').should.eventually.contain 'color: rgb(0, 0, 0)'
     elem.navbar               .getAttribute('style').should.eventually.contain 'background-color: rgb(255, 255, 255)'

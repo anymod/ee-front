@@ -2,7 +2,7 @@
   <div ng-repeat="theme in create.themes" ng-click="create.setTheme(theme, true); $close()" class="vert-10" style="min-height: 75px;">
     <!-- STORE navbar -->
     <ee-storefront-header class="text-left hover-pointer"
-                          meta="{ home: { name: 'Example', topBarBackgroundColor: theme.topBarBackgroundColor, topBarColor: theme.topBarColor }, about: create.meta.about, blog: create.meta.blog }"
+                          meta="{ name: 'Example', brand: { color: { primary: theme.primary, secondary: theme.secondary, tertiary: theme.tertiary } }, about: create.meta.about, blog: create.meta.blog }"
                           blocked="true">
     </ee-storefront-header>
     <!-- /STORE navbar -->

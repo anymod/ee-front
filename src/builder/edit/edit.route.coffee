@@ -27,7 +27,7 @@ angular.module('builder.edit').config ($stateProvider) ->
       url:    '/topbar'
       views:  views
     .state 'editbrand',
-      url:    '/brand'
+      url:    '/edit/brand'
       views:
         header:
           controller: 'storefrontCtrl as storefront'
@@ -38,7 +38,7 @@ angular.module('builder.edit').config ($stateProvider) ->
       data:
         pageTitle:        'Edit your store | eeosk'
         pageDescription:  'Edit the look and feel of your online store.'
-        padTop:           '108px'
+        padTop:           '110px'
     .state 'edit.social',
       url:    '/social'
       views:  views

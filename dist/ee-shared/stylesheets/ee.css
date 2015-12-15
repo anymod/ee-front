@@ -9031,6 +9031,9 @@ html {
 .round-20 {
   border-radius: 20px;
 }
+.round-50-pct {
+  border-radius: 50%;
+}
 .round-top {
   border-top-left-radius: 5px !important;
   border-top-right-radius: 5px !important;
