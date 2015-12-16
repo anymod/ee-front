@@ -29,9 +29,15 @@
             <!-- /Search -->
           </div>
           <div class="full-width text-right pad-5 vert-5 vertical-align-middle">
-            <!-- <i class="fa fa-lg fa-fw fa-pinterest text-pinterest"></i> -->
+            <a ng-repeat="site in ['facebook','pinterest','twitter','instagram']"
+              ng-if="meta.audience.social[site]"
+              href="https://{{ site }}.com/{{ meta.audience.social[site] }}" target="_blank"
+              class="link-muted text-{{ site }} no-underline margin-2 margin-top-0 margin-bottom-0">
+              <i class="fa fa-2x fa-{{ site }} vertical-align-middle"></i>
+            </a>
+
             <!-- <span>&nbsp;blog&nbsp;</span> -->
-            <a ui-sref="cart">
+            <a ui-sref="cart" class="text-muted">
               <span ng-if="quantityArray && quantityArray.length > 0" class="fa-stack">
                 <i class="fa fa-circle fa-stack-2x"></i>
                 <i class="fa fa-stack-1x white-color"><strong ng-bind="quantityArray.length"></strong></i>
@@ -49,12 +55,12 @@
 <!-- /Main nav -->
 
 <!-- Categories subnav -->
-<div class="position-relative" ng-ifz="showSubnav">
+<div class="position-relative">
   <nav class="navbar navbar-default margin-0 round-0 no-side-border"
     ng-style="{ 'background-color': meta.brand.color.secondary }">
     <div class="container">
       <ul class="nav navbar-nav">
-        <li ng-repeat="category in [{ id: 1, title: 'Home Accents'}, { id: 2, title: 'Artwork' }]">
+        <li ng-repeat="category in categories">
           <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
             class="pad-left-0"
             ng-bind="category.title"

@@ -9,19 +9,24 @@ angular.module('builder.example').controller 'exampleCtrl', () ->
   storefront.ee.User =
     user:
       storefront_meta:
-        name: 'Home Accents'
+        name: 'Home         Accents'
         brand:
           text:
             x: 0
-            y: 6
+            y: 18
             family: 'Amaranth'
             size: 28
           color:
-            primary: '#83bec3'
-            secondary: '#83bec3'
-            tertiary: '#021709'
+            primary: '#4B8880'
+            secondary: '#4B8880'
+            tertiary: '#FFFFFF'
           image:
-            logo: 'https://res.cloudinary.com/eeosk/image/upload/v1436286705/storefront_logo/ef71mlcgxb4woms4fzfc.jpg'
+            x: 74
+            y: 0
+            w: 50
+            h: 50
+            round: null
+            logo: 'https://res.cloudinary.com/eeosk/image/upload/v1450207435/logo_260x60/example_logo.jpg'
         blog: { url: 'http://eeosk.com' }
         about: { headline: 'foobar' }
         audience:

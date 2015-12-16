@@ -35,6 +35,10 @@ module.directive "eeStorefrontLogo", () ->
       p
 
     setPath = () ->
+      if !scope.meta?.name and !scope.meta?.brand?.image?.logo
+        p = 'c_limit,h_60,w_260/v1450227427/home_200x200.png'
+        if scope.meta?.brand?.color?.primary then p = 'e_colorize,co_rgb:' + scope.meta.brand.color.primary.replace(/#/g,'') + ',' + p
+        return scope.path = p
       setImagePath()
       scope.path = setBackgroundPath() + '/' + setImagePath() + '/' + setTextPath() + '/v1450113176/260x60.png'
 

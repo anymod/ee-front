@@ -8428,13 +8428,25 @@ colorpicker-preview {
 .text-facebook {
   color: #3b5998 !important;
 }
+.text-facebook:hover {
+  color: #3b5998 !important;
+}
 .text-pinterest {
+  color: #cc2127 !important;
+}
+.text-pinterest:hover {
   color: #cc2127 !important;
 }
 .text-twitter {
   color: #55acee !important;
 }
+.text-twitter:hover {
+  color: #55acee !important;
+}
 .text-instagram {
+  color: #3f729b !important;
+}
+.text-instagram:hover {
   color: #3f729b !important;
 }
 .text-dark-gray {
@@ -8442,6 +8454,9 @@ colorpicker-preview {
 }
 .text-dark-blue {
   color: #0286c2 !important;
+}
+a.link-muted {
+  color: #777777 !important;
 }
 .dropdown-menu {
   z-index: 1070;
