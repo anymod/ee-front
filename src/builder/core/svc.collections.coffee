@@ -79,7 +79,6 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, $window
     .finally () -> collection.cloning = false
 
   _updateCollection = (collection) ->
-    console.log collection
     collection.updating = true
     eeBack.fns.collectionPUT collection, eeAuth.fns.getToken()
     .then (res) -> collection[key] = res.collection[key] for key in Object.keys(res.collection)
