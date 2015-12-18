@@ -7,9 +7,9 @@
         ng-if="dashboard.ee.User.user.storefront_meta.name || dashboard.ee.User.user.storefront_meta.brand.image.logo"
         class="pad-10 vert-5 margin-top-0"
         blocked="true"
-        meta="dashboard.ee.User.user.storefront_meta" ui-sref="editbrand">
+        meta="dashboard.ee.User.user.storefront_meta" ui-sref="editdesign">
       </ee-storefront-logo>
-      <div ng-if="!dashboard.ee.User.user.storefront_meta.name && !dashboard.ee.User.user.storefront_meta.brand.image.logo" class="btn btn-default" ui-sref="editbrand">
+      <div ng-if="!dashboard.ee.User.user.storefront_meta.name && !dashboard.ee.User.user.storefront_meta.brand.image.logo" class="btn btn-default" ui-sref="editdesign">
         Add a logo
       </div>
       <!-- /Logo -->

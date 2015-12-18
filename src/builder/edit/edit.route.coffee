@@ -26,15 +26,15 @@ angular.module('builder.edit').config ($stateProvider) ->
     .state 'edit.topbar',
       url:    '/topbar'
       views:  views
-    .state 'editbrand',
-      url:    '/edit/brand'
+    .state 'editdesign',
+      url:    '/edit/design'
       views:
         header:
           controller: 'storefrontCtrl as storefront'
           templateUrl: 'builder/edit/edit.header.html'
         top:
           controller: 'editCtrl as edit'
-          templateUrl: 'builder/edit/edit.brand.html'
+          templateUrl: 'builder/edit/edit.design.html'
       data:
         pageTitle:        'Edit your store | eeosk'
         pageDescription:  'Edit the look and feel of your online store.'
