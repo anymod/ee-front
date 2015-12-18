@@ -4,14 +4,13 @@
     <div class="white-background position-relative text-center vert-10">
       <!-- Logo -->
       <ee-storefront-logo
-        ng-if="dashboard.ee.User.user.storefront_meta.name || dashboard.ee.User.user.storefront_meta.brand.image.logo"
         class="pad-10 vert-5 margin-top-0"
         blocked="true"
         meta="dashboard.ee.User.user.storefront_meta" ui-sref="editdesign">
       </ee-storefront-logo>
-      <div ng-if="!dashboard.ee.User.user.storefront_meta.name && !dashboard.ee.User.user.storefront_meta.brand.image.logo" class="btn btn-default" ui-sref="editdesign">
+      <a ui-sref="editdesign" ng-if="!dashboard.ee.User.user.storefront_meta.name && !dashboard.ee.User.user.storefront_meta.brand.image.logo">
         Add a logo
-      </div>
+      </a>
       <!-- /Logo -->
       <!-- Domain -->
       <div>

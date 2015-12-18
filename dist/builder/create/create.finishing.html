@@ -20,7 +20,7 @@
     </div>
     <div class="max-width-600 margin-0-auto">
       <h3 class="vert-10 margin-bottom-0 font-weight-200">Choose a starting theme for your store</h3>
-      <p class="vert-10 font-weight-200">The example above shows what your store's top bar will look like. You can edit your design, logo, and colors in more detail once you're set up.</p>
+      <p class="vert-10 font-weight-200">Select colors below to change wwhat your store's top bar will look like. You can edit your design, logo, and colors in more detail once you're set up.</p>
       <div style="width: 354px;">
         <div ee-web-colorpicker class="text-left"
           dab-primary="create.meta.brand.color.primary"
@@ -47,24 +47,25 @@
           <a ui-sref="login" ng-show="create.alert == 'Account exists'" class="btn btn-lg btn-success btn-block vert-20 margin-top-0">Sign in</a>
           <span ng-hide="create.alert == 'Account exists'">
             <input type="text"
-                   ng-model="create.username"
-                   placeholder="Username"
-                   class="form-control input-lg vert-5"
-                   required>
+              ng-model="create.username"
+              placeholder="Username"
+              class="form-control input-lg vert-5"
+              required>
             <input type="password"
-                   ng-model="create.password"
-                   placeholder="Password"
-                   class="form-control input-lg vert-5"
-                   required>
+              ng-model="create.password"
+              placeholder="Password"
+              class="form-control input-lg vert-5"
+              required>
             <input type="password"
-                   ng-model="create.password_confirm"
-                   placeholder="Confirm Password"
-                   class="form-control input-lg vert-5"
-                   required>
+              ng-model="create.password_confirm"
+              placeholder="Confirm Password"
+              class="form-control input-lg vert-5"
+              required>
             <button class="btn btn-lg btn-primary btn-block"
-                    type="submit"
-                    ng-bind="create.btnText"
-                    ng-disabled="create.btnText != 'Finished'"></button>
+              type="submit"
+              ng-bind="create.btnText"
+              ng-disabled="create.btnText != 'Finished'">
+            </button>
           </span>
         </form>
       </div>

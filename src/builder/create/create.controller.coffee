@@ -29,10 +29,14 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeDef
 
   create.btnText = 'Finished'
   create.complete = () ->
+    if create.password isnt create.password_confirm then return create.alert = 'Password confirmation does not match'
     create.alert = ''
     setBtnText 'Sending...'
     data =
-      theme:    create.landingData.theme
+      theme:
+        primary:    create.meta?.brand?.color?.primary
+        secondary:  create.meta?.brand?.color?.secondary
+        tertiary:   create.meta?.brand?.color?.tertiary
       username: create.username
       password: create.password
     eeAuth.fns.completeNewUser data, $state.params.token
