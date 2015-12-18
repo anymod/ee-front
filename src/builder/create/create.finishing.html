@@ -1,6 +1,6 @@
 <div class="container vert-20">
   <div class="well white-background box-shadow margin-0-auto">
-    <div ng-click="create.modalFns.open('themes')" class="hover-pointer" style="min-height: 75px;">
+    <div style="min-height: 75px; cursor: not-allowed">
       <!-- STORE navbar -->
       <ee-storefront-header
         class="text-left inline-block gray-border full-width"
@@ -9,11 +9,18 @@
         fluid="true"
         style="left:0; right:0; top: 0; z-index: 2;">
       </ee-storefront-header>
+      <div class="">
+        <div class="inline-block full-width text-center white-background pad-10 pad-top-0">
+          <i class="fa fa-fw fa-caret-up"></i>
+          <small>This is a preview of your store's top bar</small>
+          <i class="fa fa-fw fa-caret-up"></i>
+        </div>
+      </div>
       <!-- /STORE navbar -->
     </div>
     <div class="max-width-600 margin-0-auto">
       <h3 class="vert-10 margin-bottom-0 font-weight-200">Choose a starting theme for your store</h3>
-      <p class="vert-10 font-weight-200">The example above shows what your store's top bar will look like. You can edit your branding, logo, and colors in more detail once you're set up.</p>
+      <p class="vert-10 font-weight-200">The example above shows what your store's top bar will look like. You can edit your design, logo, and colors in more detail once you're set up.</p>
       <div style="width: 354px;">
         <div ee-web-colorpicker class="text-left"
           dab-primary="create.meta.brand.color.primary"

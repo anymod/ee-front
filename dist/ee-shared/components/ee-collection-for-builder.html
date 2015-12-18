@@ -13,7 +13,7 @@
       <div class="btn btn-default font-weight-200" ng-click="toggleCarousel()" ng-class="{ 'btn-info': collection.banner.indexOf('placehold.it') < 0 && collection.in_carousel }">
         <span ng-if="collection.banner.indexOf('placehold.it') > -1">Add image</span>
         <span ng-if="collection.banner.indexOf('placehold.it') < 0">
-          <span ng-if="collection.in_carousel">In</span><span ng-if="!collection.in_carousel">+</span>&nbsp;Carousel
+          Feature<span ng-if="collection.in_carousel">d</span>
         </span>
       </div>
       <a ui-sref="collection({ id: collection.id })" class="btn btn-default font-weight-200">Edit</a>
