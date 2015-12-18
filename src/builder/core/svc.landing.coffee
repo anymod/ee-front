@@ -5,7 +5,6 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
   ## SETUP
   _userDefaults =
     storefront_meta:
-      name: 'Example'
       brand:
         text:
           x: 0
@@ -16,14 +15,6 @@ angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $moda
           primary: '#dbd6ff'
           secondary: '#dbd6ff'
           tertiary: '#021709'
-      blog: { url: 'https://eeosk.com' }
-      about: { headline: 'eeosk' }
-      audience:
-        social:
-          facebook:   'facebook'
-          pinterest:  'pinterest'
-          twitter:    'twitter'
-          instagram:  'instagram'
 
   # _showDefaults =
   #   landing: content: true

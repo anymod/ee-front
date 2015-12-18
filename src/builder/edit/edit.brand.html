@@ -24,14 +24,14 @@
 
   <div class="container vert-20 margin-top-0">
     <div class="full-width transition-400" ng-style="{ height: showPreview ? '50px' : '0px' }"></div>
-    <ee-builder-section-heading heading="Edit your branding" heading-class="text-success" subheading="Design your brand's logo, style, and colors below."></ee-builder-section-heading>
+    <ee-builder-section-heading heading="Edit your store design" heading-class="text-success" subheading="Design your store's logo, style, and colors below."></ee-builder-section-heading>
 
     <div class="well white-background box-shadow">
       <div class="row vert-5">
         <div class="col-sm-6">
           <div class="full-width margin-0-auto text-left" style="max-width: 320px;">
-            <div class="btn btn-default" ng-click="showPreview = !showPreview" ng-class="{ active: showPreview }">
-              Preview branding
+            <div class="btn btn-info" ng-click="showPreview = !showPreview" ng-class="{ active: showPreview }">
+              Preview your design
             </div>
             <ee-save ng-click="showPreview = false"></ee-save>
           </div>
@@ -58,7 +58,7 @@
               </div>
             </div>
 
-            <div class="vert-10 margin-top-0">
+            <div>
               &nbsp;Logo background image
               <div ng-if="edit.ee.User.user.storefront_meta.brand.image.logo">
                 <img ng-src="{{ edit.ee.User.user.storefront_meta.brand.image.logo }}" class="vert-2"/>
@@ -71,46 +71,44 @@
               </div>
               <ee-cloudinary-upload meta="edit.ee.User.user.storefront_meta" attr-target="'logo'"></ee-cloudinary-upload>
               <br>
+              <div ng-if="edit.ee.User.user.storefront_meta.brand.image.logo">
+                &nbsp;Move & size background image
+                <form class="full-width inline-block vertical-align-top">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <i class="fa fa-fw fa-image"></i><i class="fa fa-fw fa-arrows-h"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.image.x"></span>)
+                      <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.image.x" min=0 max=200 step=1>
+                    </div>
+                    <div class="col-xs-6">
+                      <i class="fa fa-fw fa-image"></i><i class="fa fa-fw fa-arrows-v"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.image.y"></span>)
+                      <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.image.y" min=0 max=36 step=1>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
-
-            <div class="vert-10">
-              &nbsp;Move & size
-              <form class="full-width inline-block vertical-align-top">
-                <div class="row" ng-if="edit.ee.User.user.storefront_meta.brand.image.logo">
-                  <div class="col-xs-6">
-                    <i class="fa fa-fw fa-image"></i><i class="fa fa-fw fa-arrows-h"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.image.x"></span>)
-                    <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.image.x" min=0 max=200 step=1>
-                  </div>
-                  <div class="col-xs-6">
-                    <i class="fa fa-fw fa-image"></i><i class="fa fa-fw fa-arrows-v"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.image.y"></span>)
-                    <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.image.y" min=0 max=36 step=1>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <i class="fa fa-fw fa-font"></i><i class="fa fa-fw fa-arrows-h"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.text.x"></span>)
-                    <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.text.x" min=0 max=100 step=1>
-                  </div>
-                  <div class="col-xs-6">
-                    <i class="fa fa-fw fa-font"></i><i class="fa fa-fw fa-arrows-v"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.text.y"></span>)
-                    <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.text.y" min=0 max=36 step=1>
-                  </div>
-                  <div class="col-xs-12">
-                    <i class="fa fa-font" style="vertical-align: bottom;"></i><i class="fa fa-lg fa-font" style="vertical-align: bottom;"></i> (<span ng-bind=" edit.ee.User.user.storefront_meta.brand.text.size"></span>)</small>
-                    <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.text.size" min=20 max=50 step=1>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <br>
           </div>
         </div>
         <!-- /title -->
         <!-- logo font -->
         <div class="col-sm-6 text-center">
           <div class="full-width margin-0-auto text-left" style="max-width: 320px;">
-            <div class="vert-10 margin-top-0">
-              &nbsp;Logo font
+            &nbsp;Logo text size & style
+            <div class="row vert-5">
+              <div class="col-xs-6">
+                <i class="fa fa-fw fa-font"></i><i class="fa fa-fw fa-arrows-h"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.text.x"></span>)
+                <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.text.x" min=0 max=100 step=1>
+              </div>
+              <div class="col-xs-6">
+                <i class="fa fa-fw fa-font"></i><i class="fa fa-fw fa-arrows-v"></i> (<span ng-bind="edit.ee.User.user.storefront_meta.brand.text.y"></span>)
+                <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.text.y" min=0 max=36 step=1>
+              </div>
+              <div class="col-xs-12">
+                <i class="fa fa-font" style="vertical-align: bottom;"></i><i class="fa fa-lg fa-font" style="vertical-align: bottom;"></i> (<span ng-bind=" edit.ee.User.user.storefront_meta.brand.text.size"></span>)</small>
+                <input type="range" ng-model="edit.ee.User.user.storefront_meta.brand.text.size" min=20 max=50 step=1>
+              </div>
+            </div>
+            <div class="vert-10">
               <div class="inline-block vertical-align-top gray-border vert-10 margin-top-0" style="height: 360px; overflow-y: scroll;">
                 <div ng-repeat="font in edit.fonts" class="pad-5 gray-border">
                   <label class="hover-pointer">
