@@ -39,9 +39,9 @@
                 <div class="btn btn-xs btn-link" ng-click="modal.setPricing(margin)" ng-repeat="margin in modal.margin_array">{{ margin*100 }}%</div>
               </div>
               <div class="vert-10 margin-top-0" ng-class="{ 'max-height-200 overflow-y-scroll': modal.product.skus.length > 3 }">
-                <div ng-repeat="sku in modal.product.skus">
+                <div ng-repeat="sku in modal.product.skus" ng-if="!modal.reading && sku.baseline_price && !sku.discontinued">
                   <div ng-if="modal.product.skus.length > 1" class="line-height-1" ng-bind="sku.selection_text"></div>
-                  <ee-price-editor sku="sku" ng-if="!modal.reading && sku.baseline_price"></ee-price-editor>
+                  <ee-price-editor sku="sku"></ee-price-editor>
                   <hr class="vert-15">
                 </div>
               </div>
