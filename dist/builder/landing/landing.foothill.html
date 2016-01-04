@@ -3,7 +3,7 @@
 <div class="container text-center vert-50 margin-top-0">
 
   <div class="well white-background box-shadow vert-20">
-    <iframe src="//www.slideshare.net/slideshow/embed_code/key/6Zd3rbVFrTK2sg"
+    <iframe src="//www.slideshare.net/slideshow/embed_code/key/vxSYOfFfcqkgg0"
       width="700"
       height="585"
       frameborder="0"
@@ -14,8 +14,8 @@
     </iframe>
   </div>
 
-  <div class="well">
-    <form ng-if="!landing.hideSignup" class="form-inline vert-20" ng-submit="landing.signup()">
+  <div class="well" ng-if="!landing.hideSignup">
+    <form class="form-inline vert-20" ng-submit="landing.signup()">
       <h4 ng-bind="landing.error" class="font-weight-200"></h4>
       <div class="form-group full-width max-width-300" style="margin: 0 auto 10px;">
         <input type="email" ng-model="landing.email" class="form-control input-lg" style="width:100%" placeholder="Email address" required>

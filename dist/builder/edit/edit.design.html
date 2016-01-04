@@ -1,9 +1,9 @@
 <div ng-hide="edit.ee.loading">
   <!-- preview -->
-  <div ng-click="showPreview = false"
+  <div ng-click="edit.showPreview = false"
       class="position-fixed transition-400"
       style="left: 0; right: 0; z-index: 3000"
-      ng-style="{ top: showPreview ? '0px' : '-250px' }">
+      ng-style="{ top: edit.showPreview ? '0px' : '-250px' }">
     <ee-storefront-header
       blocked="true"
       meta="edit.ee.User.user.storefront_meta"
@@ -21,22 +21,22 @@
   <!-- /preview -->
 
   <div class="container vert-20 margin-top-0">
-    <div class="full-width transition-400" ng-style="{ height: showPreview ? '50px' : '0px' }"></div>
+    <div class="full-width transition-400" ng-style="{ height: edit.showPreview ? '50px' : '0px' }"></div>
     <ee-builder-section-heading heading="Edit your store design" heading-class="text-success" subheading="Design your store's logo, style, and colors below."></ee-builder-section-heading>
 
     <div class="well white-background box-shadow">
       <div class="row vert-5">
         <div class="col-sm-6">
           <div class="full-width margin-0-auto text-left" style="max-width: 320px;">
-            <div class="btn btn-info" ng-click="showPreview = !showPreview" ng-class="{ active: showPreview }">
+            <div class="btn btn-info" ng-click="edit.showPreview = !edit.showPreview" ng-class="{ active: edit.showPreview }">
               Preview your design
             </div>
-            <ee-save ng-click="showPreview = false"></ee-save>
+            <ee-save ng-click="edit.showPreview = false"></ee-save>
           </div>
         </div>
       </div>
 
-      <div class="row margin-top-0" ng-click="showPreview = true">
+      <div class="row margin-top-0" ng-click="edit.showPreview = true">
         <!-- title -->
         <div class="col-sm-6 text-center">
           <div class="full-width margin-0-auto text-left" style="max-width: 320px;">

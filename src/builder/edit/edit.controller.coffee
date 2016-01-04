@@ -1,11 +1,17 @@
 'use strict'
 
-angular.module('builder.edit').controller 'editCtrl', ($state, $window, eeDefiner, eeUser, eeLanding) ->
+angular.module('builder.edit').controller 'editCtrl', ($state, $window, $scope, eeDefiner, eeUser, eeLanding) ->
 
   edit = this
 
   edit.ee           = eeDefiner.exports
   edit.landingData  = eeLanding.data
+
+  edit.showPreview = false
+  cb = ->
+    edit.showPreview = true
+    $scope.$apply()
+  setTimeout cb, 500
 
   edit.setAboutImage  = (imgUrl) -> eeUser.fns.setAboutImage imgUrl
 
