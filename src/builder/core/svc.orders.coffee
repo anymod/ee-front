@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeOrders', ($cookies, $q, eeBack, eeAuth) ->
+angular.module('builder.core').factory 'eeOrders', ($q, eeBack, eeAuth) ->
 
   ## SETUP
   _inputDefaults =

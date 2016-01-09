@@ -105,15 +105,15 @@
             About image
           </label>
           <div class="col-sm-4">
-            <div class="position-relative" dropdown>
-              <div class="hover-pointer position-relative" dropdown-toggle>
+            <div class="position-relative" uib-dropdown>
+              <div class="hover-pointer position-relative" uib-dropdown-toggle>
                 <div class="btn btn-sm btn-default margin-5 position-absolute"
                      name="aboutImageToggle">
                   <div class="fa fa-fw fa-chevron-down"></div>
                 </div>
                 <img ng-src="{{ edit.ee.User.user.storefront_meta.about.imgUrl }}" class="img-responsive full-width vert-2">
               </div>
-              <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;">
+              <ul class="dropdown-menu" style="left: -2px; right: -2px; margin-bottom: 20px;" uib-dropdown-menu>
                 <img ng-repeat="theme in edit.landingData.demoStores" ng-src="{{ theme.imgUrl }}" class="full-width hover-pointer pad-2" ng-click="edit.setAboutImage(theme.imgUrl)"/>
               </ul>
             </div>

@@ -1,13 +1,13 @@
 'use strict'
 
-angular.module('builder.terms').controller 'termsModalCtrl', ($modalInstance, eeModal) ->
+angular.module('builder.terms').controller 'termsModalCtrl', ($uibModalInstance, eeModal) ->
 
   this.openPrivacyPolicyModal = () ->
-    $modalInstance.close()
+    $uibModalInstance.close()
     eeModal.fns.openPrivacyPolicyModal()
 
   this.openSellerTermsModal = () ->
-    $modalInstance.close()
+    $uibModalInstance.close()
     eeModal.fns.openSellerTermsModal()
 
   return

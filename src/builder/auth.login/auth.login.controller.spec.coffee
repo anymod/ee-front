@@ -8,7 +8,7 @@ describe 'loginCtrl', () ->
   beforeEach module('builder.auth')
 
   beforeEach (done) ->
-    inject ($controller, $cookies) ->
+    inject ($controller) ->
       controller = $controller 'loginCtrl', $scope: scope
       done()
 
@@ -26,13 +26,13 @@ describe 'logoutCtrl', () ->
 
   beforeEach (done) ->
     inject ($controller, $cookies, $location) ->
-      $cookies.loginToken = 'Bearer foo.bar.baz'
+      $cookies.put 'loginToken', 'Bearer foo.bar.baz'
       $location.path '/login'
       $controller 'logoutCtrl', $scope: scope
       done()
 
   it 'should remove the loginToken', () ->
-    inject ($cookies) -> should.not.exist $cookies.loginToken
+    inject ($cookies) -> should.not.exist $cookies.get('loginToken')
 
   it 'should redirect to "/"', () ->
     inject ($location) -> $location.path().should.equal '/'

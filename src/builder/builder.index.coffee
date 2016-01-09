@@ -2,13 +2,14 @@
 
 angular.module 'eeBuilder', [
   # vendor
+  'ngCookies'
+  'ngAnimate'
   'ui.router'
   'ui.bootstrap'
-  'ngCookies'
-  'ngSanitize'
-  'angulartics'
-  'angulartics.google.analytics'
-  'colorpicker.module'
+  # 'ngSanitize'
+  # 'angulartics'
+  # 'angulartics.google.analytics'
+  # 'colorpicker.module'
   # 'angularFileUpload'
 
   # core

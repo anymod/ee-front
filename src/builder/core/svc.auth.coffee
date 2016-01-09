@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $cookies, $cookieStore, $q, $window, eeBack) ->
+angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $cookies, $q, $window, eeBack) ->
 
   ## SETUP
   _status = {}
@@ -20,17 +20,17 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
     assignKey key for key in Object.keys u
     _exports.user
 
-  _setConfirmationToken = (token) -> $cookies.confirmationToken = token
-  _clearConfirmationToken = () -> $cookieStore.remove 'confirmationToken'
+  _setConfirmationToken = (token) -> $cookies.put 'confirmationToken', token
+  _clearConfirmationToken = () -> $cookies.remove 'confirmationToken'
 
-  _setLoginToken = (token) -> $cookies.loginToken = token
-  _clearLoginToken = () -> $cookieStore.remove 'loginToken'
+  _setLoginToken = (token) -> $cookies.put 'loginToken', token
+  _clearLoginToken = () -> $cookies.remove 'loginToken'
 
-  _setKeen = (user) -> $cookies.keen = user.tr_uuid
-  _clearKeen = () -> $cookieStore.remove 'keen'
+  _setKeen = (user) -> $cookies.put 'keen', user.tr_uuid
+  _clearKeen = () -> $cookies.remove 'keen'
 
-  _setUsername = (user) -> $cookies.username = user.username
-  _clearUsername = () -> $cookieStore.remove 'username'
+  _setUsername = (user) -> $cookies.put 'username', user.username
+  _clearUsername = () -> $cookies.remove 'username'
 
   _reset = () ->
     _clearLoginToken()
@@ -50,10 +50,10 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
     deferred = $q.defer()
 
     if !!_status.fetching then return _status.fetching
-    if !$cookies.loginToken then deferred.reject('Missing login credentials'); return deferred.promise
+    if !$cookies.get('loginToken') then deferred.reject('Missing login credentials'); return deferred.promise
     _status.fetching = deferred.promise
 
-    eeBack.fns.tokenPOST $cookies.loginToken
+    eeBack.fns.tokenPOST $cookies.get('loginToken')
     .then (data) ->
       _setUser data
       if !!data.email then deferred.resolve(data) else deferred.reject(data)
@@ -139,11 +139,11 @@ angular.module('builder.core').factory 'eeAuth', ($rootScope, $stateParams, $coo
   fns:
     logout: _logout
     reset:  _reset
-    hasToken:               () -> !!$cookies.loginToken
-    getToken:               () -> $cookies.loginToken
-    getConfirmationToken:   () -> $cookies.confirmationToken
-    getKeen:                () -> $cookies.keen
-    getUsername:            () -> $cookies.username
+    hasToken:               () -> !!$cookies.get('loginToken')
+    getToken:               () -> $cookies.get('loginToken')
+    getConfirmationToken:   () -> $cookies.get('confirmationToken')
+    getKeen:                () -> $cookies.get('keen')
+    getUsername:            () -> $cookies.get('username')
     defineUserFromToken:    _defineUserFromToken
     defineUserFromGoToken:  _defineUserFromGoToken
     setUserFromCreateToken: _setUserFromCreateToken

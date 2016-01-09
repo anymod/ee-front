@@ -3,7 +3,7 @@
   <!-- PRODUCTS -->
   <div class="full-width text-center margin-0">
 
-    <pagination ng-if="collection.data.count > collection.data.perPage"
+    <uib-pagination ng-if="collection.data.count > collection.data.perPage"
       total-items="collection.data.count"
       items-per-page="collection.data.perPage"
       ng-model="collection.data.page"
@@ -13,7 +13,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="collection.update()">
-    </pagination>
+    </uib-pagination>
   </div>
 
   <div class="vert-20 text-center">
@@ -28,7 +28,7 @@
   </div>
 
   <div class="full-width text-center margin-0">
-    <pagination ng-if="collection.data.count > collection.data.perPage"
+    <uib-pagination ng-if="collection.data.count > collection.data.perPage"
       total-items="collection.data.count"
       items-per-page="collection.data.perPage"
       ng-model="collection.data.page"
@@ -38,7 +38,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="collection.update()">
-    </pagination>
+    </uib-pagination>
   </div>
   <!-- /PRODUCTS -->
 

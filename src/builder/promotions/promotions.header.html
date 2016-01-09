@@ -9,11 +9,11 @@
     <a ui-sref="promotions.social" ui-sref-active="active" class="btn btn-default">Social</a>
     <a ui-sref="promotions.seo" ui-sref-active="active" class="btn btn-default">SEO</a>
   </div>
-  <div class="position-relative visible-xs-inline-block pull-right" dropdown>
-    <div class="btn btn-default" dropdown-toggle>
+  <div class="position-relative visible-xs-inline-block pull-right" uib-dropdown>
+    <div class="btn btn-default" uib-dropdown-toggle>
       {{ $state.current.name.split('.')[1] | humanize }}&nbsp;<span class="caret"></span>
     </div>
-    <ul class="dropdown-menu full-width">
+    <ul class="dropdown-menu full-width" uib-dropdown-menu>
       <li ui-sref-active="active"><a ui-sref="promotions.blog">Blog</a></li>
       <li ui-sref-active="active"><a ui-sref="promotions.social">Social</a></li>
       <li ui-sref-active="active"><a ui-sref="promotions.seo">SEO</a></li>

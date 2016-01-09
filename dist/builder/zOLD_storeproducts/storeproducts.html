@@ -6,11 +6,11 @@
 <div ng-hide="storeproducts.ee.StoreProducts.reading" class="container text-center">
 
   <div class="vert-20 margin-top-0" ng-if="storeproducts.ee.Collections.collections.length > 0">
-    <div class="position-relative inline-block vert-2" dropdown>
-      <div class="btn btn-default" dropdown-toggle>
+    <div class="position-relative inline-block vert-2" uib-dropdown>
+      <div class="btn btn-default" uib-dropdown-toggle>
         In collections&nbsp;<span class="caret"></span>
       </div>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu" uib-dropdown-menu>
         <li ng-repeat="collection in storeproducts.ee.Collections.collections" ng-if="collection.title">
           <a ui-sref="collectionTemplates({ id: collection.id })">{{ collection.title }}</a>
         </li>
@@ -20,7 +20,7 @@
 
   <!-- PRODUCTS -->
   <div class="full-width text-center margin-0">
-    <pagination ng-if="storeproducts.ee.StoreProducts.count > storeproducts.ee.StoreProducts.perPage"
+    <uib-pagination ng-if="storeproducts.ee.StoreProducts.count > storeproducts.ee.StoreProducts.perPage"
       total-items="storeproducts.ee.StoreProducts.count"
       items-per-page="storeproducts.ee.StoreProducts.perPage"
       ng-model="storeproducts.ee.StoreProducts.page"
@@ -30,7 +30,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="storeproducts.update()">
-    </pagination>
+    </uib-pagination>
   </div>
 
   <div class="vert-20 text-left">
@@ -40,7 +40,7 @@
   </div>
 
   <div class="full-width text-center margin-0">
-    <pagination ng-if="storeproducts.ee.StoreProducts.count > storeproducts.ee.StoreProducts.perPage"
+    <uib-pagination ng-if="storeproducts.ee.StoreProducts.count > storeproducts.ee.StoreProducts.perPage"
       total-items="storeproducts.ee.StoreProducts.count"
       items-per-page="storeproducts.ee.StoreProducts.perPage"
       ng-model="storeproducts.ee.StoreProducts.page"
@@ -50,7 +50,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="storeproducts.update()">
-    </pagination>
+    </uib-pagination>
   </div>
   <!-- /PRODUCTS -->
 

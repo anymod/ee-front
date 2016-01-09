@@ -27,7 +27,7 @@
   </div> -->
 
   <div class="full-width text-center margin-0">
-    <pagination ng-if="create.ee.Collections.count > create.ee.Collections.perPage"
+    <uib-pagination ng-if="create.ee.Collections.count > create.ee.Collections.perPage"
       total-items="create.ee.Collections.count"
       items-per-page="create.ee.Collections.perPage"
       ng-model="create.ee.Collections.page"
@@ -37,7 +37,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="create.update()">
-    </pagination>
+    </uib-pagination>
   </div>
 
   <div class="row vert-20">
@@ -49,7 +49,7 @@
   </div>
 
   <div class="full-width text-center margin-0">
-    <pagination ng-if="create.ee.Collections.count > create.ee.Collections.perPage"
+    <uib-pagination ng-if="create.ee.Collections.count > create.ee.Collections.perPage"
       total-items="create.ee.Collections.count"
       items-per-page="create.ee.Collections.perPage"
       ng-model="create.ee.Collections.page"
@@ -59,7 +59,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="create.update()">
-    </pagination>
+    </uib-pagination>
   </div>
 
 </div>

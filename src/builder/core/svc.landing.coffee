@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout, $modal) ->
+angular.module('builder.core').factory 'eeLanding', ($rootScope, $timeout) ->
 
   ## SETUP
   _userDefaults =

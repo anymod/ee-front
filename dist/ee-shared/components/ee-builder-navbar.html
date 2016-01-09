@@ -1,5 +1,5 @@
 <!--
-  dropdown:       when true show dropdown
+  shodwDropdown:  when true show dropdown
   search:         when true show search bar
   live:           when true show 'View store' button
   signin:         when true show sign in button
@@ -25,12 +25,12 @@
         </a>
       </div>
       <div class="col col-xs-10 col-sm-8">
-        <!-- dropdown -->
-        <div ng-if="dropdown" class="pull-left vert-10" dropdown>
-          <div class="dropdown-toggle hover-pointer vert-2" dropdown-toggle>
+        <!-- showDropdown -->
+        <div ng-if="showDropdown" class="pull-left vert-10" uib-dropdown>
+          <div class="dropdown-toggle hover-pointer vert-2" uib-dropdown-toggle>
             <i class="fa fa-lg fa-align-justify text-info"></i><i class="fa fa-lg fa-caret-down text-info" style="margin-left: 5px;"></i>
           </div>
-          <ul class="dropdown-menu" dropdown-menu>
+          <ul class="dropdown-menu" uib-dropdown-menu>
             <li><a ui-sref="products"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-tags"></i>&nbsp;&nbsp;Products</h4></a></li>
             <li><a ui-sref="edit"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-pencil"></i>&nbsp;&nbsp;Edit Store</h4></a></li>
             <li><a ui-sref="orders"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-list"></i>&nbsp;&nbsp;Orders</h4></a></li>
@@ -39,7 +39,7 @@
             <li><a ui-sref="logout"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-sign-out"></i>&nbsp;&nbsp;Logout</h4></a></li>
           </ul>
         </div>
-        <!-- /dropdown -->
+        <!-- /showDropdown -->
         <!-- search bar -->
         <form ng-if="search" class="margin-0-auto" style="margin-left: 50px !important" ng-submit="runSearch()">
           <div ng-class="{ 'input-group input-group-lg': ee.Products.search.inputs.searchLabel }">

@@ -39,7 +39,7 @@
     </div>
 
     <div class="margin-10" ng-hide="templates.data.templates.length <= 0">
-      <pagination total-items="templates.data.count"
+      <uib-pagination total-items="templates.data.count"
         items-per-page="templates.data.inputs.perPage"
         ng-model="templates.data.inputs.page"
         max-size="5"
@@ -48,7 +48,7 @@
         boundary-links="true"
         rotate="false"
         ng-change="templates.fns.update()">
-      </pagination>
+      </uib-pagination>
     </div>
 
   </div>
@@ -79,7 +79,7 @@
   </div>
 
   <div ng-hide="templates.data.searching || templates.data.count <= templates.data.inputs.perPage" class="pad-20 vert-20">
-    <pagination total-items="templates.data.count"
+    <uib-pagination total-items="templates.data.count"
       items-per-page="templates.data.inputs.perPage"
       ng-model="templates.data.inputs.page"
       max-size="5"
@@ -88,7 +88,7 @@
       boundary-links="true"
       rotate="false"
       ng-change="templates.fns.update()">
-    </pagination>
+    </uib-pagination>
   </div>
 
 </div>
