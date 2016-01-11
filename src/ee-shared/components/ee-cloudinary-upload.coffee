@@ -1,6 +1,8 @@
-angular.module 'ee-cloudinaryUpload', []
+'use_strict'
 
 $.cloudinary.config({ cloud_name: 'eeosk' })
+
+angular.module 'ee-cloudinaryUpload', []
 
 angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", () ->
   templateUrl: 'ee-shared/components/ee-cloudinary-upload.html'
@@ -16,20 +18,11 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", () ->
     if scope.attrTarget is 'logo'       then cloudinary_transform = 'logo_260x60'
     if scope.attrTarget is 'collection' then cloudinary_transform = 'banner'
 
-    # data =
-    #   upload_preset: cloudinary_transform
-    #   cloud_name: 'eeosk'
-    #   tags: 'browser_uploads'
-
-    # attrs.$set 'data-form-data', encodeURI(JSON.stringify(data))
-    # form.setAttribute 'data-form-data',
-
     form
       .append($.cloudinary.unsigned_upload_tag cloudinary_transform, {
           cloud_name: 'eeosk',
           tags: 'browser_uploads'
         })
-    # attrs.$set 'data-form-data', encodeURI(JSON.stringify(data))
 
     assignAttr = (data) ->
       if scope.attrTarget is 'about'      then scope.meta.about.imgUrl = data.result.secure_url
@@ -43,7 +36,6 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", () ->
     bindCloudinary = () ->
       form
         .bind 'cloudinarydone', (e, data) ->
-          console.log 'cloudinarydone', e, data
           resetProgress()
           unbindCloudinary()
           assignAttr(data)
@@ -51,7 +43,6 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", () ->
           bindCloudinary()
         .bind 'cloudinaryprogress', (e, data) ->
           percentage = Math.round((data.loaded * 100.0) / data.total)
-          console.log percentage
           # Only scope.$apply periodically
           if percentage > scope.partialProgress
             scope.partialProgress = percentage + 5

@@ -21,7 +21,7 @@ sources.builderModules = () ->
 ### VENDOR ###
 sources.builderVendorMin = [
   # TODO remove once cloudinary jQuery upload & zoom.js are gone
-  './src/bower_components/jquery/dist/jquery.min.js'
+  './src/bower_components/jquery/dist/jquery.min.js'  
   './src/bower_components/angular/angular.min.js'
   # './src/bower_components/angular-sanitize/angular-sanitize.min.js'
   './src/bower_components/angular-cookies/angular-cookies.min.js'
@@ -38,14 +38,14 @@ sources.builderVendorMin = [
 ]
 sources.builderVendorUnmin = [
   # TODO remove once cloudinary-core doesn't require lodash
-  './src/bower_components/lodash/lodash.js'
+  # './src/bower_components/lodash/lodash.js'
   # './src/bower_components/cloudinary-core/cloudinary-core.js'
   # './src/bower_components/cloudinary-jquery/cloudinary-jquery.js'
   # './src/bower_components/jquery/dist/jquery.js'
   './src/bower_components/jquery.ui/ui/widget.js'
-  './src/bower_components/blueimp-file-upload/js/jquery.iframe-transport.js'
   './src/bower_components/blueimp-file-upload/js/jquery.fileupload.js'
-  './src/bower_components/blueimp-file-upload/js/jquery.fileupload-image.js'
+  './src/bower_components/blueimp-file-upload/js/jquery.iframe-transport.js'
+  # './src/bower_components/blueimp-file-upload/js/jquery.fileupload-image.js'
   './src/bower_components/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js'
   # TODO remove once zoom.js gone
   './src/bower_components/bootstrap/js/transition.js'
