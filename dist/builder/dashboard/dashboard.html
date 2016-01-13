@@ -40,47 +40,6 @@
   </div>
   <!-- /Main nav -->
 
-  <!-- Products -->
-  <div class="container text-center vert-20 margin-top-0" ng-hide="dashboard.ee.Products.search.products.length <= 0">
-    <div class="vert-20">
-      <div class="margin-10">
-        <uib-pagination total-items="dashboard.ee.Products.search.count"
-          items-per-page="dashboard.ee.Products.search.inputs.perPage"
-          ng-model="dashboard.ee.Products.search.inputs.page"
-          max-size="5"
-          class="pagination-sm margin-0 vertical-align-top"
-          previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-          boundary-links="true"
-          rotate="false"
-          ng-change="dashboard.paginate()">
-        </uib-pagination>
-      </div>
-
-      <div ng-hide="dashboard.ee.Products.search.reading || dashboard.ee.loading" class="margin-0-auto">
-        <!-- Results -->
-        <ee-product-for-builder ng-repeat="product in dashboard.ee.Products.search.products" product="product"></ee-product-for-builder>
-        <div ng-show="!dashboard.ee.Products.search.reading && dashboard.ee.Products.search.products.length <= 0">
-          <div class="pad-20">No results found</div>
-        </div>
-        <!-- /Results -->
-      </div>
-
-      <div ng-hide="dashboard.ee.Products.search.reading || dashboard.ee.Products.search.count <= dashboard.ee.Products.search.inputs.perPage" class="pad-20 vert-20">
-        <uib-pagination total-items="dashboard.ee.Products.search.count"
-          items-per-page="dashboard.ee.Products.search.inputs.perPage"
-          ng-model="dashboard.ee.Products.search.inputs.page"
-          max-size="5"
-          class="pagination-sm margin-0 vertical-align-top"
-          previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-          boundary-links="true"
-          rotate="false"
-          ng-change="dashboard.paginate()">
-        </uib-pagination>
-      </div>
-    </div>
-  </div>
-  <!-- /Products -->
-
 </div>
 
 <ee-loading loading="dashboard.ee.User.reading || dashboard.ee.Products.search.reading"></ee-loading>

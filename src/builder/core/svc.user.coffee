@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeUser', ($q, eeAuth, eeBack) ->
+angular.module('builder.core').factory 'eeUser', ($rootScope, $q, eeAuth, eeBack) ->
 
   ## SETUP
   # none
@@ -18,7 +18,9 @@ angular.module('builder.core').factory 'eeUser', ($q, eeAuth, eeBack) ->
     _data.err = null
     _data.reading = true
     eeBack.fns.usersGET eeAuth.fns.getToken()
-    .then (user) -> _data.user = user
+    .then (user) ->
+      _data.user = user
+      $rootScope.$broadcast 'user:set'
     .finally () -> _data.reading = false
 
   _updateUser = (payload) ->

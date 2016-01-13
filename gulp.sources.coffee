@@ -21,7 +21,7 @@ sources.builderModules = () ->
 ### VENDOR ###
 sources.builderVendorMin = [
   # TODO remove once cloudinary jQuery upload & zoom.js are gone
-  './src/bower_components/jquery/dist/jquery.min.js'  
+  './src/bower_components/jquery/dist/jquery.min.js'
   './src/bower_components/angular/angular.min.js'
   # './src/bower_components/angular-sanitize/angular-sanitize.min.js'
   './src/bower_components/angular-cookies/angular-cookies.min.js'
@@ -136,6 +136,10 @@ sources.builderModule = [
   './src/builder/dashboard/dashboard.module.coffee'
   './src/builder/dashboard/dashboard.route.coffee'
   './src/builder/dashboard/dashboard.controller.coffee'
+  # Module - date
+  './src/builder/date/date.module.coffee'
+  './src/builder/date/date.route.coffee'
+  './src/builder/date/date.controller.coffee'
   # Module - storefront
   './src/builder/storefront/storefront.module.coffee'
   './src/builder/storefront/storefront.route.coffee'
@@ -146,11 +150,6 @@ sources.builderModule = [
   './src/builder/products/products.controller.coffee'
   './src/builder/products/product.controller.coffee'
   './src/builder/products/product.modal.controller.coffee'
-  # Module - templates
-  # './src/builder/templates/templates.module.coffee'
-  # './src/builder/templates/templates.route.coffee'
-  # './src/builder/templates/templates.controller.coffee'
-  # './src/builder/templates/template.controller.coffee'
   # Module - collections
   './src/builder/collections/collections.module.coffee'
   './src/builder/collections/collections.route.coffee'
@@ -202,6 +201,7 @@ sources.builderDirective = [
   './src/ee-shared/components/ee-empty-message.coffee'
   './src/ee-shared/components/ee-zendesk.coffee'
   './src/ee-shared/components/ee-web-colorpicker.coffee'
+  './src/ee-shared/components/ee-datepicker.coffee'
 ]
 
 module.exports = sources

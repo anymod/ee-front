@@ -25,6 +25,7 @@ angular.module 'eeBuilder', [
   'builder.create'
   'builder.terms'
   'builder.dashboard'
+  'builder.date'
   'builder.storefront'
   'builder.products'
   # 'builder.templates'
@@ -65,5 +66,6 @@ angular.module 'eeBuilder', [
   'ee-empty-message'
   'ee-zendesk'
   'ee-web-colorpicker'
+  'ee-datepicker'
   # 'ee.templates' # commented out during build step for inline templates
 ]

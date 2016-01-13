@@ -4,13 +4,14 @@ angular.module('builder.core').run ($rootScope, $state, $location, $cookies, eeA
   $rootScope.isBuilder = true
 
   ## Keen.js
-  keen = new Keen
-    projectId: '565c9b27c2266c0bb36521db', # String (required always)
-    writeKey: 'a36f4230d8a77258c853d2bcf59509edc5ae16b868a6dbd8d6515b9600086dbca7d5d674c9307314072520c35f462b79132c2a1654406bdf123aba2e8b1e880bd919482c04dd4ce9801b5865f4bc95d72fbe20769bc238e1e6e453ab244f9243cf47278e645b2a79398b86d7072cb75c',   # String (required for sending data)
-    # readKey: 'YOUR_READ_KEY'    # String (required for querying data)
-    # protocol: 'https',          # String (optional: https | http | auto)
-    # host: 'api.keen.io/3.0',    # String (optional)
-    # requestType: 'jsonp'        # String (optional: jsonp, xhr, beacon)
+  Keen.ready () ->
+    $rootScope.keenio = new Keen
+      projectId: "565c9b27c2266c0bb36521db",
+      readKey: "2e6b0efec92fef795b3f2f42cb77f8f9d9f07e6db31afdd27cf1b296657edeb9c7b3e4dccbe0019587d5b7e6b2221fb669114f7afa7813f081c3414df1a06b33bbd2fd26d71df0fa88f194dce9281c15b825dcd803fd61c824b8c45701cbe61c46e00cc4df1ca908f322b8f5ca60e856",
+      writeKey: 'a36f4230d8a77258c853d2bcf59509edc5ae16b868a6dbd8d6515b9600086dbca7d5d674c9307314072520c35f462b79132c2a1654406bdf123aba2e8b1e880bd919482c04dd4ce9801b5865f4bc95d72fbe20769bc238e1e6e453ab244f9243cf47278e645b2a79398b86d7072cb75c'
+      # protocol: 'https',          # String (optional: https | http | auto)
+      # host: 'api.keen.io/3.0',    # String (optional)
+      # requestType: 'jsonp'        # String (optional: jsonp, xhr, beacon)
 
   openStates = [
     'landing'
@@ -77,7 +78,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, $cookies, eeA
         _ga:        $cookies.get('_ga')
         _gat:       $cookies.get('_gat')
 
-      if $location.host() isnt 'localhost' and keenio.user then keen.addEvent 'builder', keenio, (err, res) -> return
+      if $location.host() isnt 'localhost' and keenio.user then $rootScope.keenio.addEvent 'builder', keenio, (err, res) -> return
     return
 
   return

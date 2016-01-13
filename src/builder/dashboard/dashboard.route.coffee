@@ -13,6 +13,9 @@ angular.module('builder.dashboard').config ($stateProvider) ->
         top:
           controller: 'dashboardCtrl as dashboard'
           templateUrl: 'builder/dashboard/dashboard.html'
+        middle:
+          controller: 'dateCtrl as date'
+          templateUrl: 'builder/date/date.html'
         # footer:
         #   controller: 'storefrontCtrl as storefront'
         #   templateUrl: 'ee-shared/storefront/storefront.footer.html'
