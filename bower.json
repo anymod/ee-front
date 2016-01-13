@@ -24,6 +24,7 @@
     "lodash": "~3.10.1",
     "cloudinary-core": "~2.0.4",
     "cloudinary-jquery": "~2.0.4",
-    "cloudinary-jquery-file-upload": "~2.0.4"
+    "cloudinary-jquery-file-upload": "~2.0.4",
+    "angulartics": "~1.0.3"
   }
 }
