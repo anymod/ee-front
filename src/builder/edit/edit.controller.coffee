@@ -7,11 +7,11 @@ angular.module('builder.edit').controller 'editCtrl', ($state, $window, $scope, 
   edit.ee           = eeDefiner.exports
   edit.landingData  = eeLanding.data
 
-  edit.showPreview = false
-  cb = ->
-    edit.showPreview = true
-    $scope.$apply()
-  setTimeout cb, 500
+  # edit.showPreview = false
+  # cb = ->
+  #   edit.showPreview = true
+  #   $scope.$apply()
+  # setTimeout cb, 500
 
   edit.setAboutImage  = (imgUrl) -> eeUser.fns.setAboutImage imgUrl
 

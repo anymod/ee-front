@@ -8673,20 +8673,17 @@ html {
   overflow: hidden;
   font-weight: bold;
 }
-.ee-builder-subnav .builder-subnav-btn-info,
-.ee-builder-subnav .builder-subnav-btn-success {
+.ee-builder-subnav .builder-subnav-btn {
   display: inline-block;
   width: 19%;
   line-height: 14px;
   color: #AFAFAF;
+  padding-bottom: 12px;
 }
-.ee-builder-subnav .builder-subnav-btn-info.active,
-.ee-builder-subnav .builder-subnav-btn-info:hover {
-  color: #6b5c84;
-}
-.ee-builder-subnav .builder-subnav-btn-success.active,
-.ee-builder-subnav .builder-subnav-btn-success:hover {
-  color: #40a397;
+.ee-builder-subnav .builder-subnav-btn:hover,
+.ee-builder-subnav .builder-subnav-btn:focus,
+.ee-builder-subnav .builder-subnav-btn.active {
+  padding-bottom: 5px;
 }
 .store-navbar {
   height: 90px;
@@ -9851,6 +9848,9 @@ img.zoom-img {
 .zoom-overlay-open,
 .zoom-overlay-transitioning {
   cursor: default;
+}
+.keen-spinner {
+  z-index: 1090 !important;
 }
 
 /*# sourceMappingURL=ee.css.map */
