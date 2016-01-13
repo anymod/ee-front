@@ -9,12 +9,12 @@ angular.module('builder.date').config ($stateProvider) ->
       views:
         header:
           controller: 'storefrontCtrl as storefront'
-          templateUrl: 'builder/dashboard/dashboard.header.html'
+          templateUrl: 'builder/date/date.header.html'
         middle:
           controller: 'dateCtrl as date'
           templateUrl: 'builder/date/date.html'
       data:
         pageTitle:        'Views & Visits | eeosk'
-        padTop:           '112px'
+        padTop:           '60px'
 
   return

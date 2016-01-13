@@ -1,14 +1,29 @@
-<div ng-hide="dashboard.ee.User.reading">
+<nav class="navbar navbar-rgba-colors border-none box-shadow margin-0 round-0 pad-7"
+    style="z-index: 5;"
+    ng-style="{ 'background-color': dashboard.ee.User.user.storefront_meta.brand.color.secondary }">
+  <!-- Buttons -->
+  <div class="pull-right">
+    <a ui-sref="edit" class="btn btn-sm btn-default">Edit store</a>
+    <a ui-sref="account" class="btn btn-sm btn-default">Change store URL</a>
+  </div>
+  <!-- /Buttons -->
+</nav>
+
+<div ng-hide="dashboard.ee.User.reading" class="container vert-10">
+
   <!-- Main nav -->
-  <div class="position-relative vert-5">
-    <div class="white-background position-relative text-center vert-10">
+  <div class="well white-background box-shadow">
+    <ee-storefront-logo
+      ng-if="dashboard.ee.User.user"
+      class="pad-10 vert-5 margin-top-0"
+      blocked="true"
+      meta="dashboard.ee.User.user.storefront_meta"
+      ui-sref="editdesign">
+    </ee-storefront-logo>
+
+    <div class="white-background position-relative pull-right vert-10">
       <!-- Logo -->
-      <ee-storefront-logo
-        class="pad-10 vert-5 margin-top-0"
-        blocked="true"
-        meta="dashboard.ee.User.user.storefront_meta"
-        ui-sref="editdesign">
-      </ee-storefront-logo>
+
       <a ui-sref="editdesign" ng-if="!dashboard.ee.User.user.storefront_meta.name && !dashboard.ee.User.user.storefront_meta.brand.image.logo">
         Add a logo
       </a>
@@ -27,16 +42,6 @@
       </div>
       <!-- /Domain -->
     </div>
-    <nav class="navbar navbar-rgba-colors border-none box-shadow margin-0 round-0 pad-7"
-        style="z-index: 5;"
-        ng-style="{ 'background-color': dashboard.ee.User.user.storefront_meta.brand.color.secondary }">
-      <!-- Buttons -->
-      <div class="pull-right">
-        <a ui-sref="edit" class="btn btn-sm btn-default">Edit store</a>
-        <a ui-sref="account" class="btn btn-sm btn-default">Change store URL</a>
-      </div>
-      <!-- /Buttons -->
-    </nav>
   </div>
   <!-- /Main nav -->
 

@@ -10,6 +10,6 @@ angular.module('builder.storefront').controller 'storefrontCtrl', ($state, eeDef
   storefront.productsUpdate  = () -> eeProducts.fns.runSection('search')
 
   eeCollections.fns.defineNavCollections()
-  eeProducts.fns.featured()
+  # eeProducts.fns.featured()
 
   return

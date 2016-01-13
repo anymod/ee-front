@@ -2,7 +2,7 @@
 
 module = angular.module 'ee-datepicker', []
 
-angular.module('ee-datepicker').directive "eeDatepicker", ($state) ->
+angular.module('ee-datepicker').directive "eeDatepicker", () ->
   templateUrl: 'ee-shared/components/ee-datepicker.html'
   restrict: 'EA'
   scope:
@@ -29,9 +29,6 @@ angular.module('ee-datepicker').directive "eeDatepicker", ($state) ->
       if year is today.getFullYear() and month is today.getMonth() then lastDay = today.getDate()
       entry.days = [ lastDay..firstDay ]
       scope.visibleMonths.push entry
-
-    scope.goToDate = (id, year, month, day) ->
-      $state.go 'date', { id: id, year: year, month: month + 1, day: day }
 
     # scope.setDate = (year, month, day) ->
     #   # year like 2016; month like 0-11; day like 1-31

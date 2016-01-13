@@ -18,19 +18,11 @@ angular.module('app.core').controller 'dateCtrl', ($rootScope, $stateParams, $sc
 
   date.calendarMonths = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
 
-  ranCharts = 0
-  runCharts = () ->
-    if ranCharts < 1
-      createCharts date.ee.User.user, date.date
-      ranCharts++
-
   $scope.$on '$stateChangeSuccess', () ->
-    console.log 'date.ee.User.user', date.ee.User.user
     if date.ee?.User?.user?.username
       createCharts date.ee.User.user, date.date
     else
-      $scope.$on 'user:set', () -> runCharts()
-
+      $scope.$on 'user:set', () -> createCharts date.ee.User.user, date.date
 
   keenioTimeframe = (endYear, endMonth, endDay, numDays) ->
     if !endDay # use entire month
@@ -49,15 +41,33 @@ angular.module('app.core').controller 'dateCtrl', ($rootScope, $stateParams, $sc
     [y,m,d] = t.split('T')[0].split('-')
     date.calendarMonths[parseInt(m) - 1] + ' ' + d + ', ' + y
 
+  colorMapping =
+    Facebook:   '#3b5998'
+    Pinterest:  '#cc2127'
+    Twitter:    '#55acee'
+    Instagram:  '#3f729b'
+    Google:     '#4285F4'
+    You:        '#CCCCCC'
+    'Customer views': '#0286c2'
+
+  stackedChartOptions =
+    isStacked: true
+    legend: position: 'none'
+    height: 200
+    chartArea:
+      width: '100%'
+      height: '100%'
+    titlePosition: 'in'
+    axisTitlesPosition: 'in'
+    hAxis:
+      gridlines:
+        color: 'transparent'
+        count: 8
+    vAxis:
+      textPosition: 'in'
+      maxValue: 6
+
   createCharts = (u, d) ->
-    colorMapping =
-      Facebook:   '#3b5998'
-      Pinterest:  '#cc2127'
-      Twitter:    '#55acee'
-      Instagram:  '#3f729b'
-      Google:     '#4285F4'
-      You:        '#CCCCCC'
-      'Customer views': '#534766'
 
     baseFilters = [{
       operator: 'eq',
@@ -130,23 +140,8 @@ angular.module('app.core').controller 'dateCtrl', ($rootScope, $stateParams, $sc
 
       # Monthly view
       if !date.date.day
+
         monthTimeframe = keenioTimeframe date.date.year, date.date.month, null, 31
-        stackedChartOptions =
-          isStacked: true
-          legend: position: 'none'
-          height: 200
-          chartArea:
-            width: '100%'
-            height: '100%'
-          titlePosition: 'in'
-          axisTitlesPosition: 'in'
-          hAxis:
-            gridlines:
-              color: 'transparent'
-              count: 8
-          vAxis:
-            textPosition: 'in'
-            maxValue: 6
 
         # Views
         monthlyViews = new Keen.Query 'count', {
@@ -195,6 +190,7 @@ angular.module('app.core').controller 'dateCtrl', ($rootScope, $stateParams, $sc
           .chartOptions stackedChartOptions
           .prepare()
         $rootScope.keenio.run monthlyReferers, (err, res) ->
+          console.log err, res
           if err then return monthlyReferersChart.error(err.message)
           for entry in res.result
             if entry.timeframe?.end
