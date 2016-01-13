@@ -4,7 +4,10 @@ sources = {}
 stripSrc  = (arr) -> _.map arr, (str) -> str.replace('./src/', '')
 toJs      = (arr) -> _.map arr, (str) -> str.replace('.coffee', '.js').replace('./src/', 'js/')
 unmin     = (arr) ->
-  _.map arr, (str) -> str.replace('dist/angulartics', 'src/angulartics').replace('.min.js', '.js')
+  _.map arr, (str) ->
+    str.replace('angulartics/dist/', 'angulartics/src/')
+      .replace('angulartics-google-analytics/dist/', 'angulartics-google-analytics/lib/')
+      .replace('.min.js', '.js')
 
 sources.builderJs = () ->
   [].concat stripSrc(unmin(sources.builderVendorMin))
