@@ -7,8 +7,8 @@ angular.module 'eeBuilder', [
   'ui.router'
   'ui.bootstrap'
   # 'ngSanitize'
-  # 'angulartics'
-  # 'angulartics.google.analytics'
+  'angulartics'
+  'angulartics.google.analytics'
   # 'colorpicker.module'
   # 'angularFileUpload'
 

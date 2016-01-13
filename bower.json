@@ -25,6 +25,7 @@
     "cloudinary-core": "~2.0.4",
     "cloudinary-jquery": "~2.0.4",
     "cloudinary-jquery-file-upload": "~2.0.4",
-    "angulartics": "~1.0.3"
+    "angulartics": "~1.0.3",
+    "angulartics-google-analytics": "~0.1.4"
   }
 }

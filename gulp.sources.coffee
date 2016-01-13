@@ -30,7 +30,7 @@ sources.builderVendorMin = [
   './src/bower_components/angular-bootstrap/ui-bootstrap.min.js'
   './src/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
   './src/bower_components/angulartics/dist/angulartics.min.js'
-  './src/bower_components/angulartics/dist/angulartics-ga.min.js'
+  './src/bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js'
   # './src/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js'
   # './src/bower_components/angular-scroll/angular-scroll.min.js'
   './src/bower_components/zoom.js/dist/zoom.min.js'
