@@ -78,7 +78,8 @@ angular.module('builder.core').run ($rootScope, $state, $location, $cookies, eeA
         _ga:        $cookies.get('_ga')
         _gat:       $cookies.get('_gat')
 
-      if $location.host() isnt 'localhost' and keenio.user then $rootScope.keenio.addEvent 'builder', keenio, (err, res) -> return
+      Keen.ready () ->
+        if $location.host() isnt 'localhost' and keenio.user then $rootScope.keenio.addEvent 'builder', keenio, (err, res) -> return
     return
 
   return
