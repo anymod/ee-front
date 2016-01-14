@@ -15,7 +15,7 @@
       <h3>
         Action for <span ng-bind="date.calendarMonths[date.date.month]"></span>
         <span ng-if="date.date.day"><span ng-bind="date.date.day"></span>, </span>
-        <span ng-bind="date.date.year"></span>
+        <span ng-bind="date.date.year">
       </h3>
 
       <div class="row">
@@ -30,9 +30,9 @@
     <!-- /Daily action & content -->
 
     <h3>
-      Visits for <span ng-bind="date.calendarMonths[date.date.month]"></span>
+      Visits for <span ng-show="date.isToday">Today (</span><span ng-bind="date.calendarMonths[date.date.month]"></span>
       <span ng-if="date.date.day"><span ng-bind="date.date.day"></span>, </span>
-      <span ng-bind="date.date.year"></span>
+      <span ng-bind="date.date.year"></span></span><span ng-show="date.isToday">)</span>
     </h3>
 
     <!-- Month view -->

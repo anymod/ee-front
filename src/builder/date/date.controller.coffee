@@ -10,13 +10,16 @@ angular.module('app.core').controller 'dateCtrl', ($rootScope, $stateParams, $sc
     month:  parseInt($stateParams.month) - 1
     day:    if $stateParams.day then parseInt($stateParams.day) else null
 
+  today = new Date()
   if !$stateParams.year or !$stateParams.month
     today = new Date()
     date.date.year  = today.getFullYear()
     date.date.month = today.getMonth()
     date.date.day   = today.getDate()
 
-  date.calendarMonths = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
+  date.isToday = (date.date.year is today.getFullYear() and date.date.month is today.getMonth() and date.date.day is today.getDate())
+
+  date.calendarMonths = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ]
 
   $scope.$on '$stateChangeSuccess', () ->
     if date.ee?.User?.user?.username
