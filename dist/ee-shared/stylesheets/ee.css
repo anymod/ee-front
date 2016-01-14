@@ -8650,6 +8650,16 @@ html {
   left: 0;
   right: 0;
 }
+.ee-store-subnav,
+.ee-builder-subnav {
+  max-height: 50px;
+  overflow: hidden;
+}
+.ee-store-subnav .store-subnav-btn:hover,
+.ee-store-subnav .store-subnav-btn:focus,
+.ee-store-subnav .store-subnav-btn.active {
+  padding-bottom: 8px;
+}
 .ee-builder-navbar {
   min-height: 60px;
 }
@@ -8668,9 +8678,7 @@ html {
 }
 .ee-builder-subnav {
   top: 60px !important;
-  max-height: 50px;
   z-index: 1020;
-  overflow: hidden;
   font-weight: bold;
 }
 .ee-builder-subnav .builder-subnav-btn {
@@ -9167,6 +9175,9 @@ html {
 }
 .width-35 {
   width: 35px;
+}
+.width-40 {
+  width: 40px;
 }
 .width-45 {
   width: 45px;
