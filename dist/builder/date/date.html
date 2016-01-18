@@ -54,7 +54,7 @@
       <div class="col col-sm-8">
         <div class="well white-background">
           <ee-loading loading="!date.dailyVisits"></ee-loading>
-          <table ng-if="date.dailyVisits" class="table table-condensed">
+          <table ng-show="date.dailyVisits" class="table table-condensed">
             <thead>
               <tr>
                 <th colspan=2>Customers viewed</th>
@@ -93,7 +93,7 @@
       <div class="col col-sm-4">
         <div class="well white-background">
           <ee-loading loading="!date.dailyReferers"></ee-loading>
-          <table ng-if="date.dailyReferers" class="table table-condensed">
+          <table ng-show="date.dailyReferers" class="table table-condensed">
             <thead>
               <tr>
                 <th>Customers visited you from</th>

@@ -32,7 +32,7 @@ angular.module('app.core').controller 'dateCtrl', ($rootScope, $stateParams, $sc
       endDate = new Date(endYear, endMonth + 1, 0)
       startDate = new Date(endYear, endMonth, 0)
     else
-      endDate = new Date(Date.parse('' + endYear + '-' + (endMonth + 1) + '-' + endDay))
+      endDate = new Date(endYear, endMonth, endDay)
       startDate = new Date(new Date(endDate).setDate(new Date(endDate).getDate() - numDays))
     suffix = 'T00:00:00.000-05:00'
     endTimeframe   = '' + [endDate.getFullYear(), ('0' + (endDate.getMonth() + 1)).substr(-2,2), ('0' + endDate.getDate()).substr(-2,2)].join('-') + suffix
@@ -193,7 +193,6 @@ angular.module('app.core').controller 'dateCtrl', ($rootScope, $stateParams, $sc
           .chartOptions stackedChartOptions
           .prepare()
         $rootScope.keenio.run monthlyReferers, (err, res) ->
-          console.log err, res
           if err then return monthlyReferersChart.error(err.message)
           for entry in res.result
             if entry.timeframe?.end
