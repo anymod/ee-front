@@ -1,4 +1,17 @@
-<div ng-hide="storefront.ee.loading" ng-if="$state.current.name == 'edit.about'" class="container vert-20">
+<!-- style for preview -->
+<style ng-if="edit.ee.User.user.storefront_meta">
+  .navbar.ee-store-subnav { background-color: {{ storefront.ee.User.user.storefront_meta.brand.color.secondary }}; }
+  .navbar.ee-store-subnav .nav > li > a {
+    color: {{ storefront.ee.User.user.storefront_meta.brand.color.tertiary }};
+    border-bottom: 5px solid {{ storefront.ee.User.user.storefront_meta.brand.color.tertiary }};
+  }
+</style>
+<!-- /style for preview -->
+
+<div ng-hide="storefront.ee.loading"
+  ng-if="$state.current.name == 'edit.about' && (storefront.ee.User.user.storefront_meta.about.headline || storefront.ee.User.user.storefront_meta.about.content)"
+  class="container vert-20">
+
   <div class="well white-background box-shadow margin-0-auto text-left">
     <!-- TODO make clickable via ng-click="storefront.modalFns.open('themes')" -->
     <div class="position-relative" style="min-height: 75px;">
@@ -12,8 +25,9 @@
       </ee-storefront-header>
       <!-- /STORE navbar -->
       <!-- STORE about -->
-      <div ng-if="$state.current.name == 'edit.about'" ng-include="'ee-shared/storefront/storefront.about.html'"></div>
+      <div ng-include="'ee-shared/storefront/storefront.about.html'"></div>
       <!-- /STORE about -->
     </div>
   </div>
+
 </div>

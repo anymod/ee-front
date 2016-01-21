@@ -30,11 +30,11 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, $state, ee
       { min: 20000, max: null   }
     ]
     orderArray: [
-      { order: null,          title: 'Most relevant' },
-      { order: 'price ASC',   title: 'Price, low to high',  use: true },
-      { order: 'price DESC',  title: 'Price, high to low',  use: true },
-      { order: 'title ASC',   title: 'A to Z',              use: true },
-      { order: 'title DESC',  title: 'Z to A',              use: true }
+      { order: null,  title: 'Most relevant' },
+      { order: 'pa',  title: 'Price, low to high',  use: true }, # price ASC (pa)
+      { order: 'pd',  title: 'Price, high to low',  use: true }, # price DESC (pd)
+      { order: 'ta',  title: 'A to Z',              use: true }, # title ASC (ta)
+      { order: 'td',  title: 'Z to A',              use: true }  # title DESC (td)
     ]
 
   ## PRIVATE EXPORT DEFAULTS
