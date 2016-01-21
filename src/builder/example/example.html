@@ -1,3 +1,13 @@
+<!-- style for example -->
+<style ng-if="storefront.ee.User.user.storefront_meta">
+  .navbar.ee-store-subnav { background-color: {{ storefront.ee.User.user.storefront_meta.brand.color.secondary }}; }
+  .navbar.ee-store-subnav .nav > li > a {
+    color: {{ storefront.ee.User.user.storefront_meta.brand.color.tertiary }};
+    border-bottom: 5px solid {{ storefront.ee.User.user.storefront_meta.brand.color.tertiary }};
+  }
+</style>
+<!-- /style for example -->
+
 <div class="modal-header">
   <button class="close" ng-click="$close()">&times;</button>
   <h4 class="modal-title">Store Demo</h4>
