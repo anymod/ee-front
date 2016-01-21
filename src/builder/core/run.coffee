@@ -13,6 +13,14 @@ angular.module('builder.core').run ($rootScope, $state, $location, $cookies, eeA
       # host: 'api.keen.io/3.0',    # String (optional)
       # requestType: 'jsonp'        # String (optional: jsonp, xhr, beacon)
 
+    Keen.Spinner.defaults =
+      # via https://github.com/keen/keen-js/blob/master/src/dataviz/adapters/keen-io.js#L33
+      color: '#0286C2'              # #rgb or #rrggbb or array of colors
+      height: 150
+      width: 3
+      className: 'keen-spinner'     # The CSS class to assign to the spinner
+      zIndex: 500                   # The z-index (defaults to 2000000000)
+
   openStates = [
     'landing'
     'welcome'
