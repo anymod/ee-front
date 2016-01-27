@@ -69,5 +69,6 @@ angular.module 'eeBuilder', [
   'ee-zendesk'
   'ee-web-colorpicker'
   'ee-datepicker'
+  'ee-font-selector'
   # 'ee.templates' # commented out during build step for inline templates
 ]

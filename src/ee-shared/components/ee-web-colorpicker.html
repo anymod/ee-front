@@ -14,7 +14,7 @@
   </div>
   <div ng-repeat="row in rows" class="dab-row transition-200"
     ng-style="{ 'margin': '0 ' + row.offset*dabDimension +'px' }">
-    <div ng-repeat="color in row.colors" ng-click="selectColor(color)"
+    <div ng-repeat="color in row.colors" ng-click="selectColor(color, true)"
       class="dab inline-block position-relative round-50-pct hover-pointer"
       ng-style="{ 'box-shadow': color == selected ? '0 0 0 2px hsl(0, 0%, 100%),0 0 0 4px hsl(0, 0%, 15%)' : 'none', 'z-index': color == selected ? 3 : 2, 'background-color': color }">
     </div>
