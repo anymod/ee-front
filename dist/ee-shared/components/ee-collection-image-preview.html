@@ -1,0 +1,126 @@
+<form class="form vert-20">
+  <div class="btn btn-default" ng-click="construct()">Construct</div>
+  <uib-tabset>
+    <uib-tab>
+      <uib-tab-heading>Preview</uib-tab-heading>
+      <img ng-src="{{ url }}" class="text-center max-width-100-pct">
+      <pre>{{ url }}</pre>
+    </uib-tab>
+    <uib-tab>
+      <uib-tab-heading>Main <i class="fa fa-fw fa-image"></i></uib-tab-heading>
+      <div class="row vert-5">
+        <div class="col-sm-4">
+          <p class="vert-2 text-info">Main image <small class="text-muted">800x470px</small></p>
+          <img ng-src="{{ collection.banner }}" class="full-width gray-border" style="max-width: 100px;" ng-if="collection.banner"/>
+          <div class="inline-block vertical-align-top">
+            <div ng-if="collection.banner.indexOf('placehold.it') < 0"
+              class="btn btn-link pad-0"
+              ng-click="collection.banner = 'https://placehold.it/800x470.jpg/555/fff'">
+              Remove image
+            </div>
+            <ee-cloudinary-upload meta="collection" attr-target="'collection'"></ee-cloudinary-upload>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <img ng-src="{{ url }}" class="text-center max-width-100-pct">
+        </div>
+      </div>
+    </uib-tab>
+    <uib-tab ng-repeat="layer in layers" ng-if="layer.x">
+      <uib-tab-heading>
+        <i class="fa fa-fw" ng-class="layer.text ? 'fa-font' : 'fa-square'" ng-style="{ color: layer.co_rgb }"></i>
+      </uib-tab-heading>
+      <div class="row vert-5">
+        <div class="col-sm-4">
+          <!-- text only -->
+          <span ng-if="layer.text">
+            <input type="text" ng-model="layer.text.message" class="form-control max-width-300"/>
+            <br>
+            <small><small>A</small>A</small>A (<small ng-bind="layer.text.size"></small>)
+            <input type="range" min=20 max=80 step=1 ng-model="layer.text.size"/>
+          </span>
+          <!-- /text only -->
+          <!-- bg & text -->
+          <span>
+            <ee-web-colorpicker dab-primary="layer.co_rgb"></ee-web-colorpicker>
+            <i class="fa fa-fw fa-arrows-v"></i> (<small ng-bind="layer.y"></small>)
+            <input type="range" min=0 max=470 step=1 ng-model="layer.y"/>
+            <i class="fa fa-fw fa-arrows-h"></i> (<small ng-bind="layer.x"></small>)
+            <input type="range" min=0 max=800 step=1 ng-model="layer.x"/>
+            <!-- <input type="text" ng-model="layer.g"> -->
+          </span>
+          <!-- /bg & text -->
+          <!-- bg only -->
+          <span ng-if="!layer.text">
+            <i class="fa fa-fw fa-arrows-v"></i> (<small ng-bind="layer.h"></small>)
+            <input type="range" min=0 max=470 step=1 ng-model="layer.h"/>
+            <i class="fa fa-fw fa-arrows-h"></i> (<small ng-bind="layer.w"></small>)
+            <input type="range" min=0 max=800 step=1 ng-model="layer.w"/>
+          </span>
+          <!-- /bg only -->
+        </div>
+        <div class="col-sm-8">
+          <img ng-src="{{ url }}" class="text-center max-width-100-pct">
+        </div>
+      </div>
+      <pre>{{ layer | json }}</pre>
+    </uib-tab>
+    <uib-tab>
+      <uib-tab-heading><i class="fa fa-fw fa-plus"></i></uib-tab-heading>
+      <div class="row vert-5">
+        <div class="col-sm-4">
+          <p>Add a layer:</p>
+          <div class="btn btn-default vert-2"><i class="fa fa-fw fa-font"></i> Text</div>
+          <div class="btn btn-default vert-2"><i class="fa fa-fw fa-square"></i> Background</div>
+        </div>
+        <div class="col-sm-8">
+          <img ng-src="{{ url }}" class="text-center max-width-100-pct">
+        </div>
+      </div>
+    </uib-tab>
+  </uib-tabset>
+
+  <!-- Text
+  <div class="row">
+    <div class="col col-xs-6">
+      x: <small ng-bind="text_overlay.x"></small>
+      <input type="range" min=0 max=400 step=1 ng-model="text_overlay.x"/>
+      y: <small ng-bind="text_overlay.y"></small>
+      <input type="range" min=0 max=400 step=1 ng-model="text_overlay.y"/>
+    </div>
+    <div class="col col-xs-6">
+      w: <small ng-bind="text_overlay.w"></small>
+      <input type="range" min=0 max=600 step=1 ng-model="text_overlay.w"/>
+      h: <small ng-bind="text_overlay.h"></small>
+      <input type="range" min=0 max=400 step=1 ng-model="text_overlay.h"/>
+    </div>
+    <div class="col-xs-12">
+      <input type="text" ng-model="text_overlay.co_rgb"/>
+      <input type="text" ng-model="text_overlay.text.message" class="form-control max-width-300"/>
+    </div>
+    <div class="col-xs-12">
+      <input type="text" ng-model="text_overlay.g">
+    </div>
+    <div class="col-xs-6">
+      <input type="range" min=20 max=60 step=1 ng-model="text_overlay.text.size"/>
+    </div>
+  </div> -->
+  <!-- Background
+  <div class="row">
+    <div class="col col-xs-6">
+      x: <small ng-bind="bg_overlay.x"></small>
+      <input type="range" min=0 max=400 step=1 ng-model="bg_overlay.x"/>
+      y: <small ng-bind="bg_overlay.y"></small>
+      <input type="range" min=0 max=400 step=1 ng-model="bg_overlay.y"/>
+    </div>
+    <div class="col col-xs-6">
+      w: <small ng-bind="bg_overlay.w"></small>
+      <input type="range" min=0 max=400 step=1 ng-model="bg_overlay.w"/>
+      h: <small ng-bind="bg_overlay.h"></small>
+      <input type="range" min=0 max=400 step=1 ng-model="bg_overlay.h"/>
+    </div>
+    <div class="col-xs-12">
+      <input type="text" ng-model="bg_overlay.co_rgb"/>
+    </div>
+  </div> -->
+</form>

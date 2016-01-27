@@ -1,0 +1,106 @@
+<form class="form vert-20">
+  <div class="btn btn-default" ng-click="construct()">Construct</div>
+  <uib-tabset>
+    <uib-tab>
+      <uib-tab-heading>Preview</uib-tab-heading>
+      <img ng-src="{{ url }}" class="text-center max-width-100-pct">
+      <pre>{{ url }}</pre>
+    </uib-tab>
+    <uib-tab>
+      <uib-tab-heading>Main <i class="fa fa-fw fa-image"></i></uib-tab-heading>
+      <div class="row vert-5">
+        <div class="col-sm-4">
+          <p class="vert-2 text-info">Main image layer <small class="text-muted">800x470px</small></p>
+          <img ng-src="{{ collection.banner }}" class="full-width gray-border" style="max-width: 100px;" ng-if="collection.banner"/>
+          <div class="inline-block vertical-align-top">
+            <div ng-if="collection.banner.indexOf('placehold.it') < 0"
+              class="btn btn-link pad-0"
+              ng-click="collection.banner = 'https://placehold.it/800x470.jpg/555/fff'">
+              Remove image
+            </div>
+            <ee-cloudinary-upload meta="collection" attr-target="'collection'"></ee-cloudinary-upload>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <img ng-src="{{ url }}" class="text-center max-width-100-pct">
+        </div>
+      </div>
+    </uib-tab>
+    <uib-tab ng-repeat="layer in layers" select="rzSliderForceRender()">
+      <uib-tab-heading>
+        <i class="fa fa-fw" ng-class="layer.text ? 'fa-font' : 'fa-square'" ng-style="{ color: layer.co_rgb }" style="text-shadow: 0px 1px 3px #333;"></i>
+      </uib-tab-heading>
+      <div class="row vert-5">
+        <div class="col-sm-4">
+          <p class="vert-2 text-info">
+            <span ng-if="layer.text">Text layer</span>
+            <span ng-if="!layer.text">Background layer</span>
+          </p>
+          <!-- text only -->
+          <span ng-if="layer.text">
+            <input type="text" ng-model="layer.text.message" class="form-control vert-5 margin-top-0"/>
+            <div class="btn-group">
+              <div ng-repeat="style in styles"
+                class="btn btn-sm btn-default"
+                ng-click="layer.text[style] = !layer.text[style]"
+                ng-class="{ active: layer.text[style] }">
+                <i class="fa fa-{{ style }}"></i>
+              </div>
+              <div class="btn-group" uib-dropdown>
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" uib-dropdown-toggle>
+                  <small><small>A</small>A</small>A (<small ng-bind="layer.text.size"></small>)
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" style="z-index: 2000" uib-dropdown-menu>
+                  <li ng-repeat="n in [30,35,40,45,50,60,70,80]">
+                    <a href ng-click="layer.text.size = n" ng-bind="n"></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- <input type="range" min=20 max=80 step=1 ng-model="layer.text.size"/> -->
+          </span>
+          <!-- /text only -->
+          <!-- bg & text -->
+          <ee-web-colorpicker dab-primary="layer.co_rgb" dab-dimension="20"></ee-web-colorpicker>
+          <!-- /bg & text -->
+          <!-- bg only -->
+          <span ng-if="!layer.text">
+            <small class="pull-left">More transparent</small><small class="pull-right">Less transparent</small>
+            <input type="range" min=0 max=100 step=1 ng-model="layer.o"/>
+          </span>
+          <!-- /bg only -->
+        </div>
+        <div class="col-sm-8">
+          <div class="row thin-slider">
+            <div class="col-xs-1" style="height: 250px;">
+              <rzslider rz-slider-model="layer.y" rz-slider-high="layer.temp.maxY" rz-slider-options="{ floor: 0, ceil: 470, hideLimitLabels: true, vertical: true }"></rzslider>
+              <!-- <rzslider ng-if="!layer.text" rz-slider-model="layer.y" rz-slider-high="layer.temp.maxY" rz-slider-options="{ floor: 0, ceil: 470, hideLimitLabels: true, vertical: true }"></rzslider> -->
+            </div>
+            <div class="col-xs-11" style="max-width: 446px;">
+              <img ng-src="{{ url }}" class="text-center max-width-100-pct" style="max-height: 250px;">
+              <rzslider rz-slider-model="layer.x" rz-slider-high="layer.temp.maxX" rz-slider-options="{ floor: 0, ceil: 800, hideLimitLabels: true }"></rzslider>
+              <!-- <rzslider ng-if="!layer.text" rz-slider-model="layer.x" rz-slider-high="layer.temp.maxX" rz-slider-options="{ floor: 0, ceil: 800, hideLimitLabels: true }"></rzslider> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </uib-tab>
+    <uib-tab>
+      <uib-tab-heading><i class="fa fa-fw fa-plus"></i></uib-tab-heading>
+      <div class="row vert-5">
+        <div class="col-sm-4">
+          <p class="vert-2 text-info">Add a layer</p>
+          <div class="btn btn-default vert-2"><i class="fa fa-fw fa-font"></i> Text Layer</div>
+          <div class="btn btn-default vert-2"><i class="fa fa-fw fa-square"></i> Background Layer</div>
+        </div>
+        <div class="col-sm-8">
+          <img ng-src="{{ url }}" class="text-center max-width-100-pct">
+        </div>
+      </div>
+    </uib-tab>
+  </uib-tabset>
+</form>
+
+<!-- <pre>{{ layers | json }}</pre> -->

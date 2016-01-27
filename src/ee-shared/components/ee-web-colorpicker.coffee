@@ -7,9 +7,12 @@ angular.module('ee-web-colorpicker').directive 'eeWebColorpicker', () ->
       dabPrimary: '='
       dabSecondary: '='
       dabTertiary: '='
+      dabDimension: '@'
     link: (scope, ele, attrs) ->
 
       scope.compress = true
+
+      scope.dabDimension = if scope.dabDimension then parseInt(scope.dabDimension) else 27
 
       setDabFor = (rank) ->
         scope.selected = null

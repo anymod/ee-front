@@ -5,10 +5,13 @@
       <!-- <ee-collection-edit-card collection="collection.data.collection"></ee-collection-edit-card> -->
       <!-- Collection form -->
       <div class="container vert-15">
+        <div class="vert-20">
+          <ee-collection-image-preview collection="collection.data.collection" ng-if="collection.data.collection.id"></ee-collection-image-preview>
+        </div>
         <div class="row">
           <div class="col col-sm-5">
             <form class="form-group" ng-submit="collection.fns.updateCollection()">
-              <div class="vert-10 margin-top-0">
+              <!-- <div class="vert-10 margin-top-0">
                 <p class="vert-2 text-info">Collection link text</p>
                 <input type="text" ng-model="collection.data.collection.title" class="form-control" placeholder="Collection title" />
               </div>
@@ -27,7 +30,7 @@
               <div class="vert-10">
                 <p class="vert-2 text-info">Headline</p>
                 <input type="text" ng-model="collection.data.collection.headline" class="form-control" placeholder="Collection headline" />
-              </div>
+              </div> -->
 
               <!-- Save collection -->
               <button class="btn btn-primary" type="submit" ng-disabled="collection.data.collection.updating">
@@ -36,7 +39,7 @@
               <!-- /Save collection -->
             </form>
           </div>
-          <div class="col col-sm-7">
+          <!-- <div class="col col-sm-7">
             <ee-builder-live-button
               ng-if="collection.data.collection.title"
               user="collection.ee.User.user"
@@ -47,7 +50,7 @@
               <img ng-src="{{ collection.data.collection.banner }}" class="full-width img-responsive gray-border" />
               <h3 class="vert-10 font-weight-200">{{ collection.data.collection.headline }}</h3>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- Collection form -->
