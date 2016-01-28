@@ -16,40 +16,40 @@ module.directive "eeCollectionImagePreview", ($state, $window, $timeout, eeColle
     scope.base_image = null
     scope.styles = ['bold', 'italic', 'underline', 'strikethrough']
 
-    base_layer =
-      base: true
-      image: scope.collection.banner
-      o: 100
-
-    # Text Background Overlay
-    bg_overlay =
-      l: 'hue_bar'
-      g: 'south_west'
-      w: 800
-      h: 60
-      y: 0
-      x: 0
-      r: 0
-      e: 'colorize'
-      co_rgb: '#0099FF'
-      o: 60
-
-    # Text Overlay
-    text_overlay =
-      text:
-        family: 'Roboto'
-        size: 30
-        message: (scope.collection.headline || '')
-        bold: false
-        italic: false
-        strikethrough: false
-      g: 'south_west'
-      w: 780
-      h: 450
-      c: 'fit'
-      x: 20
-      y: 20
-      co_rgb: '#FFF'
+    # base_layer =
+    #   base: true
+    #   image: scope.collection.banner
+    #   o: 100
+    #
+    # # Text Background Overlay
+    # bg_overlay =
+    #   l: 'hue_bar'
+    #   g: 'south_west'
+    #   w: 800
+    #   h: 60
+    #   y: 0
+    #   x: 0
+    #   r: 0
+    #   e: 'colorize'
+    #   co_rgb: '#0099FF'
+    #   o: 60
+    #
+    # # Text Overlay
+    # text_overlay =
+    #   text:
+    #     family: 'Roboto'
+    #     size: 30
+    #     message: (scope.collection.headline || '')
+    #     bold: false
+    #     italic: false
+    #     strikethrough: false
+    #   g: 'south_west'
+    #   w: 780
+    #   h: 450
+    #   c: 'fit'
+    #   x: 20
+    #   y: 20
+    #   co_rgb: '#FFF'
 
     console.log 'scope.collection.layers', scope.collection.layers
     scope.layers = scope.collection.layers || []
@@ -58,15 +58,19 @@ module.directive "eeCollectionImagePreview", ($state, $window, $timeout, eeColle
     # scope.layers.push bg_overlay
     # scope.layers.push text_overlay
 
-    # text_overlay_2 = angular.copy text_overlay
-    #
-    # scope.layers.push text_overlay_2
-
     scope.$on 'slideEnded', () ->
       setDimensions()
       scope.construct()
 
     scope.$on 'eeWebColorPicked', () -> $timeout () -> scope.construct()
+
+    scope.$on 'cloudinaryUploadFinished', () ->
+      console.log 'cloudinaryUploadFinished', scope.collection.banner
+      for layer in scope.layers
+        if layer.base
+          layer.image = scope.collection.banner
+          layer.o = 100
+      scope.construct()
 
     setDimensions = () ->
       for layer in scope.layers
@@ -108,7 +112,7 @@ module.directive "eeCollectionImagePreview", ($state, $window, $timeout, eeColle
           str = 'l_text:' + encodeURI(layer.text.family) + '_' + layer.text.size
           for style in scope.styles
             if layer.text[style] then str += '_' + style
-          strs.unshift(str + ':' + encodeURI(layer.text.message))
+          strs.unshift(str + ':' + escape(encodeURIComponent(layer.text.message))) # double encode to avoid URL issues
         else
           punct = if key.indexOf('e_') is 0 or key.indexOf('co_') is 0 then ':' else '_'
           val = encodeURI(layer[key])
