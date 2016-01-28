@@ -135,7 +135,9 @@ module.directive "eeCollectionImagePreview", ($state, $window, $timeout, eeColle
       parts = formBase(scope.layers).concat(formStrings(scope.layers)).concat(scope.base_image)
       scope.url = parts.join('/')
       updateCollection()
-      $timeout () -> scope.$apply()
+      $timeout () ->
+        scope.$broadcast 'rzSliderForceRender'
+        scope.$apply()
 
     scope.rzSliderForceRender = () ->
       $timeout () ->
