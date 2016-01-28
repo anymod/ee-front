@@ -138,7 +138,9 @@ module.directive "eeCollectionImagePreview", ($state, $window, $timeout, eeColle
       $timeout () -> scope.$apply()
 
     scope.rzSliderForceRender = () ->
-      $timeout () -> scope.$broadcast 'rzSliderForceRender'
+      $timeout () ->
+        scope.$broadcast 'reCalcViewDimensions'
+        scope.$broadcast 'rzSliderForceRender'
 
     scope.resetMainImage = () ->
       for layer in scope.layers
