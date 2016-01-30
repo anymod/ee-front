@@ -4,7 +4,7 @@
     <nav class="navbar navbar-rgba-colors border-none box-shadow margin-0 round-0" style="z-index: 5;">
       <!-- Collection form -->
       <div class="container vert-15">
-        <div class="vert-20">
+        <div class="vert-10">
           <ee-collection-image-preview collection="collection.data.collection" ng-if="collection.data.collection.id"></ee-collection-image-preview>
         </div>
         <div class="row">
@@ -36,6 +36,7 @@
                 <i class="fa fa-fw fa-save"></i>&nbsp;Save
               </button>
               <!-- /Save collection -->
+              <a href="{{ collection.data.collection.banner | cloudinaryAttachment }}" class="btn btn-sm btn-default">Download image</a>
             </form>
           </div>
           <!-- <div class="col col-sm-7">

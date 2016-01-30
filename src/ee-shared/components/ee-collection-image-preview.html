@@ -1,4 +1,4 @@
-<form class="form vert-20">
+<form class="form vert-10">
   <uib-tabset>
     <uib-tab>
       <uib-tab-heading>Preview</uib-tab-heading>
@@ -10,7 +10,7 @@
       <div class="row vert-5">
         <div class="col-sm-4">
           <p class="vert-2 text-info">Main image layer <small class="text-muted">800x470px</small></p>
-          <img ng-src="{{ base_path + '/' + base_transform + '/' + base_image }}" class="full-width gray-border" style="max-width: 100px;" ng-if="collection.banner"/>
+          <img ng-src="{{ base_path + '/' + base_transform + '/' + base_image | collectionThumbnail }}" class="full-width gray-border" style="max-width: 100px;" ng-if="collection.banner"/>
           <div class="inline-block vertical-align-top">
             <div ng-if="base_transform.indexOf('o_0') < 0"
               class="btn btn-link pad-0"
@@ -23,7 +23,7 @@
         <div class="col-sm-8">
           <div class="row">
             <div class="col-xs-offset-1 col-xs-11">
-              <img ng-src="{{ url }}" class="text-center max-width-100-pct" style="max-height: 250px;">
+              <img ng-src="{{ url | collectionEdit }}" class="text-center max-width-100-pct" style="max-height: 250px;">
             </div>
           </div>
         </div>
@@ -40,8 +40,8 @@
             <span ng-if="!layer.text">Background layer</span>
           </p>
           <!-- text only -->
-          <span ng-if="layer.text">
-            <input type="text" ng-model="layer.text.message" class="form-control vert-2 margin-top-0"/>
+          <span ng-show="layer.text">
+            <input type="text" ng-model="layer.text.message" ng-change="textUpdated()" class="form-control vert-2 margin-top-0"/>
             <div class="btn-group">
               <div ng-repeat="style in styles"
                 class="btn btn-sm btn-default"
@@ -75,9 +75,10 @@
           <ee-web-colorpicker dab-primary="layer.co_rgb" dab-dimension="20"></ee-web-colorpicker>
           <!-- /bg & text -->
           <!-- bg only -->
-          <span ng-if="!layer.text">
+          <span ng-show="!layer.text">
             <small class="pull-left">More transparent</small><small class="pull-right">Less transparent</small>
             <rzslider rz-slider-model="layer.o" rz-slider-options="{ floor: 0, ceil: 100, hideLimitLabels: true }"></rzslider>
+            <div class="btn btn-sm btn-default" ng-click="toggleRound(layer)" ng-class="{ active: layer.r > 0 }">Round corners</div>
           </span>
           <!-- /bg only -->
         </div>
@@ -87,7 +88,7 @@
               <rzslider rz-slider-model="layer.y" rz-slider-high="layer.temp.maxY" rz-slider-options="{ floor: 0, ceil: 470, hideLimitLabels: true, vertical: true }"></rzslider>
             </div>
             <div class="col-xs-11" style="max-width: 446px;">
-              <img ng-src="{{ url }}" class="text-center max-width-100-pct" style="max-height: 250px;">
+              <img ng-src="{{ url | collectionEdit }}" class="text-center max-width-100-pct" style="max-height: 250px;">
               <rzslider rz-slider-model="layer.x" rz-slider-high="layer.temp.maxX" rz-slider-options="{ floor: 0, ceil: 800, hideLimitLabels: true }"></rzslider>
             </div>
           </div>
@@ -106,7 +107,7 @@
         <div class="col-sm-8">
           <div class="row">
             <div class="col-xs-offset-1 col-xs-11">
-              <img ng-src="{{ url }}" class="text-center max-width-100-pct" style="max-height: 250px;">
+              <img ng-src="{{ url | collectionEdit }}" class="text-center max-width-100-pct" style="max-height: 250px;">
             </div>
           </div>
         </div>

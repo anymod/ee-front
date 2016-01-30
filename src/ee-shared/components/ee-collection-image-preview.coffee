@@ -54,10 +54,6 @@ module.directive "eeCollectionImagePreview", ($state, $window, $timeout, eeColle
     console.log 'scope.collection.layers', scope.collection.layers
     scope.layers = scope.collection.layers || []
 
-    # scope.layers.push base_layer
-    # scope.layers.push bg_overlay
-    # scope.layers.push text_overlay
-
     scope.$on 'slideEnded', () ->
       setDimensions()
       scope.construct()
@@ -65,7 +61,6 @@ module.directive "eeCollectionImagePreview", ($state, $window, $timeout, eeColle
     scope.$on 'eeWebColorPicked', () -> $timeout () -> scope.construct()
 
     scope.$on 'cloudinaryUploadFinished', () ->
-      console.log 'cloudinaryUploadFinished', scope.collection.banner
       for layer in scope.layers
         if layer.base
           layer.image = scope.collection.banner
@@ -78,7 +73,7 @@ module.directive "eeCollectionImagePreview", ($state, $window, $timeout, eeColle
           if layer.temp?.maxY then layer.h = parseInt(layer.temp.maxY) - parseInt(layer.y)
           if layer.temp?.maxX then layer.w = parseInt(layer.temp.maxX) - parseInt(layer.x)
 
-    enforceSizing = () ->
+    validateLayers = () ->
       for layer in scope.layers
         if !layer.base
           if layer.w > maxWidth  then layer.w = maxWidth - layer.x
@@ -86,44 +81,84 @@ module.directive "eeCollectionImagePreview", ($state, $window, $timeout, eeColle
 
     setTemp = () ->
       for layer in scope.layers
+        if !layer.o and layer.o isnt 0 then layer.o = 100
         if !layer.base
           layer.temp =
             maxY: parseInt(layer.h) + parseInt(layer.y)
             maxX: parseInt(layer.w) + parseInt(layer.x)
-      enforceSizing()
+      validateLayers()
     setTemp()
 
     formBase = () ->
       for layer in scope.layers
         if layer.base
-          parts = layer.image?.split('/')
-          scope.base_image = parts?.slice(Math.max(parts.length - 3, 1)).join('/')
+          regex = /\/v\d{8,12}\//g
+          id = layer.image?.match(regex)[0]
+          scope.base_image = id + layer.image?.split(regex)[1]
+          # parts = layer.image?.split('/')
+          # scope.base_image = parts?.slice(Math.max(parts.length - 3, 1)).join('/')
           scope.base_transform = 'w_' + maxWidth + ',h_' + maxHeight
           if layer.o or layer.o is 0 then scope.base_transform += ',o_' + layer.o
       [scope.base_path, scope.base_transform]
 
-    formString = (layer) ->
-      return if layer.base
-      strs = []
-      for key in Object.keys(layer)
-        if key is 'temp' or key.indexOf('$') > -1
-          # Do nothing
-        else if key is 'text'
-          str = 'l_text:' + encodeURI(layer.text.family) + '_' + layer.text.size
-          for style in scope.styles
-            if layer.text[style] then str += '_' + style
-          strs.unshift(str + ':' + escape(encodeURIComponent(layer.text.message))) # double encode to avoid URL issues
-        else
-          punct = if key.indexOf('e_') is 0 or key.indexOf('co_') is 0 then ':' else '_'
-          val = encodeURI(layer[key])
-          if key is 'co_rgb' then val = val.replace('#','')
-          strs.push(key + punct + val)
-      strs.join(',')
+    formText = (layer) ->
+      return if !layer.text
+      str = 'l_text:' + encodeURI(layer.text.family) + '_' + layer.text.size
+      for style in scope.styles
+        if layer.text[style] then str += '_' + style
+      str + ':' + escape(encodeURIComponent(layer.text.message)) # double encode to avoid URL issues
 
-    formStrings = (arr) ->
+    formWithColon       = (key, layer) -> key + ':' + encodeURI(layer[key]).replace('#','')
+    formWithUnderscore  = (key, layer) -> key + '_' + encodeURI(layer[key])
+
+    formOverlay = (layer) ->
+      return if layer.base
+      overlay = []
+      for key in Object.keys(layer)
+        switch key
+          when 'base', 'image', 'temp' then 'Nothing'
+          when 'text' then overlay.unshift(formText(layer))
+          when 'co_rgb' then overlay.push(formWithColon(key, layer))
+          else
+            if key.indexOf('$') is -1 then overlay.push(formWithUnderscore(key, layer))
+      overlay.join(',')
+
+    formOverlays = (arr) ->
       res = []
-      res.push(formString elem) for elem in arr
+      res.push(formOverlay elem) for elem in arr
       res
+
+    # base
+    # image
+    # o
+    # l: 'hue_bar'
+    # g: 'south_west'
+    # w: 800
+    # h: 60
+    # y: 0
+    # x: 0
+    # r: 0
+    # e: 'colorize'
+    # co_rgb: '#0099FF'
+    # c: 'fit'
+
+    # formString = (layer) ->
+    #   return if layer.base
+    #   strs = []
+    #   for key in Object.keys(layer)
+    #     if key is 'temp' or key.indexOf('$') > -1
+    #       # Do nothing
+    #     else if key is 'text'
+    #       str = 'l_text:' + encodeURI(layer.text.family) + '_' + layer.text.size
+    #       for style in scope.styles
+    #         if layer.text[style] then str += '_' + style
+    #       strs.unshift(str + ':' + escape(encodeURIComponent(layer.text.message))) # double encode to avoid URL issues
+    #     else
+    #       punct = if key.indexOf('e_') is 0 or key.indexOf('co_') is 0 then ':' else '_'
+    #       val = encodeURI(layer[key])
+    #       if key is 'co_rgb' then val = val.replace('#','')
+    #       strs.push(key + punct + val)
+    #   strs.join(',')
 
     updateCollection = () ->
       scope.collection.banner = scope.url
@@ -131,22 +166,31 @@ module.directive "eeCollectionImagePreview", ($state, $window, $timeout, eeColle
 
     scope.url = ''
     scope.construct = () ->
-      enforceSizing()
-      parts = formBase(scope.layers).concat(formStrings(scope.layers)).concat(scope.base_image)
+      validateLayers()
+      parts = formBase(scope.layers).concat(formOverlays(scope.layers)).concat(scope.base_image)
       scope.url = parts.join('/')
       updateCollection()
-      $timeout () ->
-        scope.$broadcast 'rzSliderForceRender'
-        scope.$apply()
+      $timeout () -> scope.$apply()
 
     scope.rzSliderForceRender = () ->
-      $timeout () ->
-        scope.$broadcast 'reCalcViewDimensions'
-        scope.$broadcast 'rzSliderForceRender'
+      fn = () -> scope.$broadcast('rzSliderForceRender')
+      $timeout fn
+      $timeout fn, 200
 
     scope.resetMainImage = () ->
       for layer in scope.layers
         if layer.base then layer.o = 0
+      scope.construct()
+
+    wait = 0
+    scope.textUpdated = () ->
+      wait++
+      w = wait
+      fn = () -> if w is wait then scope.construct()
+      $timeout fn, 500
+
+    scope.toggleRound = (layer) ->
+      layer.r = if layer.r is 0 then 20 else 0
       scope.construct()
 
     scope.construct()

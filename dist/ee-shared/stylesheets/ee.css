@@ -8559,16 +8559,12 @@ body.modal-open {
 .carousel {
   margin-bottom: 30px;
 }
-.carousel-inner {
-  padding-bottom: 60px;
-}
 .carousel-control {
-  bottom: 60px;
   background: none !important;
 }
 .carousel-indicators {
-  bottom: 16px !important;
-  right: 5px !important;
+  bottom: -35px !important;
+  right: 15px !important;
   left: inherit !important;
   text-align: right;
 }
