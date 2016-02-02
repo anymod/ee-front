@@ -20,7 +20,7 @@ angular.module('builder.products').config ($stateProvider) ->
     #     padTop:           '100px'
 
     .state 'products',
-      url: '/products'
+      url: '/products/featured'
       views:
         header:
           templateUrl: 'builder/products/products.header.html'

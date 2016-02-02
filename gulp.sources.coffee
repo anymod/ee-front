@@ -136,14 +136,14 @@ sources.builderModule = [
   './src/builder/terms/terms.route.coffee'
   './src/builder/terms/terms.controller.coffee'
   './src/builder/terms/terms.modal.controller.coffee'
-  # Module - dashboard
-  './src/builder/dashboard/dashboard.module.coffee'
-  './src/builder/dashboard/dashboard.route.coffee'
-  './src/builder/dashboard/dashboard.controller.coffee'
-  # Module - playbook
-  './src/builder/playbook/playbook.module.coffee'
-  './src/builder/playbook/playbook.route.coffee'
-  './src/builder/playbook/playbook.controller.coffee'
+  # Module - daily
+  './src/builder/daily/daily.module.coffee'
+  './src/builder/daily/daily.route.coffee'
+  './src/builder/daily/daily.controller.coffee'
+  # Module - tracks
+  './src/builder/tracks/tracks.module.coffee'
+  './src/builder/tracks/tracks.route.coffee'
+  './src/builder/tracks/tracks.controller.coffee'
   # Module - date
   './src/builder/date/date.module.coffee'
   './src/builder/date/date.route.coffee'
