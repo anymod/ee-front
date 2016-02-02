@@ -140,6 +140,10 @@ sources.builderModule = [
   './src/builder/dashboard/dashboard.module.coffee'
   './src/builder/dashboard/dashboard.route.coffee'
   './src/builder/dashboard/dashboard.controller.coffee'
+  # Module - playbook
+  './src/builder/playbook/playbook.module.coffee'
+  './src/builder/playbook/playbook.route.coffee'
+  './src/builder/playbook/playbook.controller.coffee'
   # Module - date
   './src/builder/date/date.module.coffee'
   './src/builder/date/date.route.coffee'

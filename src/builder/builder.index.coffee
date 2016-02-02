@@ -26,6 +26,7 @@ angular.module 'eeBuilder', [
   'builder.create'
   'builder.terms'
   'builder.dashboard'
+  'builder.playbook'
   'builder.date'
   'builder.storefront'
   'builder.products'
