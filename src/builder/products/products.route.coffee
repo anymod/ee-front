@@ -6,19 +6,6 @@ angular.module('builder.products').config ($stateProvider) ->
 
     # Multiple products
 
-    # .state 'featured',
-    #   url: '/featured'
-    #   views:
-    #     header:
-    #       templateUrl: 'builder/products/products.header.html'
-    #     top:
-    #       controller: 'productsCtrl as products'
-    #       templateUrl: 'builder/products/products.featured.html'
-    #   data:
-    #     pageTitle:        'Your featured products | eeosk'
-    #     pageDescription:  'Manage your featured products.'
-    #     padTop:           '100px'
-
     .state 'products',
       url: '/products/featured'
       views:
@@ -26,11 +13,10 @@ angular.module('builder.products').config ($stateProvider) ->
           templateUrl: 'builder/products/products.header.html'
         top:
           controller: 'productsCtrl as products'
-          templateUrl: 'builder/products/products.html'
+          templateUrl: 'builder/products/products.featured.html'
       data:
-        pageTitle:        'Add products | eeosk'
-        pageDescription:  'Add products to your store.'
-        padTop:           '120px'
+        pageTitle: 'Featured products | eeosk'
+        padTop:    '110px'
 
     # Single product
 
@@ -46,7 +32,7 @@ angular.module('builder.products').config ($stateProvider) ->
       data:
         pageTitle:        'Add product | eeosk'
         pageDescription:  'Add to your store'
-        padTop:           '120px'
+        padTop:           '60px'
 
     .state 'product',
       url: '/products/:id/:title'

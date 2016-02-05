@@ -8,6 +8,7 @@ module.directive "eeProductBuilderButtons", (eeCustomization, eeProducts, eeColl
   scope:
     product:    '='
     collection: '='
+    buttonSet:  '='
     btnClass:   '@'
   link: (scope, ele, attrs) ->
     scope.customizationFns  = eeCustomization.fns
