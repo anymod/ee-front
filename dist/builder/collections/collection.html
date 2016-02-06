@@ -1,68 +1,24 @@
-<div ng-hide="collection.data.reading && !collection.data.collection.id">
-  <!-- Main nav -->
-  <div class="position-relative box-shadow">
-    <nav class="navbar navbar-rgba-colors border-none box-shadow margin-0 round-0" style="z-index: 5;">
-      <!-- Collection form -->
-      <div class="container vert-15">
-        <div class="vert-10">
-          <ee-collection-image-preview collection="collection.data.collection" ng-if="collection.data.collection.id"></ee-collection-image-preview>
-        </div>
-        <div class="row">
-          <div class="col col-sm-5">
-            <form class="form-group" ng-submit="collection.fns.updateCollection()">
-              <!-- <div class="vert-10 margin-top-0">
-                <p class="vert-2 text-info">Collection link text</p>
-                <input type="text" ng-model="collection.data.collection.title" class="form-control" placeholder="Collection title" />
-              </div>
-              <div class="vert-10 margin-top-0">
-                <p class="vert-2 text-info">Carousel image <small class="text-muted">800x470px</small></p>
-                <img ng-src="{{ collection.data.collection.banner }}" class="full-width gray-border" style="max-width: 100px;" ng-if="collection.data.collection.banner"/>
-                <div class="inline-block vertical-align-top">
-                  <div ng-if="collection.data.collection.banner.indexOf('placehold.it') < 0"
-                    class="btn btn-link pad-0"
-                    ng-click="collection.data.collection.banner = 'https://placehold.it/800x470.jpg/555/fff'">
-                    Remove image
-                  </div>
-                  <ee-cloudinary-upload meta="collection.data.collection" attr-target="'collection'"></ee-cloudinary-upload>
-                </div>
-              </div>
-              <div class="vert-10">
-                <p class="vert-2 text-info">Headline</p>
-                <input type="text" ng-model="collection.data.collection.headline" class="form-control" placeholder="Collection headline" />
-              </div> -->
+<div class="gray-background pad-5">
+  <div ng-include="'builder/collections/collection.partial.edit.image.html'"></div>
+</div>
 
-              <!-- Save collection -->
-              <button class="btn btn-primary" type="submit" ng-disabled="collection.data.collection.updating">
-                <i class="fa fa-fw fa-save"></i>&nbsp;Save
-              </button>
-              <!-- /Save collection -->
-              <a href="{{ collection.data.collection.banner | cloudinaryAttachment }}" class="btn btn-sm btn-default">Download image</a>
-            </form>
-          </div>
-          <!-- <div class="col col-sm-7">
-            <ee-builder-live-button
-              ng-if="collection.data.collection.title"
-              user="collection.ee.User.user"
-              message="{{ collection.data.collection.title }}"
-              btn-class="inline-block vert-2">
-            </ee-builder-live-button>
-            <div class="well white-background gray-border box-shadow pad-5">
-              <img ng-src="{{ collection.data.collection.banner }}" class="full-width img-responsive gray-border" />
-              <h3 class="vert-10 font-weight-200">{{ collection.data.collection.headline }}</h3>
-            </div>
-          </div> -->
-        </div>
+
+<nav class="navbar ee-builder-subnav border-bottom-gray round-0 text-center" style="top: 0 !important;"
+  ng-hide="collection.data.reading && !collection.data.collection.id">
+  <div class="container">
+    <div class="full-width margin-0-auto max-width-600">
+      <div class="btn-group btn-group-justified vert-7">
+        <div ng-if="collection.data.products.length > 0" class="btn btn-default font-weight-200" ng-class="{ active: collection.in }" ng-click="collection.in = true">In this collection</div>
+        <div class="btn btn-default font-weight-200" ng-class="{ active: !collection.in }" ng-click="collection.in = false">Add products</div>
       </div>
-      <!-- Collection form -->
-    </nav>
+    </div>
   </div>
-  <!-- /Main nav -->
+</nav>
 
-  <nav class="navbar ee-builder-subnav box-shadow round-0 margin-0 text-center" style="top: 0 !important;">
-    <h4 class="font-weight-200 vert-15 text-muted">
-      The products shown below are in this collection
-    </h4>
-  </nav>
+<div class="container text-center vert-20">
+
+  <div ng-if="collection.in" ng-include="'builder/collections/collection.partial.products.html'"></div>
+  <div ng-if="!collection.in" ng-include="'builder/collections/collection.partial.add.products.html'"></div>
 
 </div>
 

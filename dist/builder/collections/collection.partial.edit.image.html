@@ -2,7 +2,7 @@
   <!-- Collection image preview -->
   <div ng-hide="collection.editImage" ng-if="collection.data.collection.id">
     <div class="position-relative max-width-300 margin-0-auto">
-      <img ng-src="{{ collection.data.collection.banner | cloudinaryResizeTo:300:177 }}"
+      <img ng-src="{{ collection.data.collection.banner | collectionThumbnail }}"
         class="gray-border hover-pointer"
         ng-click="collection.editImage = true"/>
       <div class="position-absolute" style="right: 5px; bottom: 5px;">

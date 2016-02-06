@@ -130,7 +130,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, $window
   _defineNavCollections = (force) ->
     $q.when(if !_data.nav.carousel or !_data.nav.alphabetical or _data.nav.alphabetical.length is 0 or _data.nav.carousel.length is 0 or force then _readNavCollections() else _data.nav)
 
-  _addProduct = (collection, product, products) ->
+  _addProduct = (collection, product) ->
     if product.updating then return
     product.updating = true
     product.added = false
@@ -142,7 +142,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, $window
     .catch (err) -> if err and err.message then product.err = err.message; throw err
     .finally () -> product.updating = false
 
-  _removeProduct = (collection, product, products) ->
+  _removeProduct = (collection, product) ->
     if product.updating then return
     product.updating = true
     product.removed = false
@@ -150,6 +150,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, $window
     .then (res) ->
       product.removed = true
       collection      = res.collection
+      $rootScope.$broadcast 'removed:product', product, res.collection
     .catch (err) -> if err and err.message then product.err = err.message; throw err
     .finally () -> product.updating = false
 

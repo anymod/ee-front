@@ -72,6 +72,7 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, $state, ee
 
   _runQuery = (section, queryPromise) ->
     if _data[section].reading then return
+    $rootScope.$broadcast 'search:started', section
     _data[section].reading = true
     queryPromise
     .then (res) ->
@@ -80,6 +81,7 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, $state, ee
       _data[section].count         = count
       _data[section].took = took
       _data[section].inputs.searchLabel = _data[section].inputs.search
+      $rootScope.$broadcast 'search:completed', res
     .catch (err) -> _data[section].count = null
     .finally () -> _data[section].reading = false
 

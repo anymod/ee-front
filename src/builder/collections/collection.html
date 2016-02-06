@@ -3,26 +3,17 @@
 </div>
 
 
-<nav class="navbar ee-builder-subnav border-bottom-gray round-0 text-center" style="top: 0 !important;"
+<nav class="navbar ee-builder-subnav border-bottom-gray round-0 text-center" style="top: 0 !important; z-index: 1;"
   ng-hide="collection.data.reading && !collection.data.collection.id">
   <div class="container">
     <div class="full-width margin-0-auto max-width-600">
       <div class="btn-group btn-group-justified vert-7">
-        <div class="btn btn-default font-weight-200" ng-class="{ active: collection.in }" ng-click="collection.in = true">In this collection</div>
-        <div class="btn btn-default font-weight-200" ng-class="{ active: !collection.in }" ng-click="collection.in = false">Add products</div>
+        <div ng-if="collection.data.products.length > 0" class="btn btn-default font-weight-200" ng-class="{ active: collection.in }" ng-click="collection.showIn()">In this collection</div>
+        <div class="btn btn-default font-weight-200" ng-class="{ active: !collection.in }" ng-click="collection.showAdd()">Add products</div>
       </div>
     </div>
   </div>
-
 </nav>
-<!--
-<nav class="navbar ee-builder-subnav border-bottom-gray round-0 text-center" style="top: 0 !important;"
-  ng-hide="collection.data.reading && !collection.data.collection.id">
-  <div class="max-width-600 margin-0-auto pad-2 position-relative">
-    <a href class="builder-subnav-btn vert-8 no-underline transition-200" ng-class="{ active: collection.in }" ng-click="collection.in = true">In This<br><small>Collection</small></a>
-    <a href class="builder-subnav-btn vert-8 no-underline transition-200" ng-class="{ active: !collection.in }" ng-click="collection.in = false">Add<br><small>Products</small></a>
-  </div>
-</nav> -->
 
 <div class="container text-center vert-20">
 

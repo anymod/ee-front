@@ -22,6 +22,14 @@ angular.module('builder.core').factory 'eeCustomization', (eeBack, eeAuth) ->
     _addOrUpdateCustomization customization, product
     .then (cust) -> product.featured = cust.featured
 
+  _updateProduct = (product) ->
+    if !product or !product.id then return
+    selling_prices = []
+    selling_prices.push { sku_id: sku.id, selling_price: sku.price } for sku in product.skus
+    customization = { product_id: product.id, title: product.title, selling_prices: selling_prices }
+    _addOrUpdateCustomization customization, product
+    .then (cust) -> product.title = cust.title
+
   _updateProductTitle = (product) ->
     if !product or !product.id then return
     customization = { product_id: product.id, title: product.title }
@@ -39,5 +47,6 @@ angular.module('builder.core').factory 'eeCustomization', (eeBack, eeAuth) ->
   data: _data
   fns:
     toggleFeatured: _toggleFeatured
+    updateProduct: _updateProduct
     updateProductTitle: _updateProductTitle
     updateProductPricing: _updateProductPricing

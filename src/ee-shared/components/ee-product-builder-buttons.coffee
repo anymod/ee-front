@@ -14,4 +14,12 @@ module.directive "eeProductBuilderButtons", (eeCustomization, eeProducts, eeColl
     scope.customizationFns  = eeCustomization.fns
     scope.productsFns       = eeProducts.fns
     scope.collectionsFns    = eeCollections.fns
+
+    scope.add = () ->
+      eeCollections.fns.addProduct(scope.collection, scope.product)
+      .then () -> scope.buttonSet = 'remove'
+
+    scope.remove = () ->
+      eeCollections.fns.removeProduct(scope.collection, scope.product)
+      .then () -> scope.buttonSet = 'add'
     return

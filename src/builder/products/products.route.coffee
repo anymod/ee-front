@@ -7,13 +7,13 @@ angular.module('builder.products').config ($stateProvider) ->
     # Multiple products
 
     .state 'products',
-      url: '/products/featured'
+      url: '/products'
       views:
         header:
           templateUrl: 'builder/products/products.header.html'
         top:
           controller: 'productsCtrl as products'
-          templateUrl: 'builder/products/products.featured.html'
+          templateUrl: 'builder/products/products.html'
       data:
         pageTitle: 'Featured products | eeosk'
         padTop:    '110px'
@@ -21,30 +21,32 @@ angular.module('builder.products').config ($stateProvider) ->
     # Single product
 
     .state 'productAdd',
-      url: '/products/add/:id'
+      url: '/products/:id/:title'
       views:
         header:
           controller: 'productCtrl as product'
           templateUrl: 'builder/products/product.header.html'
         top:
           controller: 'productCtrl as product'
-          templateUrl: 'builder/products/product.add.html'
+          templateUrl: 'builder/products/product.html'
+        # middle:
+        #   controller: 'productCtrl as product'
+        #   templateUrl: 'builder/products/product.add.html'
       data:
-        pageTitle:        'Add product | eeosk'
-        pageDescription:  'Add to your store'
-        padTop:           '60px'
+        pageTitle: 'Product | eeosk'
+        padTop:    '60px'
 
-    .state 'product',
-      url: '/products/:id/:title'
-      views:
-        top:
-          controller: 'storefrontCtrl as storefront'
-          templateUrl: 'builder/storefront/storefront.header.html'
-        header:
-          controller: 'productCtrl as product'
-          templateUrl: 'ee-shared/storefront/storefront.product.html'
-      data:
-        pageTitle:        'Your product | eeosk'
-        padTop:           '0'
+    # .state 'product',
+    #   url: '/products/:id/:title'
+    #   views:
+    #     header:
+    #       controller: 'productCtrl as product'
+    #       templateUrl: 'builder/products/product.header.html'
+    #     top:
+    #       controller: 'productCtrl as product'
+    #       templateUrl: 'builder/products/product.add.html'
+    #   data:
+    #     pageTitle: 'Product | eeosk'
+    #     padTop:    '60px'
 
   return

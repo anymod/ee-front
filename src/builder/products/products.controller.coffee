@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.products').controller 'productsCtrl', ($state, eeDefiner, eeProducts, eeCollections) ->
+angular.module('builder.products').controller 'productsCtrl', ($scope, $state, eeDefiner, eeProducts, eeCollections) ->
 
   products = this
 
@@ -8,8 +8,21 @@ angular.module('builder.products').controller 'productsCtrl', ($state, eeDefiner
   products.fns  = eeProducts.fns
   products.collectionsFns = eeCollections.fns
 
-  switch $state.current.name
-    when 'products'
-      eeProducts.fns.runSection 'search'
+  products.in = true
+
+  products.showIn = () ->
+    products.in = true
+    eeProducts.fns.featured()
+  products.showIn()
+
+  products.showAdd = () ->
+    products.in = false
+    eeProducts.fns.runSection 'search'
+
+  products.update = () ->
+    eeProducts.fns.runSection 'storefront'
+
+  $scope.$on 'search:started', (e, data) ->
+    if data is 'search' then products.in = false
 
   return
