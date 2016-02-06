@@ -1,13 +1,13 @@
 <div class="text-left">
   <!-- search bar -->
-  <form ng-if="!collection.in" ng-submit="runSearch()" class="vert-5 margin-top-0">
+  <form ng-if="!collection.in" ng-submit="collection.productsFns.search(collection.ee.Products.search.inputs.search)" class="vert-5 margin-top-0">
     <div ng-class="{ 'input-group input-group-lg': collection.ee.Products.search.inputs.searchLabel }">
       <input type="text" ng-model="collection.ee.Products.search.inputs.search" class="form-control input-lg" placeholder="Search products">
       <span ng-if="collection.ee.Products.search.inputs.searchLabel" class="input-group-btn">
         <input type="submit" class="hidden"/>
         <button type="button" class="btn btn-default"
             ng-if="collection.ee.Products.search.inputs.searchLabel"
-            ng-click="productsFns.clearSearch()">
+            ng-click="collection.productsFns.clearSearch()">
           <i class="fa fa-times text-muted"></i>
         </button>
       </span>
@@ -23,13 +23,13 @@
       <li ng-repeat="category in collection.ee.Products.search.inputs.categoryArray">
         <a href
           ng-if="collection.ee.User.user.categorization_ids.indexOf(category.id) > -1"
-          ng-click="products.fns.setCategory(category, 'search')"
+          ng-click="collection.productsFns.setCategory(category, 'search')"
           ng-bind="category.title"></a>
       </li>
     </ul>
   </div>
   <div ng-if="collection.ee.Products.search.inputs.category.id"
-      ng-click="products.fns.setCategory(null, 'search')"
+      ng-click="collection.productsFns.setCategory(null, 'search')"
       class="btn btn-info btn-sm">
     {{ collection.ee.Products.search.inputs.category.title }}&nbsp;<i class="fa fa-times"></i>
   </div>
@@ -41,18 +41,18 @@
     </button>
     <ul class="dropdown-menu" uib-dropdown-menu>
       <li ng-repeat="range in collection.ee.Products.search.inputs.rangeArray">
-        <a href ng-click="products.fns.setRange(range, 'search')" ng-bind="range | rangeToText"></a>
+        <a href ng-click="collection.productsFns.setRange(range, 'search')" ng-bind="range | rangeToText"></a>
       </li>
     </ul>
   </div>
   <div ng-if="collection.ee.Products.search.inputs.range.min || collection.ee.Products.search.inputs.range.max"
-      ng-click="products.fns.setRange(null, 'search')"
+      ng-click="collection.productsFns.setRange(null, 'search')"
       class="btn btn-info btn-sm">
     {{ { min: collection.ee.Products.search.inputs.range.min, max: collection.ee.Products.search.inputs.range.max } | rangeToText }}&nbsp;<i class="fa fa-times"></i>
   </div>
   <!-- /price -->
   <!-- featured -->
-  <!-- <div ng-click="products.fns.toggleFeatured('search')" class="btn btn-default btn-sm" ng-class="{ 'btn-info' : collection.ee.Products.search.inputs.featured }">
+  <!-- <div ng-click="collection.productsFns.toggleFeatured('search')" class="btn btn-default btn-sm" ng-class="{ 'btn-info' : collection.ee.Products.search.inputs.featured }">
     Featured<span ng-if="collection.ee.Products.search.inputs.featured">&nbsp;<i class="fa fa-times"></i></span>
   </div> -->
   <!-- /featured -->
@@ -64,7 +64,7 @@
     </button>
     <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
       <li ng-repeat="order in collection.ee.Products.search.inputs.orderArray">
-        <a href ng-click="products.fns.setOrder(order, 'search')" ng-bind="order.title"></a>
+        <a href ng-click="collection.productsFns.setOrder(order, 'search')" ng-bind="order.title"></a>
       </li>
     </ul>
   </div>
@@ -85,7 +85,7 @@
         previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
         boundary-links="true"
         rotate="false"
-        ng-change="products.fns.runSection('search')">
+        ng-change="collection.productsFns.runSection('search')">
       </uib-pagination>
     </div>
 
@@ -114,7 +114,7 @@
       previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
       boundary-links="true"
       rotate="false"
-      ng-change="products.fns.runSection('search')">
+      ng-change="collection.productsFns.runSection('search')">
     </uib-pagination>
   </div>
 

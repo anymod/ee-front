@@ -16,13 +16,13 @@
 </div>
 
 
-<nav class="navbar ee-builder-subnav border-bottom-gray round-0 text-center" style="top: 0 !important;"
+<nav class="navbar ee-builder-subnav border-bottom-gray round-0 text-center" style="top: 0 !important; z-index: 1;"
   ng-hide="collection.data.reading && !collection.data.collection.id">
   <div class="container">
     <div class="full-width margin-0-auto max-width-600">
       <div class="btn-group btn-group-justified vert-7">
-        <div class="btn btn-default font-weight-200" ng-class="{ active: collection.in }" ng-click="collection.in = true">Edit Product</div>
-        <div class="btn btn-default font-weight-200" ng-class="{ active: !collection.in }" ng-click="collection.in = false">Preview Product</div>
+        <div class="btn btn-default font-weight-200" ng-class="{ active: product.showEdit }" ng-click="product.showEdit = true">Edit Product</div>
+        <div class="btn btn-default font-weight-200" ng-class="{ active: !product.showEdit }" ng-click="product.showEdit = false">Preview Product</div>
       </div>
     </div>
   </div>
@@ -30,8 +30,17 @@
 
 <div class="container text-center vert-20">
 
-  <!-- <div ng-if="collection.in" ng-include="'builder/collections/collection.partial.products.html'"></div> -->
-  <!-- <div ng-if="!collection.in" ng-include="'builder/collections/collection.partial.add.products.html'"></div> -->
+  <div ng-if="product.showEdit" ng-include="'builder/products/product.partial.edit.html'"></div>
+  <div ng-if="!product.showEdit">
+    <!-- PRODUCT PREVIEW -->
+    <ee-product-card
+      ng-if="product.data.product.id"
+      product="product.data.product"
+      skus="product.data.product.skus"
+      disabled="true">
+    </ee-product-card>
+    <!-- /PRODUCT PREVIEW -->
+  </div>
 
 </div>
 
