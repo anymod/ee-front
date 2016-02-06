@@ -30,11 +30,14 @@
     </div>
     <table class="table table-striped table-condensed table-hover">
       <tbody>
-        <tr ng-repeat="sku in product.data.product.skus" ng-if="!sku.discontinued">
+        <tr ng-repeat="sku in product.data.product.skus" ng-class="{ danger: sku.discontinued }">
           <td colspan=3>
             <ee-price-editor sku="sku"></ee-price-editor>
           </td>
-          <td><small ng-bind="sku.selection_text"></small></td>
+          <td>
+            <small ng-if="sku.discontinued" class="text-danger">Discontinued&nbsp;</small>
+            <small ng-bind="sku.selection_text"></small>
+          </td>
         </tr>
       </tbody>
     </table>
