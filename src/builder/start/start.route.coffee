@@ -11,7 +11,7 @@ angular.module('builder.start').config ($stateProvider) ->
           templateUrl: 'builder/daily/daily.header.html'
         top:
           controller: 'startCtrl as start'
-          templateUrl: 'builder/start/start.html'
+          templateUrl: 'builder/start/start.blog.html'
       data:
         pageTitle: 'Getting started | eeosk'
         padTop:    '110px'
