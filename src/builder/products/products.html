@@ -1,119 +1,18 @@
-<!-- Message -->
-<ee-builder-section-heading heading="Products in your store" heading-class="text-info" subheading="These products are searchable in your store. Featured products show on your store's home page."></ee-builder-section-heading>
-<!-- !Message -->
-
-<!-- Products -->
-<div id="products" class="container text-center vert-20 margin-top-0">
-
-  <div ng-hide="products.ee.loading" class="margin-5 text-center">
-    <!-- Filters -->
-    <div class="margin-0-auto max-width-600 text-left">
-      <div class="vert-10">
-        <!-- category -->
-        <div class="btn-group btn-group-sm" ng-if="!products.ee.Products.search.inputs.category.id" uib-dropdown>
-          <button type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle>
-            Category&nbsp;&nbsp;<span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" uib-dropdown-menu>
-            <li ng-repeat="category in products.ee.Products.search.inputs.categoryArray">
-              <a href
-                ng-if="products.ee.User.user.categorization_ids.indexOf(category.id) > -1"
-                ng-click="products.fns.setCategory(category, 'search')"
-                ng-bind="category.title"></a>
-            </li>
-            <!-- TODO reinstate with categories -->
-            <!-- <li role="separator" class="divider"></li>
-            <li><a ui-sref="categories">Your categories <i class="fa fa-fw fa-long-arrow-right"></i></a></li> -->
-          </ul>
-        </div>
-        <div ng-if="products.ee.Products.search.inputs.category.id"
-            ng-click="products.fns.setCategory(null, 'search')"
-            class="btn btn-info btn-sm">
-          {{ products.ee.Products.search.inputs.category.title }}&nbsp;<i class="fa fa-times"></i>
-        </div>
-        <!-- /category -->
-        <!-- price -->
-        <div class="btn-group btn-group-sm" ng-if="!products.ee.Products.search.inputs.range.min && !products.ee.Products.search.inputs.range.max" uib-dropdown>
-          <button type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle>
-            Price&nbsp;&nbsp;<span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" uib-dropdown-menu>
-            <li ng-repeat="range in products.ee.Products.search.inputs.rangeArray">
-              <a href ng-click="products.fns.setRange(range, 'search')" ng-bind="range | rangeToText"></a>
-            </li>
-          </ul>
-        </div>
-        <div ng-if="products.ee.Products.search.inputs.range.min || products.ee.Products.search.inputs.range.max"
-            ng-click="products.fns.setRange(null, 'search')"
-            class="btn btn-info btn-sm">
-          {{ { min: products.ee.Products.search.inputs.range.min, max: products.ee.Products.search.inputs.range.max } | rangeToText }}&nbsp;<i class="fa fa-times"></i>
-        </div>
-        <!-- /price -->
-        <div class="pull-right">
-          <!-- featured -->
-          <div ng-click="products.fns.toggleFeatured('search')" class="btn btn-default btn-sm" ng-class="{ 'btn-info' : products.ee.Products.search.inputs.featured }">
-            Featured<span ng-if="products.ee.Products.search.inputs.featured">&nbsp;<i class="fa fa-times"></i></span>
-          </div>
-          <!-- /featured -->
-
-          <!-- sort order -->
-          <div class="btn-group btn-group-sm" uib-dropdown>
-            <button type="button" class="btn btn-default dropdown-toggle" ng-class="{ 'btn-success' : products.ee.Products.search.inputs.order.order }" uib-dropdown-toggle>
-              {{ products.ee.Products.search.inputs.order.title }}&nbsp;&nbsp;<span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
-              <li ng-repeat="order in products.ee.Products.search.inputs.orderArray">
-                <a href ng-click="products.fns.setOrder(order, 'search')" ng-bind="order.title"></a>
-              </li>
-            </ul>
-          </div>
-          <!-- /sort order -->
-        </div>
-
-      </div>
+<div class="container vert-20 text-center">
+  <h4 class="font-weight-200">Featured products show on your store's home page</h4>
+  <div class="full-width margin-0-auto max-width-600">
+    <div class="btn-group btn-group-justified vert-7">
+      <div class="btn btn-default font-weight-200" ng-class="{ active: products.in }" ng-click="products.showIn()">Your featured products</div>
+      <div class="btn btn-default font-weight-200" ng-class="{ active: !products.in }" ng-click="products.showAdd()">Feature more products</div>
     </div>
-    <!-- /Filters -->
-
-    <div class="margin-10" ng-hide="products.ee.Products.search.products.length <= 0">
-      <uib-pagination total-items="products.ee.Products.search.count"
-        items-per-page="products.ee.Products.search.inputs.perPage"
-        ng-model="products.ee.Products.search.inputs.page"
-        max-size="5"
-        class="pagination-sm margin-0 vertical-align-top"
-        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-        boundary-links="true"
-        rotate="false"
-        ng-change="products.fns.runSection('search')">
-      </uib-pagination>
-    </div>
-
   </div>
+</div>
 
-  <div ng-hide="products.ee.Products.search.reading || products.ee.loading" class="margin-0-auto">
-    <!-- Results -->
-    <ee-product-for-builder ng-repeat="product in products.ee.Products.search.products" product="product"></ee-product-for-builder>
-    <div ng-show="!products.ee.Products.search.reading && products.ee.Products.search.products.length <= 0">
-      <div class="pad-20">No results found</div>
-    </div>
-    <!-- /Results -->
-  </div>
+<div class="container text-center vert-20">
 
-  <div ng-hide="products.ee.Products.search.reading || products.ee.Products.search.count <= products.ee.Products.search.inputs.perPage" class="pad-20 vert-20">
-    <uib-pagination total-items="products.ee.Products.search.count"
-      items-per-page="products.ee.Products.search.inputs.perPage"
-      ng-model="products.ee.Products.search.inputs.page"
-      max-size="5"
-      class="pagination-sm margin-0 vertical-align-top"
-      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-      boundary-links="true"
-      rotate="false"
-      ng-change="products.fns.runSection('search')">
-    </uib-pagination>
-  </div>
+  <div ng-if="products.in" ng-include="'builder/products/products.partial.products.html'"></div>
+  <div ng-if="!products.in" ng-include="'builder/products/products.partial.add.products.html'"></div>
 
 </div>
-<!-- /Products -->
 
-<ee-loading loading="products.ee.Products.search.reading"></ee-loading>
-
-<div class="inline-block full-width min-height-600" ng-show="products.ee.Products.search.reading"></div>
+<ee-loading loading="products.ee.Products.search.reading" ee-min-height="600"></ee-loading>

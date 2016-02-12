@@ -9,10 +9,10 @@ angular.module('builder.date').config ($stateProvider) ->
       views:
         header:
           controller: 'storefrontCtrl as storefront'
-          templateUrl: 'builder/dashboard/dashboard.header.html'
-        top:
-          controller: 'dashboardCtrl as dashboard'
-          templateUrl: 'builder/dashboard/dashboard.html'
+          templateUrl: 'builder/daily/daily.header.html'
+        # top:
+        #   controller: 'dailyCtrl as daily'
+        #   templateUrl: 'builder/daily/daily.html'
         middle:
           controller: 'dateCtrl as date'
           templateUrl: 'builder/date/date.html'

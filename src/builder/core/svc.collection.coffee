@@ -77,8 +77,8 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
   data: _data
   fns:
     update: _defineCollection
-    search: (id) ->
+    search: (id, reset) ->
       _data.page = 1
-      _defineCollection id, true
+      _defineCollection id, reset
     updateCollection:   _updateCollection
     destroyCollection:  _destroyCollection

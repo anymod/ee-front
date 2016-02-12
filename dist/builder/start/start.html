@@ -1,0 +1,33 @@
+<div class="container vert-20">
+  <uib-accordion class="track-accordion">
+    <div ng-repeat="lane in start.data.track.lanes">
+      <uib-accordion-group>
+        <uib-accordion-heading>
+          <span class="pull-left">
+            <span ng-repeat="activity in lane.activities">
+              <i ng-if="$index < 5" class="fa fa-lg fa-circle-o" ng-class="activity.show ? 'text-success' : 'text-muted'"></i>
+            </span>
+            <span ng-repeat="n in [0,1,2,3,4]">
+              <i ng-if="n >= lane.activities.length" class="fa fa-lg fa-circle-o fa-hide"></i>
+            </span>
+            &nbsp;
+          </span>{{ lane.title }}
+        </uib-accordion-heading>
+        <p ng-if="lane.intro" ng-bind="lane.intro" style="white-space: pre-line;"></p>
+        <div class="media white-background gray-border pad-10 vert-10 margin-top-0"
+          ng-repeat="activity in lane.activities">
+          <div class="media-left">
+            <i class="fa fa-fw fa-2x fa-circle-o" ng-class="activity.show ? 'text-success' : 'text-muted'"></i>
+          </div>
+          <div class="media-body">
+            <h4 class="vert-15 margin-top-0 hover-pointer" ng-click="activity.uncollapse = !activity.uncollapse">
+              <span ng-bind="activity.title"></span>&nbsp;<i class="fa" ng-class="activity.uncollapse ? 'fa-angle-up' : 'fa-angle-down'"></i>
+            </h4>
+            <p ng-bind-html="activity.html" uib-collapse="!activity.uncollapse"></p>
+          </div>
+        </div>
+      </uib-accordion-group>
+    </div>
+  </uib-accordion>
+  <!-- <pre>{{ start.data.track | json }}</pre> -->
+</div>

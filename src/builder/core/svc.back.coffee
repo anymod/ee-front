@@ -314,3 +314,17 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
         url: eeBackUrl + 'contact'
         data: { name: name, email: email, message: message }
       }
+
+    tracksGET: (token, query) ->
+      _makeRequest {
+        method: 'GET'
+        url: eeBackUrl + 'tracks' + _formQueryString(query)
+        headers: authorization: token
+      }
+
+    trackGET: (id, token) ->
+      _makeRequest {
+        method: 'GET'
+        url: eeBackUrl + 'tracks/' + id
+        headers: authorization: token
+      }

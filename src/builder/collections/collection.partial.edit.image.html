@@ -1,0 +1,40 @@
+<div class="container vert-15" ng-hide="collection.data.reading && !collection.data.collection.id">
+  <!-- Collection image preview -->
+  <div ng-hide="collection.editImage" ng-if="collection.data.collection.id">
+    <div class="position-relative max-width-300 margin-0-auto">
+      <img ng-src="{{ collection.data.collection.banner | cloudinaryResizeTo:300:177 }}"
+        class="gray-border hover-pointer"
+        ng-click="collection.editImage = true"/>
+      <div class="position-absolute" style="right: 5px; bottom: 5px;">
+        <div ng-click="collection.editImage = true" class="btn btn-sm btn-default pad-5-important">
+          &nbsp;&nbsp;
+          <span ng-show="collection.data.collection.banner.indexOf('white.jpg') < 0">Edit</span>
+          <span ng-hide="collection.data.collection.banner.indexOf('white.jpg') < 0">Add image</span>
+          &nbsp;&nbsp;
+        </div>
+        <a href="{{ collection.data.collection.banner | cloudinaryAttachment }}"
+          class="btn btn-sm btn-default font-weight-200 pad-5-important"
+          ng-show="collection.data.collection.banner.indexOf('white.jpg') < 0">
+          Download
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- /Collection image preview -->
+
+  <!-- Collection edit image -->
+  <div ng-show="collection.editImage" ng-if="collection.data.collection.id">
+    <div class="vert-10">
+      <ee-collection-image-preview collection="collection.data.collection"></ee-collection-image-preview>
+    </div>
+    <!-- Save collection -->
+    <div class="btn btn-primary"
+      ng-click="collection.save()"
+      ng-disabled="collection.data.collection.updating">
+      <i class="fa fa-fw fa-save"></i>&nbsp;Save
+    </div>
+    <!-- /Save collection -->
+    <a href="{{ collection.data.collection.banner | cloudinaryAttachment }}" class="btn btn-sm btn-default">Download image</a>
+  </div>
+  <!-- Collection edit image -->
+</div>

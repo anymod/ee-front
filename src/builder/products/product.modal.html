@@ -91,7 +91,7 @@
       <div class="col col-sm-5">
         <div class="inline-block white-background">
           <div style="max-width: 270px;">
-            <img ng-src="{{ modal.product.image | midsize }}" class="full-width gray-border box-shadow">
+            <img ng-src="{{ modal.product.image | cloudinaryResizeTo:250:250 }}" class="full-width gray-border box-shadow">
             <p ng-bind="modal.product.title" class="vert-5 font-weight-200"></p>
             <div class="vert-10 margin-top-0">
               <h4 class="inline-block vert-0" ng-bind="modal.product.prices | priceRange"></h4>

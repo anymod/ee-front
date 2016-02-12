@@ -1,0 +1,47 @@
+<div class="gray-background pad-5">
+  <div class="container vert-15" ng-hide="collection.data.reading && !collection.data.collection.id">
+    <!-- Product image preview -->
+    <div class="position-relative max-width-300 margin-0-auto">
+      <img ng-src="{{ product.data.product.image | cloudinaryResizeTo:300:200 }}" class="gray-border"
+        ng-click="collection.editImage = true"/>
+      <div class="position-absolute" style="right: 5px; bottom: 5px;">
+        <a href="{{ product.data.product.image | cloudinaryAttachment }}"
+          class="btn btn-sm btn-default font-weight-200 pad-5-important">
+          Download
+        </a>
+      </div>
+    </div>
+    <!-- /Product image preview -->
+  </div>
+</div>
+
+
+<nav class="navbar ee-builder-subnav border-bottom-gray round-0 text-center" style="top: 0 !important; z-index: 1;"
+  ng-hide="collection.data.reading && !collection.data.collection.id">
+  <div class="container">
+    <div class="full-width margin-0-auto max-width-600">
+      <div class="btn-group btn-group-justified vert-7">
+        <div class="btn btn-default font-weight-200" ng-class="{ active: product.showEdit }" ng-click="product.showEdit = true">Edit Product</div>
+        <div class="btn btn-default font-weight-200" ng-class="{ active: !product.showEdit }" ng-click="product.showEdit = false">Preview Product</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container text-center vert-20">
+
+  <div ng-if="product.showEdit" ng-include="'builder/products/product.partial.edit.html'"></div>
+  <div ng-if="!product.showEdit">
+    <!-- PRODUCT PREVIEW -->
+    <ee-product-card
+      ng-if="product.data.product.id"
+      product="product.data.product"
+      skus="product.data.product.skus"
+      disabled="true">
+    </ee-product-card>
+    <!-- /PRODUCT PREVIEW -->
+  </div>
+
+</div>
+
+<ee-loading loading="collection.data.reading"></ee-loading>
