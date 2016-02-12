@@ -27,6 +27,7 @@
     "cloudinary-jquery-file-upload": "~2.0.4",
     "angulartics": "~1.0.3",
     "angulartics-google-analytics": "~0.1.4",
-    "angularjs-slider": "~2.5.0"
+    "angularjs-slider": "~2.5.0",
+    "angular-sanitize": "~1.5.0"
   }
 }

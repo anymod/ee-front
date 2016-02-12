@@ -26,7 +26,7 @@ sources.builderVendorMin = [
   # TODO remove once cloudinary jQuery upload & zoom.js are gone
   './src/bower_components/jquery/dist/jquery.min.js'
   './src/bower_components/angular/angular.min.js'
-  # './src/bower_components/angular-sanitize/angular-sanitize.min.js'
+  './src/bower_components/angular-sanitize/angular-sanitize.min.js'
   './src/bower_components/angular-cookies/angular-cookies.min.js'
   './src/bower_components/angular-animate/angular-animate.min.js'
   './src/bower_components/angular-ui-router/release/angular-ui-router.min.js'
@@ -89,6 +89,8 @@ sources.builderModule = [
   './src/builder/core/svc.categorizations.coffee'
   './src/builder/core/svc.customization.coffee'
   './src/builder/core/svc.orders.coffee'
+  './src/builder/core/svc.track.coffee'
+  './src/builder/core/svc.tracks.coffee'
   # Module - auth
   './src/builder/auth/auth.module.coffee'
   # auth.login
@@ -144,6 +146,10 @@ sources.builderModule = [
   './src/builder/tracks/tracks.module.coffee'
   './src/builder/tracks/tracks.route.coffee'
   './src/builder/tracks/tracks.controller.coffee'
+  # Module - start
+  './src/builder/start/start.module.coffee'
+  './src/builder/start/start.route.coffee'
+  './src/builder/start/start.controller.coffee'
   # Module - date
   './src/builder/date/date.module.coffee'
   './src/builder/date/date.route.coffee'
