@@ -40,7 +40,7 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeDef
       username: create.username
       password: create.password
     eeAuth.fns.completeNewUser data, $state.params.token
-    .then (data) -> $state.go 'daily'
+    .then (data) -> $state.go 'start', { lane: 9 }
     .catch (err) ->
       alert = err.message || err || 'Problem logging in'
       if typeof alert is 'object' then alert = 'Problem logging in'

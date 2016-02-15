@@ -218,6 +218,7 @@ sources.builderDirective = [
   './src/ee-shared/components/ee-web-colorpicker.coffee'
   './src/ee-shared/components/ee-datepicker.coffee'
   './src/ee-shared/components/ee-font-selector.coffee'
+  './src/ee-shared/components/ee-builder-lane.coffee'
 ]
 
 module.exports = sources
