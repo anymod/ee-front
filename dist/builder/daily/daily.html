@@ -2,38 +2,37 @@
 
   <!-- Main nav -->
   <div class="well white-background box-shadow margin-0" style="min-height: 115px;">
-    <!-- Logo -->
-    <div class="inline-block"
-      style="max-width: 280px; max-height: 80px; overflow: hidden; vertical-align: middle;">
-      <ee-storefront-logo
-        ng-if="daily.ee.User.user"
-        class="pad-10 vert-5 margin-top-0"
-        blocked="true"
-        meta="daily.ee.User.user.storefront_meta"
-        ui-sref="editdesign">
-      </ee-storefront-logo>
-    </div>
-    <!-- /Logo -->
-
-    <a ui-sref="edit" class="btn btn-sm btn-default">Edit store</a>
-
-    <div class="pull-right">
-      <!-- Domain -->
-      <div>
-        <div class="inline-block text-right">
-          Your store is live at
-          <br>
-          <ee-builder-live-button
+    <div class="row">
+      <div class="col col-sm-6">
+        <!-- Logo -->
+        <div class="inline-block"
+          style="max-width: 280px; max-height: 80px; overflow: hidden; vertical-align: middle;">
+          <ee-storefront-logo
             ng-if="daily.ee.User.user"
-            message="target"
-            class="inline-block vert-2"
-            user="daily.ee.User.user">
-          </ee-builder-live-button>
-          <br>
-          <a ui-sref="account"><small>Change store URL</small></a>
+            class="pad-10 vert-5 margin-top-0"
+            blocked="true"
+            meta="daily.ee.User.user.storefront_meta"
+            ui-sref="editdesign">
+          </ee-storefront-logo>
         </div>
+        <!-- /Logo -->
+
+        <a ui-sref="edit" class="btn btn-sm btn-default">Edit store</a>
       </div>
-      <!-- /Domain -->
+      <div class="col col-sm-6 text-right">
+        <!-- Domain -->
+        Your store is live at
+        <br>
+        <ee-builder-live-button
+          ng-if="daily.ee.User.user"
+          message="target"
+          class="inline-block vert-2"
+          user="daily.ee.User.user">
+        </ee-builder-live-button>
+        <br>
+        <a ui-sref="account"><small>Change store URL</small></a>
+        <!-- /Domain -->
+      </div>
     </div>
   </div>
   <!-- /Main nav -->

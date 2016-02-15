@@ -1,6 +1,7 @@
-<div class="container pad-0 vert-20">
-  <uib-accordion class="track-accordion">
-    <ee-builder-lane ng-repeat="lane in start.data.track.lanes" lane="lane"></ee-builder-lane>
-  </uib-accordion>
-  <!-- <pre>{{ start.data.track | json }}</pre> -->
+<div class="container-fluid">
+  <div class="row pad-5">
+    <uib-accordion class="track-accordion">
+      <ee-builder-lane ng-repeat="lane in start.data.track.lanes" lane="lane"></ee-builder-lane>
+    </uib-accordion>
+  </div>
 </div>

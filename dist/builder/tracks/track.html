@@ -1,0 +1,9 @@
+<ee-builder-track-nav></ee-builder-track-nav>
+
+<div class="container-fluid">
+  <div class="row pad-5">
+    <uib-accordion class="track-accordion">
+      <ee-builder-lane ng-repeat="lane in track.data.track.lanes" lane="lane"></ee-builder-lane>
+    </uib-accordion>
+  </div>
+</div>

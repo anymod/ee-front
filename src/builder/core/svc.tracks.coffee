@@ -29,7 +29,7 @@ angular.module('app.core').factory 'eeTracks', ($rootScope, $q, eeBack, eeAuth) 
   _runQuery = (queryPromise) ->
     if _data.reading then return
     _data.reading = true
-    queryPromise
+    eeBack.fns.tracksGET(eeAuth.fns.getToken(), _formQuery())
     .then (res) ->
       { rows, count, took } = res
       _data.tracks  = rows
@@ -39,16 +39,12 @@ angular.module('app.core').factory 'eeTracks', ($rootScope, $q, eeBack, eeAuth) 
     .catch (err) -> _data.count = null
     .finally () -> _data.reading = false
 
-  _runSection = () ->
-    if _data.reading then return
-    promise = eeBack.fns.tracksGET(eeAuth.fns.getToken(), _formQuery())
-    _runQuery promise
-
   ## MESSAGING
   # none
 
   ## EXPORTS
   data: _data
   fns:
-    runSection: _runSection
+    runQuery: _runQuery
+    runSection: _runQuery
     # clearSearch: () -> _searchWithTerm ''

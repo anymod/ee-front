@@ -17,4 +17,17 @@ angular.module('builder.tracks').config ($stateProvider) ->
         pageTitle:        'Marketing Tracks | eeosk'
         padTop:           '110px'
 
+    .state 'track',
+      url: '/tracks/:id/:title'
+      views:
+        header:
+          controller: 'storefrontCtrl as storefront'
+          templateUrl: 'builder/daily/daily.header.html'
+        top:
+          controller: 'trackCtrl as track'
+          templateUrl: 'builder/tracks/track.html'
+      data:
+        pageTitle:        'Marketing Tracks | eeosk'
+        padTop:           '110px'
+
   return

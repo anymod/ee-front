@@ -73,5 +73,6 @@ angular.module 'eeBuilder', [
   'ee-web-colorpicker'
   'ee-datepicker'
   'ee-font-selector'
+  'ee-builder-track-nav'
   # 'ee.templates' # commented out during build step for inline templates
 ]

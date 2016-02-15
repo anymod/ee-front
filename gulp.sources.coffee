@@ -146,6 +146,7 @@ sources.builderModule = [
   './src/builder/tracks/tracks.module.coffee'
   './src/builder/tracks/tracks.route.coffee'
   './src/builder/tracks/tracks.controller.coffee'
+  './src/builder/tracks/track.controller.coffee'
   # Module - start
   './src/builder/start/start.module.coffee'
   './src/builder/start/start.route.coffee'
@@ -219,6 +220,7 @@ sources.builderDirective = [
   './src/ee-shared/components/ee-datepicker.coffee'
   './src/ee-shared/components/ee-font-selector.coffee'
   './src/ee-shared/components/ee-builder-lane.coffee'
+  './src/ee-shared/components/ee-builder-track-nav.coffee'
 ]
 
 module.exports = sources

@@ -1,41 +1,13 @@
-<div class="container text-center vert-15">
-  <span class="fa-stack fa-2x" style="border: 3px solid #333; border-radius: 50%; height: 60px; width: 60px;">
-    <i class="fa fa-circle fa-stack-2x text-facebook"></i>
-    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-  </span>
-  <span class="fa-stack fa-2x">
-    <i class="fa fa-circle fa-stack-2x text-pinterest"></i>
-    <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
-  </span>
-  <span class="fa-stack fa-2x">
-    <i class="fa fa-circle fa-stack-2x text-instagram"></i>
-    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-  </span>
-  <span class="fa-stack fa-2x">
-    <i class="fa fa-circle fa-stack-2x text-twitter"></i>
-    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-  </span>
-  <span class="fa-stack fa-2x">
-    <i class="fa fa-circle fa-stack-2x"></i>
-    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-  </span>
-  <span class="fa-stack fa-2x">
-    <i class="fa fa-circle fa-stack-2x text-facebook"></i>
-    <i class="fa fa-tumblr fa-stack-1x fa-inverse"></i>
-  </span>
-  <span class="fa-stack fa-2x">
-    <i class="fa fa-circle fa-stack-2x text-pinterest"></i>
-    <i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
-  </span>
-  <span class="fa-stack fa-2x">
-    <i class="fa fa-circle fa-stack-2x text-info"></i>
-    <i class="fa fa-caret-down fa-stack-1x fa-inverse"></i>
-  </span>
-</div>
+<ee-builder-track-nav></ee-builder-track-nav>
 
-<div class="container">
-  <div>
+<div class="container-fluid">
+  <div class="row pad-5">
     <uib-accordion class="track-accordion">
+      <ee-builder-lane ng-repeat="lane in tracks.ee.Tracks.track.lanes" lane="lane"></ee-builder-lane>
+    </uib-accordion>
+  </div>
+</div>
+    <!-- <uib-accordion class="track-accordion">
       <uib-accordion-group is-open="" is-disabled="">
         <uib-accordion-heading>
           <span class="pull-left">
@@ -145,4 +117,4 @@ For a comprehensive guide to all the different advertising Objectives, visit the
       </uib-accordion-group>
     </uib-accordion>
   </div>
-</div>
+</div> -->

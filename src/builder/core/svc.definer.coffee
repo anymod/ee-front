@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLanding, eeUser, eeProducts, eeCollections, eeCategorizations) ->
+angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLanding, eeUser, eeTracks, eeProducts, eeCollections, eeCategorizations) ->
 
   ## SETUP
   _isBuilder = $rootScope.isBuilder
@@ -10,6 +10,7 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
 
   _exports =
     User:             eeUser.data
+    Tracks:           eeTracks.data
     Products:         eeProducts.data
     Collections:      eeCollections.data
     Categorizations:  eeCategorizations.data
