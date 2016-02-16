@@ -9401,6 +9401,9 @@ img.loading {
 .product-well {
   width: 170px;
 }
+.product-well img {
+  min-height: 111px;
+}
 .collection-well {
   width: 356px;
 }

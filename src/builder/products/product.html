@@ -1,10 +1,11 @@
 <div class="gray-background pad-5">
   <div class="container vert-15" ng-hide="collection.data.reading && !collection.data.collection.id">
     <!-- Product image preview -->
-    <div class="position-relative max-width-300 margin-0-auto">
-      <img ng-src="{{ product.data.product.image | cloudinaryResizeTo:300:200 }}" class="gray-border"
+    <div class="well white-background max-width-300 margin-0-auto pad-5 box-shadow-2">
+      <img ng-src="{{ product.data.product.image | cloudinaryResizeTo:300:200 }}"
+        class="gray-border hover-pointer max-width-100-pct"
         ng-click="collection.editImage = true"/>
-      <div class="position-absolute" style="right: 5px; bottom: 5px;">
+      <div class="vert-5 text-right margin-bottom-0">
         <a href="{{ product.data.product.image | cloudinaryAttachment }}"
           class="btn btn-sm btn-default font-weight-200 pad-5-important">
           Download
