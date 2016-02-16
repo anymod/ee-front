@@ -2,6 +2,7 @@ spawn = require('child_process').spawn
 
 argv  = require('yargs').argv
 gulp  = require 'gulp'
+del   = require 'del'
 gp    = do require "gulp-load-plugins"
 
 streamqueue = require 'streamqueue'
@@ -26,6 +27,11 @@ htmlminOptions =
   caseSensitive: true
   minifyJS: true
   minifyCSS: true
+
+## ==========================
+## del tasks
+gulp.task 'del-dist', () -> del distPath
+gulp.task 'del-js', () -> del './src/js'
 
 ## ==========================
 ## html tasks
@@ -149,6 +155,11 @@ gulp.task "copy-prod", () ->
     .pipe gp.changed distPath
     .pipe gulp.dest distPath + '/builder'
 
+  gulp.src './src/components/**/*.html'
+    .pipe gp.plumber()
+    .pipe gp.changed distPath
+    .pipe gulp.dest distPath + '/components'
+
   gulp.src './src/ee-shared/fonts/*.*'
     .pipe gp.plumber()
     .pipe gp.changed distPath
@@ -232,6 +243,6 @@ gulp.task 'watch-test', () ->
 # gulp.task 'stage', ['js-stage'], () -> return
 
 gulp.task 'test', ['js-test', 'html-dev', 'server-test', 'watch-test'], () -> return
-gulp.task 'dev', (cb) -> runSequence 'server-dev', 'js-dev', 'html-dev', 'watch-dev', cb
-gulp.task 'prod', (cb) -> runSequence 'js-prod', 'html-prod', 'copy-prod', 'server-prod', cb
-gulp.task 'stage', (cb) -> runSequence 'js-prod', 'html-prod', 'copy-prod', 'js-stage', cb
+gulp.task 'dev', (cb) -> runSequence 'server-dev', 'del-js', 'js-dev', 'html-dev', 'watch-dev', cb
+gulp.task 'prod', (cb) -> runSequence 'del-dist', 'js-prod', 'html-prod', 'copy-prod', 'server-prod', cb
+gulp.task 'stage', (cb) -> runSequence 'del-dist', 'js-prod', 'html-prod', 'copy-prod', 'js-stage', cb

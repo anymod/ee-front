@@ -31,7 +31,6 @@ angular.module 'eeBuilder', [
   'builder.date'
   'builder.storefront'
   'builder.products'
-  # 'builder.templates'
   'builder.collections'
   'builder.categorizations'
   'builder.orders'
@@ -40,7 +39,10 @@ angular.module 'eeBuilder', [
   'builder.edit'
   'builder.promotions'
 
-  # custom
+  # builder components
+  'ee-image-layer-editor'
+
+  # shared components
   'ee-terms-seller'
   'ee-terms-privacy'
   'ee-builder-navbar'

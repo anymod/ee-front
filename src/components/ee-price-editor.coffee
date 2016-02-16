@@ -3,7 +3,7 @@
 module = angular.module 'ee-price-editor', []
 
 module.directive "eePriceEditor", () ->
-  templateUrl: 'ee-shared/components/ee-price-editor.html'
+  templateUrl: 'components/ee-price-editor.html'
   restrict: 'E'
   scope:
     sku:      '='

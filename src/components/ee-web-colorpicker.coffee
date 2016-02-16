@@ -1,7 +1,7 @@
 angular.module 'ee-web-colorpicker', []
 
 angular.module('ee-web-colorpicker').directive 'eeWebColorpicker', ($rootScope) ->
-    templateUrl: 'ee-shared/components/ee-web-colorpicker.html'
+    templateUrl: 'components/ee-web-colorpicker.html'
     restrict: 'EA'
     scope:
       dabPrimary: '='

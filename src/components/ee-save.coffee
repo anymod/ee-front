@@ -1,7 +1,7 @@
 module = angular.module 'ee-save', []
 
 angular.module('ee-save').directive "eeSave", ($state, eeDefiner, eeUser) ->
-  templateUrl: 'ee-shared/components/ee-save.html'
+  templateUrl: 'components/ee-save.html'
   restrict: 'E'
   scope: {}
   link: (scope, ele, attr) ->

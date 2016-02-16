@@ -3,7 +3,7 @@
 module = angular.module 'ee-font-selector', []
 
 module.directive "eeFontSelector", () ->
-  templateUrl: 'ee-shared/components/ee-font-selector.html'
+  templateUrl: 'components/ee-font-selector.html'
   restrict: 'E'
   scope:
     family: '='

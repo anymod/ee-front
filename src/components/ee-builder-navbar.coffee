@@ -1,7 +1,7 @@
 angular.module 'ee-builder-navbar', []
 
 angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, $state, eeDefiner, eeProducts) ->
-  templateUrl: 'ee-shared/components/ee-builder-navbar.html'
+  templateUrl: 'components/ee-builder-navbar.html'
   restrict: 'E'
   scope:
     showDropdown: '@'

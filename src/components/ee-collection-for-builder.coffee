@@ -3,7 +3,7 @@
 module = angular.module 'ee-collection-for-builder', []
 
 module.directive "eeCollectionForBuilder", ($state, $window, eeCollections) ->
-  templateUrl: 'ee-shared/components/ee-collection-for-builder.html'
+  templateUrl: 'components/ee-collection-for-builder.html'
   restrict: 'E'
   scope:
     collection: '='

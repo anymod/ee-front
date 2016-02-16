@@ -5,7 +5,7 @@ $.cloudinary.config({ cloud_name: 'eeosk' })
 angular.module 'ee-cloudinaryUpload', []
 
 angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", ($rootScope) ->
-  templateUrl: 'ee-shared/components/ee-cloudinary-upload.html'
+  templateUrl: 'components/ee-cloudinary-upload.html'
   restrict: 'E'
   replace: true
   scope:

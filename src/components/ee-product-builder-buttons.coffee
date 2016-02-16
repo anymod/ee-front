@@ -3,7 +3,7 @@
 module = angular.module 'ee-product-builder-buttons', []
 
 module.directive "eeProductBuilderButtons", (eeCustomization, eeProducts, eeCollections) ->
-  templateUrl: 'ee-shared/components/ee-product-builder-buttons.html'
+  templateUrl: 'components/ee-product-builder-buttons.html'
   restrict: 'E'
   scope:
     product:    '='

@@ -3,7 +3,7 @@
 angular.module 'ee-builder-lane', []
 
 angular.module('ee-builder-lane').directive "eeBuilderLane", ($filter, $location) ->
-  templateUrl: 'ee-shared/components/ee-builder-lane.html'
+  templateUrl: 'components/ee-builder-lane.html'
   restrict: 'E'
   scope:
     lane: '='

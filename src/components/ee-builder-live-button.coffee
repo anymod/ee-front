@@ -1,7 +1,7 @@
 angular.module 'ee-builder-live-button', []
 
 angular.module('ee-builder-live-button').directive "eeBuilderLiveButton", ($state, $stateParams) ->
-  templateUrl: 'ee-shared/components/ee-builder-live-button.html'
+  templateUrl: 'components/ee-builder-live-button.html'
   restrict: 'E'
   scope:
     user:     '='
