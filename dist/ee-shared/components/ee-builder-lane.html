@@ -2,11 +2,11 @@
   <uib-accordion-group is-open="startLaneOpen">
     <uib-accordion-heading>
       <span class="pull-left">
-        <span ng-repeat="activity in lane.activities">
+        <span ng-repeat="activity in activities">
           <i ng-if="$index < 5" class="fa fa-lg fa-circle-o" ng-class="activity.show ? 'text-success' : 'text-muted'"></i>
         </span>
         <span ng-repeat="n in [0,1,2,3,4]">
-          <i ng-if="n >= lane.activities.length" class="fa fa-lg fa-circle-o fa-hide"></i>
+          <i ng-if="n >= activities.length" class="fa fa-lg fa-circle-o fa-hide"></i>
         </span>
         &nbsp;
       </span>
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="media white-background gray-border pad-10 margin-0"
-      ng-repeat="activity in lane.activities">
+      ng-repeat="activity in activities">
       <div class="media-left">
         <i class="fa fa-fw fa-2x fa-circle-o" ng-class="activity.show ? 'text-success' : 'text-muted'"></i>
       </div>

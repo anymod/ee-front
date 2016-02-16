@@ -2,7 +2,7 @@
 
 angular.module 'ee-builder-lane', []
 
-angular.module('ee-builder-lane').directive "eeBuilderLane", ($location) ->
+angular.module('ee-builder-lane').directive "eeBuilderLane", ($filter, $location) ->
   templateUrl: 'ee-shared/components/ee-builder-lane.html'
   restrict: 'E'
   scope:
@@ -14,6 +14,8 @@ angular.module('ee-builder-lane').directive "eeBuilderLane", ($location) ->
     if parseInt(scope.query?.lane) is scope.lane?.id
       scope.startLaneOpen = true
       scope.openActivities = scope.query?.activities
+
+    scope.activities = $filter('filter')(scope.lane?.activities, { show: true })
 
     scope.toggleActivity = (activity) ->
       return if scope.openActivities

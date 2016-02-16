@@ -1,15 +1,8 @@
-<style>
-  .track-icon { border: 3px solid #FFF; border-radius: 50%; height: 60px; width: 60px; }
-  .track-icon:hover { border-color: #F5F5F5; }
-  .track-icon.active { border-color: #555; }
-</style>
-
 <div class="container-fluid text-center vert-15">
-  <span ng-repeat="track in ee.Tracks.tracks | orderBy:'id' | filter:{ type: 'marketing', show: 'true' }"
+  <span ng-repeat="track in ee.Tracks.tracks | orderBy:'id' | filter:{ type: 'marketing', show: true }"
     ui-sref="track({ id: track.id, title: (track.title | urlText) })"
-    class="fa-stack fa-2x hover-pointer track-icon"
-    ng-class="{ active: track.id == id }">
-    <i class="fa fa-circle fa-stack-2x text-{{ track.icon }}"></i>
-    <i class="fa fa-stack-1x fa-inverse fa-{{ track.icon }}"></i>
+    class="fa-stack fa-2x hover-pointer">
+    <i class="fa fa-stack-2x" ng-class="track.id == id ? 'fa-circle text-' + track.icon : 'fa-circe-o fa-inverse'"></i>
+    <i class="fa fa-stack-1x fa-{{ track.icon }}" ng-class="{ 'fa-inverse': track.id == id }"></i>
   </span>
 </div>
