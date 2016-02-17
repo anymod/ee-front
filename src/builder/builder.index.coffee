@@ -40,9 +40,6 @@ angular.module 'eeBuilder', [
   'builder.promotions'
 
   # builder components
-  'ee-image-layer-editor'
-
-  # shared components
   'ee-terms-seller'
   'ee-terms-privacy'
   'ee-builder-navbar'
@@ -50,31 +47,33 @@ angular.module 'eeBuilder', [
   'ee-builder-section-heading'
   'ee-builder-lane'
   'ee-save'
-  'ee-loading'
   'ee-product-builder-buttons'
-  'ee-product-card'
   'ee-product-for-builder'
+  'ee-price-editor'
+  'ee-collection-for-builder'
+  'ee-cloudinaryUpload'
+  'ee-zendesk'
+  'ee-web-colorpicker'
+  'ee-font-selector'
+  'ee-builder-track-nav'
+  'ee-image-layer-editor' # TODO remove once ee-layers is finished
+  'ee-layers'
+
+  # shared components
+  'ee-loading'
+  'ee-product-card'
   'ee-product-for-store'
   'ee-products-in-collection'
   'ee-product-images'
-  'ee-price-editor'
   'ee-collection-nav'
   'ee-collection-image-preview'
-  'ee-collection-for-builder'
-  # 'ee-collection-edit-card'
-  # 'ee-collection-add-card'
   'ee-order'
-  'ee-cloudinaryUpload'
   'ee-image-preload'
   'ee-storefront-header'
   'ee-storefront-logo'
   'ee-storefront-brand'
   'ee-scroll-to-top'
   'ee-empty-message'
-  'ee-zendesk'
-  'ee-web-colorpicker'
   'ee-datepicker'
-  'ee-font-selector'
-  'ee-builder-track-nav'
   # 'ee.templates' # commented out during build step for inline templates
 ]
