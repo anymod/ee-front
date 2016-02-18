@@ -21,20 +21,28 @@ module.directive "eeLayers", ($state, $window, $timeout, eeCollections) ->
     scope.base_image = null
     scope.styles = ['bold', 'italic', 'underline', 'strikethrough']
 
+    mousedown = false
     scope.mousemove = (e) ->
-      console.log e.offsetX, e.offsetY
+      if mousedown
+        console.log e.offsetX, e.offsetY
+        scope.styleWidth  = Math.abs(e.offsetX - scope.tempStyleLeft)
+        scope.styleHeight = Math.abs(e.offsetY - scope.tempStyleTop)
+        scope.styleLeft   = if e.offsetX < scope.tempStyleLeft then e.offsetX else scope.tempStyleLeft
+        scope.styleTop    = if e.offsetY < scope.tempStyleTop then e.offsetY else scope.tempStyleTop
 
     scope.mousedown = (e) ->
-      console.log 'mousedown at ', e.offsetX, e.offsetY
+      mousedown = true
+      # console.log 'mousedown at ', e.offsetX, e.offsetY
       scope.tempStyleLeft = e.offsetX
       scope.tempStyleTop  = e.offsetY
 
     scope.mouseup = (e) ->
-      console.log 'mouseup at ', e.offsetX, e.offsetY
-      scope.styleWidth  = Math.abs(e.offsetX - scope.tempStyleLeft)
-      scope.styleHeight = Math.abs(e.offsetY - scope.tempStyleTop)
-      scope.styleLeft   = if e.offsetX < scope.tempStyleLeft then e.offsetX else scope.tempStyleLeft
-      scope.styleTop    = if e.offsetY < scope.tempStyleTop then e.offsetY else scope.tempStyleTop
+      mousedown = false
+      # console.log 'mouseup at ', e.offsetX, e.offsetY
+      # scope.styleWidth  = Math.abs(e.offsetX - scope.tempStyleLeft)
+      # scope.styleHeight = Math.abs(e.offsetY - scope.tempStyleTop)
+      # scope.styleLeft   = if e.offsetX < scope.tempStyleLeft then e.offsetX else scope.tempStyleLeft
+      # scope.styleTop    = if e.offsetY < scope.tempStyleTop then e.offsetY else scope.tempStyleTop
 
     # base_layer =
     #   base: true

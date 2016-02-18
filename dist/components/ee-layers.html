@@ -1,5 +1,6 @@
 <form class="form margin-0" ng-if="layers.length > 0">
   <uib-tabset>
+    <!-- Main Layer -->
     <uib-tab>
       <uib-tab-heading>Main <i class="fa fa-fw fa-image"></i></uib-tab-heading>
       <div>
@@ -16,6 +17,8 @@
         <small class="pull-right pad-5">image is 800x470px</small>
       </div>
     </uib-tab>
+    <!-- /Main Layer -->
+    <!-- Other layers -->
     <uib-tab ng-repeat="layer in layers" select="rzSliderForceRender()" ng-if="!layer.base">
       <uib-tab-heading>
         <i class="fa fa-fw" ng-class="layer.text ? 'fa-font' : 'fa-square'" ng-style="{ color: layer.co_rgb }" style="text-shadow: 0px 1px 3px #333;"></i>
@@ -82,6 +85,8 @@
         </div>
       </div>
     </uib-tab>
+    <!-- /Other layers -->
+    <!-- Add layer -->
     <!-- TODO add "add layer" functionality -->
     <!-- <uib-tab>
       <uib-tab-heading><i class="fa fa-fw fa-plus"></i></uib-tab-heading>
@@ -100,9 +105,12 @@
         </div>
       </div>
     </uib-tab> -->
+    <!-- /Add layer -->
   </uib-tabset>
+  <!-- Preview -->
   <div class="position-relative" style="cursor: crosshair">
     <div class="position-absolute top-left-bottom-right-0" style="z-index: 100;"
+      ng-mousemove="mousemove($event)"
       ng-mousedown="mousedown($event)"
       ng-mouseup="mouseup($event)">
     </div>
@@ -111,5 +119,6 @@
       ng-style="{ top: styleTop + 'px', left: styleLeft + 'px', width: styleWidth + 'px', height: styleHeight + 'px' }">
     </div>
   </div>
+  <!-- /Preview -->
 </form>
 <!-- <div class="btn btn-default" ng-click="construct()">Construct</div> -->

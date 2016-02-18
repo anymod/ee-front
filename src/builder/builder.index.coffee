@@ -58,6 +58,7 @@ angular.module 'eeBuilder', [
   'ee-builder-track-nav'
   'ee-image-layer-editor' # TODO remove once ee-layers is finished
   'ee-layers'
+  'ee-canvas'
 
   # shared components
   'ee-loading'

@@ -39,8 +39,9 @@ angular.module('builder.collections').config ($stateProvider) ->
           controller: 'dailyCtrl as daily'
           templateUrl: 'builder/collections/collection.header.html'
         top:
-          controller: 'collectionCtrl as collection'
-          templateUrl: 'builder/collections/collection.html'
+          # controller: 'collectionCtrl as collection'
+          # templateUrl: 'builder/collections/collection.html'
+          templateUrl: 'builder/collections/canvas.html'
       data:
         pageTitle:        'Collection in your store | eeosk'
         padTop:           '60px'

@@ -43,6 +43,7 @@ sources.builderVendorMin = [
   './src/bower_components/keen-js/dist/keen.min.js'
 ]
 sources.builderVendorUnmin = [
+  './src/bower_components/fabric.js/dist/fabric.js'
   # TODO remove once cloudinary-core doesn't require lodash
   # './src/bower_components/lodash/lodash.js'
   # './src/bower_components/cloudinary-core/cloudinary-core.js'
@@ -208,6 +209,7 @@ sources.builderDirective = [
   './src/components/ee-builder-track-nav.coffee'
   './src/components/ee-image-layer-editor.coffee' # TODO remove once ee-layers is finished
   './src/components/ee-layers.coffee'
+  './src/components/ee-canvas.coffee'
 ]
 sources.sharedDirective = [
   './src/ee-shared/components/ee-product-card.coffee'
