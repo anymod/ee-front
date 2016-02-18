@@ -41,9 +41,10 @@ sources.builderVendorMin = [
   # './src/bower_components/angular-scroll/angular-scroll.min.js'
   './src/bower_components/zoom.js/dist/zoom.min.js'
   './src/bower_components/keen-js/dist/keen.min.js'
+  './src/bower_components/CUSTOM/fabric-custom.min.js'
 ]
 sources.builderVendorUnmin = [
-  './src/bower_components/fabric.js/dist/fabric.js'
+  # './src/bower_components/fabric.js/dist/fabric.js'
   # TODO remove once cloudinary-core doesn't require lodash
   # './src/bower_components/lodash/lodash.js'
   # './src/bower_components/cloudinary-core/cloudinary-core.js'

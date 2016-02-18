@@ -28,17 +28,18 @@ angular.module('app.core').filter 'removeHash', ($filter) ->
     return '' unless input
     input.replace(/#/g, '')
 
-resizeCloudinaryImageTo = (url, w, h) ->
+resizeCloudinaryImageTo = (url, w, h, c) ->
   if !!url and url.indexOf("image/upload") > -1
     regex = /\/v\d{8,12}\//g
     id = url.match(regex)[0]
-    url.split(regex).join('/c_pad,w_' + w + ',h_' + h + id)
+    crop = if c then c else 'pad'
+    url.split(regex).join('/c_' + crop + ',w_' + w + ',h_' + h + id)
   else
     url
 
 angular.module('app.core').filter 'cloudinaryResizeTo', () ->
-  # Usage: | cloudinaryResizeTo:400:200
-  (input, w, h) -> resizeCloudinaryImageTo input, w, h
+  # Usage: | cloudinaryResizeTo:400:200[:crop]
+  (input, w, h, crop) -> resizeCloudinaryImageTo input, w, h, crop
 
 # angular.module('app.core').filter 'thumbnail',            () -> (url) -> resizeCloudinaryImageTo url, 80, 80
 # angular.module('app.core').filter 'small',                () -> (url) -> resizeCloudinaryImageTo url, 120, 120
