@@ -16,6 +16,7 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", ($rootScop
     form = element
     cloudinary_transform = 'storefront_home'
     if scope.attrTarget is 'logo'       then cloudinary_transform = 'logo_260x60'
+    if scope.attrTarget is '1000x1000'  then cloudinary_transform = 'limit_1000x1000'
     if scope.attrTarget is 'collection' then cloudinary_transform = 'banner'
 
     form
@@ -27,7 +28,7 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", ($rootScop
     assignAttr = (data) ->
       if scope.attrTarget is 'about'      then scope.meta.about.imgUrl = data.result.secure_url
       if scope.attrTarget is 'logo'       then scope.meta.brand.image =  { logo: data.result.secure_url }
-      if scope.attrTarget is 'collection' then scope.meta.banner = data.result.secure_url
+      $rootScope.$broadcast 'cloudinary:finished', data.result.secure_url
 
     resetProgress = () ->
       scope.progress = 0

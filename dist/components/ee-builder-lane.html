@@ -1,18 +1,19 @@
 <div>
   <uib-accordion-group is-open="startLaneOpen">
     <uib-accordion-heading>
-      <span class="pull-left">
-        <span ng-repeat="activity in activities">
-          <i ng-if="$index < 5" class="fa fa-lg fa-circle-o" ng-class="activity.show ? 'text-success' : 'text-muted'"></i>
-        </span>
-        <span ng-repeat="n in [0,1,2,3,4]">
-          <i ng-if="n >= activities.length" class="fa fa-lg fa-circle-o fa-hide"></i>
-        </span>
-        &nbsp;
-      </span>
-      <span ng-bind="lane.title"></span>
+      <div class="row">
+        <div class="col col-sm-8">
+          <span ng-bind="lane.title"></span>
+        </div>
+        <div class="col col-sm-4 text-right">
+          <i ng-repeat="activity in activities"
+            class="fa fa-circle-o"
+            ng-class="activity.show ? 'text-success' : 'text-muted'">
+          </i>
+        </div>
+      </div>
     </uib-accordion-heading>
-    <div ng-if="lane.intro" class="media white-background gray-border pad-10 margin-0">
+    <div ng-if="lane.intro" class="media white-background pad-10 margin-0">
       <div class="media-left">
         <i class="fa fa-fw fa-2x fa-info-circle text-muted"></i>
       </div>
@@ -22,16 +23,14 @@
         </p>
       </div>
     </div>
-    <div class="media white-background gray-border pad-10 margin-0"
+    <div class="media white-background pad-10 margin-0"
       ng-repeat="activity in activities">
       <div class="media-left">
         <i class="fa fa-fw fa-2x fa-circle-o" ng-class="activity.show ? 'text-success' : 'text-muted'"></i>
       </div>
       <div class="media-body">
-        <h4 class="vert-15 margin-top-0" ng-click="toggleActivity(activity)" ng-class="{ 'hover-pointer': !openActivities }">
-          <span ng-bind="activity.title"></span>&nbsp;<i ng-hide="openActivities" class="fa" ng-class="activity.uncollapse ? 'fa-angle-up' : 'fa-angle-down'"></i>
-        </h4>
-        <div ng-bind-html="activity.html" uib-collapse="!openActivities && !activity.uncollapse"></div>
+        <h4 class="vert-15 margin-top-0" ng-bind="activity.title"></h4>
+        <div ng-bind-html="activity.html"></div>
       </div>
     </div>
   </uib-accordion-group>

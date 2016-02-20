@@ -2,7 +2,7 @@
 
 module = angular.module 'ee-canvas', []
 
-module.directive "eeCanvas", ($filter) ->
+module.directive "eeCanvas", ($filter, $window) ->
   templateUrl: 'components/ee-canvas.html'
   restrict: 'E'
   scope:
@@ -11,6 +11,9 @@ module.directive "eeCanvas", ($filter) ->
     scope.products ||= []
 
     canvas = new fabric.Canvas('c')
+    canvas.setBackgroundColor('#C33', canvas.renderAll.bind(canvas));
+    canvas.controlsAboveOverlay = true;
+
     rect = new fabric.Rect
       left: 150
       top: 200
@@ -30,6 +33,9 @@ module.directive "eeCanvas", ($filter) ->
       # stroke: '#c3bfbf'
       # strokeWidth: 1
 
+    scope.$on 'cloudinary:finished', (e, data) ->
+      scope.addImage { url: data, crop: 'pad', scale: 1 }
+
     cloudinary_fileupload = null
     $(document).ready () ->
       $.cloudinary.config({ cloud_name: 'eeosk' })
@@ -38,6 +44,7 @@ module.directive "eeCanvas", ($filter) ->
         tags: 'browser_uploads'
       }))
       cloudinary_fileupload = $('.cloudinary_fileupload')
+
 
       # $('.cloudinary-button').on 'click', () ->
       #   canvas.discardActiveObject()
@@ -53,29 +60,44 @@ module.directive "eeCanvas", ($filter) ->
       cloudinary_fileupload.fileupload 'add', { files: [ data ] }
       delete cloudinary_fileupload.fileupload('option', 'formData').file
 
-    scope.addImage = () ->
+    scope.addImage = (opts) ->
+      opts        ||= {}
+      opts.url    ||= scope.products[Math.floor(Math.random() * scope.products.length)].image
+      opts.crop   ||= 'fit'
+      opts.scale  ||= 0.5
+
       img = new Image()
       img.setAttribute 'crossOrigin', 'anonymous'
-      img.src = scope.products[Math.floor(Math.random() * scope.products.length)].image
-      img.src = $filter('cloudinaryResizeTo')(img.src,800,470,'fit')
-      console.log img.src
+      img.src = $filter('cloudinaryResizeTo')(opts.url,800,470,opts.crop)
       img.onload = () ->
         imgInstance = new fabric.Image img, {
           hasRotatingPoint: false
           transparentCorners: false
           cornerColor: '#03A9F4'
           borderColor: '#03A9F4'
-          cornerSize: 15
+          cornerSize: 25
           padding: 5
-          removeWhite: true
         }
-        imgInstance.scale 0.5
+        imgInstance.scale opts.scale
         imgInstance.filters = [ new fabric.Image.filters.RemoveWhite({
           threshold: 5
           distance: 5
         })]
         imgInstance.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
-        imgInstance.applyFilters(canvas.renderAll.bind(canvas))
+        if opts.removeWhite then imgInstance.applyFilters(canvas.renderAll.bind(canvas))
         canvas.add imgInstance
+
+
+    scope.addImage({ url: 'https://images.unsplash.com/photo-1422568374078-27d3842ba676?crop=entropy&fit=crop&fm=jpg&h=775&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375' })
+
+    scope.removeActiveImage = () ->
+      activeObject = canvas.getActiveObject()
+      if activeObject then canvas.remove activeObject
+
+    $window.addEventListener 'keydown', (e) ->
+      # keyCode: 8, keyIdentifier: "U+0008"
+      if e.keyCode is 8 and document.activeElement isnt 'text'
+        scope.removeActiveImage()
+        e.preventDefault()
 
     return
