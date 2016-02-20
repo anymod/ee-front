@@ -1,31 +1,26 @@
 <div class="well white-background box-shadow pad-5" style="width: 812px;">
   <form class="form margin-0">
     <uib-tabset>
-      <!-- Images -->
-      <uib-tab>
-        <uib-tab-heading>Products & Text</uib-tab-heading>
-        <div>
-          <div class="btn-group">
-            <div class="btn btn-sm btn-default">Add background image</div>
-            <div class="btn btn-sm btn-default" ng-click="addImage()">Add product image</div>
-            <div class="btn btn-sm btn-default">Add text</div>
-            <div class="btn btn-sm btn-default">Add a shape</div>
-          </div>
+      <!-- Layers -->
+      <uib-tab heading="Layers" select="unfocusBackground()">
+        <div class="btn-group">
+          <div class="btn btn-default" ng-click="addImage()">Add a product</div>
+          <div class="btn btn-default">Add text</div>
+          <div class="btn btn-default">Add a shape</div>
         </div>
       </uib-tab>
-      <!-- /Images -->
+      <!-- /Layers -->
       <!-- Background -->
-      <uib-tab>
-        <uib-tab-heading>Background</uib-tab-heading>
+      <uib-tab heading="Background" select="focusBackground()">
         <div>
           <div class="btn-group">
-            <div class="btn btn-sm btn-default" style="cursor: auto;">
+            <div class="btn btn-default" style="cursor: auto;">
               <div class="overflow-hidden" style="max-width: 180px;">
                 <ee-cloudinary-upload meta="collection" attr-target="'1000x1000'"></ee-cloudinary-upload>
               </div>
             </div>
-            <div class="btn btn-sm btn-default" ng-click="resetMainImage()">Remove background image</div>
-            <div class="btn btn-sm btn-default" ng-click="resetMainImage()">Background color</div>
+            <div class="btn btn-default" ng-if="background" ng-click="removeBackgroundImage()">Remove background image</div>
+            <div class="btn btn-default" ng-click="resetMainImage()">Background color</div>
           </div>
         </div>
       </uib-tab>

@@ -13,6 +13,42 @@ module.directive "eeCanvas", ($filter, $window) ->
     canvas = new fabric.Canvas('c')
     canvas.setBackgroundColor('#C33', canvas.renderAll.bind(canvas));
     canvas.controlsAboveOverlay = true;
+    scope.background = null
+
+    setBackgroundImage = (imageInstance) ->
+      if scope.background then canvas.remove scope.background
+      scope.background = imageInstance
+      canvas.add imageInstance
+      canvas.sendToBack imageInstance
+      scope.$apply()
+
+    scope.removeBackgroundImage = () ->
+      if scope.background then canvas.remove scope.background
+      scope.background = null
+
+    setVisibilityTo = (obj, bool) ->
+      console.log bool
+      obj.selectable = bool
+      opacity = if bool then 1 else 0
+      obj.set 'opacity', opacity
+      obj.canvas.renderAll()
+
+    setAllVisibilityTo = (bool) -> canvas.getObjects().map (obj) -> setVisibilityTo obj, bool
+
+    scope.focusBackground = () ->
+      setAllVisibilityTo false
+      canvas.deactivateAll().renderAll()
+      if scope.background
+        setVisibilityTo scope.background, true
+        canvas.setActiveObject scope.background
+        canvas.bringToFront scope.background
+
+    scope.unfocusBackground = () ->
+      setAllVisibilityTo true
+      if scope.background
+        canvas.sendToBack scope.background
+        scope.background.selectable = false
+      canvas.deactivateAll().renderAll()
 
     rect = new fabric.Rect
       left: 150
@@ -24,17 +60,23 @@ module.directive "eeCanvas", ($filter, $window) ->
       fill: 'rgba(255,0,0,0.5)'
       transparentCorners: false
 
-    comicSansText = new fabric.Text "I'm some text",
+    cText = new fabric.IText "Enter text",
       top: 400
-      left: 50
+      left: 20
       fontStyle: 'italic'
       fontFamily: 'Delicious'
-      textAlign: 'right'
+      # textAlign: 'right'
       # stroke: '#c3bfbf'
       # strokeWidth: 1
+      hasRotatingPoint: false
+      transparentCorners: false
+      cornerColor: '#03A9F4'
+      borderColor: '#03A9F4'
+      cornerSize: 25
+      padding: 20
 
     scope.$on 'cloudinary:finished', (e, data) ->
-      scope.addImage { url: data, crop: 'pad', scale: 1 }
+      scope.addImage { url: data, crop: 'pad', scale: 1, background: true }
 
     cloudinary_fileupload = null
     $(document).ready () ->
@@ -85,10 +127,9 @@ module.directive "eeCanvas", ($filter, $window) ->
         })]
         imgInstance.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
         if opts.removeWhite then imgInstance.applyFilters(canvas.renderAll.bind(canvas))
-        canvas.add imgInstance
+        if opts.background then setBackgroundImage imgInstance else canvas.add imgInstance
 
-
-    scope.addImage({ url: 'https://images.unsplash.com/photo-1422568374078-27d3842ba676?crop=entropy&fit=crop&fm=jpg&h=775&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375' })
+    scope.addImage({ url: 'https://images.unsplash.com/photo-1422568374078-27d3842ba676?crop=entropy&fit=crop&fm=jpg&h=775&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375', background: true })
 
     scope.removeActiveImage = () ->
       activeObject = canvas.getActiveObject()
@@ -99,5 +140,7 @@ module.directive "eeCanvas", ($filter, $window) ->
       if e.keyCode is 8 and document.activeElement isnt 'text'
         scope.removeActiveImage()
         e.preventDefault()
+
+    canvas.add cText
 
     return
