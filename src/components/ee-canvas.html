@@ -4,9 +4,18 @@
       <!-- Layers -->
       <uib-tab heading="Layers" select="unfocusBackground()">
         <div class="btn-group">
-          <div class="btn btn-default" ng-click="addImage()">Add a product</div>
-          <div class="btn btn-default">Add text</div>
-          <div class="btn btn-default">Add a shape</div>
+          <div class="btn btn-default round-0" ng-click="addImage()">Add a product</div>
+          <div class="btn btn-default round-0">Add text</div>
+          <div class="btn btn-default round-0">Add a shape</div>
+        </div>
+        <div class="btn-group pull-right" ng-show="toolset == 'i-text'">
+          <div class="btn btn-default round-0">Style <i class="fa fa-caret-down"></i></div>
+          <div class="btn btn-default round-0">Color <i class="fa fa-caret-down"></i></div>
+          <div class="btn btn-default round-0">Remove text</div>
+        </div>
+        <div class="btn-group pull-right" ng-show="toolset == 'image'">
+          <div class="btn btn-default round-0">Remove whitespace <i class="fa fa-caret-down"></i></div>
+          <div class="btn btn-default round-0">Remove image</div>
         </div>
       </uib-tab>
       <!-- /Layers -->
@@ -14,13 +23,16 @@
       <uib-tab heading="Background" select="focusBackground()">
         <div>
           <div class="btn-group">
-            <div class="btn btn-default" style="cursor: auto;">
+            <div class="btn btn-default round-0">Choose background</div>
+            <div class="btn btn-default round-0" style="cursor: auto;">
               <div class="overflow-hidden" style="max-width: 180px;">
                 <ee-cloudinary-upload meta="collection" attr-target="'1000x1000'"></ee-cloudinary-upload>
               </div>
             </div>
-            <div class="btn btn-default" ng-if="background" ng-click="removeBackgroundImage()">Remove background image</div>
-            <div class="btn btn-default" ng-click="resetMainImage()">Background color</div>
+          </div>
+          <div class="btn-group pull-right">
+            <div class="btn btn-default round-0" ng-click="resetMainImage()">Background color <i class="fa fa-caret-down"></i></div>
+            <div class="btn btn-default round-0" ng-if="background" ng-click="removeBackgroundImage()">Remove background image</div>
           </div>
         </div>
       </uib-tab>

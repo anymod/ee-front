@@ -9,6 +9,7 @@ module.directive "eeCanvas", ($filter, $window) ->
     products: '='
   link: (scope, ele, attrs) ->
     scope.products ||= []
+    scope.toolset = null
 
     canvas = new fabric.Canvas('c')
     canvas.setBackgroundColor('#C33', canvas.renderAll.bind(canvas));
@@ -49,6 +50,8 @@ module.directive "eeCanvas", ($filter, $window) ->
         canvas.sendToBack scope.background
         scope.background.selectable = false
       canvas.deactivateAll().renderAll()
+      scope.toolset = null
+      scope.$apply()
 
     rect = new fabric.Rect
       left: 150
@@ -74,6 +77,7 @@ module.directive "eeCanvas", ($filter, $window) ->
       borderColor: '#03A9F4'
       cornerSize: 25
       padding: 20
+    cText.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
 
     scope.$on 'cloudinary:finished', (e, data) ->
       scope.addImage { url: data, crop: 'pad', scale: 1, background: true }
@@ -126,6 +130,7 @@ module.directive "eeCanvas", ($filter, $window) ->
           distance: 5
         })]
         imgInstance.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
+        imgInstance.lockRotation = true
         if opts.removeWhite then imgInstance.applyFilters(canvas.renderAll.bind(canvas))
         if opts.background then setBackgroundImage imgInstance else canvas.add imgInstance
 
@@ -142,5 +147,13 @@ module.directive "eeCanvas", ($filter, $window) ->
         e.preventDefault()
 
     canvas.add cText
+
+    canvas.on 'object:selected', (options) ->
+      scope.toolset = options.target.get('type')
+      scope.$apply()
+
+    canvas.on 'selection:cleared', (options) ->
+      scope.toolset = null
+      scope.$apply()
 
     return
