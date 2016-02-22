@@ -4,18 +4,38 @@
       <!-- Layers -->
       <uib-tab heading="Layers" select="unfocusBackground()">
         <div class="btn-group">
-          <div class="btn btn-default round-0" ng-click="addImage()">Add a product</div>
+          <div class="btn btn-default round-0" ng-click="addRandomImage()">Add a product</div>
           <div class="btn btn-default round-0">Add text</div>
           <div class="btn btn-default round-0">Add a shape</div>
         </div>
-        <div class="btn-group pull-right" ng-show="toolset == 'i-text'">
-          <div class="btn btn-default round-0">Style <i class="fa fa-caret-down"></i></div>
+        <div class="btn-group pull-right" ng-show="toolset.type == 'i-text'">
+          <div class="btn btn-default round-0" ng-click="toggleFontSetting('bold')" ng-class="{ active: toolset.bold }"><i class="fa fa-fw fa-bold"></i></div>
+          <div class="btn btn-default round-0" ng-click="toggleFontSetting('italic')" ng-class="{ active: toolset.italic }"><i class="fa fa-fw fa-italic"></i></div>
+          <div class="btn btn-default round-0" ng-click="toggleFontSetting('underline')" ng-class="{ active: toolset.underline }"><i class="fa fa-fw fa-underline"></i></div>
+          <div class="btn btn-default round-0">Font <i class="fa fa-caret-down"></i></div>
           <div class="btn btn-default round-0">Color <i class="fa fa-caret-down"></i></div>
-          <div class="btn btn-default round-0">Remove text</div>
+          <div class="btn btn-default round-0" ng-click="removeActiveObject()">Remove text</div>
         </div>
-        <div class="btn-group pull-right" ng-show="toolset == 'image'">
-          <div class="btn btn-default round-0">Remove whitespace <i class="fa fa-caret-down"></i></div>
-          <div class="btn btn-default round-0">Remove image</div>
+        <div class="btn-group pull-right" ng-show="toolset.type == 'image'">
+          <span class="btn-group" uib-dropdown auto-close="outsideClick">
+            <div class="btn btn-default round-0" uib-dropdown-toggle>
+              Remove whitespace <i class="fa fa-caret-down"></i>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-right pad-10" style="width: 300px" uib-dropdown-menu>
+              <li>
+                Color Range <input type="range" min=0 max=26 ng-model="toolset.whitespaceSize" ng-change="updateWhitespace()" class="pull-right vert-2" style="width: 190px;"/>
+              </li>
+              <li class="divider"></li>
+              <li>
+                Distance <input type="range" min=1 max=48 ng-model="toolset.whitespaceStrength" ng-change="updateWhitespace()" class="pull-right vert-2" style="width: 190px;"/>
+              </li>
+            </ul>
+          </span>
+          <div class="btn btn-default round-0" ng-click="removeActiveObject()">Remove image</div>
+        </div>
+        <div class="btn-group pull-right" ng-show="toolset.type == 'rect' ">
+          <div class="btn btn-default round-0">Color <i class="fa fa-caret-down"></i></div>
+          <div class="btn btn-default round-0" ng-click="removeActiveObject()">Remove shape</div>
         </div>
       </uib-tab>
       <!-- /Layers -->
@@ -31,7 +51,16 @@
             </div>
           </div>
           <div class="btn-group pull-right">
-            <div class="btn btn-default round-0" ng-click="resetMainImage()">Background color <i class="fa fa-caret-down"></i></div>
+            <span class="btn-group" uib-dropdown auto-close="outsideClick">
+              <div class="btn btn-default round-0" uib-dropdown-toggle>
+                Background color <i class="fa fa-caret-down"></i>
+              </div>
+              <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+                <li class="pad-10">
+                  <ee-web-colorpicker always-open="'true'"></ee-web-colorpicker>
+                </li>
+              </ul>
+            </span>
             <div class="btn btn-default round-0" ng-if="background" ng-click="removeBackgroundImage()">Remove background image</div>
           </div>
         </div>
@@ -94,7 +123,7 @@
           <div class="col-sm-8">
             <div class="row thin-slider">
               <div class="col-xs-1" style="height: 250px;">
-                <rzslider rz-slider-model="layer.y" rz-slider-high="layer.temp.maxY" rz-slider-options="{ floor: 0, ceil: 470, hideLimitLabels: true, vertical: true }"></rzslider>
+                <rzslider rz-slider-model="layer.y" rz-slider-high="layer.temp.maxY" rz-slider-options="{ floor: 0, ceil: 420, hideLimitLabels: true, vertical: true }"></rzslider>
               </div>
               <div class="col-xs-11" style="max-width: 446px;">
                 <img ng-src="{{ url | cloudinaryResizeTo:425:250 }}" class="text-center max-width-100-pct" style="max-height: 250px;">
@@ -128,7 +157,7 @@
     </uib-tabset>
   </form>
 
-  <canvas id="c" width=800 height=470 class="gray-border"></canvas>
+  <canvas id="c" width=800 height=420 class="gray-border"></canvas>
 
   <form class="cloudinary hidden"></form>
   <div class="vert-5 margin-bottom-0">

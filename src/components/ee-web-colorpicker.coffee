@@ -8,9 +8,10 @@ angular.module('ee-web-colorpicker').directive 'eeWebColorpicker', ($rootScope) 
       dabSecondary: '='
       dabTertiary: '='
       dabDimension: '@'
+      alwaysOpen: '@'
     link: (scope, ele, attrs) ->
-
-      scope.compress = true
+      scope.alwaysOpen  = !!scope.alwaysOpen
+      scope.compress    = !scope.alwaysOpen
 
       scope.dabDimension = if scope.dabDimension then parseInt(scope.dabDimension) else 27
 
