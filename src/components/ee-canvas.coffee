@@ -9,12 +9,12 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
     products: '='
   link: (scope, ele, attrs) ->
     scope.products ||= []
-    scope.toolset =
-      type: null
+    scope.background = null
+    scope.toolset = {}
 
     canvas = new fabric.Canvas('c')
-    canvas.controlsAboveOverlay = true;
-    scope.background = null
+    canvas.selection = false
+    canvas.controlsAboveOverlay = true
 
     #### GENERAL OPERATIONS ###
 
@@ -32,8 +32,14 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       canvas.bringToFront obj for obj in txtLayers
       renderAll()
 
+    resetToolset = () ->
+      scope.toolset.type = null
+      scope.toolset.transparency = 0
+      scope.toolset.whitespaceThreshold = 0
+      scope.toolset.whitespaceDistance = 0
+
     setToolset = (target) ->
-      if !target then return scope.toolset.type = null
+      if !target then return resetToolset()
       scope.toolset.type = target.get 'type'
       if scope.toolset.type is 'i-text'
         scope.toolset.bold      = target.getFontWeight() is 'bold'
@@ -69,6 +75,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
         setVisibilityTo scope.background, true
         canvas.setActiveObject scope.background
         canvas.bringToFront scope.background
+      scope.toolset.type = 'background'
 
     scope.unfocusBackground = () ->
       setAllVisibilityTo true
@@ -90,10 +97,12 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       return if !opts or !opts.url
       opts.crop   ||= 'fit'
       opts.scale  ||= 0.5
+      opts.w      ||= 800
+      opts.h      ||= 420
 
       img = new Image()
       img.setAttribute 'crossOrigin', 'anonymous'
-      img.src = $filter('cloudinaryResizeTo')(opts.url,800,420,opts.crop)
+      img.src = $filter('cloudinaryResizeTo')(opts.url, opts.w, opts.h, opts.crop)
       img.onload = () ->
         imgInstance = new fabric.Image img, {
           hasRotatingPoint: false
@@ -104,29 +113,29 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
           padding: 5
         }
         imgInstance.scale opts.scale
-        imgInstance.filters = [ new fabric.Image.filters.RemoveWhite({
-          threshold: 5
-          distance: 5
-        })]
         imgInstance.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
         imgInstance.lockRotation = true
-        if opts.removeWhite then imgInstance.applyFilters(renderAll())
         if opts.background then setBackgroundImage imgInstance else canvas.add imgInstance
 
     cloudinary_fileupload = null
     $(document).ready () ->
       $.cloudinary.config({ cloud_name: 'eeosk' })
-      $('.cloudinary').append($.cloudinary.unsigned_upload_tag('banner', {
+      $('.cloudinary').append($.cloudinary.unsigned_upload_tag('800x420', {
         cloud_name: 'eeosk',
         tags: 'browser_uploads'
       }))
       cloudinary_fileupload = $('.cloudinary_fileupload')
 
     scope.$on 'cloudinary:finished', (e, data) ->
-      scope.addImage { url: data, crop: 'pad', scale: 1, background: true }
+      scope.addImage { url: data, crop: 'limit', w: 800, h: 800, scale: 1, background: true }
 
-    scope.$on 'eeWebColorPicked', (e, data) ->
-      console.log data
+    scope.$on 'eeWebColorPicked', (e, color) ->
+      switch scope.toolset.type
+        when 'rect', 'circle', 'i-text'
+          scope.toolset.transparency = 0
+          canvas.getActiveObject().setColor color
+          canvas.renderAll()
+        else canvas.setBackgroundColor(color, renderAll())
 
     $window.addEventListener 'keydown', (e) ->
       # keyCode: 8, keyIdentifier: "U+0008" (delete)
@@ -142,7 +151,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       $timeout sa, 100
     canvas.on 'selection:cleared', (options) ->
       sortLayers()
-      setToolset null
+      scope.toolset = {}
       $timeout sa, 100
 
     ### IMAGE OPERATIONS ###
@@ -155,14 +164,16 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       url = scope.products[Math.floor(Math.random() * scope.products.length)].image
       scope.addImage { url: url }
 
-    scope.updateWhitespace = () ->
+    removeWhite = () ->
       activeObject = canvas.getActiveObject()
       return if !activeObject
       activeObject.filters = [ new fabric.Image.filters.RemoveWhite({
-        threshold: scope.toolset.whitespaceStrength
-        distance: scope.toolset.whitespaceSize
+        threshold: scope.toolset.whitespaceThreshold
+        distance: scope.toolset.whitespaceDistance
       })]
-      activeObject.applyFilters(renderAll())
+      activeObject.applyFilters () -> canvas.renderAll()
+
+    scope.updateWhitespace = () -> $timeout removeWhite, 100
 
     ### TEXT OPERATIONS ###
 
@@ -181,14 +192,20 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
             if scope.toolset.underline then txt.setTextDecoration 'underline' else txt.setTextDecoration 'normal'
         canvas.renderAll()
 
+    scope.$on 'font:set', (e, font) ->
+      txt = canvas.getActiveObject()
+      if txt
+        WebFont.load
+          google: families: [font]
+          active: () ->
+            txt.setFontFamily font
+            canvas.renderAll()
+
     cText = new fabric.IText "Enter text",
       top: 300
       left: 20
       fontStyle: 'italic'
-      fontFamily: 'Delicious'
-      # textAlign: 'right'
-      # stroke: '#c3bfbf'
-      # strokeWidth: 1
+      fontFamily: 'Varela Round'
       hasRotatingPoint: false
       transparentCorners: false
       cornerColor: '#03A9F4'
@@ -206,7 +223,8 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       originY: 'top'
       width: 150
       height: 120
-      fill: 'rgba(255,0,0,0.5)'
+      # fill: 'rgba(255,255,100,0.5)'
+      fill: '#FFF000'
       hasRotatingPoint: false
       transparentCorners: false
       cornerColor: '#03A9F4'
@@ -214,9 +232,34 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       cornerSize: 25
       padding: 20
 
+    # removeWhite = () ->
+    #   activeObject = canvas.getActiveObject()
+    #   return if !activeObject
+    #   activeObject.filters = [ new fabric.Image.filters.RemoveWhite({
+    #     threshold: scope.toolset.whitespaceThreshold
+    #     distance: scope.toolset.whitespaceDistance
+    #   })]
+    #   activeObject.applyFilters () -> canvas.renderAll()
+    #
+    # scope.updateWhitespace = () -> $timeout removeWhite, 100
+    scope.updateTransparency = () ->
+      activeObject = canvas.getActiveObject()
+      return if !activeObject or !scope.toolset.transparency
+      fill = activeObject.getFill()
+      opacity = 1 - scope.toolset.transparency
+      if fill.indexOf('rgba') is 0
+        parts = fill.split(',')
+        parts[3] = '' + opacity + ')'
+        fill = parts.join ','
+      else if fill.indexOf('#') is 0
+        fill = $filter('hexToRgba')(fill, opacity)
+      activeObject.setFill fill
+      canvas.renderAll()
+
     ### RUNTIME ###
 
-    canvas.setBackgroundColor '#C33', renderAll()
+    resetToolset()
+    canvas.setBackgroundColor '#CC3300', renderAll()
     scope.addImage({ url: 'https://images.unsplash.com/photo-1422568374078-27d3842ba676?crop=entropy&fit=crop&fm=jpg&h=775&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375', background: true })
     canvas.add cText
     canvas.add rect

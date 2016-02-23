@@ -2,13 +2,15 @@
 
 module = angular.module 'ee-font-selector', []
 
-module.directive "eeFontSelector", () ->
+module.directive "eeFontSelector", ($rootScope) ->
   templateUrl: 'components/ee-font-selector.html'
   restrict: 'E'
   scope:
     family: '='
   link: (scope, ele, attrs) ->
-    scope.setFamily = (font) -> scope.family = font
+    scope.setFamily = (font) ->
+      scope.family = font
+      $rootScope.$broadcast 'font:set', font
 
     scope.fonts = [
       # Normal

@@ -102,6 +102,23 @@ angular.module('app.core').filter 'in_carousel', () ->
     (if collections[i].in_carousel and filtered.length < 10 then filtered.push(collections[i])) for i in [0..(collections.length-1)]
     filtered
 
+angular.module('app.core').filter 'hexToRgba', () ->
+  (hex, opacity) -> # hex with # sign
+    black = { r: 0, g: 0, b: 0 }
+    if !hex or typeof hex isnt 'string' then return black
+    opacity ||= 1
+    if hex.indexOf('rgb') > -1 then return hex
+    result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+    if result then 'rgba(' + parseInt(result[1], 16) + ',' + parseInt(result[2], 16) + ',' + parseInt(result[3], 16) + ',' + opacity + ')' else black
+
+angular.module('app.core').filter 'rgbToHex', () ->
+  (rgb) -> # rgb
+    black = '#000000'
+    if !rgb or typeof rgb isnt 'string' then return black
+    if rgb.indexOf('#') > -1 then return rgb
+    result = /^rgb{1}a?\(([\d]{1,3}),([\d]{1,3}),([\d]{1,3}).*\)$/i.exec(rgb)
+    if result then '#' + parseInt(result[1]).toString(16) + parseInt(result[2]).toString(16) + parseInt(result[3]).toString(16) else black
+
 angular.module('app.core').filter 'timeago', () ->
   ## Adapted from https://gist.github.com/rodyhaddad/5896883
   # time: the time
