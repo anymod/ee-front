@@ -73,6 +73,10 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
 
     scope.toggleUnsplashOverlay = () -> scope.unsplashOverlay = !scope.unsplashOverlay
 
+    scope.moveToBack = () ->
+      canvas.sendToBack canvas.getActiveObject()
+      sortLayers()
+
     ### BACKGROUND IMAGE OPERATIONS ###
 
     setBackgroundImage = (imageInstance) ->

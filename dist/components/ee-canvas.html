@@ -59,7 +59,7 @@
         <div class="btn-group pull-right" ng-show="toolset.type == 'image'">
           <span class="btn-group" uib-dropdown auto-close="outsideClick">
             <div class="btn btn-default round-0" uib-dropdown-toggle>
-              Remove whitespace <i class="fa fa-caret-down"></i>
+              Remove white <i class="fa fa-caret-down"></i>
             </div>
             <ul class="dropdown-menu dropdown-menu-right pad-10" style="width: 300px" uib-dropdown-menu>
               <li>Color Range <input type="range" min=0 max=26 ng-model="toolset.whitespaceThreshold" ng-change="updateWhitespace()" class="pull-right vert-2" style="width: 190px;"/></li>
@@ -67,6 +67,7 @@
               <li>Distance <input type="range" min=1 max=48 ng-model="toolset.whitespaceDistance" ng-change="updateWhitespace()" class="pull-right vert-2" style="width: 190px;"/></li>
             </ul>
           </span>
+          <div class="btn btn-default round-0" ng-click="moveToBack()">Move to back</div>
           <div class="btn btn-default round-0" ng-click="removeActiveObject()">Remove image</div>
         </div>
         <!-- /image toolset -->
@@ -90,6 +91,7 @@
               <li><input type="range" min=0 max=0.9 step=0.1 ng-model="toolset.transparency" ng-change="updateTransparency()" class="pull-right vert-2"/></li>
             </ul>
           </span>
+          <div class="btn btn-default round-0" ng-click="moveToBack()">Move to back</div>
           <div class="btn btn-default round-0" ng-click="removeActiveObject()">Remove shape</div>
         </div>
         <!-- /shape toolset -->
