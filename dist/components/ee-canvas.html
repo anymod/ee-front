@@ -1,4 +1,4 @@
-<div class="well white-background box-shadow pad-5" style="width: 812px;">
+<div class="well white-background box-shadow pad-5 position-relative" style="width: 812px;">
   <form class="form margin-0">
     <uib-tabset>
       <!-- Layers -->
@@ -6,7 +6,14 @@
         <!-- general buttons -->
         <div class="btn-group">
           <div class="btn btn-default round-0" ng-click="addRandomImage()">Add a product</div>
-          <div class="btn btn-default round-0">Add text</div>
+          <span class="btn-group" uib-dropdown>
+            <div class="btn btn-default round-0" uib-dropdown-toggle>Add text</div>
+            <ul class="dropdown-menu" uib-dropdown-menu>
+              <li class="margin-5">
+                <input type="text" class="form-control">
+              </li>
+            </ul>
+          </span>
           <div class="btn btn-default round-0">Add a shape</div>
         </div>
         <!-- /general buttons -->
@@ -82,14 +89,15 @@
       <uib-tab heading="Background" select="focusBackground()">
         <div>
           <div class="btn-group">
-            <div class="btn btn-default round-0">Choose background</div>
             <div class="btn btn-default round-0" style="cursor: auto;">
               <div class="overflow-hidden" style="max-width: 180px;">
                 <ee-cloudinary-upload meta="collection" attr-target="'1000x1000'"></ee-cloudinary-upload>
               </div>
             </div>
+            <div class="btn btn-default round-0" ng-click="toggleUnsplash()">Find a background</div>
           </div>
           <div class="btn-group pull-right">
+            <div class="btn btn-default round-0" ng-if="background" ng-click="removeBackgroundImage()">Remove background image</div>
             <span class="btn-group" auto-close="outsideClick" uib-dropdown>
               <div class="btn btn-default round-0" uib-dropdown-toggle>
                 Background color <i class="fa fa-caret-down"></i>
@@ -100,7 +108,6 @@
                 </li>
               </ul>
             </span>
-            <div class="btn btn-default round-0" ng-if="background" ng-click="removeBackgroundImage()">Remove background image</div>
           </div>
         </div>
       </uib-tab>
@@ -108,7 +115,14 @@
     </uib-tabset>
   </form>
 
-  <canvas id="c" width=800 height=420 class="gray-border"></canvas>
+  <div class="position-relative">
+    <canvas id="c" width=800 height=420 class="gray-border"></canvas>
+    <div ng-show="unsplash"
+      class="white-background position-absolute top-left-bottom-right-0 margin-10 pad-5 round-5"
+      style="z-index: 1000; overflow-y: scroll;">
+      <ee-unsplash-search app-id="bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602"></ee-unsplash-search>
+    </div>
+  </div>
 
   <form class="cloudinary hidden"></form>
   <div class="vert-5 margin-bottom-0">
