@@ -5,16 +5,26 @@
       <uib-tab heading="Layers" select="unfocusBackground()">
         <!-- general buttons -->
         <div class="btn-group">
-          <div class="btn btn-default round-0" ng-click="addRandomImage()">Add a product</div>
-          <span class="btn-group" uib-dropdown>
+          <div class="btn btn-default round-0" ng-click="toggleProductOverlay()" ng-class="{ active: productOverlay }" ng-show="products.length > 0">Add product</div>
+          <span class="btn-group" auto-close="outsideClick" is-open="textOverlay" uib-dropdown>
             <div class="btn btn-default round-0" uib-dropdown-toggle>Add text</div>
-            <ul class="dropdown-menu" uib-dropdown-menu>
-              <li class="margin-5">
-                <input type="text" class="form-control">
+            <ul class="dropdown-menu pad-0" style="width: 300px;" uib-dropdown-menu>
+              <li class="margin-7">
+                <input type="text" class="form-control inline-block" style="width: 225px;" ng-model="textToAdd"/>
+                <div class="btn btn-default" ng-click="addText(textToAdd); textOverlay = false; textToAdd = null;">Add</div>
               </li>
             </ul>
           </span>
-          <div class="btn btn-default round-0">Add a shape</div>
+          <span class="btn-group" auto-close="outsideClick" is-open="shapeOverlay" uib-dropdown>
+            <div class="btn btn-default round-0" uib-dropdown-toggle>Add shape</div>
+            <ul class="dropdown-menu pad-0" uib-dropdown-menu>
+              <li class="margin-7">
+                <div style="width: 60px; height: 40px; background: #6B5C84;" class="inline-block margin-5 hover-pointer" ng-click="addShape('rect')"></div>
+                <div style="width: 60px; height: 40px; background: #6B5C84;" class="inline-block margin-5 hover-pointer round-50-pct" ng-click="addShape('ellipse')"></div>
+              </li>
+            </ul>
+          </span>
+          <!-- <div class="btn btn-default round-0">Add shape</div> -->
         </div>
         <!-- /general buttons -->
         <!-- i-text toolset -->
@@ -61,7 +71,7 @@
         </div>
         <!-- /image toolset -->
         <!-- shape toolset -->
-        <div class="btn-group pull-right" ng-show="toolset.type == 'rect' ">
+        <div class="btn-group pull-right" ng-show="toolset.type == 'rect' || toolset.type == 'ellipse'">
           <span class="btn-group" auto-close="outsideClick" uib-dropdown>
             <div class="btn btn-default round-0" uib-dropdown-toggle>
               Color <i class="fa fa-caret-down"></i>
@@ -83,10 +93,22 @@
           <div class="btn btn-default round-0" ng-click="removeActiveObject()">Remove shape</div>
         </div>
         <!-- /shape toolset -->
+        <!-- background color toolset -->
+        <div class="btn-group pull-right" auto-close="outsideClick" uib-dropdown ng-show="!toolset.type">
+          <div class="btn btn-default round-0" uib-dropdown-toggle>
+            Background color <i class="fa fa-caret-down"></i>
+          </div>
+          <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+            <li class="pad-5">
+              <ee-web-colorpicker always-open="'true'"></ee-web-colorpicker>
+            </li>
+          </ul>
+        </div>
+        <!-- /background color toolset -->
       </uib-tab>
       <!-- /Layers -->
-      <!-- Background -->
-      <uib-tab heading="Background" select="focusBackground()">
+      <!-- Background image -->
+      <uib-tab heading="Background image" select="focusBackground()">
         <div>
           <div class="btn-group">
             <div class="btn btn-default round-0" style="cursor: auto;">
@@ -94,30 +116,27 @@
                 <ee-cloudinary-upload meta="collection" attr-target="'1000x1000'"></ee-cloudinary-upload>
               </div>
             </div>
-            <div class="btn btn-default round-0" ng-click="toggleUnsplash()">Find a background</div>
+            <div class="btn btn-default round-0" ng-click="toggleUnsplashOverlay()">Search for image</div>
           </div>
           <div class="btn-group pull-right">
             <div class="btn btn-default round-0" ng-if="background" ng-click="removeBackgroundImage()">Remove background image</div>
-            <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-              <div class="btn btn-default round-0" uib-dropdown-toggle>
-                Background color <i class="fa fa-caret-down"></i>
-              </div>
-              <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
-                <li class="pad-5">
-                  <ee-web-colorpicker always-open="'true'"></ee-web-colorpicker>
-                </li>
-              </ul>
-            </span>
           </div>
         </div>
       </uib-tab>
-      <!-- /Background -->
+      <!-- /Background image -->
     </uib-tabset>
   </form>
 
   <div class="position-relative">
     <canvas id="c" width=800 height=420 class="gray-border"></canvas>
-    <div ng-show="unsplash"
+    <div ng-show="productOverlay"
+      class="white-background position-absolute top-left-bottom-right-0 margin-10 pad-5 round-5"
+      style="z-index: 1000; overflow-y: scroll;">
+      <span ng-repeat="product in products" ng-click="addImage({ url: product.image })" class="hover-pointer">
+        <img ng-src="{{ product.image | cloudinaryResizeTo:120:120:'pad' }}"/>
+      </span>
+    </div>
+    <div ng-show="unsplashOverlay"
       class="white-background position-absolute top-left-bottom-right-0 margin-10 pad-5 round-5"
       style="z-index: 1000; overflow-y: scroll;">
       <ee-unsplash-search app-id="bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602"></ee-unsplash-search>

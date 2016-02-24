@@ -10,7 +10,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
   link: (scope, ele, attrs) ->
     scope.products ||= []
     scope.background = null
-    scope.unsplash = null
+    scope.unsplashOverlay = scope.textOverlay = null
     scope.toolset = {}
 
     ### CANVAS SETUP ###
@@ -25,7 +25,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       cornerColor: '#03A9F4'
       borderColor: '#03A9F4'
       cornerSize: 25
-      padding: 20
+      padding: 5
 
     #### GENERAL OPERATIONS ###
 
@@ -42,6 +42,11 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       canvas.bringToFront obj for obj in objLayers
       canvas.bringToFront obj for obj in txtLayers
       renderAll()
+
+    closeToggles = () ->
+      scope.unsplashOverlay = false
+      scope.productOverlay = false
+      scope.textOverlay = false
 
     resetToolset = () ->
       scope.toolset.type = null
@@ -66,7 +71,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
     setAllVisibilityTo = (bool) ->
       canvas.getObjects().map (obj) -> setVisibilityTo obj, bool
 
-    scope.toggleUnsplash = () -> scope.unsplash = !scope.unsplash
+    scope.toggleUnsplashOverlay = () -> scope.unsplashOverlay = !scope.unsplashOverlay
 
     ### BACKGROUND IMAGE OPERATIONS ###
 
@@ -97,7 +102,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
         scope.background.selectable = false
       canvas.deactivateAll()
       setToolset null
-      scope.unsplash = false
+      closeToggles()
       sortLayers()
 
     scope.upload = () ->
@@ -123,6 +128,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
         imgInstance.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
         imgInstance.lockRotation = true
         if opts.background then setBackgroundImage imgInstance else canvas.add imgInstance
+      closeToggles()
 
     cloudinary_fileupload = null
     $(document).ready () ->
@@ -138,7 +144,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
 
     scope.$on 'eeWebColorPicked', (e, color) ->
       switch scope.toolset.type
-        when 'rect', 'circle', 'i-text'
+        when 'rect', 'ellipse', 'circle', 'i-text'
           scope.toolset.transparency = 0
           canvas.getActiveObject().setColor color
           canvas.renderAll()
@@ -172,6 +178,8 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       url = scope.products[Math.floor(Math.random() * scope.products.length)].image
       scope.addImage { url: url }
 
+    scope.toggleProductOverlay = () -> scope.productOverlay = !scope.productOverlay
+
     removeWhite = () ->
       activeObject = canvas.getActiveObject()
       return if !activeObject
@@ -185,10 +193,16 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
 
     scope.$on 'unsplash:urls', (e, urls) ->
       scope.addImage { url: urls.regular, background: true }
-      scope.unsplash = false
+      closeToggles()
 
 
     ### TEXT OPERATIONS ###
+
+    scope.addText = (textToAdd) ->
+      txt = new fabric.IText textToAdd, objectDefaults
+      txt.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
+      canvas.add txt
+      closeToggles()
 
     scope.toggleFontSetting = (setting) ->
       txt = canvas.getActiveObject()
@@ -214,47 +228,25 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
             txt.setFontFamily font
             canvas.renderAll()
 
-    cText = new fabric.IText "Enter text", objectDefaults
-      # top: 300
-      # left: 20
-      # fontStyle: 'italic'
-      # fontFamily: 'Varela Round'
-      # hasRotatingPoint: false
-      # transparentCorners: false
-      # cornerColor: '#03A9F4'
-      # borderColor: '#03A9F4'
-      # cornerSize: 25
-      # padding: 20
-    cText.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
-
     ### SHAPE OPERATIONS ###
 
-    rect = new fabric.Rect
-      left: 150
-      top: 200
-      originX: 'left'
-      originY: 'top'
-      width: 150
-      height: 120
-      # fill: 'rgba(255,255,100,0.5)'
-      fill: '#FFF000'
-      hasRotatingPoint: false
-      transparentCorners: false
-      cornerColor: '#03A9F4'
-      borderColor: '#03A9F4'
-      cornerSize: 25
-      padding: 20
+    scope.addShape = (type) ->
+      shape = null
+      if type is 'rect'
+        shape = new fabric.Rect objectDefaults
+        shape.setFill 'rgba(200,200,200,0.8)'
+        shape.width = 150
+        shape.height = 100
+      else if type is 'ellipse'
+        shape = new fabric.Ellipse objectDefaults
+        shape.setFill 'rgba(200,200,200,0.8)'
+        shape.width = 150
+        shape.height = 100
+        shape.rx = 75
+        shape.ry = 50
+      if shape then canvas.add shape
+      closeToggles()
 
-    # removeWhite = () ->
-    #   activeObject = canvas.getActiveObject()
-    #   return if !activeObject
-    #   activeObject.filters = [ new fabric.Image.filters.RemoveWhite({
-    #     threshold: scope.toolset.whitespaceThreshold
-    #     distance: scope.toolset.whitespaceDistance
-    #   })]
-    #   activeObject.applyFilters () -> canvas.renderAll()
-    #
-    # scope.updateWhitespace = () -> $timeout removeWhite, 100
     scope.updateTransparency = () ->
       activeObject = canvas.getActiveObject()
       return if !activeObject or !scope.toolset.transparency
@@ -272,11 +264,5 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
     ### RUNTIME ###
 
     resetToolset()
-    canvas.setBackgroundColor '#CC3300', renderAll()
-    # scope.addImage({ url: 'https://images.unsplash.com/photo-1422568374078-27d3842ba676?crop=entropy&fit=crop&fm=jpg&h=775&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375', background: true })
-    # scope.addImage({ url: 'https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=da5baf2a4cc3516caf930b0fd52a7c37', background: true })
-    # scope.addImage({ url: 'https://images.unsplash.com/photo-1445865272827-4894eb9d48de?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=200&fit=max&s=00e11529215615a53bf972851e0cc67d', background: true })
-    canvas.add cText
-    canvas.add rect
 
     return
