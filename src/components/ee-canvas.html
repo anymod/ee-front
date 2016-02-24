@@ -6,7 +6,14 @@
         <!-- general buttons -->
         <div class="btn-group">
           <div class="btn btn-default round-0" ng-click="addRandomImage()">Add a product</div>
-          <div class="btn btn-default round-0">Add text</div>
+          <span class="btn-group" uib-dropdown>
+            <div class="btn btn-default round-0" uib-dropdown-toggle>Add text</div>
+            <ul class="dropdown-menu" uib-dropdown-menu>
+              <li class="margin-5">
+                <input type="text" class="form-control">
+              </li>
+            </ul>
+          </span>
           <div class="btn btn-default round-0">Add a shape</div>
         </div>
         <!-- /general buttons -->
@@ -90,6 +97,7 @@
             <div class="btn btn-default round-0" ng-click="toggleUnsplash()">Find a background</div>
           </div>
           <div class="btn-group pull-right">
+            <div class="btn btn-default round-0" ng-if="background" ng-click="removeBackgroundImage()">Remove background image</div>
             <span class="btn-group" auto-close="outsideClick" uib-dropdown>
               <div class="btn btn-default round-0" uib-dropdown-toggle>
                 Background color <i class="fa fa-caret-down"></i>
@@ -100,7 +108,6 @@
                 </li>
               </ul>
             </span>
-            <div class="btn btn-default round-0" ng-if="background" ng-click="removeBackgroundImage()">Remove background image</div>
           </div>
         </div>
       </uib-tab>

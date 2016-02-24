@@ -8,13 +8,17 @@ angular.module('ee-unsplash-search').directive "eeUnsplashSearch", ($rootScope, 
   link: (scope, ele, attr) ->
     scope.query = null
     scope.results = []
+    scope.searching = null
 
-    scope.search = () ->
+    scope.search = (q) ->
+      if q then scope.query = q
+      scope.searching = true
       $.ajax
         url: "https://api.unsplash.com/photos/search?page=1&per_page=40&query=" + encodeURIComponent(scope.query) + "&client_id=bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602"
         type: 'GET'
         dataType: 'json'
       .done (data) ->
+        scope.searching = false
         scope.results = data
         scope.$apply()
 

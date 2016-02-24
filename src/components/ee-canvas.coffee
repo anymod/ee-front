@@ -75,7 +75,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       scope.background = imageInstance
       canvas.add imageInstance
       sortLayers()
-      # canvas.sendToBack imageInstance
+      scope.focusBackground()
 
     scope.removeBackgroundImage = () ->
       if scope.background then canvas.remove scope.background
