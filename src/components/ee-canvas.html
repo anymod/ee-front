@@ -2,20 +2,20 @@
   <form class="form margin-0">
     <uib-tabset>
       <!-- Layers -->
-      <uib-tab heading="Layers" select="unfocusBackground()">
+      <uib-tab heading="Layers" select="resetCanvas()">
         <!-- general buttons -->
         <div class="btn-group">
-          <div class="btn btn-default round-0" ng-click="toggleProductOverlay()" ng-class="{ active: productOverlay }" ng-show="products.length > 0">Add product</div>
-          <span class="btn-group" auto-close="outsideClick" is-open="textOverlay" uib-dropdown>
+          <div class="btn btn-default round-0" ng-click="toggleOverlay('product')" ng-class="{ active: overlay.product }" ng-show="products.length > 0">Add product</div>
+          <span class="btn-group" auto-close="outsideClick" is-open="overlay.text" uib-dropdown>
             <div class="btn btn-default round-0" uib-dropdown-toggle>Add text</div>
             <ul class="dropdown-menu pad-0" style="width: 300px;" uib-dropdown-menu>
               <li class="margin-7">
                 <input type="text" class="form-control inline-block" style="width: 225px;" ng-model="textToAdd"/>
-                <div class="btn btn-default" ng-click="addText(textToAdd); textOverlay = false; textToAdd = null;">Add</div>
+                <div class="btn btn-default" ng-click="addText(textToAdd); overlay.text = false; textToAdd = null;">Add</div>
               </li>
             </ul>
           </span>
-          <span class="btn-group" auto-close="outsideClick" is-open="shapeOverlay" uib-dropdown>
+          <span class="btn-group" auto-close="outsideClick" is-open="overlay.shape" uib-dropdown>
             <div class="btn btn-default round-0" uib-dropdown-toggle>Add shape</div>
             <ul class="dropdown-menu pad-0" uib-dropdown-menu>
               <li class="margin-7">
@@ -28,7 +28,7 @@
         </div>
         <!-- /general buttons -->
         <!-- i-text toolset -->
-        <div class="btn-group pull-right" ng-show="toolset.type == 'i-text'">
+        <div class="btn-group pull-right" ng-show="toolset.tab == 'i-text'">
           <div class="btn btn-default round-0" ng-click="toggleFontSetting('bold')" ng-class="{ active: toolset.bold }"><i class="fa fa-fw fa-bold"></i></div>
           <div class="btn btn-default round-0" ng-click="toggleFontSetting('italic')" ng-class="{ active: toolset.italic }"><i class="fa fa-fw fa-italic"></i></div>
           <div class="btn btn-default round-0" ng-click="toggleFontSetting('underline')" ng-class="{ active: toolset.underline }"><i class="fa fa-fw fa-underline"></i></div>
@@ -56,7 +56,7 @@
         </div>
         <!-- /i-text toolset -->
         <!-- image toolset -->
-        <div class="btn-group pull-right" ng-show="toolset.type == 'image'">
+        <div class="btn-group pull-right" ng-show="toolset.tab == 'image'">
           <span class="btn-group" uib-dropdown auto-close="outsideClick">
             <div class="btn btn-default round-0" uib-dropdown-toggle>
               Remove white <i class="fa fa-caret-down"></i>
@@ -72,7 +72,7 @@
         </div>
         <!-- /image toolset -->
         <!-- shape toolset -->
-        <div class="btn-group pull-right" ng-show="toolset.type == 'rect' || toolset.type == 'ellipse'">
+        <div class="btn-group pull-right" ng-show="toolset.tab == 'rect' || toolset.tab == 'ellipse'">
           <span class="btn-group" auto-close="outsideClick" uib-dropdown>
             <div class="btn btn-default round-0" uib-dropdown-toggle>
               Color <i class="fa fa-caret-down"></i>
@@ -96,7 +96,7 @@
         </div>
         <!-- /shape toolset -->
         <!-- background color toolset -->
-        <div class="btn-group pull-right" auto-close="outsideClick" uib-dropdown ng-show="!toolset.type">
+        <div class="btn-group pull-right" auto-close="outsideClick" uib-dropdown ng-show="!toolset.tab">
           <div class="btn btn-default round-0" uib-dropdown-toggle>
             Background color <i class="fa fa-caret-down"></i>
           </div>
@@ -118,10 +118,10 @@
                 <ee-cloudinary-upload meta="collection" attr-target="'1000x1000'"></ee-cloudinary-upload>
               </div>
             </div>
-            <div class="btn btn-default round-0" ng-click="toggleUnsplashOverlay()">Search for image</div>
+            <div class="btn btn-default round-0" ng-click="toggleOverlay('unsplash')">Search for image</div>
           </div>
           <div class="btn-group pull-right">
-            <div class="btn btn-default round-0" ng-if="background" ng-click="removeBackgroundImage()">Remove background image</div>
+            <div class="btn btn-default round-0" ng-if="backgroundSet()" ng-click="removeBackgroundImage()">Remove background image</div>
           </div>
         </div>
       </uib-tab>
@@ -131,14 +131,14 @@
 
   <div class="position-relative">
     <canvas id="c" width=800 height=420 class="gray-border"></canvas>
-    <div ng-show="productOverlay"
+    <div ng-show="overlay.product"
       class="white-background position-absolute top-left-bottom-right-0 margin-10 pad-5 round-5"
       style="z-index: 1000; overflow-y: scroll;">
       <span ng-repeat="product in products" ng-click="addImage({ url: product.image })" class="hover-pointer">
         <img ng-src="{{ product.image | cloudinaryResizeTo:120:120:'pad' }}"/>
       </span>
     </div>
-    <div ng-show="unsplashOverlay"
+    <div ng-show="overlay.unsplash"
       class="white-background position-absolute top-left-bottom-right-0 margin-10 pad-5 round-5"
       style="z-index: 1000; overflow-y: scroll;">
       <ee-unsplash-search app-id="bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602"></ee-unsplash-search>
@@ -148,6 +148,7 @@
   <form class="cloudinary hidden"></form>
   <div class="vert-5 margin-bottom-0">
     <div class="btn btn-primary" ng-click="upload()">Save image</div>
+    <div class="btn btn-default" ng-click="loadFromJSON()">Reset</div>
   </div>
 
   <script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>

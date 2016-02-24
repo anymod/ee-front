@@ -7,10 +7,10 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
   restrict: 'E'
   scope:
     products: '='
+    json: '='
   link: (scope, ele, attrs) ->
     scope.products ||= []
-    scope.background = null
-    scope.unsplashOverlay = scope.textOverlay = null
+    scope.overlay = {}
     scope.toolset = {}
 
     ### CANVAS SETUP ###
@@ -18,6 +18,8 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
     canvas = new fabric.Canvas('c')
     canvas.selection = false
     canvas.controlsAboveOverlay = true
+    background = null
+    backgroundFillCode = 'rgba(123,123,123,0.123)' # Use fill code to identify as background image in loadFromJSON
 
     objectDefaults =
       hasRotatingPoint: false
@@ -26,6 +28,10 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       borderColor: '#03A9F4'
       cornerSize: 25
       padding: 5
+
+    resetObject = (obj) ->
+      obj[prop] = objectDefaults[prop] for prop in Object.keys(objectDefaults)
+      if obj.get('type') is 'image' then obj.applyFilters()
 
     #### GENERAL OPERATIONS ###
 
@@ -38,26 +44,34 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       canvas.getObjects().map (obj) ->
         switch obj.get 'type'
           when 'i-text' then txtLayers.push obj
-          else (if obj isnt scope.background then objLayers.push obj)
+          else (if obj isnt background then objLayers.push obj)
       canvas.bringToFront obj for obj in objLayers
       canvas.bringToFront obj for obj in txtLayers
       renderAll()
 
-    closeToggles = () ->
-      scope.unsplashOverlay = false
-      scope.productOverlay = false
-      scope.textOverlay = false
+    closeOverlays = () ->
+      scope.overlay.text = false
+      scope.overlay.product = false
+      scope.overlay.unsplash = false
 
     resetToolset = () ->
-      scope.toolset.type = null
+      scope.toolset.tab = null
       scope.toolset.transparency = 0
       scope.toolset.whitespaceThreshold = 0
       scope.toolset.whitespaceDistance = 0
 
+    resetCanvas = () ->
+      unfocusBackground()
+      closeOverlays()
+      resetToolset()
+      sortLayers()
+
+    scope.resetCanvas = () -> resetCanvas()
+
     setToolset = (target) ->
       if !target then return resetToolset()
-      scope.toolset.type = target.get 'type'
-      if scope.toolset.type is 'i-text'
+      scope.toolset.tab = target.get 'type'
+      if scope.toolset.tab is 'i-text'
         scope.toolset.bold      = target.getFontWeight() is 'bold'
         scope.toolset.italic    = target.getFontStyle() is 'italic'
         scope.toolset.underline = target.getTextDecoration() is 'underline'
@@ -71,7 +85,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
     setAllVisibilityTo = (bool) ->
       canvas.getObjects().map (obj) -> setVisibilityTo obj, bool
 
-    scope.toggleUnsplashOverlay = () -> scope.unsplashOverlay = !scope.unsplashOverlay
+    scope.toggleOverlay = (prop) -> scope.overlay[prop] = !scope.overlay[prop]
 
     scope.moveToBack = () ->
       canvas.sendToBack canvas.getActiveObject()
@@ -79,42 +93,54 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
 
     ### BACKGROUND IMAGE OPERATIONS ###
 
-    setBackgroundImage = (imageInstance) ->
-      if scope.background then canvas.remove scope.background
-      scope.background = imageInstance
-      canvas.add imageInstance
+    scope.backgroundSet = () -> !!background
+
+    setBackgroundImage = (img, focus) ->
+      if background then canvas.remove background
+      background = img
+      img.setFill backgroundFillCode # Use fill code to identify as background image in loadFromJSON
+      canvas.add img
       sortLayers()
-      scope.focusBackground()
+      if focus then scope.focusBackground()
 
     scope.removeBackgroundImage = () ->
-      if scope.background then canvas.remove scope.background
-      scope.background = null
+      if background then canvas.remove background
+      background = null
 
     scope.focusBackground = () ->
       setAllVisibilityTo false
       canvas.deactivateAll().renderAll()
-      if scope.background
-        setVisibilityTo scope.background, true
-        canvas.setActiveObject scope.background
-        canvas.bringToFront scope.background
-      scope.toolset.type = 'background'
+      if background
+        setVisibilityTo background, true
+        canvas.setActiveObject background
+        canvas.bringToFront background
+      scope.toolset.tab = 'background'
 
-    scope.unfocusBackground = () ->
+    unfocusBackground = () ->
       setAllVisibilityTo true
-      if scope.background
-        canvas.sendToBack scope.background
-        scope.background.selectable = false
+      if background
+        canvas.sendToBack background
+        background.selectable = false
       canvas.deactivateAll()
-      setToolset null
-      closeToggles()
-      sortLayers()
 
+    json = {}
     scope.upload = () ->
-      canvas.discardActiveObject()
-      data = canvas.toDataURL 'jpg'
-      cloudinary_fileupload.fileupload('option', 'formData').file = data
-      cloudinary_fileupload.fileupload 'add', { files: [ data ] }
-      delete cloudinary_fileupload.fileupload('option', 'formData').file
+      sortLayers()
+      json = JSON.stringify(canvas)
+      # console.log 'saving', json
+      # canvas.discardActiveObject()
+      # data = canvas.toDataURL 'jpg'
+      # cloudinary_fileupload.fileupload('option', 'formData').file = data
+      # cloudinary_fileupload.fileupload 'add', { files: [ data ] }
+      # delete cloudinary_fileupload.fileupload('option', 'formData').file
+
+    scope.loadFromJSON = () ->
+      canvas.loadFromJSON json, () ->
+        resetCanvas()
+      , (o, object) ->
+        fabric.log o, object
+        resetObject object
+        if object.get('type') is 'image' and o.fill is backgroundFillCode then setBackgroundImage object
 
     scope.addImage = (opts) ->
       return if !opts or !opts.url
@@ -122,17 +148,16 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       opts.scale  ||= 0.5
       opts.w      ||= 800
       opts.h      ||= 420
-
-      img = new Image()
-      img.setAttribute 'crossOrigin', 'anonymous'
-      img.src = $filter('cloudinaryResizeTo')(opts.url, opts.w, opts.h, opts.crop)
-      img.onload = () ->
-        imgInstance = new fabric.Image img, objectDefaults
-        imgInstance.scale opts.scale
-        imgInstance.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
-        imgInstance.lockRotation = true
-        if opts.background then setBackgroundImage imgInstance else canvas.add imgInstance
-      closeToggles()
+      image = new Image()
+      image.setAttribute 'crossOrigin', 'anonymous'
+      image.src = $filter('cloudinaryResizeTo')(opts.url, opts.w, opts.h, opts.crop)
+      image.onload = () ->
+        img = new fabric.Image image, objectDefaults
+        img.scale opts.scale
+        img.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
+        img.lockRotation = true
+        if opts.background then setBackgroundImage(img, true) else canvas.add img
+      closeOverlays()
 
     cloudinary_fileupload = null
     $(document).ready () ->
@@ -147,7 +172,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       scope.addImage { url: data, crop: 'limit', w: 800, h: 800, scale: 1, background: true }
 
     scope.$on 'eeWebColorPicked', (e, color) ->
-      switch scope.toolset.type
+      switch scope.toolset.tab
         when 'rect', 'ellipse', 'circle', 'i-text'
           scope.toolset.transparency = 0
           canvas.getActiveObject().setColor color
@@ -156,9 +181,8 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
 
     $window.addEventListener 'keydown', (e) ->
       # keyCode: 8, keyIdentifier: "U+0008" (delete)
-      # console.log 'document.activeElement', document.activeElement['type']
       if e.keyCode is 8 and document.activeElement['type'] isnt 'text'
-        if canvas.getActiveObject() is scope.background then scope.background = null
+        if canvas.getActiveObject() is background then background = null
         scope.removeActiveObject()
         e.preventDefault()
 
@@ -182,8 +206,6 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       url = scope.products[Math.floor(Math.random() * scope.products.length)].image
       scope.addImage { url: url }
 
-    scope.toggleProductOverlay = () -> scope.productOverlay = !scope.productOverlay
-
     removeWhite = () ->
       activeObject = canvas.getActiveObject()
       return if !activeObject
@@ -197,7 +219,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
 
     scope.$on 'unsplash:urls', (e, urls) ->
       scope.addImage { url: urls.regular, background: true }
-      closeToggles()
+      resetCanvas()
 
 
     ### TEXT OPERATIONS ###
@@ -206,7 +228,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       txt = new fabric.IText textToAdd, objectDefaults
       txt.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
       canvas.add txt
-      closeToggles()
+      resetCanvas()
 
     scope.toggleFontSetting = (setting) ->
       txt = canvas.getActiveObject()
@@ -249,7 +271,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
         shape.rx = 75
         shape.ry = 50
       if shape then canvas.add shape
-      closeToggles()
+      resetCanvas()
 
     scope.updateTransparency = () ->
       activeObject = canvas.getActiveObject()
@@ -267,6 +289,6 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
 
     ### RUNTIME ###
 
-    resetToolset()
+    resetCanvas()
 
     return
