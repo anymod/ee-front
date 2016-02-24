@@ -10,11 +10,22 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
   link: (scope, ele, attrs) ->
     scope.products ||= []
     scope.background = null
+    scope.unsplash = null
     scope.toolset = {}
+
+    ### CANVAS SETUP ###
 
     canvas = new fabric.Canvas('c')
     canvas.selection = false
     canvas.controlsAboveOverlay = true
+
+    objectDefaults =
+      hasRotatingPoint: false
+      transparentCorners: false
+      cornerColor: '#03A9F4'
+      borderColor: '#03A9F4'
+      cornerSize: 25
+      padding: 20
 
     #### GENERAL OPERATIONS ###
 
@@ -55,6 +66,8 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
     setAllVisibilityTo = (bool) ->
       canvas.getObjects().map (obj) -> setVisibilityTo obj, bool
 
+    scope.toggleUnsplash = () -> scope.unsplash = !scope.unsplash
+
     ### BACKGROUND IMAGE OPERATIONS ###
 
     setBackgroundImage = (imageInstance) ->
@@ -84,6 +97,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
         scope.background.selectable = false
       canvas.deactivateAll()
       setToolset null
+      scope.unsplash = false
       sortLayers()
 
     scope.upload = () ->
@@ -104,14 +118,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       img.setAttribute 'crossOrigin', 'anonymous'
       img.src = $filter('cloudinaryResizeTo')(opts.url, opts.w, opts.h, opts.crop)
       img.onload = () ->
-        imgInstance = new fabric.Image img, {
-          hasRotatingPoint: false
-          transparentCorners: false
-          cornerColor: '#03A9F4'
-          borderColor: '#03A9F4'
-          cornerSize: 25
-          padding: 5
-        }
+        imgInstance = new fabric.Image img, objectDefaults
         imgInstance.scale opts.scale
         imgInstance.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
         imgInstance.lockRotation = true
@@ -139,7 +146,8 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
 
     $window.addEventListener 'keydown', (e) ->
       # keyCode: 8, keyIdentifier: "U+0008" (delete)
-      if e.keyCode is 8 and document.activeElement isnt 'text'
+      # console.log 'document.activeElement', document.activeElement['type']
+      if e.keyCode is 8 and document.activeElement['type'] isnt 'text'
         if canvas.getActiveObject() is scope.background then scope.background = null
         scope.removeActiveObject()
         e.preventDefault()
@@ -175,6 +183,11 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
 
     scope.updateWhitespace = () -> $timeout removeWhite, 100
 
+    scope.$on 'unsplash:urls', (e, urls) ->
+      scope.addImage { url: urls.regular, background: true }
+      scope.unsplash = false
+
+
     ### TEXT OPERATIONS ###
 
     scope.toggleFontSetting = (setting) ->
@@ -201,17 +214,17 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
             txt.setFontFamily font
             canvas.renderAll()
 
-    cText = new fabric.IText "Enter text",
-      top: 300
-      left: 20
-      fontStyle: 'italic'
-      fontFamily: 'Varela Round'
-      hasRotatingPoint: false
-      transparentCorners: false
-      cornerColor: '#03A9F4'
-      borderColor: '#03A9F4'
-      cornerSize: 25
-      padding: 20
+    cText = new fabric.IText "Enter text", objectDefaults
+      # top: 300
+      # left: 20
+      # fontStyle: 'italic'
+      # fontFamily: 'Varela Round'
+      # hasRotatingPoint: false
+      # transparentCorners: false
+      # cornerColor: '#03A9F4'
+      # borderColor: '#03A9F4'
+      # cornerSize: 25
+      # padding: 20
     cText.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
 
     ### SHAPE OPERATIONS ###
@@ -260,7 +273,9 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
 
     resetToolset()
     canvas.setBackgroundColor '#CC3300', renderAll()
-    scope.addImage({ url: 'https://images.unsplash.com/photo-1422568374078-27d3842ba676?crop=entropy&fit=crop&fm=jpg&h=775&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375', background: true })
+    # scope.addImage({ url: 'https://images.unsplash.com/photo-1422568374078-27d3842ba676?crop=entropy&fit=crop&fm=jpg&h=775&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375', background: true })
+    # scope.addImage({ url: 'https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=da5baf2a4cc3516caf930b0fd52a7c37', background: true })
+    # scope.addImage({ url: 'https://images.unsplash.com/photo-1445865272827-4894eb9d48de?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=200&fit=max&s=00e11529215615a53bf972851e0cc67d', background: true })
     canvas.add cText
     canvas.add rect
 

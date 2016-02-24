@@ -59,6 +59,7 @@ angular.module 'eeBuilder', [
   'ee-image-layer-editor' # TODO remove once ee-layers is finished
   'ee-layers'
   'ee-canvas'
+  'ee-unsplash-search'
 
   # shared components
   'ee-loading'

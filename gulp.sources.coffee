@@ -211,6 +211,7 @@ sources.builderDirective = [
   './src/components/ee-image-layer-editor.coffee' # TODO remove once ee-layers is finished
   './src/components/ee-layers.coffee'
   './src/components/ee-canvas.coffee'
+  './src/components/ee-unsplash-search.coffee'
 ]
 sources.sharedDirective = [
   './src/ee-shared/components/ee-product-card.coffee'

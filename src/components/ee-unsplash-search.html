@@ -1,0 +1,18 @@
+<div>
+  <form ng-submit="search()" class="form margin-0">
+    <input type="text" class="form-control vert-10 margin-top-0" ng-model="query" placeholder="Enter search terms">
+  </form>
+  <div ng-repeat="image in results"
+    ng-click="broadcast(image.urls)"
+    class="inline-block unsplash-result hover-pointer"
+    style="background: url('{{ image.urls.thumb }}') no-repeat center center;">
+  </div>
+  <div ng-show="results.length < 1">No results</div>
+  <style>
+    .unsplash-result {
+      width: 184px;
+      height: 102px;
+      margin: 0 2px;
+    }
+  </style>
+</div>
