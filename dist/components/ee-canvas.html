@@ -145,12 +145,14 @@
     </div>
   </div>
 
-  <form class="cloudinary hidden"></form>
   <div class="vert-5 margin-bottom-0">
-    <div class="btn btn-primary" ng-click="upload()">Save image</div>
-    <div class="btn btn-default" ng-click="download()">Download</div>
+    <div class="btn btn-primary" ng-click="upload()" ng-show="unsaved" ng-disabled="saving">Save image</div>
+    <a class="btn btn-default" href="{{ banner | cloudinaryAttachment }}" ng-show="!unsaved">Download</a>
+    <span ng-show="saving" class="btn btn-link text-muted disabled">Saving...</span>
     <div class="btn btn-link pull-right" ng-click="loadFromJSON()">Reset</div>
   </div>
+
+  <ee-cloudinary-upload id="cloudinary_save" attr-target="'canvas'" class="hidden"></ee-cloudinary-upload>
 
   <script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
 </div>

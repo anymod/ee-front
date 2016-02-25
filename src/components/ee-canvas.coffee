@@ -8,6 +8,7 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
   scope:
     products: '='
     json: '='
+    banner: '='
   link: (scope, ele, attrs) ->
     scope.products ||= []
     scope.tab = {}
@@ -132,14 +133,15 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
 
     json = {}
     scope.upload = () ->
+      scope.saving = true
       sortLayers()
       json = JSON.stringify(canvas)
-      # console.log 'saving', json
-      # canvas.discardActiveObject()
-      # data = canvas.toDataURL 'jpg'
-      # cloudinary_fileupload.fileupload('option', 'formData').file = data
-      # cloudinary_fileupload.fileupload 'add', { files: [ data ] }
-      # delete cloudinary_fileupload.fileupload('option', 'formData').file
+      cloudinary_fileupload = $('#cloudinary_save .cloudinary_fileupload')
+      canvas.discardActiveObject()
+      data = canvas.toDataURL 'jpg'
+      cloudinary_fileupload.fileupload('option', 'formData').file = data
+      cloudinary_fileupload.fileupload 'add', { files: [ data ] }
+      delete cloudinary_fileupload.fileupload('option', 'formData').file
 
     scope.loadFromJSON = () ->
       canvas.loadFromJSON json, null, (o, object) ->
@@ -165,17 +167,24 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
         if opts.background then setBackgroundImage(img, true) else canvas.add img
       closeOverlays()
 
-    cloudinary_fileupload = null
-    $(document).ready () ->
-      $.cloudinary.config({ cloud_name: 'eeosk' })
-      $('.cloudinary').append($.cloudinary.unsigned_upload_tag('800x420', {
-        cloud_name: 'eeosk',
-        tags: 'browser_uploads'
-      }))
-      cloudinary_fileupload = $('.cloudinary_fileupload')
+    # cloudinary_fileupload = null
+    # $(document).ready () ->
+    #   $.cloudinary.config({ cloud_name: 'eeosk' })
+    #   $('.cloudinary').append($.cloudinary.unsigned_upload_tag('width_800', {
+    #     cloud_name: 'eeosk',
+    #     tags: 'browser_uploads'
+    #   }))
+    #   cloudinary_fileupload = $('.cloudinary_fileupload')
 
     scope.$on 'cloudinary:finished', (e, data) ->
-      scope.addImage { url: data, crop: 'limit', w: 800, h: 800, scale: 1, background: true }
+      console.log 'finished', data
+      return if !data?.target
+      if data.target is '1000x1000' then scope.addImage { url: data.url, crop: 'limit', w: 800, h: 800, scale: 1, background: true }
+      if data.target is 'canvas'
+        scope.banner = data.url
+        scope.saving = false
+        scope.unsaved = false
+        # scope.$apply()
 
     scope.$on 'eeWebColorPicked', (e, color) ->
       switch scope.toolset.tab
@@ -197,6 +206,7 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
       sortLayers()
       setToolset options.target
       $timeout sa, 100
+    canvas.on 'after:render', (options) -> if !scope.unsaved then scope.unsaved = true
     canvas.on 'selection:cleared', (options) ->
       resetCanvas()
       $timeout sa, 100
@@ -225,7 +235,6 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
     scope.$on 'unsplash:urls', (e, urls) ->
       scope.addImage { url: urls.regular, background: true }
       resetCanvas()
-
 
     ### TEXT OPERATIONS ###
 
