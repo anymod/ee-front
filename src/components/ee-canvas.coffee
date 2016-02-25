@@ -2,7 +2,7 @@
 
 module = angular.module 'ee-canvas', []
 
-module.directive "eeCanvas", ($filter, $window, $timeout) ->
+module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
   templateUrl: 'components/ee-canvas.html'
   restrict: 'E'
   scope:
@@ -10,6 +10,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
     json: '='
   link: (scope, ele, attrs) ->
     scope.products ||= []
+    scope.tab = {}
     scope.overlay = {}
     scope.toolset = {}
 
@@ -29,9 +30,9 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       cornerSize: 25
       padding: 5
 
-    resetObject = (obj) ->
-      obj[prop] = objectDefaults[prop] for prop in Object.keys(objectDefaults)
-      if obj.get('type') is 'image' then obj.applyFilters()
+    removeControlPoints = (obj) ->
+      return if obj.get('type') is 'rect' or obj.get('type') is 'ellipse'
+      obj.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
 
     #### GENERAL OPERATIONS ###
 
@@ -60,13 +61,17 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       scope.toolset.whitespaceThreshold = 0
       scope.toolset.whitespaceDistance = 0
 
-    resetCanvas = () ->
-      unfocusBackground()
+    resetCanvas = (full) ->
+      # unfocusBackground()
       closeOverlays()
       resetToolset()
       sortLayers()
 
-    scope.resetCanvas = () -> resetCanvas()
+    resetObject = (obj) ->
+      obj[prop] = objectDefaults[prop] for prop in Object.keys(objectDefaults)
+      removeControlPoints obj
+      $q (resolve, reject) ->
+        if obj.get('type') is 'image' then obj.applyFilters () -> resolve true else resolve true
 
     setToolset = (target) ->
       if !target then return resetToolset()
@@ -116,12 +121,14 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
         canvas.bringToFront background
       scope.toolset.tab = 'background'
 
-    unfocusBackground = () ->
+    scope.unfocusBackground = () ->
+      scope.tab.layers = true
       setAllVisibilityTo true
       if background
         canvas.sendToBack background
         background.selectable = false
       canvas.deactivateAll()
+      resetCanvas()
 
     json = {}
     scope.upload = () ->
@@ -135,12 +142,11 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       # delete cloudinary_fileupload.fileupload('option', 'formData').file
 
     scope.loadFromJSON = () ->
-      canvas.loadFromJSON json, () ->
-        resetCanvas()
-      , (o, object) ->
-        fabric.log o, object
-        resetObject object
-        if object.get('type') is 'image' and o.fill is backgroundFillCode then setBackgroundImage object
+      canvas.loadFromJSON json, null, (o, object) ->
+        if o.fill is backgroundFillCode then setBackgroundImage object
+        resetObject(object).then () ->
+          resetCanvas()
+          scope.unfocusBackground()
 
     scope.addImage = (opts) ->
       return if !opts or !opts.url
@@ -154,7 +160,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       image.onload = () ->
         img = new fabric.Image image, objectDefaults
         img.scale opts.scale
-        img.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
+        removeControlPoints img
         img.lockRotation = true
         if opts.background then setBackgroundImage(img, true) else canvas.add img
       closeOverlays()
@@ -192,8 +198,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
       setToolset options.target
       $timeout sa, 100
     canvas.on 'selection:cleared', (options) ->
-      sortLayers()
-      scope.toolset = {}
+      resetCanvas()
       $timeout sa, 100
 
     ### IMAGE OPERATIONS ###
@@ -226,7 +231,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
 
     scope.addText = (textToAdd) ->
       txt = new fabric.IText textToAdd, objectDefaults
-      txt.setControlVisible(point, false) for point in ['mt','mr','mb','ml']
+      removeControlPoints txt
       canvas.add txt
       resetCanvas()
 
@@ -289,6 +294,7 @@ module.directive "eeCanvas", ($filter, $window, $timeout) ->
 
     ### RUNTIME ###
 
+    scope.reset = () -> resetCanvas()
     resetCanvas()
 
     return

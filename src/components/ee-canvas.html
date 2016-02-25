@@ -2,7 +2,7 @@
   <form class="form margin-0">
     <uib-tabset>
       <!-- Layers -->
-      <uib-tab heading="Layers" select="resetCanvas()">
+      <uib-tab heading="Layers" select="unfocusBackground()" active="tab.layers">
         <!-- general buttons -->
         <div class="btn-group">
           <div class="btn btn-default round-0" ng-click="toggleOverlay('product')" ng-class="{ active: overlay.product }" ng-show="products.length > 0">Add product</div>
@@ -110,7 +110,7 @@
       </uib-tab>
       <!-- /Layers -->
       <!-- Background image -->
-      <uib-tab heading="Background image" select="focusBackground()">
+      <uib-tab heading="Background image" select="focusBackground()" active="tab.background">
         <div>
           <div class="btn-group">
             <div class="btn btn-default round-0" style="cursor: auto;">
@@ -148,7 +148,8 @@
   <form class="cloudinary hidden"></form>
   <div class="vert-5 margin-bottom-0">
     <div class="btn btn-primary" ng-click="upload()">Save image</div>
-    <div class="btn btn-default" ng-click="loadFromJSON()">Reset</div>
+    <div class="btn btn-default" ng-click="download()">Download</div>
+    <div class="btn btn-link pull-right" ng-click="loadFromJSON()">Reset</div>
   </div>
 
   <script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
