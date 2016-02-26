@@ -206,7 +206,7 @@ sources.builderDirective = [
   './src/components/ee-zendesk.coffee'
   './src/components/ee-web-colorpicker.coffee'
   './src/components/ee-font-selector.coffee'
-  './src/components/ee-builder-lane.coffee'
+  './src/components/ee-builder-activity.coffee'
   './src/components/ee-builder-track-nav.coffee'
   './src/components/ee-image-layer-editor.coffee' # TODO remove once ee-layers is finished
   './src/components/ee-layers.coffee'

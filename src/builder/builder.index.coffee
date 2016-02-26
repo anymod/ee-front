@@ -45,7 +45,7 @@ angular.module 'eeBuilder', [
   'ee-builder-navbar'
   'ee-builder-live-button'
   'ee-builder-section-heading'
-  'ee-builder-lane'
+  'ee-builder-activity'
   'ee-save'
   'ee-product-builder-buttons'
   'ee-product-for-builder'
