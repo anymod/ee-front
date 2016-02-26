@@ -14,7 +14,7 @@ angular.module('builder.collections').controller 'collectionCtrl', ($scope, $sta
   collection.editImage = false
 
   if !collection.id then $state.go 'collections'
-  eeCollection.fns.search collection.id
+  eeCollection.fns.search collection.id, true
   .catch (err) -> $state.go 'collections'
 
   collection.showCanvas = () ->

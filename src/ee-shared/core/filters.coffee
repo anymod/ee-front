@@ -104,7 +104,7 @@ angular.module('app.core').filter 'in_carousel', () ->
 
 angular.module('app.core').filter 'hexToRgba', () ->
   (hex, opacity) -> # hex with # sign
-    black = { r: 0, g: 0, b: 0 }
+    black = 'rgba(0,0,0,1)'
     if !hex or typeof hex isnt 'string' then return black
     opacity ||= 1
     if hex.indexOf('rgb') > -1 then return hex

@@ -2,7 +2,7 @@
 
 module = angular.module 'ee-canvas', []
 
-module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
+module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
   templateUrl: 'components/ee-canvas.html'
   restrict: 'E'
   scope:
@@ -10,7 +10,8 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
     json: '='
     banner: '='
   link: (scope, ele, attrs) ->
-    scope.products ||= []
+    scope.products  ||= []
+    scope.json      ||= {}
     scope.tab = {}
     scope.overlay = {}
     scope.toolset = {}
@@ -131,11 +132,10 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
       canvas.deactivateAll()
       resetCanvas()
 
-    json = {}
     scope.upload = () ->
       scope.saving = true
       sortLayers()
-      json = JSON.stringify(canvas)
+      scope.json = JSON.stringify(canvas)
       cloudinary_fileupload = $('#cloudinary_save .cloudinary_fileupload')
       canvas.discardActiveObject()
       data = canvas.toDataURL 'jpg'
@@ -144,11 +144,13 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
       delete cloudinary_fileupload.fileupload('option', 'formData').file
 
     scope.loadFromJSON = () ->
-      canvas.loadFromJSON json, null, (o, object) ->
+      canvas.loadFromJSON scope.json, null, (o, object) ->
         if o.fill is backgroundFillCode then setBackgroundImage object
         resetObject(object).then () ->
-          resetCanvas()
+          if !!object.fontFamily then loadFont(object.fontFamily, resetCanvas) else resetCanvas()
           scope.unfocusBackground()
+          cb = () -> scope.unsaved = false
+          $timeout cb, 200
 
     scope.addImage = (opts) ->
       return if !opts or !opts.url
@@ -177,14 +179,15 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
     #   cloudinary_fileupload = $('.cloudinary_fileupload')
 
     scope.$on 'cloudinary:finished', (e, data) ->
-      console.log 'finished', data
       return if !data?.target
       if data.target is '1000x1000' then scope.addImage { url: data.url, crop: 'limit', w: 800, h: 800, scale: 1, background: true }
       if data.target is 'canvas'
         scope.banner = data.url
-        scope.saving = false
-        scope.unsaved = false
-        # scope.$apply()
+        $rootScope.$broadcast 'collection:update:banner', scope.banner
+
+    scope.$on 'collection:updated', (e, data) ->
+      scope.saving = false
+      scope.unsaved = false
 
     scope.$on 'eeWebColorPicked', (e, color) ->
       switch scope.toolset.tab
@@ -259,14 +262,18 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
             if scope.toolset.underline then txt.setTextDecoration 'underline' else txt.setTextDecoration 'normal'
         canvas.renderAll()
 
+    loadFont = (font, cb) ->
+      cb ||= () -> ''
+      WebFont.load
+        google: families: [font]
+        active: cb
+
     scope.$on 'font:set', (e, font) ->
       txt = canvas.getActiveObject()
-      if txt
-        WebFont.load
-          google: families: [font]
-          active: () ->
-            txt.setFontFamily font
-            canvas.renderAll()
+      cb = () ->
+        txt.setFontFamily font
+        canvas.renderAll()
+      if txt then loadFont font, cb
 
     ### SHAPE OPERATIONS ###
 
@@ -305,5 +312,6 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout) ->
 
     scope.reset = () -> resetCanvas()
     resetCanvas()
+    scope.loadFromJSON()
 
     return
