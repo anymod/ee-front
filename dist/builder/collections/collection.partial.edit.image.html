@@ -1,8 +1,10 @@
-<div class="container vert-15" ng-hide="collection.data.reading && !collection.data.collection.id">
+<div class="container-fluid vert-15"
+  ng-hide="collection.data.reading && !collection.data.collection.id"
+  ng-style="{ 'overflow-x': collection.editImage ? 'scroll' : 'none' }">
   <!-- Collection image preview -->
   <div ng-hide="collection.editImage" ng-if="collection.data.collection.id">
     <div class="well white-background max-width-300 margin-0-auto pad-5 box-shadow-2">
-      <img ng-src="{{ collection.data.collection.banner | cloudinaryResizeTo:300:177 }}"
+      <img ng-src="{{ collection.data.collection.banner | cloudinaryResizeTo:300:158 }}"
         class="gray-border hover-pointer max-width-100-pct"
         style="min-height: 150px;"
         ng-click="collection.editImage = true"/>
@@ -26,8 +28,9 @@
   <!-- Collection edit image -->
   <div ng-show="collection.editImage"
     ng-if="collection.data.collection.id"
-    class="well white-background pad-5 box-shadow-2">
-    <ee-collection-image-preview collection="collection.data.collection"></ee-collection-image-preview>
+    class="well white-background pad-5 margin-0-auto box-shadow-2"
+    style="width: 812px;">
+    <ee-layers layers="collection.data.collection.layers" collection="collection.data.collection"></ee-layers>
     <div class="vert-5 margin-bottom-0">
       <!-- Save collection -->
       <div class="btn btn-primary"

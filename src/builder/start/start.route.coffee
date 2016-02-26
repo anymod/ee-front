@@ -4,7 +4,7 @@ angular.module('builder.start').config ($stateProvider) ->
 
   $stateProvider
     .state 'start',
-      url: '/start?lane'
+      url: '/start?activity'
       views:
         header:
           controller: 'storefrontCtrl as storefront'
@@ -16,4 +16,4 @@ angular.module('builder.start').config ($stateProvider) ->
         pageTitle: 'Getting started | eeosk'
         padTop:    '110px'
       params:
-        lane: null
+        activity: null

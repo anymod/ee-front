@@ -15,11 +15,13 @@ sources.builderJs = () ->
     .concat toJs(sources.appModule)
     .concat toJs(sources.builderModule)
     .concat toJs(sources.builderDirective)
+    .concat toJs(sources.sharedDirective)
 
 sources.builderModules = () ->
   [].concat sources.appModule
     .concat sources.builderModule
     .concat sources.builderDirective
+    .concat sources.sharedDirective
 
 ### VENDOR ###
 sources.builderVendorMin = [
@@ -39,8 +41,10 @@ sources.builderVendorMin = [
   # './src/bower_components/angular-scroll/angular-scroll.min.js'
   './src/bower_components/zoom.js/dist/zoom.min.js'
   './src/bower_components/keen-js/dist/keen.min.js'
+  # './src/bower_components/CUSTOM/fabric-custom.min.js'
 ]
 sources.builderVendorUnmin = [
+  './src/bower_components/fabric.js/dist/fabric.js'
   # TODO remove once cloudinary-core doesn't require lodash
   # './src/bower_components/lodash/lodash.js'
   # './src/bower_components/cloudinary-core/cloudinary-core.js'
@@ -188,39 +192,43 @@ sources.builderModule = [
 ### DIRECTIVES ###
 sources.builderDirective = [
   # TODO remove seller & privacy directives
-  './src/ee-shared/components/ee-terms-seller.coffee'
-  './src/ee-shared/components/ee-terms-privacy.coffee'
-  './src/ee-shared/components/ee-builder-navbar.coffee'
-  './src/ee-shared/components/ee-builder-live-button.coffee'
-  './src/ee-shared/components/ee-builder-section-heading.coffee'
-  './src/ee-shared/components/ee-product-builder-buttons.coffee'
+  './src/components/ee-terms-seller.coffee'
+  './src/components/ee-terms-privacy.coffee'
+  './src/components/ee-builder-navbar.coffee'
+  './src/components/ee-builder-live-button.coffee'
+  './src/components/ee-builder-section-heading.coffee'
+  './src/components/ee-product-builder-buttons.coffee'
+  './src/components/ee-product-for-builder.coffee'
+  './src/components/ee-price-editor.coffee'
+  './src/components/ee-collection-for-builder.coffee'
+  './src/components/ee-save.coffee'
+  './src/components/ee-cloudinary-upload.coffee'
+  './src/components/ee-zendesk.coffee'
+  './src/components/ee-web-colorpicker.coffee'
+  './src/components/ee-font-selector.coffee'
+  './src/components/ee-builder-activity.coffee'
+  './src/components/ee-builder-track-nav.coffee'
+  './src/components/ee-image-layer-editor.coffee' # TODO remove once ee-layers is finished
+  './src/components/ee-layers.coffee'
+  './src/components/ee-canvas.coffee'
+  './src/components/ee-unsplash-search.coffee'
+]
+sources.sharedDirective = [
   './src/ee-shared/components/ee-product-card.coffee'
-  './src/ee-shared/components/ee-product-for-builder.coffee'
   './src/ee-shared/components/ee-product-for-store.coffee'
   './src/ee-shared/components/ee-products-in-collection.coffee'
   './src/ee-shared/components/ee-product-images.coffee'
-  './src/ee-shared/components/ee-price-editor.coffee'
-  # './src/ee-shared/components/ee-collection-edit-card.coffee'
   './src/ee-shared/components/ee-collection-image-preview.coffee'
-  # './src/ee-shared/components/ee-collection-add-card.coffee'
-  './src/ee-shared/components/ee-collection-for-builder.coffee'
-  './src/ee-shared/components/ee-save.coffee'
   './src/ee-shared/components/ee-loading.coffee'
   './src/ee-shared/components/ee-collection-nav.coffee'
   './src/ee-shared/components/ee-order.coffee'
-  './src/ee-shared/components/ee-cloudinary-upload.coffee'
   './src/ee-shared/components/ee-image-preload.coffee'
   './src/ee-shared/components/ee-storefront-header.coffee'
   './src/ee-shared/components/ee-storefront-logo.coffee'
   './src/ee-shared/components/ee-storefront-brand.coffee'
   './src/ee-shared/components/ee-scroll-to-top.coffee'
   './src/ee-shared/components/ee-empty-message.coffee'
-  './src/ee-shared/components/ee-zendesk.coffee'
-  './src/ee-shared/components/ee-web-colorpicker.coffee'
   './src/ee-shared/components/ee-datepicker.coffee'
-  './src/ee-shared/components/ee-font-selector.coffee'
-  './src/ee-shared/components/ee-builder-lane.coffee'
-  './src/ee-shared/components/ee-builder-track-nav.coffee'
 ]
 
 module.exports = sources

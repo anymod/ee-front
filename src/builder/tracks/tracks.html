@@ -3,11 +3,11 @@
 <div class="container-fluid">
   <div class="row pad-5">
     <uib-accordion class="track-accordion">
-      <ee-builder-lane
-        ng-repeat="lane in tracks.ee.Tracks.track.lanes"
-        lane="lane"
-        ng-if="lane.show">
-      </ee-builder-lane>
+      <ee-builder-activity
+        ng-repeat="activity in tracks.ee.Tracks.track.activities"
+        activity="activity"
+        ng-if="activity.show">
+      </ee-builder-activity>
     </uib-accordion>
   </div>
 </div>

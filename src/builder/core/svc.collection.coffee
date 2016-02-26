@@ -47,6 +47,7 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
       _data.count       = count
       _data.collection  = collection
       _data.products    = rows
+      $rootScope.$broadcast 'collection:updated', _data.collection
     .finally () -> _data.collection.updating = false
 
   # _updateCollection = () ->
@@ -72,6 +73,12 @@ angular.module('builder.core').factory 'eeCollection', ($rootScope, $q, eeAuth, 
       $rootScope.$broadcast 'remove:collections', _data.collection.id
       res
     .finally () -> _data.destroying = false
+
+  ## MESSAGING
+  $rootScope.$on 'collection:update:banner', (e, banner) ->
+    _data.collection.banner = banner
+    _updateCollection()
+
 
   ## EXPORTS
   data: _data

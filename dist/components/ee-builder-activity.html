@@ -1,0 +1,37 @@
+<div>
+  <uib-accordion-group is-open="startActivityOpen">
+    <uib-accordion-heading>
+      <div class="row">
+        <div class="col col-sm-8">
+          <span ng-bind="activity.title"></span>
+        </div>
+        <div class="col col-sm-4 text-right">
+          <i ng-repeat="step in steps"
+            class="fa fa-circle-o"
+            ng-class="step.show ? 'text-success' : 'text-muted'">
+          </i>
+        </div>
+      </div>
+    </uib-accordion-heading>
+    <div ng-if="activity.intro" class="media white-background pad-10 margin-0">
+      <div class="media-left">
+        <i class="fa fa-fw fa-2x fa-info-circle text-muted"></i>
+      </div>
+      <div class="media-body">
+        <p ng-bind="activity.intro"
+          style="white-space: pre-line;" class="margin-0">
+        </p>
+      </div>
+    </div>
+    <div class="media white-background pad-10 margin-0"
+      ng-repeat="step in steps">
+      <div class="media-left">
+        <i class="fa fa-fw fa-2x fa-circle-o" ng-class="step.show ? 'text-success' : 'text-muted'"></i>
+      </div>
+      <div class="media-body">
+        <h4 class="vert-15 margin-top-0" ng-bind="step.title"></h4>
+        <div ng-bind-html="step.html"></div>
+      </div>
+    </div>
+  </uib-accordion-group>
+</div>

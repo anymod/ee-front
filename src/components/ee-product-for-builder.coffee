@@ -1,0 +1,15 @@
+'use strict'
+
+module = angular.module 'ee-product-for-builder', []
+
+module.directive "eeProductForBuilder", (eeProducts) ->
+  templateUrl: 'components/ee-product-for-builder.html'
+  restrict: 'E'
+  scope:
+    product:      '='
+    collection:   '='
+    buttonSet:    '='
+    hideButtons:  '='
+  link: (scope, ele, attrs) ->
+    scope.productsFns = eeProducts.fns
+    return

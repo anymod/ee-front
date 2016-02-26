@@ -10,19 +10,24 @@ angular.module('builder.collections').controller 'collectionCtrl', ($scope, $sta
   collection.productsFns = eeProducts.fns
   collection.id     = $stateParams.id
   collection.state  = $state.current.name
-  collection.in     = true
+  collection.tab    = 'canvas'
   collection.editImage = false
 
   if !collection.id then $state.go 'collections'
+  eeCollection.fns.search collection.id, true
+  .catch (err) -> $state.go 'collections'
+
+  collection.showCanvas = () ->
+    collection.tab = 'canvas'
 
   collection.showIn = () ->
-    collection.in = true
+    collection.tab = 'in'
     eeCollection.fns.search collection.id
     .catch (err) -> $state.go 'collections'
-  collection.showIn()
+  # collection.showIn()
 
   collection.showAdd = () ->
-    collection.in = false
+    collection.tab = 'add'
     eeProducts.fns.runSection 'search'
     .catch (err) -> $state.go 'collections'
 
@@ -32,6 +37,6 @@ angular.module('builder.collections').controller 'collectionCtrl', ($scope, $sta
 
   collection.update = () -> eeCollection.fns.update collection.id
 
-  $scope.$on 'search:started', () -> collection.in = false
+  $scope.$on 'search:started', () -> collection.tab = 'add'
 
   return

@@ -2,6 +2,7 @@ spawn = require('child_process').spawn
 
 argv  = require('yargs').argv
 gulp  = require 'gulp'
+del   = require 'del'
 gp    = do require "gulp-load-plugins"
 
 streamqueue = require 'streamqueue'
@@ -15,6 +16,7 @@ sources     = require './gulp.sources'
 # task options
 
 distPath = './dist'
+scope = {}
 
 htmlminOptions =
   removeComments: true
@@ -26,6 +28,11 @@ htmlminOptions =
   caseSensitive: true
   minifyJS: true
   minifyCSS: true
+
+## ==========================
+## del tasks
+gulp.task 'del-dist', () -> del distPath
+gulp.task 'del-js', () -> del './src/js'
 
 ## ==========================
 ## html tasks
@@ -90,13 +97,15 @@ copySingleToSrcJs = (path, url) ->
     .pipe gp.sourcemaps.write './'
     .pipe gulp.dest './src/js'
 
-gulp.task 'js-test',  () ->
-  copyToSrcJs()
-  copyConstantToSrcJs 'http://localhost:5555'
+gulp.task 'js-constant-5555', () -> copyConstantToSrcJs 'http://localhost:5555'
+gulp.task 'js-constant-5000', () -> copyConstantToSrcJs 'http://localhost:5000'
 
-gulp.task 'js-dev',   () ->
-  copyToSrcJs()
-  copyConstantToSrcJs 'http://localhost:5000'
+gulp.task 'js-dev', () -> copyToSrcJs()
+gulp.task 'js-test',  () -> runSequence 'js-dev', 'js-constant-5555'
+# gulp.task 'js-dev',  () -> runSequence 'js-dev', 'copyConstant5000'
+# gulp.task 'js-dev', () ->
+#   copyToSrcJs()
+#   copyConstantToSrcJs 'http://localhost:5000'
 
 gulp.task 'js-prod', () ->
   # inline templates; no need for ngAnnotate
@@ -137,7 +146,7 @@ gulp.task 'js-stage', () ->
 # other tasks
 # copy non-compiled files
 
-gulp.task "copy-prod", () ->
+gulp.task 'copy-prod', () ->
 
   gulp.src './src/ee-shared/**/*.html'
     .pipe gp.plumber()
@@ -148,6 +157,11 @@ gulp.task "copy-prod", () ->
     .pipe gp.plumber()
     .pipe gp.changed distPath
     .pipe gulp.dest distPath + '/builder'
+
+  gulp.src './src/components/**/*.html'
+    .pipe gp.plumber()
+    .pipe gp.changed distPath
+    .pipe gulp.dest distPath + '/components'
 
   gulp.src './src/ee-shared/fonts/*.*'
     .pipe gp.plumber()
@@ -212,10 +226,6 @@ gulp.task 'watch-dev', () ->
   gulp.watch './src/**/*.coffee', (obj) -> copySingleToSrcJs obj.path, 'http://localhost:5000'
   gulp.watch './src/**/constants.coffee', (obj) -> copyConstantToSrcJs 'http://localhost:5000'
   gulp.watch './src/builder.html', (obj) -> copyDevHtml()
-  # gulp.src './src/**/*.coffee'
-  #   .pipe gp.watch { emit: 'one', name: 'js' }, ['js-dev']
-  # gulp.src './src/**/*.html'
-  #   .pipe gp.watch { emit: 'one', name: 'html' }, ['html-dev']
 
 gulp.task 'watch-test', () ->
   gulp.src './src/**/*.coffee'
@@ -226,12 +236,7 @@ gulp.task 'watch-test', () ->
 # ===========================
 # runners
 
-# gulp.task 'dev', ['watch-dev', 'server-dev'], () -> return
-# gulp.task 'prod', ['js-prod', 'html-prod', 'copy-prod', 'server-prod'], () -> return
-# gulp.task 'prod-test', ['pre-prod-test', 'protractor-prod']
-# gulp.task 'stage', ['js-stage'], () -> return
-
 gulp.task 'test', ['js-test', 'html-dev', 'server-test', 'watch-test'], () -> return
-gulp.task 'dev', (cb) -> runSequence 'js-dev', 'html-dev', 'server-dev', 'watch-dev', cb
-gulp.task 'prod', (cb) -> runSequence 'js-prod', 'html-prod', 'copy-prod', 'server-prod', cb
-gulp.task 'stage', (cb) -> runSequence 'js-prod', 'html-prod', 'copy-prod', 'js-stage', cb
+gulp.task 'dev', (cb) -> runSequence 'del-js', 'js-dev', 'js-constant-5000', 'html-dev', 'server-dev', 'watch-dev', cb
+gulp.task 'prod', (cb) -> runSequence 'del-dist', 'del-js', 'js-dev', 'js-prod', 'html-dev', 'html-prod', 'copy-prod', 'server-prod', cb
+gulp.task 'stage', (cb) -> runSequence 'del-dist', 'del-js', 'js-dev', 'js-prod', 'html-dev', 'html-prod', 'copy-prod', 'js-stage', cb

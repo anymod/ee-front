@@ -1,13 +1,24 @@
 <ee-builder-track-nav></ee-builder-track-nav>
 
 <div class="container-fluid">
-  <div class="row pad-5">
+  <!-- <div class="row text-center">
+    <div class="btn btn-default text-facebook">
+      <i class="fa fa-facebook"></i>&nbsp;&nbsp;Setup Guide
+    </div>
+    <div class="btn btn-default text-facebook">
+      <i class="fa fa-facebook"></i>&nbsp;&nbsp;Posting Tips
+    </div>
+    <div class="btn btn-default text-facebook">
+      <i class="fa fa-facebook"></i>&nbsp;&nbsp;Advertising Guide
+    </div>
+  </div> -->
+  <div class="row pad-10">
     <uib-accordion class="track-accordion">
-      <ee-builder-lane
-        ng-repeat="lane in track.data.track.lanes"
-        lane="lane"
-        ng-if="lane.show">
-      </ee-builder-lane>
+      <ee-builder-activity
+        ng-repeat="activity in track.data.track.activities"
+        activity="activity"
+        ng-if="activity.show">
+      </ee-builder-activity>
     </uib-accordion>
   </div>
 </div>
