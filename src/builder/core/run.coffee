@@ -2,7 +2,7 @@
 
 angular.module('builder.core').run ($rootScope, $state, $location, $cookies, eeAuth, eeUser) ->
   $rootScope.isBuilder = true
-  $rootScope.isProduction = $location.host() isnt 'localhost' and $location.host.indexOf('heroku') < 0
+  $rootScope.isProduction = $location.host() isnt 'localhost' and $location.host().indexOf('heroku') < 0
 
   ## Keen.js
   Keen.ready () ->
