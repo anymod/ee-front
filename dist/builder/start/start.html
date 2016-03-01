@@ -3,6 +3,7 @@
     <uib-accordion class="track-accordion">
       <ee-builder-activity
         ng-repeat="activity in start.data.track.activities"
+        track="start.data.track"
         activity="activity"
         completed-steps="start.ee.User.user.completed_steps">
       </ee-builder-activity>

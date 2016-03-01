@@ -2,6 +2,7 @@
 
 angular.module('builder.core').run ($rootScope, $state, $location, $cookies, eeAuth, eeUser) ->
   $rootScope.isBuilder = true
+  $rootScope.isProduction = $location.host() isnt 'localhost' and $location.host.indexOf('heroku') < 0
 
   ## Keen.js
   Keen.ready () ->
@@ -87,7 +88,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, $cookies, eeA
         _gat:       $cookies.get('_gat')
 
       Keen.ready () ->
-        if $location.host() isnt 'localhost' and keenio.user then $rootScope.keenio.addEvent 'builder', keenio, (err, res) -> return
+        if $rootScope.isProduction and keenio.user then $rootScope.keenio.addEvent 'builder', keenio, (err, res) -> return
     return
 
   return

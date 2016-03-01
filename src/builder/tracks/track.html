@@ -15,6 +15,7 @@
     <uib-accordion class="track-accordion" close-others="false">
       <ee-builder-activity
         ng-repeat="activity in track.data.track.activities"
+        track="track.data.track"
         activity="activity"
         ng-if="activity.show"
         completed-steps="track.ee.User.user.completed_steps">

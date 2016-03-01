@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.core').factory 'eeUser', ($rootScope, $q, eeAuth, eeBack) ->
+angular.module('builder.core').factory 'eeUser', ($rootScope, $q, $cookies, eeAuth, eeBack) ->
 
   ## SETUP
   # none
@@ -42,12 +42,30 @@ angular.module('builder.core').factory 'eeUser', ($rootScope, $q, eeAuth, eeBack
     _data.user.storefront_meta.about.imgUrl = image
 
   ## MESSAGING
-  $rootScope.$on 'completed:steps:toggle', (e, step) ->
-    _data.user.completed_steps ||= []
-    console.log _data.user.completed_steps
+  keenio =
+    user:       eeAuth.fns.getKeen()
+    username:   eeAuth.fns.getUsername()
+    _ga:        $cookies.get('_ga')
+    _gat:       $cookies.get('_gat')
+
+  $rootScope.$on 'completed:steps:toggle', (e, data) ->
+    return if !_data.user.completed_steps
+    { track, activity, step } = data
+    keenio.track_id       = track.id
+    keenio.activity_id    = activity.id
+    keenio.step_id        = step.id
+    keenio.track_title    = track.title
+    keenio.activity_title = activity.title
+    keenio.step_title     = step.title
     index = _data.user.completed_steps.indexOf(step.id)
-    if index > -1 then _data.user.completed_steps.splice(index, 1) else _data.user.completed_steps.push step.id
+    if index > -1
+      _data.user.completed_steps.splice(index, 1)
+      keenio.uncheck = true
+    else
+      _data.user.completed_steps.push step.id
+      keenio.check = true
     _updateUser({ id: _data.user.id, completed_steps: _data.user.completed_steps })
+    if $rootScope.isProduction then $rootScope.keenio.addEvent 'checkbox', keenio
 
   ## EXPORTS
   data: _data

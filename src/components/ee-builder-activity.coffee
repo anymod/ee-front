@@ -6,6 +6,7 @@ angular.module('ee-builder-activity').directive "eeBuilderActivity", ($filter, $
   templateUrl: 'components/ee-builder-activity.html'
   restrict: 'E'
   scope:
+    track: '='
     activity: '='
     completedSteps: '='
     startOpen: '@'
@@ -25,8 +26,10 @@ angular.module('ee-builder-activity').directive "eeBuilderActivity", ($filter, $
       step.uncollapse = !step.uncollapse
 
     scope.toggleStepCompletion = (step) ->
-      # index = scope.completedSteps.indexOf(step.id)
-      # message = if index > -1 then 'completed:steps:toggle' else 'completed:steps:add'
-      $rootScope.$broadcast 'completed:steps:toggle', step
+      $rootScope.$broadcast 'completed:steps:toggle', {
+        track: scope.track,
+        activity: scope.activity,
+        step: step
+      }
 
     return
