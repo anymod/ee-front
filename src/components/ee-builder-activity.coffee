@@ -21,4 +21,9 @@ angular.module('ee-builder-activity').directive "eeBuilderActivity", ($filter, $
     scope.toggleStep = (step) ->
       return if scope.openSteps
       step.uncollapse = !step.uncollapse
+
+    scope.toggleStepCheck = (step) ->
+      # step.checked = !step.checked
+      return
+
     return
