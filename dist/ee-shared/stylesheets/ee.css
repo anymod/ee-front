@@ -8844,6 +8844,42 @@ rzslider.vertical .rz-ticks .tick .tick-value {
 a.link-muted {
   color: #777777 !important;
 }
+.card {
+  background: #fff;
+  border-radius: 2px;
+  display: block;
+  float: left;
+  height: 300px;
+  margin: 1rem;
+  position: relative;
+  width: 300px;
+}
+.box-shadow,
+.box-shadow-1 {
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.box-shadow-2 {
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.box-shadow-3 {
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.box-shadow-4 {
+  -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+.box-shadow-5 {
+  -webkit-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
 .dropdown-menu {
   z-index: 1070;
 }
@@ -8883,10 +8919,16 @@ uib-accordion.track-accordion ee-builder-activity:first-child .panel {
 uib-accordion.track-accordion ee-builder-activity:last-child .panel {
   border-bottom: 1px solid #E6E6E6;
 }
+uib-accordion.track-accordion .panel {
+  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);
+}
 uib-accordion.track-accordion .panel-open {
   margin: 20px 0;
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19), 0 2px 8px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 uib-accordion.track-accordion .panel-open .panel-title {
   font-weight: normal !important;
@@ -9524,12 +9566,6 @@ html {
 .no-side-border {
   border-left: none;
   border-right: none;
-}
-.box-shadow {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19), 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-.box-shadow-2 {
-  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 .height-auto {
   height: auto;
@@ -10211,7 +10247,9 @@ a.product:focus .product-title {
 }
 .product-container:hover,
 .product-container:focus {
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.19), 0 2px 8px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 @media (max-width: 480px) {
   .product-container {
@@ -10292,49 +10330,6 @@ img.zoom-img {
 .zoom-overlay-open,
 .zoom-overlay-transitioning {
   cursor: default;
-}
-rzslider {
-  margin-top: 10px;
-}
-rzslider .rz-pointer {
-  width: 20px;
-  height: 20px;
-  top: -8px;
-  background-color: #0286c2;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-}
-rzslider .rz-pointer:after {
-  display: none;
-}
-rzslider .rz-bar {
-  height: 6px;
-  background: #C2C2C2;
-  box-shadow: inset 0px 0px 3px #474747;
-}
-rzslider .rz-bubble {
-  display: none;
-}
-rzslider.vertical .rz-pointer {
-  left: -8px !important;
-}
-.thin-slider rzslider .rz-pointer {
-  width: 5px;
-  height: 20px;
-  margin-left: -3px;
-}
-.thin-slider rzslider .rz-bar.rz-selection {
-  margin-left: -3px;
-}
-.thin-slider rzslider.vertical .rz-pointer {
-  left: -8px !important;
-  width: 20px;
-  height: 5px;
-  margin-left: 0;
-}
-.thin-slider rzslider.vertical .rz-bar.rz-selection {
-  margin-left: 0;
 }
 
 /*# sourceMappingURL=ee.css.map */
