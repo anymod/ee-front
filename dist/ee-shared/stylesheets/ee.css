@@ -8878,6 +8878,7 @@ uib-accordion.track-accordion .panel {
 }
 uib-accordion.track-accordion ee-builder-activity:first-child .panel {
   border-top: 1px solid #E6E6E6;
+  margin-top: 0px !important;
 }
 uib-accordion.track-accordion ee-builder-activity:last-child .panel {
   border-bottom: 1px solid #E6E6E6;

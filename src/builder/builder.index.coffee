@@ -56,10 +56,11 @@ angular.module 'eeBuilder', [
   'ee-web-colorpicker'
   'ee-font-selector'
   'ee-builder-track-nav'
-  'ee-image-layer-editor' # TODO remove once ee-layers is finished
-  'ee-layers'
+  # 'ee-image-layer-editor' # TODO remove once ee-layers is finished
+  # 'ee-layers'
   'ee-canvas'
   'ee-unsplash-search'
+  'ee-guide-button'
 
   # shared components
   'ee-loading'

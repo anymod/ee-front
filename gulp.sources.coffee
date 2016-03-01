@@ -151,6 +151,7 @@ sources.builderModule = [
   './src/builder/tracks/tracks.route.coffee'
   './src/builder/tracks/tracks.controller.coffee'
   './src/builder/tracks/track.controller.coffee'
+  './src/builder/tracks/activity.modal.controller.coffee'
   # Module - start
   './src/builder/start/start.module.coffee'
   './src/builder/start/start.route.coffee'
@@ -208,10 +209,11 @@ sources.builderDirective = [
   './src/components/ee-font-selector.coffee'
   './src/components/ee-builder-activity.coffee'
   './src/components/ee-builder-track-nav.coffee'
-  './src/components/ee-image-layer-editor.coffee' # TODO remove once ee-layers is finished
-  './src/components/ee-layers.coffee'
+  # './src/components/ee-image-layer-editor.coffee' # TODO remove once ee-layers is finished
+  # './src/components/ee-layers.coffee'
   './src/components/ee-canvas.coffee'
   './src/components/ee-unsplash-search.coffee'
+  './src/components/ee-guide-button.coffee'
 ]
 sources.sharedDirective = [
   './src/ee-shared/components/ee-product-card.coffee'

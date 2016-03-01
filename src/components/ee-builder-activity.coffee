@@ -7,9 +7,10 @@ angular.module('ee-builder-activity').directive "eeBuilderActivity", ($filter, $
   restrict: 'E'
   scope:
     activity: '='
+    startOpen: '@'
   link: (scope, ele, attrs) ->
     scope.query = $location.search()
-    scope.startActivityOpen = false
+    scope.startActivityOpen = if scope.startOpen then scope.startOpen else false
     scope.openSteps = false
     if parseInt(scope.query?.activity) is scope.activity?.id
       scope.startActivityOpen = true

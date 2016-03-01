@@ -1,17 +1,16 @@
 <ee-builder-track-nav></ee-builder-track-nav>
 
-<div class="container-fluid max-width-900">
-  <!-- <div class="row text-center">
-    <div class="btn btn-default text-facebook">
-      <i class="fa fa-facebook"></i>&nbsp;&nbsp;Setup Guide
-    </div>
-    <div class="btn btn-default text-facebook">
-      <i class="fa fa-facebook"></i>&nbsp;&nbsp;Posting Tips
-    </div>
-    <div class="btn btn-default text-facebook">
-      <i class="fa fa-facebook"></i>&nbsp;&nbsp;Advertising Guide
-    </div>
-  </div> -->
+<div class="container-fluid max-width-900" ng-hide="track.ee.Tracks.reading">
+  <div class="row text-center">
+    <ee-guide-button
+      ng-repeat="activity in track.data.track.guides"
+      track="track.data.track"
+      activity="activity"
+      ng-if="activity.show">
+    </ee-guide-button>
+  </div>
+
+  <!-- Activities -->
   <div class="row pad-10">
     <uib-accordion class="track-accordion">
       <ee-builder-activity
@@ -21,4 +20,8 @@
       </ee-builder-activity>
     </uib-accordion>
   </div>
+  <!-- /Activities -->
+
 </div>
+
+<ee-loading loading="track.ee.Tracks.reading"></ee-loading>
