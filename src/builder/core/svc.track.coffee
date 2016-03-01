@@ -6,13 +6,16 @@ angular.module('app.core').factory 'eeTrack', (eeAuth, eeBack) ->
   # none
 
   ## PRIVATE EXPORT DEFAULTS
-  _data = {}
+  _data =
+    reading: false
 
   ## PRIVATE FUNCTIONS
   _get = (id) ->
-    eeBack.fns.trackGET id, eeAuth.fns.getToken()
+    _data.reading = true
+    eeBack.fns.trackGET parseInt(id), eeAuth.fns.getToken()
     .then (track) -> track
     .catch (err) -> console.log err
+    .finally () -> _data.reading = false
 
   ## EXPORTS
   data: _data

@@ -19,6 +19,7 @@ angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, $stat
     noShadow: '@'
   link: (scope, ele, attrs) ->
     scope.ee = eeDefiner.exports
+    scope.state = $state.current?.name
     scope.productsFns = eeProducts.fns
 
     switch $state.current?.name
