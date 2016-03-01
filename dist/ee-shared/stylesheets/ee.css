@@ -8913,10 +8913,12 @@ uib-accordion.track-accordion .panel {
   transition: all 0.2s cubic-bezier(0.7, 0, 0.175, 1) 0s;
 }
 uib-accordion.track-accordion ee-builder-activity:first-child .panel {
+  border-radius: 5px 5px 0 0;
   border-top: 1px solid #E6E6E6;
   margin-top: 0px !important;
 }
 uib-accordion.track-accordion ee-builder-activity:last-child .panel {
+  border-radius: 0 0 5px 5px;
   border-bottom: 1px solid #E6E6E6;
 }
 uib-accordion.track-accordion .panel {
@@ -9686,6 +9688,9 @@ html {
 }
 .line-height-1-5 {
   line-height: 1.5em;
+}
+.hover-cursor-default:hover {
+  cursor: default !important;
 }
 .hover-pointer:hover {
   cursor: pointer;

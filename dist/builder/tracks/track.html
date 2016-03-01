@@ -16,7 +16,8 @@
       <ee-builder-activity
         ng-repeat="activity in track.data.track.activities"
         activity="activity"
-        ng-if="activity.show">
+        ng-if="activity.show"
+        completed-steps="track.ee.User.user.completed_steps">
       </ee-builder-activity>
     </uib-accordion>
   </div>

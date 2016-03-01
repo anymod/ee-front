@@ -5,11 +5,11 @@
         <div class="col col-sm-8">
           <span ng-bind="activity.title"></span>
         </div>
-        <div class="col col-sm-4 text-right">
+        <div class="col col-sm-4 text-right hover-cursor-default">
           <i ng-repeat="step in steps"
             ng-if="step.show"
             class="fa text-success"
-            ng-class="step.checked ? 'fa-check-circle' : 'fa-circle-o'">
+            ng-class="completedSteps.indexOf(step.id) > -1 ? 'fa-check-circle' : 'fa-circle-o'">
           </i>
         </div>
       </div>
@@ -28,9 +28,9 @@
       ng-repeat="step in steps"
       ng-if="step.show">
       <div class="media-left">
-        <i class="fa fa-fw fa-2x text-success hoverz-pointer"
-          ng-class="step.checked ? 'fa-check-circle' : 'fa-circle-o'"
-          ng-click="toggleStepCheck(step)">
+        <i class="fa fa-fw fa-2x text-success hover-pointer"
+          ng-class="completedSteps.indexOf(step.id) > -1 ? 'fa-check-circle' : 'fa-circle-o'"
+          ng-click="toggleStepCompletion(step)">
         </i>
       </div>
       <div class="media-body">

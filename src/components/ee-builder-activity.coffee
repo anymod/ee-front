@@ -2,14 +2,16 @@
 
 angular.module 'ee-builder-activity', []
 
-angular.module('ee-builder-activity').directive "eeBuilderActivity", ($filter, $location) ->
+angular.module('ee-builder-activity').directive "eeBuilderActivity", ($filter, $location, $rootScope) ->
   templateUrl: 'components/ee-builder-activity.html'
   restrict: 'E'
   scope:
     activity: '='
+    completedSteps: '='
     startOpen: '@'
   link: (scope, ele, attrs) ->
     scope.query = $location.search()
+    scope.completedSteps ||= []
     scope.startActivityOpen = if scope.startOpen then scope.startOpen else false
     scope.openSteps = false
     if parseInt(scope.query?.activity) is scope.activity?.id
@@ -22,8 +24,9 @@ angular.module('ee-builder-activity').directive "eeBuilderActivity", ($filter, $
       return if scope.openSteps
       step.uncollapse = !step.uncollapse
 
-    scope.toggleStepCheck = (step) ->
-      # step.checked = !step.checked
-      return
+    scope.toggleStepCompletion = (step) ->
+      # index = scope.completedSteps.indexOf(step.id)
+      # message = if index > -1 then 'completed:steps:toggle' else 'completed:steps:add'
+      $rootScope.$broadcast 'completed:steps:toggle', step
 
     return
