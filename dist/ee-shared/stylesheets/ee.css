@@ -8835,6 +8835,12 @@ rzslider.vertical .rz-ticks .tick .tick-value {
 .text-instagram:hover {
   color: #3f729b !important;
 }
+.text-envelope {
+  color: #ffac00 !important;
+}
+.text-envelope:hover {
+  color: #ffac00 !important;
+}
 .text-dark-gray {
   color: #474747 !important;
 }
