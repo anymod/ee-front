@@ -1,4 +1,5 @@
-<div class="well white-background box-shadow pad-5 position-relative" style="width: 812px;">
+<div class="well white-background box-shadow pad-5 position-relative"
+  style="width: 812px;">
   <form class="form margin-0">
     <uib-tabset>
       <!-- Layers -->
@@ -130,7 +131,9 @@
   </form>
 
   <div class="position-relative">
-    <canvas id="c" width=800 height=420 class="gray-border"></canvas>
+    <canvas id="collection_canvas" ng-show="canvasType == 'collection'" width=800 height=420 class="gray-border"></canvas>
+    <canvas id="logo_canvas" ng-show="canvasType == 'logo'" width=280 height=80 class="gray-border"></canvas>
+    <!-- <canvas ng-if="canvasType == 'collection'" id="c" width="800" height="420" class="gray-border"></canvas> -->
     <div ng-show="overlay.product"
       class="white-background position-absolute top-left-bottom-right-0 margin-10 pad-5 round-5"
       style="z-index: 1000; overflow-y: scroll;">

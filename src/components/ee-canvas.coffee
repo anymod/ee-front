@@ -9,6 +9,9 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     products: '='
     json: '='
     banner: '='
+    canvasType: '='
+    canvasWidth: '='
+    canvasHeight: '='
   link: (scope, ele, attrs) ->
     scope.products  ||= []
     scope.json      ||= {}
@@ -16,9 +19,14 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     scope.overlay = {}
     scope.toolset = {}
 
+    scope.canvasType ||= 'collection'
+    scope.canvasWidth ||= 800
+    scope.canvasHeight ||= 420
+    scope.wellWidth = scope.canvasWidth + 12
+
     ### CANVAS SETUP ###
 
-    canvas = new fabric.Canvas('c')
+    canvas = new fabric.Canvas(scope.canvasType + '_canvas')
     canvas.selection = false
     canvas.controlsAboveOverlay = true
     background = null
@@ -156,8 +164,8 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       return if !opts or !opts.url
       opts.crop   ||= 'fit'
       opts.scale  ||= 0.5
-      opts.w      ||= 800
-      opts.h      ||= 420
+      opts.w      ||= scope.canvasWidth
+      opts.h      ||= scope.canvasHeight
       image = new Image()
       image.setAttribute 'crossOrigin', 'anonymous'
       image.src = $filter('cloudinaryResizeTo')(opts.url, opts.w, opts.h, opts.crop)
@@ -169,18 +177,9 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
         if opts.background then setBackgroundImage(img, true) else canvas.add img
       closeOverlays()
 
-    # cloudinary_fileupload = null
-    # $(document).ready () ->
-    #   $.cloudinary.config({ cloud_name: 'eeosk' })
-    #   $('.cloudinary').append($.cloudinary.unsigned_upload_tag('width_800', {
-    #     cloud_name: 'eeosk',
-    #     tags: 'browser_uploads'
-    #   }))
-    #   cloudinary_fileupload = $('.cloudinary_fileupload')
-
     scope.$on 'cloudinary:finished', (e, data) ->
       return if !data?.target
-      if data.target is '1000x1000' then scope.addImage { url: data.url, crop: 'limit', w: 800, h: 800, scale: 1, background: true }
+      if data.target is '1000x1000' then scope.addImage { url: data.url, crop: 'limit', w: scope.canvasWidth, h: scope.canvasWidth, scale: 1, background: true }
       if data.target is 'canvas'
         scope.banner = data.url
         $rootScope.$broadcast 'collection:update:banner', scope.banner
