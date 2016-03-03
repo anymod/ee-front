@@ -14,6 +14,7 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     canvasHeight: '='
   link: (scope, ele, attrs) ->
     scope.products  ||= []
+    scope.layers = []
     scope.json      ||= {}
     scope.tab = {}
     scope.overlay = {}
@@ -29,8 +30,8 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     canvas = new fabric.Canvas(scope.canvasType + '_canvas')
     canvas.selection = false
     canvas.controlsAboveOverlay = true
-    background = null
-    backgroundFillCode = 'rgba(123,123,123,0.123)' # Use fill code to identify as background image in loadFromJSON
+    # background = null
+    # backgroundFillCode = 'rgba(123,123,123,0.123)' # Use fill code to identify as background image in loadFromJSON
 
     objectDefaults =
       hasRotatingPoint: false
@@ -39,6 +40,8 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       borderColor: '#03A9F4'
       cornerSize: 25
       padding: 5
+      selectable: false
+      evented: false
 
     removeControlPoints = (obj) ->
       return if obj.get('type') is 'rect' or obj.get('type') is 'ellipse'
@@ -51,11 +54,14 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
 
     sortLayers = () ->
       objLayers = []
-      txtLayers  = []
+      txtLayers = []
+      scope.layers = []
       canvas.getObjects().map (obj) ->
+        if obj.get('type') is 'image' then obj.src = obj.getSrc()
+        scope.layers.push obj
         switch obj.get 'type'
           when 'i-text' then txtLayers.push obj
-          else (if obj isnt background then objLayers.push obj)
+          else objLayers.push obj # (if obj isnt background then objLayers.push obj)
       canvas.bringToFront obj for obj in objLayers
       canvas.bringToFront obj for obj in txtLayers
       renderAll()
@@ -91,14 +97,27 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
         scope.toolset.italic    = target.getFontStyle() is 'italic'
         scope.toolset.underline = target.getTextDecoration() is 'underline'
 
-    setVisibilityTo = (obj, bool) ->
+    setInteractivityTo = (obj, bool) ->
       obj.selectable = bool
-      opacity = if bool then 1 else 0
-      obj.set 'opacity', opacity
+      obj.evented = bool
       renderAll()
+
+    deactivateAll = () ->
+      for layer in scope.layers
+        setInteractivityTo layer, false
+
+    # setVisibilityTo = (obj, bool) ->
+    #   obj.selectable = bool
+    #   opacity = if bool then 1 else 0
+    #   obj.set 'opacity', opacity
+    #   renderAll()
 
     setAllVisibilityTo = (bool) ->
       canvas.getObjects().map (obj) -> setVisibilityTo obj, bool
+
+    scope.focusLayer = (layer) ->
+      canvas.setActiveObject layer
+      renderAll()
 
     scope.toggleOverlay = (prop) -> scope.overlay[prop] = !scope.overlay[prop]
 
@@ -108,37 +127,37 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
 
     ### BACKGROUND IMAGE OPERATIONS ###
 
-    scope.backgroundSet = () -> !!background
-
-    setBackgroundImage = (img, focus) ->
-      if background then canvas.remove background
-      background = img
-      img.setFill backgroundFillCode # Use fill code to identify as background image in loadFromJSON
-      canvas.add img
-      sortLayers()
-      if focus then scope.focusBackground()
-
-    scope.removeBackgroundImage = () ->
-      if background then canvas.remove background
-      background = null
-
-    scope.focusBackground = () ->
-      setAllVisibilityTo false
-      canvas.deactivateAll().renderAll()
-      if background
-        setVisibilityTo background, true
-        canvas.setActiveObject background
-        canvas.bringToFront background
-      scope.toolset.tab = 'background'
-
-    scope.unfocusBackground = () ->
-      scope.tab.layers = true
-      setAllVisibilityTo true
-      if background
-        canvas.sendToBack background
-        background.selectable = false
-      canvas.deactivateAll()
-      resetCanvas()
+    # scope.backgroundSet = () -> !!background
+    #
+    # setBackgroundImage = (img, focus) ->
+    #   if background then canvas.remove background
+    #   background = img
+    #   img.setFill backgroundFillCode # Use fill code to identify as background image in loadFromJSON
+    #   canvas.add img
+    #   sortLayers()
+    #   if focus then scope.focusBackground()
+    #
+    # scope.removeBackgroundImage = () ->
+    #   if background then canvas.remove background
+    #   background = null
+    #
+    # scope.focusBackground = () ->
+    #   setAllVisibilityTo false
+    #   canvas.deactivateAll().renderAll()
+    #   if background
+    #     setVisibilityTo background, true
+    #     canvas.setActiveObject background
+    #     canvas.bringToFront background
+    #   scope.toolset.tab = 'background'
+    #
+    # scope.unfocusBackground = () ->
+    #   scope.tab.layers = true
+    #   setAllVisibilityTo true
+    #   if background
+    #     canvas.sendToBack background
+    #     background.selectable = false
+    #   canvas.deactivateAll()
+    #   resetCanvas()
 
     scope.upload = () ->
       scope.saving = true
@@ -153,10 +172,11 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
 
     scope.loadFromJSON = () ->
       canvas.loadFromJSON scope.json, null, (o, object) ->
-        if o.fill is backgroundFillCode then setBackgroundImage object
+        # if o.fill is backgroundFillCode then setBackgroundImage object
+        scope.layers.push object
         resetObject(object).then () ->
           if !!object.fontFamily then loadFont(object.fontFamily, resetCanvas) else resetCanvas()
-          scope.unfocusBackground()
+          # scope.unfocusBackground()
           cb = () -> scope.unsaved = false
           $timeout cb, 200
 
@@ -174,7 +194,8 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
         img.scale opts.scale
         removeControlPoints img
         img.lockRotation = true
-        if opts.background then setBackgroundImage(img, true) else canvas.add img
+        # if opts.background then setBackgroundImage(img, true) else canvas.add img
+        canvas.add img
       closeOverlays()
 
     scope.$on 'cloudinary:finished', (e, data) ->
@@ -199,18 +220,24 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     $window.addEventListener 'keydown', (e) ->
       # keyCode: 8, keyIdentifier: "U+0008" (delete)
       if e.keyCode is 8 and document.activeElement['type'] isnt 'text'
-        if canvas.getActiveObject() is background then background = null
+        # if canvas.getActiveObject() is background then background = null
         scope.removeActiveObject()
         e.preventDefault()
 
     canvas.on 'object:selected', (options) ->
-      canvas.bringToFront options.target
-      sortLayers()
+      # canvas.bringToFront options.target
+      # sortLayers()
+      # console.log options.target
+      deactivateAll()
+      setInteractivityTo options.target, true
+      # options.target.selectable = true
+      # options.target.evented = true
       setToolset options.target
-      $timeout sa, 100
+      # $timeout sa, 100
     canvas.on 'after:render', (options) -> if !scope.unsaved then scope.unsaved = true
     canvas.on 'selection:cleared', (options) ->
-      resetCanvas()
+      deactivateAll()
+      # resetCanvas()
       $timeout sa, 100
 
     ### IMAGE OPERATIONS ###
