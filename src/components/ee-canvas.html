@@ -1,4 +1,10 @@
 <style>
+  ee-canvas .nav-tabs-container,
+  ee-canvas .ee-canvas-container {
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  ee-canvas .nav.nav-tabs { min-width: {{ layers.length * 70 }}px; }
   ee-canvas .nav-tabs > li { margin-bottom: -2px; }
   ee-canvas .nav-tabs > li > a {
     padding: 5px 10px;
@@ -6,29 +12,22 @@
   }
 </style>
 
-<div class="well white-background box-shadow pad-5 position-relative"
-  style="width: 812px;">
-  <ul class="nav nav-tabs" style="overflow-x: scroll;">
-    <li ng-repeat="layer in layers | reverse" ng-class="{ active: layer.active }">
-      <a href ng-click="focusLayer(layer)" class="text-center hover-pointer">
-        <span ng-if="layer.type == 'rect' || layer.type == 'ellipse'">Shape<br><i class="fa fa-3x fa-square" ng-style="{ color: layer.fill }"></i></span>
-        <span ng-if="layer.type == 'i-text'">Text<br><i class="fa fa-3x fa-font" ng-style="{ color: layer.fill }"></i></span>
-        <span ng-if="layer.type == 'image'">Image<br><img ng-src='{{ layer.src }}' class="vert-5 margin-bottom-0" style="max-width: 46px; max-height: 40px;"></span>
-      </a>
-    </li>
-  </ul>
-  <ul class="nav nav-tabs">
-    <li ng-class="{ active: false }" class="pull-right">
-      <a href class="text-center hover-pointer">
-        Add<br><i class="fa fa-fw fa-3x fa-plus-square-o text-info"></i>
-      </a>
-    </li>
-    <li ng-class="{ active: false }" class="pull-right">
-      <a href class="text-center hover-pointer">
-        Order<br><i class="fa fa-fw fa-3x fa-exchange text-info"></i>
-      </a>
-    </li>
-  </ul>
+<div class="well white-background box-shadow pad-5 position-relative">
+  <div class="full-width text-right">
+    <div class="btn btn-default">Add Layer</div>
+    <div class="btn btn-default">Order Layers</div>
+  </div>
+  <div class="nav-tabs-container">
+    <ul class="nav nav-tabs">
+      <li ng-repeat="layer in layers | reverse" ng-class="{ active: layer.active }">
+        <a href ng-click="focusLayer(layer)" class="text-center hover-pointer">
+          <span ng-if="layer.type == 'rect' || layer.type == 'ellipse'">Shape<br><i class="fa fa-3x fa-square" ng-style="{ color: layer.fill }"></i></span>
+          <span ng-if="layer.type == 'i-text'">Text<br><i class="fa fa-3x fa-font" ng-style="{ color: layer.fill }"></i></span>
+          <span ng-if="layer.type == 'image'">Image<br><img ng-src='{{ layer.src }}' class="vert-5 margin-bottom-0" style="max-width: 46px; max-height: 40px;"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
   <form class="form margin-0">
     <div>
       <!-- i-text toolset -->
@@ -242,21 +241,35 @@
     </uib-tabset>
   </form>
 
-  <div class="position-relative">
-    <canvas id="collection_canvas" ng-show="canvasType == 'collection'" width=800 height=420 class="gray-border"></canvas>
-    <canvas id="logo_canvas" ng-show="canvasType == 'logo'" width=280 height=80 class="gray-border"></canvas>
-    <!-- <canvas ng-if="canvasType == 'collection'" id="c" width="800" height="420" class="gray-border"></canvas> -->
-    <div ng-show="overlay.product"
-      class="white-background position-absolute top-left-bottom-right-0 margin-10 pad-5 round-5"
-      style="z-index: 1000; overflow-y: scroll;">
-      <span ng-repeat="product in products" ng-click="addImage({ url: product.image })" class="hover-pointer">
-        <img ng-src="{{ product.image | cloudinaryResizeTo:120:120:'pad' }}"/>
-      </span>
+  <div class="position-relative gray-background">
+    <div class="ee-canvas-container position-relative" style="z-index: 10;">
+      <div class="gray-background">
+        <canvas id="collection_canvas" ng-show="canvasType == 'collection'" width=800 height=420 class="gray-border "></canvas>
+        <canvas id="logo_canvas" ng-show="canvasType == 'logo'" width=280 height=80 class="gray-border"></canvas>
+      </div>
+
+      <!-- <canvas ng-if="canvasType == 'collection'" id="c" width="800" height="420" class="gray-border"></canvas> -->
+      <div ng-show="overlay.product"
+        class="white-background position-absolute top-left-bottom-right-0 margin-10 pad-5 round-5"
+        style="z-index: 1000; overflow-y: scroll;">
+        <span ng-repeat="product in products" ng-click="addImage({ url: product.image })" class="hover-pointer">
+          <img ng-src="{{ product.image | cloudinaryResizeTo:120:120:'pad' }}"/>
+        </span>
+      </div>
+      <div ng-show="overlay.unsplash"
+        class="white-background position-absolute top-left-bottom-right-0 margin-10 pad-5 round-5"
+        style="z-index: 1000; overflow-y: scroll;">
+        <ee-unsplash-search app-id="bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602"></ee-unsplash-search>
+      </div>
+
+      <!-- spacer for side scroll -->
+      <div class="full-width visible-xs" style="height: 40px;"></div>
+      <!-- /spacer for side scroll -->
     </div>
-    <div ng-show="overlay.unsplash"
-      class="white-background position-absolute top-left-bottom-right-0 margin-10 pad-5 round-5"
-      style="z-index: 1000; overflow-y: scroll;">
-      <ee-unsplash-search app-id="bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602"></ee-unsplash-search>
+    <div class="position-absolute text-center visible-xs"
+      style="bottom: 0px; left: 0; right: 0; height: 40px; z-index: 5"
+      ng-if="canvasType == 'collection'">
+      <i class="fa fa-3x fa-arrows-h text-muted"></i>
     </div>
   </div>
 
