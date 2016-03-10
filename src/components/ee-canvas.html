@@ -4,7 +4,7 @@
     overflow-x: scroll;
     overflow-y: hidden;
   }
-  ee-canvas .nav.nav-tabs { min-width: {{ layers.length * 70 }}px; }
+  ee-canvas .nav.nav-tabs { min-width: {{ layers.length * 70 + 240 }}px; }
   ee-canvas .nav-tabs > li { margin-bottom: -2px; }
   ee-canvas .nav-tabs > li > a {
     padding: 5px 10px;
@@ -13,25 +13,40 @@
 </style>
 
 <div class="well white-background box-shadow pad-5 position-relative">
-  <div class="full-width text-right">
-    <div class="btn btn-default">Add Layer</div>
-    <div class="btn btn-default">Order Layers</div>
-  </div>
   <div class="nav-tabs-container">
     <ul class="nav nav-tabs">
-      <li ng-repeat="layer in layers | reverse" ng-class="{ active: layer.active }">
+      <li ng-repeat="layer in layers | reverse" ng-class="{ active: layer.active }" class="text-center">
+        <div ng-show="layers.length > 1"
+          class="btn-group vert-2 margin-top-0">
+          <div class="btn btn-default pad-5" ng-disabled="$first" ng-click="reorderLayerBy(layer, 1)">
+            <small ng-show="$first">Top</small>
+            <i ng-hide="$first" class="fa fa-fw fa-long-arrow-left"></i>
+          </div>
+          <div class="btn btn-default pad-5" ng-disabled="$last" ng-click="reorderLayerBy(layer, -1)">
+            <small ng-show="$last">Bottom</small>
+            <i ng-hide="$last" class="fa fa-fw fa-long-arrow-right"></i>
+          </div>
+        </div>
         <a href ng-click="focusLayer(layer)" class="text-center hover-pointer">
           <span ng-if="layer.type == 'rect' || layer.type == 'ellipse'">Shape<br><i class="fa fa-3x fa-square" ng-style="{ color: layer.fill }"></i></span>
           <span ng-if="layer.type == 'i-text'">Text<br><i class="fa fa-3x fa-font" ng-style="{ color: layer.fill }"></i></span>
           <span ng-if="layer.type == 'image'">Image<br><img ng-src='{{ layer.src }}' class="vert-5 margin-bottom-0" style="max-width: 46px; max-height: 40px;"></span>
         </a>
       </li>
+      <!-- Add Layer -->
+      <li ng-repeat="type in ['Text','Shape','Image','Product']" ng-class="{ active: toolset.overlay == type }" class="text-center">
+        <div ng-show="layers.length > 1" style="height: 34px; width: 100%;"></div>
+        <a href ng-click="showOverlayFor(type)" class="text-center text-muted">
+          <span ng-bind="type"></span><br><i class="fa fa-3x fa-plus"></i>
+        </a>
+      </li>
+      <!-- /Add Layer -->
     </ul>
   </div>
   <form class="form margin-0">
     <div>
       <!-- i-text toolset -->
-      <div ng-show="toolset.tab == 'i-text'">
+      <div ng-show="toolset.tab == 'i-text'" class="btn-group">
         <div class="btn btn-default vert-5" ng-click="toggleFontSetting('bold')" ng-class="{ active: toolset.bold }"><i class="fa fa-bold"></i></div>
         <div class="btn btn-default vert-5" ng-click="toggleFontSetting('italic')" ng-class="{ active: toolset.italic }"><i class="fa fa-italic"></i></div>
         <!-- <div class="btn btn-default vert-5" ng-click="toggleFontSetting('underline')" ng-class="{ active: toolset.underline }"><i class="fa fa-fw fa-underline"></i></div> -->
@@ -55,11 +70,11 @@
             </li>
           </ul>
         </span>
-        <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove text</div>
+        <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
       </div>
       <!-- /i-text toolset -->
       <!-- image toolset -->
-      <div ng-show="toolset.tab == 'image'">
+      <div ng-show="toolset.tab == 'image'" class="btn-group">
         <span class="btn-group" uib-dropdown auto-close="outsideClick">
           <div class="btn btn-default vert-5" uib-dropdown-toggle>
             Remove white <i class="fa fa-caret-down"></i>
@@ -70,12 +85,11 @@
             <li>Distance <input type="range" min=1 max=48 ng-model="toolset.whitespaceDistance" ng-change="updateWhitespace()" class="pull-right vert-2" style="width: 190px;"/></li>
           </ul>
         </span>
-        <!-- <div class="btn btn-default vert-5" ng-click="moveToBack()">Move to back</div> -->
-        <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove image</div>
+        <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
       </div>
       <!-- /image toolset -->
       <!-- shape toolset -->
-      <div ng-show="toolset.tab == 'rect' || toolset.tab == 'ellipse'">
+      <div ng-show="toolset.tab == 'rect' || toolset.tab == 'ellipse'" class="btn-group">
         <span class="btn-group" auto-close="outsideClick" uib-dropdown>
           <div class="btn btn-default vert-5" uib-dropdown-toggle>
             Color <i class="fa fa-caret-down"></i>
@@ -94,8 +108,7 @@
             <li><input type="range" min=0 max=0.9 step=0.1 ng-model="toolset.transparency" ng-change="updateTransparency()" class="pull-right vert-2"/></li>
           </ul>
         </span>
-        <!-- <div class="btn btn-default vert-5" ng-click="moveToBack()">Move to back</div> -->
-        <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove shape</div>
+        <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
       </div>
       <!-- /shape toolset -->
       <!-- background color toolset -->
@@ -112,10 +125,8 @@
       <!-- /background color toolset -->
     </div>
 
-    <uib-tabset ng-if="false">
-      <!-- Layers -->
+    <!-- <uib-tabset ng-if="false">
       <uib-tab heading="Layers" select="unfocusBackground()" active="tab.layers">
-        <!-- general buttons -->
         <div class="btn-group">
           <div class="btn btn-default vert-5" ng-click="toggleOverlay('product')" ng-class="{ active: overlay.product }" ng-show="products.length > 0">Add product</div>
           <span class="btn-group" auto-close="outsideClick" is-open="overlay.text" uib-dropdown>
@@ -136,10 +147,7 @@
               </li>
             </ul>
           </span>
-          <!-- <div class="btn btn-default vert-5">Add shape</div> -->
         </div>
-        <!-- /general buttons -->
-        <!-- i-text toolset -->
         <div class="btn-group pull-right" ng-show="toolset.tab == 'i-text'">
           <div class="btn btn-default vert-5" ng-click="toggleFontSetting('bold')" ng-class="{ active: toolset.bold }"><i class="fa fa-fw fa-bold"></i></div>
           <div class="btn btn-default vert-5" ng-click="toggleFontSetting('italic')" ng-class="{ active: toolset.italic }"><i class="fa fa-fw fa-italic"></i></div>
@@ -164,10 +172,8 @@
               </li>
             </ul>
           </span>
-          <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove text</div>
+          <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
         </div>
-        <!-- /i-text toolset -->
-        <!-- image toolset -->
         <div class="btn-group pull-right" ng-show="toolset.tab == 'image'">
           <span class="btn-group" uib-dropdown auto-close="outsideClick">
             <div class="btn btn-default vert-5" uib-dropdown-toggle>
@@ -179,11 +185,8 @@
               <li>Distance <input type="range" min=1 max=48 ng-model="toolset.whitespaceDistance" ng-change="updateWhitespace()" class="pull-right vert-2" style="width: 190px;"/></li>
             </ul>
           </span>
-          <!-- <div class="btn btn-default vert-5" ng-click="moveToBack()">Move to back</div> -->
-          <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove image</div>
+          <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
         </div>
-        <!-- /image toolset -->
-        <!-- shape toolset -->
         <div class="btn-group pull-right" ng-show="toolset.tab == 'rect' || toolset.tab == 'ellipse'">
           <span class="btn-group" auto-close="outsideClick" uib-dropdown>
             <div class="btn btn-default vert-5" uib-dropdown-toggle>
@@ -203,11 +206,8 @@
               <li><input type="range" min=0 max=0.9 step=0.1 ng-model="toolset.transparency" ng-change="updateTransparency()" class="pull-right vert-2"/></li>
             </ul>
           </span>
-          <!-- <div class="btn btn-default vert-5" ng-click="moveToBack()">Move to back</div> -->
-          <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove shape</div>
+          <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
         </div>
-        <!-- /shape toolset -->
-        <!-- background color toolset -->
         <div class="btn-group pull-right" auto-close="outsideClick" uib-dropdown ng-show="!toolset.tab">
           <div class="btn btn-default vert-5" uib-dropdown-toggle>
             Background color <i class="fa fa-caret-down"></i>
@@ -218,10 +218,7 @@
             </li>
           </ul>
         </div>
-        <!-- /background color toolset -->
       </uib-tab>
-      <!-- /Layers -->
-      <!-- Background image -->
       <uib-tab heading="Background image" select="focusBackground()" active="tab.background">
         <div>
           <div class="btn-group">
@@ -237,16 +234,23 @@
           </div>
         </div>
       </uib-tab>
-      <!-- /Background image -->
-    </uib-tabset>
+    </uib-tabset> -->
   </form>
 
-  <div class="position-relative gray-background">
+  <div class="position-relative">
     <div class="ee-canvas-container position-relative" style="z-index: 10;">
-      <div class="gray-background">
+      <!-- spacer for side scroll -->
+      <div class="full-width visible-xs"
+        style="height: 40px;"
+        ng-if="canvasType == 'collection'">
+      </div>
+      <!-- /spacer for side scroll -->
+      <!-- canvas -->
+      <div>
         <canvas id="collection_canvas" ng-show="canvasType == 'collection'" width=800 height=420 class="gray-border "></canvas>
         <canvas id="logo_canvas" ng-show="canvasType == 'logo'" width=280 height=80 class="gray-border"></canvas>
       </div>
+      <!-- /canvas -->
 
       <!-- <canvas ng-if="canvasType == 'collection'" id="c" width="800" height="420" class="gray-border"></canvas> -->
       <div ng-show="overlay.product"
@@ -261,16 +265,13 @@
         style="z-index: 1000; overflow-y: scroll;">
         <ee-unsplash-search app-id="bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602"></ee-unsplash-search>
       </div>
-
-      <!-- spacer for side scroll -->
-      <div class="full-width visible-xs" style="height: 40px;"></div>
-      <!-- /spacer for side scroll -->
     </div>
-    <div class="position-absolute text-center visible-xs"
-      style="bottom: 0px; left: 0; right: 0; height: 40px; z-index: 5"
+    <!-- icon for side scroll spacer -->
+    <div class="position-absolute text-center gray-background visible-xs" style="top: 0px; left: 0; right: 0; height: 40px; z-index: 5"
       ng-if="canvasType == 'collection'">
       <i class="fa fa-3x fa-arrows-h text-muted"></i>
     </div>
+    <!-- /icon for side scroll spacer -->
   </div>
 
   <div class="vert-5 margin-bottom-0">
