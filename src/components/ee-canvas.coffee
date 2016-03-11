@@ -32,7 +32,7 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       selection: false
       controlsAboveOverlay: true
       allowTouchScrolling: true
-      centeredScaling: true
+      # centeredScaling: true
     })
 
     objectDefaults =
@@ -75,6 +75,15 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       $timeout sa, 200
 
     # ADDING
+
+    scope.clone = () ->
+      newObj = canvas.getActiveObject().clone(null, Object.keys(objectDefaults))
+      removeControlPoints newObj
+      canvas.add newObj
+      sortLayers()
+      scope.focusLayer newObj
+      #
+      # deactivateAll()
 
     setToolset = (target) ->
       if !target then return clearToolset()
@@ -154,11 +163,13 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
         e.preventDefault()
 
     canvas.on 'object:selected', (options) ->
+      canvas.allowTouchScrolling = false
       deactivateAll()
       setInteractivityTo options.target, true
       setToolset options.target
     canvas.on 'after:render', (options) -> if !scope.unsaved then scope.unsaved = true
     canvas.on 'selection:cleared', (options) ->
+      canvas.allowTouchScrolling = true
       deactivateAll()
       setToolset null
       $timeout sa, 100
@@ -306,12 +317,5 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     scope.clear = () -> clearAll()
     clearAll()
     scope.loadFromJSON()
-
-    disableScroll = () -> canvas.allowTouchScrolling = false
-    enableScroll = () -> canvas.allowTouchScrolling = true
-    canvas.on 'object:selected', disableScroll
-    # canvas.on 'object:scaling', disableScroll
-    # canvas.on 'object:rotating', disableScroll
-    canvas.on 'selection:cleared', enableScroll
 
     return
