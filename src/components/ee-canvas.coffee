@@ -29,9 +29,12 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
 
     ### CANVAS SETUP ###
 
-    canvas = new fabric.Canvas(scope.canvasType + '_canvas')
-    canvas.selection = false
-    canvas.controlsAboveOverlay = true
+    canvas = new fabric.Canvas(scope.canvasType + '_canvas', {
+      selection: false
+      controlsAboveOverlay: true
+      allowTouchScrolling: true
+      centeredScaling: true
+    })
 
     objectDefaults =
       hasRotatingPoint: false
