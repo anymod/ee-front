@@ -309,7 +309,7 @@
   <div class="vert-5 margin-bottom-0">
     <div class="btn btn-primary" ng-click="upload()" ng-show="unsaved" ng-disabled="saving">Save image</div>
     <a class="btn btn-default" href="{{ banner | cloudinaryAttachment }}" ng-show="!unsaved">Download</a>
-    <div class="btn btn-link" ng-click="preview()" ng-disabled="saving">Preview</div>
+    <div class="btn btn-link" ng-click="preview()" ng-hide="saving">Preview</div>
     <span ng-show="saving" class="btn btn-link text-muted disabled">Saving...</span>
     <div class="btn btn-link pull-right" ng-click="loadFromJSON()">Reset</div>
   </div>
