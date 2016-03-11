@@ -18,7 +18,6 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     scope.json      ||= {}
     scope.tab         = {}
     scope.overlay     = null
-    scope.blockCanvas = true
     scope.toolset     = {}
     scope.textToAdd   = ''
 
@@ -113,7 +112,6 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
         if obj.get('type') is 'image' then obj.applyFilters () -> resolve true else resolve true
 
     deactivateAll = () ->
-      scope.blockCanvas = true
       for layer in scope.layers
         setInteractivityTo layer, false
 
@@ -127,7 +125,6 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       scope.setOverlay null
       canvas.setActiveObject layer
       renderAll()
-      scope.blockCanvas = false
 
     # EVENTS
 
@@ -309,5 +306,12 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     scope.clear = () -> clearAll()
     clearAll()
     scope.loadFromJSON()
+
+    disableScroll = () -> canvas.allowTouchScrolling = false
+    enableScroll = () -> canvas.allowTouchScrolling = true
+    canvas.on 'object:moving', disableScroll
+    canvas.on 'object:scaling', disableScroll
+    canvas.on 'object:rotating', disableScroll
+    canvas.on 'mouse:up', enableScroll
 
     return
