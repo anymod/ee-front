@@ -309,9 +309,9 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
 
     disableScroll = () -> canvas.allowTouchScrolling = false
     enableScroll = () -> canvas.allowTouchScrolling = true
-    canvas.on 'object:moving', disableScroll
-    canvas.on 'object:scaling', disableScroll
-    canvas.on 'object:rotating', disableScroll
-    canvas.on 'mouse:up', () -> $timeout enableScroll, 100
+    canvas.on 'object:selected', disableScroll
+    # canvas.on 'object:scaling', disableScroll
+    # canvas.on 'object:rotating', disableScroll
+    canvas.on 'selection:cleared', enableScroll
 
     return
