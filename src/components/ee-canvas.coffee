@@ -17,8 +17,9 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     scope.layers      = []
     scope.json      ||= {}
     scope.tab         = {}
-    scope.overlay     = {}
+    scope.overlay     = null
     scope.toolset     = {}
+    scope.textToAdd   = null
 
     scope.canvasType ||= 'collection'
     scope.canvasWidth ||= 800
@@ -50,24 +51,27 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     sa = () -> scope.$apply()
     renderAll = () -> canvas.renderAll.bind(canvas)
 
+    clearAll = () ->
+      closeOverlay()
+      clearToolset()
+      sortLayers()
+      deactivateAll()
+      $timeout sa, 200
+
     setInteractivityTo = (obj, bool) ->
+      obj.active = bool
       obj.selectable = bool
       obj.evented = bool
       renderAll()
 
-    scope.toggleOverlay = (prop) -> scope.overlay[prop] = !scope.overlay[prop]
+    scope.setOverlay = (prop) ->
+      deactivateAll()
+      setToolset null
+      scope.overlay = prop
+      renderAll()
+      $timeout sa, 200
 
     # ADDING
-
-    scope.showOverlayFor = (type) ->
-      clearCanvas()
-      scope.overlay = type
-      switch type
-        when 'Text' then console.log scope.toolset.addType
-        when 'Shape' then console.log scope.toolset.addType
-        when 'Image' then console.log scope.toolset.addType
-        when 'Product' then console.log scope.toolset.addType
-      $timeout sa, 100
 
     setToolset = (target) ->
       if !target then return clearToolset()
@@ -89,10 +93,7 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
 
     # REMOVING
 
-    closeOverlays = () ->
-      scope.overlay.text = false
-      scope.overlay.product = false
-      scope.overlay.unsplash = false
+    closeOverlay = () -> scope.overlay = null
 
     clearToolset = () ->
       scope.toolset.tab = null
@@ -100,11 +101,6 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       scope.toolset.transparency = 0
       scope.toolset.whitespaceThreshold = 0
       scope.toolset.whitespaceDistance = 0
-
-    clearCanvas = () ->
-      closeOverlays()
-      clearToolset()
-      sortLayers()
 
     clearObject = (obj) ->
       obj[prop] = objectDefaults[prop] for prop in Object.keys(objectDefaults)
@@ -121,9 +117,9 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       obj = canvas.getActiveObject()
       if n is 1 then obj.bringForward() else obj.sendBackwards()
       sortLayers()
-      renderAll()
 
     scope.focusLayer = (layer) ->
+      scope.setOverlay null
       canvas.setActiveObject layer
       renderAll()
 
@@ -151,7 +147,6 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     $window.addEventListener 'keydown', (e) ->
       # keyCode: 8, keyIdentifier: "U+0008" (delete)
       if e.keyCode is 8 and document.activeElement['type'] isnt 'text'
-        # if canvas.getActiveObject() is background then background = null
         scope.removeActiveObject()
         e.preventDefault()
 
@@ -182,7 +177,7 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       canvas.loadFromJSON scope.json, null, (o, object) ->
         scope.layers.push object
         clearObject(object).then () ->
-          if !!object.fontFamily then loadFont(object.fontFamily, clearCanvas) else clearCanvas()
+          if !!object.fontFamily then loadFont(object.fontFamily, clearAll) else clearAll()
           cb = () -> scope.unsaved = false
           $timeout cb, 200
 
@@ -201,7 +196,9 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
         removeControlPoints img
         img.lockRotation = true
         canvas.add img
-      closeOverlays()
+        clearAll()
+        canvas.setActiveObject img
+      closeOverlay()
 
     scope.removeActiveObject = () ->
       activeObject = canvas.getActiveObject()
@@ -221,15 +218,17 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
 
     scope.$on 'unsplash:urls', (e, urls) ->
       scope.addImage { url: urls.regular, background: true }
-      clearCanvas()
+      clearAll()
 
     ### TEXT OPERATIONS ###
 
-    scope.addText = (textToAdd) ->
-      txt = new fabric.IText textToAdd, objectDefaults
+    scope.addText = () ->
+      txt = new fabric.IText scope.textToAdd, objectDefaults
       removeControlPoints txt
       canvas.add txt
-      clearCanvas()
+      scope.textToAdd = null
+      clearAll()
+      scope.focusLayer txt, true
 
     scope.toggleFontSetting = (setting) ->
       txt = canvas.getActiveObject()
@@ -276,7 +275,8 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
         shape.rx = 75
         shape.ry = 50
       if shape then canvas.add shape
-      clearCanvas()
+      clearAll()
+      scope.focusLayer shape, true
 
     scope.updateTransparency = () ->
       activeObject = canvas.getActiveObject()
@@ -294,8 +294,8 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
 
     ### RUNTIME ###
 
-    scope.clear = () -> clearCanvas()
-    clearCanvas()
+    scope.clear = () -> clearAll()
+    clearAll()
     scope.loadFromJSON()
 
     return
