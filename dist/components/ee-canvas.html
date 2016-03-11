@@ -289,11 +289,10 @@
         </div> -->
         <!-- /spacer for side scroll -->
         <!-- canvas -->
-        <div class="position-relative" ng-show="canvasType == 'collection'" style="width: 800px; height: 420px;">
-          <canvas id="collection_canvas" width=800 height=420 class="gray-border"></canvas>
-          <div ng-if="blockCanvas" class="position-absolute top-left-bottom-right-0 white-background" style="z-index: 100; opacity: 0.2">
+        <div>
+          <canvas id="collection_canvas" ng-show="canvasType == 'collection'" width=800 height=420 class="gray-border"></canvas>
+          <canvas id="logo_canvas" ng-show="canvasType == 'logo'" width=280 height=80 class="gray-border"></canvas>
         </div>
-        <canvas id="logo_canvas" ng-show="canvasType == 'logo'" width=280 height=80 class="gray-border"></canvas>
         <!-- /canvas -->
       </div>
       <!-- icon for side scroll spacer -->
