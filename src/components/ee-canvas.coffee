@@ -18,6 +18,7 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     scope.json      ||= {}
     scope.tab         = {}
     scope.overlay     = null
+    scope.blockCanvas = true
     scope.toolset     = {}
     scope.textToAdd   = ''
 
@@ -109,6 +110,7 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
         if obj.get('type') is 'image' then obj.applyFilters () -> resolve true else resolve true
 
     deactivateAll = () ->
+      scope.blockCanvas = true
       for layer in scope.layers
         setInteractivityTo layer, false
 
@@ -122,6 +124,7 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       scope.setOverlay null
       canvas.setActiveObject layer
       renderAll()
+      scope.blockCanvas = false
 
     # EVENTS
 
@@ -172,6 +175,12 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       cloudinary_fileupload.fileupload('option', 'formData').file = data
       cloudinary_fileupload.fileupload 'add', { files: [ data ] }
       delete cloudinary_fileupload.fileupload('option', 'formData').file
+
+    scope.preview = () ->
+      deactivateAll()
+      url = canvas.toDataURL 'image/jpeg'
+      win = $window.open url, '_blank'
+      win.focus()
 
     scope.loadFromJSON = () ->
       canvas.loadFromJSON scope.json, null, (o, object) ->
