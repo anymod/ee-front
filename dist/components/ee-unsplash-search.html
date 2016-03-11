@@ -10,12 +10,15 @@
       </div>
     </div>
   </form>
-  <div ng-repeat="image in results"
-    ng-click="broadcast(image.urls)"
-    class="inline-block unsplash-result hover-pointer"
-    style="background: url('{{ image.urls.thumb }}') no-repeat center center;">
+  <div ng-hide="searching">
+    <div ng-repeat="image in results"
+      ng-click="broadcast(image.urls)"
+      class="inline-block unsplash-result hover-pointer"
+      style="background: url('{{ image.urls.thumb }}') no-repeat center center;">
+    </div>
   </div>
   <div ng-show="results.length < 1 && searching == false" class="pad-2">No results</div>
+  <div ng-show="searching" class="pad-2">Searching</div>
   <style>
     .unsplash-result {
       width: 184px;

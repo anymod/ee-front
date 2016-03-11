@@ -36,6 +36,11 @@
       <div class="media-body">
         <h4 class="vert-15 margin-top-0" ng-bind="step.title"></h4>
         <div ng-bind-html="step.html"></div>
+        <div class="btn"
+          ng-class="completedSteps.indexOf(step.id) > -1 ? 'btn-success' : 'btn-default'"
+          ng-click="toggleStepCompletion(step)">
+          <span ng-if="completedSteps.indexOf(step.id) < 0"><i class="fa fa-check-circle text-success"></i>&nbsp;</span>Finish<span ng-if="completedSteps.indexOf(step.id) > -1">ed</span>
+        </div>
       </div>
     </div>
   </uib-accordion-group>

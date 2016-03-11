@@ -19,7 +19,7 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     scope.tab         = {}
     scope.overlay     = null
     scope.toolset     = {}
-    scope.textToAdd   = null
+    scope.textToAdd   = ''
 
     scope.canvasType ||= 'collection'
     scope.canvasWidth ||= 800
@@ -226,7 +226,7 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       txt = new fabric.IText scope.textToAdd, objectDefaults
       removeControlPoints txt
       canvas.add txt
-      scope.textToAdd = null
+      scope.textToAdd = ''
       clearAll()
       scope.focusLayer txt, true
 

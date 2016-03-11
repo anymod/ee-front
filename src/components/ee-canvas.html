@@ -4,11 +4,17 @@
     overflow-x: scroll;
     overflow-y: hidden;
   }
-  ee-canvas .nav.nav-tabs { min-width: {{ layers.length * 70 + 260 }}px; }
+  ee-canvas .nav.nav-tabs { min-width: {{ layers.length * 74 + 270 }}px; }
   ee-canvas .nav-tabs > li { margin-bottom: -2px; }
   ee-canvas .nav-tabs > li > a {
     padding: 5px;
     min-height: 77px;
+    border-radius: 5px;
+  }
+  ee-canvas .nav-tabs > li.active > a,
+  ee-canvas .nav-tabs > li.active > a:hover,
+  ee-canvas .nav-tabs > li.active > a:focus {
+    border: 1px solid #03A9F4;
   }
 </style>
 
@@ -25,11 +31,11 @@
           <div ng-show="layers.length > 1"
             class="btn-group vert-5 margin-bottom-0"
             style="height:30px;">
-            <div class="btn btn-default pad-5" ng-disabled="$first" ng-click="reorderLayerBy(layer, 1)" ng-class="{ 'btn-primary': layer.active }">
+            <div class="btn btn-default pad-5" ng-disabled="$first" ng-click="reorderLayerBy(layer, 1)">
               <small ng-show="$first">Top</small>
               <i ng-hide="$first" class="fa fa-fw fa-long-arrow-left"></i>
             </div>
-            <div class="btn btn-default pad-5" ng-disabled="$last" ng-click="reorderLayerBy(layer, -1)" ng-class="{ 'btn-primary': layer.active }">
+            <div class="btn btn-default pad-5" ng-disabled="$last" ng-click="reorderLayerBy(layer, -1)">
               <small ng-show="$last">Bottom</small>
               <i ng-hide="$last" class="fa fa-fw fa-long-arrow-right"></i>
             </div>
@@ -50,19 +56,6 @@
     <div>
       <!-- i-text toolset -->
       <div ng-show="toolset.tab == 'i-text'" class="btn-group">
-        <div class="btn btn-default vert-5" ng-click="toggleFontSetting('bold')" ng-class="{ active: toolset.bold }"><i class="fa fa-bold"></i></div>
-        <div class="btn btn-default vert-5" ng-click="toggleFontSetting('italic')" ng-class="{ active: toolset.italic }"><i class="fa fa-italic"></i></div>
-        <!-- <div class="btn btn-default vert-5" ng-click="toggleFontSetting('underline')" ng-class="{ active: toolset.underline }"><i class="fa fa-fw fa-underline"></i></div> -->
-        <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-          <div class="btn btn-default vert-5" uib-dropdown-toggle>
-            Font <i class="fa fa-caret-down"></i>
-          </div>
-          <ul class="dropdown-menu" uib-dropdown-menu>
-            <li class="pad-5">
-              <ee-font-selector></ee-font-selector>
-            </li>
-          </ul>
-        </span>
         <span class="btn-group" auto-close="outsideClick" uib-dropdown>
           <div class="btn btn-default vert-5" uib-dropdown-toggle>
             Color <i class="fa fa-caret-down"></i>
@@ -73,6 +66,18 @@
             </li>
           </ul>
         </span>
+        <span class="btn-group" auto-close="outsideClick" uib-dropdown>
+          <div class="btn btn-default vert-5" uib-dropdown-toggle>
+            Font <i class="fa fa-caret-down"></i>
+          </div>
+          <ul class="dropdown-menu" uib-dropdown-menu>
+            <li class="pad-5">
+              <ee-font-selector></ee-font-selector>
+            </li>
+          </ul>
+        </span>
+        <div class="btn btn-default vert-5" ng-click="toggleFontSetting('bold')" ng-class="{ active: toolset.bold }"><i class="fa fa-bold"></i></div>
+        <div class="btn btn-default vert-5" ng-click="toggleFontSetting('italic')" ng-class="{ active: toolset.italic }"><i class="fa fa-italic"></i></div>
         <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
       </div>
       <!-- /i-text toolset -->
@@ -243,8 +248,8 @@
         class="white-background position-absolute top-left-bottom-right-0 pad-10"
         style="z-index: 1000; overflow-y: scroll;">
         <!-- text overlay -->
-        <form ng-if="overlay == 'Text'"
-          ng-submit="addText(textToAdd)"
+        <form ng-show="overlay == 'Text'"
+          ng-submit="addText()"
           class="form form-inline">
           <input type="text" class="form-control input-lg inline-block" ng-model="textToAdd"/>
           <button type="submit" class="btn btn-lg btn-default">Add</button>
@@ -257,10 +262,12 @@
         </div>
         <!-- /shape overlay -->
         <!-- image overlay -->
-        <ee-unsplash-search
-          ng-show="overlay == 'Image'"
-          app-id="bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602">
-        </ee-unsplash-search>
+        <div ng-show="overlay == 'Image'">
+          <ee-cloudinary-upload meta="collection" attr-target="'1000x1000'"></ee-cloudinary-upload>
+          <div class="vert-10">OR</div>
+          <ee-unsplash-search app-id="bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602"></ee-unsplash-search>
+        </div>
+
         <!-- /image overlay -->
         <!-- product overlay -->
         <span ng-if="overlay == 'Product'"
@@ -291,7 +298,7 @@
 
       </div>
       <!-- icon for side scroll spacer -->
-      <div class="position-absolute text-center gray-background visible-xs" style="top: 0px; left: 0; right: 0; height: 40px; z-index: 5"
+      <div class="position-absolute text-center gray-background visible-xs" style="top: 45px; left: 0; right: 0; height: 40px; z-index: 5"
         ng-if="canvasType == 'collection'">
         <i class="fa fa-3x fa-arrows-h text-muted"></i>
       </div>
@@ -300,6 +307,7 @@
   </div>
   <div class="vert-5 margin-bottom-0">
     <div class="btn btn-primary" ng-click="upload()" ng-show="unsaved" ng-disabled="saving">Save image</div>
+    <div class="btn btn-link" ng-click="preview()" ng-disabled="saving">Preview</div>
     <a class="btn btn-default" href="{{ banner | cloudinaryAttachment }}" ng-show="!unsaved">Download</a>
     <span ng-show="saving" class="btn btn-link text-muted disabled">Saving...</span>
     <div class="btn btn-link pull-right" ng-click="loadFromJSON()">Reset</div>
