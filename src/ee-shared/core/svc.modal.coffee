@@ -43,7 +43,6 @@ angular.module('app.core').factory 'eeModal', ($uibModal) ->
       backdropClass:  _backdropClass
       windowClass:    'full-modal'
 
-
   ## PRIVATE FUNCTIONS
   _open = (name, data) ->
     if !name or !_config[name] then return

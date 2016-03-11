@@ -7,5 +7,5 @@ angular.module('ee-guide-button').directive "eeGuideButton", (eeModal) ->
     track: '='
     activity: '='
   link: (scope, ele, attrs) ->
-    scope.open = () -> eeModal.fns.open 'activity', { track: scope.track, activity: scope.activity }
+    scope.open = () -> eeModal.fns.open 'activity', { track: scope.track, activity: scope.activity, isGuide: true }
     return

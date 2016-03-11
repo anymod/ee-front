@@ -1,4 +1,4 @@
-<div>
+<div ng-class="{ guide: isGuide }">
   <uib-accordion-group is-open="startActivityOpen">
     <uib-accordion-heading>
       <div class="row">
@@ -7,7 +7,7 @@
         </div>
         <div class="col col-sm-4 text-right hover-cursor-default">
           <i ng-repeat="step in steps"
-            ng-if="step.show"
+            ng-if="step.show && !isGuide"
             class="fa text-success"
             ng-class="completedSteps.indexOf(step.id) > -1 ? 'fa-check-circle' : 'fa-circle-o'">
           </i>
@@ -30,15 +30,18 @@
       <div class="media-left">
         <i class="fa fa-fw fa-2x text-success hover-pointer"
           ng-class="completedSteps.indexOf(step.id) > -1 ? 'fa-check-circle' : 'fa-circle-o'"
-          ng-click="toggleStepCompletion(step)">
+          ng-click="toggleStepCompletion(step)"
+          ng-hide="isGuide">
         </i>
+        <i class="fa fa-fw fa-2x fa-arrow-right text-info" ng-show="isGuide"></i>
       </div>
       <div class="media-body">
         <h4 class="vert-15 margin-top-0" ng-bind="step.title"></h4>
         <div ng-bind-html="step.html"></div>
         <div class="btn"
           ng-class="completedSteps.indexOf(step.id) > -1 ? 'btn-success' : 'btn-default'"
-          ng-click="toggleStepCompletion(step)">
+          ng-click="toggleStepCompletion(step)"
+          ng-hide="isGuide">
           <span ng-if="completedSteps.indexOf(step.id) < 0"><i class="fa fa-check-circle text-success"></i>&nbsp;</span>Finish<span ng-if="completedSteps.indexOf(step.id) > -1">ed</span>
         </div>
       </div>
