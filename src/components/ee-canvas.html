@@ -282,28 +282,11 @@
       <!-- /Overlays -->
     </div>
 
-    <div>
-      <div class="ee-canvas-container position-relative" style="z-index: 10;">
-        <!-- spacer for side scroll -->
-        <!-- <div class="full-width visible-xs"
-          style="height: 40px;"
-          ng-if="canvasType == 'collection'">
-        </div> -->
-        <!-- /spacer for side scroll -->
-        <!-- canvas -->
-        <div>
-          <canvas id="collection_canvas" ng-show="canvasType == 'collection'" width=800 height=420 class="gray-border"></canvas>
-          <canvas id="logo_canvas" ng-show="canvasType == 'logo'" width=280 height=80 class="gray-border"></canvas>
-        </div>
-        <!-- /canvas -->
-      </div>
-      <!-- icon for side scroll spacer -->
-      <!-- <div class="position-absolute text-center gray-background visible-xs" style="top: 45px; left: 0; right: 0; height: 40px; z-index: 5"
-        ng-if="canvasType == 'collection'">
-        <i class="fa fa-3x fa-arrows-h text-muted"></i>
-      </div> -->
-      <!-- /icon for side scroll spacer -->
-      </div>
+    <div class="ee-canvas-container position-relative" style="z-index: 10;">
+      <!-- canvas -->
+      <canvas id="collection_canvas" ng-show="canvasType == 'collection'" width=800 height=420 class="gray-border"></canvas>
+      <canvas id="logo_canvas" ng-show="canvasType == 'logo'" width=280 height=80 class="gray-border"></canvas>
+      <!-- /canvas -->
     </div>
   </div>
   <div class="vert-5 margin-bottom-0">
