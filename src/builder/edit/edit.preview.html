@@ -1,5 +1,5 @@
 <!-- style for preview -->
-<style ng-if="edit.ee.User.user.storefront_meta">
+<style ng-if="storefront.ee.User.user.storefront_meta">
   .navbar.ee-store-subnav { background-color: {{ storefront.ee.User.user.storefront_meta.brand.color.secondary }}; }
   .navbar.ee-store-subnav .nav > li > a {
     color: {{ storefront.ee.User.user.storefront_meta.brand.color.tertiary }};
@@ -9,7 +9,7 @@
 <!-- /style for preview -->
 
 <div ng-hide="storefront.ee.loading"
-  ng-if="$state.current.name == 'edit.about' && (storefront.ee.User.user.storefront_meta.about.headline || storefront.ee.User.user.storefront_meta.about.content)"
+  ng-if="$state.current.name == 'editdesign' || ($state.current.name == 'edit.about' && (storefront.ee.User.user.storefront_meta.about.headline || storefront.ee.User.user.storefront_meta.about.content))"
   class="container vert-20">
 
   <div class="well white-background box-shadow margin-0-auto text-left">
@@ -25,7 +25,7 @@
       </ee-storefront-header>
       <!-- /STORE navbar -->
       <!-- STORE about -->
-      <div ng-include="'ee-shared/storefront/storefront.about.html'"></div>
+      <div ng-include="'ee-shared/storefront/storefront.about.html'" ng-if="$state.current.name == 'edit.about'"></div>
       <!-- /STORE about -->
     </div>
   </div>

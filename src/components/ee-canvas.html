@@ -43,7 +43,9 @@
         </a>
       </li>
       <!-- Add Layer -->
-      <li ng-repeat="type in ['Text','Shape','Image','Product']" ng-class="{ active: overlay == type }" class="text-center">
+      <li ng-repeat="type in ['Text','Shape','Image','Product']"
+        ng-class="{ active: overlay == type }" class="text-center"
+        ng-hide="type == 'Product' && products.length < 1">
         <a href ng-click="setOverlay(type)" class="text-center text-muted">
           <span ng-bind="type"></span><br><i class="fa fa-3x fa-plus"></i>
         </a>
@@ -53,11 +55,11 @@
     </ul>
   </div>
   <div class="position-relative">
-    <div>
+    <div style="min-height: 42px;">
       <!-- i-text toolset -->
-      <div ng-show="toolset.tab == 'i-text'" class="btn-group">
+      <div ng-show="toolset.tab == 'i-text'" class="btn-group vert-5">
         <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-          <div class="btn btn-default vert-5" uib-dropdown-toggle>
+          <div class="btn btn-default pad-5" uib-dropdown-toggle>
             Color <i class="fa fa-caret-down"></i>
           </div>
           <ul class="dropdown-menu" uib-dropdown-menu>
@@ -67,7 +69,7 @@
           </ul>
         </span>
         <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-          <div class="btn btn-default vert-5" uib-dropdown-toggle>
+          <div class="btn btn-default pad-5" uib-dropdown-toggle>
             Font <i class="fa fa-caret-down"></i>
           </div>
           <ul class="dropdown-menu" uib-dropdown-menu>
@@ -76,16 +78,16 @@
             </li>
           </ul>
         </span>
-        <div class="btn btn-default vert-5" ng-click="toggleFontSetting('bold')" ng-class="{ active: toolset.bold }"><i class="fa fa-bold"></i></div>
-        <div class="btn btn-default vert-5" ng-click="toggleFontSetting('italic')" ng-class="{ active: toolset.italic }"><i class="fa fa-italic"></i></div>
-        <div class="btn btn-default vert-5" ng-click="clone()">Copy</div>
-        <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
+        <div class="btn btn-default pad-5" ng-click="toggleFontSetting('bold')" ng-class="{ active: toolset.bold }"><i class="fa fa-fw fa-bold"></i></div>
+        <div class="btn btn-default pad-5" ng-click="toggleFontSetting('italic')" ng-class="{ active: toolset.italic }"><i class="fa fa-fw fa-italic"></i></div>
+        <div class="btn btn-default pad-5" ng-click="clone()" ng-hide="canvasType == 'logo'">Copy</div>
+        <div class="btn btn-default pad-5" ng-click="removeActiveObject()">Remove</div>
       </div>
       <!-- /i-text toolset -->
       <!-- image toolset -->
-      <div ng-show="toolset.tab == 'image'" class="btn-group">
+      <div ng-show="toolset.tab == 'image'" class="btn-group vert-5">
         <span class="btn-group" uib-dropdown auto-close="outsideClick">
-          <div class="btn btn-default vert-5" uib-dropdown-toggle>
+          <div class="btn btn-default pad-5" uib-dropdown-toggle>
             Remove white <i class="fa fa-caret-down"></i>
           </div>
           <ul class="dropdown-menu pad-10" style="width: 300px" uib-dropdown-menu>
@@ -94,13 +96,13 @@
             <li>Distance <input type="range" min=1 max=48 ng-model="toolset.whitespaceDistance" ng-change="updateWhitespace()" class="pull-right vert-2" style="width: 190px;"/></li>
           </ul>
         </span>
-        <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
+        <div class="btn btn-default pad-5" ng-click="removeActiveObject()">Remove</div>
       </div>
       <!-- /image toolset -->
       <!-- shape toolset -->
-      <div ng-show="toolset.tab == 'rect' || toolset.tab == 'ellipse'" class="btn-group">
+      <div ng-show="toolset.tab == 'rect' || toolset.tab == 'ellipse'" class="btn-group vert-5">
         <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-          <div class="btn btn-default vert-5" uib-dropdown-toggle>
+          <div class="btn btn-default pad-5" uib-dropdown-toggle>
             Color <i class="fa fa-caret-down"></i>
           </div>
           <ul class="dropdown-menu" uib-dropdown-menu>
@@ -110,20 +112,20 @@
           </ul>
         </span>
         <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-          <div class="btn btn-default vert-5" uib-dropdown-toggle>
+          <div class="btn btn-default pad-5" uib-dropdown-toggle>
             Transparency <i class="fa fa-caret-down"></i>
           </div>
           <ul class="dropdown-menu pad-10" style="width: 200px" uib-dropdown-menu>
             <li><input type="range" min=0 max=0.9 step=0.1 ng-model="toolset.transparency" ng-change="updateTransparency()" class="pull-right vert-2"/></li>
           </ul>
         </span>
-        <div class="btn btn-default vert-5" ng-click="clone()">Copy</div>
-        <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
+        <div class="btn btn-default pad-5" ng-click="clone()" ng-hide="canvasType == 'logo'">Copy</div>
+        <div class="btn btn-default pad-5" ng-click="removeActiveObject()">Remove</div>
       </div>
       <!-- /shape toolset -->
       <!-- background color toolset -->
-      <div class="btn-group" auto-close="outsideClick" uib-dropdown ng-show="!toolset.tab">
-        <div class="btn btn-default vert-5" uib-dropdown-toggle>
+      <div class="btn-group vert-5" auto-close="outsideClick" uib-dropdown ng-show="!toolset.tab && canvasType != 'logo'">
+        <div class="btn btn-default pad-5" uib-dropdown-toggle>
           Background color <i class="fa fa-caret-down"></i>
         </div>
         <ul class="dropdown-menu" uib-dropdown-menu>
@@ -136,10 +138,10 @@
 
       <!-- <uib-tabset ng-if="false">
         <uib-tab heading="Layers" select="unfocusBackground()" active="tab.layers">
-          <div class="btn-group">
-            <div class="btn btn-default vert-5" ng-click="setOverlay('Product')" ng-class="{ active: overlay.product }" ng-show="products.length > 0">Add product</div>
+          <div class="btn-group vert-5">
+            <div class="btn btn-default" ng-click="setOverlay('Product')" ng-class="{ active: overlay.product }" ng-show="products.length > 0">Add product</div>
             <span class="btn-group" auto-close="outsideClick" is-open="overlay.text" uib-dropdown>
-              <div class="btn btn-default vert-5" uib-dropdown-toggle>Add text</div>
+              <div class="btn btn-default" uib-dropdown-toggle>Add text</div>
               <ul class="dropdown-menu pad-0" style="width: 300px;" uib-dropdown-menu>
                 <li class="margin-7">
                   <input type="text" class="form-control inline-block" style="width: 225px;" ng-model="textToAdd"/>
@@ -147,8 +149,8 @@
                 </li>
               </ul>
             </span>
-            <span class="btn-group" auto-close="outsideClick" is-open="overlay.shape" uib-dropdown>
-              <div class="btn btn-default vert-5" uib-dropdown-toggle>Add shape</div>
+            <span class="btn-group vert-5" auto-close="outsideClick" is-open="overlay.shape" uib-dropdown>
+              <div class="btn btn-default" uib-dropdown-toggle>Add shape</div>
               <ul class="dropdown-menu pad-0" uib-dropdown-menu>
                 <li class="margin-7">
                   <div style="width: 60px; height: 40px; background: #6B5C84;" class="inline-block margin-5 hover-pointer" ng-click="addShape('rect')"></div>
@@ -157,12 +159,12 @@
               </ul>
             </span>
           </div>
-          <div class="btn-group pull-right" ng-show="toolset.tab == 'i-text'">
-            <div class="btn btn-default vert-5" ng-click="toggleFontSetting('bold')" ng-class="{ active: toolset.bold }"><i class="fa fa-fw fa-bold"></i></div>
-            <div class="btn btn-default vert-5" ng-click="toggleFontSetting('italic')" ng-class="{ active: toolset.italic }"><i class="fa fa-fw fa-italic"></i></div>
-            <div class="btn btn-default vert-5" ng-click="toggleFontSetting('underline')" ng-class="{ active: toolset.underline }"><i class="fa fa-fw fa-underline"></i></div>
+          <div class="btn-group vert-5 pull-right" ng-show="toolset.tab == 'i-text'">
+            <div class="btn btn-default" ng-click="toggleFontSetting('bold')" ng-class="{ active: toolset.bold }"><i class="fa fa-fw fa-bold"></i></div>
+            <div class="btn btn-default" ng-click="toggleFontSetting('italic')" ng-class="{ active: toolset.italic }"><i class="fa fa-fw fa-italic"></i></div>
+            <div class="btn btn-default" ng-click="toggleFontSetting('underline')" ng-class="{ active: toolset.underline }"><i class="fa fa-fw fa-underline"></i></div>
             <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-              <div class="btn btn-default vert-5" uib-dropdown-toggle>
+              <div class="btn btn-default" uib-dropdown-toggle>
                 Font <i class="fa fa-caret-down"></i>
               </div>
               <ul class="dropdown-menu" uib-dropdown-menu>
@@ -171,8 +173,8 @@
                 </li>
               </ul>
             </span>
-            <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-              <div class="btn btn-default vert-5" uib-dropdown-toggle>
+            <span class="btn-group vert-5" auto-close="outsideClick" uib-dropdown>
+              <div class="btn btn-default" uib-dropdown-toggle>
                 Color <i class="fa fa-caret-down"></i>
               </div>
               <ul class="dropdown-menu" uib-dropdown-menu>
@@ -181,11 +183,11 @@
                 </li>
               </ul>
             </span>
-            <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
+            <div class="btn btn-default" ng-click="removeActiveObject()">Remove</div>
           </div>
-          <div class="btn-group pull-right" ng-show="toolset.tab == 'image'">
+          <div class="btn-group vert-5 pull-right" ng-show="toolset.tab == 'image'">
             <span class="btn-group" uib-dropdown auto-close="outsideClick">
-              <div class="btn btn-default vert-5" uib-dropdown-toggle>
+              <div class="btn btn-default" uib-dropdown-toggle>
                 Remove white <i class="fa fa-caret-down"></i>
               </div>
               <ul class="dropdown-menu dropdown-menu-right pad-10" style="width: 300px" uib-dropdown-menu>
@@ -194,11 +196,11 @@
                 <li>Distance <input type="range" min=1 max=48 ng-model="toolset.whitespaceDistance" ng-change="updateWhitespace()" class="pull-right vert-2" style="width: 190px;"/></li>
               </ul>
             </span>
-            <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
+            <div class="btn btn-default" ng-click="removeActiveObject()">Remove</div>
           </div>
-          <div class="btn-group pull-right" ng-show="toolset.tab == 'rect' || toolset.tab == 'ellipse'">
+          <div class="btn-group vert-5 pull-right" ng-show="toolset.tab == 'rect' || toolset.tab == 'ellipse'">
             <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-              <div class="btn btn-default vert-5" uib-dropdown-toggle>
+              <div class="btn btn-default" uib-dropdown-toggle>
                 Color <i class="fa fa-caret-down"></i>
               </div>
               <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
@@ -208,17 +210,17 @@
               </ul>
             </span>
             <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-              <div class="btn btn-default vert-5" uib-dropdown-toggle>
+              <div class="btn btn-default" uib-dropdown-toggle>
                 Transparency <i class="fa fa-caret-down"></i>
               </div>
               <ul class="dropdown-menu dropdown-menu-right pad-10" style="width: 200px" uib-dropdown-menu>
                 <li><input type="range" min=0 max=0.9 step=0.1 ng-model="toolset.transparency" ng-change="updateTransparency()" class="pull-right vert-2"/></li>
               </ul>
             </span>
-            <div class="btn btn-default vert-5" ng-click="removeActiveObject()">Remove</div>
+            <div class="btn btn-default" ng-click="removeActiveObject()">Remove</div>
           </div>
-          <div class="btn-group pull-right" auto-close="outsideClick" uib-dropdown ng-show="!toolset.tab">
-            <div class="btn btn-default vert-5" uib-dropdown-toggle>
+          <div class="btn-group vert-5 pull-right" auto-close="outsideClick" uib-dropdown ng-show="!toolset.tab">
+            <div class="btn btn-default" uib-dropdown-toggle>
               Background color <i class="fa fa-caret-down"></i>
             </div>
             <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
@@ -230,16 +232,16 @@
         </uib-tab>
         <uib-tab heading="Background image" select="focusBackground()" active="tab.background">
           <div>
-            <div class="btn-group">
-              <div class="btn btn-default vert-5" style="cursor: auto;">
+            <div class="btn-group vert-5">
+              <div class="btn btn-default" style="cursor: auto;">
                 <div class="overflow-hidden" style="max-width: 180px;">
                   <ee-cloudinary-upload meta="collection" attr-target="'1000x1000'"></ee-cloudinary-upload>
                 </div>
               </div>
-              <div class="btn btn-default vert-5" ng-click="setOverlay('Image')">Search for image</div>
+              <div class="btn btn-default" ng-click="setOverlay('Image')">Search for image</div>
             </div>
             <div class="btn-group pull-right">
-              <div class="btn btn-default vert-5" ng-if="backgroundSet()" ng-click="removeBackgroundImage()">Remove background image</div>
+              <div class="btn btn-default" ng-if="backgroundSet()" ng-click="removeBackgroundImage()">Remove background image</div>
             </div>
           </div>
         </uib-tab>
@@ -253,8 +255,8 @@
         <form ng-show="overlay == 'Text'"
           ng-submit="addText()"
           class="form form-inline">
-          <input type="text" class="form-control input-lg inline-block" ng-model="textToAdd"/>
-          <button type="submit" class="btn btn-lg btn-default">Add</button>
+          <input type="text" class="form-control inline-block" ng-model="textToAdd"/>
+          <button type="submit" class="btn btn-default">Add</button>
         </form>
         <!-- /text overlay -->
         <!-- shape overlay -->
@@ -266,10 +268,11 @@
         <!-- image overlay -->
         <div ng-show="overlay == 'Image'">
           <ee-cloudinary-upload meta="collection" attr-target="'1000x1000'"></ee-cloudinary-upload>
-          <div class="vert-10">OR</div>
-          <ee-unsplash-search app-id="bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602"></ee-unsplash-search>
+          <div ng-hide="canvasType == 'logo'">
+            <div class="vert-10">OR</div>
+            <ee-unsplash-search app-id="bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602"></ee-unsplash-search>
+          </div>
         </div>
-
         <!-- /image overlay -->
         <!-- product overlay -->
         <span ng-if="overlay == 'Product'"
@@ -297,5 +300,6 @@
     <div class="btn btn-link pull-right" ng-click="loadFromJSON()">Reset</div>
   </div>
 
-  <ee-cloudinary-upload id="cloudinary_save" attr-target="'canvas'" class="hidden"></ee-cloudinary-upload>
+  <ee-cloudinary-upload id="cloudinary_canvas" attr-target="'canvas'" class="hidden"></ee-cloudinary-upload>
+  <ee-cloudinary-upload id="cloudinary_logo" attr-target="'logo'" meta="user.storefront_meta" class="hidden"></ee-cloudinary-upload>
 </div>

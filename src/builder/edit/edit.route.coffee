@@ -35,6 +35,9 @@ angular.module('builder.edit').config ($stateProvider) ->
         top:
           controller: 'editCtrl as edit'
           templateUrl: 'builder/edit/edit.design.html'
+        middle:
+          controller: 'storefrontCtrl as storefront'
+          templateUrl: 'builder/edit/edit.preview.html'
       data:
         pageTitle:        'Edit your store | eeosk'
         pageDescription:  'Edit the look and feel of your online store.'

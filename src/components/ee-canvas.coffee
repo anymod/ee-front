@@ -7,6 +7,7 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
   restrict: 'E'
   scope:
     products: '='
+    user: '='
     json: '='
     banner: '='
     canvasType: '='
@@ -139,10 +140,15 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
 
     scope.$on 'cloudinary:finished', (e, data) ->
       return if !data?.target
-      if data.target is '1000x1000' then scope.addImage { url: data.url, crop: 'limit', w: scope.canvasWidth, h: scope.canvasWidth, scale: 1, background: true }
-      if data.target is 'canvas'
-        scope.banner = data.url
-        $rootScope.$broadcast 'collection:update:banner', scope.banner
+      switch data.target
+        when '1000x1000' then scope.addImage { url: data.url, crop: 'limit', w: scope.canvasWidth, h: scope.canvasWidth, scale: 1, background: true }
+        when 'canvas'
+          scope.banner = data.url
+          $rootScope.$broadcast 'collection:update:banner', scope.banner
+        when 'logo'
+          scope.user.logo = data.url
+          scope.saving = false
+          scope.unsaved = false
 
     scope.$on 'collection:updated', (e, data) ->
       scope.saving = false
@@ -180,7 +186,9 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       scope.saving = true
       sortLayers()
       scope.json = JSON.stringify(canvas)
-      cloudinary_fileupload = $('#cloudinary_save .cloudinary_fileupload')
+      cloudinary_finder = '#cloudinary_canvas .cloudinary_fileupload'
+      if scope.canvasType is 'logo' then cloudinary_finder = '#cloudinary_logo .cloudinary_fileupload'
+      cloudinary_fileupload = $(cloudinary_finder)
       canvas.discardActiveObject()
       data = canvas.toDataURL 'jpg'
       cloudinary_fileupload.fileupload('option', 'formData').file = data
