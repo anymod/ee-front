@@ -1,11 +1,12 @@
 'use strict'
 
-angular.module('builder.collections').controller 'collectionsCtrl', ($state, eeDefiner, eeCollections) ->
+angular.module('builder.collections').controller 'collectionsCtrl', ($state, eeDefiner, eeCollections, eeModal) ->
 
   collections = this
 
   collections.ee    = eeDefiner.exports
   collections.fns   = eeCollections.fns
+  collections.modalFns = eeModal.fns
   collections.state = $state.current.name
 
   eeCollections.fns.resetCollections()

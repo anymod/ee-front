@@ -2,21 +2,21 @@
 
 module = angular.module 'ee-canvas', []
 
-module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
+module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections) ->
   templateUrl: 'components/ee-canvas.html'
   restrict: 'E'
   scope:
-    products: '='
     user: '='
-    json: '='
-    banner: '='
+    collection: '='
+    products: '='
+    # json: '='
+    # banner: '='
     canvasType: '='
     canvasWidth: '='
     canvasHeight: '='
   link: (scope, ele, attrs) ->
     scope.products  ||= []
     scope.layers      = []
-    scope.json      ||= {}
     scope.tab         = {}
     scope.overlay     = null
     scope.toolset     = {}
@@ -28,6 +28,15 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
     scope.wellWidth = scope.canvasWidth + 12
 
     ### CANVAS SETUP ###
+
+    switch scope.canvasType
+      when 'collection'
+        scope.json = scope.collection.canvas
+        scope.banner = scope.collection.banner
+      when 'logo'
+        scope.json = scope.user.canvas
+        scope.banner = scope.user.logo
+      else scope.json = {}
 
     canvas = new fabric.Canvas(scope.canvasType + '_canvas', {
       selection: false
@@ -143,16 +152,21 @@ module.directive "eeCanvas", ($rootScope, $q, $filter, $window, $timeout) ->
       switch data.target
         when '1000x1000' then scope.addImage { url: data.url, crop: 'limit', w: scope.canvasWidth, h: scope.canvasWidth, scale: 1, background: true }
         when 'canvas'
-          scope.banner = data.url
-          $rootScope.$broadcast 'collection:update:banner', scope.banner
+          scope.collection.banner = data.url
+          scope.collection.canvas = data.json
+          eeCollections.fns.updateCollection scope.collection
+          .then () ->
+            scope.saving = false
+            scope.unsaved = false
         when 'logo'
           scope.user.logo = data.url
+          scope.collection.canvas = data.json
           scope.saving = false
           scope.unsaved = false
 
-    scope.$on 'collection:updated', (e, data) ->
-      scope.saving = false
-      scope.unsaved = false
+    # scope.$on 'collection:updated', (e, data) ->
+    #   scope.saving = false
+    #   scope.unsaved = false
 
     scope.$on 'eeWebColorPicked', (e, color) ->
       switch scope.toolset.tab

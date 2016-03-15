@@ -24,6 +24,7 @@ angular.module 'eeBuilder', [
   'builder.go'
   'builder.is'
   'builder.create'
+  'builder.homepage'
   'builder.terms'
   'builder.daily'
   'builder.tracks'

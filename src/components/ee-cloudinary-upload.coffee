@@ -12,7 +12,6 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", ($rootScop
     meta: '='
     attrTarget: '='
   link: (scope, element, attrs) ->
-    console.log scope.meta
     form = element
     cloudinary_transform = 'storefront_home'
     if scope.attrTarget is 'logo'       then cloudinary_transform = 'logo_260x60'

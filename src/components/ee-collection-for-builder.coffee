@@ -2,7 +2,7 @@
 
 module = angular.module 'ee-collection-for-builder', []
 
-module.directive "eeCollectionForBuilder", ($state, $window, eeCollections) ->
+module.directive "eeCollectionForBuilder", ($state, $window, eeCollections, eeModal) ->
   templateUrl: 'components/ee-collection-for-builder.html'
   restrict: 'E'
   scope:
@@ -10,6 +10,8 @@ module.directive "eeCollectionForBuilder", ($state, $window, eeCollections) ->
     modal: '@'
   link: (scope, ele, attrs) ->
     scope.collectionsFns = eeCollections.fns
+
+    scope.openImageModal = () -> eeModal.fns.open 'edit_collection_image', { collection: scope.collection }
 
     scope.updateCollection = () ->
       eeCollections.fns.updateCollection scope.collection

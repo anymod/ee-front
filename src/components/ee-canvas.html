@@ -18,7 +18,14 @@
   }
 </style>
 
-<div class="well white-background box-shadow pad-5 position-relative">
+<div class="pad-5 position-relative">
+  <div class="vert-5 margin-top-0">
+    <div class="btn btn-primary" ng-click="upload()" ng-show="unsaved" ng-hide="saving">Save image</div>
+    <a class="btn btn-default" href="{{ banner | cloudinaryAttachment }}" ng-show="!unsaved">Download</a>
+    <span class="btn btn-default disabled" ng-show="saving">Saving...</span>
+    <div class="btn btn-link" ng-click="loadFromJSON()">Reset</div>
+  </div>
+
   <div class="nav-tabs-container">
     <ul class="nav nav-tabs">
       <li ng-repeat="layer in layers | reverse" ng-class="{ active: layer.active }" class="text-center">
@@ -291,13 +298,6 @@
       <canvas id="logo_canvas" ng-show="canvasType == 'logo'" width=280 height=80 class="gray-border"></canvas>
       <!-- /canvas -->
     </div>
-  </div>
-  <div class="vert-5 margin-bottom-0">
-    <div class="btn btn-primary" ng-click="upload()" ng-show="unsaved" ng-disabled="saving">Save image</div>
-    <a class="btn btn-default" href="{{ banner | cloudinaryAttachment }}" ng-show="!unsaved">Download</a>
-    <div class="btn btn-link" ng-click="preview()" ng-hide="saving">Preview</div>
-    <span ng-show="saving" class="btn btn-link text-muted disabled">Saving...</span>
-    <div class="btn btn-link pull-right" ng-click="loadFromJSON()">Reset</div>
   </div>
 
   <ee-cloudinary-upload id="cloudinary_canvas" attr-target="'canvas'" class="hidden"></ee-cloudinary-upload>

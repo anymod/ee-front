@@ -12,7 +12,7 @@ angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, $stat
     fixed: '@'
     mainNav: '@'
     playbookNav: '@'
-    productsNav: '@'
+    storeNav: '@'
     editNav: '@'
     orderNav: '@'
     accountNav: '@'
@@ -23,9 +23,10 @@ angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, $stat
     scope.productsFns = eeProducts.fns
 
     switch $state.current?.name
-      when 'daily', 'tracks', 'brand', 'store', 'start' then scope.btn1Active = true
-      when 'collections', 'categories', 'products', 'collectionsAdd' then scope.btn2Active = true
+      when 'daily', 'date', 'tracks', 'track', 'brand', 'store', 'start' then scope.btn1Active = true
+      when 'homepage', 'categories', 'products', 'collectionsAdd' then scope.btn2Active = true
       when 'orders' then scope.btn3Active = true
+      when 'account' then scope.btn4Active = true
 
     scope.runSearch = () ->
       $state.go 'products'
