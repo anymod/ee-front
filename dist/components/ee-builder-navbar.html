@@ -7,7 +7,7 @@
   fixed:          when true fix navbar to top of page
   mainNav:        when true show the main navbar with playbook, collections, and orders
   playbookNav:    when true show the sub-navbar for playbook sections
-  productsNav:    when true show the sub-navbar for products & collections
+  storeNav:       when true show the sub-navbar for store sections
   editNav:        when true show the sub-navbar for edit [deprecated]
   orderNav:       when true show the sub-navbar for orders
   accountNav:     when true show the sub-navbar for account
@@ -15,122 +15,129 @@
 //-->
 
 <nav class="navbar ee-builder-navbar round-0" id="navbar-top"
-    ng-class="{ 'navbar-transparent': transparent, 'border-bottom-gray': !noShadow && !transparent && !productsNav && !editNav && !orderNav && !createNav, 'navbar-fixed-top': fixed, 'navbar-absolute-top': !fixed }">
+    ng-class="{ 'navbar-transparent': transparent, 'border-bottom-gray': !noShadow && !transparent, 'navbar-fixed-top': fixed, 'navbar-absolute-top': !fixed }">
   <div class="container-fluid">
-
-    <div class="row vert-7">
-      <div class="col col-xs-4 col-sm-3">
-        <a ui-sref="landing" id="logo" class="pull-left">
-          <img ng-if="transparent" class="vert-5 width-120" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_150/v1432656685/eeosk_white.png"/>
-          <img ng-if="!transparent" class="vert-5 width-120 hidden-xs" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_400/v1432578504/eeosk_blue.png"/>
-          <img ng-if="!transparent" class="vert-5 visible-xs" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_40,h_40,r_50/v1450205397/eeosk_e_200x200.jpg"/>
+    <!-- logo -->
+    <a ui-sref="landing" id="logo" class="pull-left">
+      <img ng-if="transparent" class="vert-10 width-120" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_150/v1432656685/eeosk_white.png"/>
+      <img ng-if="!transparent" class="vert-10 width-120 hidden-xs" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_400/v1432578504/eeosk_blue.png"/>
+      <img ng-if="!transparent" class="vert-10 visible-xs" src="https://res.cloudinary.com/eeosk/image/upload/c_scale,w_40,h_40,r_50/v1450205397/eeosk_e_200x200.jpg"/>
+    </a>
+    <!-- /logo -->
+    <!-- signin: sign in button -->
+    <div ng-if="signin" class="pull-right">
+      <div class="vert-10" role="form">
+        <a ui-sref="login"
+           class="btn btn-success"
+           analytics-on
+           analytics-category="user-management"
+           analytics-event="signin">
+          Sign in
         </a>
-        <!-- showDropdown -->
-        <div ng-if="showDropdown" class="inline-block pad-10 pad-right-0" uib-dropdown>
-          <div class="dropdown-toggle hover-pointer vert-2" uib-dropdown-toggle>
-            <i class="fa fa-lg fa-align-justify text-info"></i><i class="fa fa-lg fa-caret-down text-info" style="margin-left: 5px;"></i>
-          </div>
-          <ul class="dropdown-menu" uib-dropdown-menu>
-            <li><a ui-sref="products"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-tags"></i>&nbsp;&nbsp;Products</h4></a></li>
-            <li><a ui-sref="edit"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-pencil"></i>&nbsp;&nbsp;Edit Store</h4></a></li>
-            <li><a ui-sref="orders"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-list"></i>&nbsp;&nbsp;Orders</h4></a></li>
-            <li><a ui-sref="account"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-gear"></i>&nbsp;&nbsp;Account Settings</h4></a></li>
-            <li class="divider"></li>
-            <li><a ui-sref="logout"><h4 class="vert-5 font-weight-200"><i class="fa fa-fw fa-sign-out"></i>&nbsp;&nbsp;Logout</h4></a></li>
-          </ul>
-        </div>
-        <!-- /showDropdown -->
       </div>
-      <!-- mainNav -->
-      <div ng-if="mainNav" class="col col-xs-8 col-sm-7">
-        <div class="btn-group btn-group-justified max-width-600 vert-2">
-          <a ui-sref="daily" class="btn btn-default border-none pad-5 line-height-1" ng-class="{ active: btn1Active }" style="border-radius: 5px !important;">Your<br><small>Playbook</small></a>
-          <a ui-sref="collections"    class="btn btn-default border-none pad-5 line-height-1" ng-class="{ active: btn2Active }" style="border-radius: 5px !important;">Product<br><small>Collections</small></a>
-          <a ui-sref="orders"         class="btn btn-default border-none pad-5 line-height-1" ng-class="{ active: btn3Active }" style="border-radius: 5px !important;">Your<br><small>Orders</small></a>
-        </div>
-      </div>
-      <!-- /mainNav -->
-      <!-- signin: sign in button -->
-      <div ng-if="signin" class="col col-xs-8 col-sm-9">
-        <div class="vert-5 pull-right" role="form">
-          <a ui-sref="login"
-             class="btn btn-success"
-             analytics-on
-             analytics-category="user-management"
-             analytics-event="signin">
-            Sign in
-          </a>
-        </div>
-      </div>
+    </div>
+    <!-- mainNav -->
+    <span ng-if="mainNav">
       <!-- /signin -->
       <!-- live button -->
-      <div ng-if="live && ee.User.user" class="col col-xs-2 hidden-xs">
+      <div ng-if="live && ee.User.user" class="pull-right hidden-xs" style="padding: 12px 0 10px 10px;">
         <ee-builder-live-button
-          class="vert-2 pull-right"
-          user="ee.User.user"
-          hidden-xs="true">
+          btn-class="btn btn-success"
+          user="ee.User.user">
         </ee-builder-live-button>
       </div>
       <!-- /live button -->
-    </div>
+      <ul class="nav ee-builder-nav">
+        <li ng-class="{ active: btn1Active }">
+          <a ui-sref="daily" class="transition-200">
+            <h4 class="margin-0 inline-block">
+              <small style="padding-left: 2px;">your</small>
+              <br>
+              Playbook
+            </h4>
+          </a>
+        </li>
+        <li ng-class="{ active: btn2Active }">
+          <a ui-sref="homepage" class="transition-200">
+            <h4 class="margin-0 inline-block">
+              <small style="padding-left: 2px;">your</small>
+              <br>
+              Store
+            </h4>
+          </a>
+        </li>
+        <li ng-class="{ active: btn3Active }">
+          <a ui-sref="orders" class="transition-200">
+            <h4 class="margin-0 inline-block">
+              <small style="padding-left: 2px;">your</small>
+              <br>
+              Orders
+            </h4>
+          </a>
+        </li>
+        <!-- account -->
+        <li ng-class="{ active: btn4Active }" class="pull-right">
+          <a ui-sref="account" class="transition-200">
+            <h4 class="margin-0 inline-block visible-xs">
+              <i class="fa fa-lg fa-gear" style="margin-top: 12px;"></i>
+            </h4>
+            <h4 class="margin-0 inline-block hidden-xs">
+              <small style="padding-left: 2px;">your</small>
+              <br>
+              Account
+            </h4>
+          </a>
+        </li>
+        <!-- /account -->
+      </ul>
+    </span>
+    <!-- /mainNav -->
   </div>
 </nav>
-
-<style ng-if="ee.User.user.storefront_meta.brand.color">
-  .ee-builder-subnav,
-  .ee-builder-subnav .builder-subnav-btn {
-    background-color: {{ ee.User.user.storefront_meta.brand.color.secondary }};
-    color: {{ ee.User.user.storefront_meta.brand.color.tertiary }};
-  }
-  .ee-builder-subnav a.builder-subnav-btn {
-    border-bottom: 5px solid {{ ee.User.user.storefront_meta.brand.color.tertiary }};
-    color: {{ ee.User.user.storefront_meta.brand.color.tertiary }};
-  }
-</style>
 
 <nav ng-if="playbookNav == 'true' && ee.User.user"
   class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="daily">Daily<br><small>Action</small></a>
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-class="{ active: state.indexOf('track') > -1 }" ui-sref="track({ id: 1, title: 'facebook' })">Marketing<br><small>Tracks</small></a>
-    <!-- <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="brand">Your<br><small>Brand</small></a> -->
-    <!-- <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="store">Store<br><small>Management</small></a> -->
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="start">Setup<br><small>Basics</small></a>
-    <!-- <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="updates">eeosk<br><small>Updates</small></a> -->
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="daily">Daily<br>Action</a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ng-class="{ active: state.indexOf('track') > -1 }" ui-sref="track({ id: 1, title: 'facebook' })">Marketing<br>Tracks</a>
+    <!-- <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="brand">Your<br>Brand</a> -->
+    <!-- <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="store">Store<br>Management</a> -->
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="start">Setup<br>Basics</a>
+    <!-- <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="updates">eeosk<br>Updates</a> -->
   </div>
 </nav>
 
-<nav ng-if="productsNav == 'true' && ee.User.user"
+<nav ng-if="storeNav == 'true' && ee.User.user"
   class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="collections">Your<br><small>Collections</small></a>
-    <!-- <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="categories">Your<br><small>Categories</small></a> -->
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="products">Featured<br><small>Products</small></a>
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="collectionsAdd">Add<br><small>Collections</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="homepage">Home<br>Page</a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="categories">Store<br>Settings</a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="edit.about">About<br>Page</a>
   </div>
 </nav>
 
 <nav ng-if="editNav == 'true' && ee.User.user"
   class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="editdesign">Store<br><small>Design</small></a>
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="edit.about">About<br><small>Section</small></a>
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="edit.blog">Blog<br><small>Link</small></a>
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="edit.social">Social<br><small>& Email</small></a>
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="edit.seo">SEO<br><small>Settings</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="editdesign">Store<br>Design</a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="edit.about">About<br>Section</a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="edit.blog">Blog<br>Link</a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="edit.social">Social<br>& Email</a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="edit.seo">SEO<br>Settings</a>
   </div>
 </nav>
 
 <nav ng-if="orderNav == 'true' && ee.User.user"
   class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="orders">Your<br><small>Orders</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="orders">Your<br>Orders</a>
   </div>
 </nav>
 
 <nav ng-if="accountNav == 'true' && ee.User.user"
   class="navbar navbar-fixed-top ee-builder-subnav border-bottom-gray round-0 text-center">
   <div class="max-width-600 margin-0-auto pad-2 position-relative">
-    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="account">Your<br><small>Account</small></a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="account">Your<br>Account</a>
+    <a class="builder-subnav-btn vert-8 no-underline transition-200" ui-sref-active="active" ui-sref="logout">Logout<br>of eeosk</a>
   </div>
 </nav>

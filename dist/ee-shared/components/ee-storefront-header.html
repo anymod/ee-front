@@ -1,74 +1,76 @@
 <!-- Desktop nav -->
 <div class="position-relative hidden-xs" style="z-index: 5;">
-  <!-- blocker -->
-  <div ng-show="blocked" class="navbar position-absolute margin-0" style="z-index: 2005; top: 0; left: 0; right: 0; height: 140px;"></div>
-  <!-- /blocker -->
+  <div class="container max-width-900">
+    <!-- blocker -->
+    <div ng-show="blocked" class="navbar position-absolute margin-0" style="z-index: 2005; top: 0; left: 0; right: 0; height: 140px;"></div>
+    <!-- /blocker -->
 
-  <nav id="navtop"
-       class="navbar store-navbar navbar-default white-background border-none margin-0 pad-0 round-0"
-       ng-hide="loading">
+    <nav id="navtop"
+         class="navbar store-navbar navbar-default white-background border-none margin-0 pad-0 round-0"
+         ng-hide="loading">
 
-    <div ng-class="fluid ? 'container-fluid' : 'container'" name="store-navbar">
+      <div ng-class="fluid ? 'container-fluid' : 'container'" name="store-navbar">
 
-      <div class="row position-relative margin-bottom-0">
+        <div class="row position-relative margin-bottom-0">
 
-        <div class="brand-area position-absolute">
-          <!-- Logo -->
-          <ee-storefront-logo ng-if="meta" meta="meta"></ee-storefront-logo>
-          <!-- /Logo -->
-        </div>
-        <div class="activity-area position-absolute">
-          <div>
-            <!-- Search -->
-            <form class="form-group input-group margin-0" ng-submit="search()">
-              <input type="text" class="form-control full-width-important" placeholder="Search for products" ng-model="query" style="box-shadow: none; padding: 8px 20px; min-height: 38px;">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="submit" style="padding: 8px 20px; min-height: 38px;">Search&nbsp;&nbsp;<i class="fa fa-caret-right"></i></button>
-              </span>
-            </form>
-            <!-- /Search -->
+          <div class="brand-area position-absolute">
+            <!-- Logo -->
+            <ee-storefront-logo ng-if="meta" meta="meta"></ee-storefront-logo>
+            <!-- /Logo -->
           </div>
-          <div class="full-width text-right pad-5 vert-5 vertical-align-middle">
-            <!-- social media -->
-            <a ng-repeat="site in ['facebook','pinterest','twitter','instagram']"
-              ng-if="meta.audience.social[site]"
-              href="https://{{ site }}.com/{{ meta.audience.social[site] }}" target="_blank"
-              class="link-muted text-{{ site }} no-underline margin-2 margin-top-0 margin-bottom-0">
-              <i class="fa fa-{{ site }} vertical-align-middle"></i>
-            </a>
-            <!-- /social media -->
-            <!-- blog -->
-            <a ng-if="meta.blog.url" href="{{ meta.blog.url | addHttp }}" target="_blank" class="text-muted margin-5 margin-top-0 margin-bottom-0">blog</a>
-            <!-- /blog -->
-            <!-- help -->
-            <a ui-sref="help" class="text-muted margin-5 margin-top-0 margin-bottom-0">help</a>
-            <!-- /help -->
-            <!-- cart -->
-            <a ui-sref="cart" class="text-muted">
-              <span ng-if="quantityArray && quantityArray.length > 0" class="fa-stack">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-stack-1x white-color"><strong ng-bind="quantityArray.length"></strong></i>
-              </span>
-              <i ng-if="!quantityArray || quantityArray.length < 1" class="fa fa-2x fa-fw fa-shopping-cart vertical-align-middle" style="margin-right: 3px;"></i>cart
-            </a>
-            <!-- /cart -->
+          <div class="activity-area position-absolute">
+            <div>
+              <!-- Search -->
+              <form class="form-group input-group margin-0" ng-submit="search()">
+                <input type="text" class="form-control full-width-important" placeholder="Search for products" ng-model="query" style="box-shadow: none; padding: 8px 20px; min-height: 38px;">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit" style="padding: 8px 20px; min-height: 38px;">Search&nbsp;&nbsp;<i class="fa fa-caret-right"></i></button>
+                </span>
+              </form>
+              <!-- /Search -->
+            </div>
+            <div class="full-width text-right pad-5 vert-5 vertical-align-middle">
+              <!-- social media -->
+              <a ng-repeat="site in ['facebook','pinterest','twitter','instagram']"
+                ng-if="meta.audience.social[site]"
+                href="https://{{ site }}.com/{{ meta.audience.social[site] }}" target="_blank"
+                class="link-muted text-{{ site }} no-underline margin-2 margin-top-0 margin-bottom-0">
+                <i class="fa fa-{{ site }} vertical-align-middle"></i>
+              </a>
+              <!-- /social media -->
+              <!-- blog -->
+              <a ng-if="meta.blog.url" href="{{ meta.blog.url | addHttp }}" target="_blank" class="text-muted margin-5 margin-top-0 margin-bottom-0">blog</a>
+              <!-- /blog -->
+              <!-- help -->
+              <a ui-sref="help" class="text-muted margin-5 margin-top-0 margin-bottom-0">help</a>
+              <!-- /help -->
+              <!-- cart -->
+              <a ui-sref="cart" class="text-muted">
+                <span ng-if="quantityArray && quantityArray.length > 0" class="fa-stack">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-stack-1x white-color"><strong ng-bind="quantityArray.length"></strong></i>
+                </span>
+                <i ng-if="!quantityArray || quantityArray.length < 1" class="fa fa-2x fa-fw fa-shopping-cart vertical-align-middle" style="margin-right: 3px;"></i>cart
+              </a>
+              <!-- /cart -->
+            </div>
           </div>
+
         </div>
 
       </div>
-
-    </div>
-  </nav>
+    </nav>
+  </div>
 </div>
 <!-- /Desktop nav -->
 
 <!-- Desktop Subnav -->
 <nav class="navbar navbar-default ee-store-subnav round-0 margin-0 no-side-border hidden-xs">
-  <div class="container">
+  <div class="container max-width-900">
     <ul class="nav navbar-nav">
-      <li>
+      <!-- <li>
         <a ui-sref="collections" class="transition-200 store-subnav-btn" ng-class="{ active: state == 'collections' }">Collections</a>
-      </li>
+      </li> -->
       <li ng-repeat="category in categories">
         <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
           ng-bind="category.title"

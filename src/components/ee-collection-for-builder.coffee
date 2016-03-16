@@ -11,21 +11,24 @@ module.directive "eeCollectionForBuilder", ($state, $window, eeCollections, eeMo
   link: (scope, ele, attrs) ->
     scope.collectionsFns = eeCollections.fns
 
-    scope.openImageModal = () -> eeModal.fns.open 'edit_collection_image', { collection: scope.collection }
+    scope.openCollectionModalFor = (type) ->
+      eeModal.fns.open 'edit_collection', { collection: scope.collection, type: type }
 
-    scope.updateCollection = () ->
-      eeCollections.fns.updateCollection scope.collection
-      .then () -> $state.go 'collections'
+    scope.hide = () -> console.log 'hiding'
 
-    scope.toggleCarousel = () ->
-      if scope.collection?.banner?.indexOf('placehold.it') > -1
-        $state.go 'collection', { id: scope.collection.id }
-      else
-        scope.collection.in_carousel = !scope.collection.in_carousel
-        scope.updateCollection()
-
-    scope.editOrOpenModal = () ->
-      if !scope.modal then return $state.go 'collection', { id: scope.collection?.id }
-      eeCollections.fns.openProductsModal scope.collection
+    # scope.updateCollection = () ->
+    #   eeCollections.fns.updateCollection scope.collection
+    #   .then () -> $state.go 'collections'
+    #
+    # scope.toggleCarousel = () ->
+    #   if scope.collection?.banner?.indexOf('placehold.it') > -1
+    #     $state.go 'collection', { id: scope.collection.id }
+    #   else
+    #     scope.collection.in_carousel = !scope.collection.in_carousel
+    #     scope.updateCollection()
+    #
+    # scope.editOrOpenModal = () ->
+    #   if !scope.modal then return $state.go 'collection', { id: scope.collection?.id }
+    #   eeCollections.fns.openProductsModal scope.collection
 
     return

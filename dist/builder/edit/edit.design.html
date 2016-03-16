@@ -23,11 +23,17 @@
   <!-- <div class="full-width transition-400" ng-style="{ height: edit.showPreview ? '50px' : '0px' }"></div> -->
   <!-- <ee-builder-section-heading heading="Edit your store design" heading-class="text-success" subheading="Design your store's logo, style, and colors below."></ee-builder-section-heading> -->
 
-  <!-- <div class="well white-background box-shadow">
-    <ee-canvas canvas-type="'logo'" canvas-width=280 canvas-height=80></ee-canvas>
-  </div> -->
+  <div class="container-fluid text-center pad-5 vert-15" style="max-width: 302px;">
+    <div class="margin-0-auto text-left">
+      <ee-canvas ng-if="edit.ee.User.user.username"
+        canvas-type="'logo'"
+        json="edit.ee.User.user.canvas"
+        user="edit.ee.User.user">
+      </ee-canvas>
+    </div>
+  </div>
 
-  <div class="well white-background box-shadow">
+  <div ng-if="false" class="well white-background box-shadow">
     <div class="row">
       <div class="col col-sm-6">
         <!-- Logo -->
@@ -49,7 +55,7 @@
     </div>
   </div>
 
-  <div class="well white-background box-shadow">
+  <div ng-if="false" class="well white-background box-shadow">
     <!-- <div class="row vert-5">
       <div class="col-sm-6">
         <div class="full-width margin-0-auto text-left" style="max-width: 320px;">

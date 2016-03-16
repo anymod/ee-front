@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.homepage').controller 'homepageCtrl', ($state, eeDefiner, eeCollections, eeModal) ->
+angular.module('builder.homepage').controller 'homepageCtrl', ($state, eeDefiner, eeCollections, eeModal, eeCategorizations) ->
 
   homepage = this
 
@@ -17,5 +17,7 @@ angular.module('builder.homepage').controller 'homepageCtrl', ($state, eeDefiner
     .then (res) -> $state.go 'homepage', id: res.collection.id
 
   homepage.update = () -> eeCollections.fns.update()
+
+  eeCategorizations.fns.getCategorizations()
 
   return

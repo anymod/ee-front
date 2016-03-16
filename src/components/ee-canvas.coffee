@@ -36,13 +36,14 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections) ->
       when 'logo'
         scope.json = scope.user.canvas
         scope.banner = scope.user.logo
+        scope.canvasWidth = 300
+        scope.canvasHeight = 80
       else scope.json = {}
 
     canvas = new fabric.Canvas(scope.canvasType + '_canvas', {
       selection: false
       controlsAboveOverlay: true
       allowTouchScrolling: true
-      # centeredScaling: true
     })
 
     objectDefaults =
@@ -50,8 +51,9 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections) ->
       transparentCorners: false
       cornerColor: '#03A9F4'
       borderColor: '#03A9F4'
-      cornerSize: 25
-      padding: 5
+      cornerSize: 22
+      padding: 2
+      lineHeight: 0.9
       selectable: false
       evented: false
 
@@ -142,7 +144,11 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections) ->
 
     scope.focusLayer = (layer) ->
       scope.setOverlay null
-      canvas.setActiveObject layer
+      if layer
+        canvas.setActiveObject layer
+      else
+        clearAll()
+        scope.toolset.tab = 'background'
       renderAll()
 
     # EVENTS
@@ -174,7 +180,9 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections) ->
           scope.toolset.transparency = 0
           canvas.getActiveObject().setColor color
           canvas.renderAll()
-        else canvas.setBackgroundColor(color, renderAll())
+        else
+          scope.backgroundColor = color
+          canvas.setBackgroundColor(color, renderAll())
 
     $window.addEventListener 'keydown', (e) ->
       # keyCode: 8, keyIdentifier: "U+0008" (delete)
@@ -216,6 +224,7 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections) ->
       win.focus()
 
     scope.loadFromJSON = () ->
+      scope.backgroundColor = scope.json?.background || '#FFFFFF'
       canvas.loadFromJSON scope.json, null, (o, object) ->
         scope.layers.push object
         clearObject(object).then () ->
@@ -307,15 +316,15 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections) ->
       if type is 'rect'
         shape = new fabric.Rect objectDefaults
         shape.setFill 'rgba(200,200,200,0.8)'
-        shape.width = 150
-        shape.height = 100
+        shape.width = 80
+        shape.height = 80
       else if type is 'ellipse'
         shape = new fabric.Ellipse objectDefaults
         shape.setFill 'rgba(200,200,200,0.8)'
-        shape.width = 150
-        shape.height = 100
-        shape.rx = 75
-        shape.ry = 50
+        shape.width = 80
+        shape.height = 80
+        shape.rx = 40
+        shape.ry = 40
       if shape then canvas.add shape
       clearAll()
       scope.focusLayer shape, true

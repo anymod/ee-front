@@ -1,71 +1,90 @@
 <style>
-  ee-canvas .nav-tabs-container,
-  ee-canvas .ee-canvas-container {
-    overflow-x: scroll;
-    overflow-y: hidden;
+  ee-canvas .list-group-item.active,
+  ee-canvas .list-group-item:focus {
+    background-color: #BDEAFF !important;
+    color: inherit !important;
+    border-color: #DDDDDD !important;
   }
-  ee-canvas .nav.nav-tabs { min-width: {{ layers.length * 74 + 270 }}px; }
-  ee-canvas .nav-tabs > li { margin-bottom: -2px; }
-  ee-canvas .nav-tabs > li > a {
-    padding: 5px;
-    min-height: 77px;
-    border-radius: 5px;
-  }
-  ee-canvas .nav-tabs > li.active > a,
-  ee-canvas .nav-tabs > li.active > a:hover,
-  ee-canvas .nav-tabs > li.active > a:focus {
-    border: 1px solid #03A9F4;
+  ee-canvas .list-group-item:hover { background: none; }
+  @media (max-width: {{ canvasWidth + 20 }}px) {
+    .ee-canvas-container {
+      overflow-x: scroll;
+      overflow-y: hidden;
+    }
   }
 </style>
 
-<div class="pad-5 position-relative">
-  <div class="vert-5 margin-top-0">
-    <div class="btn btn-primary" ng-click="upload()" ng-show="unsaved" ng-hide="saving">Save image</div>
-    <a class="btn btn-default" href="{{ banner | cloudinaryAttachment }}" ng-show="!unsaved">Download</a>
+<div class="position-relative">
+  <!-- Save options -->
+  <div class="vert-10 text-center">
+    <div class="btn btn-primary" ng-click="upload()" ng-show="unsaved" ng-hide="saving || !unsaved">Save image</div>
+    <div class="btn btn-link" ng-click="loadFromJSON()" ng-hide="saving || !unsaved">Reset</div>
+    <a class="btn btn-default" href="{{ banner | cloudinaryAttachment }}" ng-show="layers.length > 0 && !unsaved">Download image</a>
     <span class="btn btn-default disabled" ng-show="saving">Saving...</span>
-    <div class="btn btn-link" ng-click="loadFromJSON()">Reset</div>
   </div>
+  <!-- /Save options -->
 
-  <div class="nav-tabs-container">
-    <ul class="nav nav-tabs">
-      <li ng-repeat="layer in layers | reverse" ng-class="{ active: layer.active }" class="text-center">
-        <a href ng-click="focusLayer(layer)" class="text-center text-muted">
-          <div style="height: 60px;">
-            <span ng-if="layer.type == 'rect' || layer.type == 'ellipse'">Shape<br><i class="fa fa-3x fa-square" ng-style="{ color: layer.fill }"></i></span>
-            <span ng-if="layer.type == 'i-text'">Text<br><i class="fa fa-3x fa-font" ng-style="{ color: layer.fill }"></i></span>
-            <span ng-if="layer.type == 'image'">Image<br><img ng-src='{{ layer.src }}' class="vert-5 margin-bottom-0" style="max-width: 46px; max-height: 40px;"></span>
+  <div class="text-center">
+    <!-- Canvas -->
+    <div class="ee-canvas-container position-relative" style="z-index: 10;">
+      <div ng-show="canvasType == 'collection'"
+        style="margin: 10px auto; width: 820px; height: 440px; border: 10px solid #999999;">
+        <canvas id="collection_canvas" width=800 height=420></canvas>
+      </div>
+      <div ng-show="canvasType == 'logo'"
+        style="margin: 10px auto; width: 320px; height: 100px; border: 10px solid #999999;">
+        <canvas id="logo_canvas" width=300 height=80></canvas>
+      </div>
+      <!-- Overlays -->
+      <div ng-show="overlay"
+        class="position-absolute top-left-bottom-right-0 white-background gray-border pad-10"
+        style="z-index: 1000; overflow-y: scroll;">
+        <div class="full-width text-right vert-5 margin-top-0">
+          <small class="text-muted hover-pointer" ng-click="overlay = false">cancel</small>
+        </div>
+        <!-- text overlay -->
+        <form ng-show="overlay == 'Text'"
+          ng-submit="addText()"
+          class="form form-inline">
+          <input type="text" class="form-control inline-block full-width max-width-300" ng-model="textToAdd"/>
+          <button type="submit" class="btn btn-default">Add</button>
+        </form>
+        <!-- /text overlay -->
+        <!-- shape overlay -->
+        <div ng-show="overlay == 'Shape'">
+          <div style="width: 60px; height: 40px; background: #6B5C84;" class="inline-block margin-5 hover-pointer" ng-click="addShape('rect')"></div>
+          <div style="width: 60px; height: 40px; background: #6B5C84;" class="inline-block margin-5 hover-pointer round-50-pct" ng-click="addShape('ellipse')"></div>
+        </div>
+        <!-- /shape overlay -->
+        <!-- image overlay -->
+        <div ng-show="overlay == 'Image'">
+          <div class="max-width-200 margin-0-auto">
+            <ee-cloudinary-upload meta="collection" attr-target="'1000x1000'"></ee-cloudinary-upload>
           </div>
-          <div ng-show="layers.length > 1"
-            class="btn-group vert-5 margin-bottom-0"
-            style="height:30px;">
-            <div class="btn btn-default pad-5" ng-disabled="$first" ng-click="reorderLayerBy(layer, 1)">
-              <small ng-show="$first">Top</small>
-              <i ng-hide="$first" class="fa fa-fw fa-long-arrow-left"></i>
-            </div>
-            <div class="btn btn-default pad-5" ng-disabled="$last" ng-click="reorderLayerBy(layer, -1)">
-              <small ng-show="$last">Bottom</small>
-              <i ng-hide="$last" class="fa fa-fw fa-long-arrow-right"></i>
-            </div>
+          <div ng-hide="canvasType == 'logo'">
+            <div class="vert-10">OR</div>
+            <ee-unsplash-search app-id="bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602"></ee-unsplash-search>
           </div>
-        </a>
-      </li>
-      <!-- Add Layer -->
-      <li ng-repeat="type in ['Text','Shape','Image','Product']"
-        ng-class="{ active: overlay == type }" class="text-center"
-        ng-hide="type == 'Product' && products.length < 1">
-        <a href ng-click="setOverlay(type)" class="text-center text-muted">
-          <span ng-bind="type"></span><br><i class="fa fa-3x fa-plus"></i>
-        </a>
-        <div ng-show="layers.length > 1" style="height: 34px; width: 100%;"></div>
-      </li>
-      <!-- /Add Layer -->
-    </ul>
-  </div>
-  <div class="position-relative">
-    <div style="min-height: 42px;">
+        </div>
+        <!-- /image overlay -->
+        <!-- product overlay -->
+        <span ng-if="overlay == 'Product'"
+          ng-repeat="product in products"
+          ng-click="addImage({ url: product.image })" class="hover-pointer">
+          <img ng-src="{{ product.image | cloudinaryResizeTo:120:120:'pad' }}"/>
+        </span>
+        <!-- /product overlay -->
+      </div>
+      <!-- /Overlays -->
+    </div>
+    <!-- /Canvas -->
+
+    <!-- Toolsets -->
+    <div style="min-height: 34px;">
+      <hr class="inline-block full-width max-width-300 vert-20 margin-bottom-0" ng-hide="toolset.tab || canvasType == 'logo'">
       <!-- i-text toolset -->
-      <div ng-show="toolset.tab == 'i-text'" class="btn-group vert-5">
-        <span class="btn-group" auto-close="outsideClick" uib-dropdown>
+      <div ng-show="toolset.tab == 'i-text'" class="btn-group">
+        <span class="btn-group" uib-dropdown>
           <div class="btn btn-default pad-5" uib-dropdown-toggle>
             Color <i class="fa fa-caret-down"></i>
           </div>
@@ -75,7 +94,7 @@
             </li>
           </ul>
         </span>
-        <span class="btn-group" auto-close="outsideClick" uib-dropdown>
+        <span class="btn-group" uib-dropdown>
           <div class="btn btn-default pad-5" uib-dropdown-toggle>
             Font <i class="fa fa-caret-down"></i>
           </div>
@@ -87,12 +106,12 @@
         </span>
         <div class="btn btn-default pad-5" ng-click="toggleFontSetting('bold')" ng-class="{ active: toolset.bold }"><i class="fa fa-fw fa-bold"></i></div>
         <div class="btn btn-default pad-5" ng-click="toggleFontSetting('italic')" ng-class="{ active: toolset.italic }"><i class="fa fa-fw fa-italic"></i></div>
-        <div class="btn btn-default pad-5" ng-click="clone()" ng-hide="canvasType == 'logo'">Copy</div>
+        <div class="btn btn-default pad-5" ng-click="clone()">Copy</div>
         <div class="btn btn-default pad-5" ng-click="removeActiveObject()">Remove</div>
       </div>
       <!-- /i-text toolset -->
       <!-- image toolset -->
-      <div ng-show="toolset.tab == 'image'" class="btn-group vert-5">
+      <div ng-show="toolset.tab == 'image'" class="btn-group">
         <span class="btn-group" uib-dropdown auto-close="outsideClick">
           <div class="btn btn-default pad-5" uib-dropdown-toggle>
             Remove white <i class="fa fa-caret-down"></i>
@@ -107,8 +126,8 @@
       </div>
       <!-- /image toolset -->
       <!-- shape toolset -->
-      <div ng-show="toolset.tab == 'rect' || toolset.tab == 'ellipse'" class="btn-group vert-5">
-        <span class="btn-group" auto-close="outsideClick" uib-dropdown>
+      <div ng-show="toolset.tab == 'rect' || toolset.tab == 'ellipse'" class="btn-group">
+        <span class="btn-group" uib-dropdown>
           <div class="btn btn-default pad-5" uib-dropdown-toggle>
             Color <i class="fa fa-caret-down"></i>
           </div>
@@ -131,7 +150,7 @@
       </div>
       <!-- /shape toolset -->
       <!-- background color toolset -->
-      <div class="btn-group vert-5" auto-close="outsideClick" uib-dropdown ng-show="!toolset.tab && canvasType != 'logo'">
+      <div class="btn-group" uib-dropdown ng-show="toolset.tab == 'background'">
         <div class="btn btn-default pad-5" uib-dropdown-toggle>
           Background color <i class="fa fa-caret-down"></i>
         </div>
@@ -142,162 +161,75 @@
         </ul>
       </div>
       <!-- /background color toolset -->
+    </div>
+    <!-- /Toolsets -->
 
-      <!-- <uib-tabset ng-if="false">
-        <uib-tab heading="Layers" select="unfocusBackground()" active="tab.layers">
-          <div class="btn-group vert-5">
-            <div class="btn btn-default" ng-click="setOverlay('Product')" ng-class="{ active: overlay.product }" ng-show="products.length > 0">Add product</div>
-            <span class="btn-group" auto-close="outsideClick" is-open="overlay.text" uib-dropdown>
-              <div class="btn btn-default" uib-dropdown-toggle>Add text</div>
-              <ul class="dropdown-menu pad-0" style="width: 300px;" uib-dropdown-menu>
-                <li class="margin-7">
-                  <input type="text" class="form-control inline-block" style="width: 225px;" ng-model="textToAdd"/>
-                  <div class="btn btn-default" ng-click="addText(textToAdd); overlay.text = false; textToAdd = null;">Add</div>
-                </li>
-              </ul>
-            </span>
-            <span class="btn-group vert-5" auto-close="outsideClick" is-open="overlay.shape" uib-dropdown>
-              <div class="btn btn-default" uib-dropdown-toggle>Add shape</div>
-              <ul class="dropdown-menu pad-0" uib-dropdown-menu>
-                <li class="margin-7">
-                  <div style="width: 60px; height: 40px; background: #6B5C84;" class="inline-block margin-5 hover-pointer" ng-click="addShape('rect')"></div>
-                  <div style="width: 60px; height: 40px; background: #6B5C84;" class="inline-block margin-5 hover-pointer round-50-pct" ng-click="addShape('ellipse')"></div>
-                </li>
-              </ul>
-            </span>
-          </div>
-          <div class="btn-group vert-5 pull-right" ng-show="toolset.tab == 'i-text'">
-            <div class="btn btn-default" ng-click="toggleFontSetting('bold')" ng-class="{ active: toolset.bold }"><i class="fa fa-fw fa-bold"></i></div>
-            <div class="btn btn-default" ng-click="toggleFontSetting('italic')" ng-class="{ active: toolset.italic }"><i class="fa fa-fw fa-italic"></i></div>
-            <div class="btn btn-default" ng-click="toggleFontSetting('underline')" ng-class="{ active: toolset.underline }"><i class="fa fa-fw fa-underline"></i></div>
-            <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-              <div class="btn btn-default" uib-dropdown-toggle>
-                Font <i class="fa fa-caret-down"></i>
-              </div>
-              <ul class="dropdown-menu" uib-dropdown-menu>
-                <li class="pad-5">
-                  <ee-font-selector></ee-font-selector>
-                </li>
-              </ul>
-            </span>
-            <span class="btn-group vert-5" auto-close="outsideClick" uib-dropdown>
-              <div class="btn btn-default" uib-dropdown-toggle>
-                Color <i class="fa fa-caret-down"></i>
-              </div>
-              <ul class="dropdown-menu" uib-dropdown-menu>
-                <li class="pad-5">
-                  <ee-web-colorpicker always-open="'true'"></ee-web-colorpicker>
-                </li>
-              </ul>
-            </span>
-            <div class="btn btn-default" ng-click="removeActiveObject()">Remove</div>
-          </div>
-          <div class="btn-group vert-5 pull-right" ng-show="toolset.tab == 'image'">
-            <span class="btn-group" uib-dropdown auto-close="outsideClick">
-              <div class="btn btn-default" uib-dropdown-toggle>
-                Remove white <i class="fa fa-caret-down"></i>
-              </div>
-              <ul class="dropdown-menu dropdown-menu-right pad-10" style="width: 300px" uib-dropdown-menu>
-                <li>Color Range <input type="range" min=0 max=26 ng-model="toolset.whitespaceThreshold" ng-change="updateWhitespace()" class="pull-right vert-2" style="width: 190px;"/></li>
-                <li class="divider"></li>
-                <li>Distance <input type="range" min=1 max=48 ng-model="toolset.whitespaceDistance" ng-change="updateWhitespace()" class="pull-right vert-2" style="width: 190px;"/></li>
-              </ul>
-            </span>
-            <div class="btn btn-default" ng-click="removeActiveObject()">Remove</div>
-          </div>
-          <div class="btn-group vert-5 pull-right" ng-show="toolset.tab == 'rect' || toolset.tab == 'ellipse'">
-            <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-              <div class="btn btn-default" uib-dropdown-toggle>
-                Color <i class="fa fa-caret-down"></i>
-              </div>
-              <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
-                <li class="pad-5">
-                  <ee-web-colorpicker always-open="'true'"></ee-web-colorpicker>
-                </li>
-              </ul>
-            </span>
-            <span class="btn-group" auto-close="outsideClick" uib-dropdown>
-              <div class="btn btn-default" uib-dropdown-toggle>
-                Transparency <i class="fa fa-caret-down"></i>
-              </div>
-              <ul class="dropdown-menu dropdown-menu-right pad-10" style="width: 200px" uib-dropdown-menu>
-                <li><input type="range" min=0 max=0.9 step=0.1 ng-model="toolset.transparency" ng-change="updateTransparency()" class="pull-right vert-2"/></li>
-              </ul>
-            </span>
-            <div class="btn btn-default" ng-click="removeActiveObject()">Remove</div>
-          </div>
-          <div class="btn-group vert-5 pull-right" auto-close="outsideClick" uib-dropdown ng-show="!toolset.tab">
-            <div class="btn btn-default" uib-dropdown-toggle>
-              Background color <i class="fa fa-caret-down"></i>
+    <!-- Add Layer -->
+    <div class="full-width text-center">
+      <div class="btn-group margin-0">
+        <a ng-repeat="type in ['Text','Shape','Image','Product']"
+          ng-click="setOverlay(type)"
+          ng-class="{ active: overlay == type }" class="btn btn-link"
+          ng-if="type != 'Product' || products.length > 0">
+          Add&nbsp;<span ng-bind="type"></span>
+        </a>
+      </div>
+    </div>
+    <!-- /Add Layer -->
+
+    <!-- Layers -->
+    <div class="">
+      <ul class="list-group max-width-300 margin-0-auto">
+        <li ng-repeat="layer in layers | reverse"
+          class="list-group-item pad-5 text-left"
+          ng-class="{ active: layer.active }">
+          <div class="media hover-pointer" ng-click="focusLayer(layer)">
+            <div class="media-left">
+              <a href class="inline-block text-center text-muted" style="width: 46px; height: 46px;">
+                <span ng-if="layer.type == 'rect' || layer.type == 'ellipse'"><i class="fa fa-3x fa-square" ng-style="{ color: layer.fill }"></i></span>
+                <span ng-if="layer.type == 'i-text'"><i class="fa fa-3x fa-font" ng-style="{ color: layer.fill }"></i></span>
+                <span ng-if="layer.type == 'image'"><img ng-src='{{ layer.src }}' class="vert-5 margin-bottom-0" style="max-width: 46px; max-height: 46px;"></span>
+              </a>
             </div>
-            <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
-              <li class="pad-5">
-                <ee-web-colorpicker always-open="'true'"></ee-web-colorpicker>
-              </li>
-            </ul>
-          </div>
-        </uib-tab>
-        <uib-tab heading="Background image" select="focusBackground()" active="tab.background">
-          <div>
-            <div class="btn-group vert-5">
-              <div class="btn btn-default" style="cursor: auto;">
-                <div class="overflow-hidden" style="max-width: 180px;">
-                  <ee-cloudinary-upload meta="collection" attr-target="'1000x1000'"></ee-cloudinary-upload>
+            <div class="media-body">
+              <h4 class="media-heading vert-5 margin-bottom-0">
+                <span ng-if="layer.type == 'rect' || layer.type == 'ellipse'">Shape</span>
+                <span ng-if="layer.type == 'i-text'">Text</span>
+                <span ng-if="layer.type == 'image'">Image</span>
+              </h4>
+              <p class="margin-0" ng-if="layer.type == 'i-text'" ng-bind="layer.text"></p>
+            </div>
+            <div class="media-right text-right" ng-show="layers.length > 1">
+              <div style="width: 68px;">
+                <div class="btn btn-default pad-5 vert-7" ng-disabled="$first" ng-click="reorderLayerBy(layer, 1)">
+                  <i class="fa fa-fw fa-long-arrow-up"></i>
+                </div><div class="btn btn-default pad-5 vert-7" style="margin-left: 2px;" ng-disabled="$last" ng-click="reorderLayerBy(layer, -1)">
+                  <i class="fa fa-fw fa-long-arrow-down"></i>
                 </div>
               </div>
-              <div class="btn btn-default" ng-click="setOverlay('Image')">Search for image</div>
-            </div>
-            <div class="btn-group pull-right">
-              <div class="btn btn-default" ng-if="backgroundSet()" ng-click="removeBackgroundImage()">Remove background image</div>
             </div>
           </div>
-        </uib-tab>
-      </uib-tabset> -->
-
-      <!-- Overlays -->
-      <div ng-show="overlay"
-        class="white-background position-absolute top-left-bottom-right-0 pad-10"
-        style="z-index: 1000; overflow-y: scroll;">
-        <!-- text overlay -->
-        <form ng-show="overlay == 'Text'"
-          ng-submit="addText()"
-          class="form form-inline">
-          <input type="text" class="form-control inline-block" ng-model="textToAdd"/>
-          <button type="submit" class="btn btn-default">Add</button>
-        </form>
-        <!-- /text overlay -->
-        <!-- shape overlay -->
-        <div ng-show="overlay == 'Shape'">
-          <div style="width: 60px; height: 40px; background: #6B5C84;" class="inline-block margin-5 hover-pointer" ng-click="addShape('rect')"></div>
-          <div style="width: 60px; height: 40px; background: #6B5C84;" class="inline-block margin-5 hover-pointer round-50-pct" ng-click="addShape('ellipse')"></div>
-        </div>
-        <!-- /shape overlay -->
-        <!-- image overlay -->
-        <div ng-show="overlay == 'Image'">
-          <ee-cloudinary-upload meta="collection" attr-target="'1000x1000'"></ee-cloudinary-upload>
-          <div ng-hide="canvasType == 'logo'">
-            <div class="vert-10">OR</div>
-            <ee-unsplash-search app-id="bb64366c7e2bfbc3d61c7425fe081f222a43e624dcd351c8ac6586525656c602"></ee-unsplash-search>
+        </li>
+        <li class="list-group-item pad-5 text-left"
+          ng-hide="canvasType == 'logo'"
+          ng-class="{ active: toolset.tab == 'background' }">
+          <div class="media hover-pointer" ng-click="focusLayer()">
+            <div class="media-left">
+              <a href class="inline-block text-center text-muted" style="width: 46px; height: 46px;">
+                <i class="fa fa-3x fa-square" ng-style="{ color: backgroundColor }"></i>
+              </a>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading vert-10">Background</h4>
+            </div>
           </div>
-        </div>
-        <!-- /image overlay -->
-        <!-- product overlay -->
-        <span ng-if="overlay == 'Product'"
-          ng-repeat="product in products"
-          ng-click="addImage({ url: product.image })" class="hover-pointer">
-          <img ng-src="{{ product.image | cloudinaryResizeTo:120:120:'pad' }}"/>
-        </span>
-        <!-- /produt overlay -->
-      </div>
-      <!-- /Overlays -->
+        </li>
+      </ul>
+      <p class="text-muted font-weight-200 vert-10" ng-hide="layers.length < 2">
+        <i class="fa fa-fw fa-lg fa-info-circle"></i>&nbsp;Layers on "Top" will be in front of layers on "Bottom"
+      </p>
     </div>
-
-    <div class="ee-canvas-container position-relative" style="z-index: 10;">
-      <!-- canvas -->
-      <canvas id="collection_canvas" ng-show="canvasType == 'collection'" width=800 height=420 class="gray-border"></canvas>
-      <canvas id="logo_canvas" ng-show="canvasType == 'logo'" width=280 height=80 class="gray-border"></canvas>
-      <!-- /canvas -->
-    </div>
+    <!-- /Layers -->
   </div>
 
   <ee-cloudinary-upload id="cloudinary_canvas" attr-target="'canvas'" class="hidden"></ee-cloudinary-upload>

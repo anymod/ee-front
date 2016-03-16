@@ -133,8 +133,8 @@ sources.builderModule = [
   './src/builder/homepage/homepage.module.coffee'
   './src/builder/homepage/homepage.route.coffee'
   './src/builder/homepage/homepage.controller.coffee'
-  './src/builder/homepage/edit.logo.modal.controller.coffee'
-  './src/builder/homepage/edit.collection.image.modal.controller.coffee'
+  './src/builder/homepage/edit.store.modal.controller.coffee'
+  './src/builder/homepage/edit.collection.modal.controller.coffee'
   # Module - edit
   './src/builder/edit/edit.module.coffee'
   './src/builder/edit/edit.route.coffee'

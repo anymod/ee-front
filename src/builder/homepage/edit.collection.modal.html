@@ -1,0 +1,15 @@
+<div class="position-absolute" style="top: 0; right: 0; z-index: 10">
+  <span class="fa-stack fa-2x hover-pointer" ng-click="$close()">
+    <i class="fa fa-circle fa-stack-2x text-info"></i>
+    <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+  </span>
+</div>
+
+<div class="vert-25 pad-5">
+  <ee-builder-section-heading heading="Edit collection image" heading-class="text-success" subheading="This image shows on your home page and links to this collection."></ee-builder-section-heading>
+  <ee-canvas ng-if="modal.data.collection.id"
+    canvas-type="'collection'"
+    collection="modal.data.collection"
+    products="modal.data.products">
+  </ee-canvas>
+</div>
