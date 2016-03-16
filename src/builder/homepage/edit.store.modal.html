@@ -15,10 +15,34 @@
 </div>
 <!-- /Logo -->
 
+<!-- Colors -->
+<div ng-if="modal.data.type == 'colors'" class="vert-25 pad-5">
+  <ee-builder-section-heading heading="Edit your store colors" heading-class="text-success" subheading="Select the colors to show in your category bar and store accents."></ee-builder-section-heading>
+  <div class="max-width-600 margin-0-auto text-center">
+    <nav class="navbar navbar-default ee-store-subnav round-0 vert-20 no-side-border">
+      <div class="container max-width-600">
+        <ul class="nav navbar-nav margin-0" style="clear:both; float:none;">
+          <li ng-repeat="category in ['Example Category']" class="margin-0-auto" style="clear:both; float:none; width: 150px;">
+            <a href class="transition-200 store-subnav-btn" ng-bind="category" style="padding-top: 15px;"></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <ee-web-colorpicker
+      dab-secondary="modal.ee.User.user.storefront_meta.brand.color.secondary"
+      dab-tertiary="modal.ee.User.user.storefront_meta.brand.color.tertiary">
+    </ee-web-colorpicker>
+    <ee-save></ee-save>
+    <div class="text-muted text-left vert-20">
+      <i class="fa fa-lg fa-info-circle"></i>&nbsp;Choose colors that allow customers to easily read your category names.
+    </div>
+  </div>
+</div>
+<!-- /Colors -->
+
 <!-- Social Media & Blog -->
 <div ng-if="modal.data.type == 'social'" class="vert-25 pad-5">
   <ee-builder-section-heading heading="Add your social media & blog" heading-class="text-success" subheading="Your links will show automatically at the top of your store."></ee-builder-section-heading>
-
   <div class="max-width-300 margin-0-auto">
     <div class="vert-2">
       <i class="fa fa-fw fa-lg fa-facebook text-facebook"></i>&nbsp;https://facebook.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 105px" placeholder="username" ng-model="modal.ee.User.user.storefront_meta.audience.social.facebook">
@@ -50,14 +74,12 @@
       <ee-save></ee-save>
     </div>
   </div>
-
 </div>
 <!-- /Social Media & Blog -->
 
 <!-- Categories -->
 <div ng-if="modal.data.type == 'categories'" class="vert-25 pad-5">
   <ee-builder-section-heading heading="Your product categories" heading-class="text-success" subheading="Choose which product categories are in your store."></ee-builder-section-heading>
-
   <div class="margin-0-auto max-width-300">
     <div class="list-group margin-0 text-left">
       <a href class="list-group-item"
