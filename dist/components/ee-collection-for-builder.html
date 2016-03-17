@@ -1,29 +1,35 @@
 <div class="position-relative vert-5 hover-trigger">
   <img ng-src="{{ collection.banner }}" class="full-width vert-5">
   <div class="position-absolute top-left-bottom-right-0 pad-5 hover-visible transition-400"
-    style="background-color: rgba(100,100,100,0.8); border: 10px solid #AAA; z-index: 10;">
-    <div class="full-width inline-block vert-50 hidden-xs"></div>
-    <div class="full-width inline-block vert-20 hidden-xs hidden-sm"></div>
-    <h3 class="white-color vert-5 margin-top-0">Edit collection</h3>
-    <div class="btn btn-default" ng-click="openCollectionModalFor('image')">Image</div>
-    <div class="btn btn-default" ng-click="openCollectionModalFor('products')">Products</div>
-    <div class="btn btn-default" ng-click="hide()">Hide</div>
-    <br>
-    <h3 class="white-color vert-5">Move collection</h3>
-    <div class="btn btn-default"><i class="fa fa-fw fa-long-arrow-up"></i></div>
-    <!-- <div class="btn btn-default"><i class="fa fa-fw fa-long-arrow-left"></i></div> -->
-    <div class="btn btn-default"><i class="fa fa-fw fa-long-arrow-down"></i></div>
-    <!-- <div class="btn btn-default"><i class="fa fa-fw fa-long-arrow-right"></i></div> -->
+    style="border: 10px solid #AAA; z-index: 10;">
+    <div class="position-absolute well max-width-300 border-none"
+      style="width: 280px; height: 170px; left: 50%; top: 50%; margin-left: -140px; margin-top: -85px; background-color: rgba(100,100,100,0.8);">
+      <h3 class="white-color vert-5 margin-top-0">Edit collection</h3>
+      <div class="btn btn-default" ng-click="openCollectionModalFor('image')">Image</div>
+      <div class="btn btn-default" ng-click="openCollectionModalFor('products')">Products</div>
+      <div class="btn btn-default" ng-click="hide()" ng-hide="section == 'hidden'">Hide</div>
+      <div class="btn btn-default" ng-click="show()" ng-show="section == 'hidden'">Show</div>
+      <br>
+      <div ng-show="section == 'arranged' || section == 'carousel'">
+        <h3 class="white-color vert-5">Move collection</h3>
+        <div class="btn btn-default" ng-click="move('up')" ng-show="section == 'arranged'"><i class="fa fa-fw fa-long-arrow-up"></i></div>
+        <div class="btn btn-default" ng-click="move('left')" ng-show="section == 'carousel'" ng-disabled="first"><i class="fa fa-fw fa-long-arrow-left"></i></div>
+        <div class="btn btn-default" ng-click="move('down')" ng-show="section == 'arranged' || section == 'carousel'" ng-disabled="last && section == 'arranged'"><i class="fa fa-fw fa-long-arrow-down"></i></div>
+        <div class="btn btn-default" ng-click="move('right')" ng-show="section == 'carousel'" ng-disabled="last"><i class="fa fa-fw fa-long-arrow-right"></i></div>
+      </div>
+      <div ng-show="section == 'hidden'">
+        <h4 class="white-color vert-10"><i class="fa fa-fw fa-info-circle"></i>&nbsp;This collection is not visible in your store because it is hidden.</h4>
+      </div>
+    </div>
   </div>
 
-  <div ng-hide="collection.destroyed || true"
+  <!-- <div ng-hide="collection.destroyed || true"
       ng-class="{ 'opacity-05': collection.updating || collection.destroying }"
       class="well collection-well text-center inline-block vertical-align-bottom pad-5 margin-2 white-background box-shadow">
     <div class="pad-10 text-left" ng-click="editOrOpenModal()">
       <img ng-src="{{ collection.banner | cloudinaryResizeTo:300:158 }}" class="full-width gray-border hover-success-border hover-pointer" ng-click="productsFns.addProductModal(product)">
     </div>
     <div>
-      <!-- Edit buttons -->
       <div ng-if="!modal" class="btn btn-group btn-group-sm pad-0">
         <div class="btn btn-default font-weight-200" ng-click="toggleCarousel()" ng-class="{ 'btn-info': collection.banner.indexOf('placehold.it') < 0 && collection.in_carousel }">
           <span ng-if="collection.banner.indexOf('placehold.it') > -1">Add image</span>
@@ -34,8 +40,6 @@
         <a ui-sref="collection({ id: collection.id })" class="btn btn-default font-weight-200">Edit</a>
         <div class="btn btn-default font-weight-200" ng-click="collectionsFns.destroyCollection(collection)">Remove</div>
       </div>
-      <!-- /Edit buttons -->
-      <!-- Add buttons -->
       <div ng-if="modal" class="btn btn-group btn-group-sm pad-0">
         <div class="btn btn-default" ng-click="editOrOpenModal()">View products</div>
         <div class="btn" ng-click="collectionsFns.toggleAddToStore(collection)"
@@ -44,7 +48,6 @@
           <span ng-if="collection.added">In store&nbsp;<i class="fa fa-check"></i></span>
         </div>
       </div>
-      <!-- Add buttons -->
     </div>
-  </div>
+  </div> -->
 </div>

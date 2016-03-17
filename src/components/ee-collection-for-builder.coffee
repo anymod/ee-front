@@ -2,19 +2,36 @@
 
 module = angular.module 'ee-collection-for-builder', []
 
-module.directive "eeCollectionForBuilder", ($state, $window, eeCollections, eeModal) ->
+module.directive "eeCollectionForBuilder", ($state, eeCollections, eeModal) ->
   templateUrl: 'components/ee-collection-for-builder.html'
   restrict: 'E'
   scope:
+    section: '@'
     collection: '='
-    modal: '@'
+    first: '='
+    last: '='
+    # modal: '@'
   link: (scope, ele, attrs) ->
     scope.collectionsFns = eeCollections.fns
 
     scope.openCollectionModalFor = (type) ->
       eeModal.fns.open 'edit_collection', { collection: scope.collection, type: type }
 
-    scope.hide = () -> console.log 'hiding'
+    scope.hide = () ->
+      scope.$emit 'hide:homepage:collection', {
+        section: scope.section
+        collection: scope.collection
+      }
+
+    scope.show = () ->
+      scope.$emit 'show:homepage:collection', { collection: scope.collection }
+
+    scope.move = (direction) ->
+      scope.$emit 'move:homepage:collection', {
+        section: scope.section
+        collection: scope.collection
+        direction: direction
+      }
 
     # scope.updateCollection = () ->
     #   eeCollections.fns.updateCollection scope.collection

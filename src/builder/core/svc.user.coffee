@@ -67,6 +67,46 @@ angular.module('builder.core').factory 'eeUser', ($rootScope, $q, $cookies, eeAu
     _updateUser({ id: _data.user.id, completed_steps: _data.user.completed_steps })
     if $rootScope.isProduction then $rootScope.keenio.addEvent 'checkbox', keenio
 
+  moveBetween = (fromArr, fromIndex, toArr, toIndex) ->
+    obj = fromArr.splice(fromIndex, 1)[0]
+    toArr.splice toIndex, 0, obj
+
+  moveWithin = (arr, index, n) ->
+    return if index >= arr.length
+    arr.splice(index + n, 0, arr.splice(index, 1)[0])
+
+  $rootScope.$on 'move:homepage:collection', (e, data) ->
+    # data = { section: string, collection: obj, direction: string }
+    return unless _data?.user?.home_page and data.section and data.collection and data.direction
+    index = _data.user.home_page[data.section].indexOf data.collection
+    length = _data.user.home_page[data.section].length
+    switch data.section
+      when 'carousel'
+        switch data.direction
+          when 'left' then return moveWithin _data.user.home_page.carousel, index, -1
+          when 'right' then return moveWithin _data.user.home_page.carousel, index, 1
+          when 'down' then return moveBetween _data.user.home_page.carousel, index, _data.user.home_page.arranged, 0
+      when 'arranged'
+        switch data.direction
+          when 'up'
+            if index is 0 then return moveBetween _data.user.home_page.arranged, index, _data.user.home_page.carousel, 0
+            return moveWithin _data.user.home_page.arranged, index, -1
+          when 'down' then return moveWithin _data.user.home_page.arranged, index, 1
+
+  $rootScope.$on 'hide:homepage:collection', (e, data) ->
+    # data = { section: string, collection: obj }
+    return unless _data?.user?.home_page and data.section and data.collection
+    index = _data.user.home_page[data.section].indexOf data.collection
+    moveBetween _data.user.home_page[data.section], index, _data.user.home_page.hidden, 0
+
+  $rootScope.$on 'show:homepage:collection', (e, data) ->
+    # data = { collection: obj }
+    return unless _data?.user?.home_page and data.collection
+    index = _data.user.home_page.hidden.indexOf data.collection
+    return if index < 0
+    moveBetween _data.user.home_page.hidden, index, _data.user.home_page.arranged, _data.user.home_page.arranged.length
+
+
   ## EXPORTS
   data: _data
   fns:

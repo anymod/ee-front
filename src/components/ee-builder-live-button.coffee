@@ -10,7 +10,7 @@ angular.module('ee-builder-live-button').directive "eeBuilderLiveButton", ($stat
     btnClass: '@'
   link: (scope, ele, attrs) ->
     scope.btnText = if scope.message then scope.message else 'View store'
-    scope.root    = if scope.user?.domain then 'http://' + scope.user.domain else 'https://' + scope.user?.username + '.eeosk.com'
+    scope.root    = scope.user.store_url
     scope.path    = '/'
 
     setButton = (toState, toParams) ->

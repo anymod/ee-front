@@ -135,6 +135,10 @@ sources.builderModule = [
   './src/builder/homepage/homepage.controller.coffee'
   './src/builder/homepage/edit.store.modal.controller.coffee'
   './src/builder/homepage/edit.collection.modal.controller.coffee'
+  # Module - settings
+  './src/builder/settings/settings.module.coffee'
+  './src/builder/settings/settings.route.coffee'
+  './src/builder/settings/settings.controller.coffee'
   # Module - edit
   './src/builder/edit/edit.module.coffee'
   './src/builder/edit/edit.route.coffee'

@@ -78,10 +78,44 @@
   </div> -->
 
   <div class="vert-20">
+    <!-- Carousel -->
+    <div ng-if="!homepage.hideCarousel">
+      <uib-carousel interval="5000" no-wrap="false" no-transition="false" class="margin-0">
+        <uib-slide ng-repeat="collection in homepage.ee.User.user.home_page.carousel" active="collection.active">
+          <ee-collection-for-builder
+            section="carousel"
+            collection="collection"
+            first="$first"
+            last="$last">
+          </ee-collection-for-builder>
+        </uib-slide>
+      </uib-carousel>
+    </div>
+    <!-- /Carousel -->
+    <br>
+    <br>
+    <!-- Arranged -->
     <ee-collection-for-builder
-      ng-repeat="collection in homepage.ee.Collections.collections"
-      collection="collection">
+      ng-repeat="collection in homepage.ee.User.user.home_page.arranged"
+      section="arranged"
+      collection="collection"
+      first="$first"
+      last="$last">
     </ee-collection-for-builder>
+    <!-- /Arranged -->
+    <!-- Hidden -->
+    <div ng-if="homepage.ee.User.user.home_page.hidden.length > 0"
+      class="well no-border vert-20"
+      style="background: #333;">
+      <h4 class="white-color font-weight-200 text-center">Hidden Collections</h4>
+      <p class="white-color">These collections are not currently visible in your store.</p>
+      <ee-collection-for-builder
+        ng-repeat="collection in homepage.ee.User.user.home_page.hidden"
+        section="hidden"
+        collection="collection">
+      </ee-collection-for-builder>
+    </div>
+    <!-- /Hidden -->
   </div>
 
   <!-- <div class="full-width text-center margin-0">
