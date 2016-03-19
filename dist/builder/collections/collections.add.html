@@ -1,0 +1,59 @@
+<!-- Message -->
+<ee-builder-section-heading subheading="Choose collections below to add to your store."></ee-builder-section-heading>
+<!-- !Message -->
+
+<div class="full-width text-center" style="margin-top: -15px;">
+  <a href ng-click="collections.create()">Create a new collection</a>
+</div>
+
+<div ng-hide="collections.ee.Collections.reading" class="container text-center vert-50 margin-top-0">
+  <!-- TODO implement sorting -->
+  <!-- <div class="vert-10 text-center">
+    <div class="btn btn-sm btn-default">Newest&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
+    <div class="btn btn-sm btn-default">Max markdown&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
+    <div class="btn btn-sm btn-default">Avg price&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
+  </div> -->
+
+  <div class="full-width text-center margin-0">
+    <uib-pagination ng-if="collections.ee.Collections.count > collections.ee.Collections.perPage"
+      total-items="collections.ee.Collections.count"
+      items-per-page="collections.ee.Collections.perPage"
+      ng-model="collections.ee.Collections.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="collections.update()">
+    </uib-pagination>
+  </div>
+
+  <div class="row vert-20">
+    <ee-collection-for-builder
+      ng-repeat="collection in collections.ee.Collections.collections"
+      collection="collection"
+      modal="true">
+    </ee-collection-for-builder>
+  </div>
+
+  <div class="full-width text-center margin-0">
+    <uib-pagination ng-if="collections.ee.Collections.count > collections.ee.Collections.perPage"
+      total-items="collections.ee.Collections.count"
+      items-per-page="collections.ee.Collections.perPage"
+      ng-model="collections.ee.Collections.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="collections.update()">
+    </uib-pagination>
+  </div>
+
+  <div ng-if="collections.ee.Collections.count < 1" class="full-width text-center margin-0">
+    No collections found
+  </div>
+
+</div>
+
+<ee-loading loading="collections.ee.Collections.reading"></ee-loading>

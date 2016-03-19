@@ -12,6 +12,8 @@ module.directive "eeCollectionCarousel", () ->
 
     scope.activeIndex = null
     scope.select = (index) ->
+      if index < 0 then index = scope.collections.length - 1
+      if index >= scope.collections.length then index = 0
       scope.activeIndex = index
       collection.active = false for collection in scope.collections
       scope.collections[index].active = true

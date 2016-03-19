@@ -1,0 +1,67 @@
+<div class="container vert-20" ng-hide="orders.ee.User.reading || orders.data.searching" style="overflow-x: scroll;">
+
+  <table class="table table-hover white-background box-shadow gray-border round-5">
+    <thead>
+      <tr>
+        <th>Order #</th>
+        <th>Created</th>
+        <th>Shipment</th>
+        <th colspan="3">Product(s)</th>
+        <th>Price</th>
+        <th>Earnings</th>
+        <th>Disbursed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-if="orders.data.orders.length <= 0">
+        <td colspan="11">
+          <div class="pad-20 vert-10">
+            <h3 class="margin-0">No orders yet.</h3>
+            When you make a sale, the status of your customer orders will appear here.
+            <br>
+            <br>
+            An example order is shown below:
+          </div>
+        </td>
+      </tr>
+      <tr ng-if="orders.data.orders.length <= 0">
+        <td>51008-EXAMPLE</td>
+        <td>3 days ago</td>
+        <td><h4 class="margin-0"><span class="label label-success">shipped</span></h4></td>
+        <td colspan="3">Example product title</td>
+        <td>{{ 12462 | centToDollar }}</td>
+        <td>{{ (12462 - 10593) | centToDollar }}</td>
+        <td><h4 class="margin-0"><span class="label label-default">pending</span></h4></td>
+      </tr>
+      <tr ng-repeat="order in orders.data.orders">
+        <td>{{ order.identifier }}</td>
+        <td ng-bind="order.created_at | timeago"></td>
+        <td>
+          <h4 class="margin-0">
+            <span ng-if="!order.shipped_at" class="label label-default">pending</span>
+            <span ng-if="order.shipped_at && !order.returned_at" class="label label-success">shipped</span>
+            <span ng-if="order.returned_at" class="label label-warning">returned</span>
+          </h4>
+        </td>
+        <td colspan="3">
+          <div ng-repeat="sku in order.skus_snapshot"><a ui-sref="productAdd({ id: sku.product_id, title: (sku.selection_text | urlText) })" ng-bind="sku.selection_text | truncate:27"></div>
+        </td>
+        <td>
+          <div ng-repeat="sku in order.skus_snapshot">{{ sku.price | centToDollar }}</div>
+        </td>
+        <td>
+          <div ng-repeat="sku in order.skus_snapshot">{{ (sku.price - sku.baseline_price) | centToDollar }}</div>
+        </td>
+        <td>
+          <h4 class="margin-0">
+            <span ng-if="!order.disbursed_at" class="label label-default">pending</span>
+            <span ng-if="order.disbursed_at" class="label label-success" ng-bind="order.disbursed_at | timeago"></span>
+          </h4>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<ee-loading loading="orders.ee.User.reading || orders.data.searching"></ee-loading>
