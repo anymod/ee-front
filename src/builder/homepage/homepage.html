@@ -14,7 +14,8 @@
     user="homepage.ee.User.user">
   </ee-builder-live-button>
   <div class="vert-5 margin-bottom-0">
-    <a ui-sref="account"><small>Change store URL</small></a>
+    <a ui-sref="collectionsAdd" class="btn btn-link pad-5">Add a collection</a>
+    <a ui-sref="account" class="btn btn-link pad-5">Change store URL</a>
   </div>
   <!-- /Domain -->
   <div class="position-absolute hover-pointer pad-10" style="top: 0; right: 3px;"
@@ -50,13 +51,13 @@
     style="background-color: rgba(100,100,100,0.8); border: 10px solid #AAA; z-index: 10;">
     <div class="full-width inline-block vert-5 hidden-xs"></div>
     <h3 class="white-color vert-5 margin-top-0">Edit your:</h3>
-    <div class="btn btn-default" ng-click="homepage.modalFns.open('edit_store', { type: 'logo' })">Logo</div>
-    <div class="btn btn-default" ng-click="homepage.modalFns.open('edit_store', { type: 'colors' })">Colors</div>
-    <div class="btn btn-default" ng-click="homepage.modalFns.open('edit_store', { type: 'social' })">
+    <div class="btn btn-default" ui-sref="editlogo">Logo</div>
+    <div class="btn btn-default" ui-sref="editcolors">Colors</div>
+    <div class="btn btn-default" ui-sref="editsocial">
       <span class="hidden-xs">Social Media & Blog</span>
       <span class="visible-xs">Links</span>
     </div>
-    <div class="btn btn-default" ng-click="homepage.modalFns.open('edit_store', { type: 'categories' })">Categories</div>
+    <div class="btn btn-default" ui-sref="editcategories">Categories</div>
   </div>
 </div>
 

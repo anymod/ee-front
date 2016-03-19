@@ -1,0 +1,11 @@
+<div ng-include="'builder/a.common/back.x.html'"></div>
+
+<!-- Logo -->
+<div class="vert-25 pad-5">
+  <ee-builder-section-heading heading="Edit your store logo" heading-class="text-success" subheading="Your logo will show at the top of your store and in your confirmation emails to customers."></ee-builder-section-heading>
+  <ee-canvas ng-if="edit.ee.User.user.username"
+    canvas-type="'logo'"
+    user="edit.ee.User.user">
+  </ee-canvas>
+</div>
+<!-- /Logo -->

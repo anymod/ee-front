@@ -33,7 +33,7 @@ angular.module 'eeBuilder', [
   'builder.date'
   'builder.storefront'
   # 'builder.products'
-  # 'builder.collections'
+  'builder.collections'
   # 'builder.categorizations'
   'builder.orders'
   'builder.account'

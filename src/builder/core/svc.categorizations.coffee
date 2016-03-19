@@ -13,6 +13,7 @@ angular.module('builder.core').factory 'eeCategorizations', (eeBack, eeAuth, eeU
 
   ## PRIVATE FUNCTIONS
   _getCategorizations = () ->
+    console.log '_getCategorizations'
     if !!_data.reading then return
     _data.reading = true
     eeBack.fns.categorizationsGET eeAuth.fns.getToken()
