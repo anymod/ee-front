@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.homepage').controller 'editCollectionModalCtrl', (eeDefiner, eeCollection, eeProducts, data) ->
+angular.module('builder.homepage').controller 'editCollectionModalCtrl', ($scope, eeDefiner, eeCollection, eeProducts, data) ->
 
   modal = this
   modal.ee = eeDefiner.exports
@@ -22,5 +22,7 @@ angular.module('builder.homepage').controller 'editCollectionModalCtrl', (eeDefi
       eeCollection.fns.search modal.data.collection.id, true
 
     modal.showIn()
+
+    $scope.$on 'search:started', () -> modal.tab = 'add'
 
   return

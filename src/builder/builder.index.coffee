@@ -63,6 +63,7 @@ angular.module 'eeBuilder', [
   'ee-canvas'
   'ee-unsplash-search'
   'ee-guide-button'
+  'ee-collection-carousel'
 
   # shared components
   'ee-loading'
@@ -75,7 +76,7 @@ angular.module 'eeBuilder', [
   'ee-order'
   'ee-image-preload'
   'ee-storefront-header'
-  'ee-storefront-logo'
+  # 'ee-storefront-logo'
   'ee-storefront-brand'
   'ee-scroll-to-top'
   'ee-empty-message'

@@ -1,8 +1,0 @@
-<div class="container-fluid text-center vert-15" ng-hide="ee.Tracks.tracks.length < 1">
-  <span ng-repeat="track in ee.Tracks.tracks | orderBy:'id' | filter:{ type: 'marketing', show: true }"
-    ui-sref="track({ id: track.id, title: (track.title | urlText) })"
-    class="fa-stack fa-2x hover-pointer">
-    <i class="fa fa-stack-2x" ng-class="track.id == id ? 'fa-circle text-' + track.icon : 'fa-circe-o fa-inverse'"></i>
-    <i class="fa fa-stack-1x fa-{{ track.icon }}" ng-class="{ 'fa-inverse': track.id == id }"></i>
-  </span>
-</div>

@@ -2,7 +2,7 @@
 
 module = angular.module 'ee-canvas', []
 
-module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections) ->
+module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections, eeUser) ->
   templateUrl: 'components/ee-canvas.html'
   restrict: 'E'
   scope:
@@ -29,16 +29,16 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections) ->
 
     ### CANVAS SETUP ###
 
+    json = {}
     switch scope.canvasType
       when 'collection'
-        scope.json = scope.collection.canvas
+        json = scope.collection.canvas
         scope.banner = scope.collection.banner
       when 'logo'
-        scope.json = scope.user.canvas
+        json = scope.user.logo_canvas
         scope.banner = scope.user.logo
         scope.canvasWidth = 300
         scope.canvasHeight = 80
-      else scope.json = {}
 
     canvas = new fabric.Canvas(scope.canvasType + '_canvas', {
       selection: false
@@ -159,16 +159,18 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections) ->
         when '1000x1000' then scope.addImage { url: data.url, crop: 'limit', w: scope.canvasWidth, h: scope.canvasWidth, scale: 1, background: true }
         when 'canvas'
           scope.collection.banner = data.url
-          scope.collection.canvas = data.json
+          scope.collection.canvas = json
           eeCollections.fns.updateCollection scope.collection
           .then () ->
             scope.saving = false
             scope.unsaved = false
         when 'logo'
           scope.user.logo = data.url
-          scope.collection.canvas = data.json
-          scope.saving = false
-          scope.unsaved = false
+          scope.user.logo_canvas = json
+          eeUser.fns.updateUser()
+          .then () ->
+            scope.saving = false
+            scope.unsaved = false
 
     # scope.$on 'collection:updated', (e, data) ->
     #   scope.saving = false
@@ -207,7 +209,7 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections) ->
     scope.upload = () ->
       scope.saving = true
       sortLayers()
-      scope.json = JSON.stringify(canvas)
+      json = JSON.stringify(canvas)
       cloudinary_finder = '#cloudinary_canvas .cloudinary_fileupload'
       if scope.canvasType is 'logo' then cloudinary_finder = '#cloudinary_logo .cloudinary_fileupload'
       cloudinary_fileupload = $(cloudinary_finder)
@@ -224,8 +226,11 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections) ->
       win.focus()
 
     scope.loadFromJSON = () ->
-      scope.backgroundColor = scope.json?.background || '#FFFFFF'
-      canvas.loadFromJSON scope.json, null, (o, object) ->
+      scope.loading = true
+      scope.backgroundColor = json?.background || '#FFFFFF'
+      canvas.loadFromJSON json,
+        () -> scope.loading = false
+      , (o, object) ->
         scope.layers.push object
         clearObject(object).then () ->
           if !!object.fontFamily then loadFont(object.fontFamily, clearAll) else clearAll()

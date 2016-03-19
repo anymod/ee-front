@@ -39,7 +39,7 @@
   </style>
   <!-- /style for preview -->
   <ee-storefront-header
-    meta="homepage.ee.User.user.storefront_meta"
+    user="homepage.ee.User.user"
     fluid="true"
     blocked="true"
     ng-hide="homepage.ee.loading"
@@ -80,7 +80,9 @@
   <div class="vert-20">
     <!-- Carousel -->
     <div ng-if="!homepage.hideCarousel">
-      <uib-carousel interval="5000" no-wrap="false" no-transition="false" class="margin-0">
+      <ee-collection-carousel collections="homepage.ee.User.user.home_page.carousel"></ee-collection-carousel>
+      <pre class="text-left">{{ homepage.ee.User.user.home_page.carousel | json }}</pre>
+      <!-- <uib-carousel interval="5000" no-wrap="false" no-transition="false" class="margin-0">
         <uib-slide ng-repeat="collection in homepage.ee.User.user.home_page.carousel" active="collection.active">
           <ee-collection-for-builder
             section="carousel"
@@ -89,11 +91,18 @@
             last="$last">
           </ee-collection-for-builder>
         </uib-slide>
-      </uib-carousel>
+      </uib-carousel> -->
+    </div>
+    <div ng-if="homepage.hideCarousel" class="position-relative full-width"
+      style="max-width: 800px;">
+      <img src="https://placeholdit.imgix.net/~text?w=800&h=420" class="full-width vert-10">
+      <div class="vert-10 inline-block full-width"></div>
+      <div class="vert-10 inline-block full-width hidden-xs"></div>
     </div>
     <!-- /Carousel -->
     <br>
     <br>
+    <div class="btn btn-default" ng-click="homepage.hideCarousel = !homepage.hideCarousel">Toggle carousel</div>
     <!-- Arranged -->
     <ee-collection-for-builder
       ng-repeat="collection in homepage.ee.User.user.home_page.arranged"

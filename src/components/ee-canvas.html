@@ -14,7 +14,7 @@
   }
 </style>
 
-<div class="position-relative">
+<div class="position-relative" ng-hide="loading">
   <!-- Save options -->
   <div class="vert-10 text-center">
     <div class="btn btn-primary" ng-click="upload()" ng-show="unsaved" ng-hide="saving || !unsaved">Save image</div>
@@ -188,7 +188,7 @@
               <a href class="inline-block text-center text-muted" style="width: 46px; height: 46px;">
                 <span ng-if="layer.type == 'rect' || layer.type == 'ellipse'"><i class="fa fa-3x fa-square" ng-style="{ color: layer.fill }"></i></span>
                 <span ng-if="layer.type == 'i-text'"><i class="fa fa-3x fa-font" ng-style="{ color: layer.fill }"></i></span>
-                <span ng-if="layer.type == 'image'"><img ng-src='{{ layer.src }}' class="vert-5 margin-bottom-0" style="max-width: 46px; max-height: 46px;"></span>
+                <span ng-if="layer.type == 'image'"><img ng-src='{{ layer.src }}' style="max-width: 46px; max-height: 46px;"></span>
               </a>
             </div>
             <div class="media-body">
@@ -211,7 +211,7 @@
           </div>
         </li>
         <li class="list-group-item pad-5 text-left"
-          ng-hide="canvasType == 'logo'"
+          ng-if="canvasType != 'logo'"
           ng-class="{ active: toolset.tab == 'background' }">
           <div class="media hover-pointer" ng-click="focusLayer()">
             <div class="media-left">

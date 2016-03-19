@@ -14,7 +14,7 @@ angular.module('ee-cloudinaryUpload').directive "eeCloudinaryUpload", ($rootScop
   link: (scope, element, attrs) ->
     form = element
     cloudinary_transform = 'storefront_home'
-    if scope.attrTarget is 'logo'       then cloudinary_transform = 'logo_260x60'
+    if scope.attrTarget is 'logo'       then cloudinary_transform = 'logo_300x80'
     if scope.attrTarget is '1000x1000'  then cloudinary_transform = 'limit_1000x1000'
     if scope.attrTarget is 'canvas'     then cloudinary_transform = 'width_800'
     if scope.attrTarget is 'collection' then cloudinary_transform = 'banner'

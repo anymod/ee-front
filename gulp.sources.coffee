@@ -224,6 +224,7 @@ sources.builderDirective = [
   './src/components/ee-canvas.coffee'
   './src/components/ee-unsplash-search.coffee'
   './src/components/ee-guide-button.coffee'
+  './src/components/ee-collection-carousel.coffee'
 ]
 sources.sharedDirective = [
   './src/ee-shared/components/ee-product-card.coffee'
@@ -236,7 +237,7 @@ sources.sharedDirective = [
   './src/ee-shared/components/ee-order.coffee'
   './src/ee-shared/components/ee-image-preload.coffee'
   './src/ee-shared/components/ee-storefront-header.coffee'
-  './src/ee-shared/components/ee-storefront-logo.coffee'
+  # './src/ee-shared/components/ee-storefront-logo.coffee'
   './src/ee-shared/components/ee-storefront-brand.coffee'
   './src/ee-shared/components/ee-scroll-to-top.coffee'
   './src/ee-shared/components/ee-empty-message.coffee'

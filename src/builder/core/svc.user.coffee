@@ -23,16 +23,20 @@ angular.module('builder.core').factory 'eeUser', ($rootScope, $q, $cookies, eeAu
       $rootScope.$broadcast 'user:set'
     .finally () -> _data.reading = false
 
-  _updateUser = (payload) ->
+  _updateUser = (payload, skipAssignment) ->
     if _data.updating then return
     _data.err = null
     _data.updating = true
     eeBack.fns.usersPUT (payload || _data.user), eeAuth.fns.getToken()
-    .then (user) -> _data.user[key] = user[key] for key in Object.keys(user)
+    .then (user) ->
+      unless skipAssignment
+        _data.user[key] = user[key] for key in Object.keys(user)
     .catch (err) ->
       _data.err = err
       throw err
-    .finally () -> _data.updating = false
+    .finally () ->
+      _data.updating = false
+      $rootScope.$broadcast 'user:updated', _data.user
 
   _defineUser = (force) ->
     $q.when(if !_data.user or force then _readUser() else _data.user)
@@ -83,21 +87,23 @@ angular.module('builder.core').factory 'eeUser', ($rootScope, $q, $cookies, eeAu
     switch data.section
       when 'carousel'
         switch data.direction
-          when 'left' then return moveWithin _data.user.home_page.carousel, index, -1
-          when 'right' then return moveWithin _data.user.home_page.carousel, index, 1
-          when 'down' then return moveBetween _data.user.home_page.carousel, index, _data.user.home_page.arranged, 0
+          when 'left' then moveWithin _data.user.home_page.carousel, index, -1
+          when 'right' then moveWithin _data.user.home_page.carousel, index, 1
+          when 'down' then moveBetween _data.user.home_page.carousel, index, _data.user.home_page.arranged, 0
       when 'arranged'
         switch data.direction
           when 'up'
-            if index is 0 then return moveBetween _data.user.home_page.arranged, index, _data.user.home_page.carousel, 0
-            return moveWithin _data.user.home_page.arranged, index, -1
-          when 'down' then return moveWithin _data.user.home_page.arranged, index, 1
+            if index is 0 then moveBetween _data.user.home_page.arranged, index, _data.user.home_page.carousel, 0
+            moveWithin _data.user.home_page.arranged, index, -1
+          when 'down' then moveWithin _data.user.home_page.arranged, index, 1
+    _updateUser({ id: _data.user.id, home_page: _data.user.home_page }, true )
 
   $rootScope.$on 'hide:homepage:collection', (e, data) ->
     # data = { section: string, collection: obj }
     return unless _data?.user?.home_page and data.section and data.collection
     index = _data.user.home_page[data.section].indexOf data.collection
     moveBetween _data.user.home_page[data.section], index, _data.user.home_page.hidden, 0
+    _updateUser({ id: _data.user.id, home_page: _data.user.home_page }, true )
 
   $rootScope.$on 'show:homepage:collection', (e, data) ->
     # data = { collection: obj }
@@ -105,6 +111,7 @@ angular.module('builder.core').factory 'eeUser', ($rootScope, $q, $cookies, eeAu
     index = _data.user.home_page.hidden.indexOf data.collection
     return if index < 0
     moveBetween _data.user.home_page.hidden, index, _data.user.home_page.arranged, _data.user.home_page.arranged.length
+    _updateUser({ id: _data.user.id, home_page: _data.user.home_page }, true )
 
 
   ## EXPORTS

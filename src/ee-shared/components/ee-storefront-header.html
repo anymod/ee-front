@@ -15,7 +15,7 @@
 
           <div class="brand-area position-absolute">
             <!-- Logo -->
-            <ee-storefront-logo ng-if="meta" meta="meta"></ee-storefront-logo>
+            <img ng-src="{{ user.logo }}"/>
             <!-- /Logo -->
           </div>
           <div class="activity-area position-absolute">
@@ -32,14 +32,14 @@
             <div class="full-width text-right pad-5 vert-5 vertical-align-middle">
               <!-- social media -->
               <a ng-repeat="site in ['facebook','pinterest','twitter','instagram']"
-                ng-if="meta.audience.social[site]"
-                href="https://{{ site }}.com/{{ meta.audience.social[site] }}" target="_blank"
+                ng-if="user.storefront_meta.audience.social[site]"
+                href="https://{{ site }}.com/{{ user.storefront_meta.audience.social[site] }}" target="_blank"
                 class="link-muted text-{{ site }} no-underline margin-2 margin-top-0 margin-bottom-0">
                 <i class="fa fa-{{ site }} vertical-align-middle"></i>
               </a>
               <!-- /social media -->
               <!-- blog -->
-              <a ng-if="meta.blog.url" href="{{ meta.blog.url | addHttp }}" target="_blank" class="text-muted margin-5 margin-top-0 margin-bottom-0">blog</a>
+              <a ng-if="user.storefront_meta.blog.url" href="{{ user.storefront_meta.blog.url | addHttp }}" target="_blank" class="text-muted margin-5 margin-top-0 margin-bottom-0">blog</a>
               <!-- /blog -->
               <!-- help -->
               <a ui-sref="help" class="text-muted margin-5 margin-top-0 margin-bottom-0">help</a>
@@ -68,9 +68,6 @@
 <nav class="navbar navbar-default ee-store-subnav round-0 margin-0 no-side-border hidden-xs">
   <div class="container max-width-900">
     <ul class="nav navbar-nav">
-      <!-- <li>
-        <a ui-sref="collections" class="transition-200 store-subnav-btn" ng-class="{ active: state == 'collections' }">Collections</a>
-      </li> -->
       <li ng-repeat="category in categories">
         <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
           ng-bind="category.title"
@@ -89,7 +86,9 @@
     <a href ng-click="sidenavOpen = true" class="pad-5 pull-left inline-block text-muted">
       <i class="fa fa-fw fa-2x fa-bars"></i>
     </a>
-    <ee-storefront-logo ng-if="meta" meta="meta" mobile="true"></ee-storefront-logo>
+    <!-- Logo -->
+    <img ng-src="{{ user.logo }}" style="max-height: 34px;"/>
+    <!-- /Logo -->
     <a ui-sref="cart" class="pad-5 pull-right inline-block text-muted">
       <i class="fa fa-fw fa-2x fa-shopping-cart"></i>
     </a>
@@ -114,20 +113,15 @@
   ng-style="{ left: (sidenavOpen ? 0 : '-250px') }">
   <div class="position-relative full-width">
     <nav class="navbar navbar-default round-0 margin-0 no-side-border text-center"
-      ng-style="{ 'background-color': meta.brand.color.secondary }">
+      ng-style="{ 'background-color': user.storefront_meta.brand.color.secondary }">
       <div class="margin-7">
         <a href ng-click="sidenavOpen = false" class="pad-5 pull-right inline-block text-muted">
-          <i class="fa fa-fw fa-2x fa-times" ng-style="{ color: meta.brand.color.tertiary }"></i>
+          <i class="fa fa-fw fa-2x fa-times" ng-style="{ color: user.storefront_meta.brand.color.tertiary }"></i>
         </a>
       </div>
     </nav>
     <div class="pad-20 pad-top-0">
       <ul class="nav navbar-nav">
-        <!-- collections -->
-        <li>
-          <a ui-sref="collections" class="text-muted">Collections</a>
-        </li>
-        <!-- /collections -->
         <!-- categories -->
         <li ng-repeat="category in categories">
           <a ui-sref="category({ id: category.id, title: (category.title | urlText) })"
@@ -136,26 +130,15 @@
           </a>
         </li>
         <!-- /categories -->
-        <!-- <li ng-if="collections.length > 0">
-          <hr class="vert-5">
-        </li> -->
-        <!-- collections -->
-        <!-- <li ng-repeat="collection in collections">
-          <a ui-sref="collection({ id: collection.id })"
-            class="text-muted"
-            ng-bind="collection.title">
-          </a>
-        </li> -->
-        <!-- /collections -->
-        <li ng-if="collections.length > 0">
+        <li ng-if="categories.length > 0">
           <hr class="vert-5">
         </li>
         <!-- blog -->
-        <li ng-if="meta.blog.url">
-          <a href="{{ meta.blog.url | addHttp }}" target="_blank" class="text-muted">Blog</a>
+        <li ng-if="user.storefront_meta.blog.url">
+          <a href="{{ user.storefront_meta.blog.url | addHttp }}" target="_blank" class="text-muted">Blog</a>
         </li>
         <!-- /blog -->
-        <li ng-if="meta.blog.url">
+        <li ng-if="user.storefront_meta.blog.url">
           <hr class="vert-5">
         </li>
         <!-- help -->
@@ -163,15 +146,15 @@
           <a ui-sref="help" class="text-muted">Help</a>
         </li>
         <!-- /help -->
-        <li ng-if="collections.length > 0">
+        <li>
           <hr class="vert-5">
         </li>
         <!-- social media -->
         <li>
           <div class="pad-10">
             <a ng-repeat="site in ['facebook','pinterest','twitter','instagram']"
-              ng-if="meta.audience.social[site]"
-              href="https://{{ site }}.com/{{ meta.audience.social[site] }}" target="_blank"
+              ng-if="user.storefront_meta.audience.social[site]"
+              href="https://{{ site }}.com/{{ user.storefront_meta.audience.social[site] }}" target="_blank"
               class="link-muted text-{{ site }} no-underline margin-2 margin-top-0 margin-bottom-0">
               <i class="fa fa-fw fa-2x fa-{{ site }} vertical-align-middle"></i>
             </a>

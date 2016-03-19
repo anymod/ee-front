@@ -1,5 +1,5 @@
 <ee-storefront-header
-  meta="edit.ee.User.user.storefront_meta"
+  user="edit.ee.User.user"
   fluid="true"
   blocked="true"
   ng-hide="edit.ee.loading"
@@ -61,7 +61,7 @@
         <div class="form-group vert-5">
           <label class="col-sm-4 control-label">Store logo</label>
           <div class="col-sm-6">
-            <ee-storefront-logo meta="edit.ee.User.user.storefront_meta" blocked="true"></ee-storefront-logo>
+            <img ng-src="{{ edit.ee.User.user.logo }}"/>
             <div ng-if="edit.ee.User.user.storefront_meta.logo" class="btn btn-sm btn-link" ng-click="edit.ee.User.user.storefront_meta.logo = null">Remove logo</div>
             <div>
               <h4 class="margin-0">

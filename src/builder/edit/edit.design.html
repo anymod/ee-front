@@ -1,24 +1,3 @@
-<!-- preview -->
-<!-- <div ng-click="edit.showPreview = false"
-    class="position-fixed transition-400"
-    style="left: 0; right: 0; z-index: 3000"
-    ng-style="{ top: edit.showPreview ? '0px' : '-250px' }">
-  <ee-storefront-header
-    blocked="true"
-    meta="edit.ee.User.user.storefront_meta"
-    ng-hide="edit.ee.loading">
-  </ee-storefront-header>
-  <div class="inline-block full-width text-center border-bottom-gray white-background pad-10 pad-top-0">
-    <i class="fa fa-fw fa-caret-up"></i>
-    <small>This is a preview of your store's top bar (click to close).</small>
-    <i class="fa fa-fw fa-caret-up"></i>
-  </div>
-  <div class="position-absolute top-left-bottom-right-0 hover-pointer text-center pad-20"
-    style="z-index: 1061;">
-  </div>
-</div> -->
-<!-- /preview -->
-
 <div ng-hide="edit.ee.User.reading" class="container vert-20">
   <!-- <div class="full-width transition-400" ng-style="{ height: edit.showPreview ? '50px' : '0px' }"></div> -->
   <!-- <ee-builder-section-heading heading="Edit your store design" heading-class="text-success" subheading="Design your store's logo, style, and colors below."></ee-builder-section-heading> -->
@@ -37,13 +16,8 @@
     <div class="row">
       <div class="col col-sm-6">
         <!-- Logo -->
-        <div style="width: 280px; height: 80px; overflow: hidden" class="gray-border">
-          <ee-storefront-logo
-            ng-if="edit.ee.User.user"
-            class="pad-10 vert-5 margin-top-0"
-            blocked="true"
-            meta="edit.ee.User.user.storefront_meta">
-          </ee-storefront-logo>
+        <div style="width: 300px; height: 80px; overflow: hidden" class="gray-border">
+          <img ng-src="{{ edit.ee.User.user.logo }}">
         </div>
         <!-- /Logo -->
       </div>
@@ -89,7 +63,7 @@
 
           <div>
             Logo background image
-            <div class="text-muted vert-5 margin-top-0">(Image scaled to fit 260x60px)</div>
+            <div class="text-muted vert-5 margin-top-0">(Image scaled to fit 300x80px)</div>
             <div ng-if="edit.ee.User.user.storefront_meta.brand.image.logo">
               <img ng-src="{{ edit.ee.User.user.storefront_meta.brand.image.logo }}" class="vert-2"/>
               <div class="btn btn-link pad-left-0 vert-2" ng-click="edit.ee.User.user.storefront_meta.brand.image.logo = null">Remove image</div>
@@ -143,7 +117,7 @@
               <div ng-repeat="font in edit.fonts" class="pad-5 gray-border">
                 <label class="hover-pointer">
                   <input type="radio" ng-model="edit.ee.User.user.storefront_meta.brand.text.family" value="{{ font.name }}" style="width: 25px;">
-                  <img ng-src="https://res.cloudinary.com/eeosk/image/upload/w_260,h_30,o_0/g_west,w_260,h_30,c_fit,l_text:{{ font.name }}_25:Brand Name Text,co_rgb:4C4C4C/v1450113176/260x60.png" alt="{{ font.name }}">
+                  <img ng-src="https://res.cloudinary.com/eeosk/image/upload/w_260,h_30,o_0/g_west,w_260,h_30,c_fit,l_text:{{ font.name }}_25:Brand Name Text,co_rgb:4C4C4C/v1458333922/300x80.png" alt="{{ font.name }}">
                   <br>
                   <small style="margin-left: 28px;" ng-bind="font.name"></small>
                 </label>
