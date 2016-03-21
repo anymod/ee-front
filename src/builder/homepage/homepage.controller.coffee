@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('builder.homepage').controller 'homepageCtrl', ($state, $scope, $timeout, eeDefiner, eeCollections, eeModal, eeCategorizations) ->
+angular.module('builder.homepage').controller 'homepageCtrl', ($state, eeDefiner, eeUser, eeCollections, eeModal) ->
 
   homepage = this
 
@@ -8,12 +8,13 @@ angular.module('builder.homepage').controller 'homepageCtrl', ($state, $scope, $
   homepage.fns   = eeCollections.fns
   homepage.modalFns = eeModal.fns
   homepage.state = $state.current.name
-  # homepage.hideCarousel = false
 
-  eeCollections.fns.resetCollections()
-  eeCategorizations.fns.getCategorizations()
+  eeUser.fns.defineUser true
 
-  if $state.current.name is 'homepage' then eeCollections.fns.search()
+  # eeCollections.fns.resetCollections()
+  # eeCategorizations.fns.getCategorizations()
+
+  # eeCollections.fns.search()
 
   # homepage.create = () ->
   #   eeCollections.fns.createCollection()

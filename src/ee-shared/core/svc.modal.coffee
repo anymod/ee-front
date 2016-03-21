@@ -42,16 +42,6 @@ angular.module('app.core').factory 'eeModal', ($uibModal) ->
       size:           'lg'
       backdropClass:  _backdropClass
       windowClass:    'full-modal'
-    edit_store:
-      templateUrl:    'builder/homepage/edit.store.modal.html'
-      controller:     'editStoreModalCtrl as modal'
-      backdropClass:  _backdropClass
-      windowClass:    'overlay-modal'
-    edit_collection:
-      templateUrl:    'builder/homepage/edit.collection.modal.html'
-      controller:     'editCollectionModalCtrl as modal'
-      backdropClass:  _backdropClass
-      windowClass:    'overlay-modal'
 
   ## PRIVATE FUNCTIONS
   _open = (name, data) ->

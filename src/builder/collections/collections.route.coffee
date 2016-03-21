@@ -18,31 +18,48 @@ angular.module('builder.collections').config ($stateProvider) ->
         pageDescription:  'Add collections to your store.'
         padTop:           '110px'
 
-    .state 'collections',
-      url: '/collections'
-      views:
-        header:
-          controller: 'dailyCtrl as daily'
-          templateUrl: 'builder/collections/collections.header.html'
-        top:
-          controller: 'collectionsCtrl as collections'
-          templateUrl: 'builder/collections/collections.html'
-      data:
-        pageTitle:        'Your collections | eeosk'
-        pageDescription:  'Manage the collections in your store.'
-        padTop:           '110px'
+    # .state 'collections',
+    #   url: '/collections'
+    #   views:
+    #     header:
+    #       controller: 'dailyCtrl as daily'
+    #       templateUrl: 'builder/collections/collections.header.html'
+    #     top:
+    #       controller: 'collectionsCtrl as collections'
+    #       templateUrl: 'builder/collections/collections.html'
+    #   data:
+    #     pageTitle:        'Your collections | eeosk'
+    #     pageDescription:  'Manage the collections in your store.'
+    #     padTop:           '110px'
 
-    .state 'collection',
-      url: '/collections/:id'
+    .state 'collectionimage',
+      url: '/collections/:id/image'
       views:
-        header:
-          controller: 'dailyCtrl as daily'
-          templateUrl: 'builder/collections/collection.header.html'
         top:
           controller: 'collectionCtrl as collection'
-          templateUrl: 'builder/collections/collection.html'
+          templateUrl: 'builder/collections/collection.image.html'
       data:
-        pageTitle:        'Collection in your store | eeosk'
-        padTop:           '60px'
+        pageTitle: 'Edit collection image | eeosk'
+        padTop: '0px'
+
+    .state 'collectionproducts',
+      url: '/collections/:id/products'
+      views:
+        top:
+          controller: 'collectionCtrl as collection'
+          templateUrl: 'builder/collections/collection.products.html'
+      data:
+        pageTitle: 'Products in your collection | eeosk'
+        padTop: '0px'
+
+    .state 'collectionadd',
+      url: '/collections/:id/add'
+      views:
+        top:
+          controller: 'collectionCtrl as collection'
+          templateUrl: 'builder/collections/collection.add.html'
+      data:
+        pageTitle: 'Add products | eeosk'
+        padTop: '0px'
 
   return

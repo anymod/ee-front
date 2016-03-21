@@ -50,6 +50,6 @@ module.directive "eeStorefrontHeader", ($rootScope, $state, $window, eeCart, cat
     $rootScope.$on 'search:query', (e, query) -> scope.search query, 1
 
     assignCategories()
-    scope.$on 'user:updated', () -> assignCategories()
+    scope.$on 'updated:user', () -> assignCategories()
 
     return

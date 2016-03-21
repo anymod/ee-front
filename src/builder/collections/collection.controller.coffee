@@ -13,6 +13,9 @@ angular.module('builder.collections').controller 'collectionCtrl', ($scope, $sta
   collection.tab    = 'canvas'
   collection.editImage = false
 
+  switch $state.current.name
+    when 'collectionadd' then eeProducts.fns.runSection 'search'
+
   if !collection.id then $state.go 'collections'
   eeCollection.fns.search collection.id, true
   .catch (err) -> $state.go 'collections'

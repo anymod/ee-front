@@ -11,25 +11,27 @@
 <!-- /style for preview -->
 
 <!-- Colors -->
-<div class="vert-25 pad-5">
-  <ee-builder-section-heading heading="Edit your store colors" heading-class="text-success" subheading="Select the colors to show in your category bar and store accents."></ee-builder-section-heading>
-  <div class="max-width-600 margin-0-auto text-center">
-    <nav class="navbar navbar-default ee-store-subnav round-0 vert-20 no-side-border">
-      <div class="container max-width-600">
-        <ul class="nav navbar-nav margin-0" style="clear:both; float:none;">
-          <li ng-repeat="category in ['Example Category']" class="margin-0-auto" style="clear:both; float:none; width: 150px;">
-            <a href class="transition-200 store-subnav-btn" ng-bind="category" style="padding-top: 15px;"></a>
-          </li>
-        </ul>
+<div class="container">
+  <div class="vert-50">
+    <ee-builder-section-heading heading="Edit your store colors" heading-class="text-success" subheading="Select the colors to show in your category bar and store accents."></ee-builder-section-heading>
+    <div class="max-width-600 margin-0-auto text-center">
+      <nav class="navbar navbar-default ee-store-subnav round-0 vert-20 no-side-border">
+        <div class="container max-width-600">
+          <ul class="nav navbar-nav margin-0" style="clear:both; float:none;">
+            <li ng-repeat="category in ['Example Category']" class="margin-0-auto" style="clear:both; float:none; width: 150px;">
+              <a href class="transition-200 store-subnav-btn" ng-bind="category" style="padding-top: 15px;"></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <ee-web-colorpicker
+        dab-secondary="edit.ee.User.user.storefront_meta.brand.color.secondary"
+        dab-tertiary="edit.ee.User.user.storefront_meta.brand.color.tertiary">
+      </ee-web-colorpicker>
+      <ee-save></ee-save>
+      <div class="text-muted text-left vert-20">
+        <i class="fa fa-lg fa-info-circle"></i>&nbsp;Choose colors that allow customers to easily read your category names.
       </div>
-    </nav>
-    <ee-web-colorpicker
-      dab-secondary="edit.ee.User.user.storefront_meta.brand.color.secondary"
-      dab-tertiary="edit.ee.User.user.storefront_meta.brand.color.tertiary">
-    </ee-web-colorpicker>
-    <ee-save></ee-save>
-    <div class="text-muted text-left vert-20">
-      <i class="fa fa-lg fa-info-circle"></i>&nbsp;Choose colors that allow customers to easily read your category names.
     </div>
   </div>
 </div>

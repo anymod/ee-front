@@ -5,8 +5,8 @@
     <div class="position-absolute well max-width-300 border-none"
       style="width: 280px; height: 170px; left: 50%; top: 50%; margin-left: -140px; margin-top: -85px; background-color: rgba(100,100,100,0.8);">
       <h3 class="white-color vert-5 margin-top-0">Edit collection</h3>
-      <div class="btn btn-default" ng-click="openCollectionModalFor('image')">Image</div>
-      <div class="btn btn-default" ng-click="openCollectionModalFor('products')">Products</div>
+      <div class="btn btn-default" ui-sref="collectionimage({ id: collection.id })">Image</div>
+      <div class="btn btn-default" ui-sref="collectionproducts({ id: collection.id })">Products</div>
       <div class="btn btn-default" ng-click="hide()" ng-hide="section == 'hidden'">Hide</div>
       <div class="btn btn-default" ng-click="show()" ng-show="section == 'hidden'">Show</div>
       <br>
