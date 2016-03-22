@@ -104,8 +104,8 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, $state, ee
     return
 
   ## MESSAGING
-  $rootScope.$on 'added:product', (e, product, collection) ->
-    _data.search.lastCollectionAddedTo = collection.id
+  # $rootScope.$on 'added:product', (e, data) ->
+  #   _data.search.lastCollectionAddedTo = data.collection.id
 
   ## EXPORTS
   data: _data

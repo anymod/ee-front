@@ -1,35 +1,46 @@
-<div class="margin-0 carousel">
-  <div class="carousel-inner">
-    <div ng-repeat="collection in collections"
-      class="item text-center active"
-      ng-show="$index == activeIndex">
-      <!-- ng-animate left-add left-add-active -->
-      <ee-collection-for-builder
-        section="carousel"
-        collection="collection"
-        first="$first"
-        last="$last">
-      </ee-collection-for-builder>
+<div>
+  <div ng-hide="collections.length < 1"
+    class="carousel"
+    style="margin: 0 0 36px;">
+    <!-- carousel items -->
+    <div class="carousel-inner">
+      <div ng-repeat="collection in collections"
+        class="item text-center active"
+        ng-show="$index == activeIndex">
+        <ee-collection-for-builder
+          section="carousel"
+          collection="collection"
+          first="$first"
+          last="$last">
+        </ee-collection-for-builder>
+      </div>
     </div>
-  </div>
-  <!-- buttons -->
-  <a role="button" href="" class="left carousel-control" ng-click="prev()" ng-show="collections.length > 1">
-    <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
-    <span class="sr-only">previous</span>
-  </a>
-  <a role="button" href="" class="right carousel-control" ng-click="next()" ng-show="collections.length > 1">
-    <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
-    <span class="sr-only">next</span>
-  </a>
-  <!-- /buttons -->
-  <!-- indicators -->
-  <div class="position-absolute" style="bottom: -30px; right: 0;">
-    <div ng-repeat="collection in collections"
-      ng-click="select($index)"
-      class="inline-block gray-border pad-2 hover-pointer"
-      ng-class="{ 'blue-border': $index == activeIndex }">
-      <img ng-src="{{ collection.banner | cloudinaryResizeTo:50:30 }}"/>
+    <!-- /carousel items -->
+    <!-- buttons -->
+    <a role="button" href="" class="left carousel-control" ng-click="prev()" ng-show="collections.length > 1">
+      <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">previous</span>
+    </a>
+    <a role="button" href="" class="right carousel-control" ng-click="next()" ng-show="collections.length > 1">
+      <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">next</span>
+    </a>
+    <!-- /buttons -->
+    <!-- indicators -->
+    <div class="position-absolute" style="bottom: -30px; right: 0;">
+      <div ng-repeat="collection in collections"
+        ng-click="select($index)"
+        class="inline-block gray-border pad-2 hover-pointer"
+        ng-class="{ 'blue-border': $index == activeIndex }">
+        <img ng-src="{{ collection.banner | cloudinaryResizeTo:50:30 }}"/>
+      </div>
     </div>
+    <!-- /indicators -->
   </div>
-  <!-- /indicators -->
+
+  <div ng-show="collections.length < 1" class="vert-20">
+    <p class="text-muted margin-0">
+      <i class="fa fa-fw fa-info-circle"></i>&nbsp;Carousel is currently empty<br>(this message will not show in your store)
+    </p>
+  </div>
 </div>

@@ -133,8 +133,8 @@ sources.builderModule = [
   './src/builder/homepage/homepage.module.coffee'
   './src/builder/homepage/homepage.route.coffee'
   './src/builder/homepage/homepage.controller.coffee'
-  './src/builder/homepage/edit.store.modal.controller.coffee'
-  './src/builder/homepage/edit.collection.modal.controller.coffee'
+  # './src/builder/homepage/edit.store.modal.controller.coffee'
+  # './src/builder/homepage/edit.collection.modal.controller.coffee'
   # Module - settings
   './src/builder/settings/settings.module.coffee'
   './src/builder/settings/settings.route.coffee'
@@ -185,7 +185,7 @@ sources.builderModule = [
   './src/builder/collections/collections.route.coffee'
   './src/builder/collections/collections.controller.coffee'
   './src/builder/collections/collection.controller.coffee'
-  './src/builder/collections/collection.products.modal.controller.coffee'
+  # './src/builder/collections/collection.products.modal.controller.coffee'
   # Module - categorizations
   './src/builder/categorizations/categorizations.module.coffee'
   './src/builder/categorizations/categorizations.route.coffee'

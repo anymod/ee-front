@@ -52,16 +52,22 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, $window
     _data.nav.carousel      = []
     _data.nav.alphabetical  = []
 
-  _createCollection = () ->
+  _readCollection = (id) ->
+    _data.reading = true
+    eeBack.fns.collectionGET id, eeAuth.fns.getToken(), {}
+    .then (res) -> res
+    .finally () -> _data.reading = false
+
+  _createCollection = (collection) ->
     deferred  = $q.defer()
     token     = eeAuth.fns.getToken()
     if _data.creating then return _data.creating
     if !token then deferred.reject('Missing token'); return deferred.promise
     _data.creating = deferred.promise
-    eeBack.fns.collectionPOST token
-    .then (collection) ->
-      $rootScope.$broadcast 'sync:collections', collection
-      collection
+    eeBack.fns.collectionPOST collection, token
+    .then (coll) ->
+      $rootScope.$broadcast 'sync:collections', coll
+      coll
     .catch (err) -> console.error err
     .finally () -> _data.creating = false
 
@@ -134,11 +140,16 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, $window
     if product.updating then return
     product.updating = true
     product.added = false
-    eeBack.fns.collectionAddProduct collection.id, product.id, eeAuth.fns.getToken()
+    $q.when(
+      if collection.id
+        eeBack.fns.collectionAddProduct collection.id, product.id, eeAuth.fns.getToken()
+      else
+        {}
+    )
     .then (res) ->
       product.added = true
       collection = res.collection
-      $rootScope.$broadcast 'added:product', product, res.collection
+      $rootScope.$broadcast 'added:product', { product: product, collection: res.collection }
     .catch (err) -> if err and err.message then product.err = err.message; throw err
     .finally () -> product.updating = false
 
@@ -146,11 +157,16 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, $window
     if product.updating then return
     product.updating = true
     product.removed = false
-    eeBack.fns.collectionRemoveProduct collection.id, product.id, eeAuth.fns.getToken()
+    $q.when(
+      if collection.id
+        eeBack.fns.collectionRemoveProduct collection.id, product.id, eeAuth.fns.getToken()
+      else
+        {}
+    )
     .then (res) ->
       product.removed = true
       collection      = res.collection
-      $rootScope.$broadcast 'removed:product', product, res.collection
+      $rootScope.$broadcast 'removed:product', { product: product, collection: res.collection }
     .catch (err) -> if err and err.message then product.err = err.message; throw err
     .finally () -> product.updating = false
 
@@ -201,6 +217,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, $window
 
     resetCollections:     _resetCollections
     createCollection:     _createCollection
+    readCollection:       _readCollection
     updateCollection:     _updateCollection
     destroyCollection:    _destroyCollection
     cloneCollection:      _cloneCollection

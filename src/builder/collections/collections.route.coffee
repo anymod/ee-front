@@ -7,16 +7,25 @@ angular.module('builder.collections').config ($stateProvider) ->
     .state 'collectionsAdd',
       url: '/collections/add'
       views:
-        header:
-          controller: 'dailyCtrl as daily'
-          templateUrl: 'builder/collections/collections.header.html'
+        # header:
+        #   controller: 'dailyCtrl as daily'
+        #   templateUrl: 'builder/collections/collections.header.html'
         top:
           controller: 'collectionsCtrl as collections'
           templateUrl: 'builder/collections/collections.add.html'
       data:
         pageTitle:        'Add collections | eeosk'
-        pageDescription:  'Add collections to your store.'
-        padTop:           '110px'
+        padTop:           '0px'
+
+    .state 'collectionsNew',
+      url: '/collections/new'
+      views:
+        top:
+          controller: 'collectionsCtrl as collections'
+          templateUrl: 'builder/collections/collections.new.html'
+      data:
+        pageTitle: 'New collection | eeosk'
+        padTop: '0px'
 
     # .state 'collections',
     #   url: '/collections'
@@ -29,7 +38,6 @@ angular.module('builder.collections').config ($stateProvider) ->
     #       templateUrl: 'builder/collections/collections.html'
     #   data:
     #     pageTitle:        'Your collections | eeosk'
-    #     pageDescription:  'Manage the collections in your store.'
     #     padTop:           '110px'
 
     .state 'collectionimage',
@@ -50,6 +58,16 @@ angular.module('builder.collections').config ($stateProvider) ->
           templateUrl: 'builder/collections/collection.products.html'
       data:
         pageTitle: 'Products in your collection | eeosk'
+        padTop: '0px'
+
+    .state 'collectionpreview',
+      url: '/collections/:id/preview'
+      views:
+        top:
+          controller: 'collectionCtrl as collection'
+          templateUrl: 'builder/collections/collection.preview.html'
+      data:
+        pageTitle: 'Preview collection | eeosk'
         padTop: '0px'
 
     .state 'collectionadd',

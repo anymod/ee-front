@@ -1,6 +1,6 @@
 <!-- Message -->
 <div class="container-fluid text-center pad-20 position-relative"
-  ng-hide="hideContainer || homepage.ee.Collections.reading">
+  ng-hide="homepage.ee.User.reading || homepage.ee.Collections.reading || hideContainer">
   <h4 class="font-weight-200">
     A preview of your home page is shown below.
     <br>
@@ -25,10 +25,10 @@
 </div>
 <!-- !Message -->
 
-<hr class="margin-0" ng-hide="homepage.ee.Collections.reading">
+<hr class="margin-0" ng-hide="homepage.ee.User.reading || homepage.ee.Collections.reading">
 
 <div class="full-width text-center position-relative hover-trigger"
-  ng-hide="homepage.ee.Collections.reading">
+  ng-hide="homepage.ee.User.reading || homepage.ee.Collections.reading">
   <!-- <a href ng-click="homepage.create()">Create a new collection</a> -->
   <!-- style for preview -->
   <style ng-if="homepage.ee.User.user.storefront_meta">
@@ -80,12 +80,14 @@
 
   <div class="vert-20">
     <!-- Carousel -->
-    <ee-collection-carousel collections="homepage.ee.User.user.home_page.carousel"></ee-collection-carousel>
+    <ee-collection-carousel
+      ng-if="homepage.ee.User.user.home_page"
+      collections="homepage.ee.User.user.home_page.carousel">
+    </ee-collection-carousel>
     <!-- /Carousel -->
-    <br>
-    <br>
     <!-- Arranged -->
     <ee-collection-for-builder
+      ng-if="homepage.ee.User.user.home_page"
       ng-repeat="collection in homepage.ee.User.user.home_page.arranged"
       section="arranged"
       collection="collection"
@@ -94,12 +96,13 @@
     </ee-collection-for-builder>
     <!-- /Arranged -->
     <!-- Hidden -->
-    <div ng-if="homepage.ee.User.user.home_page.hidden.length > 0"
+    <div ng-show="homepage.ee.User.user.home_page.hidden.length > 0"
       class="well no-border vert-20"
       style="background: #333;">
       <h4 class="white-color font-weight-200 text-center">Hidden Collections</h4>
       <p class="white-color">These collections are not currently visible in your store.</p>
       <ee-collection-for-builder
+        ng-if="homepage.ee.User.user.home_page && !collection.removed"
         ng-repeat="collection in homepage.ee.User.user.home_page.hidden"
         section="hidden"
         collection="collection">
@@ -125,11 +128,11 @@
 </div>
 
 <ee-empty-message
-  ng-if="!homepage.ee.Collections.reading && homepage.ee.Collections.homepage.length <= 0"
+  ng-if="!homepage.ee.Collections.reading && homepage.ee.Collections.collection.length <= 0"
   main-message="Start your store"
   btn-message="Add collections"
   btn-sref="collectionsAdd"
   sub-message="When you add collections to your store, they will show here.">
 </ee-empty-message>
 
-<ee-loading loading="homepage.ee.Collections.reading || homepage.ee.Collections.creating"></ee-loading>
+<ee-loading loading="homepage.ee.User.reading || homepage.ee.Collections.reading"></ee-loading>

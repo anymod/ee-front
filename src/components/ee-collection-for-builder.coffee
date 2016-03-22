@@ -10,12 +10,21 @@ module.directive "eeCollectionForBuilder", ($state, eeCollections, eeModal) ->
     collection: '='
     first: '='
     last: '='
+    useAddOverlay: '@'
     # modal: '@'
   link: (scope, ele, attrs) ->
+    initialCollection = angular.copy scope.collection
     scope.collectionsFns = eeCollections.fns
+    scope.products = []
 
-    scope.openCollectionModalFor = (type) ->
-      eeModal.fns.open 'edit_collection', { collection: scope.collection, type: type }
+    if scope.collection?.id and !scope.collection.banner
+      eeCollections.fns.readCollection scope.collection.id
+      .then (res) ->
+        return if !res.rows
+        scope.products = res.rows.slice(0,3)
+
+    # scope.openCollectionModalFor = (type) ->
+    #   eeModal.fns.open 'edit_collection', { collection: scope.collection, type: type }
 
     scope.hide = () ->
       scope.$emit 'hide:homepage:collection', {
@@ -33,6 +42,19 @@ module.directive "eeCollectionForBuilder", ($state, eeCollections, eeModal) ->
         direction: direction
       }
 
+    scope.add = () ->
+      scope.collection.cloned = true
+      eeCollections.fns.cloneCollection scope.collection
+      .then (data) ->
+        scope.collection[key] = data.collection[key] for key in Object.keys(scope.collection)
+        scope.collection.cloned = true
+
+    scope.remove = () ->
+      eeCollections.fns.destroyCollection scope.collection
+      .then () ->
+        scope.collection[key] = initialCollection[key] for key in Object.keys(scope.collection)
+        scope.collection.removed = true
+
     # scope.updateCollection = () ->
     #   eeCollections.fns.updateCollection scope.collection
     #   .then () -> $state.go 'collections'
@@ -44,8 +66,8 @@ module.directive "eeCollectionForBuilder", ($state, eeCollections, eeModal) ->
     #     scope.collection.in_carousel = !scope.collection.in_carousel
     #     scope.updateCollection()
     #
-    # scope.editOrOpenModal = () ->
-    #   if !scope.modal then return $state.go 'collection', { id: scope.collection?.id }
+    # scope.openModal = () ->
+    # #   if !scope.modal then return $state.go 'collection', { id: scope.collection?.id }
     #   eeCollections.fns.openProductsModal scope.collection
 
     return

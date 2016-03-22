@@ -140,6 +140,14 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
         headers: authorization: {}
       }
 
+    collectionPOST: (data, token) ->
+      _makeRequest {
+        method: 'POST'
+        url: eeBackUrl + 'collections'
+        headers: authorization: token
+        data: data
+      }
+
     collectionClonePOST: (id, token) ->
       _makeRequest {
         method: 'POST'
@@ -187,13 +195,6 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
       _makeRequest {
         method: 'PUT'
         url: eeBackUrl + 'collections/' + collection_id + '/remove/' + product_id
-        headers: authorization: token
-      }
-
-    collectionPOST: (token) ->
-      _makeRequest {
-        method: 'POST'
-        url: eeBackUrl + 'collections'
         headers: authorization: token
       }
 
