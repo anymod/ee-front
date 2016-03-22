@@ -81,30 +81,30 @@
   <div class="vert-20">
     <!-- Carousel -->
     <ee-collection-carousel
-      ng-if="homepage.ee.User.user.home_page"
-      collections="homepage.ee.User.user.home_page.carousel">
+      ng-if="homepage.ee.User.user.home_carousel"
+      collections="homepage.ee.User.user.home_carousel">
     </ee-collection-carousel>
     <!-- /Carousel -->
     <!-- Arranged -->
     <ee-collection-for-builder
-      ng-if="homepage.ee.User.user.home_page"
-      ng-repeat="collection in homepage.ee.User.user.home_page.arranged"
-      section="arranged"
+      ng-if="homepage.ee.User.user.home_arranged"
+      ng-repeat="collection in homepage.ee.User.user.home_arranged"
+      section="home_arranged"
       collection="collection"
       first="$first"
       last="$last">
     </ee-collection-for-builder>
     <!-- /Arranged -->
     <!-- Hidden -->
-    <div ng-show="homepage.ee.User.user.home_page.hidden.length > 0"
+    <div ng-show="homepage.ee.User.user.home_hidden.length > 0"
       class="well no-border vert-20"
       style="background: #333;">
       <h4 class="white-color font-weight-200 text-center">Hidden Collections</h4>
       <p class="white-color">These collections are not currently visible in your store.</p>
       <ee-collection-for-builder
-        ng-if="homepage.ee.User.user.home_page && !collection.removed"
-        ng-repeat="collection in homepage.ee.User.user.home_page.hidden"
-        section="hidden"
+        ng-if="homepage.ee.User.user.home_hidden && !collection.removed"
+        ng-repeat="collection in homepage.ee.User.user.home_hidden"
+        section="home_hidden"
         collection="collection">
       </ee-collection-for-builder>
     </div>

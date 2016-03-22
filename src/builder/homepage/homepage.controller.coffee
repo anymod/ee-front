@@ -24,7 +24,7 @@ angular.module('builder.homepage').controller 'homepageCtrl', ($state, eeDefiner
 
   # $scope.$on 'update:carousel', (e, carousel) ->
   #   homepage.hideCarousel = true
-  #   homepage.ee?.User?.user?.home_page?.carousel = carousel
+  #   homepage.ee?.User?.user?.home_carousel = carousel
   #   restore = () ->
   #     homepage.hideCarousel = false
   #     $scope.$apply()

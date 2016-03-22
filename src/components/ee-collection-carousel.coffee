@@ -29,7 +29,7 @@ module.directive "eeCollectionCarousel", () ->
       if data.direction is 'right' then scope.select(scope.activeIndex + 1)
 
     scope.$on 'user:updated', (e, user) ->
-      scope.collections = user.home_page.carousel
+      scope.collections = user.home_carousel
       if scope.activeIndex >= scope.collections.length then scope.activeIndex = scope.collections.length - 1
       if scope.activeIndex < 0 then scope.activeIndex = 0
 

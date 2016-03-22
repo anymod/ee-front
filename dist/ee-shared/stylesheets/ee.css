@@ -9664,6 +9664,9 @@ html {
 .max-width-80 {
   max-width: 80px;
 }
+.max-width-100 {
+  max-width: 100px;
+}
 .max-width-120 {
   max-width: 120px;
 }

@@ -71,48 +71,55 @@ angular.module('builder.core').factory 'eeUser', ($rootScope, $q, $cookies, eeAu
     _updateUser({ id: _data.user.id, completed_steps: _data.user.completed_steps })
     if $rootScope.isProduction then $rootScope.keenio.addEvent 'checkbox', keenio
 
-  moveBetween = (fromArr, fromIndex, toArr, toIndex) ->
+  _moveBetween = (fromArr, fromIndex, toArr, toIndex) ->
     obj = fromArr.splice(fromIndex, 1)[0]
     toArr.splice toIndex, 0, obj
 
-  moveWithin = (arr, index, n) ->
+  _moveWithin = (arr, index, n) ->
     return if index >= arr.length
     arr.splice(index + n, 0, arr.splice(index, 1)[0])
 
+  _updateHomepage = () ->
+    payload = { id: _data.user.id }
+    for attr in ['home_carousel','home_arranged','home_hidden']
+      payload[attr] = []
+      for collection in _data.user[attr]
+        payload[attr].push parseInt(collection.id)
+    _updateUser(payload, true )
+
   $rootScope.$on 'move:homepage:collection', (e, data) ->
     # data = { section: string, collection: obj, direction: string }
-    return unless _data?.user?.home_page and data.section and data.collection and data.direction
-    index = _data.user.home_page[data.section].indexOf data.collection
-    length = _data.user.home_page[data.section].length
+    return unless _data?.user?.home_carousel and data.section and data.collection and data.direction
+    index = _data.user[data.section].indexOf data.collection
+    length = _data.user[data.section].length
     switch data.section
-      when 'carousel'
+      when 'home_carousel'
         switch data.direction
-          when 'left' then moveWithin _data.user.home_page.carousel, index, -1
-          when 'right' then moveWithin _data.user.home_page.carousel, index, 1
-          when 'down' then moveBetween _data.user.home_page.carousel, index, _data.user.home_page.arranged, 0
-      when 'arranged'
+          when 'left' then _moveWithin _data.user.home_carousel, index, -1
+          when 'right' then _moveWithin _data.user.home_carousel, index, 1
+          when 'down' then _moveBetween _data.user.home_carousel, index, _data.user.home_arranged, 0
+      when 'home_arranged'
         switch data.direction
           when 'up'
-            if index is 0 then moveBetween _data.user.home_page.arranged, index, _data.user.home_page.carousel, 0
-            moveWithin _data.user.home_page.arranged, index, -1
-          when 'down' then moveWithin _data.user.home_page.arranged, index, 1
-    _updateUser({ id: _data.user.id, home_page: _data.user.home_page }, true )
+            if index is 0 then _moveBetween _data.user.home_arranged, index, _data.user.home_carousel, 0
+            _moveWithin _data.user.home_arranged, index, -1
+          when 'down' then _moveWithin _data.user.home_arranged, index, 1
+    _updateHomepage()
 
   $rootScope.$on 'hide:homepage:collection', (e, data) ->
     # data = { section: string, collection: obj }
-    return unless _data?.user?.home_page and data.section and data.collection
-    index = _data.user.home_page[data.section].indexOf data.collection
-    moveBetween _data.user.home_page[data.section], index, _data.user.home_page.hidden, 0
-    _updateUser({ id: _data.user.id, home_page: _data.user.home_page }, true )
+    return unless _data?.user?.home_carousel and data.section and data.collection
+    index = _data.user[data.section].indexOf data.collection
+    _moveBetween _data.user[data.section], index, _data.user.home_hidden, 0
+    _updateHomepage()
 
   $rootScope.$on 'show:homepage:collection', (e, data) ->
     # data = { collection: obj }
-    return unless _data?.user?.home_page and data.collection
-    index = _data.user.home_page.hidden.indexOf data.collection
+    return unless _data?.user?.home_carousel and data.collection
+    index = _data.user.home_hidden.indexOf data.collection
     return if index < 0
-    moveBetween _data.user.home_page.hidden, index, _data.user.home_page.arranged, _data.user.home_page.arranged.length
-    _updateUser({ id: _data.user.id, home_page: _data.user.home_page }, true )
-
+    _moveBetween _data.user.home_hidden, index, _data.user.home_arranged, _data.user.home_arranged.length
+    _updateHomepage()
 
   ## EXPORTS
   data: _data
