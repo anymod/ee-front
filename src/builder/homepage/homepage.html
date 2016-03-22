@@ -64,20 +64,6 @@
 <div ng-hide="homepage.ee.Collections.reading || homepage.ee.Collections.creating"
   class="container max-width-900 text-center vert-50 margin-top-0">
 
-  <!-- <div class="full-width text-center margin-0">
-    <uib-pagination ng-if="homepage.ee.Collections.count > homepage.ee.Collections.perPage"
-      total-items="homepage.ee.Collections.count"
-      items-per-page="homepage.ee.Collections.perPage"
-      ng-model="homepage.ee.Collections.page"
-      max-size="5"
-      class="pagination-sm margin-0 vertical-align-top"
-      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-      boundary-links="true"
-      rotate="false"
-      ng-change="homepage.update()">
-    </uib-pagination>
-  </div> -->
-
   <div class="vert-20">
     <!-- Carousel -->
     <ee-collection-carousel
@@ -102,28 +88,14 @@
       <h4 class="white-color font-weight-200 text-center">Hidden Collections</h4>
       <p class="white-color">These collections are not currently visible in your store.</p>
       <ee-collection-for-builder
-        ng-if="homepage.ee.User.user.home_hidden && !collection.removed"
         ng-repeat="collection in homepage.ee.User.user.home_hidden"
+        ng-if="homepage.ee.User.user.home_hidden && !collection.removed"
         section="home_hidden"
         collection="collection">
       </ee-collection-for-builder>
     </div>
     <!-- /Hidden -->
   </div>
-
-  <!-- <div class="full-width text-center margin-0">
-    <uib-pagination ng-if="homepage.ee.Collections.count > homepage.ee.Collections.perPage"
-      total-items="homepage.ee.Collections.count"
-      items-per-page="homepage.ee.Collections.perPage"
-      ng-model="homepage.ee.Collections.page"
-      max-size="5"
-      class="pagination-sm margin-0 vertical-align-top"
-      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-      boundary-links="true"
-      rotate="false"
-      ng-change="homepage.update()">
-    </uib-pagination>
-  </div> -->
 
 </div>
 

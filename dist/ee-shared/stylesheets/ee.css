@@ -9797,6 +9797,13 @@ html {
 .hover-trigger:hover .hover-visible {
   opacity: 1;
 }
+.hover-cover {
+  z-index: 1000;
+}
+.hover-trigger:hover .hover-cover,
+.hover-trigger:focus .hover-cover {
+  z-index: -1;
+}
 .no-transition {
   transition: none;
 }
