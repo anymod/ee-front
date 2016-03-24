@@ -1,31 +1,16 @@
 'use strict'
 
-angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeDefiner, eeCollections, eeLanding, eeModal) ->
+angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeDefiner, eeCollections, eeLanding) ->
 
   create = this
 
-  create.ee           = eeDefiner.exports
-  create.landingData  = eeLanding.data
-  create.themes       = eeLanding.themes
-  create.meta         = eeLanding.data.meta
-  create.modalFns     = eeModal.fns
+  create.ee       = eeDefiner.exports
+  create.data     = eeLanding.data
 
   create.alert  = ''
   setBtnText    = (txt) -> create.btnText = txt
   resetBtnText  = ()    -> setBtnText 'Finished'
   resetBtnText()
-
-  ## Section 2
-  create.setTheme = (theme, set) ->
-    create.meta.themeSet = set
-    create.landingData.theme.primary    = theme.primary
-    create.landingData.theme.secondary  = theme.secondary
-    create.landingData.theme.tertiary   = theme.tertiary
-    create.meta.brand.color.primary     = create.landingData.theme.primary
-    create.meta.brand.color.secondary   = create.landingData.theme.secondary
-    create.meta.brand.color.tertiary    = create.landingData.theme.tertiary
-
-  create.setTheme create.landingData.theme
 
   create.btnText = 'Finished'
   create.complete = () ->
@@ -34,9 +19,9 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeDef
     setBtnText 'Sending...'
     data =
       theme:
-        primary:    create.meta?.brand?.color?.primary
-        secondary:  create.meta?.brand?.color?.secondary
-        tertiary:   create.meta?.brand?.color?.tertiary
+        primary:    create.data.user.storefront_meta?.brand?.color?.primary
+        secondary:  create.data.user.storefront_meta?.brand?.color?.secondary
+        tertiary:   create.data.user.storefront_meta?.brand?.color?.tertiary
       username: create.username
       password: create.password
     eeAuth.fns.completeNewUser data, $state.params.token
@@ -51,12 +36,11 @@ angular.module('builder.create').controller 'createCtrl', ($state, eeAuth, eeDef
 
   create.update = () -> eeCollections.fns.update({ signup: true })
 
-  ## TODO Confirm or redirect
-
   eeAuth.fns.setUserFromCreateToken()
   .then () ->
     if !create.ee.Collections.collections or create.ee.Collections.collections.length < 1
       eeCollections.fns.searchPublic({ signup: true })
+      .then () -> eeCollections.fns.shuffleCollections()
   .catch (err) -> $state.go 'login'
 
   return

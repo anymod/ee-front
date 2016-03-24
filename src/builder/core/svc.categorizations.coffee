@@ -3,7 +3,8 @@
 angular.module('builder.core').factory 'eeCategorizations', (eeBack, eeAuth, eeUser) ->
 
   ## SETUP
-  # none
+  _imports =
+    User: eeUser.data
 
   ## PRIVATE EXPORT DEFAULTS
   _data =
@@ -13,7 +14,6 @@ angular.module('builder.core').factory 'eeCategorizations', (eeBack, eeAuth, eeU
 
   ## PRIVATE FUNCTIONS
   _getCategorizations = () ->
-    console.log '_getCategorizations'
     if !!_data.reading then return
     _data.reading = true
     eeBack.fns.categorizationsGET eeAuth.fns.getToken()
@@ -24,11 +24,16 @@ angular.module('builder.core').factory 'eeCategorizations', (eeBack, eeAuth, eeU
     .catch (err) -> _data.count = null
     .finally () -> _data.reading = false
 
+  _categorizationIds = () ->
+    ids = []
+    ids.push n for n in _imports.User.user.categorization_ids
+    ids
+
   _toggleCategory = (category) ->
-    categorization_ids = angular.copy eeUser.data.user.categorization_ids
+    categorization_ids = _categorizationIds()
     index = categorization_ids.indexOf(category.id)
     if index > -1 then categorization_ids.splice(index, 1) else categorization_ids.push(category.id)
-    eeUser.data.user.categorization_ids = categorization_ids
+    _imports.User.user.categorization_ids = categorization_ids
     eeUser.fns.updateUser({ categorization_ids: categorization_ids })
 
 

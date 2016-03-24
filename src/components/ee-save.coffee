@@ -11,11 +11,16 @@ angular.module('ee-save').directive "eeSave", ($state, eeDefiner, eeUser) ->
     resetBtnText  = ()    -> setBtnText 'Save'
     resetBtnText()
 
-    scope.$watch 'ee.User.user', (newVal, oldVal) ->
-      if oldVal and oldVal.email and !angular.equals(newVal, oldVal)
-        scope.ee.unsaved = true
-        resetBtnText()
-    , true
+    getDefaults = () ->
+      scope.ee.User.payloadDefaults
+
+    for attr in scope.ee.User.payloadDefaults
+      watch = 'ee.User.user.' + attr
+      scope.$watch watch, (newVal, oldVal) ->
+        if oldVal and !angular.equals(newVal, oldVal)
+          scope.ee.unsaved = true
+          resetBtnText()
+      , true
 
     scope.save = () ->
       setBtnText 'Saving'
@@ -23,7 +28,6 @@ angular.module('ee-save').directive "eeSave", ($state, eeDefiner, eeUser) ->
       .then () ->
         scope.ee.unsaved = false
         setBtnText 'Saved'
-        # $state.go 'dashboard'
       .catch () ->
         scope.ee.unsaved = true
         setBtnText 'Error'

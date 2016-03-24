@@ -44,6 +44,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, $cookies, eeA
     'logout'
     'reset'
     'foothill'
+    'collectionpreview'
   ]
 
   isOpen    = (state) -> openStates.indexOf(state) > -1

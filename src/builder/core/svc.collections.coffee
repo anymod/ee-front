@@ -47,6 +47,15 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, $window
       _data.reading = false
     deferred.promise
 
+  _shuffleCollections = () ->
+    i = _data.collections.length
+    while --i > 0
+      j = ~~(Math.random() * (i + 1))
+      t = _data.collections[j]
+      _data.collections[j] = _data.collections[i]
+      _data.collections[i] = t
+    _data.collections
+
   _resetCollections = () ->
     _data.collections       = []
     _data.nav.carousel      = []
@@ -216,6 +225,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, $window
       _runQuery opts
 
     resetCollections:     _resetCollections
+    shuffleCollections:   _shuffleCollections
     createCollection:     _createCollection
     readCollection:       _readCollection
     updateCollection:     _updateCollection

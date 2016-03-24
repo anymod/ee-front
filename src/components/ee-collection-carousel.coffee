@@ -12,8 +12,9 @@ module.directive "eeCollectionCarousel", () ->
 
     scope.activeIndex = null
     scope.select = (index) ->
-      if index < 0 then index = scope.collections.length - 1
-      if index >= scope.collections.length then index = 0
+      length = scope.collections.length
+      if index < 0 then index = length - 1
+      if index >= length then index = 0
       scope.activeIndex = index
       collection.active = false for collection in scope.collections
       scope.collections[index].active = true
@@ -24,7 +25,7 @@ module.directive "eeCollectionCarousel", () ->
     scope.select 0
 
     scope.$on 'move:homepage:collection', (e, data) ->
-      return unless data.section is 'carousel'
+      return unless data.section is 'home_carousel'
       if data.direction is 'left' then scope.select(scope.activeIndex - 1)
       if data.direction is 'right' then scope.select(scope.activeIndex + 1)
 

@@ -1,5 +1,5 @@
 <div class="position-absolute" style="top: 0; left: 0; z-index: 10">
-  <span class="fa-stack fa-2x hover-pointer" ui-sref="collectionsAdd()">
+  <span class="fa-stack fa-2x hover-pointer" ng-click="collection.back()">
     <i class="fa fa-circle fa-stack-2x text-info"></i>
     <i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>
   </span>
@@ -9,6 +9,21 @@
 <div class="container">
   <div class="vert-50">
     <ee-builder-section-heading heading="Collection products" heading-class="text-success"></ee-builder-section-heading>
+
+    <!-- <pre>{{ collection.preview | json}}</pre> -->
+
+    <div class="full-width text-center">
+      <div class="btn btn-default vert-5"
+        ng-click="collection.add()"
+        ng-hide="collection.preview.cloned">
+        Add collection to store
+      </div>
+      <div class="btn btn-info vert-5"
+        ng-click="collection.remove()"
+        ng-show="collection.preview.cloned">
+        <i class="fa fa-check-circle"></i>&nbsp;Added to store
+      </div>
+    </div>
 
     <div class="full-width text-center margin-0">
       <uib-pagination ng-if="collection.preview.count > collection.preview.perPage"
@@ -26,12 +41,12 @@
 
     <div class="vert-10 text-center" ng-hide="collection.preview.reading">
       <ee-product-for-builder
-        ng-repeat="product in collection.preview.products"
+        ng-repeat="product in collection.preview.collection.products"
         product="product"
         collection="collection.preview.collection"
         hide-buttons="true">
       </ee-product-for-builder>
-      <h4 class="font-weight-200" ng-show="collection.preview.products.length < 1">No products in this collection</h4>
+      <h4 class="font-weight-200" ng-show="collection.preview.collection.products.length < 1">No products in this collection</h4>
     </div>
 
     <div class="full-width text-center margin-0" ng-hide="collection.preview.reading">
@@ -51,4 +66,4 @@
 </div>
 <!-- /Collection preview -->
 
-<ee-loading loading="collection.preview.reading"></ee-loading>
+<ee-loading loading="collection.preview.collection.reading"></ee-loading>

@@ -14,6 +14,7 @@
             <a ng-if="account.ee.User.user.username" href="http://{{ account.ee.User.user.username }}.eeosk.com" target="_blank" class="inline-block vert-5 margin-top-0">
               http://{{ account.ee.User.user.username }}.eeosk.com
             </a>
+            <div ng-if="!account.ee.User.user.username" class="alert alert-info vert-5">Add a Store URL</div>
             <!-- <div ng-show="username && username.length > 4">
               Your store will be available at
               <h4 class='vert-2'><small><i class="fa fa-fw fa-globe"></i>http://</small>{{ username }}<small>.eeosk.com</small></h4>
@@ -108,7 +109,7 @@
         <div class="form-group vert-5">
           <div class="col-sm-5 col-sm-offset-3">
             <alert ng-if="account.ee.User.err.message" ng-bind="account.ee.User.err.message" type="info" close="closeAlert($index)"></alert>
-            <ee-save></ee-save>
+            <ee-save ng-hide="!account.ee.User.user.username"></ee-save>
           </div>
         </div>
 

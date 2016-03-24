@@ -3,10 +3,16 @@
 angular.module('builder.core').factory 'eeUser', ($rootScope, $q, $cookies, eeAuth, eeBack) ->
 
   ## SETUP
-  # none
+  _payloadDefaults = [
+    'storefront_meta',
+    'username',
+    'domain',
+    'categorization_ids'
+  ]
 
   ## PRIVATE EXPORT DEFAULTS
   _data =
+    payloadDefaults: _payloadDefaults
     creating:   false
     reading:    false
     updating:   false
@@ -23,13 +29,16 @@ angular.module('builder.core').factory 'eeUser', ($rootScope, $q, $cookies, eeAu
       $rootScope.$broadcast 'user:set'
     .finally () -> _data.reading = false
 
-  _updateUser = (payload, skipAssignment) ->
+  _updateUser = (payload, reassign) ->
     if _data.updating then return
     _data.err = null
     _data.updating = true
-    eeBack.fns.usersPUT (payload || _data.user), eeAuth.fns.getToken()
+    if !payload
+      payload = {}
+      payload[attr] = _data.user[attr] for attr in _payloadDefaults
+    eeBack.fns.usersPUT payload, eeAuth.fns.getToken()
     .then (user) ->
-      unless skipAssignment
+      if reassign
         _data.user[key] = user[key] for key in Object.keys(user)
     .catch (err) ->
       _data.err = err
@@ -85,7 +94,7 @@ angular.module('builder.core').factory 'eeUser', ($rootScope, $q, $cookies, eeAu
       payload[attr] = []
       for collection in _data.user[attr]
         payload[attr].push parseInt(collection.id)
-    _updateUser(payload, true )
+    _updateUser payload
 
   $rootScope.$on 'move:homepage:collection', (e, data) ->
     # data = { section: string, collection: obj, direction: string }

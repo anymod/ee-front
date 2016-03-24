@@ -35,7 +35,7 @@
         <br>
         <div ng-show="section == 'home_arranged' || section == 'home_carousel'">
           <h4 class="white-color vert-5">Move collection</h4>
-          <div class="btn btn-default" ng-click="move('up')" ng-show="section == 'home_arranged' && (!first || collection.banner)"><i class="fa fa-fw fa-long-arrow-up"></i></div>
+          <div class="btn btn-default" ng-click="move('up')" ng-show="section == 'home_arranged' && (!first || (collection.banner && collection.show_banner))"><i class="fa fa-fw fa-long-arrow-up"></i></div>
           <div class="btn btn-default" ng-click="move('left')" ng-show="section == 'home_carousel'" ng-disabled="first"><i class="fa fa-fw fa-long-arrow-left"></i></div>
           <div class="btn btn-default" ng-click="move('down')" ng-show="section == 'home_arranged' || section == 'home_carousel'" ng-disabled="last && section == 'home_arranged'"><i class="fa fa-fw fa-long-arrow-down"></i></div>
           <div class="btn btn-default" ng-click="move('right')" ng-show="section == 'home_carousel'" ng-disabled="last"><i class="fa fa-fw fa-long-arrow-right"></i></div>
@@ -52,7 +52,7 @@
         <h3 class="white-color margin-0">Collection</h3>
         <div class="btn btn-default vert-5" ng-click="add()" ng-hide="collection.cloned">Add to store</div>
         <div class="btn btn-info vert-5" ng-click="remove()" ng-show="collection.cloned"><i class="fa fa-check-circle"></i>&nbsp;Added</div>
-        <br><a href class="btn btn-default" ui-sref="collectionpreview({ id: collection.id })">View Products</a>
+        <br><a href class="btn btn-default" ui-sref="collectionpreview({ id: collection.id })" ng-hide="collection.cloned">View Products</a>
       </div>
       <!-- /Add overlay -->
 

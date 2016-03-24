@@ -1,49 +1,49 @@
 <!-- style for example -->
-<style ng-if="create.meta">
-  .navbar.ee-store-subnav { background-color: {{ create.meta.brand.color.secondary }}; }
+<style ng-if="create.data.user.storefront_meta">
+  .navbar.ee-store-subnav { background-color: {{ create.data.user.storefront_meta.brand.color.secondary }}; }
   .navbar.ee-store-subnav .nav > li > a {
-    color: {{ create.meta.brand.color.tertiary }};
-    border-bottom: 5px solid {{ create.meta.brand.color.tertiary }};
+    color: {{ create.data.user.storefront_meta.brand.color.tertiary }};
+    border-bottom: 5px solid {{ create.data.user.storefront_meta.brand.color.tertiary }};
   }
 </style>
 <!-- /style for example -->
 
-<div class="container vert-20">
-  <div class="well white-background box-shadow margin-0-auto">
-    <div style="min-height: 75px; cursor: not-allowed">
-      <!-- STORE navbar -->
-      <ee-storefront-header
-        class="text-left inline-block gray-border full-width"
-        user="{ storefront_meta: create.meta }"
-        blocked="true"
-        fluid="true"
-        style="left:0; right:0; top: 0; z-index: 2;">
-      </ee-storefront-header>
-      <div class="">
-        <div class="inline-block full-width text-center white-background pad-10 pad-top-0">
-          <i class="fa fa-fw fa-caret-up"></i>
-          <small>This is a preview of your store's top bar</small>
-          <i class="fa fa-fw fa-caret-up"></i>
-        </div>
-      </div>
-      <!-- /STORE navbar -->
-    </div>
-    <div class="max-width-600 margin-0-auto">
+<div class="vert-50 margin-top-0">
+
+  <!-- Color picker -->
+  <div class="container">
+    <div class="well white-background box-shadow margin-0-auto max-width-600">
       <h3 class="vert-10 margin-bottom-0 font-weight-200">Choose a starting theme for your store</h3>
-      <p class="vert-10 font-weight-200">Select colors below to change wwhat your store's top bar will look like. You can edit your design, logo, and colors in more detail once you're set up.</p>
+      <p class="vert-10 font-weight-200">Select colors below to change what your store's top bar will look like. You can edit your logo, colors, and product categories in more detail once you're set up.</p>
       <div style="width: 354px;">
         <ee-web-colorpicker class="text-left"
-          dab-primary="create.meta.brand.color.primary"
-          dab-secondary="create.meta.brand.color.secondary"
-          dab-tertiary="create.meta.brand.color.tertiary"
+          dab-secondary="create.data.user.storefront_meta.brand.color.secondary"
+          dab-tertiary="create.data.user.storefront_meta.brand.color.tertiary"
           dab-dimension="27">
         </ee-web-colorpicker>
       </div>
     </div>
   </div>
+  <!-- /Color picker -->
 
-  <br>
+  <!-- Store header -->
+  <div class="vert-20">
+    <ee-storefront-header
+      class="text-left inline-block gray-border full-width"
+      user="create.data.user"
+      blocked="true"
+      fluid="true"
+      style="left:0; right:0; top: 0; z-index: 2; cursor: not-allowed">
+    </ee-storefront-header>
+    <div class="inline-block full-width text-center white-background pad-10 pad-top-0">
+      <i class="fa fa-fw fa-caret-up"></i>
+      <small>This is a preview of your store's top bar</small>
+      <i class="fa fa-fw fa-caret-up"></i>
+    </div>
+  </div>
+  <!-- /Store header -->
 
+  <!-- Signup form -->
   <div class="max-width-600 margin-0-auto text-center">
     <div class="well white-background box-shadow">
       <h3 class="margin-0 font-weight-200">
@@ -88,4 +88,5 @@
       Password should be at least 8 characters long.
     </h4>
   </div>
+  <!-- /Signup form -->
 </div>

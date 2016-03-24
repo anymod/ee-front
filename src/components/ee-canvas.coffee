@@ -167,7 +167,7 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections, eeU
         when 'logo'
           scope.user.logo = data.url
           scope.user.logo_canvas = json
-          eeUser.fns.updateUser()
+          eeUser.fns.updateUser({ logo: data.url, logo_canvas: json })
           .then () ->
             scope.saving = false
             scope.unsaved = false

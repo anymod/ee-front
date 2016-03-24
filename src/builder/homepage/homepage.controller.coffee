@@ -4,12 +4,12 @@ angular.module('builder.homepage').controller 'homepageCtrl', ($state, eeDefiner
 
   homepage = this
 
+  eeUser.fns.defineUser true
+
   homepage.ee    = eeDefiner.exports
   homepage.fns   = eeCollections.fns
   homepage.modalFns = eeModal.fns
   homepage.state = $state.current.name
-
-  eeUser.fns.defineUser true
 
   # eeCollections.fns.resetCollections()
   # eeCategorizations.fns.getCategorizations()
