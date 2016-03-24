@@ -1,10 +1,12 @@
 'use strict'
 
-angular.module('builder.example').controller 'exampleCtrl', () ->
+angular.module('builder.example').controller 'exampleCtrl', (categories) ->
 
   storefront = this
 
   storefront.ee = {}
+
+  storefront.categories = categories
 
   storefront.ee.User =
     user:

@@ -24,7 +24,7 @@ angular.module('ee-builder-navbar').directive "eeBuilderNavbar", ($window, $stat
 
     switch $state.current?.name
       when 'daily', 'date', 'tracks', 'track', 'brand', 'store', 'start' then scope.btn1Active = true
-      when 'homepage', 'settings', 'editabout' then scope.btn2Active = true
+      when 'homepage', 'settings', 'editabout', 'editseo' then scope.btn2Active = true
       when 'orders' then scope.btn3Active = true
       when 'account' then scope.btn4Active = true
 

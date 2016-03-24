@@ -58,4 +58,17 @@ angular.module('builder.edit').config ($stateProvider) ->
         pageDescription:  'Edit the look and feel of your online store.'
         padTop:           '111px'
 
+    .state 'editseo',
+      url: '/edit/seo'
+      views:
+        header:
+          controller: 'storefrontCtrl as storefront'
+          templateUrl: 'builder/edit/edit.header.html'
+        top:
+          controller: 'editCtrl as edit'
+          templateUrl: 'builder/edit/edit.seo.html'
+      data:
+        pageTitle: 'Edit your logo | eeosk'
+        padTop:    '111px'
+
   return
