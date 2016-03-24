@@ -1,26 +1,40 @@
 <!-- Message -->
-<div class="container-fluid text-center pad-20 position-relative"
-  ng-hide="homepage.ee.User.reading || hideContainer">
-  <h4 class="font-weight-200">
-    A preview of your home page is shown below.
-    <br>
-    Your store is live at:
-  </h4>
-  <!-- Domain -->
-  <ee-builder-live-button
-    ng-if="homepage.ee.User.user"
-    message="target"
-    btn-class="btn btn-success"
-    user="homepage.ee.User.user">
-  </ee-builder-live-button>
-  <div class="vert-5 margin-bottom-0">
-    <a ui-sref="collectionsAdd" class="btn btn-link pad-5">Add a collection</a>
-    <a ui-sref="account" class="btn btn-link pad-5">Change store URL</a>
+<div class="container-fluid text-center pad-10 position-relative"
+  ng-hide="homepage.ee.User.reading">
+  <div ng-hide="hideContainer" class="vert-20 margin-top-0">
+    <!-- Domain -->
+    <h4 ng-if="homepage.ee.User.user" class="font-weight-200">Your store is live at:</h4>
+    <ee-builder-live-button
+      ng-if="homepage.ee.User.user"
+      message="target"
+      btn-class="btn btn-success"
+      user="homepage.ee.User.user">
+    </ee-builder-live-button>
+    <div>
+      <a ui-sref="account" class="btn btn-link pad-5">Change store URL</a>
+    </div>
+    <!-- /Domain -->
+    <div class="vert-10">
+      <a ui-sref="collectionsAdd" class="btn btn-default">Add a collection</a>
+    </div>
   </div>
-  <!-- /Domain -->
+  <div class="container max-width-900 margin-0-auto">
+    <div class="media text-left text-muted" style="margin-right: 20px;">
+      <div class="media-left">
+        <i class="fa fa-2x fa-info-circle"></i>
+      </div>
+      <div class="media-body">
+        <h4 class="inline-block font-weight-200 text-left margin-0">
+          A preview of your home page is shown below.
+          <br>
+          Hover or tap on a section to edit it.
+        </h4>
+      </div>
+    </div>
+  </div>
   <div class="position-absolute hover-pointer pad-10" style="top: 0; right: 3px;"
-    ng-click="hideContainer = true">
-    <i class="fa fa-lg fa-times text-muted"></i>
+    ng-click="hideContainer = !hideContainer">
+    <i class="fa fa-lg text-muted" ng-class="hideContainer ? 'fa-chevron-up' : 'fa-times'"></i>
   </div>
 </div>
 <!-- !Message -->

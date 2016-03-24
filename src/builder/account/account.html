@@ -3,7 +3,15 @@
   <div class="well white-background box-shadow">
     <div class="max-width-600 margin-0-auto">
       <form class="form-horizontal vert-20">
-        <!-- ACCOUNT store url -->
+        <!-- Store title -->
+        <div class="form-group vert-5">
+          <label class="col-sm-3 control-label font-weight-200">Store Name</label>
+          <div class="col-sm-5">
+            <input type="text" ng-model="account.ee.User.user.storefront_meta.name" class="form-control" placeholder="Title of your store">
+          </div>
+        </div>
+        <!-- /Store title -->
+        <!-- Store url -->
         <div class="form-group vert-5">
           <label class="col-sm-3 control-label font-weight-200">Store URL</label>
           <div class="col-sm-5">
@@ -15,22 +23,17 @@
               http://{{ account.ee.User.user.username }}.eeosk.com
             </a>
             <div ng-if="!account.ee.User.user.username" class="alert alert-info vert-5">Add a Store URL</div>
-            <!-- <div ng-show="username && username.length > 4">
-              Your store will be available at
-              <h4 class='vert-2'><small><i class="fa fa-fw fa-globe"></i>http://</small>{{ username }}<small>.eeosk.com</small></h4>
-              <hr class="vert-5">
-            </div> -->
           </div>
         </div>
         <div class="form-group vert-5">
           <label class="col-sm-3 control-label font-weight-200">Custom URL</label>
           <div class="col-sm-9">
-            <input disabled type="text" class="form-control" placeholder="http://example.com (coming soon)">
-            If you'd like to set up a custom URL, follow <a href="http://blog.eeosk.com/post/137306568028/setting-up-a-custom-domain-name" target="_blank">this guide</a>.
+            <input type="text" class="form-control" placeholder="example.com" ng-model="account.ee.User.user.domain"/>
+            If you'd like to set up a custom URL, follow <a href="https://eeosk.com/start?activity=10" target="_blank">this guide</a>.
             Once you've done that, <a href="mailto:support@eeosk.com?Subject=Custom%20URL%20for%20{{ account.ee.User.user.username }}.eeosk.com&body=The%20URL%20I%20chose%20is:%20" target="_blank">contact us</a> to let us know what name you chose.
           </div>
         </div>
-        <!-- /ACCOUNT store url -->
+        <!-- /Store url -->
 
         <div class="form-group margin-0">
           <div class="col-sm-offset-3 col-sm-5">
@@ -38,7 +41,7 @@
           </div>
         </div>
 
-        <!-- ACCOUNT login -->
+        <!-- Login -->
         <div class="form-group vert-5">
           <label class="col-sm-3 control-label font-weight-200">Login email</label>
           <div class="col-sm-5">
@@ -60,7 +63,7 @@
             <a ui-sref="edit.social">Add it here</a>
           </div>
         </div>
-        <!-- /ACCOUNT login -->
+        <!-- /Login -->
 
         <div class="form-group margin-0">
           <div class="col-sm-offset-3 col-sm-5">
@@ -68,7 +71,7 @@
           </div>
         </div>
 
-        <!-- ACCOUNT paid to -->
+        <!-- Paid to -->
         <div class="form-group vert-5">
           <label class="col-sm-3 control-label font-weight-200">Earnings paid to</label>
           <div class="col-sm-5">
@@ -85,7 +88,7 @@
             <small>(more options coming soon)</small>
           </div>
         </div>
-        <!-- /ACCOUNT paid to -->
+        <!-- /Paid to -->
 
         <div class="form-group margin-0">
           <div class="col-sm-offset-3 col-sm-5">
@@ -93,7 +96,7 @@
           </div>
         </div>
 
-        <!-- ACCOUNT google analytics ID -->
+        <!-- Google analytics ID -->
         <div class="form-group vert-5">
           <label class="col-sm-3 control-label font-weight-200">Google Analytics ID</label>
           <div class="col-sm-5">
@@ -103,7 +106,7 @@
             </div>
           </div>
         </div>
-        <!-- /ACCOUNT google analytics ID -->
+        <!-- /Google analytics ID -->
 
         <!-- SAVE -->
         <div class="form-group vert-5">
@@ -112,8 +115,8 @@
             <ee-save ng-hide="!account.ee.User.user.username"></ee-save>
           </div>
         </div>
-
         <!-- /SAVE -->
+
       </form>
     </div>
   </div> <!-- /well -->
