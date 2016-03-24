@@ -231,6 +231,7 @@ sources.sharedDirective = [
   './src/ee-shared/components/ee-product-for-store.coffee'
   './src/ee-shared/components/ee-products-in-collection.coffee'
   './src/ee-shared/components/ee-product-images.coffee'
+  './src/ee-shared/components/ee-collection-for-store.coffee'
   './src/ee-shared/components/ee-collection-image-preview.coffee'
   './src/ee-shared/components/ee-loading.coffee'
   './src/ee-shared/components/ee-collection-nav.coffee'

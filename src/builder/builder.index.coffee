@@ -71,6 +71,7 @@ angular.module 'eeBuilder', [
   'ee-product-for-store'
   'ee-products-in-collection'
   'ee-product-images'
+  'ee-collection-for-store'
   'ee-collection-nav'
   'ee-collection-image-preview'
   'ee-order'
