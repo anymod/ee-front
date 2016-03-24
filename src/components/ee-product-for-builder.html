@@ -2,7 +2,7 @@
     class="well product-well text-center inline-block vertical-align-bottom pad-5 margin-2 white-background box-shadow">
   <div class="pad-10 text-left">
     <a ui-sref="productAdd({ id: product.id, title: (product.title | urlText) })">
-      <img ng-src="{{ product.image | cloudinaryResizeTo:120:120 }}" ng-if="!hideButtons" class="full-width gray-border hover-success-border hover-pointer">
+      <img ng-src="{{ product.image | cloudinaryResizeTo:120:120 }}" ng-if="!hideButtons" class="full-width gray-border">
     </a>
     <img ng-src="{{ product.image | cloudinaryResizeTo:120:120 }}" ng-if="hideButtons" class="full-width gray-border"/>
     <div>
@@ -14,6 +14,11 @@
     </div>
   </div>
   <div ng-if="!hideButtons">
-    <ee-product-builder-buttons product="product" collection="collection" button-set="buttonSet" btn-class="full-width btn-group-vertical btn-group-sm"></ee-product-builder-buttons>
+    <ee-product-builder-buttons
+      product="product"
+      collection="collection"
+      button-set="buttonSet"
+      btn-class="full-width btn-group btn-group-justified btn-group-sm">
+    </ee-product-builder-buttons>
   </div>
 </div>

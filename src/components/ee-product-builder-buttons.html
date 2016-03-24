@@ -4,7 +4,11 @@
   </div> -->
   <!-- <a ng-if="buttonSet.indexOf('edit') > -1" ui-sref="productAdd({ id: product.id, title: (product.title | urlText) })" class="btn btn-default font-weight-200 pad-5-important">Edit</a> -->
   <div ng-if="buttonSet.indexOf('add') > -1" class="btn btn-default font-weight-200" ng-click="add()">&nbsp;&nbsp;Add&nbsp;&nbsp;</div>
-  <div ng-if="buttonSet.indexOf('remove') > -1" class="btn btn-default font-weight-200 pad-5-important" ng-click="remove()" ng-class="{ active: buttonSet == 'remove' }">Remove</div>
+  <a ng-if="buttonSet.indexOf('remove') > -1" href="{{ product.image | cloudinaryAttachment }}" class="btn btn-default font-weight-200 pad-5-important" ng-click="download()" style="width:1.55%;">
+    <span class="hidden-xs">Download image</span>
+    <span class="visible-xs"><i class="fa fa-cloud-download"></i> Image</span>
+  </a>
+  <div ng-if="buttonSet.indexOf('remove') > -1" class="btn btn-default font-weight-200" style="padding: 5px 3px;" ng-click="remove()">Remove</div>
 </div>
 
 <div class="btn btn-sm btn-link full-width font-weight-200" ng-click="search(product.title)">
