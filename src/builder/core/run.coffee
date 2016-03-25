@@ -3,6 +3,7 @@
 angular.module('builder.core').run ($rootScope, $state, $location, $cookies, eeAuth, eeUser) ->
   $rootScope.isBuilder = true
   $rootScope.isProduction = $location.host() isnt 'localhost' and $location.host().indexOf('heroku') < 0
+  $rootScope.initialRequest = {}
 
   ## Keen.js
   Keen.ready () ->
@@ -64,7 +65,9 @@ angular.module('builder.core').run ($rootScope, $state, $location, $cookies, eeA
       return
 
     # redirect to login if logged out and restricted
-    if loggedOut and needsAuth(toState.name) then return stopAndRedirectTo('login')
+    if loggedOut and needsAuth(toState.name)
+      $rootScope.initialRequest = { toState: toState, toParams, toParams, redirected: true }
+      return stopAndRedirectTo('login')
     # redirect to storefront if logged in and unrestricted
     if loggedIn and isOpen(toState.name) and !isDual(toState.name) then return stopAndRedirectTo('daily')
     # redirect to /edit/topbar from /edit
