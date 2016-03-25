@@ -164,6 +164,7 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections, eeU
           .then () ->
             scope.saving = false
             scope.unsaved = false
+            scope.$emit 'canvas:save:finished'
         when 'logo'
           scope.user.logo = data.url
           scope.user.logo_canvas = json
@@ -171,6 +172,7 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections, eeU
           .then () ->
             scope.saving = false
             scope.unsaved = false
+            scope.$emit 'canvas:save:finished'
 
     # scope.$on 'collection:updated', (e, data) ->
     #   scope.saving = false
@@ -207,6 +209,7 @@ module.directive "eeCanvas", ($q, $filter, $window, $timeout, eeCollections, eeU
     ### IMAGE OPERATIONS ###
 
     scope.upload = () ->
+      scope.$emit 'canvas:save:started'
       scope.saving = true
       sortLayers()
       json = JSON.stringify(canvas)

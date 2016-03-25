@@ -1,17 +1,23 @@
-<div class="position-relative vert-5 hover-trigger">
+<div class="position-relative vert-5 hover-trigger"
+  ng-class="{ 'gray-border pad-5': collection.products.length > 0 && !collection.show_banner }">
   <!-- banner -->
   <img ng-show="collection.banner && collection.show_banner" ng-src="{{ collection.banner }}" class="full-width vert-5">
   <!-- /banner -->
   <!-- carousel -->
-  <div ng-show="!collection.banner || !collection.show_banner" class="light-gray-background overflow-hidden" style="min-height: 170px; max-height: 350px;">
+  <ee-collection-for-store
+    ng-show="!collection.banner || !collection.show_banner"
+    ng-if="collection.id"
+    collection="collection">
+  </ee-collection-for-store>
+  <!-- <div ng-show="!collection.banner || !collection.show_banner">
     <div ng-repeat="product in products"
-      class="text-left inline-block vertical-align-top vert-10">
-      <ee-product-for-store product="product" ng-class="{ 'hidden-xs': $last }"></ee-product-for-store>
+      class="homepage-product text-left inline-block vertical-align-top vert-10">
+      <ee-product-for-store product="product"></ee-product-for-store>
     </div>
     <div ng-if="products.length < 1" class="inline-block vert-50 text-muted">
       <i class="fa fa-fw fa-lg fa-info-circle"></i>&nbsp;No products in this collection
     </div>
-  </div>
+  </div> -->
   <!-- /carousel -->
 
   <div class="position-absolute top-left-bottom-right-0 hover-cover transition-200"></div>

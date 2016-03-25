@@ -10,8 +10,6 @@ angular.module('builder.collections').controller 'collectionCtrl', ($window, $sc
   collection.productsFns = eeProducts.fns
   collection.id     = parseInt($stateParams.id)
   collection.state  = $state.current.name
-  # collection.tab    = 'canvas'
-  # collection.editImage = false
 
   if !collection.id then $state.go 'homepage'
 
@@ -24,19 +22,6 @@ angular.module('builder.collections').controller 'collectionCtrl', ($window, $sc
     else
       eeCollection.fns.search collection.id, true
       .catch (err) -> $state.go 'homepage'
-
-  # collection.showCanvas = () ->
-  #   collection.tab = 'canvas'
-  #
-  # collection.showIn = () ->
-  #   collection.tab = 'in'
-  #   eeCollection.fns.search collection.id
-  #   .catch (err) -> $state.go 'collections'
-  #
-  # collection.showAdd = () ->
-  #   collection.tab = 'add'
-  #   eeProducts.fns.runSection 'search'
-  #   .catch (err) -> $state.go 'collections'
 
   collection.save = () ->
     collection.fns.updateCollection()
@@ -63,6 +48,9 @@ angular.module('builder.collections').controller 'collectionCtrl', ($window, $sc
       eeCollections.fns.readPublicCollection collection.preview.collection
       # collection.preview.collection[key] = initialCollection[key] for key in Object.keys(collection.preview.collection)
       collection.preview.collection.removed = true
+
+  $scope.$on 'canvas:save:started', ()  -> collection.saving = true
+  $scope.$on 'canvas:save:finished', () -> collection.saving = false
 
 
 

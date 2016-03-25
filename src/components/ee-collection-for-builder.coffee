@@ -14,13 +14,13 @@ module.directive "eeCollectionForBuilder", (eeCollections) ->
   link: (scope, ele, attrs) ->
     initialCollection = angular.copy scope.collection
     scope.collectionsFns = eeCollections.fns
-    scope.products = []
+    scope.collection.products = []
 
     populateProductCarousel = () ->
       eeCollections.fns.readCollection scope.collection.id
       .then (res) ->
         return if !res.rows
-        scope.products = res.rows.slice(0,3)
+        scope.collection.products = res.rows.slice(0,8)
 
     populateProductCarousel() if scope.collection?.id and (!scope.collection.banner || !scope.collection.show_banner)
 
