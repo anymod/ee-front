@@ -329,3 +329,10 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
         url: eeBackUrl + 'tracks/' + id
         headers: authorization: token
       }
+
+    dailyActivityGET: (token) ->
+      _makeRequest {
+        method: 'GET'
+        url: eeBackUrl + 'activities/random'
+        headers: authorization: token
+      }

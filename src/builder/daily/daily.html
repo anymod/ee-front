@@ -1,36 +1,24 @@
 <!-- Main nav -->
-<!-- <div ng-hide="daily.ee.User.reading" class="container vert-20 margin-bottom-0">
+<div ng-hide="daily.ee.User.reading" class="container max-width-900 vert-20 margin-bottom-0">
   <div class="well white-background box-shadow margin-0" style="min-height: 115px;">
-    <div class="row">
-      <div class="col col-sm-6">
-        <div class="inline-block"
-          style="max-width: 280px; max-height: 80px; overflow: hidden; vertical-align: middle;">
-          <ee-storefront-logo
-            ng-if="daily.ee.User.user"
-            class="pad-10 vert-5 margin-top-0"
-            blocked="true"
-            meta="daily.ee.User.user.storefront_meta"
-            ui-sref="editdesign">
-          </ee-storefront-logo>
+    <h4 class="font-weight-200 full-width text-center">Daily activity to help your store:</h4>
+    <div ng-hide="daily.ee.Tracks.reading">
+      <div ng-if="daily.ee.Tracks.dailyActivity.id">
+        <uib-accordion close-others="false">
+          <ee-builder-activity activity="daily.ee.Tracks.dailyActivity"></ee-builder-activity>
+        <uib-accordion>
+        <div ng-if="daily.ee.Tracks.dailyActivity.track.id"
+          class="vert-5 margin-bottom-0 text-muted text-right">
+          <em>
+            more for&nbsp;<a ui-sref="track({ id: daily.ee.Tracks.dailyActivity.track.id, title: (daily.ee.Tracks.dailyActivity.track.title | urlText) })" ng-bind="daily.ee.Tracks.dailyActivity.track.title"></a>
+          </em>
         </div>
-
-        <a ui-sref="edit" class="btn btn-sm btn-default">Edit store</a>
       </div>
-      <div class="col col-sm-6 text-right">
-        Your store is live at
-        <br>
-        <ee-builder-live-button
-          ng-if="daily.ee.User.user"
-          message="target"
-          class="inline-block vert-2"
-          user="daily.ee.User.user">
-        </ee-builder-live-button>
-        <br>
-        <a ui-sref="account"><small>Change store URL</small></a>
-      </div>
+      <div ng-show="!daily.ee.Tracks.dailyActivity.id">No activities found</div>
     </div>
+    <ee-loading loading="daily.ee.Tracks.reading"></ee-loading>
   </div>
-</div> -->
+</div>
 <!-- /Main nav -->
 
 <ee-loading loading="daily.ee.User.reading"></ee-loading>

@@ -13,7 +13,7 @@ angular.module('app.core').factory 'eeTracks', ($rootScope, $q, eeBack, eeAuth) 
     tracks:   []
     inputs:   angular.copy _inputDefaults
     reading:  false
-    lastCollectionAddedTo: null
+    dailyActivity: null
 
   ## PRIVATE FUNCTIONS
   _clearSection = () ->
@@ -39,6 +39,16 @@ angular.module('app.core').factory 'eeTracks', ($rootScope, $q, eeBack, eeAuth) 
     .catch (err) -> _data.count = null
     .finally () -> _data.reading = false
 
+  _getDailyActivity = (force) ->
+    if _data.dailyActivity then return _data.dailyActivity
+    _data.reading = true
+    eeBack.fns.dailyActivityGET eeAuth.fns.getToken()
+    .then (activity) ->
+      _data.dailyActivity = activity
+      activity
+    .catch (err) -> console.log err
+    .finally () -> _data.reading = false
+
   ## MESSAGING
   # none
 
@@ -47,4 +57,5 @@ angular.module('app.core').factory 'eeTracks', ($rootScope, $q, eeBack, eeAuth) 
   fns:
     runQuery: _runQuery
     runSection: _runQuery
+    getDailyActivity: _getDailyActivity
     # clearSearch: () -> _searchWithTerm ''
