@@ -5,7 +5,11 @@
     <div ng-hide="daily.ee.Tracks.reading">
       <div ng-if="daily.ee.Tracks.dailyActivity.id">
         <uib-accordion close-others="false">
-          <ee-builder-activity activity="daily.ee.Tracks.dailyActivity"></ee-builder-activity>
+          <ee-builder-activity
+            track="daily.ee.Tracks.dailyActivity.track"
+            activity="daily.ee.Tracks.dailyActivity"
+            completed-steps="daily.ee.User.user.completed_steps">
+          </ee-builder-activity>
         <uib-accordion>
         <div ng-if="daily.ee.Tracks.dailyActivity.track.id"
           class="vert-5 margin-bottom-0 text-muted text-right">
