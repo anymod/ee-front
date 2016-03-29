@@ -11,6 +11,7 @@ angular.module('ee-builder-activity').directive "eeBuilderActivity", ($filter, $
     completedSteps: '='
     startOpen: '@'
     isGuide: '@'
+    isUnassigned: '@'
   link: (scope, ele, attrs) ->
     scope.query = $location.search()
     scope.completedSteps ||= []

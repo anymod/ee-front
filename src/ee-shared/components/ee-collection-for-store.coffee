@@ -8,4 +8,5 @@ module.directive "eeCollectionForStore", () ->
   scope:
     collection: '='
   link: (scope, ele, attrs) ->
+    console.log scope.collection
     return

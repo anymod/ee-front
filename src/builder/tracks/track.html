@@ -1,6 +1,6 @@
 <ee-builder-track-nav></ee-builder-track-nav>
 
-<div class="container-fluid max-width-900" ng-hide="track.ee.Tracks.reading">
+<div class="container-fluid max-width-900" ng-hide="track.ee.Tracks.reading || !track.data.track.id">
   <div class="row text-center">
     <ee-guide-button
       ng-repeat="activity in track.data.track.guides"
@@ -11,7 +11,7 @@
   </div>
 
   <!-- Activities -->
-  <div class="row pad-10">
+  <div class="row pad-10 pad-bottom-0">
     <uib-accordion class="track-accordion" close-others="false">
       <ee-builder-activity
         ng-repeat="activity in track.data.track.activities"
@@ -23,6 +23,20 @@
     </uib-accordion>
   </div>
   <!-- /Activities -->
+
+  <!-- Unassigned Steps -->
+  <div class="row pad-10 pad-top-0"
+    ng-if="track.data.track.unassigned_steps.length > 0">
+    <uib-accordion class="track-accordion" close-others="false">
+      <ee-builder-activity
+        track="track.data.track"
+        activity="{ id: 0, title: track.data.track.title_for_unassigned, show: true, steps: track.data.track.unassigned_steps }"
+        completed-steps="track.ee.User.user.completed_steps"
+        is-unassigned="true">
+      </ee-builder-activity>
+    </uib-accordion>
+  </div>
+  <!-- /Unassigned Steps -->
 
 </div>
 
