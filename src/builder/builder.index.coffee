@@ -29,6 +29,7 @@ angular.module 'eeBuilder', [
   'builder.terms'
   'builder.daily'
   'builder.tracks'
+  'builder.brand'
   'builder.start'
   'builder.date'
   'builder.storefront'

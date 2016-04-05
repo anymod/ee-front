@@ -14,7 +14,7 @@ angular.module('builder.auth').controller 'loginCtrl', ($rootScope, $window, $st
     setBtnText 'Sending...'
     eeAuth.fns.setUserFromCredentials that.email, that.password
     .then () ->
-      if $rootScope.initialRequest.redirected and $rootScope.initialRequest.toState and  $rootScope.initialRequest.toParams
+      if $rootScope.initialRequest.redirected and $rootScope.initialRequest.toState and $rootScope.initialRequest.toParams
         $state.go $rootScope.initialRequest.toState.name, $rootScope.initialRequest.toParams
         .catch () -> $state.go 'daily'
       else

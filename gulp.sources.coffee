@@ -166,6 +166,10 @@ sources.builderModule = [
   './src/builder/start/start.module.coffee'
   './src/builder/start/start.route.coffee'
   './src/builder/start/start.controller.coffee'
+  # Module - brand
+  './src/builder/brand/brand.module.coffee'
+  './src/builder/brand/brand.route.coffee'
+  './src/builder/brand/brand.controller.coffee'
   # Module - date
   './src/builder/date/date.module.coffee'
   './src/builder/date/date.route.coffee'
