@@ -44,10 +44,17 @@
 <div class="full-width text-center position-relative hover-trigger" ng-hide="homepage.ee.User.reading">
   <!-- style for preview -->
   <style ng-show="homepage.ee.User.user.storefront_meta">
-    .navbar.ee-store-subnav { background-color: {{ homepage.ee.User.user.storefront_meta.brand.color.secondary }}; }
+    .navbar.ee-store-subnav {
+      background-color: {{ homepage.ee.User.user.storefront_meta.brand.color.secondary }};
+      border-bottom: 2px solid {{ homepage.ee.User.user.storefront_meta.brand.color.secondaryAccent }};
+    }
     .navbar.ee-store-subnav .nav > li > a {
       color: {{ homepage.ee.User.user.storefront_meta.brand.color.tertiary }};
-      border-bottom: 5px solid {{ homepage.ee.User.user.storefront_meta.brand.color.tertiary }};
+    }
+    .ee-store-subnav .store-subnav-btn:hover,
+    .ee-store-subnav .store-subnav-btn:focus,
+    .ee-store-subnav .store-subnav-btn.active {
+      background-color: {{ homepage.ee.User.user.storefront_meta.brand.color.secondaryAccent }} !important;
     }
   </style>
   <!-- /style for preview -->

@@ -2,10 +2,17 @@
 
 <!-- style for preview -->
 <style ng-if="edit.ee.User.user.storefront_meta">
-  .navbar.ee-store-subnav { background-color: {{ edit.ee.User.user.storefront_meta.brand.color.secondary }}; }
+  .navbar.ee-store-subnav {
+    background-color: {{ edit.ee.User.user.storefront_meta.brand.color.secondary }};
+    border-bottom: 2px solid {{ edit.ee.User.user.storefront_meta.brand.color.secondaryAccent }};
+  }
   .navbar.ee-store-subnav .nav > li > a {
     color: {{ edit.ee.User.user.storefront_meta.brand.color.tertiary }};
-    border-bottom: 5px solid {{ edit.ee.User.user.storefront_meta.brand.color.tertiary }};
+  }
+  .ee-store-subnav .store-subnav-btn:hover,
+  .ee-store-subnav .store-subnav-btn:focus,
+  .ee-store-subnav .store-subnav-btn.active {
+    background-color: {{ edit.ee.User.user.storefront_meta.brand.color.secondaryAccent }} !important;
   }
 </style>
 <!-- /style for preview -->
@@ -18,8 +25,8 @@
       <nav class="navbar navbar-default ee-store-subnav round-0 vert-20 no-side-border">
         <div class="container max-width-600">
           <ul class="nav navbar-nav margin-0" style="clear:both; float:none;">
-            <li ng-repeat="category in ['Example Category']" class="margin-0-auto" style="clear:both; float:none; width: 150px;">
-              <a href class="transition-200 store-subnav-btn" ng-bind="category" style="padding-top: 15px;"></a>
+            <li ng-repeat="category in ['Example Category']" class="margin-0-auto" style="clear:both; float:none; width: 180px;">
+              <a href class="transition-200 store-subnav-btn" ng-bind="category"></a>
             </li>
           </ul>
         </div>
