@@ -1,12 +1,20 @@
-<!-- style for example -->
+<!-- style for preview -->
 <style ng-if="storefront.ee.User.user.storefront_meta">
-  .navbar.ee-store-subnav { background-color: {{ storefront.ee.User.user.storefront_meta.brand.color.secondary }}; }
+  .navbar.ee-store-subnav {
+    background-color: {{ storefront.ee.User.user.storefront_meta.brand.color.secondary }};
+    border-bottom: 2px solid {{ storefront.ee.User.user.storefront_meta.brand.color.secondaryAccent }};
+  }
   .navbar.ee-store-subnav .nav > li > a {
     color: {{ storefront.ee.User.user.storefront_meta.brand.color.tertiary }};
-    border-bottom: 5px solid {{ storefront.ee.User.user.storefront_meta.brand.color.tertiary }};
+    text-shadow: 1px 1px {{ storefront.ee.User.user.storefront_meta.brand.color.secondaryAccent }};
+  }
+  .ee-store-subnav .store-subnav-btn:hover,
+  .ee-store-subnav .store-subnav-btn:focus,
+  .ee-store-subnav .store-subnav-btn.active {
+    background-color: {{ storefront.ee.User.user.storefront_meta.brand.color.secondaryAccent }} !important;
   }
 </style>
-<!-- /style for example -->
+<!-- /style for preview -->
 
 <div class="position-fixed" style="top: 0; right: 0; z-index: 3002">
   <span class="fa-stack fa-2x hover-pointer" ui-sref="landing">

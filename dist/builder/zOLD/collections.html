@@ -27,11 +27,18 @@
   ng-hide="collections.ee.Collections.reading || collections.ee.Collections.creating">
   <!-- <a href ng-click="collections.create()">Create a new collection</a> -->
   <!-- style for preview -->
-  <style ng-if="collections.ee.User.user.storefront_meta">
-    .navbar.ee-store-subnav { background-color: {{ collections.ee.User.user.storefront_meta.brand.color.secondary }}; }
+  <style ng-show="collections.ee.User.user.storefront_meta">
+    .navbar.ee-store-subnav {
+      background-color: {{ collections.ee.User.user.storefront_meta.brand.color.secondary }};
+      border-bottom: 2px solid {{ collections.ee.User.user.storefront_meta.brand.color.secondaryAccent }};
+    }
     .navbar.ee-store-subnav .nav > li > a {
       color: {{ collections.ee.User.user.storefront_meta.brand.color.tertiary }};
-      border-bottom: 5px solid {{ collections.ee.User.user.storefront_meta.brand.color.tertiary }};
+    }
+    .ee-store-subnav .store-subnav-btn:hover,
+    .ee-store-subnav .store-subnav-btn:focus,
+    .ee-store-subnav .store-subnav-btn.active {
+      background-color: {{ collections.ee.User.user.storefront_meta.brand.color.secondaryAccent }} !important;
     }
   </style>
   <!-- /style for preview -->

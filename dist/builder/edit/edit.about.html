@@ -79,10 +79,18 @@
 
 <!-- style for preview -->
 <style ng-if="edit.ee.User.user.storefront_meta">
-  .navbar.ee-store-subnav { background-color: {{ edit.ee.User.user.storefront_meta.brand.color.secondary }}; }
+  .navbar.ee-store-subnav {
+    background-color: {{ edit.ee.User.user.storefront_meta.brand.color.secondary }};
+    border-bottom: 2px solid {{ edit.ee.User.user.storefront_meta.brand.color.secondaryAccent }};
+  }
   .navbar.ee-store-subnav .nav > li > a {
     color: {{ edit.ee.User.user.storefront_meta.brand.color.tertiary }};
-    border-bottom: 5px solid {{ edit.ee.User.user.storefront_meta.brand.color.tertiary }};
+    text-shadow: 1px 1px {{ edit.ee.User.user.storefront_meta.brand.color.secondaryAccent }};
+  }
+  .ee-store-subnav .store-subnav-btn:hover,
+  .ee-store-subnav .store-subnav-btn:focus,
+  .ee-store-subnav .store-subnav-btn.active {
+    background-color: {{ edit.ee.User.user.storefront_meta.brand.color.secondaryAccent }} !important;
   }
 </style>
 <!-- /style for preview -->

@@ -16,8 +16,10 @@ angular.module('builder.example').controller 'exampleCtrl', (categories) ->
         brand:
           color:
             primary: '#066A68'
-            secondary: '#066A68'
+            secondary: '#099895'
+            secondaryAccent: '#077977'
             tertiary: '#FFFFFF'
+            tertiaryAccent: '#C8C8C8'
         blog: { url: 'http://eeosk.com' }
         about: { headline: 'foobar' }
         audience:
