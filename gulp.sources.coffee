@@ -202,6 +202,10 @@ sources.builderModule = [
   './src/builder/account/account.module.coffee'
   './src/builder/account/account.route.coffee'
   './src/builder/account/account.controller.coffee'
+  # Module - live
+  './src/builder/live/live.module.coffee'
+  './src/builder/live/live.route.coffee'
+  './src/builder/live/live.controller.coffee'
 ]
 
 ### DIRECTIVES ###

@@ -1,5 +1,14 @@
 <!-- Main nav -->
 <div ng-hide="daily.ee.User.reading" class="container max-width-900 vert-20 margin-bottom-0">
+
+  <div class="well white-background box-shadow margin-top-0 text-center" style="min-height: 115px;">
+    <h4 class="font-weight-200 full-width">Announcing Free Shipping on orders over $50</h4>
+    <ee-guide-button
+      track="daily.announcement.track"
+      activity="daily.announcement.activity">
+    </ee-guide-button>
+  </div>
+
   <div class="well white-background box-shadow margin-0" style="min-height: 115px;">
     <h4 class="font-weight-200 full-width text-center">Daily activity to help your store:</h4>
     <div ng-hide="daily.ee.Tracks.reading">

@@ -41,6 +41,7 @@ angular.module 'eeBuilder', [
   'builder.example'
   'builder.edit' # Remove once about page is transitioned
   'builder.promotions'
+  'builder.live'
 
   # builder components
   'ee-terms-seller'
