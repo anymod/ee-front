@@ -169,8 +169,8 @@ if process.env.NODE_ENV is 'test'
         product_id: product_id
         margin: 15
         storefront_meta: {}
-        catalog_meta: {}
-        orders_meta: {}
+        # catalog_meta: {}
+        # orders_meta: {}
       headers: authorization: token
     new Promise (resolve, reject) ->
       req.post {}, (err, res, body) ->

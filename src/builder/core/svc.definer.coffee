@@ -17,7 +17,7 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
     meta:             {}
     carousel:         {}
     about:            {}
-    template_ids:     []
+    # template_ids:     []
     categories:       ['All']
     logged_in:        _loggedIn
     loading:          {}
@@ -41,7 +41,7 @@ angular.module('builder.core').factory 'eeDefiner', ($rootScope, eeAuth, eeLandi
     _exports.meta           = user.storefront_meta
     _exports.carousel       = user.storefront_meta?.home?.carousel[0]
     _exports.about          = user.storefront_meta?.about
-    _exports.template_ids   = data.template_ids
+    # _exports.template_ids   = data.template_ids
     _exports.categories     = data.categories
     _exports.logged_in      = eeAuth.fns.hasToken()
 

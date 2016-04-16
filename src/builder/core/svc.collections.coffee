@@ -202,7 +202,7 @@ angular.module('builder.core').factory 'eeCollections', ($q, $rootScope, $window
         coll.title        = collection.title
         coll.banner       = collection.banner
         coll.headline     = collection.headline
-        coll.in_carousel  = collection.in_carousel
+        # coll.in_carousel  = collection.in_carousel
     sync coll for coll in _data.collections
     _data.collections.push collection unless in_set
     _defineNavCollections()
