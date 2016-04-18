@@ -4,23 +4,37 @@
 <div class="container">
   <div class="vert-50">
     <ee-builder-section-heading heading="Add your social media & blog" heading-class="text-success" subheading="Your links will show automatically at the top of your store."></ee-builder-section-heading>
+    <div class="margin-0-auto max-width-600 text-center">
+      <h4 class="vert-20 margin-top-0 font-weight-200">
+        Don't have a social media account? Follow our <a ui-sref="track({ id: 1 })">marketing playbook</a> to create social profiles for your store.
+      </h4>
+    </div>
     <div class="max-width-300 margin-0-auto">
       <div class="vert-2">
-        <i class="fa fa-fw fa-lg fa-facebook text-facebook"></i>&nbsp;https://facebook.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 105px" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.facebook">
+        <a href="https://www.facebook.com" target="_blank" class="no-underline">
+          <i class="fa fa-fw fa-lg fa-facebook text-facebook"></i>
+        </a>&nbsp;https://facebook.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 105px" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.facebook">
         <span ng-if="edit.ee.User.user.storefront_meta.audience.social.facebook"><a href="https://facebook.com/{{ edit.ee.User.user.storefront_meta.audience.social.facebook }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
       </div>
       <div class="vert-2">
-        <i class="fa fa-fw fa-lg fa-pinterest text-pinterest"></i>&nbsp;https://pinterest.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 109px" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.pinterest">
+        <a href="https://pinterest.com" target="_blank" class="no-underline">
+          <i class="fa fa-fw fa-lg fa-pinterest text-pinterest"></i>
+        </a>&nbsp;https://pinterest.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 109px" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.pinterest">
         <span ng-if="edit.ee.User.user.storefront_meta.audience.social.pinterest"><a href="https://pinterest.com/{{ edit.ee.User.user.storefront_meta.audience.social.pinterest }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
       </div>
       <div class="vert-2">
-        <i class="fa fa-fw fa-lg fa-twitter text-twitter"></i>&nbsp;https://twitter.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 126px" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.twitter">
-        <span ng-if="edit.ee.User.user.storefront_meta.audience.social.twitter"><a href="https://twitter.com/{{ edit.ee.User.user.storefront_meta.audience.social.twitter }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
-      </div>
-      <div class="vert-2">
-        <i class="fa fa-fw fa-lg fa-instagram text-instagram"></i>&nbsp;https://instagram.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 102px" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.instagram">
+        <a href="https://instagram.com" target="_blank" class="no-underline">
+          <i class="fa fa-fw fa-lg fa-instagram text-instagram"></i>
+        </a>&nbsp;https://instagram.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 102px" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.instagram">
         <span ng-if="edit.ee.User.user.storefront_meta.audience.social.instagram"><a href="https://instagram.com/{{ edit.ee.User.user.storefront_meta.audience.social.instagram }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
       </div>
+      <div class="vert-2">
+        <a href="https://twitter.com/signup" target="_blank" class="no-underline">
+          <i class="fa fa-fw fa-lg fa-twitter text-twitter"></i>
+        </a>&nbsp;https://twitter.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 126px" placeholder="username" ng-model="edit.ee.User.user.storefront_meta.audience.social.twitter">
+        <span ng-if="edit.ee.User.user.storefront_meta.audience.social.twitter"><a href="https://twitter.com/{{ edit.ee.User.user.storefront_meta.audience.social.twitter }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+      </div>
+
       <!-- <div class="form-group vert-5">
         <i class="fa fa-fw fa-lg fa-envelope text-muted"></i>Contact email
         <br>
@@ -38,3 +52,17 @@
   </div>
 </div>
 <!-- /Social Media & Blog -->
+
+<!-- Signup links -->
+<div class="container">
+  <div class="max-width-300 margin-0-auto">
+    <p>Signup links for various services:</p>
+    <div><a href="https://www.facebook.com" target="_blank" class="no-underline">Facebook</a></div>
+    <div><a href="https://pinterest.com" target="_blank" class="no-underline">Pinterest</a></div>
+    <div><a href="https://instagram.com" target="_blank" class="no-underline">Instagram</a></div>
+    <div><a href="https://twitter.com/signup" target="_blank" class="no-underline">Twitter</a></div>
+    <div><a href="https://www.tumblr.com" target="_blank" class="no-underline">Tumblr (blogging)</a></div>
+    <div><a href="https://wordpress.com/learn-more/?v=blog" target="_blank" class="no-underline">Wordpress (blogging)</a></div>
+  </div>
+</div>
+<!-- /Signup links -->
