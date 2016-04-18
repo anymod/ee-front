@@ -1,0 +1,97 @@
+<div class="position-absolute" style="top: 0; right: 0; z-index: 10">
+  <span class="fa-stack fa-2x hover-pointer" ng-click="$close()">
+    <i class="fa fa-circle fa-stack-2x text-info"></i>
+    <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+  </span>
+</div>
+
+<!-- Logo -->
+<div ng-if="modal.data.type == 'logo'" class="vert-25 pad-5">
+  <ee-builder-section-heading heading="Edit your store logo" heading-class="text-success" subheading="Your logo will show at the top of your store and in your confirmation emails to customers."></ee-builder-section-heading>
+  <ee-canvas ng-if="modal.ee.User.user.username"
+    canvas-type="'logo'"
+    user="modal.ee.User.user">
+  </ee-canvas>
+</div>
+<!-- /Logo -->
+
+<!-- Colors -->
+<div ng-if="modal.data.type == 'colors'" class="vert-25 pad-5">
+  <ee-builder-section-heading heading="Edit your store colors" heading-class="text-success" subheading="Select the colors to show in your category bar and store accents."></ee-builder-section-heading>
+  <div class="max-width-600 margin-0-auto text-center">
+    <nav class="navbar navbar-default ee-store-subnav round-0 vert-20 no-side-border">
+      <div class="container max-width-600">
+        <ul class="nav navbar-nav margin-0" style="clear:both; float:none;">
+          <li ng-repeat="category in ['Example Category']" class="margin-0-auto" style="clear:both; float:none; width: 150px;">
+            <a href class="transition-200 store-subnav-btn" ng-bind="category" style="padding-top: 15px;"></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <ee-web-colorpicker
+      dab-secondary="modal.ee.User.user.storefront_meta.brand.color.secondary"
+      dab-tertiary="modal.ee.User.user.storefront_meta.brand.color.tertiary">
+    </ee-web-colorpicker>
+    <ee-save></ee-save>
+    <div class="text-muted text-left vert-20">
+      <i class="fa fa-lg fa-info-circle"></i>&nbsp;Choose colors that allow customers to easily read your category names.
+    </div>
+  </div>
+</div>
+<!-- /Colors -->
+
+<!-- Social Media & Blog -->
+<div ng-if="modal.data.type == 'social'" class="vert-25 pad-5">
+  <ee-builder-section-heading heading="Add your social media & blog" heading-class="text-success" subheading="Your links will show automatically at the top of your store."></ee-builder-section-heading>
+  <div class="max-width-300 margin-0-auto">
+    <div class="vert-2">
+      <i class="fa fa-fw fa-lg fa-facebook text-facebook"></i>&nbsp;https://facebook.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 105px" placeholder="username" ng-model="modal.ee.User.user.storefront_meta.audience.social.facebook">
+      <span ng-if="modal.ee.User.user.storefront_meta.audience.social.facebook"><a href="https://facebook.com/{{ modal.ee.User.user.storefront_meta.audience.social.facebook }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+    </div>
+    <div class="vert-2">
+      <i class="fa fa-fw fa-lg fa-pinterest text-pinterest"></i>&nbsp;https://pinterest.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 109px" placeholder="username" ng-model="modal.ee.User.user.storefront_meta.audience.social.pinterest">
+      <span ng-if="modal.ee.User.user.storefront_meta.audience.social.pinterest"><a href="https://pinterest.com/{{ modal.ee.User.user.storefront_meta.audience.social.pinterest }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+    </div>
+    <div class="vert-2">
+      <i class="fa fa-fw fa-lg fa-twitter text-twitter"></i>&nbsp;https://twitter.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 126px" placeholder="username" ng-model="modal.ee.User.user.storefront_meta.audience.social.twitter">
+      <span ng-if="modal.ee.User.user.storefront_meta.audience.social.twitter"><a href="https://twitter.com/{{ modal.ee.User.user.storefront_meta.audience.social.twitter }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+    </div>
+    <div class="vert-2">
+      <i class="fa fa-fw fa-lg fa-instagram text-instagram"></i>&nbsp;https://instagram.com/<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 102px" placeholder="username" ng-model="modal.ee.User.user.storefront_meta.audience.social.instagram">
+      <span ng-if="modal.ee.User.user.storefront_meta.audience.social.instagram"><a href="https://instagram.com/{{ modal.ee.User.user.storefront_meta.audience.social.instagram }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+    </div>
+    <!-- <div class="form-group vert-5">
+      <i class="fa fa-fw fa-lg fa-envelope text-muted"></i>Contact email
+      <br>
+      <input type="text" class="form-control inline-block" style="max-width: 240px" placeholder="Email address" ng-model="modal.ee.User.user.storefront_meta.audience.contact.email">
+      <span ng-if="modal.ee.User.user.storefront_meta.audience.contact.email"><a href="mailto:{{ modal.ee.User.user.storefront_meta.audience.contact.email }}" target="_blank"><i class="fa fa-external-link"></i></a>
+    </div> -->
+    <div class="vert-2">
+      Blog&nbsp;<input type="text" class="form-control inline-block pad-5 vert-2" style="max-width: 240px" placeholder="http://" ng-model="modal.ee.User.user.storefront_meta.blog.url">
+      <span ng-if="modal.ee.User.user.storefront_meta.blog.url"><a href="{{ modal.ee.User.user.storefront_meta.blog.url | addHttp }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+    </div>
+    <div class="vert-5">
+      <ee-save></ee-save>
+    </div>
+  </div>
+</div>
+<!-- /Social Media & Blog -->
+
+<!-- Categories -->
+<div ng-if="modal.data.type == 'categories'" class="vert-25 pad-5">
+  <ee-builder-section-heading heading="Your product categories" heading-class="text-success" subheading="Choose which product categories are in your store."></ee-builder-section-heading>
+  <div class="margin-0-auto max-width-300">
+    <div class="list-group margin-0 text-left">
+      <a href class="list-group-item"
+          ng-repeat="category in modal.ee.Categorizations.categorizations"
+          ng-click="modal.categoryFns.toggleCategory(category)">
+        <h4 class="full-width margin-0">
+          <span ng-bind="category.title"></span>&nbsp;&nbsp;<small ng-if="category.count"><small>{{ category.count }} products</small></small>
+          <i ng-if="modal.ee.User.user.categorization_ids.indexOf(category.id) < 0" class="fa fa-lg fa-toggle-off pull-right"></i>
+          <i ng-if="modal.ee.User.user.categorization_ids.indexOf(category.id) > -1" class="fa fa-lg fa-toggle-on text-success pull-right"></i>
+        </h4>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- /Categories -->

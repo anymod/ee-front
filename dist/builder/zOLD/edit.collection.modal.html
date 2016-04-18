@@ -1,0 +1,29 @@
+<div class="position-absolute" style="top: 0; right: 0; z-index: 10">
+  <span class="fa-stack fa-2x hover-pointer" ng-click="$close()">
+    <i class="fa fa-circle fa-stack-2x text-info"></i>
+    <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+  </span>
+</div>
+
+<div class="vert-25 pad-5" ng-if="modal.data.type == 'image'">
+  <ee-builder-section-heading heading="Edit collection image" heading-class="text-success" subheading="This image shows on your home page and links to this collection."></ee-builder-section-heading>
+  <ee-canvas ng-if="modal.collectionData.collection.canvas"
+    canvas-type="'collection'"
+    collection="modal.collectionData.collection"
+    products="modal.collectionData.products">
+  </ee-canvas>
+</div>
+
+<div class="vert-25 pad-5 text-center" ng-if="modal.data.type == 'products'">
+  <ee-builder-section-heading heading="Edit collection products" heading-class="text-success" subheading="Add and remove products from this collection."></ee-builder-section-heading>
+  <div ng-if="modal.tab == 'in'">
+    <div class="btn btn-link" ng-click="modal.showAdd()">Add more products</div>
+    <div ng-include="'builder/collections/collection.partial.products.html'"></div>
+  </div>
+  <div ng-if="modal.tab == 'add'">
+    <div class="btn btn-link" ng-click="modal.showIn()">Products in this collection</div>
+    <div ng-include="'builder/collections/collection.partial.add.products.html'"></div>
+  </div>
+</div>
+
+<ee-loading loading="modal.collectionData.reading"></ee-loading>

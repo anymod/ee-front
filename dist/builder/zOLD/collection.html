@@ -1,0 +1,34 @@
+<nav class="navbar ee-builder-subnav border-bottom-gray round-0 text-center" style="top: 0 !important; z-index: 1;"
+  ng-hide="collection.data.reading && !collection.data.collection.id">
+  <div class="container">
+    <div class="full-width margin-0-auto max-width-600">
+      <div class="btn-group btn-group-justified vert-7">
+        <div class="btn btn-default font-weight-200" ng-class="{ active: collection.tab == 'canvas' }" ng-click="collection.showCanvas()">Collection image</div>
+        <div ng-show="collection.data.collection.product_ids.length > 0" class="btn btn-default font-weight-200" ng-class="{ active: collection.tab == 'in' }" ng-click="collection.showIn()">In this collection</div>
+        <div class="btn btn-default font-weight-200" ng-class="{ active: collection.tab == 'add' }" ng-click="collection.showAdd()">Add to collection</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid max-width-900 text-center pad-5 vert-15"
+  style="max-width: 822px;"
+  ng-show="collection.tab == 'canvas'">
+  <div class="margin-0-auto text-left">
+    <div class="vert-50 margin-top-0">
+      <ee-canvas ng-if="collection.data.collection.id"
+        products="collection.data.products"
+        json="collection.data.collection.canvas"
+        banner="collection.data.collection.banner">
+      </ee-canvas>
+    </div>
+  </div>
+</div>
+
+<div class="container text-center vert-20"
+  ng-hide="collection.tab == 'canvas'">
+  <div ng-if="collection.tab == 'in'" ng-include="'builder/collections/collection.partial.products.html'"></div>
+  <div ng-if="collection.tab == 'add'" ng-include="'builder/collections/collection.partial.add.products.html'"></div>
+</div>
+
+<ee-loading loading="collection.data.reading"></ee-loading>

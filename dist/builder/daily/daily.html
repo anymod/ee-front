@@ -1,0 +1,37 @@
+<!-- Main nav -->
+<div ng-hide="daily.ee.User.reading" class="container max-width-900 vert-20 margin-bottom-0">
+
+  <div class="well white-background box-shadow margin-top-0 text-center" style="min-height: 115px;">
+    <h4 class="font-weight-200 full-width">Announcing Free Shipping on orders over $50</h4>
+    <ee-guide-button
+      track="daily.announcement.track"
+      activity="daily.announcement.activity">
+    </ee-guide-button>
+  </div>
+
+  <div class="well white-background box-shadow margin-0" style="min-height: 115px;">
+    <h4 class="font-weight-200 full-width text-center">Daily activity to help your store:</h4>
+    <div ng-hide="daily.ee.Tracks.reading">
+      <div ng-if="daily.ee.Tracks.dailyActivity.id">
+        <uib-accordion close-others="false">
+          <ee-builder-activity
+            track="daily.ee.Tracks.dailyActivity.track"
+            activity="daily.ee.Tracks.dailyActivity"
+            completed-steps="daily.ee.User.user.completed_steps">
+          </ee-builder-activity>
+        <uib-accordion>
+        <div ng-if="daily.ee.Tracks.dailyActivity.track.id"
+          class="vert-5 margin-bottom-0 text-muted text-right">
+          <em>
+            more for&nbsp;<a ui-sref="track({ id: daily.ee.Tracks.dailyActivity.track.id, title: (daily.ee.Tracks.dailyActivity.track.title | urlText) })" ng-bind="daily.ee.Tracks.dailyActivity.track.title"></a>
+          </em>
+        </div>
+      </div>
+      <div ng-show="!daily.ee.Tracks.dailyActivity.id">No activities found</div>
+    </div>
+    <ee-loading loading="daily.ee.Tracks.reading"></ee-loading>
+  </div>
+</div>
+<!-- /Main nav -->
+
+<ee-loading loading="daily.ee.User.reading"></ee-loading>

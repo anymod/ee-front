@@ -1,0 +1,40 @@
+<!-- style for preview -->
+<style ng-show="storefront.ee.User.user.storefront_meta">
+  .navbar.ee-store-subnav {
+    background-color: {{ storefront.ee.User.user.storefront_meta.brand.color.secondary }};
+    border-bottom: 2px solid {{ storefront.ee.User.user.storefront_meta.brand.color.secondaryAccent }};
+  }
+  .navbar.ee-store-subnav .nav > li > a {
+    color: {{ storefront.ee.User.user.storefront_meta.brand.color.tertiary }};
+  }
+  .ee-store-subnav .store-subnav-btn:hover,
+  .ee-store-subnav .store-subnav-btn:focus,
+  .ee-store-subnav .store-subnav-btn.active {
+    background-color: {{ storefront.ee.User.user.storefront_meta.brand.color.secondaryAccent }} !important;
+  }
+</style>
+<!-- /style for preview -->
+
+<div ng-hide="storefront.ee.loading"
+  ng-if="$state.current.name == 'editdesign' || ($state.current.name == 'editabout' && (storefront.ee.User.user.storefront_meta.about.headline || storefront.ee.User.user.storefront_meta.about.content))"
+  class="container vert-20">
+
+  <div class="well white-background box-shadow margin-0-auto text-left">
+    <!-- TODO make clickable via ng-click="storefront.modalFns.open('themes')" -->
+    <div class="position-relative" style="min-height: 75px;">
+      <!-- STORE navbar -->
+      <ee-storefront-header
+        user="storefront.ee.User.user"
+        fluid="true"
+        blocked="true"
+        ng-hide="storefront.ee.loading"
+        style="left:0; right:0; top: 0; z-index: 2;">
+      </ee-storefront-header>
+      <!-- /STORE navbar -->
+      <!-- STORE about -->
+      <div ng-include="'ee-shared/storefront/storefront.about.html'" ng-if="$state.current.name == 'editabout'"></div>
+      <!-- /STORE about -->
+    </div>
+  </div>
+
+</div>

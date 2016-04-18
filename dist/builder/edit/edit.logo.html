@@ -1,0 +1,20 @@
+<div ng-include="'builder/a.common/homepage.x.html'"></div>
+
+<!-- X blocker -->
+<div ng-show="edit.saving"
+  class="position-absolute white-background"
+  style="top: 0; right: 0; width: 60px; height: 60px; opacity: 0.5; z-index: 300;">
+</div>
+<!-- /X blocker -->
+
+<!-- Logo -->
+<div class="container">
+  <div class="vert-50">
+    <ee-builder-section-heading heading="Edit your store logo" heading-class="text-success" subheading="Your logo will show at the top of your store and in your confirmation emails to customers."></ee-builder-section-heading>
+    <ee-canvas ng-if="edit.ee.User.user.username"
+      canvas-type="'logo'"
+      user="edit.ee.User.user">
+    </ee-canvas>
+  </div>
+</div>
+<!-- /Logo -->

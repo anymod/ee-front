@@ -1,0 +1,67 @@
+<div ng-if="false" class="position-fixed" style="top: 8px; right: 15px; z-index: 2010;">
+  <a ui-sref="create({ token: $state.params.token })" class="btn btn-info">Next&nbsp;<i class="fa fa-fw fa-long-arrow-right"></i></a>
+</div>
+
+<div class="container text-center vert-20 margin-bottom-0">
+  <!-- Message -->
+  <div class="margin-0-auto max-width-600 pad-10 pad-top-0">
+    <div class="well white-background box-shadow">
+      <div class="max-width-300 margin-0-auto">
+        <h3 class="margin-0 font-weight-200">
+          Add a few collections to get your store started
+        </h3>
+      </div>
+      <p class="vert-10 font-weight-200">You can edit these and make your own collections once you're set up.</p>
+    </div>
+    <h4 class="vert-10 font-weight-200 text-muted">We've pre-selected some of the top collections for you below. Add ones you like and they will show up in your store automatically.</h4>
+  </div>
+  <!-- Message -->
+</div>
+
+<div ng-hide="create.ee.Collections.reading" class="container max-width-900 text-center vert-50 margin-top-0">
+  <!-- TODO implement sorting -->
+  <!-- <div class="vert-10 text-center">
+    <div class="btn btn-sm btn-default">Newest&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
+    <div class="btn btn-sm btn-default">Max markdown&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
+    <div class="btn btn-sm btn-default">Avg price&nbsp;&nbsp;<i class="fa fa-sort"></i></div>
+  </div> -->
+
+  <div class="full-width text-center margin-0">
+    <uib-pagination ng-if="create.ee.Collections.count > create.ee.Collections.perPage"
+      total-items="create.ee.Collections.count"
+      items-per-page="create.ee.Collections.perPage"
+      ng-model="create.ee.Collections.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="create.update()">
+    </uib-pagination>
+  </div>
+
+  <div class="row vert-20">
+    <ee-collection-for-builder
+      ng-repeat="collection in create.ee.Collections.collections"
+      collection="collection"
+      use-add-overlay="true">
+    </ee-collection-for-builder>
+  </div>
+
+  <div class="full-width text-center margin-0">
+    <uib-pagination ng-if="create.ee.Collections.count > create.ee.Collections.perPage"
+      total-items="create.ee.Collections.count"
+      items-per-page="create.ee.Collections.perPage"
+      ng-model="create.ee.Collections.page"
+      max-size="5"
+      class="pagination-sm margin-0 vertical-align-top"
+      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+      boundary-links="true"
+      rotate="false"
+      ng-change="create.update()">
+    </uib-pagination>
+  </div>
+
+</div>
+
+<ee-loading loading="create.ee.Collections.reading"></ee-loading>

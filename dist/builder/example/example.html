@@ -1,0 +1,41 @@
+<!-- style for preview -->
+<style ng-if="storefront.ee.User.user.storefront_meta">
+  .navbar.ee-store-subnav {
+    background-color: {{ storefront.ee.User.user.storefront_meta.brand.color.secondary }};
+    border-bottom: 2px solid {{ storefront.ee.User.user.storefront_meta.brand.color.secondaryAccent }};
+  }
+  .navbar.ee-store-subnav .nav > li > a {
+    color: {{ storefront.ee.User.user.storefront_meta.brand.color.tertiary }};
+    text-shadow: 1px 1px {{ storefront.ee.User.user.storefront_meta.brand.color.secondaryAccent }};
+  }
+  .ee-store-subnav .store-subnav-btn:hover,
+  .ee-store-subnav .store-subnav-btn:focus,
+  .ee-store-subnav .store-subnav-btn.active {
+    background-color: {{ storefront.ee.User.user.storefront_meta.brand.color.secondaryAccent }} !important;
+  }
+</style>
+<!-- /style for preview -->
+
+<div class="position-fixed" style="top: 0; right: 0; z-index: 3002">
+  <span class="fa-stack fa-2x hover-pointer" ui-sref="landing">
+    <i class="fa fa-circle fa-stack-2x text-info"></i>
+    <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+  </span>
+</div>
+
+<div class="modal-header">
+  <h4 class="modal-title">Store Demo Example</h4>
+  <p class="margin-0" style="padding-right: 50px;">This is a display example of what your store could look like. It is not functional, but you could make one just like it if you want!</p>
+</div>
+<div class="modal-body pad-0">
+  <div class="position-relative overflow-hidden transition-200">
+    <ee-storefront-header user="storefront.ee.User.user" fluid="true"></ee-storefront-header>
+    <div ng-include="'ee-shared/storefront/storefront.carousel.html'"></div>
+    <!-- <div ng-include="'ee-shared/storefront/storefront.featured.html'"></div> -->
+    <div ng-include="'ee-shared/storefront/storefront.footer.html'"></div>
+
+    <div class="section vert-20 gray-background"></div>
+
+    <div class="position-absolute top-left-bottom-right-0" style="cursor: not-allowed; z-index: 3001"></div>
+  </div>
+</div>
