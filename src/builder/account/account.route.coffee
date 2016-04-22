@@ -23,7 +23,7 @@ angular.module('builder.account').config ($stateProvider) ->
           controller:  'accountCtrl as account'
           templateUrl: 'builder/account/account.header.html'
         top:
-          # controller:  'accountCtrl as account'
+          controller:  'accountCtrl as account'
           templateUrl: 'builder/account/account.earnings.html'
       data:
         pageTitle: 'Earnings | eeosk'

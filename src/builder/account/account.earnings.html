@@ -1,27 +1,43 @@
 <ee-builder-section-heading heading="Percentage you earn per product" heading-class="text-success" subheading="You earn a percentage of the price of each product you sell (excludes shipping & handling), as shown below."></ee-builder-section-heading>
 
+<h4 class="font-weight-200 margin-0-auto max-width-600 text-center">
+  A higher percentage will create higher prices in your store, and a lower percentage will create lower prices in your store.
+</h4>
+
 <div class="container max-width-900 vert-20" ng-hide="account.ee.User.reading">
   <div class="well white-background box-shadow pad-10 text-center">
+
     <div style="width: 250px; margin: 40px auto;">
       <div>
         <h4 class="inline-block width-160">&nbsp;&nbsp;Product price</h4><h4 class="inline-block margin-5" style="width: 80px;">You earn</h4>
       </div>
-      <div class="vert-10">
-        <div class="inline-block width-160"><div class="inline-block text-right width-50">$1.00</div><div class="inline-block" style="width: 13px; margin: 0 7px;">to</div><div class="inline-block text-right width-50">$24.99</div></div><div class="inline-block margin-5" style="width: 80px;"><div class="btn btn-default btn-block"><strong class="text-info">20%</strong></div></div>
+      <div ng-repeat="row in account.ee.User.user.pricing" class="vert-10">
+        <div class="inline-block width-160">
+          <span ng-if="row.max < 99999">
+            <div class="inline-block text-right width-50" ng-bind="row.min | centToDollar"></div>
+            <div class="inline-block" style="width: 13px; margin: 0 7px;">to</div>
+            <div class="inline-block text-right width-50" ng-bind="row.max | centToDollar"></div>
+          </span>
+          <span ng-if="row.max >= 99999">
+            <div class="inline-block text-right" style="width: 127px;">$200.00 or more</div>
+          </span>
+        </div><div class="inline-block margin-5" style="width: 80px;" uib-dropdown>
+          <div class="btn btn-default btn-block" uib-dropdown-toggle>
+            <strong class="text-info"><span ng-bind="row.margin | percentage:0"></span>&nbsp;<i class="fa fa-caret-down"></i></strong>
+          </div>
+          <ul class="dropdown-menu full-width" style="min-width: 86px; margin-left: -3px;" uib-dropdown-menu>
+            <li ng-repeat="percentage in [0.02, 0.05, 0.07, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35]"
+              ng-class="{ active: percentage == row.margin }">
+              <a href ng-bind="percentage | percentage:0" ng-click="row.margin = percentage; account.updatePricing()"></a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="vert-10">
-        <div class="inline-block width-160"><div class="inline-block text-right width-50">$25.00</div><div class="inline-block" style="width: 13px; margin: 0 7px;">to</div><div class="inline-block text-right width-50">$49.99</div></div><div class="inline-block margin-5" style="width: 80px;"><div class="btn btn-default btn-block"><strong class="text-info">15%</strong></div></div>
-      </div>
-      <div class="vert-10">
-        <div class="inline-block width-160"><div class="inline-block text-right width-50">$50.00</div><div class="inline-block" style="width: 13px; margin: 0 7px;">to</div><div class="inline-block text-right width-50">$99.99</div></div><div class="inline-block margin-5" style="width: 80px;"><div class="btn btn-default btn-block"><strong class="text-info">10%</strong></div></div>
-      </div>
-      <div class="vert-10">
-        <div class="inline-block width-160"><div class="inline-block text-right width-50">$100.00</div><div class="inline-block" style="width: 13px; margin: 0 7px;">to</div><div class="inline-block text-right width-50">$199.99</div></div><div class="inline-block margin-5" style="width: 80px;"><div class="btn btn-default btn-block"><strong class="text-info">7%</strong></div></div>
-      </div>
-      <div class="vert-10">
-        <div class="inline-block width-160"><div class="inline-block text-right" style="width: 127px;">$200.00 or more</div></div><div class="inline-block margin-5" style="width: 80px;"><div class="btn btn-default btn-block"><strong class="text-info">5%</strong></div></div>
-      </div>
-
+      <ee-loading loading="account.saving"></ee-loading>
+      <div class="alert alert-success vert-20 margin-bottom-0" ng-if="account.saved">Saved</div>
+      <div class="alert alert-info vert-20 margin-bottom-0" ng-if="account.error">Problem saving</div>
     </div>
   </div>
 </div>
+
+<ee-loading loading="account.ee.User.reading"></ee-loading>

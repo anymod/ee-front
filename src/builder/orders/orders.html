@@ -8,6 +8,7 @@
         <th>Shipment</th>
         <th colspan="3">Product(s)</th>
         <th>Price</th>
+        <th>%</th>
         <th>Earnings</th>
         <th>Disbursed</th>
       </tr>
@@ -38,24 +39,32 @@
         <td ng-bind="order.created_at | timeago"></td>
         <td>
           <h4 class="margin-0">
-            <span ng-if="!order.shipped_at" class="label label-default">pending</span>
-            <span ng-if="order.shipped_at && !order.returned_at" class="label label-success">shipped</span>
-            <span ng-if="order.returned_at" class="label label-warning">returned</span>
+            <div ng-if="!order.shipped_at" class="label label-default inline-block">pending</div>
+            <div ng-if="order.shipped_at && !order.returned_at" class="label label-success inline-block">shipped</div>
+            <div ng-if="order.returned_at" class="label label-warning inline-block">returned</div>
           </h4>
         </td>
         <td colspan="3">
-          <div ng-repeat="sku in order.skus_snapshot"><a ui-sref="productAdd({ id: sku.product_id, title: (sku.selection_text | urlText) })" ng-bind="sku.selection_text | truncate:27"></div>
+          <div ng-repeat="sku in order.skus_snapshot">
+            <a ng-href="{{ orders.ee.User.user.store_url + '/products/' + sku.product_id + '/' + (sku.selection_text | urlText) }}"
+              target="_blanks"
+              ng-bind="sku.selection_text | truncate:27">
+            </a>
+          </div>
         </td>
         <td>
           <div ng-repeat="sku in order.skus_snapshot">{{ sku.price | centToDollar }}</div>
         </td>
         <td>
-          <div ng-repeat="sku in order.skus_snapshot">{{ (sku.price - sku.baseline_price) | centToDollar }}</div>
+          <div ng-repeat="sku in order.skus_snapshot">{{ sku.percentage | percentage:0 }}</div>
+        </td>
+        <td>
+          <div ng-repeat="sku in order.skus_snapshot">{{ (sku.price * sku.percentage) | centToDollar }}</div>
         </td>
         <td>
           <h4 class="margin-0">
-            <span ng-if="!order.disbursed_at" class="label label-default">pending</span>
-            <span ng-if="order.disbursed_at" class="label label-success" ng-bind="order.disbursed_at | timeago"></span>
+            <div ng-if="!order.disbursed_at" class="label label-default inline-block">pending</div>
+            <div ng-if="order.disbursed_at" class="label label-success inline-block" ng-bind="order.disbursed_at | timeago"></div>
           </h4>
         </td>
       </tr>
