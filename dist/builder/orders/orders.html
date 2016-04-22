@@ -59,7 +59,7 @@
           <div ng-repeat="sku in order.skus_snapshot">{{ sku.percentage | percentage:0 }}</div>
         </td>
         <td>
-          <div ng-repeat="sku in order.skus_snapshot">{{ (sku.price * sku.percentage) | centToDollar }}</div>
+          <div ng-repeat="sku in order.skus_snapshot">{{ (sku.price * sku.percentage) + 1 | centToDollar }}</div>
         </td>
         <td>
           <h4 class="margin-0">

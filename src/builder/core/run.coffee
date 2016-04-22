@@ -27,6 +27,7 @@ angular.module('builder.core').run ($rootScope, $state, $location, $cookies, eeA
     'landing'
     'welcome'
     'welcome_proposition'
+    'ref_proposition'
     'login'
     'example'
     'go'

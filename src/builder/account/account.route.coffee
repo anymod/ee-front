@@ -29,4 +29,17 @@ angular.module('builder.account').config ($stateProvider) ->
         pageTitle: 'Earnings | eeosk'
         padTop:    '120px'
 
+    .state 'referrals',
+      url: '/referrals'
+      views:
+        header:
+          controller:  'accountCtrl as account'
+          templateUrl: 'builder/account/account.header.html'
+        top:
+          controller:  'accountCtrl as account'
+          templateUrl: 'builder/account/account.referrals.html'
+      data:
+        pageTitle: 'Referrals | eeosk'
+        padTop:    '120px'
+
   return
