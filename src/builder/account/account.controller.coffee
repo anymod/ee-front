@@ -15,9 +15,8 @@ angular.module('builder.account').controller 'accountCtrl', ($window, eeDefiner,
     .catch () -> account.error = 'Problem saving'
     .finally () -> account.saving = false
 
-  body = angular.element $window.document.body
-
   account.copyToClipboard = (toCopy) ->
+    body = angular.element $window.document.body
     account.copiedToClipboard = false
     temp = angular.element '<input>'
     body.append temp
