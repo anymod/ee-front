@@ -255,7 +255,6 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
         headers: authorization: token
       }
 
-    # TODO get this working with eeCustomization.fns.toggleFeatured
     customizationsPOST: (data, token) ->
       _makeRequest {
         method: 'POST'
@@ -263,44 +262,6 @@ angular.module('builder.core').factory 'eeBack', ($http, $q, eeBackUrl) ->
         headers: authorization: token
         data: data
       }
-
-
-    # selectionsGET: (token, query) ->
-    #   _makeRequest {
-    #     method: 'GET'
-    #     url: eeBackUrl + 'selections' + _formQueryString(query)
-    #     headers: authorization: token
-    #   }
-    #
-    # selectionGET: (id, token) ->
-    #   _makeRequest {
-    #     method: 'GET'
-    #     url: eeBackUrl + 'selections/' + id
-    #     headers: authorization: token
-    #   }
-    #
-    # selectionsPOST: (token, attrs) ->
-    #   _makeRequest {
-    #     method: 'POST'
-    #     url: eeBackUrl + 'selections'
-    #     headers: authorization: token
-    #     data: attrs
-    #   }
-    #
-    # selectionsPUT: (token, selection) ->
-    #   _makeRequest {
-    #     method: 'PUT'
-    #     url: eeBackUrl + 'selections/' + selection.id
-    #     headers: authorization: token
-    #     data: selection
-    #   }
-    #
-    # selectionsDELETE: (token, id) ->
-    #   _makeRequest {
-    #     method: 'DELETE'
-    #     url: eeBackUrl + 'selections/' + id
-    #     headers: authorization: token
-    #   }
 
     ordersGET: (token) ->
       _makeRequest {

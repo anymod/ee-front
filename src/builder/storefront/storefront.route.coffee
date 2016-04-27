@@ -9,9 +9,9 @@ angular.module('builder.storefront').config ($stateProvider) ->
     middle:
       controller: 'storefrontCtrl as storefront'
       templateUrl: 'ee-shared/storefront/storefront.carousel.html'
-    bottom:
-      controller: 'storefrontCtrl as storefront'
-      templateUrl: 'ee-shared/storefront/storefront.featured.html'
+    # bottom:
+    #   controller: 'storefrontCtrl as storefront'
+    #   templateUrl: 'ee-shared/storefront/storefront.featured.html'
     footer:
       controller: 'storefrontCtrl as storefront'
       templateUrl: 'ee-shared/storefront/storefront.footer.html'

@@ -13,7 +13,6 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, $state, ee
       max:        null
     category:     null
     order:        { order: null, title: 'Most relevant' }
-    featured:     false
     categoryArray: [
       { id: 1, title: 'Artwork' },
       { id: 2, title: 'Bed & Bath' },
@@ -60,8 +59,6 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, $state, ee
   _formQuery = (section) ->
     query = {}
     query.size = _data[section].inputs.perPage
-    # if section is 'featured'            then query.feat         = 'true'
-    if _data[section].inputs.featured   then query.feat         = 'true'
     if _data[section].inputs.page       then query.page         = _data[section].inputs.page
     if _data[section].inputs.search     then query.search       = _data[section].inputs.search
     if _data[section].inputs.range.min  then query.min_price    = _data[section].inputs.range.min
@@ -112,12 +109,6 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, $state, ee
   fns:
     runSection: _runSection
     search: _search
-    featured: () ->
-      section = 'storefront'
-      _clearSection section
-      _data[section].inputs.page      = 1
-      _data[section].inputs.featured  = true
-      _runSection section
     clearSearch: () -> _search ''
     setCategory: (category, section) ->
       _data[section].inputs.page      = 1
@@ -137,9 +128,5 @@ angular.module('builder.core').factory 'eeProducts', ($rootScope, $q, $state, ee
       else
         _data[section].inputs.range.min = range.min
         _data[section].inputs.range.max = range.max
-      _runSection section
-    toggleFeatured: (section) ->
-      _data[section].inputs.page      = 1
-      _data[section].inputs.featured  = !_data[section].inputs.featured
       _runSection section
     addProductModal: _addProductModal

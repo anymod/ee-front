@@ -15,13 +15,6 @@ angular.module('builder.core').factory 'eeCustomization', (eeBack, eeAuth) ->
     .then (cust) -> cust
     .finally () -> product.updating = false
 
-  _toggleFeatured = (product) ->
-    if !product or !product.id then return
-    product.featured = !product.featured
-    customization = { product_id: product.id, featured: product.featured }
-    _addOrUpdateCustomization customization, product
-    .then (cust) -> product.featured = cust.featured
-
   _updateProduct = (product) ->
     if !product or !product.id then return
     selling_prices = []
@@ -46,7 +39,6 @@ angular.module('builder.core').factory 'eeCustomization', (eeBack, eeAuth) ->
   ## EXPORTS
   data: _data
   fns:
-    toggleFeatured: _toggleFeatured
     updateProduct: _updateProduct
     updateProductTitle: _updateProductTitle
     updateProductPricing: _updateProductPricing

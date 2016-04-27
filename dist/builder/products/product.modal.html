@@ -95,7 +95,6 @@
             <p ng-bind="modal.product.title" class="vert-5 font-weight-200"></p>
             <div class="vert-10 margin-top-0">
               <h4 class="inline-block vert-0" ng-bind="modal.product.prices | priceRange"></h4>
-              <!-- <h5 class="inline-block vert-0 text-muted font-weight-200" ng-if="modal.product.msrps && Math.min.apply(null, modal.product.msrps) > Math.min.apply(null, modal.product.regular_prices)">&nbsp;<s>{{ modal.product.msrps | priceRange }}</s>&nbsp;</h5> -->
               <a ui-sref="productAdd({ id: modal.product.id })" class="btn btn-link pad-left-0" ng-click="$close()">View product page</a>
             </div>
           </div>

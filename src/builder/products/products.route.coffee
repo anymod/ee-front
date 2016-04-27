@@ -6,17 +6,17 @@ angular.module('builder.products').config ($stateProvider) ->
 
     # Multiple products
 
-    .state 'products',
-      url: '/products'
-      views:
-        header:
-          templateUrl: 'builder/products/products.header.html'
-        top:
-          controller: 'productsCtrl as products'
-          templateUrl: 'builder/products/products.html'
-      data:
-        pageTitle: 'Featured products | eeosk'
-        padTop:    '110px'
+    # .state 'products',
+    #   url: '/products'
+    #   views:
+    #     header:
+    #       templateUrl: 'builder/products/products.header.html'
+    #     top:
+    #       controller: 'productsCtrl as products'
+    #       templateUrl: 'builder/products/products.html'
+    #   data:
+    #     pageTitle: 'Featured products | eeosk'
+    #     padTop:    '110px'
 
     # Single product
 

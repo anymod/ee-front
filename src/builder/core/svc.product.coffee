@@ -20,7 +20,7 @@ angular.module('builder.core').factory 'eeProduct', ($q, eeAuth, eeBack) ->
     product.reading = true
     eeBack.fns.productGET product.id, eeAuth.fns.getToken()
     .then (prod) ->
-      assigns = ['title', 'featured', 'msrps', 'prices', 'skus']
+      assigns = ['title', 'msrps', 'prices', 'skus']
       product[attr] = prod[attr] for attr in assigns
       prod
     .catch (err) -> product.error = err
