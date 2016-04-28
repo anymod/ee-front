@@ -246,7 +246,7 @@ sources.sharedDirective = [
   './src/ee-shared/components/ee-order.coffee'
   './src/ee-shared/components/ee-image-preload.coffee'
   './src/ee-shared/components/ee-storefront-header.coffee'
-  # './src/ee-shared/components/ee-storefront-logo.coffee'
+  './src/ee-shared/components/ee-storefront-scroller.coffee'
   './src/ee-shared/components/ee-storefront-brand.coffee'
   './src/ee-shared/components/ee-scroll-to-top.coffee'
   './src/ee-shared/components/ee-empty-message.coffee'

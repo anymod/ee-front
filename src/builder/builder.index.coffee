@@ -79,7 +79,7 @@ angular.module 'eeBuilder', [
   'ee-order'
   'ee-image-preload'
   'ee-storefront-header'
-  # 'ee-storefront-logo'
+  'ee-storefront-scroller'
   'ee-storefront-brand'
   'ee-scroll-to-top'
   'ee-empty-message'
